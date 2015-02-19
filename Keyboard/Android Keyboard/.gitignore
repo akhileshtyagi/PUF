@@ -36,3 +36,8 @@ Thumbs.db
 .gradle
 build/
 /modules.xml
+*.iml
+*.gradle
+/gradlew
+*.bat
+*.txt
