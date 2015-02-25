@@ -9,6 +9,10 @@ import platform
 # TODO List user profiles available
 # TODO List available sets of raw data
 
+def authenticate(model, raw_data_path):
+
+
+    return True
 
 def authenticate():
     # Directory to data
