@@ -1,5 +1,5 @@
 __author__ = "Ian Richardson - iantrich@gmail.com"
-__author__ = 'timdee'
+__author__ = 'Tim Dee - timdee@iastate.edu'
 # Will take in a random set of data try to authenticate the user for a set of token/window/threshold values
 
 import os

@@ -15,7 +15,7 @@ def print_options():
           "1. Find the best omega, window and token size for a user compared to another sample\n"
           "2. Authenticate a user based on new raw data\n"
           "3. Find the likely profile matches for a set of raw data\n"
-          "4. Print the effectiveness of different token, window sizes on a given set of raw data\n"
+          "4. Print the effectiveness of different token,window,time sizes\n"
           "9. Exit\n")
 
 print_options()
