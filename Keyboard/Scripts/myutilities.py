@@ -43,12 +43,12 @@ def create_dir_path(path):
 
 
 def normalize_raw_element(element, distribution):
-    for cluster in distribution:
+    for i, cluster in enumerate(distribution):
         if cluster.get('lower') <= element < cluster.get('upper'):
-            return cluster.get('normalized')
+            return i
     if element < distribution[0].get('lower'):
-        return distribution[0].get('lower')
-    return distribution[len(distribution) - 1].get('upper')
+        return 0
+    return len(distribution) - 1
 
 
 def hash_function(current_window):
@@ -56,7 +56,7 @@ def hash_function(current_window):
     for i, touch in enumerate(current_window):
         if i == len(current_window) - 1:
             break
-        hashcode = hashcode * 31 + float(touch[1])
+        hashcode = hashcode * 31 + touch[1]
     return hashcode
 
 
@@ -67,28 +67,13 @@ def match_sequence(hashcode_bin, current_window):
     return -1
 
 
-def match_next_touch(hashcode_bin, link_index, current_window):
-    for i, v in enumerate(hashcode_bin.get('chain')[link_index].get('probabilities')):
-        if v[0] == current_window[-1]:
-            return i
-    return -1
-
-
 # Given the index of the node in the bin, increment the value of current_window[len(current_window) - 1]
 # Assign this back to the node
 # Assign this back to the bin
 # Assign this back to the table
 # Return the table
-def increment_probability(hashcode, hashcode_bin, link_index, touch_index, table):
-    # TODO Don't think increment is working properly
-    hashcode_bin.get('chain')[link_index].get('probabilities')[touch_index][1] += 1
-    hashcode_bin.get('chain')[link_index].update({'total': hashcode_bin[link_index].get('total') + 1})
-    table[hashcode] = hashcode_bin
-    return table
-
-
-def add_touch(hashcode, hashcode_bin, link_index, current_window, table):
-    hashcode_bin.get('chain')[link_index].get('probabilities').append(current_window[-1], 1)
+def increment_probability(hashcode, hashcode_bin, link_index, current_window, table):
+    hashcode_bin.get('chain')[link_index].get('probabilities')[current_window[-1][1]] += 1
     hashcode_bin.get('chain')[link_index].update({'total': hashcode_bin[link_index].get('total') + 1})
     table[hashcode] = hashcode_bin
     return table
@@ -98,9 +83,11 @@ def add_touch(hashcode, hashcode_bin, link_index, current_window, table):
 # Assign this to the bin
 # Assign this back to the table
 # Return the table
-def add_link(hashcode, hashcode_bin, current_window, table):
+def add_link(hashcode, hashcode_bin, current_window, table, token):
+    lst = [0] * token
+    lst[current_window[-1][1]] = 1
     hashcode_bin.get('chain').append({'sequence': current_window[:-1],
-                                      'probabilities': [[current_window[-1], 1]],
+                                      'probabilities': lst,
                                       'total': 1})
     table[hashcode] = hashcode_bin
     return table
@@ -109,22 +96,17 @@ def add_link(hashcode, hashcode_bin, current_window, table):
 # Add a bin with {'chain': [{'sequence': current_window[0...n-1] and current_window[n-1]: 1}]}
 # Assign this back to table
 # Return the table
-def add_key(hashcode, current_window, table):
+def add_key(hashcode, current_window, table, token):
+    lst = [0] * token
+    lst[current_window[-1][1]] = 1
     table[hashcode] = {'chain': [{'sequence': current_window[:-1],
-                                  'probabilities': [[current_window[-1], 1]],
+                                  'probabilities': lst,
                                   'total': 1}]}
     return table
 
 
-# TODO This as well as increment don't seem to be working properly
 def touch_probability(hashcode_bin, current_window, link_index):
-    touch_index = match_next_touch(hashcode_bin, link_index, current_window)
-    # Next touch not found
-    if touch_index == -1:
-        return 0.01
-    # Touch found
-    else:
-        return hashcode_bin.get('chain')[link_index].get('probabilities')[touch_index][1]
+    return hashcode_bin.get('chain')[link_index].get('probabilities')[current_window[-1][1]]
 
 
 def convert_table_to_probabilities(table):
@@ -132,7 +114,7 @@ def convert_table_to_probabilities(table):
     for key, val in table.items():
         for i, val2 in enumerate(val.get('chain')):
             for j, val3 in enumerate(val2.get('probabilities')):
-                val2.get('probabilities')[j][1] = Decimal(val3[1]) / Decimal(val2.get('total'))
+                val2.get('probabilities')[j] = Decimal(val3) / Decimal(val2.get('total'))
     return table
 
 
@@ -168,7 +150,7 @@ def cluster_algorithm(raw_data_file, token):
     return distribution
 
 
-def build_lookup(raw_data_file, table, distribution, window, threshold, match_user):
+def build_lookup(raw_data_file, table, distribution, window, threshold, token, match_user):
     normalized = []
     current_window = []
     getcontext().prec = 4
@@ -180,7 +162,7 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, match_us
         # Normalize data based on found distribution
         for row in reader2:
             normalized_item = normalize_raw_element(float(row[3]), distribution)
-            normalized.append([row[0], normalized_item])
+            normalized.append([row[0], int(normalized_item)])
 
         # Analyze touches
         for touch in normalized:
@@ -204,22 +186,16 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, match_us
                     else:
                         if link_index == -1:
                             # Sequence not found; Add a new link with the sequence and next touch
-                            table = add_link(hashcode, hashcode_bin, current_window, table)
+                            table = add_link(hashcode, hashcode_bin, current_window, table, token)
                         else:
-                            # Sequence found, check if next touch has been seen before
-                            touch_index = match_next_touch(hashcode_bin, link_index, current_window)
-                            if touch_index == -1:
-                                # Next touch not seen before, add it
-                                table = add_touch(hashcode, hashcode_bin, link_index, current_window, table)
-                            else:
-                                # Next touch seen before, increment it
-                                table = increment_probability(hashcode, hashcode_bin, link_index, touch_index, table)
+                            # Sequence found, increment next touch
+                            table = increment_probability(hashcode, hashcode_bin, link_index, current_window, table)
                 else:
                     if match_user:
                         probability *= 0.01
                     else:
                         # Hashcode not found; Add a new bin with a link to that sequence and initial touch event
-                        table = add_key(hashcode, current_window, table)
+                        table = add_key(hashcode, current_window, table, token)
                 # Pop off the oldest touch
                 current_window.pop(0)
     if match_user:

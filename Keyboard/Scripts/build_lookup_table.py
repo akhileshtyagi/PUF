@@ -32,7 +32,7 @@ def build_table(raw_data_path):
                 distribution = myutilities.cluster_algorithm(raw_data_path, token)
 
                 # Build raw lookup table
-                table = myutilities.build_lookup(raw_data_path, table, distribution, window, threshold, False)
+                table = myutilities.build_lookup(raw_data_path, table, distribution, window, threshold, token, False)
 
                 # Go through table and convert values to probabilities
                 table = myutilities.convert_table_to_probabilities(table)
@@ -45,6 +45,7 @@ def build_table(raw_data_path):
                     'token': token,
                     'threshold': threshold
                 })
+                print table
 
                 print "Lookup table progress: " + str(win_i * 10 + tok_i) + '%'
 

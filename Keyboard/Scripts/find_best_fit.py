@@ -100,6 +100,7 @@ def find_fit():
                                                base_distribution,
                                                base_window,
                                                base_threshold,
+                                               base_token,
                                                True)
 
         all_probabilities.append([probability, base_window, base_token, base_threshold])
