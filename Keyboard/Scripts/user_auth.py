@@ -9,10 +9,16 @@ import platform
 # TODO List user profiles available
 # TODO List available sets of raw data
 
-def authenticate(model, raw_data_path):
+#@param: model is the lookuptable for a token/window/threshold value
+#@param: raw_data_path is the path to the raw data to authenticate against the model
+#
+#@return: True if the user is authenticated
+#@return: False if the user is not authenticated
+def authenticate_model(model, raw_data_path):
+    auth=False
 
 
-    return True
+    return auth
 
 def authenticate():
     # Directory to data
