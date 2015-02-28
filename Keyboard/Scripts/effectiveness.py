@@ -1,5 +1,5 @@
 __author__ = 'Tim Dee - timdee@iastate.edu'
-#This script will take in raw data and attempt to compute the effectiveness of each window, token
+#This script will take in raw data and attempt to compute the effectiveness of each window, token,time_threshold
 #size. Effectiveness is measured by the number of desirable outcomes by the total number of
 #outcomes.
 
@@ -18,12 +18,15 @@ def print_effectiveness():
 
 	#read in good data and bad data
  	raw_data_dir = os.path.join(myutilities.get_current_dir(),"Data","Raw Data")
- 	good_data=os.path.join(raw_data_dir,"tim dee","07924e50","2-2-26_timdee_07924e50.csv")
- 	bad_data=os.path.join(raw_data_dir,"Ian Richardson","nexus-02","02-25-14_IanRichardson_015d4a82904c0c07.csv")
+ 	bad_data=os.path.join(raw_data_dir,"tim dee","07924e50","2-2-26_timdee_07924e50.csv")
+ 	good_data=os.path.join(raw_data_dir,"Ian Richardson","nexus-02","test_small.csv")#"02-25-14_IanRichardson_015d4a82904c0c07.csv")
 
  	#log file
- 	log_file_path=myutilities.get_current_dir()+ '/log_effectiveness.txt'
-	log_file=open(log_file_path)
+ 	log_file_path=os.path.join(myutilities.get_current_dir(),"log_effectiveness.txt")
+	log_file=open(log_file_path,'w')
+
+	#write the header to the log file
+	log_file.write("effectiveness\twindow\ttoken\ttime\n")
 
  	#for each number of tokens
  	for i in [5, 6, 7, 8, 9, 10, 11, 15, 20, 25]:
@@ -32,7 +35,7 @@ def print_effectiveness():
   			for k in [0, 500, 600, 700, 800, 900, 1000]:
 	   			#determine the effectiveness of our authentication method
 	   			percent=calc_effectiveness(j,i,k,good_data,bad_data)
-	   			log_file.write("effectiveness:"+percnt+" window:"+j+" token:"+i+" time:"+k+"\n")
+	   			log_file.write(str(percent)+"\t"+str(j)+"\t"+str(i)+"\t"+str(k)+"\n")
 
 	   			#keep track of the best effectiveness
 	   			if (percent > max_percent):
@@ -42,14 +45,17 @@ def print_effectiveness():
 	    				max_time=k
 
 
-	print "best effectiveness:"+max_percent+" window:"+max_window+" tokens:"+max_token+" time:"+max_time+"\n"
-	log_file.write("best effectiveness:"+max_percent+" window:"+max_window+" tokens:"+max_token+" time:"+max_time+"\n")
+	print "best effectiveness:"+str(max_percent)+" window:"+str(max_window)+" tokens:"+str(max_token)+" time:"+str(max_time)+"\n"
+	log_file.write("best effectiveness:"+str(max_percent)+" window:"+str(max_window)+" tokens:"+str(max_token)+" time:"+str(max_time)+"\n")
 
 	log_file.close()
 	return
 
 
-last_path=None
+
+#these are here so that they persist between calls to the function,
+#this allows the table to be built once for a given set of data
+last_path=""
 table={}
 def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_bad_data_path):
 	#constant values
@@ -101,7 +107,7 @@ def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_ba
 	#grab the particular lookup table we're interested in
 	#get the model from tables for this window,token,time value
 	#loop through them all and pull out the one we want
-	#TODO figure out if i'm using this correctly
+	# figure out if i'm using this correctly
 	model_twt=None
 
 	for i, lookup in enumerate(table):
@@ -112,9 +118,13 @@ def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_ba
 		base_threshold = lookup.get('threshold')
 
 		if(base_window==window and base_token==token and base_threshold==time_threshold):
+			print('compairason worked')
 			model_twt=lookup
 			break
 
+	#TODO handle this better
+	if(model_twt==None):
+		return 0
 
 	for x in range(0,NUM_CHUNK):
 		#put next CHUNK_SIZE lines in temp file from good_data
@@ -123,7 +133,7 @@ def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_ba
 			#good_file is still open from before
 			temp_file.write(good_file.readline())
 
-		if user_auth.authenticate_model(model_twt,temp_file):
+		if user_auth.authenticate_model(model_twt,temp_file_path):
 			good_outcomes+=1
 		else:
 			bad_outcomes+=1
@@ -144,7 +154,7 @@ def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_ba
 		for y in range(0,CHUNK_SIZE):
 			temp_file.write(bad_file.readline())
 
-		if user_auth.authenticate(model_twt,temp_file):
+		if user_auth.authenticate_model(model_twt,temp_file_path):
 			bad_outcomes+=1
 		else:
 			good_outcomes+=1
@@ -156,6 +166,6 @@ def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_ba
 	bad_file.close()
 
 	effectiveness=good_outcomes/(good_outcomes+bad_outcomes)
-	print "effectiveness:"+effectiveness+" window:"+window+" token:"+token+" time:"+time_threshold+"\n"
+	print "effectiveness:"+str(effectiveness)+" window:"+str(window)+" token:"+str(token)+" time:"+str(time_threshold)+"\n"
 
 	return effectiveness
