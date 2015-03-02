@@ -28,13 +28,13 @@ def print_effectiveness():
 	#write the header to the log file
 	log_file.write("effectiveness\twindow\ttoken\ttime\n")
 
- 	#for each number of tokens
+ 	#for each window
  	for i in [5, 6, 7, 8, 9, 10, 11, 15, 20, 25]:
-  		#for each window size
+  		#for each number of tokens
   		for j in [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]:
   			for k in [0, 500, 600, 700, 800, 900, 1000]:
 	   			#determine the effectiveness of our authentication method
-	   			percent=calc_effectiveness(j,i,k,good_data,bad_data)
+	   			percent=calc_effectiveness(i,j,k,good_data,bad_data)
 	   			log_file.write(str(percent)+"\t"+str(j)+"\t"+str(i)+"\t"+str(k)+"\n")
 
 	   			#keep track of the best effectiveness
@@ -117,12 +117,22 @@ def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_ba
 		base_token = lookup.get('token')
 		base_threshold = lookup.get('threshold')
 
+		#print "table values"
+		#print base_window
+		#print base_token
+		#print base_threshold
+
+		#print "parameters"
+		#print window
+		#print token
+		#print str(time_threshold) +'\n'
+
+
 		if(base_window==window and base_token==token and base_threshold==time_threshold):
-			print('compairason worked')
 			model_twt=lookup
 			break
 
-	#TODO handle this better
+	#there is no table built for this window, token, threshold combination
 	if(model_twt==None):
 		return 0
 
@@ -165,7 +175,7 @@ def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_ba
 	good_file.close()
 	bad_file.close()
 
-	effectiveness=good_outcomes/(good_outcomes+bad_outcomes)
-	print "effectiveness:"+str(effectiveness)+" window:"+str(window)+" token:"+str(token)+" time:"+str(time_threshold)+"\n"
+	effectiveness=(1.0*good_outcomes)/(1.0*(good_outcomes+bad_outcomes))
+	print "effectiveness:"+str(effectiveness)+" window:"+str(window)+" token:"+str(token)+" time:"+str(time_threshold)
 
 	return effectiveness

@@ -45,7 +45,7 @@ def build_table(raw_data_path):
                     'token': token,
                     'threshold': threshold
                 })
-                print table
+                #print table
 
                 print "Lookup table progress: " + str(win_i * 10 + tok_i) + '%'
 
