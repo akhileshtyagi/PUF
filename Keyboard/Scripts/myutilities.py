@@ -196,7 +196,10 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
                     # Check if the exact sequence is in the found bin
                     link_index = match_sequence(hashcode_bin, current_window)
                     if match_user:
-                        probability *= Decimal(touch_probability(hashcode_bin, current_window, link_index))
+                        if touch_probability(hashcode_bin, current_window, link_index) == 0:
+                            probability *= Decimal(0.01)
+                        else:
+                            probability *= Decimal(touch_probability(hashcode_bin, current_window, link_index))
                     else:
                         if link_index == -1:
                             # Sequence not found; Add a new link with the sequence and next touch

@@ -116,7 +116,7 @@ def find_fit():
         best_fit = [0, 0, 0, 0]
         for item in all_probabilities:
             w.writerow(item)
-            if item[0] > best_fit[0]:
+            if item[0] > best_fit[0] and item[0] != 1:
                 best_fit = item
 
     print("Best results of probability " + str(best_fit[0]) + "are with window size: " +
