@@ -61,9 +61,15 @@ def hash_function(current_window):
 
 
 def match_sequence(hashcode_bin, current_window):
+    current_sequence = []
+    for touch in current_window:
+        current_sequence.append(touch[1])
     for i, v in enumerate(hashcode_bin.get('chain')):
-        if current_window is v.get('sequence'):
-            return i
+        for i2, v2 in enumerate(v.get('sequence')):
+            if current_sequence[i2] != v2:
+                break
+            if i2 == len(v.get('sequence')) - 1:
+                return i
     return -1
 
 
@@ -74,7 +80,7 @@ def match_sequence(hashcode_bin, current_window):
 # Return the table
 def increment_probability(hashcode, hashcode_bin, link_index, current_window, table):
     hashcode_bin.get('chain')[link_index].get('probabilities')[current_window[-1][1]] += 1
-    hashcode_bin.get('chain')[link_index].update({'total': hashcode_bin[link_index].get('total') + 1})
+    hashcode_bin.get('chain')[link_index]['total'] = hashcode_bin.get('chain')[link_index].get('total') + 1
     table[hashcode] = hashcode_bin
     return table
 
@@ -86,7 +92,11 @@ def increment_probability(hashcode, hashcode_bin, link_index, current_window, ta
 def add_link(hashcode, hashcode_bin, current_window, table, token):
     lst = [0] * token
     lst[current_window[-1][1]] = 1
-    hashcode_bin.get('chain').append({'sequence': current_window[:-1],
+    # Sequence shouldn't include timestamps
+    sequence = []
+    for touch in current_window:
+        sequence.append(touch[1])
+    hashcode_bin.get('chain').append({'sequence': sequence[:-1],
                                       'probabilities': lst,
                                       'total': 1})
     table[hashcode] = hashcode_bin
@@ -99,7 +109,11 @@ def add_link(hashcode, hashcode_bin, current_window, table, token):
 def add_key(hashcode, current_window, table, token):
     lst = [0] * token
     lst[current_window[-1][1]] = 1
-    table[hashcode] = {'chain': [{'sequence': current_window[:-1],
+    # Sequence shouldn't include timestamps
+    sequence = []
+    for touch in current_window:
+        sequence.append(touch[1])
+    table[hashcode] = {'chain': [{'sequence': sequence[:-1],
                                   'probabilities': lst,
                                   'total': 1}]}
     return table
