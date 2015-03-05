@@ -46,6 +46,12 @@ distribution = myutilities.cluster_algorithm(base_file_path, token)
 # Build raw lookup table
 table = myutilities.build_lookup(base_file_path, table, distribution, window, threshold, token, False)
 
+# Get probabilities
+table = myutilities.convert_table_to_probabilities(table)
+
+# Run matching algo and check what touch_probability is being returned
+probability = myutilities.build_lookup(base_file_path, table, distribution, window, threshold, token, True)
+
 with open('test_raw_lookup.csv', 'w') as csvfile:
     w = csv.writer(csvfile)
 
