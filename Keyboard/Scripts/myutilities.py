@@ -206,7 +206,7 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
                             table = increment_probability(hashcode, hashcode_bin, link_index, current_window, table)
                 else:
                     if match_user:
-                        probability *= 0.01
+                        probability *= Decimal(0.01)
                     else:
                         # Hashcode not found; Add a new bin with a link to that sequence and initial touch event
                         table = add_key(hashcode, current_window, table, token)

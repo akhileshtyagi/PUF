@@ -17,6 +17,7 @@ __author__ = 'Ian Richardson - iantrich@gmail.com'
 
 import myutilities
 import build_lookup_table
+import csv
 
 
 def find_fit():
@@ -57,9 +58,10 @@ def find_fit():
         'device': base_file_name[2]
     }
 
-    myutilities.create_dir_path(
-        myutilities.get_current_dir() + '/Data/User Profiles/' + base_file_desc.get('user') + '/' + base_file_desc.get(
-            'device') + '/' + base_file_desc.get('date') + '/')
+    output_path = myutilities.get_current_dir() + '/Data/User Profiles/' + base_file_desc.get('user') + '/' + base_file_desc.get(
+            'device') + '/' + base_file_desc.get('date') + '/'
+
+    myutilities.create_dir_path(output_path)
 
     myutilities.print_selections(available_users)
     print('Select the raw data user:\n')
@@ -106,13 +108,16 @@ def find_fit():
         all_probabilities.append([probability, base_window, base_token, base_threshold])
         print "Find best fit progress: " + str(i / len(base_lookup_tables) * 100) + '%'
 
-    # TODO Print the probabilities and such to a csv
-    # Find which combination gives the largest probability
-    best_fit = [0, 0, 0, 0]
-    for item in all_probabilities:
-        print item
-        if item[0] > best_fit[0]:
-            best_fit = item
+    # Print the probabilities and such to a csv
+    with open(output_path + 'against_' + available_users[selected_raw_user] + '_' + available_raw_devices[
+        selected_raw_device] + '_' + available_raw_sets[selected_raw_set] + '.csv', 'w') as csvfile:
+        w = csv.writer(csvfile)
+        # Find which combination gives the largest probability
+        best_fit = [0, 0, 0, 0]
+        for item in all_probabilities:
+            w.writerow(item)
+            if item[0] > best_fit[0]:
+                best_fit = item
 
     print("Best results of probability " + str(best_fit[0]) + "are with window size: " +
           str(best_fit[1]) + " and token size: " + str(best_fit[2])) + " and threshold: " + str(best_fit[3])
