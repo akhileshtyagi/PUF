@@ -175,17 +175,18 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 
         # Normalize data based on found distribution
         for row in reader2:
-            normalized_item = normalize_raw_element(float(row[3]), distribution)
-            if long(normalized_item[0]) - long(normalized[-1][0]) < threshold:
+            if len(normalized) > 0:
+                # Check that touch is within time threshold
+                if long(row[0]) - long(normalized[-1][0]) < threshold:
+                    normalized_item = normalize_raw_element(float(row[3]), distribution)
+                    normalized.append([row[0], int(normalized_item)])
+            else:
+                normalized_item = normalize_raw_element(float(row[3]), distribution)
                 normalized.append([row[0], int(normalized_item)])
 
         # Analyze touches
         for touch in normalized:
-            # Check if the touch is within a valid window based on the time threshold between touch events
-            if len(current_window) > 0:
-                current_window = []
-            else:
-                current_window.append(touch)
+            current_window.append(touch)
 
             # Once the window size is filled and a next touch is captured add it to the Markov Model
             if len(current_window) == window + 1:
@@ -212,6 +213,9 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
                 # Pop off the oldest touch
                 current_window.pop(0)
     if match_user:
-        return probability / len(normalized)
+        if len(normalized) > 0:
+            return probability / len(normalized)
+        else:
+            return 0
     else:
         return table

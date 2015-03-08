@@ -37,7 +37,7 @@ base_file_path = raw_data_dir + available_users[selected_base_user] + '/' + avai
 table = {}
 
 token = 10
-window = 5
+window = 4
 threshold = 5000
 
 # Use a clustering algorithm to find the distribution of touches
@@ -59,9 +59,6 @@ with open('test_raw_lookup.csv', 'w') as csvfile:
         for i, e in enumerate(v.get('chain')):
             for k2, v2 in e.items():
                 w.writerow([k, i, k2, v2])
-
-# Go through table and convert values to probabilities
-table = myutilities.convert_table_to_probabilities(table)
 
 with open('test_prob_lookup.csv', 'w') as csvfile2:
     w = csv.writer(csvfile2)
