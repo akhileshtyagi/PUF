@@ -176,12 +176,13 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
         # Normalize data based on found distribution
         for row in reader2:
             normalized_item = normalize_raw_element(float(row[3]), distribution)
-            normalized.append([row[0], int(normalized_item)])
+            if long(normalized_item[0]) - long(normalized[-1][0]) < threshold:
+                normalized.append([row[0], int(normalized_item)])
 
         # Analyze touches
         for touch in normalized:
             # Check if the touch is within a valid window based on the time threshold between touch events
-            if len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) > threshold:
+            if len(current_window) > 0:
                 current_window = []
             else:
                 current_window.append(touch)
