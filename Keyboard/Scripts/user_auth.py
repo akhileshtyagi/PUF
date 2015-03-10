@@ -10,29 +10,36 @@ import myutilities
 # TODO List user profiles available
 # TODO List available sets of raw data
 
-#@param: model is the lookuptable for a token/window/time_threshold value
-#@param: raw_data_path is the path to the raw data to authenticate against the model
+#@param: raw_model_data_path is the path to the device user, we want to authenticate the challenge data against this data
+#@param: raw_challenge_data_path is the path to the raw data to authenticate against the model data
 #
 #@return: True if the user is authenticated
 #@return: False if the user is not authenticated
-def authenticate_model(model, raw_data_path):
+def authenticate_model(raw_model_data_path, raw_challenge_data_path, window, token, threshold):
     #above this probability we authenticate the user. Below it, we do not.
     PROBABILITY_THRESHOLD=.5 
-    
-    base_table = model.get('table')
-    base_distribution = model.get('distribution')
-    base_window = model.get('window')
-    base_token = model.get('token')
-    base_threshold = model.get('threshold')
+    table = {}
+
+    # Use a clustering algorithm to find the distribution of touches
+    distribution = myutilities.cluster_algorithm(raw_model_data_path, token)
+
+    # Build raw lookup table
+    table = myutilities.build_lookup(raw_model_data_path, table, distribution, window, threshold, token, False)
+
+    # Go through table and convert values to probabilities
+    table = myutilities.convert_table_to_probabilities(table)
+
 
     #find the probability that this raw_data matches the model
-    user_probability=myutilities.build_lookup(raw_data_path,
-                                               base_table,
-                                               base_distribution,
-                                               base_window,
-                                               base_threshold,
-                                               base_token,
+    user_probability=myutilities.build_lookup(raw_challenge_data_path,
+                                               table,
+                                               distribution,
+                                               window,
+                                               threshold,
+                                               token,
                                                True)
+
+    print 'probability: '+str(user_probability) # should not be zero :(
 
     #The above code will only quantize one file, the one requested
     if (user_probability>=PROBABILITY_THRESHOLD):
