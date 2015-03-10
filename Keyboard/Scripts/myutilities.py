@@ -197,7 +197,7 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
                     hashcode_bin = table.get(hashcode)
                     # Check if the exact sequence is in the found bin
                     link_index = match_sequence(hashcode_bin, current_window)
-                    if match_user:
+                    if match_user and link_index != -1:
                         probability += touch_probability(hashcode_bin, current_window, link_index)
                     else:
                         if link_index == -1:

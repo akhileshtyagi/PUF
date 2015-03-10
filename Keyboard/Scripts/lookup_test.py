@@ -1,6 +1,11 @@
 __author__ = 'iantrich'
 
 # Test the lookup table build process and verify that probabilities are correct
+# TODO
+# Print normalized data - looks good
+# Print resulting raw lookup table - looks good
+# Print resulting probability lookup table - looks good
+
 
 import myutilities
 import csv
@@ -36,7 +41,7 @@ base_file_path = raw_data_dir + available_users[selected_base_user] + '/' + avai
 
 table = {}
 
-token = 10
+token = 4
 window = 4
 threshold = 5000
 
@@ -51,6 +56,8 @@ table = myutilities.convert_table_to_probabilities(table)
 
 # Run matching algo and check what touch_probability is being returned
 probability = myutilities.build_lookup(base_file_path, table, distribution, window, threshold, token, True)
+
+print probability
 
 with open('test_raw_lookup.csv', 'w') as csvfile:
     w = csv.writer(csvfile)
