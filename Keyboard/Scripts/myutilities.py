@@ -168,7 +168,7 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
     normalized = []
     current_window = []
     getcontext().prec = 4
-    probability = Decimal(1.0)
+    probability = Decimal(0.0)
 
     with open(raw_data_file, 'rt') as csvfile:
         reader2 = csv.reader(csvfile)
