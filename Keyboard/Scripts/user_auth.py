@@ -10,14 +10,16 @@ import myutilities
 # TODO List user profiles available
 # TODO List available sets of raw data
 
-#@param: raw_model_data_path is the path to the device user, we want to authenticate the challenge data against this data
-#@param: raw_challenge_data_path is the path to the raw data to authenticate against the model data
+# @param: raw_model_data_path is the path to the device user, we want to authenticate the challenge data against this data
+# @param: raw_challenge_data_path is the path to the raw data to authenticate against the model data
 #
 #@return: True if the user is authenticated
 #@return: False if the user is not authenticated
+
+
 def authenticate_model(raw_model_data_path, raw_challenge_data_path, window, token, threshold):
     #above this probability we authenticate the user. Below it, we do not.
-    PROBABILITY_THRESHOLD=.5 
+    PROBABILITY_THRESHOLD = .5
     table = {}
 
     # Use a clustering algorithm to find the distribution of touches
@@ -31,26 +33,25 @@ def authenticate_model(raw_model_data_path, raw_challenge_data_path, window, tok
 
 
     #find the probability that this raw_data matches the model
-    user_probability=myutilities.build_lookup(raw_challenge_data_path,
-                                               table,
-                                               distribution,
-                                               window,
-                                               threshold,
-                                               token,
-                                               True)
+    user_probability = myutilities.build_lookup(raw_challenge_data_path,
+                                                table,
+                                                distribution,
+                                                window,
+                                                threshold,
+                                                token,
+                                                True)
 
-    print 'probability: '+str(user_probability) # should not be zero :(
+    print 'probability: ' + str(user_probability)  # should not be zero :(
 
     #The above code will only quantize one file, the one requested
-    if (user_probability>=PROBABILITY_THRESHOLD):
-        auth=True
+    if (user_probability >= PROBABILITY_THRESHOLD):
+        auth = True
         #print("user authenticates with likelihood of: "+str(user_probability)+"\n")
     else:
-        auth=False
+        auth = False
         #print("user fails authentication with likelihood of: "+str(user_prability)+"\n")
 
     return auth
-
 
 
 #no longer used!
@@ -72,46 +73,48 @@ def authenticate():
     #get the profile to authenticate against
     while not good_dir:
         user = raw_input("Specify the user to profile as spelled in the /Scripts/Data/Tables/ folder: ")
-        device = raw_input("Specify the device name to profile as spelled in the /Scripts/Data/Tables/" + user + "/ folder: ")
+        device = raw_input(
+            "Specify the device name to profile as spelled in the /Scripts/Data/Tables/" + user + "/ folder: ")
         data_path = path + 'Tables/' + user + '/' + device + '/'
 
         if not os.path.exists(data_path):
             good_dir = False
-            print("ERROR: The specified user/device combination doesn't exist in /Scripts/Data/Tables/\nPlease try again\n")
+            print(
+            "ERROR: The specified user/device combination doesn't exist in /Scripts/Data/Tables/\nPlease try again\n")
         else:
             good_dir = True
 
     user_path = path + 'User Profiles/' + user + '/' + device + '/'
 
     #get the token/window/threshold values
-    valid_windows=['5','6','7','8','9','10','15','20','25']
-    valid_tokens=['10','20','30','40','50','60','70','80','90','100']
+    valid_windows = ['5', '6', '7', '8', '9', '10', '15', '20', '25']
+    valid_tokens = ['10', '20', '30', '40', '50', '60', '70', '80', '90', '100']
     #TODO also get the number of tokens automatically like this
     #TODO fix this to get all window sizes automatically from directory names
     #for subdir,dir,file in os.walk(user_path):
     #    valid_windows.append(subdir)
 
-    good_value=False
+    good_value = False
     while not good_value:
-        token=raw_input("enter token value from "+str(valid_tokens))
+        token = raw_input("enter token value from " + str(valid_tokens))
         if token in valid_tokens:
-            good_value=True
+            good_value = True
         else:
             print("not a valid token")
 
-    good_value=False
+    good_value = False
     while not good_value:
-        window=raw_input("enter window value from "+str(valid_windows))
+        window = raw_input("enter window value from " + str(valid_windows))
         if window in valid_windows:
-            good_value=True
+            good_value = True
         else:
             print("that value is out of range\n")
 
-    good_value=False
+    good_value = False
     while not good_value:
-        threshold=float(raw_input("enter threshold value 0<x<1: "))
+        threshold = float(raw_input("enter threshold value 0<x<1: "))
         if threshold > 0 and threshold <= 1:
-            good_value=True
+            good_value = True
         else:
             print("that value is out of range\n")
 
@@ -120,7 +123,8 @@ def authenticate():
     good_file = False
 
     while not good_file:
-        data_set = raw_input("Specify the file name of the user dataset to match against in /Scripts/Raw Data/Datasets/: ")
+        data_set = raw_input(
+            "Specify the file name of the user dataset to match against in /Scripts/Raw Data/Datasets/: ")
 
         data_set_desc = data_set.split("_")
         # Grab date from csv file
@@ -142,7 +146,6 @@ def authenticate():
         else:
             good_file = True
 
-
     data_path = path + 'Tables/' + user + '/' + device + '/'
 
     if not os.path.exists(user_path):
@@ -161,7 +164,7 @@ def authenticate():
             file_device = file_desc[2]
             # Grab device orientation from csv file
             file_orientation = os.path.splitext(file_desc[3])[0]
-            if platform.system()=='Windows':
+            if platform.system() == 'Windows':
                 # Grab token size from csv file
                 file_token_size = os.path.splitext(file_desc[4])[0].split(" ")[1]
                 # Grab window size from csv file
@@ -171,16 +174,16 @@ def authenticate():
                 file_window_size = os.path.splitext(file_desc[5])[1]
 
             #compairing window and token sizes of the file to those entered
-            print("checking: "+f+"\n")
+            print("checking: " + f + "\n")
             # we only want that calculations are preformed for window, tokens specified
-            if int(window)==int(file_window_size) and int(token)==int(file_token_size):
+            if int(window) == int(file_window_size) and int(token) == int(file_token_size):
                 # Rebuild cluster ranges into 2D array and lookup table into a dictionary
                 cluster = 0
                 lookup = 0
                 clusterRanges = []
                 lookupTable = {}
                 #TODO file path needs to be date + / + f
-                with open(data_path+file_date+'/'+file_window_size+'/'+f, 'rt') as csvfile:
+                with open(data_path + file_date + '/' + file_window_size + '/' + f, 'rt') as csvfile:
                     reader = csv.reader(csvfile)
                     for row in reader:
                         if row is "Cluster Ranges":
@@ -207,7 +210,8 @@ def authenticate():
                     clusterQuantized = []
                     i = 0
                     # Quantize the clusters
-                    print "Quantizing cluster ranges for token: " + str(file_token_size) + " and window: " + str(file_window_size)
+                    print "Quantizing cluster ranges for token: " + str(file_token_size) + " and window: " + str(
+                        file_window_size)
                     while i < clusterRanges.__len__():
                         clusterQuantized.append((clusterRanges[i][1] + clusterRanges[i][0]) / 2)
                         i += 1
@@ -223,14 +227,14 @@ def authenticate():
                                 break
                             i += 1
                         # Grab a window from data set and the following touch and match to the lookup table
-                        if len(quantizedValues) is int(file_window_size)+1:
-                            value = quantizedValues[len(quantizedValues)-1]
+                        if len(quantizedValues) is int(file_window_size) + 1:
+                            value = quantizedValues[len(quantizedValues) - 1]
 
                             key = 0.0
                             # Calculate key value using window touches
                             for idx, val in enumerate(quantizedValues):
                                 if idx <= file_window_size:
-                                    key += (val * 1 * (int(file_window_size)-idx))
+                                    key += (val * 1 * (int(file_window_size) - idx))
 
                             # Setting default probability
                             defProb = 0.01
@@ -259,7 +263,7 @@ def authenticate():
         print("no data exists for the given token and window size\n")
     else:
         #The above code will only quantize one file, the one requested
-        if allProbabilities[0]>=threshold:
-            print("user authenticates with likelihood of: "+str(allProbabilities[0])+"\n")
+        if allProbabilities[0] >= threshold:
+            print("user authenticates with likelihood of: " + str(allProbabilities[0]) + "\n")
         else:
-            print("user fails authentication with likelihood of: "+str(allProbabilities[0])+"\n")
+            print("user fails authentication with likelihood of: " + str(allProbabilities[0]) + "\n")

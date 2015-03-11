@@ -175,43 +175,41 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 
         # Normalize data based on found distribution
         for row in reader2:
-            if len(normalized) > 0:
-                # Check that touch is within time threshold
-                if long(row[0]) - long(normalized[-1][0]) < threshold:
-                    normalized_item = normalize_raw_element(float(row[3]), distribution)
-                    normalized.append([row[0], int(normalized_item)])
-            else:
-                normalized_item = normalize_raw_element(float(row[3]), distribution)
-                normalized.append([row[0], int(normalized_item)])
+            normalized_item = normalize_raw_element(float(row[3]), distribution)
+            normalized.append([row[0], int(normalized_item)])
 
         # Analyze touches
         for touch in normalized:
-            current_window.append(touch)
+            if len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) >= threshold:
+                current_window = []
+                current_window.append(touch)
+            else:
+                current_window.append(touch)
 
-            # Once the window size is filled and a next touch is captured add it to the Markov Model
-            if len(current_window) == window + 1:
-                # Hash the touch pressures
-                hashcode = hash_function(current_window)
-                if hashcode in table:
-                    # Found the hashcode in our table
-                    hashcode_bin = table.get(hashcode)
-                    # Check if the exact sequence is in the found bin
-                    link_index = match_sequence(hashcode_bin, current_window)
-                    if match_user and link_index != -1:
-                        probability += touch_probability(hashcode_bin, current_window, link_index)
-                    else:
-                        if link_index == -1:
-                            # Sequence not found; Add a new link with the sequence and next touch
-                            table = add_link(hashcode, hashcode_bin, current_window, table, token)
+                # Once the window size is filled and a next touch is captured add it to the Markov Model
+                if len(current_window) == window + 1:
+                    # Hash the touch pressures
+                    hashcode = hash_function(current_window)
+                    if hashcode in table:
+                        # Found the hashcode in our table
+                        hashcode_bin = table.get(hashcode)
+                        # Check if the exact sequence is in the found bin
+                        link_index = match_sequence(hashcode_bin, current_window)
+                        if match_user:
+                            probability += touch_probability(hashcode_bin, current_window, link_index)
                         else:
-                            # Sequence found, increment next touch
-                            table = increment_probability(hashcode, hashcode_bin, link_index, current_window, table)
-                else:
-                    if not match_user:
-                        # Hashcode not found; Add a new bin with a link to that sequence and initial touch event
-                        table = add_key(hashcode, current_window, table, token)
-                # Pop off the oldest touch
-                current_window.pop(0)
+                            if link_index == -1:
+                                # Sequence not found; Add a new link with the sequence and next touch
+                                table = add_link(hashcode, hashcode_bin, current_window, table, token)
+                            else:
+                                # Sequence found, increment next touch
+                                table = increment_probability(hashcode, hashcode_bin, link_index, current_window, table)
+                    else:
+                        if not match_user:
+                            # Hashcode not found; Add a new bin with a link to that sequence and initial touch event
+                            table = add_key(hashcode, current_window, table, token)
+                    # Pop off the oldest touch
+                    current_window.pop(0)
     if match_user:
         if len(normalized) > 0:
             return probability / len(normalized)

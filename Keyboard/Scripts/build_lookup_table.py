@@ -17,8 +17,8 @@ import myutilities
 def build_table(raw_data_path):
     # Window and Token sizes to use
     window_sizes = [3, 4, 5, 6, 7, 8, 9, 10]
-    token_sizes = [5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100]
-    time_thresholds = [500, 800, 1000, 1500, 2000]
+    token_sizes = [5, 6, 7, 8, 9, 10, 20, 30, 40, 50]
+    time_thresholds = [1000, 1500, 2000]
 
     tables = []
 
