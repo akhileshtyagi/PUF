@@ -97,6 +97,8 @@ def find_fit():
         base_token = lookup.get('token')
         base_threshold = lookup.get('threshold')
 
+        # TODO Build lookup table for the auth data and find the distance between the resulting state machine and that or the training data
+
         probability = myutilities.build_lookup(raw_data_path,
                                                base_table,
                                                base_distribution,
