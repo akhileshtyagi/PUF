@@ -4,6 +4,7 @@ import find_best_fit
 import user_auth
 import user_class
 import effectiveness
+import debug
 
 # 1. Find best fit for user profile
 # 2. Authenticate user based on profile
@@ -16,6 +17,7 @@ def print_options():
           "2. Authenticate a user based on new raw data\n"
           "3. Find the likely profile matches for a set of raw data\n"
           "4. Print the effectiveness of different token,window,time sizes\n"
+          "5. DEBUG: create log files\n"
           "9. Exit\n")
 
 print_options()
@@ -30,6 +32,8 @@ while selection != '9':
         user_class.match_class()
     elif selection == '4':
         effectiveness.print_effectiveness()
+    elif selection == '5':
+        debug.debug()
     print_options()
     selection = raw_input("Choice: ")
 
