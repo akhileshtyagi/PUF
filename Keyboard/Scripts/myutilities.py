@@ -217,3 +217,98 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
             return 0
     else:
         return table
+
+
+def build_auth_table(raw_data_file, base_table, distribution, window, threshold, token, n):
+    normalized = []
+    current_window = []
+    probabilities = []
+    getcontext().prec = 4
+    table = {}
+
+    with open(raw_data_file, 'rt') as csvfile:
+        reader2 = csv.reader(csvfile)
+
+        # Normalize data based on found distribution
+        for row in reader2:
+            normalized_item = normalize_raw_element(float(row[3]), distribution)
+            normalized.append([row[0], int(normalized_item)])
+
+        # Analyze touches
+        for i, touch in enumerate(normalized):
+            if i > n:
+                # TODO Do initial comparison of tables
+                # TODO Issues, the sequences/touches not seen in the auth data will make the number in sum_t to be larger than n
+                # TODO Keep a separate table of sequences/touches not seen that is counted against the probability
+                # But can be referenced for new touches
+                probability = compare(base_table, table)
+                probabilities.append(probability)
+                table = remove_oldest(table, normalized, window)
+
+            if len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) >= threshold:
+                current_window = []
+                current_window.append(touch)
+            else:
+                current_window.append(touch)
+
+                # Once the window size is filled and a next touch is captured add it to the Markov Model
+                if len(current_window) == window + 1:
+                    # Hash the touch pressures
+                    hashcode = hash_function(current_window)
+                    if hashcode in table:
+                        # Found the hashcode in our table
+                        hashcode_bin = table.get(hashcode)
+                        # Check if the exact sequence is in the found bin
+                        link_index = match_sequence(hashcode_bin, current_window)
+                        if link_index == -1:
+                            # Sequence not found; Add a new link with the sequence and next touch
+                            table = add_link(hashcode, hashcode_bin, current_window, table, token)
+                        else:
+                            # Sequence found, increment next touch
+                            table = increment_probability(hashcode, hashcode_bin, link_index, current_window, table)
+                    else:
+                        # Hashcode not found; Add a new bin with a link to that sequence and initial touch event
+                        table = add_key(hashcode, current_window, table, token)
+                    # Pop off the oldest touch
+                    current_window.pop(0)
+    return probabilities
+
+
+def compare(base, auth):
+    getcontext().prec = 4
+    sum = 0
+    n = 0
+
+    for key in base.keys():
+        if key in auth:
+            for chain in base.get(key).get('chain'):
+                # TODO Find if each sequence in base chain is in auth chain
+                chain_index = find_sequence(chain.get('sequence'), auth.get(key).get('chain'))
+                if chain_index != -1:
+                    # TODO Compare each touch probability
+                    for i, prob in enumerate(chain.get('probabilities')):
+                        auth_touch_prob = auth.get(key).get('chain')[chain_index].get('probabilities')[i]
+                        auth_seq_tot = auth.get(key).get('chain')[chain_index].get('total')
+                        auth_prob = Decimal(auth_touch_prob) / Decimal(auth_seq_tot)
+                        sum += prob - auth_prob
+                else:
+                    sum += 1
+        else:
+            sum += len(base.get(key).get('chain'))
+        n += len(base.get(key).get('chain'))
+
+    return 1 - Decimal(sum) / Decimal(n)
+
+
+def remove_oldest(table, norm, window):
+    hash_function(norm[:window + 1])
+    # Remove first next touch probability for window
+
+    return table
+
+
+def find_sequence(base_sequence, auth_chain):
+    for i, link in enumerate(auth_chain):
+        if base_sequence == link.get('sequence'):
+            return i
+    return -1
