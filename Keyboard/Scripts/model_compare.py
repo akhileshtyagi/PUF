@@ -1,4 +1,4 @@
-__author__ = 'iantrich'
+__author__ = 'Ian Richardson'
 
 # Build training table
 # Convert to probabilities
@@ -6,27 +6,9 @@ __author__ = 'iantrich'
 # Find the difference between the two tables
 # Be sure to take into account any sequence/touches not seen in the auth table
 # Will probably want to remove a touch when seen from the training table to make it easiest
-
-
 import myutilities
 import csv
-
-__author__ = 'Ian Richardson - iantrich@gmail.com'
-# Use this script to also model the ideal token/window/threshold values
-# It will be similar to the User Classification/Authentication scripts but will be looking
-# for values that maximize reproducability and minimize false positives
-
-# Iterate through token/window/threshold values for a given user profile and user dataset to find
-# the one that has the highest probability of matching, yet minimizes all other possible user profile matches as much
-# as possible
-
-# Calculate probability P(m, L) for the given user dataset for each user/token/window combination
-
-# Iterate through possible threshold values and find values that allow the wanted user profile to pass
-# but other to not for each probability
-# If none are found, allow one other user profile to pass, and so on until we have at least one successful set of values
-
-# Depending on how well this data looks, might have to go back and access the token/window values for more precision
+from decimal import *
 
 # Raw Data to generate Lookup Tables From
 # Raw Data directory
@@ -65,8 +47,9 @@ base_file_desc = {
     'device': base_file_name[2]
 }
 
-output_path = myutilities.get_current_dir() + '/Data/User Profiles/' + base_file_desc.get('user') + '/' + base_file_desc.get(
-        'device') + '/' + base_file_desc.get('date') + '/'
+output_path = myutilities.get_current_dir() + '/Data/User Profiles/' + base_file_desc.get(
+    'user') + '/' + base_file_desc.get(
+    'device') + '/' + base_file_desc.get('date') + '/'
 
 myutilities.create_dir_path(output_path)
 
@@ -93,25 +76,42 @@ selected_raw_set = myutilities.grab_valid_input(available_raw_sets)
 raw_data_path = raw_data_dir + available_users[selected_raw_user] + '/' + available_raw_devices[
     selected_raw_device] + '/' + available_raw_sets[selected_raw_set]
 
+
 base_table = {}
+probabilities = []
+max_probs = []
 
-token = 4
-window = 4
-threshold = 5000
-n = 500
+n = 1000
 
-# Use a clustering algorithm to find the distribution of touches
-distribution = myutilities.cluster_algorithm(base_file_path, token)
+window_sizes = [3, 4, 5, 6, 7, 8, 9, 10]
+token_sizes = [5, 6, 7, 8, 9, 10, 20, 30, 40, 50]
+time_thresholds = [1000, 1500, 2000]
 
-# Build raw lookup table
-base_table = myutilities.build_lookup(base_file_path, base_table, distribution, window, threshold, token, False)
 
-# Get probabilities
-base_table = myutilities.convert_table_to_probabilities(base_table)
+# Generate lookup table for each combination of window size and token size
+for win_i, window in enumerate(window_sizes):
+    for tok_i, token in enumerate(token_sizes):
+        for time_i, threshold in enumerate(time_thresholds):
+            print 'Window: ' + str(win_i) + ', Token: ' + str(tok_i) + ', Threshold: ' + str(time_i)
 
-# TODO Build auth lookup table of size n
+            # Use a clustering algorithm to find the distribution of touches
+            distribution = myutilities.cluster_algorithm(base_file_path, token)
 
-probabilities = myutilities.build_auth_table(raw_data_path, base_table, distribution, window, threshold, token, n)
+            # Build raw lookup table
+            base_table = myutilities.build_lookup(base_file_path, base_table, distribution, window, threshold, token,
+                                                  False)
 
-print 'finished'
-# TODO Find difference in tables
+            # Get probabilities
+            base_table = myutilities.convert_table_to_probabilities(base_table)
+
+            # Get distance between base and auth models
+            probability = myutilities.build_auth_table(raw_data_path, base_table, distribution, window, threshold, token, n)
+            probabilities.append(probability)
+            m = Decimal(0.0)
+            for prob in probability:
+                if prob > m:
+                    m = prob
+
+            max_probs.append(m)
+
+print max_probs
