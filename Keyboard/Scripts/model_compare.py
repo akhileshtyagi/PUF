@@ -92,12 +92,13 @@ time_thresholds = [1000, 1500, 2000]
 for win_i, window in enumerate(window_sizes):
     for tok_i, token in enumerate(token_sizes):
         for time_i, threshold in enumerate(time_thresholds):
-            print 'Window: ' + str(win_i) + ', Token: ' + str(tok_i) + ', Threshold: ' + str(time_i)
+            print 'Window: ' + str(window_sizes[win_i]) + ', Token: ' + str(token_sizes[tok_i]) + ', Threshold: ' + str(time_thresholds[time_i])
 
             # Use a clustering algorithm to find the distribution of touches
             distribution = myutilities.cluster_algorithm(base_file_path, token)
 
             # Build raw lookup table
+            base_table = {}
             base_table = myutilities.build_lookup(base_file_path, base_table, distribution, window, threshold, token,
                                                   False)
 
@@ -112,6 +113,7 @@ for win_i, window in enumerate(window_sizes):
                 if prob > m:
                     m = prob
 
+            print 'Max probability: ' + str(m[0] * 100) + '%'
             max_probs.append(m)
 
 print max_probs

@@ -74,10 +74,6 @@ def match_sequence(hashcode_bin, current_window):
 
 
 # Given the index of the node in the bin, increment the value of current_window[len(current_window) - 1]
-# Assign this back to the node
-# Assign this back to the bin
-# Assign this back to the table
-# Return the table
 def increment_probability(hashcode, hashcode_bin, link_index, current_window, table):
     hashcode_bin.get('chain')[link_index].get('probabilities')[current_window[-1][1]] += 1
     hashcode_bin.get('chain')[link_index]['total'] = hashcode_bin.get('chain')[link_index].get('total') + 1
@@ -86,9 +82,6 @@ def increment_probability(hashcode, hashcode_bin, link_index, current_window, ta
 
 
 # Add link to bin with {'sequence': current_window[0...n-1] and current_window[n-1]: 1}
-# Assign this to the bin
-# Assign this back to the table
-# Return the table
 def add_link(hashcode, hashcode_bin, current_window, table, token):
     lst = [0] * token
     lst[current_window[-1][1]] = 1
@@ -104,8 +97,6 @@ def add_link(hashcode, hashcode_bin, current_window, table, token):
 
 
 # Add a bin with {'chain': [{'sequence': current_window[0...n-1] and current_window[n-1]: 1}]}
-# Assign this back to table
-# Return the table
 def add_key(hashcode, current_window, table, token):
     lst = [0] * token
     lst[current_window[-1][1]] = 1
@@ -222,9 +213,11 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 def build_auth_table(raw_data_file, base_table, distribution, window, threshold, token, n):
     normalized = []
     current_window = []
+    previous_window = []
     probabilities = []
     getcontext().prec = 4
     table = {}
+    base_n = 0
 
     with open(raw_data_file, 'rt') as csvfile:
         reader2 = csv.reader(csvfile)
@@ -236,14 +229,17 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
 
         # Analyze touches
         for i, touch in enumerate(normalized):
-            if i > n:
-                # TODO Do initial comparison of tables
-                # TODO Issues, the sequences/touches not seen in the auth data will make the number in sum_t to be larger than n
-                # TODO Keep a separate table of sequences/touches not seen that is counted against the probability
-                # But can be referenced for new touches
+            if i == n:
                 probability = compare(base_table, table)
                 probabilities.append(probability)
                 table = remove_oldest(table, normalized, window)
+            if i >= n:
+                # Do initial comparison of tables
+                if i == n:
+                    ret = compare(base_table, table)
+                    probability = ret[0]
+                    base_n = ret[1]
+                    probabilities.append(probability)
 
             if len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) >= threshold:
                 current_window = []
@@ -270,40 +266,110 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
                         # Hashcode not found; Add a new bin with a link to that sequence and initial touch event
                         table = add_key(hashcode, current_window, table, token)
                     # Pop off the oldest touch
+                    previous_window = current_window
                     current_window.pop(0)
+                if i > n:
+                    probability -= get_oldest(table, base_table, normalized, window, base_n, i)
+                    table = remove_oldest(table, normalized, window)
+                    probability += get_newest(table, base_table, normalized, window, base_n, i, previous_window)
+                    previous_window = []
+                    probabilities.append(probability)
     return probabilities
 
 
 def compare(base, auth):
     getcontext().prec = 4
-    sum = 0
+    # Sum of probabilities
+    s = 0
+    # Number of sequences in base
     n = 0
 
     for key in base.keys():
         if key in auth:
             for chain in base.get(key).get('chain'):
-                # TODO Find if each sequence in base chain is in auth chain
+                # Find if each sequence in base chain is in auth chain
                 chain_index = find_sequence(chain.get('sequence'), auth.get(key).get('chain'))
                 if chain_index != -1:
-                    # TODO Compare each touch probability
+                    auth_seq_tot = auth.get(key).get('chain')[chain_index].get('total')
+                    # Compare each touch probability
                     for i, prob in enumerate(chain.get('probabilities')):
                         auth_touch_prob = auth.get(key).get('chain')[chain_index].get('probabilities')[i]
-                        auth_seq_tot = auth.get(key).get('chain')[chain_index].get('total')
                         auth_prob = Decimal(auth_touch_prob) / Decimal(auth_seq_tot)
-                        sum += prob - auth_prob
+                        # Difference of base to auth probabilities
+                        s += prob - auth_prob
                 else:
-                    sum += 1
+                    s += 1
         else:
-            sum += len(base.get(key).get('chain'))
+            s += len(base.get(key).get('chain'))
+
         n += len(base.get(key).get('chain'))
 
-    return 1 - Decimal(sum) / Decimal(n)
+    # Handle keys in auth that are not in base
+    for key in auth.keys():
+        if key in base:
+            chain_index = find_sequence(chain.get('sequence'), base.get(key).get('chain'))
+            if chain_index == -1:
+                s -= 1
+                n += 1
+        else:
+            n += len(auth.get(key).get('chain'))
+            s -= len(auth.get(key).get('chain'))
+
+    return [1 - Decimal(s) / Decimal(n), n]
+
+
+def get_oldest(auth, base, norm, window, n, i):
+    getcontext().prec = 4
+    current = norm[i - 1000:window + 1]
+    if len(current) < window + 1:
+        return 0
+    auth_hashcode_bin = auth.get(hash_function(current))
+    auth_link_index = match_sequence(auth_hashcode_bin, current)
+    auth_prob = Decimal(auth_hashcode_bin.get('chain')[auth_link_index].get('probabilities')[current[-1][1]]) / Decimal(
+        auth_hashcode_bin.get('chain')[auth_link_index]['total'])
+    base_hashcode_bin = base.get(hash_function(current))
+    base_link_index = match_sequence(base_hashcode_bin, current)
+    if base_link_index != -1:
+        base_prob = Decimal(
+            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]])
+        return 1 - (base_prob - auth_prob) / Decimal(n)
+    else:
+        return 1 - (0 - auth_prob) / Decimal(n)
+
+
+def get_newest(auth, base, norm, window, n, i, current):
+    getcontext().prec = 4
+    if len(current) < window + 1:
+        return 0
+    print i
+    auth_hashcode_bin = auth.get(hash_function(current))
+    auth_link_index = match_sequence(auth_hashcode_bin, current)
+    auth_prob = Decimal(auth_hashcode_bin.get('chain')[auth_link_index].get('probabilities')[current[-1][1]]) / Decimal(
+        auth_hashcode_bin.get('chain')[auth_link_index]['total'])
+    base_hashcode_bin = base.get(hash_function(current))
+    base_link_index = match_sequence(base_hashcode_bin, current)
+    if base_link_index != -1:
+        base_prob = Decimal(
+            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]])
+        return 1 - (base_prob - auth_prob) / Decimal(n)
+    else:
+        return 1 - (0 - auth_prob) / Decimal(n)
 
 
 def remove_oldest(table, norm, window):
-    hash_function(norm[:window + 1])
-    # Remove first next touch probability for window
+    hashcode = hash_function(norm[:window + 1])
+    hashcode_bin = table.get(hashcode)
+    link_index = match_sequence(hashcode_bin, norm[:window + 1])
+    if link_index == -1:
+        return table
+    if hashcode_bin.get('chain')[link_index]['total'] == 1:
+        # Remove link if no more touches present
+        del hashcode_bin.get('chain')[link_index]
+    else:
+        hashcode_bin.get('chain')[link_index].get('probabilities')[norm[:window + 1][-1][1]] -= 1
+        hashcode_bin.get('chain')[link_index]['total'] = hashcode_bin.get('chain')[link_index].get('total') - 1
 
+    table[hashcode] = hashcode_bin
     return table
 
 
