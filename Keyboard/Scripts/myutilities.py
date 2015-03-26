@@ -61,6 +61,8 @@ def hash_function(current_window):
 
 
 def match_sequence(hashcode_bin, current_window):
+    if hashcode_bin is None:
+        return -1
     current_sequence = []
     for touch in current_window:
         current_sequence.append(touch[1])
@@ -315,7 +317,7 @@ def compare(base, auth):
             n += len(auth.get(key).get('chain'))
             s -= len(auth.get(key).get('chain'))
 
-    return [1 - Decimal(s) / Decimal(n), n]
+    return [1 - abs(Decimal(s) / Decimal(n)), n]
 
 
 def get_oldest(auth, base, norm, window, n, i):

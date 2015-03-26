@@ -114,6 +114,21 @@ for win_i, window in enumerate(window_sizes):
                     m = prob
 
             print 'Max probability: ' + str(m[0] * 100) + '%'
-            max_probs.append(m)
+            max_probs.append([m, window, token, threshold])
+# TODO Print to csv
+
+# Print the probabilities and such to a csv
+with open(output_path + 'against_' + available_users[selected_raw_user] + '_' + available_raw_devices[
+    selected_raw_device] + '_' + available_raw_sets[selected_raw_set] + '.csv', 'w') as csvfile:
+    w = csv.writer(csvfile)
+    # Find which combination gives the largest probability
+    best_fit = [0, 0, 0, 0]
+    for item in max_probs:
+        w.writerow(item)
+        if item[0] > best_fit[0]:
+            best_fit = item
+
+print("Best results of probability " + str(best_fit[0]) + "are with window size: " +
+      str(best_fit[1]) + " and token size: " + str(best_fit[2])) + " and threshold: " + str(best_fit[3])
 
 print max_probs
