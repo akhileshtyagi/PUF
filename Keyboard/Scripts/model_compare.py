@@ -79,7 +79,7 @@ raw_data_path = raw_data_dir + available_users[selected_raw_user] + '/' + availa
 
 base_table = {}
 probabilities = []
-max_probs = []
+probs = []
 
 n = 1000
 
@@ -108,13 +108,22 @@ for win_i, window in enumerate(window_sizes):
             # Get distance between base and auth models
             probability = myutilities.build_auth_table(raw_data_path, base_table, distribution, window, threshold, token, n)
             probabilities.append(probability)
-            m = Decimal(0.0)
-            for prob in probability:
-                if prob > m:
-                    m = prob
 
-            print 'Max probability: ' + str(m * 100) + '%'
-            max_probs.append([m, window, token, threshold])
+            ma = Decimal(0.0)
+            for prob in probability:
+                if prob > ma:
+                    ma = prob
+
+            print 'Max probability: ' + str(ma * 100) + '%'
+
+            mi = Decimal(1.0)
+            for prob in probability:
+                if prob < mi:
+                    mi = prob
+
+            print 'Min probability: ' + str(mi * 100) + '%'
+            probs.append([ma, mi, window, token, threshold])
+
 # TODO Print to csv
 
 # Print the probabilities and such to a csv
@@ -123,12 +132,6 @@ with open(output_path + 'against_' + available_users[selected_raw_user] + '_' + 
     w = csv.writer(csvfile)
     # Find which combination gives the largest probability
     best_fit = [0, 0, 0, 0]
-    for item in max_probs:
+
+    for i, item in enumerate(probs):
         w.writerow(item)
-        if item[0] > best_fit[0]:
-            best_fit = item
-
-print("Best results of probability " + str(best_fit[0]) + "are with window size: " +
-      str(best_fit[1]) + " and token size: " + str(best_fit[2])) + " and threshold: " + str(best_fit[3])
-
-print max_probs

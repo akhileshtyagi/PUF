@@ -1,6 +1,7 @@
 __author__ = 'Ian Richardson - iantrich@gmail.com'
 
 import os
+import copy
 import inspect
 import csv
 from decimal import *
@@ -263,14 +264,17 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
                         # Hashcode not found; Add a new bin with a link to that sequence and initial touch event
                         table = add_key(hashcode, current_window, table, token)
                     # Pop off the oldest touch
-                    previous_window = current_window
+                    previous_window = copy.deepcopy(current_window)
                     current_window.pop(0)
-                if i > n:
-                    probability -= get_oldest(table, base_table, normalized, window, base_n, i)
-                    table = remove_oldest(table, normalized, window)
-                    probability += get_newest(table, base_table, normalized, window, base_n, i, previous_window)
-                    previous_window = []
-                    probabilities.append(probability)
+                    if i > n:
+                        probability -= get_oldest(table, base_table, normalized, window, base_n, i)
+                        table = remove_oldest(table, normalized, window, i)
+                        probability += get_newest(table, base_table, normalized, window, base_n, i, previous_window)
+                        previous_window = []
+                        probabilities.append(probability)
+                if len(previous_window) < window + 1 and i > n:
+                        table = remove_oldest(table, normalized, window, i)
+
     return probabilities
 
 
@@ -317,7 +321,7 @@ def compare(base, auth):
 
 def get_oldest(auth, base, norm, window, n, i):
     getcontext().prec = 4
-    current = norm[i - 1000:window + 1]
+    current = norm[i - 1001:i - 1001 + window + 1]
     if len(current) < window + 1:
         return 0
     auth_hashcode_bin = auth.get(hash_function(current))
@@ -329,9 +333,9 @@ def get_oldest(auth, base, norm, window, n, i):
     if base_link_index != -1:
         base_prob = Decimal(
             base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]])
-        return 1 - (base_prob - auth_prob) / Decimal(n)
+        return 1 - abs((base_prob - auth_prob) / Decimal(n))
     else:
-        return 1 - (0 - auth_prob) / Decimal(n)
+        return 1 - abs((0 - auth_prob) / Decimal(n))
 
 
 def get_newest(auth, base, norm, window, n, i, current):
@@ -348,22 +352,23 @@ def get_newest(auth, base, norm, window, n, i, current):
     if base_link_index != -1:
         base_prob = Decimal(
             base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]])
-        return 1 - (base_prob - auth_prob) / Decimal(n)
+        return 1 - abs((base_prob - auth_prob) / Decimal(n))
     else:
-        return 1 - (0 - auth_prob) / Decimal(n)
+        return 1 - abs((0 - auth_prob) / Decimal(n))
 
 
-def remove_oldest(table, norm, window):
-    hashcode = hash_function(norm[:window + 1])
+def remove_oldest(table, norm, window, i):
+    current = norm[i - 1001:i - 1001 + window + 1]
+    hashcode = hash_function(current)
     hashcode_bin = table.get(hashcode)
-    link_index = match_sequence(hashcode_bin, norm[:window + 1])
+    link_index = match_sequence(hashcode_bin, current)
     if link_index == -1:
         return table
     if hashcode_bin.get('chain')[link_index]['total'] == 1:
         # Remove link if no more touches present
         del hashcode_bin.get('chain')[link_index]
     else:
-        hashcode_bin.get('chain')[link_index].get('probabilities')[norm[:window + 1][-1][1]] -= 1
+        hashcode_bin.get('chain')[link_index].get('probabilities')[current[-1][1]] -= 1
         hashcode_bin.get('chain')[link_index]['total'] = hashcode_bin.get('chain')[link_index].get('total') - 1
 
     table[hashcode] = hashcode_bin
