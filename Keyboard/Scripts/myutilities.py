@@ -231,17 +231,12 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
 
         # Analyze touches
         for i, touch in enumerate(normalized):
+            # Do initial comparison of tables
             if i == n:
-                probability = compare(base_table, table)
+                ret = compare(base_table, table)
+                probability = ret[0]
+                base_n = ret[1]
                 probabilities.append(probability)
-                table = remove_oldest(table, normalized, window)
-            if i >= n:
-                # Do initial comparison of tables
-                if i == n:
-                    ret = compare(base_table, table)
-                    probability = ret[0]
-                    base_n = ret[1]
-                    probabilities.append(probability)
 
             if len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) >= threshold:
                 current_window = []

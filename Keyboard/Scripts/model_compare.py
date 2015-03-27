@@ -113,7 +113,7 @@ for win_i, window in enumerate(window_sizes):
                 if prob > m:
                     m = prob
 
-            print 'Max probability: ' + str(m[0] * 100) + '%'
+            print 'Max probability: ' + str(m * 100) + '%'
             max_probs.append([m, window, token, threshold])
 # TODO Print to csv
 
