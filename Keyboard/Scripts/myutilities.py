@@ -216,10 +216,11 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 def build_auth_table(raw_data_file, base_table, distribution, window, threshold, token, n):
     normalized = []
     current_window = []
-    previous_window = []
     probabilities = []
+    sequences = []
     getcontext().prec = 4
     table = {}
+    s = 0
     base_n = 0
 
     with open(raw_data_file, 'rt') as csvfile:
@@ -230,23 +231,25 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
             normalized_item = normalize_raw_element(float(row[3]), distribution)
             normalized.append([row[0], int(normalized_item)])
 
+
         # Analyze touches
         for i, touch in enumerate(normalized):
             # Do initial comparison of tables
             if i == n:
                 ret = compare(base_table, table)
-                probability = ret[0]
+                s = ret[0]
                 base_n = ret[1]
-                probabilities.append(probability)
+                probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
 
             if len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) >= threshold:
                 current_window = []
                 current_window.append(touch)
             else:
                 current_window.append(touch)
-
                 # Once the window size is filled and a next touch is captured add it to the Markov Model
                 if len(current_window) == window + 1:
+                    # Save window sequence for removal once model comparison threshold met
+                    sequences.append(copy.deepcopy(current_window))
                     # Hash the touch pressures
                     hashcode = hash_function(current_window)
                     if hashcode in table:
@@ -264,22 +267,23 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
                         # Hashcode not found; Add a new bin with a link to that sequence and initial touch event
                         table = add_key(hashcode, current_window, table, token)
                     # Pop off the oldest touch
-                    previous_window = copy.deepcopy(current_window)
                     current_window.pop(0)
                     if i > n:
-                        probability -= get_oldest(table, base_table, normalized, window, base_n, i)
-                        table = remove_oldest(table, normalized, window, i)
-                        probability += get_newest(table, base_table, normalized, window, base_n, i, previous_window)
-                        previous_window = []
-                        probabilities.append(probability)
-                if len(previous_window) < window + 1 and i > n:
-                        table = remove_oldest(table, normalized, window, i)
+                        # Subtract the oldest sequence probability from the total sum
+                        s -= get_oldest(table, base_table, sequences[0])
+                        # Remove the oldest sequence from the authentication lookup table
+                        table = remove_oldest(table, sequences[0])
+                        # Remove the oldest sequence from the saved list
+                        sequences.pop(0)
+                        # Add the newest sequence probability to the total sum
+                        s += get_newest(table, base_table, sequences[-1])
+                        # Append the new probability to the list
+                        probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
 
     return probabilities
 
 
 def compare(base, auth):
-    getcontext().prec = 4
     # Sum of probabilities
     s = 0
     # Number of sequences in base
@@ -316,14 +320,11 @@ def compare(base, auth):
             n += len(auth.get(key).get('chain'))
             s -= len(auth.get(key).get('chain'))
 
-    return [1 - abs(Decimal(s) / Decimal(n)), n]
+    return [s, n]
 
 
-def get_oldest(auth, base, norm, window, n, i):
+def get_oldest(auth, base, current):
     getcontext().prec = 4
-    current = norm[i - 1001:i - 1001 + window + 1]
-    if len(current) < window + 1:
-        return 0
     auth_hashcode_bin = auth.get(hash_function(current))
     auth_link_index = match_sequence(auth_hashcode_bin, current)
     auth_prob = Decimal(auth_hashcode_bin.get('chain')[auth_link_index].get('probabilities')[current[-1][1]]) / Decimal(
@@ -332,17 +333,14 @@ def get_oldest(auth, base, norm, window, n, i):
     base_link_index = match_sequence(base_hashcode_bin, current)
     if base_link_index != -1:
         base_prob = Decimal(
-            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]])
-        return 1 - abs((base_prob - auth_prob) / Decimal(n))
+            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]]) / Decimal(base_hashcode_bin.get('chain')[base_link_index]['total'])
+        return base_prob - auth_prob
     else:
-        return 1 - abs((0 - auth_prob) / Decimal(n))
+        return 0 - auth_prob
 
 
-def get_newest(auth, base, norm, window, n, i, current):
+def get_newest(auth, base, current):
     getcontext().prec = 4
-    if len(current) < window + 1:
-        return 0
-    print i
     auth_hashcode_bin = auth.get(hash_function(current))
     auth_link_index = match_sequence(auth_hashcode_bin, current)
     auth_prob = Decimal(auth_hashcode_bin.get('chain')[auth_link_index].get('probabilities')[current[-1][1]]) / Decimal(
@@ -351,14 +349,13 @@ def get_newest(auth, base, norm, window, n, i, current):
     base_link_index = match_sequence(base_hashcode_bin, current)
     if base_link_index != -1:
         base_prob = Decimal(
-            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]])
-        return 1 - abs((base_prob - auth_prob) / Decimal(n))
+            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]]) / Decimal(base_hashcode_bin.get('chain')[base_link_index]['total'])
+        return base_prob - auth_prob
     else:
-        return 1 - abs((0 - auth_prob) / Decimal(n))
+        return 0 - auth_prob
 
 
-def remove_oldest(table, norm, window, i):
-    current = norm[i - 1001:i - 1001 + window + 1]
+def remove_oldest(table, current):
     hashcode = hash_function(current)
     hashcode_bin = table.get(hashcode)
     link_index = match_sequence(hashcode_bin, current)
