@@ -83,7 +83,7 @@ probs = []
 
 n = 1000
 
-window_sizes = [3, 4, 5, 6, 7, 8, 9, 10]
+window_sizes = [3, 4, 5, 6]
 token_sizes = [5, 6, 7, 8, 9, 10, 20, 30, 40, 50]
 time_thresholds = [1000, 1500, 2000]
 
