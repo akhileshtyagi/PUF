@@ -7,10 +7,15 @@ import myutilities
 import build_lookup_table
 import user_auth
 import os
+from decimal import *
+
+# TODO something is going wrong with creating the data files...
+PRECISION = 50
 
 #prints out a percent effectiveness for each token,window,threshold
 #also logs all information to a log file
 def print_effectiveness():
+	getcontext().prec = PRECISION
  	max_percent=0
 	max_window=0
  	max_token=0
@@ -27,13 +32,13 @@ def print_effectiveness():
 	log_file=open(log_file_path,'w+')
 
 	#write the header to the log file
-	log_file.write("effectiveness\twindow\ttoken\ttime\n")
+	log_file.write("effectiveness\ttoken\twindow\ttime\n")
 
  	#for each window
- 	for i in [3, 4, 5, 6, 7, 8, 9, 10, 11, 15, 20, 25]:
+ 	for i in [3, 4, 5, 6, 7, 8, 9, 10]:
   		#for each number of tokens
-  		for j in [10, 20, 30, 40, 50, 60, 70, 80, 90, 100]:
-  			for k in [500, 600, 700, 800, 900, 1000]:
+  		for j in [5,10,15]:
+  			for k in [500]:
 	   			#determine the effectiveness of our authentication method
 	   			percent=calc_effectiveness(i,j,k,good_data,bad_data)
 	   			log_file.write(str(percent)+"\t"+str(j)+"\t"+str(i)+"\t"+str(k)+"\n")
@@ -54,18 +59,20 @@ def print_effectiveness():
 
 
 def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_bad_data_path):
+	getcontext().prec = PRECISION
 	#constant values
 	CHUNK_SIZE=100 	#number of lines of raw data to try to authenticate against the model
-	NUM_CHUNK=20	#number of chunks to try to authenticate against the model
+	NUM_CHUNK=50	#number of chunks to try to authenticate against the model
 	global last_path #bad programming!
 	global table     #also bad programming!
 
 	good_outcomes=0
 	bad_outcomes=0
-	temp_file_path=myutilities.get_current_dir()+ '/temp'
+	temp_file_path=myutilities.get_current_dir()+ '/temp_temp'
 	good_temp_file_path=myutilities.get_current_dir()+ '/good_temp'
 	good_temp_file=0
 	temp_file=0
+	i=0
 
 
 	###
@@ -82,12 +89,11 @@ def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_ba
 	good_file_lines=i+1
 	good_file.close()
 
-
 	#split good data in half by creating a temp file and copying in the first half of good_data
-	good_temp_file=open(temp_file_path,'w+')
+	good_temp_file=open(good_temp_file_path,'w+')
 	good_file=open(raw_good_data_path,'r')
 
-	for i in range(0,good_file_lines/2):
+	for stuff in range(0,good_file_lines/2):
 		good_temp_file.write(good_file.readline())
 
 	good_temp_file.close()
@@ -104,12 +110,14 @@ def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_ba
 			#good_file is still open from before
 			temp_file.write(good_file.readline())
 
+		temp_file.close()
+
 		if user_auth.authenticate_model(good_temp_file_path,temp_file_path,window,token,time_threshold):
 			good_outcomes+=1
 		else:
 			bad_outcomes+=1
+			print 'user data was not authenticated'
 
-		temp_file.close()
 
 
 	###
@@ -125,12 +133,13 @@ def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_ba
 		for y in range(0,CHUNK_SIZE):
 			temp_file.write(bad_file.readline())
 
+		temp_file.close()
+
 		if user_auth.authenticate_model(good_temp_file_path,temp_file_path,window,token,time_threshold):
 			bad_outcomes+=1
+			print 'non-user data successfully authenticated'
 		else:
 			good_outcomes+=1
-
-		temp_file.close()
 
 
 	good_file.close()
