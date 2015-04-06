@@ -4,7 +4,8 @@ import find_best_fit
 import user_auth
 import user_class
 import effectiveness
-import debug
+# import debug
+import convertXY
 
 # 1. Find best fit for user profile
 # 2. Authenticate user based on profile
@@ -18,6 +19,7 @@ def print_options():
           "3. Find the likely profile matches for a set of raw data\n"
           "4. Print the effectiveness of different token,window,time sizes\n"
           "5. DEBUG: create log files\n"
+          "6. Convert CSV file with x,y points to keyboard code"
           "9. Exit\n")
 
 print_options()
@@ -32,8 +34,10 @@ while selection != '9':
         user_class.match_class()
     elif selection == '4':
         effectiveness.print_effectiveness()
-    elif selection == '5':
-        debug.debug()
+    # elif selection == '5':
+    #     debug.debug()
+    elif selection == '6':
+        convertXY.convert_file()
     print_options()
     selection = raw_input("Choice: ")
 
