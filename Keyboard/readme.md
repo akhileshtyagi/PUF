@@ -8,4 +8,4 @@
 7. Change your default keyboard to 'Sample Soft Keyboard'
 8. Once you are done collecting data, open your file manager and navigate to the folder named 'PUF' from your root directory. There you will find two CSV files. Replace 'Tester' in their file names with your name and email the results to iantrich@iastate.edu and timedee@iastate.edu
 
-**If you run into any issues or have any concerns, please email Ian or Tim at the address listed above. Thank you for your help in our research project and sacrificing your typing experience :)
+##If you run into any issues or have any concerns, please email Ian or Tim at the address listed above. Thank you for your help in our research project and sacrificing your typing experience :)
