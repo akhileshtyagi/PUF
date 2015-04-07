@@ -7,6 +7,7 @@ import csv
 import math
 from decimal import *
 
+PRECISION = 50
 
 def get_current_dir():
     return os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
@@ -124,7 +125,7 @@ def touch_probability(hashcode_bin, current_window, link_index):
 
 
 def convert_table_to_probabilities(table):
-    getcontext().prec = 4
+    getcontext().prec = PRECISION
     for key, val in table.items():
         for i, val2 in enumerate(val.get('chain')):
             for j, val3 in enumerate(val2.get('probabilities')):
@@ -158,7 +159,7 @@ def cluster_algorithm(raw_data_file, token):
     i = 0
     distribution = []
     current = max_min.get('min')
-    getcontext().prec = 4
+    getcontext().prec = PRECISION
     while i < token:
         distribution.append({'lower': current, 'upper': current + variation,
                              'normalized': Decimal(current + current + variation) / Decimal(2)})
@@ -193,7 +194,7 @@ def keycode_distribution(reader):
 def build_lookup(raw_data_file, table, distribution, window, threshold, token, match_user):
     normalized = []
     current_window = []
-    getcontext().prec = 4
+    getcontext().prec = PRECISION
     probability = Decimal(0.0)
 
     with open(raw_data_file, 'rt') as csvfile:
@@ -241,7 +242,7 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
                     current_window.pop(0)
     if match_user:
         if len(normalized) > 0:
-            return probability / len(normalized)
+            return probability
         else:
             return 0
     else:
