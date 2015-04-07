@@ -4,6 +4,7 @@ import os
 import copy
 import inspect
 import csv
+import math
 from decimal import *
 
 
@@ -141,7 +142,10 @@ def find_max_min(read):
 def cluster_algorithm(raw_data_file, token):
     with open(raw_data_file, 'rt') as csvfile:
         reader = csv.reader(csvfile)
-        max_min = find_max_min(reader)
+        key_dist = keycode_distribution(reader)
+    with open(raw_data_file, 'rt') as csvfile:
+        reader2 = csv.reader(csvfile)
+        max_min = find_max_min(reader2)
 
     variation = float((max_min.get('max') - max_min.get('min')) / token)
 
@@ -154,6 +158,25 @@ def cluster_algorithm(raw_data_file, token):
                              'normalized': Decimal(current + current + variation) / Decimal(2)})
         current += variation
         i += 1
+
+    return distribution
+
+
+# TODO Keycode distributions
+def keycode_distribution(reader):
+    data = [[] for i in range(126)]
+    # data = {k: [] for k in range(126)}
+    distribution = {k: {} for k in range(126)}
+
+    for row in reader:
+        data[int(row[1])].append(float(row[2]))
+
+    for key, value in enumerate(data):
+        # TODO
+        n = len(value)
+        m = sum(value) / n
+        sd = math.sqrt(sum((x - m)**2 for x in value) / n)
+        distribution[key] = {'std': sd, 'mean': m}
 
     return distribution
 
