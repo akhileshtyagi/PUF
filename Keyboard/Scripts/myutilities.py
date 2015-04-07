@@ -44,12 +44,17 @@ def create_dir_path(path):
         os.makedirs(path)
 
 
-def normalize_raw_element(element, distribution):
+def normalize_raw_element(keycode, pressure, dist):
+    distribution = dist[0]
+    keycode_dist = dist[1]
+    if pressure < keycode_dist[keycode].get('lower') or pressure > keycode_dist[keycode].get('upper'):
+        return -1
+    # TODO Use keycode distribution
     for i, cluster in enumerate(distribution):
-        if cluster.get('lower') <= element < cluster.get('upper'):
+        if cluster.get('lower') <= pressure < cluster.get('upper'):
             return i
-    if element < distribution[0].get('lower'):
-        return 0
+        if pressure < distribution[0].get('lower'):
+            return -1
     return len(distribution) - 1
 
 
@@ -131,10 +136,10 @@ def find_max_min(read):
     minimum = 1.0
     maximum = 0.0
     for r in read:
-        if float(r[3]) > maximum:
-            maximum = float(r[3])
-        if float(r[3]) < minimum:
-            minimum = float(r[3])
+        if float(r[2]) > maximum:
+            maximum = float(r[2])
+        if float(r[2]) < minimum:
+            minimum = float(r[2])
     return {'max': maximum, 'min': minimum}
 
 
@@ -143,6 +148,7 @@ def cluster_algorithm(raw_data_file, token):
     with open(raw_data_file, 'rt') as csvfile:
         reader = csv.reader(csvfile)
         key_dist = keycode_distribution(reader)
+
     with open(raw_data_file, 'rt') as csvfile:
         reader2 = csv.reader(csvfile)
         max_min = find_max_min(reader2)
@@ -159,7 +165,7 @@ def cluster_algorithm(raw_data_file, token):
         current += variation
         i += 1
 
-    return distribution
+    return [distribution, key_dist]
 
 
 # TODO Keycode distributions
@@ -174,9 +180,12 @@ def keycode_distribution(reader):
     for key, value in enumerate(data):
         # TODO
         n = len(value)
-        m = sum(value) / n
-        sd = math.sqrt(sum((x - m)**2 for x in value) / n)
-        distribution[key] = {'std': sd, 'mean': m}
+        if n > 0:
+            m = sum(value) / n
+            sd = math.sqrt(sum((x - m)**2 for x in value) / n)
+            distribution[key] = {'std': sd, 'mean': m, 'lower': m - 2 * sd, 'upper': m + 2 * sd}
+        else:
+            distribution[key] = {'std': 0, 'mean': 0, 'lower': 0, 'upper': 0}
 
     return distribution
 
@@ -192,11 +201,14 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 
         # Normalize data based on found distribution
         for row in reader2:
-            normalized_item = normalize_raw_element(float(row[3]), distribution)
+            normalized_item = normalize_raw_element(int(row[1]), float(row[2]), distribution)
             normalized.append([row[0], int(normalized_item)])
 
         # Analyze touches
         for touch in normalized:
+            # TODO Throw out pressure values less than 0 as these are ones that were not within their keycode's distribution of 2-sigma
+            if touch[1] < 0:
+                current_window = []
             if len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) >= threshold:
                 current_window = []
                 current_window.append(touch)
@@ -251,7 +263,7 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
 
         # Normalize data based on found distribution
         for row in reader2:
-            normalized_item = normalize_raw_element(float(row[3]), distribution)
+            normalized_item = normalize_raw_element(int(row[1]), float(row[2]), distribution)
             normalized.append([row[0], int(normalized_item)])
 
 
@@ -264,7 +276,9 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
                 base_n = ret[1]
                 probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
 
-            if len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) >= threshold:
+            if touch[1] < 0:
+                current_window = []
+            elif len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) >= threshold:
                 current_window = []
                 current_window.append(touch)
             else:
