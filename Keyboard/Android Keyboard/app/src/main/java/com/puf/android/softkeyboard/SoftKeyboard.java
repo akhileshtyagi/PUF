@@ -16,13 +16,11 @@
 
 package com.puf.android.softkeyboard;
 
-import android.content.SharedPreferences;
 import android.inputmethodservice.InputMethodService;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Build;
 import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.text.InputType;
 import android.text.method.MetaKeyKeyListener;
 import android.util.Log;
@@ -35,14 +33,11 @@ import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputConnection;
 import android.view.inputmethod.InputMethodManager;
 import android.view.inputmethod.InputMethodSubtype;
-import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import com.example.android.softkeyboard.R;
@@ -89,10 +84,8 @@ public class SoftKeyboard extends InputMethodService
     
     private String mWordSeparators;
 
-    private ArrayList<Touch> touches;
-
     // Android PUF Security Variables
-    private final String accountName = "IanRichardson";
+    private final String accountName = "Tester";
     private String fileName;
     private File dir;
     private File f;
@@ -105,7 +98,6 @@ public class SoftKeyboard extends InputMethodService
         super.onCreate();
         mInputMethodManager = (InputMethodManager)getSystemService(INPUT_METHOD_SERVICE);
         mWordSeparators = getResources().getString(R.string.word_separators);
-        touches = new ArrayList<Touch>();
     }
     
     /**
@@ -141,11 +133,8 @@ public class SoftKeyboard extends InputMethodService
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 switch(motionEvent.getAction()) {
                     case MotionEvent.ACTION_DOWN:
-//                        touches.add(new Touch(motionEvent));
-//                        Log.d("Keyboard Touch", touches.get(touches.size()-1).toString());
-//                        recordTouch(new Touch(motionEvent));
                         // Android PUF Research
-                        logEvent(motionEvent.getX(), motionEvent.getY(), motionEvent.getEventTime(), motionEvent.getPressure());
+                        logTouchEvent(motionEvent.getX(), motionEvent.getY(), motionEvent.getEventTime(), motionEvent.getPressure());
                         break;
                     case MotionEvent.ACTION_UP:
                         break;
@@ -164,7 +153,7 @@ public class SoftKeyboard extends InputMethodService
     }
 
     // Android PUF Security Research
-    private void logEvent(final float x, final float y, final long eventTime, final float pressure) {
+    private void logTouchEvent(final float x, final float y, final long eventTime, final float pressure) {
         dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "PUF");
         if(!dir.exists()) {
             dir.mkdirs();
@@ -190,47 +179,32 @@ public class SoftKeyboard extends InputMethodService
         }
     }
 
-    /**
-    * Called when a keyboard touch event happens to write the touch to file
-    */
-    @SuppressWarnings("ResultOfMethodCallIgnored")
-//    private void recordTouch(Touch touch) {
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-//        String testerName = prefs.getString("TesterName", "Ian Richardson");
-//        String deviceName = prefs.getString("DeviceName", "nexus-02");
-//        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-//        String date = df.format(Calendar.getInstance().getTime());
-//        String orientation = "0 deg";
-//
-//        File dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "PUF");
-//        if(!dir.exists()) {
-//            dir.mkdirs();
-//        }
-//
-//        String fileName =  date + "_" + testerName + "_" + deviceName + "_" + orientation + ".csv";
-//        File f = new File(dir, fileName);
-//        if(!f.exists()) {
-//            try {
-//                f.createNewFile();
-//                CSVWriter csvWrite = new CSVWriter(new FileWriter(f));
-//                csvWrite.writeNext(touch.toArray());
-//                csvWrite.close();
-//            }
-//            catch (Exception e) {
-//                Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//        else {
-//            try {
-//                CSVWriter csvWrite = new CSVWriter(new FileWriter(f, true));
-//                csvWrite.writeNext(touch.toArray());
-//                csvWrite.close();
-//            }
-//            catch (Exception e) {
-//                Toast.makeText(getBaseContext(), e.toString(), Toast.LENGTH_SHORT).show();
-//            }
-//        }
-//    }
+    // Android PUF Security Research
+    private void logKeyEvent(final int keyCode) {
+        dir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), "PUF");
+        if(!dir.exists()) {
+            dir.mkdirs();
+        }
+        fileName = accountName + "_" + Build.SERIAL + "keyCodes.csv";
+        f = new File(dir, fileName);
+        if(!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch(IOException e) {
+                e.printStackTrace();
+            }
+        }
+        String line = Integer.toString(keyCode) + '\n';
+        Log.d("Keyboard Code", line);
+        try {
+            FileWriter writer = new FileWriter(f, true);
+            writer.append(line);
+            writer.flush();
+            writer.close();
+        } catch(IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Called by the framework when your view for showing candidates needs to
@@ -602,6 +576,7 @@ public class SoftKeyboard extends InputMethodService
     // Implementation of KeyboardViewListener
 
     public void onKey(int primaryCode, int[] keyCodes) {
+        logKeyEvent(primaryCode);
         if (isWordSeparator(primaryCode)) {
             // Handle separator
             if (mComposing.length() > 0) {

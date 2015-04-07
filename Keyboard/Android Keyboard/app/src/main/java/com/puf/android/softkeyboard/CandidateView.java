@@ -60,7 +60,6 @@ public class CandidateView extends View {
 
     private GestureDetector mGestureDetector;
 
-    private ArrayList<Touch> touches;
     /**
      * Construct a CandidateView for showing suggested words for completion.
      * @param context
@@ -76,7 +75,6 @@ public class CandidateView extends View {
                 android.R.attr.state_pressed
         });
         Resources r = context.getResources();
-        touches = new ArrayList<Touch>();
 
         setBackgroundColor(r.getColor(R.color.candidate_background));
 
