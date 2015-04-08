@@ -56,7 +56,7 @@ public class MainActivity extends Activity
         if (prefs.getBoolean("AutoIncSeed", true))
         {
             Editor prefEditor = prefs.edit();
-            if(currSeed >= 5)
+            if(currSeed >= 8)
             {
                 currSeed = 0;
                 seedsCreated++;
