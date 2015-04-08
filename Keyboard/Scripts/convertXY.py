@@ -44,7 +44,7 @@ def convert_file():
 
     output_path = raw_data_dir + base_file_desc.get(
         'user') + '/' + base_file_desc.get(
-        'device') + '/' + base_file_desc.get('date') + '/'
+        'device') + '/'
 
     if os.name is 'nt':
         output_path = os.path.normpath(output_path)
