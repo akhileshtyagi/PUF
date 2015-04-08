@@ -14,5 +14,5 @@
 - blue
 - red
 ```
-8. The `seed` attribute in the upper right will increment until 8, at which point the `Total` will increment and the `Seed` will go back to 1
+8. The `seed` attribute in the upper right will incrememnt until 8, at which point the `Total` will incrememnt and the `Seed` will go back to 1
 9. Once `Total` has reached anywhere between 8 to 20, send the data by opening the menu again and hitting **Email CSVs**. From here you will open choose how to send the email and simply hit send.
