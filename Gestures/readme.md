@@ -8,9 +8,6 @@
 4. Using the file manager, find the downloaded apk file and open it to install
 5. Once the **Gesture Authentication** application is opened, open the menu by hitting the three dots in the top right
 6. Open `Settings` (bottom option from the menu) and enter in **Tester Name** and **Device Name**
-7. Go back to the main screen and trace the paths shown in the order:
-- green
-- blue
-- red
+7. Go back to the main screen and trace the paths shown in the order: __green__, __blue__, __red__
 8. The `seed` attribute in the upper right will incrememnt until 8, at which point the `Total` will incrememnt and the `Seed` will go back to 1
 9. Once `Total` has reached anywhere between 8 to 20, send the data by opening the menu again and hitting **Email CSVs**. From here you will open choose how to send the email and simply hit send.
