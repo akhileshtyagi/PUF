@@ -19,7 +19,7 @@ def print_options():
           "3. Find the likely profile matches for a set of raw data\n"
           "4. Print the effectiveness of different token,window,time sizes\n"
           "5. DEBUG: create log files\n"
-          "6. Convert CSV file with x,y points to keyboard code"
+          "6. Convert CSV file with x,y points to keyboard code\n"
           "7. DEBUG: augment data for histogram\n"
           "9. Exit\n")
 
