@@ -66,7 +66,7 @@ def print_selections(selections):
 # Type-checks user input to be an integer within the
 # valid option range and returns the choice
 #
-# @return: integer
+# @return: Integer
 ########################################################
 def grab_valid_input(options):
     choice = int(raw_input())
@@ -121,11 +121,17 @@ def normalize_raw_element(keycode, pressure, distribution, keycode_dist):
 
 
 ########################################################
-# @param(current_window): TODO
+# @param(current_window): List of List touches with
+# time as a Long in touch[0] and pressure as a Float in
+# touch[1]
 #
-# TODO
+# Given a current_window List, produce a unique
+# hashcode for current_window[:-1] as the last touch
+# is the next touch and not a part of the sequence
+# but rather a part of the inner probabilities
 #
-# @return: TODO
+# @return: Integer that represents the hashed value of
+# the given current_window
 ########################################################
 def hash_function(current_window):
     hashcode = float(0.0)
@@ -137,8 +143,11 @@ def hash_function(current_window):
 
 
 ########################################################
-# @param(hashcode_bin): TODO
-# @param(current_window): TODO
+# @param(hashcode_bin): Dictionary value at the hashcode
+# which is a Dictionary with keys 'chain' and 'total'
+# @param(current_window): List of List touches with
+# time as a Long in touch[0] and pressure as a Float in
+# touch[1]
 #
 # TODO
 #
@@ -160,11 +169,17 @@ def match_sequence(hashcode_bin, current_window):
 
 
 ########################################################
-# @param(hashcode): TODO
-# @param(hashcode_bin): TODO
-# @param(link_index): TODO
-# @param(current_window): TODO
-# @param(table): TODO
+# @param(hashcode): Integer that represents the hashed value of
+# the given current_window
+# @param(hashcode_bin): Dictionary value at the hashcode
+# which is a Dictionary with keys 'chain' and 'total'
+# @param(link_index): Integer representing an index into
+# the List of sequences
+# @param(current_window): List of List touches with
+# time as a Long in touch[0] and pressure as a Float in
+# touch[1]
+# @param(table): A hash table of Dictionaries with keys
+# 'chain' and 'total'
 #
 # TODO
 #
@@ -179,11 +194,17 @@ def increment_probability(hashcode, hashcode_bin, link_index, current_window, ta
 
 
 ########################################################
-# @param(hashcode): TODO
-# @param(hashcode_bin): TODO
-# @param(current_window): TODO
-# @param(table): TODO
-# @param(token): TODO
+# @param(hashcode): Integer that represents the hashed value of
+# the given current_window
+# @param(hashcode_bin): Dictionary value at the hashcode
+# which is a Dictionary with keys 'chain' and 'total'
+# @param(current_window): List of List touches with
+# time as a Long in touch[0] and pressure as a Float in
+# touch[1]
+# @param(table): A hash table of Dictionaries with keys
+# 'chain' and 'total'
+# @param(token): Integer representing the number of tokens
+# used in this Markov Model distribution
 #
 # TODO
 #
@@ -205,10 +226,15 @@ def add_link(hashcode, hashcode_bin, current_window, table, token):
 
 
 ########################################################
-# @param(hashcode): TODO
-# @param(current_window): TODO
-# @param(table): TODO
-# @param(token): TODO
+# @param(hashcode): Integer that represents the hashed value of
+# the given current_window
+# @param(current_window): List of List touches with
+# time as a Long in touch[0] and pressure as a Float in
+# touch[1]
+# @param(table): A hash table of Dictionaries with keys
+# 'chain' and 'total'
+# @param(token): Integer representing the number of tokens
+# used in this Markov Model distribution
 #
 # TODO
 #
@@ -229,9 +255,13 @@ def add_key(hashcode, current_window, table, token):
 
 
 ########################################################
-# @param(hashcode_bin): TODO
-# @param(current_window): TODO
-# @param(link_index): TODO
+# @param(hashcode_bin): Dictionary value at the hashcode
+# which is a Dictionary with keys 'chain' and 'total'
+# @param(current_window): List of List touches with
+# time as a Long in touch[0] and pressure as a Float in
+# touch[1]
+# @param(link_index): Integer representing an index into
+# the List of sequences
 #
 # TODO
 #
@@ -242,7 +272,8 @@ def touch_probability(hashcode_bin, current_window, link_index):
 
 
 ########################################################
-# @param(table): TODO
+# @param(table): A hash table of Dictionaries with keys
+# 'chain' and 'total'
 #
 # TODO
 #
@@ -258,7 +289,7 @@ def convert_table_to_probabilities(table):
 
 
 ########################################################
-# @param(read): TODO
+# @param(read): A csv file reader
 #
 # TODO
 #
@@ -276,8 +307,10 @@ def find_max_min(read):
 
 
 ########################################################
-# @param(raw_data_file): TODO
-# @param(token): TODO
+# @param(raw_data_file): String representing an absolute
+# file path to the file
+# @param(token): Integer representing the number of tokens
+# used in this Markov Model distribution
 #
 # TODO
 #
@@ -309,7 +342,7 @@ def cluster_algorithm(raw_data_file, token):
 
 
 ########################################################
-# @param(reader): TODO
+# @param(reader): A csv file reader
 #
 # TODO
 #
@@ -337,13 +370,18 @@ def keycode_distribution(reader):
 
 
 ########################################################
-# @param(raw_data_file): TODO
-# @param(table): TODO
-# @param(distribution): TODO
-# @param(window): TODO
-# @param(threshold): TODO
-# @param(token): TODO
-# @param(match_user): TODO
+# @param(raw_data_file): String representing an absolute
+# file path to the file
+# @param(table): A hash table of Dictionaries with keys
+# 'chain' and 'total'
+# @param(distribution): A List with a List for the overall
+# base distribution in index 0 and the overall keycode
+# distribution in index 1
+# @param(window): Integer representing the window size
+# @param(threshold): Integer representing the time threshold
+# @param(token): Integer representing the number of tokens
+# used in this Markov Model distribution
+# @param(match_user): Boolean
 #
 # TODO
 #
@@ -360,7 +398,7 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 
         # Normalize data based on found distribution
         for row in reader2:
-            normalized_item = normalize_raw_element(int(row[1]), float(row[2]), distribution)
+            normalized_item = normalize_raw_element(int(row[1]), float(row[2]), distribution[0], distribution[1])
             normalized.append([row[0], int(normalized_item)])
 
         # Analyze touches
@@ -408,12 +446,17 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 
 
 ########################################################
-# @param(raw_data_file): TODO
-# @param(base_table): TODO
-# @param(distribution): TODO
-# @param(window): TODO
-# @param(threshold): TODO
-# @param(token): TODO
+# @param(raw_data_file): String representing an absolute
+# file path to the file
+# @param(base_table): A hash table of Dictionaries with keys
+# 'chain' and 'total'
+# @param(distribution): A List with a List for the overall
+# base distribution in index 0 and the overall keycode
+# distribution in index 1
+# @param(window): Integer representing the window size
+# @param(threshold): Integer representing the time threshold
+# @param(token): Integer representing the number of tokens
+# used in this Markov Model distribution
 # @param(n): TODO
 #
 # TODO
@@ -500,8 +543,10 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
 
 
 ########################################################
-# @param(base): TODO
-# @param(auth): TODO
+# @param(base): A hash table of Dictionaries with keys
+# 'chain' and 'total'
+# @param(auth): A hash table of Dictionaries with keys
+# 'chain' and 'total'
 #
 # TODO
 #
@@ -549,9 +594,13 @@ def compare(base, auth):
 
 
 ########################################################
-# @param(auth): TODO
-# @param(base): TODO
-# @param(current): TODO
+# @param(auth): A hash table of Dictionaries with keys
+# 'chain' and 'total'
+# @param(base): A hash table of Dictionaries with keys
+# 'chain' and 'total'
+# @param(current): List of List touches with
+# time as a Long in touch[0] and pressure as a Float in
+# touch[1]
 #
 # TODO
 #
@@ -574,9 +623,13 @@ def get_oldest(auth, base, current):
 
 
 ########################################################
-# @param(auth): TODO
-# @param(base): TODO
-# @param(current): TODO
+# @param(auth): A hash table of Dictionaries with keys
+# 'chain' and 'total'
+# @param(base): A hash table of Dictionaries with keys
+# 'chain' and 'total'
+# @param(current): List of List touches with
+# time as a Long in touch[0] and pressure as a Float in
+# touch[1]
 #
 # TODO
 #
@@ -599,8 +652,11 @@ def get_newest(auth, base, current):
 
 
 ########################################################
-# @param(table): TODO
-# @param(current): TODO
+# @param(table): A hash table of Dictionaries with keys
+# 'chain' and 'total'
+# @param(current): List of List touches with
+# time as a Long in touch[0] and pressure as a Float in
+# touch[1]
 #
 # TODO
 #
@@ -624,8 +680,8 @@ def remove_oldest(table, current):
 
 
 ########################################################
-# @param(base_sequence): TODO
-# @param(auth_chain): TODO
+# @param(base_sequence): List of touches
+# @param(auth_chain): List of sequences
 #
 # TODO
 #
