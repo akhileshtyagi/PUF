@@ -9,6 +9,7 @@ from decimal import *
 
 PRECISION = 50
 
+
 def get_current_dir():
     return os.path.dirname(os.path.abspath(inspect.getfile(inspect.currentframe())))
 
@@ -48,9 +49,11 @@ def create_dir_path(path):
 def normalize_raw_element(keycode, pressure, dist):
     distribution = dist[0]
     keycode_dist = dist[1]
+    if keycode < 0:
+        keycode = 0
     if pressure < keycode_dist[keycode].get('lower') or pressure > keycode_dist[keycode].get('upper'):
         return -1
-    # TODO Use keycode distribution
+    pressure = keycode_dist[keycode].get('mean')
     for i, cluster in enumerate(distribution):
         if cluster.get('lower') <= pressure < cluster.get('upper'):
             return i
@@ -169,7 +172,7 @@ def cluster_algorithm(raw_data_file, token):
     return [distribution, key_dist]
 
 
-# TODO Keycode distributions
+# Keycode distributions
 def keycode_distribution(reader):
     data = [[] for i in range(126)]
     # data = {k: [] for k in range(126)}
@@ -179,7 +182,6 @@ def keycode_distribution(reader):
         data[int(row[1])].append(float(row[2]))
 
     for key, value in enumerate(data):
-        # TODO
         n = len(value)
         if n > 0:
             m = sum(value) / n
@@ -207,7 +209,7 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 
         # Analyze touches
         for touch in normalized:
-            # TODO Throw out pressure values less than 0 as these are ones that were not within their keycode's distribution of 2-sigma
+            # Throw out pressure values less than 0 as these are ones that were not within their keycode's distribution of 2-sigma
             if touch[1] < 0:
                 current_window = []
             if len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) >= threshold:
@@ -258,6 +260,7 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
     table = {}
     s = 0
     base_n = 0
+    i = 0
 
     with open(raw_data_file, 'rt') as csvfile:
         reader2 = csv.reader(csvfile)
@@ -267,16 +270,8 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
             normalized_item = normalize_raw_element(int(row[1]), float(row[2]), distribution)
             normalized.append([row[0], int(normalized_item)])
 
-
         # Analyze touches
-        for i, touch in enumerate(normalized):
-            # Do initial comparison of tables
-            if i == n:
-                ret = compare(base_table, table)
-                s = ret[0]
-                base_n = ret[1]
-                probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
-
+        for touch in normalized:
             if touch[1] < 0:
                 current_window = []
             elif len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) >= threshold:
@@ -286,6 +281,7 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
                 current_window.append(touch)
                 # Once the window size is filled and a next touch is captured add it to the Markov Model
                 if len(current_window) == window + 1:
+                    i += 1
                     # Save window sequence for removal once model comparison threshold met
                     sequences.append(copy.deepcopy(current_window))
                     # Hash the touch pressures
@@ -304,9 +300,19 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
                     else:
                         # Hashcode not found; Add a new bin with a link to that sequence and initial touch event
                         table = add_key(hashcode, current_window, table, token)
-                    # Pop off the oldest touch
-                    current_window.pop(0)
-                    if i > n:
+                    # Do initial comparison of tables
+                    if i == n:
+                        ret = compare(base_table, table)
+                        s = ret[0]
+                        base_n = ret[1]
+                        probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
+                    if i > n and i % 10 is 0:
+                        # Try out new method of comparing every 10 sequences as the add/remove don't seem to work quite right
+                        # table = remove_oldest(table, sequences[0])
+                        # ret = compare(base_table, table)
+                        # s = ret[0]
+                        # base_n = ret[1]
+                        # probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
                         # Subtract the oldest sequence probability from the total sum
                         s -= get_oldest(table, base_table, sequences[0])
                         # Remove the oldest sequence from the authentication lookup table
@@ -314,10 +320,13 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
                         # Remove the oldest sequence from the saved list
                         sequences.pop(0)
                         # Add the newest sequence probability to the total sum
-                        s += get_newest(table, base_table, sequences[-1])
-                        # Append the new probability to the list
+                        if len(sequences) > 0:
+                            s += get_newest(table, base_table, sequences[-1])
+                            # Append the new probability to the list
                         probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
+                    # Pop off the oldest touch
 
+                    current_window.pop(0)
     return probabilities
 
 
@@ -350,10 +359,11 @@ def compare(base, auth):
     # Handle keys in auth that are not in base
     for key in auth.keys():
         if key in base:
-            chain_index = find_sequence(chain.get('sequence'), base.get(key).get('chain'))
-            if chain_index == -1:
-                s -= 1
-                n += 1
+            for seq in auth.get(key).get('chain'):
+                chain_index = find_sequence(seq.get('sequence'), base.get(key).get('chain'))
+                if chain_index == -1:
+                    s -= 1
+                    n += 1
         else:
             n += len(auth.get(key).get('chain'))
             s -= len(auth.get(key).get('chain'))

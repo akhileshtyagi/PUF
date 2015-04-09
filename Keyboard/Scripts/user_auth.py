@@ -13,10 +13,10 @@ PRECISION = 50
 
 # debug use
 debug_log_lookup_path=os.path.join(myutilities.get_current_dir(),"logs","log_probability_progression.txt")
-debug_log_lookup_file=open(debug_log_lookup_path,'w+')
+# debug_log_lookup_file=open(debug_log_lookup_path,'w+')
 
 debug_log_lookup_path_0=os.path.join(myutilities.get_current_dir(),"logs","authentication_probability.txt")
-debug_log_lookup_file_0=open(debug_log_lookup_path_0,'w+')
+# debug_log_lookup_file_0=open(debug_log_lookup_path_0,'w+')
 
 ### globals (i know its bad programming)
 # contains the number of windows used for authentication in the last call to multiply_all_probabilities
