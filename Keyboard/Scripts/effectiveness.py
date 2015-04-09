@@ -28,7 +28,7 @@ def print_effectiveness():
  	#good_data=os.path.join(raw_data_dir,"Ian Richardson","nexus-02","test_small.csv")
 
  	#log file
- 	log_file_path=os.path.join(myutilities.get_current_dir(),"log_effectiveness.txt")
+ 	log_file_path=os.path.join(myutilities.get_current_dir(),"logs","log_effectiveness.txt")
 	log_file=open(log_file_path,'w+')
 
 	#write the header to the log file
@@ -68,8 +68,8 @@ def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_ba
 
 	good_outcomes=0
 	bad_outcomes=0
-	temp_file_path=myutilities.get_current_dir()+ '/temp_temp'
-	good_temp_file_path=myutilities.get_current_dir()+ '/good_temp'
+	temp_file_path=os.path.join(myutilities.get_current_dir(),"temp",'/temp_temp')
+	good_temp_file_path=os.path.join(myutilities.get_current_dir(),"temp",'/good_temp')
 	good_temp_file=0
 	temp_file=0
 	i=0
