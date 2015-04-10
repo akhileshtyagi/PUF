@@ -98,15 +98,13 @@ def create_dir_path(path):
 # keycode with a dictionary in each index with keys
 # 'lower', 'upper', 'mean' and 'std'
 #
-# TODO
-#
-# @return: integer representing the index that the given
+# Calculate a number representing the index that the given
 # pressure value for the given keycode falls within
 # and -1 if not
+#
+# @return:
 ########################################################
 def normalize_raw_element(keycode, pressure, distribution, keycode_dist):
-    # distribution = dist[0]
-    # keycode_dist = dist[1]
     if keycode < 0:
         keycode = 0
     if pressure < keycode_dist[keycode].get('lower') or pressure > keycode_dist[keycode].get('upper'):
@@ -149,9 +147,11 @@ def hash_function(current_window):
 # time as a Long in touch[0] and pressure as a Float in
 # touch[1]
 #
-# TODO
+# Search the hashcode_bin for the current_window sequence
 #
-# @return: TODO
+# @return: Integer representing the index in the chain
+# that matches the current_window sequence or -1 if not
+# found in the chain
 ########################################################
 def match_sequence(hashcode_bin, current_window):
     if hashcode_bin is None:
@@ -181,11 +181,11 @@ def match_sequence(hashcode_bin, current_window):
 # @param(table): A hash table of Dictionaries with keys
 # 'chain' and 'total'
 #
-# TODO
+# Given the index of the node in the bin, increment the value
+# of current_window[len(current_window) - 1]
 #
-# @return: TODO
+# @return: Updated hash table
 ########################################################
-# Given the index of the node in the bin, increment the value of current_window[len(current_window) - 1]
 def increment_probability(hashcode, hashcode_bin, link_index, current_window, table):
     hashcode_bin.get('chain')[link_index].get('probabilities')[current_window[-1][1]] += 1
     hashcode_bin.get('chain')[link_index]['total'] = hashcode_bin.get('chain')[link_index].get('total') + 1
@@ -206,11 +206,11 @@ def increment_probability(hashcode, hashcode_bin, link_index, current_window, ta
 # @param(token): Integer representing the number of tokens
 # used in this Markov Model distribution
 #
-# TODO
+# # Add link to bin with {'sequence': current_window[0...n-1]
+# and current_window[n-1]: 1}
 #
-# @return: TODO
+# @return: Updated hash table
 ########################################################
-# Add link to bin with {'sequence': current_window[0...n-1] and current_window[n-1]: 1}
 def add_link(hashcode, hashcode_bin, current_window, table, token):
     lst = [0] * token
     lst[current_window[-1][1]] = 1
@@ -236,11 +236,11 @@ def add_link(hashcode, hashcode_bin, current_window, table, token):
 # @param(token): Integer representing the number of tokens
 # used in this Markov Model distribution
 #
-# TODO
+# # Add a bin with {'chain': [{'sequence': current_window[0...n-1]
+# and current_window[n-1]: 1}]}
 #
-# @return: TODO
+# @return: Updated hash table
 ########################################################
-# Add a bin with {'chain': [{'sequence': current_window[0...n-1] and current_window[n-1]: 1}]}
 def add_key(hashcode, current_window, table, token):
     lst = [0] * token
     lst[current_window[-1][1]] = 1
@@ -263,9 +263,9 @@ def add_key(hashcode, current_window, table, token):
 # @param(link_index): Integer representing an index into
 # the List of sequences
 #
-# TODO
+# Get the probability of a touch after a given sequence
 #
-# @return: TODO
+# @return:
 ########################################################
 def touch_probability(hashcode_bin, current_window, link_index):
     return hashcode_bin.get('chain')[link_index].get('probabilities')[current_window[-1][1]]
@@ -275,9 +275,9 @@ def touch_probability(hashcode_bin, current_window, link_index):
 # @param(table): A hash table of Dictionaries with keys
 # 'chain' and 'total'
 #
-# TODO
+# Convert the raw Markov Model of total to probabilities
 #
-# @return: TODO
+# @return: Updated hash table
 ########################################################
 def convert_table_to_probabilities(table):
     getcontext().prec = PRECISION
@@ -291,9 +291,9 @@ def convert_table_to_probabilities(table):
 ########################################################
 # @param(read): A csv file reader
 #
-# TODO
+# Find the max and min pressure in a set of touches
 #
-# @return: TODO
+# @return: Dictionary with keys 'max' and 'min'
 ########################################################
 def find_max_min(read):
     minimum = 1.0
@@ -312,9 +312,14 @@ def find_max_min(read):
 # @param(token): Integer representing the number of tokens
 # used in this Markov Model distribution
 #
-# TODO
+# Generate a distribution of equally spaced tokens limited
+# by the max and min of the touch pressures as well as a
+# distribution of average and standard deviation for each
+# keycode present in the set of touches
 #
-# @return: TODO
+# @return: A List with a List for the overall
+# distribution in index 0 and the overall keycode
+# distribution in index 1
 ########################################################
 # Generate a clustering distribution and return as tuple ranges
 def cluster_algorithm(raw_data_file, token):
@@ -344,9 +349,10 @@ def cluster_algorithm(raw_data_file, token):
 ########################################################
 # @param(reader): A csv file reader
 #
-# TODO
+# Generate a keycode distribution based on a set of touches
+# with a mean, standard deviation, lower bound and upper bound
 #
-# @return: TODO
+# @return: A List representing the overall keycode distribution
 ########################################################
 # Keycode distributions
 def keycode_distribution(reader):
@@ -361,7 +367,7 @@ def keycode_distribution(reader):
         n = len(value)
         if n > 0:
             m = sum(value) / n
-            sd = math.sqrt(sum((x - m)**2 for x in value) / n)
+            sd = math.sqrt(sum((x - m) ** 2 for x in value) / n)
             distribution[key] = {'std': sd, 'mean': m, 'lower': m - 2 * sd, 'upper': m + 2 * sd}
         else:
             distribution[key] = {'std': 0, 'mean': 0, 'lower': 0, 'upper': 0}
@@ -383,9 +389,9 @@ def keycode_distribution(reader):
 # used in this Markov Model distribution
 # @param(match_user): Boolean
 #
-# TODO
+# Generate a Markov Model
 #
-# @return: TODO
+# @return: Hash table that represents the Markov Model
 ########################################################
 def build_lookup(raw_data_file, table, distribution, window, threshold, token, match_user):
     normalized = []
@@ -403,7 +409,8 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 
         # Analyze touches
         for touch in normalized:
-            # Throw out pressure values less than 0 as these are ones that were not within their keycode's distribution of 2-sigma
+            # Throw out pressure values less than 0 as these are ones that were not within their keycode's
+            # distribution of 2-sigma
             if touch[1] < 0:
                 current_window = []
             if len(current_window) > 0 and long(touch[0]) - long(current_window[-1][0]) >= threshold:
@@ -457,11 +464,12 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 # @param(threshold): Integer representing the time threshold
 # @param(token): Integer representing the number of tokens
 # used in this Markov Model distribution
-# @param(n): TODO
+# @param(n): Markov Model size for new data
 #
-# TODO
+# Generate a moving window Markov Model that is compared to
+# a base Markov Model
 #
-# @return: TODO
+# @return: List of probabilities for each compare iteration
 ########################################################
 def build_auth_table(raw_data_file, base_table, distribution, window, threshold, token, n):
     normalized = []
@@ -519,7 +527,6 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
                         base_n = ret[1]
                         probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
                     if i > n and i % 10 is 0:
-                        # Try out new method of comparing every 10 sequences as the add/remove don't seem to work quite right
                         # table = remove_oldest(table, sequences[0])
                         # ret = compare(base_table, table)
                         # s = ret[0]
@@ -550,7 +557,8 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
 #
 # TODO
 #
-# @return: TODO
+# @return: List of sum of probabilities in index 0 and
+# number of unique sequences in index 1
 ########################################################
 def compare(base, auth):
     # Sum of probabilities
@@ -602,10 +610,11 @@ def compare(base, auth):
 # time as a Long in touch[0] and pressure as a Float in
 # touch[1]
 #
-# TODO
+# Get the difference in probability of current of base - auth
 #
-# @return: TODO
+# @return: Decimal of precision 4
 ########################################################
+# TODO Double check the functionality of this function, why do I have two functions?
 def get_oldest(auth, base, current):
     getcontext().prec = 4
     auth_hashcode_bin = auth.get(hash_function(current))
@@ -616,7 +625,8 @@ def get_oldest(auth, base, current):
     base_link_index = match_sequence(base_hashcode_bin, current)
     if base_link_index != -1:
         base_prob = Decimal(
-            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]]) / Decimal(base_hashcode_bin.get('chain')[base_link_index]['total'])
+            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]]) / Decimal(
+            base_hashcode_bin.get('chain')[base_link_index]['total'])
         return base_prob - auth_prob
     else:
         return 0 - auth_prob
@@ -631,10 +641,11 @@ def get_oldest(auth, base, current):
 # time as a Long in touch[0] and pressure as a Float in
 # touch[1]
 #
-# TODO
+# Get the difference in probability of current of base - auth
 #
-# @return: TODO
+# @return: Decimal of precision 4
 ########################################################
+# TODO Double check the functionality of this function, redudant?
 def get_newest(auth, base, current):
     getcontext().prec = 4
     auth_hashcode_bin = auth.get(hash_function(current))
@@ -645,7 +656,8 @@ def get_newest(auth, base, current):
     base_link_index = match_sequence(base_hashcode_bin, current)
     if base_link_index != -1:
         base_prob = Decimal(
-            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]]) / Decimal(base_hashcode_bin.get('chain')[base_link_index]['total'])
+            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]]) / Decimal(
+            base_hashcode_bin.get('chain')[base_link_index]['total'])
         return base_prob - auth_prob
     else:
         return 0 - auth_prob
@@ -658,9 +670,9 @@ def get_newest(auth, base, current):
 # time as a Long in touch[0] and pressure as a Float in
 # touch[1]
 #
-# TODO
+# Remove the current sequence from the table
 #
-# @return: TODO
+# @return: Return the updated hash table
 ########################################################
 def remove_oldest(table, current):
     hashcode = hash_function(current)
@@ -683,9 +695,10 @@ def remove_oldest(table, current):
 # @param(base_sequence): List of touches
 # @param(auth_chain): List of sequences
 #
-# TODO
+# Given a list of touches, find sequence in the auth_chain
 #
-# @return: TODO
+# @return: Return the index of the matching sequence in
+# auth_chain and -1 if not found
 ########################################################
 def find_sequence(base_sequence, auth_chain):
     for i, link in enumerate(auth_chain):
