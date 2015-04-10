@@ -487,7 +487,7 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
 
         # Normalize data based on found distribution
         for row in reader2:
-            normalized_item = normalize_raw_element(int(row[1]), float(row[2]), distribution)
+            normalized_item = normalize_raw_element(int(row[1]), float(row[2]), distribution[0], distribution[1])
             normalized.append([row[0], int(normalized_item)])
 
         # Analyze touches
@@ -533,14 +533,14 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
                         # base_n = ret[1]
                         # probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
                         # Subtract the oldest sequence probability from the total sum
-                        s -= get_oldest(table, base_table, sequences[0])
+                        s -= get_probability(table, base_table, sequences[0])
                         # Remove the oldest sequence from the authentication lookup table
                         table = remove_oldest(table, sequences[0])
                         # Remove the oldest sequence from the saved list
                         sequences.pop(0)
                         # Add the newest sequence probability to the total sum
                         if len(sequences) > 0:
-                            s += get_newest(table, base_table, sequences[-1])
+                            s += get_probability(table, base_table, sequences[-1])
                             # Append the new probability to the list
                         probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
                     # Pop off the oldest touch
@@ -555,7 +555,7 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
 # @param(auth): A hash table of Dictionaries with keys
 # 'chain' and 'total'
 #
-# TODO
+# Determine the difference in the base and auth Markov Models
 #
 # @return: List of sum of probabilities in index 0 and
 # number of unique sequences in index 1
@@ -615,52 +615,16 @@ def compare(base, auth):
 # @return: Decimal of precision 4
 ########################################################
 # TODO Double check the functionality of this function, why do I have two functions?
-def get_oldest(auth, base, current):
+def get_probability(auth, base, current):
     getcontext().prec = 4
     auth_hashcode_bin = auth.get(hash_function(current))
+    base_hashcode_bin = base.get(hash_function(current))
     auth_link_index = match_sequence(auth_hashcode_bin, current)
+    base_link_index = match_sequence(base_hashcode_bin, current)
     auth_prob = Decimal(auth_hashcode_bin.get('chain')[auth_link_index].get('probabilities')[current[-1][1]]) / Decimal(
         auth_hashcode_bin.get('chain')[auth_link_index]['total'])
-    base_hashcode_bin = base.get(hash_function(current))
-    base_link_index = match_sequence(base_hashcode_bin, current)
-    if base_link_index != -1:
-        base_prob = Decimal(
-            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]]) / Decimal(
-            base_hashcode_bin.get('chain')[base_link_index]['total'])
-        return base_prob - auth_prob
-    else:
-        return 0 - auth_prob
-
-
-########################################################
-# @param(auth): A hash table of Dictionaries with keys
-# 'chain' and 'total'
-# @param(base): A hash table of Dictionaries with keys
-# 'chain' and 'total'
-# @param(current): List of List touches with
-# time as a Long in touch[0] and pressure as a Float in
-# touch[1]
-#
-# Get the difference in probability of current of base - auth
-#
-# @return: Decimal of precision 4
-########################################################
-# TODO Double check the functionality of this function, redudant?
-def get_newest(auth, base, current):
-    getcontext().prec = 4
-    auth_hashcode_bin = auth.get(hash_function(current))
-    auth_link_index = match_sequence(auth_hashcode_bin, current)
-    auth_prob = Decimal(auth_hashcode_bin.get('chain')[auth_link_index].get('probabilities')[current[-1][1]]) / Decimal(
-        auth_hashcode_bin.get('chain')[auth_link_index]['total'])
-    base_hashcode_bin = base.get(hash_function(current))
-    base_link_index = match_sequence(base_hashcode_bin, current)
-    if base_link_index != -1:
-        base_prob = Decimal(
-            base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]]) / Decimal(
-            base_hashcode_bin.get('chain')[base_link_index]['total'])
-        return base_prob - auth_prob
-    else:
-        return 0 - auth_prob
+    base_prob = Decimal(base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]])
+    return base_prob - auth_prob
 
 
 ########################################################
