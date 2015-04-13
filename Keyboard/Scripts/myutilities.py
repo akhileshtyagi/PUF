@@ -398,6 +398,7 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
     current_window = []
     getcontext().prec = PRECISION
     probability = Decimal(0.0)
+    i = 0
 
     with open(raw_data_file, 'rt') as csvfile:
         reader2 = csv.reader(csvfile)
@@ -421,6 +422,7 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 
                 # Once the window size is filled and a next touch is captured add it to the Markov Model
                 if len(current_window) == window + 1:
+                    i += 1
                     # Hash the touch pressures
                     hashcode = hash_function(current_window)
                     if hashcode in table:
@@ -449,7 +451,7 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
         else:
             return 0
     else:
-        return table
+        return [table, i]
 
 
 ########################################################
@@ -526,12 +528,7 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
                         s = ret[0]
                         base_n = ret[1]
                         probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
-                    if i > n and i % 10 is 0:
-                        # table = remove_oldest(table, sequences[0])
-                        # ret = compare(base_table, table)
-                        # s = ret[0]
-                        # base_n = ret[1]
-                        # probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
+                    if i > n:
                         # Subtract the oldest sequence probability from the total sum
                         s -= get_probability(table, base_table, sequences[0])
                         # Remove the oldest sequence from the authentication lookup table
@@ -539,9 +536,8 @@ def build_auth_table(raw_data_file, base_table, distribution, window, threshold,
                         # Remove the oldest sequence from the saved list
                         sequences.pop(0)
                         # Add the newest sequence probability to the total sum
-                        if len(sequences) > 0:
-                            s += get_probability(table, base_table, sequences[-1])
-                            # Append the new probability to the list
+                        s += get_probability(table, base_table, sequences[-1])
+                        # Append the new probability to the list
                         probabilities.append(1 - abs(Decimal(s) / Decimal(base_n)))
                     # Pop off the oldest touch
 
@@ -614,7 +610,6 @@ def compare(base, auth):
 #
 # @return: Decimal of precision 4
 ########################################################
-# TODO Double check the functionality of this function, why do I have two functions?
 def get_probability(auth, base, current):
     getcontext().prec = 4
     auth_hashcode_bin = auth.get(hash_function(current))
@@ -623,6 +618,8 @@ def get_probability(auth, base, current):
     base_link_index = match_sequence(base_hashcode_bin, current)
     auth_prob = Decimal(auth_hashcode_bin.get('chain')[auth_link_index].get('probabilities')[current[-1][1]]) / Decimal(
         auth_hashcode_bin.get('chain')[auth_link_index]['total'])
+    if base_link_index is -1:
+        return -1
     base_prob = Decimal(base_hashcode_bin.get('chain')[base_link_index].get('probabilities')[current[-1][1]])
     return base_prob - auth_prob
 

@@ -95,7 +95,9 @@ for base in os.listdir(raw_data_dir):
         probabilities = []
         probs = []
 
-        n = 1500
+        percentage = 100
+
+        getcontext().prec = 4
 
         window_sizes = [3, 4, 5, 6]
         token_sizes = [5, 6, 7, 8, 9, 10, 20, 30, 40, 50]
@@ -112,13 +114,19 @@ for base in os.listdir(raw_data_dir):
 
                     # Build raw lookup table
                     base_table = {}
-                    base_table = myutilities.build_lookup(base_file_path, base_table, distribution, window, threshold, token,
-                                                          False)
+
+                    ret = myutilities.build_lookup(base_file_path, base_table, distribution, window, threshold, token, False)
+                    base_table = ret[0]
+
+                    # Used for percentage of a lookup table
+                    base_n = ret[1]
+                    fraction = Decimal(100) / Decimal(percentage)
+                    n = int(base_n / fraction)
 
                     # Get probabilities
                     base_table = myutilities.convert_table_to_probabilities(base_table)
-
-                    # Get distance between base and auth models
+21
+10                    # Get distance between base and auth models
                     probability = myutilities.build_auth_table(raw_data_path, base_table, distribution, window, threshold, token, n)
                     probabilities.append(probability)
 
