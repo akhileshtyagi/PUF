@@ -22,11 +22,13 @@ debug_log_lookup_path_0=os.path.join(myutilities.get_current_dir(),"logs","authe
 # contains the number of windows used for authentication in the last call to multiply_all_probabilities
 windows_authenticated = 0
 
+###
 # @param: raw_model_data_path is the path to the device user, we want to authenticate the challenge data against this data
 # @param: raw_challenge_data_path is the path to the raw data to authenticate against the model data
 #
 #@return: True if the user is authenticated
 #@return: False if the user is not authenticated
+###
 def authenticate_model(raw_model_data_path, raw_challenge_data_path, window, token, threshold):
     getcontext().prec = PRECISION
     # arbitrary right now. This, multiplied by probability_threshold, is what we expect a user's probability to be greater then to reasonably assure they are a valid user
@@ -278,6 +280,12 @@ def multiply_all_probabilities(raw_data_file, table, distribution, window, thres
         return 0
 
 
+###
+# Will find the minimum probability in the constructed model
+# 
+# @param the probability table that has been constructed
+# @return the minimum probability in this table
+###
 def find_min_probability(table):
     minimum = 1
 

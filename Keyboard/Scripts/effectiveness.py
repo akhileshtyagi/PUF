@@ -9,11 +9,12 @@ import user_auth
 import os
 from decimal import *
 
-# TODO something is going wrong with creating the data files...
 PRECISION = 50
 
-#prints out a percent effectiveness for each token,window,threshold
-#also logs all information to a log file
+###
+# prints out a percent effectiveness for each token,window,threshold
+# also logs all information to a log file
+###
 def print_effectiveness():
 	getcontext().prec = PRECISION
  	max_percent=0
@@ -46,8 +47,8 @@ def print_effectiveness():
 	   			#keep track of the best effectiveness
 	   			if (percent > max_percent):
 	    				max_percent=percent
-	    				max_window=j
-	    				max_token=i
+	    				max_window=i
+	    				max_token=j
 	    				max_time=k
 
 
@@ -58,6 +59,19 @@ def print_effectiveness():
 	return
 
 
+###
+# calculate the relative effectiveness of the authentication scheme in user auth_auth
+# this can be done with any authentication scheme by changing the authenticate function in user_auth
+#
+# @param window the window value to be used when building the model
+# @param token the token value to be used when building the model
+# @param time_threshold the time threshold to be used when building the model
+# @param raw_good_data_path the user data path
+# @param raw_bad_data_path the challenge data path
+#
+# @return an float between 0 and 1 representing how effective this authentication scheme is
+#         effectiveness = good_outcomes/bad_outcomes
+###
 def calc_effectiveness(window, token, time_threshold, raw_good_data_path, raw_bad_data_path):
 	getcontext().prec = PRECISION
 	#constant values
