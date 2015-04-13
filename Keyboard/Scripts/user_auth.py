@@ -235,7 +235,7 @@ def multiply_all_probabilities(raw_data_file, table, distribution, window, thres
     
         # Normalize data based on found distribution
         for row in reader2:
-            normalized_item = myutilities.normalize_raw_element(float(row[3]), distribution)
+            normalized_item = myutilities.normalize_raw_element(int(row[1]), float(row[2]), distribution[0], distribution[1])
             normalized.append([row[0], int(normalized_item)])
 
         # Analyze touches

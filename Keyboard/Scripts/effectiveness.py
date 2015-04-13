@@ -24,8 +24,8 @@ def print_effectiveness():
 
 	#read in good data and bad data
  	raw_data_dir = os.path.join(myutilities.get_current_dir(),"Data","Raw Data")
- 	good_data=os.path.join(raw_data_dir,"tim dee","07924e50","2-2-26_timdee_07924e50.csv")
- 	bad_data=os.path.join(raw_data_dir,"Ian Richardson","nexus-02","02-25-14_IanRichardson_015d4a82904c0c07.csv")
+ 	good_data=os.path.join(raw_data_dir,"2-2-26_timdee_07924e50.csv")
+ 	bad_data=os.path.join(raw_data_dir,"Ian Richardson","02-25-14_IanRichardson_015d4a82904c0c07.csv")
  	#good_data=os.path.join(raw_data_dir,"Ian Richardson","nexus-02","test_small.csv")
 
  	#log file
