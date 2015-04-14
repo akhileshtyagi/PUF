@@ -35,28 +35,22 @@ TODO
 | line | function |
 |:-----|:---------|
 |def cluster_algorithm(raw_data_file, token): | First, a number of tokens evenly spaced over the entire distribution. These tokens are limited by the min, max of all touch pressures. It also returns the min, max, and average of all touch pressures for each keycode. |
-|   with open(raw_data_file, 'rt') as csvfile:
-reader = csv.reader(csvfile)
-key_dist = keycode_distribution(reader) 
-|key_dist now holds the distribution (min,max,average) for each key code | 
+|   with open(raw_data_file, 'rt') as csvfile:	reader = csv.reader(csvfile)	key_dist = keycode_distribution(reader) |key_dist now holds the distribution (min,max,average) for each key code | 
 
-|    with open(raw_data_file, 'rt') as csvfile:
-reader2 = csv.reader(csvfile)
-max_min = find_max_min(reader2) 
-|min_max now contains the minimum and maximum for the entire distribution. |
+|    with open(raw_data_file, 'rt') as csvfile:	reader2 = csv.reader(csvfile)	max_min = find_max_min(reader2) |min_max now contains the minimum and maximum for the entire distribution. |
 
 |   variation = float((max_min.get('max') - max_min.get('min')) / token) 
 |variation now contains the size of a single token |
 
 |    i = 0
-distribution = []
-current = max_min.get('min')
-getcontext().prec = PRECISION
-while i < token:
-distribution.append({'lower': current, 'upper': current + variation,
- 'normalized': Decimal(current + current + variation) / Decimal(2)})
-current += variation
-i += 1 |This loop inserts the token ranges into the distribution |
+|distribution = []
+|current = max_min.get('min')
+|getcontext().prec = PRECISION
+|while i < token:
+|distribution.append({'lower': current, 'upper': current + variation,
+| 'normalized': Decimal(current + current + variation) / Decimal(2)})
+|current += variation
+|i += 1 |This loop inserts the token ranges into the distribution |
 
 |    return [distribution, key_dist] |return the distribution which now contains the token ranges |
 
