@@ -125,8 +125,8 @@ for base in os.listdir(raw_data_dir):
 
                     # Get probabilities
                     base_table = myutilities.convert_table_to_probabilities(base_table)
-21
-10                    # Get distance between base and auth models
+
+                     # Get distance between base and auth models
                     probability = myutilities.build_auth_table(raw_data_path, base_table, distribution, window, threshold, token, n)
                     probabilities.append(probability)
 
