@@ -77,7 +77,7 @@ TODO
 |        probabilities = [] | |
 |        probs = [] | | 
 | | |
-|        percentage = 100 |percentage represents how closely the challenge model fits the base model, begin at 100 |
+|        percentage = 100 |percentage represents how closely the challenge model fits the base model, only if the model is above this percentage of matching will we authenticate |
 | | |
 |        getcontext().prec = 4 |decimal values will be rounded to the 4 decimal point |
 | | |
@@ -102,36 +102,36 @@ TODO
 | | |
 |                    # Used for percentage of a lookup table | |
 |                    base_n = ret[1] |base_n holds the number of touches in the chain |
-|                    fraction = Decimal(100) / Decimal(percentage) |TODO |
-|                    n = int(base_n / fraction) |TODO |
+|                    fraction = Decimal(100) / Decimal(percentage) |fraction now holds the fraction of model challenge points that must match points in the model |
+|                    n = int(base_n / fraction) |n now contains the number of challenge points that must match the model |
 | | |
 |                    # Get probabilities | |
-|                    base_table = myutilities.convert_table_to_probabilities(base_table) | |
+|                    base_table = myutilities.convert_table_to_probabilities(base_table) |converts the table to a probabilities table |
 |
 |                     # Get distance between base and auth models | |
-|                    probability = myutilities.build_auth_table(raw_data_path, base_table, distribution, window, threshold, token, n) | |
-|                    probabilities.append(probability) | |
+|                    probability = myutilities.build_auth_table(raw_data_path, base_table, distribution, window, threshold, token, n) |probability is now a list of probabilities for each compare iteration |
+|                    probabilities.append(probability) |??? This variable is never used ??? |
 | | |
-|                    ma = Decimal(0.0) | |
-|                    for prob in probability: | |
+|                    ma = Decimal(0.0) |begin ma at 0 |
+|                    for prob in probability: |find the greatest probability found when comparing challenge model against user_data model |
 |                        if prob > ma: | |
 |                            ma = prob | |
 | | |
 |                    print 'Max probability: ' + str(ma * 100) + '%' | |
 | | |
-|                    mi = Decimal(1.0) | |
-|                    for prob in probability: | |
+|                    mi = Decimal(1.0) |begin mi at 1 |
+|                    for prob in probability: |find the minimum probability found when comparing challenge model against user_data model |
 |                        if prob < mi: | |
 |                            mi = prob | |
 | | |
 |                    print 'Min probability: ' + str(mi * 100) + '%' | |
-|                    probs.append([ma, mi, window, token, threshold]) | |
+|                    probs.append([ma, mi, window, token, threshold]) |append the max, min probabilities for this window,token,threshold combination to probs |
 | | |
 |        # Print the probabilities and such to a csv | |
-|        with open(output_path + 'against_' + raw + '.csv', 'wb') as csvfile: | |
+|        with open(output_path + 'against_' + raw + '.csv', 'wb') as csvfile: |output the probs table to a file |
 |            w = csv.writer(csvfile) | |
 |            # Find which combination gives the largest probability | |
-|            best_fit = [0, 0, 0, 0] | |
+|            best_fit = [0, 0, 0, 0] |??? This variable is not used ??? |
 | | | 
 |            for i, item in enumerate(probs): | |
 |                w.writerow(item) | |
