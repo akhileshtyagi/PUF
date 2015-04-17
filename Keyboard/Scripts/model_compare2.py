@@ -15,7 +15,7 @@ from decimal import *
 # Raw Data directory
 raw_data_dir = myutilities.get_current_dir() + '/Data/Raw Data/'
 
-model_sizes = [2000]
+model_sizes = [4000]
 percentages = [50, 75, 100]
 
 for model_size in model_sizes:

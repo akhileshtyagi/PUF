@@ -290,19 +290,26 @@ def convert_table_to_probabilities(table):
 
 ########################################################
 # @param(read): A csv file reader
+# @param(model_size): Size of Markov model to create
 #
 # Find the max and min pressure in a set of touches
 #
 # @return: Dictionary with keys 'max' and 'min'
 ########################################################
-def find_max_min(read):
+def find_max_min(read, model_size):
+    # TODO Use model_size
     minimum = 1.0
     maximum = 0.0
+    count = 0
     for r in read:
+        # Raw data from twice the final model_size
+        if count > model_size * 2:
+            break
         if float(r[2]) > maximum:
             maximum = float(r[2])
         if float(r[2]) < minimum:
             minimum = float(r[2])
+        count += 1
     return {'max': maximum, 'min': minimum}
 
 
@@ -311,6 +318,7 @@ def find_max_min(read):
 # file path to the file
 # @param(token): Integer representing the number of tokens
 # used in this Markov Model distribution
+# @param(model_size): Size of Markov model to create
 #
 # Generate a distribution of equally spaced tokens limited
 # by the max and min of the touch pressures as well as a
@@ -322,14 +330,14 @@ def find_max_min(read):
 # distribution in index 1
 ########################################################
 # Generate a clustering distribution and return as tuple ranges
-def cluster_algorithm(raw_data_file, token):
+def cluster_algorithm(raw_data_file, token, model_size):
     with open(raw_data_file, 'rt') as csvfile:
         reader = csv.reader(csvfile)
-        key_dist = keycode_distribution(reader)
+        key_dist = keycode_distribution(reader, model_size)
 
     with open(raw_data_file, 'rt') as csvfile:
         reader2 = csv.reader(csvfile)
-        max_min = find_max_min(reader2)
+        max_min = find_max_min(reader2, model_size)
 
     variation = float((max_min.get('max') - max_min.get('min')) / token)
 
@@ -348,6 +356,7 @@ def cluster_algorithm(raw_data_file, token):
 
 ########################################################
 # @param(reader): A csv file reader
+# @param(model_size): Size of Markov model to create
 #
 # Generate a keycode distribution based on a set of touches
 # with a mean, standard deviation, lower bound and upper bound
@@ -355,13 +364,18 @@ def cluster_algorithm(raw_data_file, token):
 # @return: A List representing the overall keycode distribution
 ########################################################
 # Keycode distributions
-def keycode_distribution(reader):
+def keycode_distribution(reader, model_size):
     data = [[] for i in range(126)]
     # data = {k: [] for k in range(126)}
     distribution = {k: {} for k in range(126)}
+    count = 0
 
     for row in reader:
+        # Raw data from twice the final model_size
+        if count > model_size * 2:
+            break
         data[int(row[1])].append(float(row[2]))
+        count += 1
 
     for key, value in enumerate(data):
         n = len(value)
@@ -387,18 +401,17 @@ def keycode_distribution(reader):
 # @param(threshold): Integer representing the time threshold
 # @param(token): Integer representing the number of tokens
 # used in this Markov Model distribution
-# @param(match_user): Boolean
+# @param(model_size): Size of Markov model to create
 #
 # Generate a Markov Model
 #
 # @return: Hash table that represents the Markov Model
 ########################################################
-def build_lookup(raw_data_file, table, distribution, window, threshold, token, match_user):
+def build_lookup(raw_data_file, table, distribution, window, threshold, token, model_size):
     normalized = []
     current_window = []
     getcontext().prec = PRECISION
-    probability = Decimal(0.0)
-    i = 0
+    count = 0
 
     with open(raw_data_file, 'rt') as csvfile:
         reader2 = csv.reader(csvfile)
@@ -410,6 +423,8 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 
         # Analyze touches
         for touch in normalized:
+            if count > model_size:
+                break
             # Throw out pressure values less than 0 as these are ones that were not within their keycode's
             # distribution of 2-sigma
             if touch[1] < 0:
@@ -422,7 +437,7 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
 
                 # Once the window size is filled and a next touch is captured add it to the Markov Model
                 if len(current_window) == window + 1:
-                    i += 1
+                    count += 1
                     # Hash the touch pressures
                     hashcode = hash_function(current_window)
                     if hashcode in table:
@@ -430,28 +445,18 @@ def build_lookup(raw_data_file, table, distribution, window, threshold, token, m
                         hashcode_bin = table.get(hashcode)
                         # Check if the exact sequence is in the found bin
                         link_index = match_sequence(hashcode_bin, current_window)
-                        if match_user:
-                            probability += touch_probability(hashcode_bin, current_window, link_index)
+                        if link_index == -1:
+                            # Sequence not found; Add a new link with the sequence and next touch
+                            table = add_link(hashcode, hashcode_bin, current_window, table, token)
                         else:
-                            if link_index == -1:
-                                # Sequence not found; Add a new link with the sequence and next touch
-                                table = add_link(hashcode, hashcode_bin, current_window, table, token)
-                            else:
-                                # Sequence found, increment next touch
-                                table = increment_probability(hashcode, hashcode_bin, link_index, current_window, table)
+                            # Sequence found, increment next touch
+                            table = increment_probability(hashcode, hashcode_bin, link_index, current_window, table)
                     else:
-                        if not match_user:
-                            # Hashcode not found; Add a new bin with a link to that sequence and initial touch event
-                            table = add_key(hashcode, current_window, table, token)
+                        # Hashcode not found; Add a new bin with a link to that sequence and initial touch event
+                        table = add_key(hashcode, current_window, table, token)
                     # Pop off the oldest touch
                     current_window.pop(0)
-    if match_user:
-        if len(normalized) > 0:
-            return probability
-        else:
-            return 0
-    else:
-        return [table, i]
+        return [table, count]
 
 
 ########################################################
