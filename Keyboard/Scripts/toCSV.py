@@ -25,12 +25,12 @@ for root, dirs, files in os.walk(profiles):
                     for name3 in files3:
                         # Iterate through each file and put each into a list within a list
                         with open(os.path.join(os.path.join(root2, name2), name3), 'rt') as csvfile:
-                            # TODO Need to order these properly
                             reader = csv.reader(csvfile)
                             names.append(name3)
                             for i, row in enumerate(reader):
                                 combined[i].append(row[0])
                                 combined[i].append(row[1])
+                                combined[i].append(row[2])
                     # Then print them all to a csv with the names on top and sizes on the left
                     with open(os.path.join(root2, name2) + 'combined' + '.csv', 'wb') as csvfile:
                         writer = csv.writer(csvfile)
@@ -39,6 +39,7 @@ for root, dirs, files in os.walk(profiles):
                         for fname in names:
                             fileNames.append(fname)
                             fileNames.append('')
+                            fileNames.append('')
 
                         writer.writerow(fileNames)
 
@@ -46,6 +47,7 @@ for root, dirs, files in os.walk(profiles):
                         for i in range(len(files3)):
                             maxMinLine.append('Max')
                             maxMinLine.append('Min')
+                            maxMinLine.append('Avg')
 
                         writer.writerow(maxMinLine)
 

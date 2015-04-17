@@ -76,25 +76,27 @@ for model_size in model_sizes:
                             probabilities.append(probability)
 
                             ma = Decimal(0.0)
+                            mi = Decimal(1.0)
+                            s = 0
+                            miChanged = False
                             for prob in probability:
                                 if prob > ma:
                                     ma = prob
-
-                            # print 'Max probability: ' + str(ma * 100) + '%'
-
-                            mi = Decimal(1.0)
-                            for prob in probability:
                                 if prob < mi:
                                     mi = prob
-
-                            # print 'Min probability: ' + str(mi * 100) + '%'
-                            probs.append([ma, mi, window, token, threshold])
+                                    miChanged = True
+                                if prob > Decimal(0.7):
+                                    s += 1
+                            if miChanged is False:
+                                mi = Decimal(0.0)
+                            if len(probability) == 0:
+                                probs.append([ma, mi, 0])
+                            else:
+                                probs.append([ma, mi, Decimal(s)/Decimal(len(probability))])
 
                 # Print the probabilities and such to a csv
                 with open(output_path + base + 'against_' + raw + '.csv', 'wb') as csvfile:
                     w = csv.writer(csvfile)
-                    # Find which combination gives the largest probability
-                    best_fit = [0, 0, 0, 0]
 
                     for i, item in enumerate(probs):
                         w.writerow(item)
