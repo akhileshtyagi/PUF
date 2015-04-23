@@ -85,7 +85,7 @@ public class SoftKeyboard extends InputMethodService
     private String mWordSeparators;
 
     // Android PUF Security Variables
-    private final String accountName = "Tester";
+    private final String accountName = "TimDee";
     private String fileName;
     private File dir;
     private File f;
