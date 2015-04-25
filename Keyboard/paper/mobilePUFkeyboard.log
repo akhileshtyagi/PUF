@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.4.20)  24 APR 2015 22:50
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.4.20)  25 APR 2015 14:59
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -279,42 +279,33 @@ Overfull \hbox (2.52652pt too wide) in paragraph at lines 97--97
  []
 
 
-! LaTeX Error: File `figures/DiffUserforStatECCModel' not found.
+Overfull \hbox (2.33786pt too wide) in paragraph at lines 118--119
+\T1/aer/m/n/9 as a user-device phys-i-cal un-clon-able function(UD-PUF). This
+ []
 
-See the LaTeX manual or LaTeX Companion for explanation.
-Type  H <return>  for immediate help.
- ...                                              
-                                                  
-l.116 ...h=3.9in]{figures/DiffUserforStatECCModel}
-                                                  
-? 
 No file mobilePUFkeyboard.bbl.
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 
-] (./mobilePUFkeyboard.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] (./mobilePUFkeyboard.aux) ) 
 Here is how much of TeX's memory you used:
- 2799 strings out of 493109
- 34622 string characters out of 6140856
- 93900 words of memory out of 5000000
- 6188 multiletter control sequences out of 15000+600000
- 44832 words of font info for 61 fonts, out of 8000000 for 9000
+ 2760 strings out of 493109
+ 34267 string characters out of 6140856
+ 94780 words of memory out of 5000000
+ 6171 multiletter control sequences out of 15000+600000
+ 41684 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,10n,28p,280b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pf
-b></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-
-dist/fonts/type1/urw/times/utmb8a.pfb>
-Output written on mobilePUFkeyboard.pdf (1 page, 45131 bytes).
+ 41i,10n,28p,369b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc
+}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/tex
+mf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/
+urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
+>
+Output written on mobilePUFkeyboard.pdf (1 page, 42664 bytes).
 PDF statistics:
- 29 PDF objects out of 1000 (max. 8388607)
- 20 compressed objects within 1 object stream
+ 25 PDF objects out of 1000 (max. 8388607)
+ 17 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

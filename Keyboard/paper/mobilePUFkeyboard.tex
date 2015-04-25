@@ -33,7 +33,7 @@
 % set the path for graphics
 \graphicspath{{figures/}}
 
-\title{To Be Determined}
+\title{User-Device Physical Unclonable Functions (PUFs) based on Mobile Device Touchscreen Pressure}
 %\subtitle{[Extended Abstract]
 %\titlenote{A full version of this paper is available as
 %\textit{Author's Guide to Preparing ACM SIG Proceedings Using
@@ -96,7 +96,7 @@
 
 \maketitle
 \begin{abstract}
-abstract
+A physical unclonable function utilizing the variability derived from the pressure with which users interact with their mobile device touchscreens.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -110,13 +110,23 @@ abstract
 
 \section{Introduction}
 \label{sec:intro}
+Mobile devices are ubiquitus in the modern world. These devices are becoming progressively more important for many applications with security sensative data. 
+Securing mobile devices poses unique challenges and opportunities compared to traditional data security where it is difficult for an attacker to access the physical device on which the data is stored or from which the sensitive data may be accessed.
 
-\begin{figure}
-\centering
-\includegraphics[width=3.9in]{figures/DiffUserforStatECCModel}
-\caption{Statistical Concentration/Correction for a User other than Profiled User}
-\label{fig:diffuserstat}
-\end{figure}
+The reality that an attacker may be able to gain access to a physical device makes securing any data stored on or accessed by a mobile device significantly more challenging. Traditional physical unclonable functions (PUFs) which can be used to uniquely to a given hardware device are no longer sufficient to guarentee the authenticity of a user.
+
+This modivates an extension of the traditional PUF known as a user-device physical unclonable function(UD-PUF). This UD-PUF entangles the physical characteristics of the user in combination with the device to enable a more secure authentication scheme.
+
+\section{Modeling a User-Device Pair}
+\label{sec:modeling}
+An n-gram sliding marcov model.
+
+%\begin{figure}
+%\centering
+%\includegraphics[width=3.9in]{figures/DiffUserforStatECCModel}
+%\caption{Statistical Concentration/Correction for a User other than Profiled User}
+%\label{fig:diffuserstat}
+%\end{figure}
 
 \section{Conclusions}
 \label{sec:conclusions}
