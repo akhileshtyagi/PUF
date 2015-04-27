@@ -8,8 +8,8 @@ profiles = myutilities.get_current_dir() + '/Data/User Profiles/'
 
 m = ['2000', '4000', '6000', '8000']
 n = ['50', '75', '100']
-window_sizes = [3, 4, 5, 6]
-token_sizes = [5, 6, 7, 8, 9, 10, 20, 30, 40, 50]
+window_sizes = [3]
+token_sizes = [17, 18, 19, 21, 22, 23]
 time_thresholds = [1000, 1500, 2000]
 
 for root, dirs, files in os.walk(profiles):

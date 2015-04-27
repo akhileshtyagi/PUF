@@ -15,8 +15,8 @@ from decimal import *
 # Raw Data directory
 raw_data_dir = myutilities.get_current_dir() + '/Data/Raw Data/'
 
-model_sizes = [4000]
-percentages = [50, 75, 100]
+model_sizes = [6000]
+percentages = [50]
 
 for model_size in model_sizes:
     for percentage in percentages:
@@ -44,8 +44,8 @@ for model_size in model_sizes:
                 probs = []
                 getcontext().prec = 4
 
-                window_sizes = [3, 4, 5, 6]
-                token_sizes = [5, 6, 7, 8, 9, 10, 20, 30, 40, 50]
+                window_sizes = [3]
+                token_sizes = [17, 18, 19, 21, 22, 23]
                 time_thresholds = [1000, 1500, 2000]
 
                 # Generate lookup table for each combination of window size and token size
