@@ -112,14 +112,45 @@ A physical unclonable function utilizing the variability derived from the pressu
 \label{sec:intro}
 Mobile devices are ubiquitus in the modern world. These devices are becoming progressively more important for many applications with security sensative data. 
 Securing mobile devices poses unique challenges and opportunities compared to traditional data security where it is difficult for an attacker to access the physical device on which the data is stored or from which the sensitive data may be accessed.
-
+%
 The reality that an attacker may be able to gain access to a physical device makes securing any data stored on or accessed by a mobile device significantly more challenging. Traditional physical unclonable functions (PUFs) which can be used to uniquely to a given hardware device are no longer sufficient to guarentee the authenticity of a user.
-
+%
 This modivates an extension of the traditional PUF known as a user-device physical unclonable function(UD-PUF). This UD-PUF entangles the physical characteristics of the user in combination with the device to enable a more secure authentication scheme.
 
+%describe what touchscreen pressure is
+%describe the physical component of the pressure (current at the edge of screen on android device)
+\section{Touchscreen Pressure}
+\label{sec:touchscreen}
+%TODO 
+current at sides of phone.
+
+%describe a marcov model in general
+%describe what it means to be an n-gram sliding marcov model
+%describe in what way we a marcov model to describe a user, device pair (our marcov model of touch, pressure values.
+%An n-gram sliding marcov model.
 \section{Modeling a User-Device Pair}
 \label{sec:modeling}
-An n-gram sliding marcov model.
+Interactions between useres and devices are complex. To interpret these actions in a meaningful way, in order to preform an authentication for example, it is necessary to simplify these interations. The chosen model must provide sufficient entropy such that a model generated with a given user-device pair is not consistantly reproducable by another user or on a different device. The modeling method must also be easily reproducable by the origional user on the origional device. A model having the neccessary characteristics required for this application is a Marcov Chain.
+%
+%TODO describe what is a marcov chain
+Marcov Chains are stuff 
+%Other information about marcov chains
+%TODO traditional use of marcov chains
+Historically the Marcov Chain has found applications in 
+%
+Upon identification of an appropriate model the next step is to discover an optimal way in which it may be applied to the current problem. The goal is %TODO
+%
+
+
+%n-gram a continuious sequence of n items
+%markov model for comparason is built from a sliding model of the previous n touches
+%describe how the marcov chain is applied to touch pressure to model a user
+\section{Touch Pressure Modeling}
+%TODO
+
+
+\section{Results}
+\label{sec:results}
 
 %\begin{figure}
 %\centering
