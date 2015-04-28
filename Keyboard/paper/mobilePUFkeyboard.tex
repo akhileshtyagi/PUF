@@ -33,7 +33,7 @@
 % set the path for graphics
 \graphicspath{{figures/}}
 
-\title{User-Device Physical Unclonable Functions (PUFs) based on Mobile Device Touchscreen Pressure}
+\title{User-Device Physical Unclonable Functions (UD-PUFs) based on Mobile Device Touchscreen Pressure}
 %\subtitle{[Extended Abstract]
 %\titlenote{A full version of this paper is available as
 %\textit{Author's Guide to Preparing ACM SIG Proceedings Using
@@ -96,7 +96,8 @@
 
 \maketitle
 \begin{abstract}
-A physical unclonable function utilizing the variability derived from the pressure with which users interact with their mobile device touchscreens.
+%TODO
+Described in this document is a physical unclonable function (PUF) utilizing the variability derived from the pressure with which users interact with their mobile device touchscreens. We illustrate how a sequence of these pressure values from descrete touchscreen interactions may be used to uniquely characterize a user-device pair. This characterization method may find many applications in security. As a result the effectiveness of this scheme is described in terms of how one user may be differentiated from another.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -133,10 +134,10 @@ current at sides of phone.
 Interactions between useres and devices are complex. To interpret these actions in a meaningful way, in order to preform an authentication for example, it is necessary to simplify these interations. The chosen model must provide sufficient entropy such that a model generated with a given user-device pair is not consistantly reproducable by another user or on a different device. The modeling method must also be easily reproducable by the origional user on the origional device. A model having the neccessary characteristics required for this application is a Marcov Chain.
 %
 %TODO describe what is a marcov chain
-Marcov Chains are stuff 
+Marcov Chains are useful in predicting systems who's behavior can be modeled in descrete states. The transitions between states can be identified to happen with some probability.
 %Other information about marcov chains
 %TODO traditional use of marcov chains
-Historically the Marcov Chain has found applications in 
+Historically the Marcov Chain has found applications in
 %
 Upon identification of an appropriate model the next step is to discover an optimal way in which it may be applied to the current problem. The goal is %TODO
 %
@@ -145,12 +146,26 @@ Upon identification of an appropriate model the next step is to discover an opti
 %n-gram a continuious sequence of n items
 %markov model for comparason is built from a sliding model of the previous n touches
 %describe how the marcov chain is applied to touch pressure to model a user
+%this is a description of our specific implementation of a marcov model
 \section{Touch Pressure Modeling}
 %TODO
+%describe the marcov model used
+%
+The goal in modeling a system with a marcov model is to classify the system in terms of its transitions between states. If such a model is to be used to purposes of uniquely identifying a given system, than the states of the model must be chosen in a way which exposes the uniqueness of the system.
+The states of our marcov model are defined by the range in which
 
 
+%basically the authentication scheme used
+%frame it in more general terms, independtant of our specific application
+\section{Differentiating User-Device Pairs}
+\label{sec:differentiation}
+
+
+%what number of states exposed the most uniqueness e.g. how many tokens were best
+%with what accuracy could users be destinguished from one-another
 \section{Results}
 \label{sec:results}
+
 
 %\begin{figure}
 %\centering
@@ -162,6 +177,8 @@ Upon identification of an appropriate model the next step is to discover an opti
 \section{Conclusions}
 \label{sec:conclusions}
 
+
+%possible, describe applications  in terms of continuious authentication
 \section{Future Work}
 \label{sec:futurework}
 

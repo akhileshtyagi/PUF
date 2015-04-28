@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.4.20)  27 APR 2015 23:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.4.20)  28 APR 2015 21:02
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -279,32 +279,34 @@ Overfull \hbox (2.52652pt too wide) in paragraph at lines 97--97
  []
 
 
-Overfull \hbox (4.14708pt too wide) in paragraph at lines 113--119
+Overfull \hbox (4.14708pt too wide) in paragraph at lines 114--120
 \T1/aer/m/n/9 device phys-i-cal un-clon-able function(UD-PUF). This UD-PUF
+ []
+
+
+Overfull \hbox (15.5365pt too wide) in paragraph at lines 160--160
+[]\secfnt DIFFERENTIATING USER-DEVICE PAIRS 
  []
 
 No file mobilePUFkeyboard.bbl.
 [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
-] (./mobilePUFkeyboard.aux)
-
-LaTeX Warning: Label(s) may have changed. Rerun to get cross-references right.
-
- ) 
+] (./mobilePUFkeyboard.aux) ) 
 Here is how much of TeX's memory you used:
- 2762 strings out of 493109
- 34293 string characters out of 6140856
- 96780 words of memory out of 5000000
- 6173 multiletter control sequences out of 15000+600000
+ 2763 strings out of 493109
+ 34314 string characters out of 6140856
+ 98804 words of memory out of 5000000
+ 6174 multiletter control sequences out of 15000+600000
  41684 words of font info for 55 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,10n,28p,599b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/urw/hel
-vetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></u
-sr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
-Output written on mobilePUFkeyboard.pdf (1 page, 46066 bytes).
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc
+}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/tex
+mf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/
+urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
+>
+Output written on mobilePUFkeyboard.pdf (1 page, 47654 bytes).
 PDF statistics:
  25 PDF objects out of 1000 (max. 8388607)
  17 compressed objects within 1 object stream
