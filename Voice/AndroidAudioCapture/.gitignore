@@ -24,3 +24,6 @@ local.properties
 *.settings
 
 *.pyc
+
+.idea/
+*.iml
