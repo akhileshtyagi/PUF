@@ -1,4 +1,14 @@
-__author__ = 'Ian Richardson'
+__author__ = 'Ian Richardson - iantrich@gmail.com'
+
+###########################################################
+#
+#   This script is used to compare the difference in two
+#   keyboard models. The first data set is a base that is
+#   then compared to the second data set. The max/min
+#   of similarities are measured as well as the average of
+#   each of being over our threshold of 70% for authentication.
+#
+###########################################################
 
 # Build training table
 # Convert to probabilities

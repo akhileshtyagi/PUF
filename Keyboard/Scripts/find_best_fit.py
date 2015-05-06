@@ -1,19 +1,12 @@
 __author__ = 'Ian Richardson - iantrich@gmail.com'
-# Use this script to also model the ideal token/window/threshold values
-# It will be similar to the User Classification/Authentication scripts but will be looking
-# for values that maximize reproducability and minimize false positives
 
-# Iterate through token/window/threshold values for a given user profile and user dataset to find
-# the one that has the highest probability of matching, yet minimizes all other possible user profile matches as much
-# as possible
-
-# Calculate probability P(m, L) for the given user dataset for each user/token/window combination
-
-# Iterate through possible threshold values and find values that allow the wanted user profile to pass
-# but other to not for each probability
-# If none are found, allow one other user profile to pass, and so on until we have at least one successful set of values
-
-# Depending on how well this data looks, might have to go back and access the token/window values for more precision
+###########################################################
+#   NOTE: This script has been replaced by model_compare.py
+#   and is now more for reference. It was used to find the
+#   best possible combination of window/token/time sizes.
+#   The definition of best changed to look past just the
+#   maximum and model_compare.py addressed these changes.
+###########################################################
 
 import myutilities
 import build_lookup_table

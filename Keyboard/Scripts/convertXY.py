@@ -1,3 +1,16 @@
+__author__ = 'Ian Richardson - iantrich@gmail.com'
+
+###########################################################
+#
+#   This script is to be used to combine the pressure/time
+#   values csv with the associated keycode values for a
+#   given user from the PUF keyboard application.
+#
+#   NOTE: This should not be needed after the change to the
+#   PUF keyboard that now captures keycodes
+#
+###########################################################
+
 import csv
 import myutilities
 import re

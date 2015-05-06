@@ -1,5 +1,12 @@
 __author__ = 'Ian Richardson - iantrich@gmail.com'
 
+###########################################################
+#
+#   This is the main script file that can be used to run
+#   most other scripts in the folder.
+#
+###########################################################
+
 import find_best_fit
 import user_auth
 import user_class

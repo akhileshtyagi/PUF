@@ -1,5 +1,12 @@
 __author__ = 'Ian Richardson - iantrich@gmail.com'
 
+###########################################################
+#
+#   This file contains commonly used functions that are
+#   used across numerous scripts
+#
+###########################################################
+
 import os
 import copy
 import inspect

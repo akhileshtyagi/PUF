@@ -1,10 +1,10 @@
-__author__ = 'iantrich'
+__author__ = 'Ian Richardson - iantrich@gmail.com'
 
 ###########################################################
 #
 #   This script is to be used to combine the pressure/time
 #   values csv with the associated keycode values for a
-#   given user from the PUF keyboard application
+#   given user from the PUF keyboard application.
 #
 ###########################################################
 

@@ -1,4 +1,13 @@
-__author__ = 'Ian'
+__author__ = 'Ian Richardson - iantrich@gmail.com'
+
+###########################################################
+#
+#   This script will combine all CSV files found in
+#   /Data/User Profiles/ to provide summary CSV files for
+#   each (m, n) combination which can then be used to find
+#   valid trends in the data.
+#
+###########################################################
 
 import myutilities
 import os

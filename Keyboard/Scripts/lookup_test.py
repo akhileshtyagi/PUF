@@ -1,11 +1,12 @@
-__author__ = 'iantrich'
+__author__ = 'Ian Richardson - iantrich@gmail.com'
 
-# Test the lookup table build process and verify that probabilities are correct
-# TODO
-# Print normalized data - looks good
-# Print resulting raw lookup table - looks good
-# Print resulting probability lookup table - looks good
-
+###########################################################
+#
+#   This script is just a test to verify the output of
+#   the resulting Markov chain lookup tables at different
+#   stages in their creation
+#
+###########################################################
 
 import myutilities
 import csv
