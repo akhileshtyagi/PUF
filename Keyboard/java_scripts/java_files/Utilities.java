@@ -27,13 +27,13 @@ public static void print_selections(){
 
 ///preforms input validation making sure the user input is an integer within the valid range
 public static int grab_valid_input(List<String> options){
-//TODO
+//TODO not useful
 }
 
 
 ///create directories to make the absolute path valid in the file system. Will not create directories if they are already present
 public static void create_dir_path(Path path){
-
+//TODO
 }
 
 

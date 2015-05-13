@@ -7,7 +7,7 @@ public class Chain{
 	private threshold;
 	boolean updated;
 
-	public Chain(int window, int token, int threshold){
+	public Chain(int window, int token, int threshold){		
 		this.window = window;
 		this.token = token;
 		this.threshold = threshold;
@@ -24,13 +24,13 @@ public class Chain{
 		updated=true;
 	}
 
-	public Distribution calculate_distribution(){
-		//TODO
+	public Distribution get_distribution(){
 		if(updated){
-			//TODO calculate distribution here
+			distribution=new Distribution(touches);
 		}else{
 			return distribution;
 		}
+
 		updated=false;
 	}
 

@@ -21,25 +21,25 @@ public class Distribution{
 	}
 
 	///calculate min pressure value in touches
-	private void calc_min(){
+	private void calc_min(List<Touch> touches){
 		//TODO
 		min=0;
 	}
 
 	///calculate max pressure value in touches
-	private void calc_max(){
+	private void calc_max(List<Touch> touches){
 		//TODO
 		max=1;
 	}
 
 	///calcualte average pressure value in touches
-	private void calc_average(){
+	private void calc_average(List<Touch> touches){
 		//TODO
 		average=.5;
 	}
 
 	///calculate standard deviation of pressure values in touches
-	private void calc_standard_deviation(){
+	private void calc_standard_deviation(List<Touch> touches){
 		//TODO
 		standard_deviation=.1;
 	}

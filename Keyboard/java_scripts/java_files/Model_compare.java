@@ -17,5 +17,7 @@
 # Will probably want to remove a touch when seen from the training table to make it easiest
 */
 public class Model_compare{
-	
+	public static void compare(){
+
+	}
 }
