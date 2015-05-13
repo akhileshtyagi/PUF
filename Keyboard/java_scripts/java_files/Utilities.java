@@ -285,7 +285,7 @@ public static Distriubtion keycode_distribution(List<Touch> reader, int model_si
 # @return: Hash table that represents the Markov Model
 ########################################################
 */
-public static void build_lookup(File raw_data_file, List<Chains> table, Distribution distribution, int window, int threshold, int token, int model_size){
+public static void build_lookup(File raw_data_file, List<Chain> table, Distribution distribution, int window, int threshold, int token, int model_size){
 //TODO
 }
 
@@ -387,4 +387,21 @@ public static int find_sequence(List<Touch> base_sequence, List<List<Touch>> aut
 //TODO
 }
 
+
+//origionally from the build_lookup_talbe script
+/*
+# This script will take the CSV file from the keyboard and build a lookup table for the Markov model of probabilities
+# Algorithm
+# 1. Make new array of [times][normalized_values]
+# 2. Iterate through new array and find valid [window + next touch] sizes that fall within time threshold
+# 3. Use hash function to create a key: key = key * 31 + val for the actual [window]
+# 4. If key exists, see if sequence matches current sequence
+# 5.    If sequence matches, increment probability for [next touch]
+# 6.    Else, add go to next link for key and see if sequence matches
+# 7.    If no matches to sequence, add a new link for the key with {[sequence]{next: 1}}
+# 8. Else, add a new key with a link of {[sequence]{next: 1}}
+*/
+public static List<Table> build_table(File raw_data_path){
+//TODO
+}
 }
