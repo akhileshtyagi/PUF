@@ -18,6 +18,6 @@
 */
 public class Model_compare{
 	public static void compare(){
-
+		//TODO
 	}
 }

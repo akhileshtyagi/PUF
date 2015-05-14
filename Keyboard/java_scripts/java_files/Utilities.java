@@ -1,6 +1,6 @@
-///This file contains utilities for building the model and working with directories
 
-public static class Myutilities{
+///This file contains utilities for building the model and working with directories. I will prioritize the ones related to building the model
+public static class Utilities{
 ///get the current working directory
 public static String get_current_dir(){
 //TODO
@@ -55,9 +55,28 @@ public static void create_dir_path(Path path){
 # @return:
 ########################################################
 */
-public static void normalize_raw_element(int keycode, double pressure, List<Distribution> distribution, List<Distribution> keycode_dist){
-//TODO make distribution class
-//TODO implement
+public static void normalize_raw_element(char keycode, double pressure,List<Distribution> distribution, List<Distribution> keycode_dist){
+	//TODO check for correctness
+	// the keycode_dist should contain keycodes at the index based on their ascii character value
+	//determine if the pressure value is out of range for this key	
+	if(pressure < keycode_dist.get(keycode).get_min() || pressure > keycode_dist.get(keycode).get_max()){
+		return -1;
+	}
+
+	pressure = keycode_dist.get(keycode).get_average();
+	for(int i=0;i<distribution.size();i++){
+		Distribution d;
+		d = distribution.get(i);
+
+		if((pressure >= d.get_min()) && (pressure < c)){
+			return i;
+		}
+		if(pressure < d.get(0).get_min(){
+			return -1;
+		}
+	}
+
+	return distribution.size()-1;
 }
 
 
@@ -77,8 +96,15 @@ public static void normalize_raw_element(int keycode, double pressure, List<Dist
 ########################################################
 */
 public static int hash_function(List<Touch> current_window){
-//TODO make Touch class
-//TODO implement
+	//TODO check for correctness
+	int hashcode=0;
+
+	for(int i=0;i<current_window.size();i++){
+		//TODO eventually change get_pressure() to a has funcion in Touch class
+		hashcode = hashcode*31+current_window.get(i).get_pressure();
+	}
+
+	return hashcode;
 }
 
 
@@ -98,8 +124,13 @@ public static int hash_function(List<Touch> current_window){
 ########################################################
 */
 public static int match_sequence(Chain hashcode_bin, List<Touch> current_window){
-//TODO implement Chain
-//TODO implement
+	//TODO finish implementing
+	if(hashcode_bin==null){
+		return -1;
+	}
+
+	current_sequence = new ArrayList<Touch>();
+	//for(int i=0;i<
 }
 
 
@@ -149,7 +180,8 @@ public static void increment_probability(int hashcode, Chain hashcode_bin, int l
 ########################################################
 */
 public static void add_link(int hashcode, Chain hashcode_bin, List<Touch> current_window, List<Chain> table, int token){
-//TODO
+	//TODO
+	
 }
 
 
