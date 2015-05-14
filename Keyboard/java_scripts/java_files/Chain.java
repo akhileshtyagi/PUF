@@ -1,6 +1,5 @@
 ///this class represents the marcov chain. It contains a sequence of touches and a distribution. I avoid doing any processing on touch being added because eventually this will be called on key press in android. Setting it up this way is more flexible to in the sense that processing may be done at any time.
 public class Chain{
-	private List<Integer> sequence_hash; //sequence_hash(i) corresponds to the sequence touch(i) though touch(i+window)
 	private Distribution distribution;
 	private List<Distribution> key_distribution;
 	private List<Touch> touches; // stores a list of all touch objects
@@ -15,7 +14,6 @@ public class Chain{
 	private boolean key_distribution_computed;
 
 	public Chain(int window, int token, int threshold){	
-		this.sequence_hash = new ArrayList<Integer>();
 		this.key_distribution = new ArrayList<Distribution>();
 		this.touches = new ArrayList<Touch>();
 		this.window = window;
