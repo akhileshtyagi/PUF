@@ -16,6 +16,12 @@ public class Window{
 	}
 
 
+	///copy constructor
+	public Window(Window w){
+		//TODO
+	}
+
+
 	//implement a has function which returns the hash of the current window
 	@Override
 	public int hashCode(){

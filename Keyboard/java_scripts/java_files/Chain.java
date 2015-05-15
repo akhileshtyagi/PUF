@@ -2,6 +2,7 @@
 public class Chain{
 	private Distribution distribution;
 	private List<Distribution> key_distribution;
+	
 	private List<Touch> touches; // stores a list of all touch objects
 	private List<Window> windows; // this seems redundtant at first, but is necessary because a window is not necessarily touch[i,..,i+window]. Factored in are the timestamps associated with each touch.
 
@@ -16,10 +17,29 @@ public class Chain{
 	public Chain(int window, int token, int threshold){	
 		this.key_distribution = new ArrayList<Distribution>();
 		this.touches = new ArrayList<Touch>();
+		this.windows = new ArrayList<Window>();
 		this.window = window;
 		this.token = token;
 		this.threshold = threshold;
 		on_model_update();
+	}
+
+	
+	///copy constructor. New chain object should have the same state as the old with differant object references.
+	public Chain(Chain c){
+		this.key_distribution = new ArrayList<Distribution>(c.key_distribution);
+		this.distribution = new Distribution(c.distribution);
+
+		this.touches = new ArrayList<Touch>(c.touches);
+		this.windows = new ArrayList<Window>(c.windows);
+		
+		this.window = c.window;
+		this.token = c.token;
+		this.threshold = c.threshold;
+	
+		this.distribution_computed = c.distribution_computed;
+		this.probability_computed = c.probability_computed;
+		this.key_distribution_coputed = c.key_distribution_computed
 	}
 
 
@@ -81,14 +101,17 @@ public class Chain{
 	}
 
 
-	public int get threshold(){
+	public int get_threshold(){
 		return threshold;
 	}
 	
 
 	///returns a sort of percent difference between this model and the one passed in. The idea is that this may be used to authenticate. Most of this code should come from Model_Compare.py
-	public double compare(Chain auth_chain){
-		//TODO
+	public double compare_to(Chain auth_chain){
+		//TODO compare two chains and return the percent difference between them
+		double differance = 0;
+
+		return differance;
 	}
 
 
@@ -101,14 +124,14 @@ public class Chain{
 
 
 	///compute the key distribution
-	public void compute_key_distribution(){
+	private void compute_key_distribution(){
 		//TODO
 		//this involves creating a distribution object for each key
 	}
 
 
 	///compute the probability
-	public void compute_probability(){
+	private void compute_probability(){
 		//TODO
 		//assign the appropriate probability to each of the touch objects
 	}

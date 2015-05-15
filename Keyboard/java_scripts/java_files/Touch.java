@@ -11,6 +11,14 @@ public class Touch{
 		probability=0;
 	}
 
+	///copy constructor
+	public Touch(Touch t){
+		this.key = t.get_probability();
+		this.pressure = t.get_pressure();
+		this.probability = t.get_key();
+		this.timestamp = t.get_timestamp();
+	}
+
 	public void set_probability(double p){
 		probability=p;
 	}

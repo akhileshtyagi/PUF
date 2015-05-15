@@ -1,4 +1,5 @@
 ///This class is used to test that the model is being built correctly. Also tested is the model compairason. and various classes used in model creating. The idea is to print out the tests which fail.
+///This class should have to do no actual work if the program is designed well.
 public class Main{
 	//all methods return true if they pass
 	public static void Main(String args[]){
