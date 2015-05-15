@@ -4,8 +4,12 @@ public class Distribution{
 	private double max;
 	private double average;
 	private double standard_deviation;
+
+	private boolean average_computed;
 	
 	public Distribution(List<Touch> touches){
+		average_computed=false;
+
 		min = calc_min(touches);
 		max = calc_max(touches);
 		average = calc_average(touches);
@@ -15,7 +19,10 @@ public class Distribution{
 
 	///copy constructor. This exists because computations are done in the constructor. Copying in this way avoids recomputation.
 	public Distribution(Distribution d){
-		
+		this.min = d.min;
+		this.max = d.max;
+		this.average = d.average;
+		this.stadard_deviation = d.standard_deviation;
 	}
 
 
@@ -78,15 +85,38 @@ public class Distribution{
 
 		average = total_pressure/touches.size();
 
+		average_computed=true;
 		return average;
 	}
 
 
 	///calculate standard deviation of pressure values in touches
 	private double calc_standard_deviation(List<Touch> touches){
-		//TODO
+		//TODO check for correctness
 		double std = 0;
 
+		//if the average has not yet been computed, compute it
+		if(!average_computed){
+			this.average=calc_average(touches);
+		}
+
+		//1. Work out the Mean (the simple average of the numbers)
+		//2. Then for each number: subtract the Mean and square the result
+		//3. Then work out the mean of those squared differences.
+		//4. Take the square root of that and we are done!
+		Iterator<Touch> touches_iterator = touches.iterator();
+		int count = 0;
+		double total_subtract_mean_squared = 0;
+
+		while(touches_iterator.hasNext()){
+			Touch t = touches_iterator.next();
+			
+			total_subtract_mean_squared += Math.pow(t.get_pressure()-this.average, 2);
+			count++;
+		}
+
+		//std is the square root of the average of these numbers
+		std = Math.sqrt(total_subtract_mean_squared / count);
 
 		return std;
 	}

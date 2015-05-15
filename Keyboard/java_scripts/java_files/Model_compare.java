@@ -1,3 +1,5 @@
+///Most of this functionality will be implemented in the compare_to() method of the Chain class
+
 /*
 ##########################################################
 #

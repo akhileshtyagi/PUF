@@ -127,6 +127,9 @@ public class Chain{
 	private void compute_key_distribution(){
 		//TODO
 		//this involves creating a distribution object for each key
+		//1. create a list for each keycode
+		//2. create a distribution object from each of these lists
+		
 	}
 
 

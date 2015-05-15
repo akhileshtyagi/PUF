@@ -1,6 +1,6 @@
 ///This thread will call the compare method of chain class. The goal is to compare user chain and auth chain and make the result, pass/fail known. Or do something based on pass/fail such as cause the phone to lock.
 
-public class CompareChains implements runnable{
+public class CompareChains implements Runnable{
 	final double AUTHENTICATION_THRESHOLD = .7; //TODO find a reasonable / justifiable value for the authentication threshold	
 
 	private Chain user_chain;
