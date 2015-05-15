@@ -23,13 +23,55 @@ public class ChainBuilder{
 	///this method should be called in some way whenever there is a touch event in android. There should be minimal amounts of processing done here so the input to the device doesn't lag.
 	public void handle_touch(Touch touch){
 		//TODO add the touch to both chains, sliding if necessary.
+		static int count = 0;
+
+		//every so often we want to trigger an authentication
+		if(count == COMPARE_INCREMENT){
+			authenticate();
+			count==0;
+		}
+	}
+
+
+	///allow forced authentication from outside of ChainBuilder. this involves starting the CompareChains
+	public void authenticate(){
+		//TODO check for correctness. Am i startign the thread correctly?
+		CompareChains cc = new CompareChains(user_chain, auth_chain);
+		Thread thread = new Thread(cc);
+
+		thread.start();
 	}
 
 
 	///this code will NOT BE USEFULL ON ANDROID. It will build the model from a csv file in the current working directory. It will however utilize the handle_touch() method to add new touches to the chain. It is simply a matter of where the touches are coming from.
 	///TODO move this method to another place. it is only by convience that it exists here now.
-	public void build_chain_from_csv(){
-		//TODO read in data from csv file and package them in touches. Then call handle_touch();
+	public void build_chain_from_csv(File file){
+		//TODO check for correctness
+		// read in data from csv file and package them in touches. Then call handle_touch();
+		List<Touch> touches = parse_csv(File file);
+		
+		//add each of the items to the chain one at a time
+		Iterator<Touch> touch_iterator = touches.iterator();
+
+		while(touch_iterator.hasNext(){
+			handle_touch(touch_iterator.next());
+		}
+	}
+
+
+	///parse the csv file NOT USEFULL ON ANDROID
+	private List<Touch> parse_csv(File file){
+		ArrayList<Touch> touches = new ArrayList<Touch>();
+
+		//add everything in the arraylist to thouches
+		Scanner scanner = new Scanner(file);
+
+		while(scanner.hasNext()){
+			//TODO parse the input
+			
+		}
+
+		return touches;
 	}
 
 
