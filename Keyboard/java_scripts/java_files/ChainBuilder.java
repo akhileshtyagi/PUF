@@ -5,6 +5,7 @@ public class ChainBuilder{
 	final int USER_MODEL_SIZE = 10000;
 	final int AUTH_MODEL_SIZE = 1000;
 	final int COMPARE_INCREMENT = 1000; // compare the auth_model to the user_model every 1000 new touch inputs handled.
+	final boolean INCREMENTAL_AUTHENTICATION_ON = false; // set to true causes the class to authenticate automatically. In some situations this may be preferred
 
 	final int WINDOW = 3; //TODO find the best values for these
 	final int TOKEN = 20;
@@ -27,7 +28,7 @@ public class ChainBuilder{
 		static int count = 0;
 
 		//every so often we want to trigger an authentication
-		if(count == COMPARE_INCREMENT){
+		if((count == COMPARE_INCREMENT) && INCREMENTAL_AUTHENTICATION_ON){
 			authenticate();
 			count==0;
 		}
