@@ -8,8 +8,8 @@ public class CompareChains implements Runnable{
 	
 	/// will need to make copies of the chains passed in so they do not get updated by something else during the comparason
 	public CompareChains(Chain user_chain, Chain auth_chain){
-		user_chain = new Chain(user_chain);
-		auth_chain = new Chain(auth_chain);
+		this.user_chain = new Chain(user_chain);
+		this.auth_chain = new Chain(auth_chain);
 	}
 
 	

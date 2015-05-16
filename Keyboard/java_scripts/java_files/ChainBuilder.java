@@ -27,7 +27,7 @@ public class ChainBuilder{
 		//TODO add the touch to both chains, sliding if necessary.
 		static int count = 0;
 
-		//every so often we want to trigger an authentication
+		//every so often we want to trigger an authentication if this feature is enabled
 		if((count == COMPARE_INCREMENT) && INCREMENTAL_AUTHENTICATION_ON){
 			authenticate();
 			count==0;

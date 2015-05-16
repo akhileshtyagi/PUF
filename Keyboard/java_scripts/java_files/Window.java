@@ -24,7 +24,7 @@ public class Window implements Comparable<Window>{
 	}
 
 
-	///implement a has function which returns the hash of the current window
+	///implement a hash function which returns the hash of the current window
 	@Override
 	public int hashCode(){
 		if(!hash_computed){

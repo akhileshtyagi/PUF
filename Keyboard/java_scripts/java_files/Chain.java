@@ -55,15 +55,16 @@ public class Chain{
 	}
 
 
-	///returns the probability of a given touch based on the model
-	public Double get_touch_probability(int i){
+	///returns the probability of a given touch (at the i'th index) based on the model. This will depend on the preceeding touches, in Window.
+	public double get_touch_probability(Window w, int i){
+		//TODO check for correctness
 		//if the probability has not been computed, compute it
 		if(!probability_computed){
 			compute_probability();
 			probability_computed=true;
 		}
 
-		return touches.get(i).get_probability();
+		return touches.get(i).get_probability(w);
 	}
 
 
@@ -109,6 +110,7 @@ public class Chain{
 	///returns a sort of percent difference between this model and the one passed in. The idea is that this may be used to authenticate. Most of this code should come from Model_Compare.py
 	public double compare_to(Chain auth_chain){
 		//TODO compare two chains and return the percent difference between them
+		//make sure to use the get_x() methods here instead of just using the instance variables. This will guarentee that the values have been calculated by the time they are used.
 		double differance = 0;
 
 		return differance;
@@ -125,11 +127,51 @@ public class Chain{
 
 	///compute the key distribution
 	private void compute_key_distribution(){
-		//TODO
+		//TODO check for correctness
 		//this involves creating a distribution object for each key
 		//1. create a list for each keycode
 		//2. create a distribution object from each of these lists
+		//reset key_distribution to an empty array
+		key_distribution = new ArrayList<Distribution>();
+		ArrayList<List<Touch>> list_of_keycodes = new ArrayList<List<Touch>>();
+
+		//for the entire list of touches
+		for(int i=0;i<touches.size();i++){
+			//get the index of the current keycode
+			int keycode_index = keycode_index(list_of_keycodes,touches.get(i).get_key());
+
+			if(keycode_index==-1){
+				//the keycode does not already exist in list of keycodes, add it
+				list_of_keycodes.add((new ArrayList<Touch>()).add(touches.get(i)));
+			}else{
+				//the keycode already exits. Simply add it to the array at keycode_index
+				list_of_keycodes.get(index).add(touches.get(i);
+			}
+		}
 		
+		//create a distribution object for each of the lists in list of keycodes, add this to key distribution
+		for(int i=0;i<list_of_keycodes.size();i++){
+			key_distribution.add(new Distribution(list_of_keycodes.get(i), list_of_keycodes.get(i).get(0).get_key()));
+		}
+
+		//denote that the distribution has been computed
+		key_distribution_computed=true;
+	}
+
+
+	///returns the index of a given keycode in the list containing lists of touches corresponding to a given key. Returns -1 if the keycode does not exist in the list.
+	//TODO this seems like it could be done in less work, could save the indexes in some sort of data structure and retrieve them when needed
+	private int keycode_index(ArrayList<List<Touch>> list_of_keycodes, int keycode){
+		//TODO check for correctness
+		int index;		
+		
+		for(index=0;index<list_of_keycodes.size();index++){
+			if(list_of_keycodes.get(index).get(0).get_key() == keycode){
+				break;
+			}
+		}
+
+		return (index==list_of_keycodes.size())? -1: index;
 	}
 
 

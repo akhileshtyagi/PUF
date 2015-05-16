@@ -96,7 +96,7 @@ public class Touch implements Comparable<Touch>{
 	@Override
 	public int hashCode(){
 		//TODO make this better
-		return pressure;
+		return Integer.valueOf(pressure);
 	}
 
 

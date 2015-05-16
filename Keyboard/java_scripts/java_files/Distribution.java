@@ -1,14 +1,29 @@
 ///this class knows how to calculate the distribution of a list of touches
-public class Distribution{
+public class Distribution{	
 	private double min;
 	private double max;
 	private double average;
 	private double standard_deviation;
 
+	private char associated_keycode;
+
 	private boolean average_computed;
 	
 	public Distribution(List<Touch> touches){
 		average_computed=false;
+		associated_keycode=-1;
+
+		min = calc_min(touches);
+		max = calc_max(touches);
+		average = calc_average(touches);
+		standard_deviation = calc_standard_deviation(touches);
+	}
+
+
+	///this constructor allows a keycode to be associated with the distribution
+	public Distribution(List<Touch> touches, char keycode){
+		average_computed=false;
+		associated_keycode=keycode;
 
 		min = calc_min(touches);
 		max = calc_max(touches);
@@ -139,5 +154,11 @@ public class Distribution{
 
 	public double get_standard_deviation(){
 		return standard_deviation;
+	}
+
+
+	///returns the keycode associated with this distribution. If the distribution does not have an associated keycode, this method will return -1.
+	public char get_keycode(){
+		return associated_keycode;
 	}
 }
