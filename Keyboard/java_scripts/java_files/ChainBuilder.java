@@ -21,6 +21,7 @@ public class ChainBuilder{
 
 	
 	///this method should be called in some way whenever there is a touch event in android. There should be minimal amounts of processing done here so the input to the device doesn't lag.
+	///I don't know by what method percicely this will need to be called in the android souce. It could be another class which simply handles touch events, or from the pre-existing android archetecture.
 	public void handle_touch(Touch touch){
 		//TODO add the touch to both chains, sliding if necessary.
 		static int count = 0;
