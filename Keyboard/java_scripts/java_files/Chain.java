@@ -1,4 +1,6 @@
+///TODO implement model_size which. When a touch is added that brings the model beyon model_size, then I preform a sliding operation. removing the oldest touch.
 ///this class represents the marcov chain. It contains a sequence of touches and a distribution. I avoid doing any processing on touch being added because eventually this will be called on key press in android. Setting it up this way is more flexible to in the sense that processing may be done at any time.
+///caches the result of each computation so it does not have to be repeated.
 public class Chain{
 	private Distribution distribution;
 	private List<Distribution> key_distribution;
@@ -55,7 +57,7 @@ public class Chain{
 	}
 
 
-	///returns the probability of a given touch (at the i'th index) based on the model. This will depend on the preceeding touches, in Window.
+	///returns the probability of a given touch (at the i'th index) based on the model. This will depend on the preceeding touches, in Window. A request for one probability will necessarily result in all of the probabilities being computed.
 	public double get_touch_probability(Window w, int i){
 		//TODO check for correctness
 		//if the probability has not been computed, compute it
@@ -81,7 +83,7 @@ public class Chain{
 
 	
 	///returns a list of distributions for each key
-	public List<Distribution> get_distribution(){
+	public List<Distribution> get_key_distribution(){
 		//if the key_distribution has not been computed, compute it
 		if(!key_distribution_computed){
 			compute_key_distribution();
@@ -176,6 +178,7 @@ public class Chain{
 
 
 	///compute the probability
+	//TODO consider splitting this up across multiple threads if preformance is an issue
 	private void compute_probability(){
 		//TODO
 		//assign the appropriate probability to each of the touch objects

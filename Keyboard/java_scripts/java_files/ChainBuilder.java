@@ -1,3 +1,4 @@
+///TODO write a HashList class (most likely extends HashMap and implemetns list to store the hash of everything. Replace ArrayList with this class whereever arraylist is used. The other option is to use LinkedHashList.
 /// handles building of the model based on input events. This may not be necessary in android framework, but it will allow a consistant way of building the model across platforms to allow for easier migration to android device.
 /// whenever I add a touch, I take
 
@@ -23,15 +24,20 @@ public class ChainBuilder{
 	
 	///this method should be called in some way whenever there is a touch event in android. There should be minimal amounts of processing done here so the input to the device doesn't lag.
 	///I don't know by what method percicely this will need to be called in the android souce. It could be another class which simply handles touch events, or from the pre-existing android archetecture.
-	public void handle_touch(Touch touch){
-		//TODO add the touch to both chains, sliding if necessary.
+	public void handle_touch(Touch touch){		
+		// add the touch to both chains
 		static int count = 0;
+
+		///need to ensure that each gets their own version of the same object
+		user_chain.add_touch(new Touch(touch));
+		auth_chain.add_touch(new Touch(touch));
 
 		//every so often we want to trigger an authentication if this feature is enabled
 		if((count == COMPARE_INCREMENT) && INCREMENTAL_AUTHENTICATION_ON){
 			authenticate();
 			count==0;
 		}
+		count++;
 	}
 
 
@@ -39,9 +45,9 @@ public class ChainBuilder{
 	public void authenticate(){
 		//TODO check for correctness. Am i startign the thread correctly?
 		CompareChains cc = new CompareChains(user_chain, auth_chain);
-		Thread thread = new Thread(cc);
+		Thread auth_thread = new Thread(cc);
 
-		thread.start();
+		auth_thread.start();
 	}
 
 
@@ -69,7 +75,7 @@ public class ChainBuilder{
 		Scanner scanner = new Scanner(file);
 
 		while(scanner.hasNext()){
-			//TODO parse the input
+			//TODO parse the input. Need to know 1) where keycode values are  2) where touch pressure, timestamp are.
 			
 		}
 
