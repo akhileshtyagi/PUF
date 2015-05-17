@@ -81,11 +81,4 @@ public class ChainBuilder{
 
 		return touches;
 	}
-
-
-	///starts the CompareChains thread
-	private void compare_chains(){
-		CompareChains compare_thread = new CompareChains(user_chain, auth_chain);
-		compare_thread.run();
-	}
 }
