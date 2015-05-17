@@ -1,3 +1,4 @@
+//TODO cause something that makes sence to happen when the user fails the authentication
 ///This thread will call the compare method of chain class. The goal is to compare user chain and auth chain and make the result, pass/fail known. Or do something based on pass/fail such as cause the phone to lock.
 
 public class CompareChains implements Runnable{

@@ -1,3 +1,4 @@
+///TODO make the computations happen at request time, and cache the result so it does not need to be recomputed
 ///this class knows how to calculate the distribution of a list of touches
 public class Distribution{	
 	private double min;

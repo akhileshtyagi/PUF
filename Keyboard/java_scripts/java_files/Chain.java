@@ -1,4 +1,4 @@
-///TODO implement model_size which. When a touch is added that brings the model beyon model_size, then I preform a sliding operation. removing the oldest touch.
+///TODO compute the windows somewhere. This will be based on the threshold, window, token sizes. This may change distributions? if a touch is thrown out?
 ///this class represents the marcov chain. It contains a sequence of touches and a distribution. I avoid doing any processing on touch being added because eventually this will be called on key press in android. Setting it up this way is more flexible to in the sense that processing may be done at any time.
 ///caches the result of each computation so it does not have to be repeated.
 public class Chain{
@@ -11,23 +11,28 @@ public class Chain{
 	private int window;
 	private int token;
 	private int threshold;
+	private int model_size;
 
 	private boolean distribution_computed;
 	private boolean probability_computed;
 	private boolean key_distribution_computed;
+	private boolean windows_computed;
 
-	public Chain(int window, int token, int threshold){	
+	public Chain(int window, int token, int threshold, int model_size){	
 		this.key_distribution = new ArrayList<Distribution>();
 		this.touches = new ArrayList<Touch>();
 		this.windows = new ArrayList<Window>();
 		this.window = window;
 		this.token = token;
 		this.threshold = threshold;
+		this.model_size = model_size;
+
 		on_model_update();
 	}
 
 	
 	///copy constructor. New chain object should have the same state as the old with differant object references.
+	//TODO check copy constructors for correctness
 	public Chain(Chain c){
 		this.key_distribution = new ArrayList<Distribution>(c.key_distribution);
 		this.distribution = new Distribution(c.distribution);
@@ -41,19 +46,31 @@ public class Chain{
 	
 		this.distribution_computed = c.distribution_computed;
 		this.probability_computed = c.probability_computed;
-		this.key_distribution_coputed = c.key_distribution_computed
+		this.key_distribution_coputed = c.key_distribution_computed;
+		this.model_size = c.model_size;
 	}
 
 
 	public void add_touch(Touch touch){
+		//TODO check for correctness		
+		// handle sliding of the model if adding this touch brings us beyond model_size
 		touches.add(touch);
+
+		if(touches.size() > model_size){
+			touches.remove(0);
+		}
+
 		on_model_update();
 	}
 
 
 	public void add_touch_list(List<Touch> t){
-		touches.addAll(t);
-		on_model_update();
+		//TODO check for correctness
+		Iterator<Touch> touch_iterator = t.iterator();
+
+		while(touch_iterator.hasNext()){		
+			add_touch(touch_iterator.next());
+		}
 	}
 
 
@@ -110,6 +127,7 @@ public class Chain{
 	
 
 	///returns a sort of percent difference between this model and the one passed in. The idea is that this may be used to authenticate. Most of this code should come from Model_Compare.py
+	//TODO consider doing this on multiple threads if preformance is an issue
 	public double compare_to(Chain auth_chain){
 		//TODO compare two chains and return the percent difference between them
 		//make sure to use the get_x() methods here instead of just using the instance variables. This will guarentee that the values have been calculated by the time they are used.
@@ -124,6 +142,7 @@ public class Chain{
 		distribution_computed=false;
 		probability_computed=false;
 		key_distribution_computed=false;
+		windows_computed=false;
 	}
 
 
@@ -182,5 +201,26 @@ public class Chain{
 	private void compute_probability(){
 		//TODO
 		//assign the appropriate probability to each of the touch objects
+		//TODO consider computing windows on a separate thread, and joining this thread before windows are needed.
+	}
+
+
+	///compute the windows
+	private void compute_windows(){
+		//TODO
+		// this takes into account the time delay between touches when adding them to windows. There may be fewer (windows*window_size) than the total number of touches. This is because if there is too long a delay between touches, the window is simply thrown out.
+		
+	}
+
+
+	///handle requests for windows
+	private List<Window> get_windows(){
+		//if windows have not been computed, compute them
+		if(!windows_computed){
+			compute_windows();
+			windows_computed = true;
+		}
+
+		return windows;
 	}
 }
