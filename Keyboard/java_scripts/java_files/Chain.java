@@ -5,6 +5,7 @@ public class Chain{
 	private Distribution distribution;
 	private List<Distribution> key_distribution;
 	
+	private List<Token> tokens; // tokens into which the range is split
 	private List<Touch> touches; // stores a list of all touch objects
 	private List<Window> windows; // this seems redundtant at first, but is necessary because a window is not necessarily touch[i,..,i+window]. Factored in are the timestamps associated with each touch.
 
@@ -17,11 +18,15 @@ public class Chain{
 	private boolean probability_computed;
 	private boolean key_distribution_computed;
 	private boolean windows_computed;
+	private boolean tokens_computed;
 
 	public Chain(int window, int token, int threshold, int model_size){	
 		this.key_distribution = new ArrayList<Distribution>();
+
+		this.tokens = new ArrayList<Token>();
 		this.touches = new ArrayList<Touch>();
 		this.windows = new ArrayList<Window>();
+
 		this.window = window;
 		this.token = token;
 		this.threshold = threshold;
@@ -143,6 +148,7 @@ public class Chain{
 		probability_computed=false;
 		key_distribution_computed=false;
 		windows_computed=false;
+		tokens_computed=false;
 	}
 
 
@@ -209,6 +215,9 @@ public class Chain{
 	private void compute_windows(){
 		//TODO
 		// this takes into account the time delay between touches when adding them to windows. There may be fewer (windows*window_size) than the total number of touches. This is because if there is too long a delay between touches, the window is simply thrown out.
+		// 1) normalize the data based on the distribution (this is done already. Need only call Distribution.get_token(touch, num_tokens);
+		// 2) throw out anything outside of 2 sigma ( these will have -1 returned when they are normalized
+		// 3) throw out any window where the gap in touches is greater than threshold
 		
 	}
 
@@ -222,5 +231,28 @@ public class Chain{
 		}
 
 		return windows;
+	}
+
+	
+	///compute the tokens
+	private void compute_tokens(){
+		//TODO
+		tokens = new ArrayList<Token>();
+
+		for(int i=0; i<token; i++){
+			tokens.add(new Token(get_distribution(),token,i));
+		}
+	}
+
+
+	///handle requests for tokens
+	private List<Token> get_tokens(){
+		//if tokens have not been computed, compute them
+		if(!tokens_computed){
+			compute_tokens();
+			tokens_computed = true;
+		}
+
+		return tokens;
 	}
 }
