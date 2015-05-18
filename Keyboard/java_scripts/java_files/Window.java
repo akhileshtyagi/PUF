@@ -7,11 +7,11 @@ public class Window implements Comparable<Window>{
 
 	boolean hash_computed;
 
-	public Window(List<Touch> touches, int window_size){
+	public Window(List<Touch> touches){
 		window = new ArrayList<Touch>();
 		window.addAll(touches);
 
-		this.window_size=window_size;
+		this.window_size=touches.size();
 		hash_computed=false;
 	}
 
@@ -36,7 +36,7 @@ public class Window implements Comparable<Window>{
 	}
 
 
-	///compare this window to another window. Return negative if this window is less than the other window. Comparason is based on touches' p
+	///compare this window to another window. Return negative if this window is less than the other window. Comparason is based on touches' pressure. Returns 0 if they are equal.
 	@Override
 	public int compareTo(Window other_window){
 		//TODO check for correctness

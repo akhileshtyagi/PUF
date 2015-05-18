@@ -6,6 +6,12 @@ public class Token{
 	private double min;
 	private double max;
 
+	///TODO allow for creation of tokens with-in some number of standard deviations of a distribution
+	public Token(Distribution distribution, int total_tokens, int token_index, double standard_deviations){
+
+	}	
+
+
 	///allow for creation of tokens over a distribution
 	public Token(Distribution distribution, int total_tokens, int token_index){
 		this(distribution.get_min(), distribution.get_max(), total_tokens, token_index);

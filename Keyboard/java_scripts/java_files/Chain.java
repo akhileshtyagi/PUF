@@ -8,6 +8,7 @@ public class Chain{
 	private List<Token> tokens; // tokens into which the range is split
 	private List<Touch> touches; // stores a list of all touch objects
 	private List<Window> windows; // this seems redundtant at first, but is necessary because a window is not necessarily touch[i,..,i+window]. Factored in are the timestamps associated with each touch.
+	private List<Touch> successor_touch; //keep a list of touches that come after windows at the same index
 
 	private int window;
 	private int token;
@@ -26,6 +27,7 @@ public class Chain{
 		this.tokens = new ArrayList<Token>();
 		this.touches = new ArrayList<Touch>();
 		this.windows = new ArrayList<Window>();
+		this.successor_touch = new ArrayList<Touch>();
 
 		this.window = window;
 		this.token = token;
@@ -203,22 +205,107 @@ public class Chain{
 
 
 	///compute the probability
-	//TODO consider splitting this up across multiple threads if preformance is an issue
+	//TODO consider splitting this up across multiple threads if preformance is an issue. I'm fairly certain this will be the main performance concern.
 	private void compute_probability(){
 		//TODO
 		//assign the appropriate probability to each of the touch objects
 		//TODO consider computing windows on a separate thread, and joining this thread before windows are needed.
+		//TODO implementing hashing of the windows later
+		// basic process
+		// for a given window, I want to store in the next touch the probability of that touch coming after this window. This will depend on the other touches which have succeeded this sequence and the number of times the window occurrs. 
+		// 1) get a list of windows
+		// 2) determine how many times each of the windows occurrs
+		// 3) assign a probability to the successor touch based on 1,2
+		List<Window> window_list = get_windows();
+		int occurrences_of_window;
+		int number_successions;
+		double probability;
+
+		for(int i=0;i<window_list.size();i++){
+			//get the number of occurrences of this window
+			occurrences_of_window = occurrence_count(window_list, window_list.get(i));
+			
+			//get the number of times a touch has succeeded this window. We can use the old probability following this window to figure this out. TODO if this method turns out not be correct, this would be a good place to begin looking for mistakes.
+			number_successions = 1 + (successor_touch.get(i).get_probability(window_list.get(i)) * occurrences_of_window);
+
+			//compute the probability
+			probability = ((double)number_successions) / ((double)occurrences_of_window)
+
+			//set the probability of the successor touch. To do this, I need to know how many times this touch succeeds this window
+			successor_touch.get(i).set_probability(window_list.get(i), probability);
+		}
+	}
+
+	
+	///return the number of occurrences of w in window_list
+	private int occurrence_count(List<Window> window_list, Window w){
+		//TODO check for correctness
+		int occurrences=0;
+		
+		for(int i=0;i<window_list.size();i++){
+			//determine if the windows are equal
+			if(window_list.get(i).compareTo(w)==0){
+				occurrences++;
+			}
+		}
+
+		return occurrences;
 	}
 
 
-	///compute the windows
+	///compute the windows. This will also fill the successor_touch list
 	private void compute_windows(){
-		//TODO
+		//TODO check for correctness
 		// this takes into account the time delay between touches when adding them to windows. There may be fewer (windows*window_size) than the total number of touches. This is because if there is too long a delay between touches, the window is simply thrown out.
-		// 1) normalize the data based on the distribution (this is done already. Need only call Distribution.get_token(touch, num_tokens);
+		// 1) normalize the data based on the distribution (this is done already. can call tokens.get(i).contains(touch) to determine if a touch is within a given token.
 		// 2) throw out anything outside of 2 sigma ( these will have -1 returned when they are normalized
 		// 3) throw out any window where the gap in touches is greater than threshold
+		windows = new ArrayList<Window>();
+		successor_touch = new ArrayList<Touch>();
+		List<Touch> touch_list = new ArrayLIst<Touch>();
+
+		//for each of the touches (they are in order)
+		for(int i=0; i<touches.size(); i++){
+			//if the touch is good, add it to the touch list. A touch is good if it is within threshold time and it is contained in one of the tokens.
+			if(	(get_token_index(touches.get(i)>=0) && 
+				((touch_list.size()==0) || ((touches.get(i).get_timestamp()-touch_list.get(touch_list.size()-1).get_timestamp()) <= threshold)))
+			{
+				//the touch is good
+				touch_list.add(touches.get(i));
+			}else{
+				//the touch is no good. Reset the touch list
+				touch_list= new ArrayList<Touch>();
+			}
+
+			//if touch list has grown big enoguh to fill a window, plus 1 for the successor touch, add it to windows
+			if(touch_list.size()==window+1){
+				//update windows, successor touch	
+				//add_list will contain all but the last touch in touch_list
+				List<Touch> add_list;
+				add_list = new ArrayList<Touch>(touch_list);
+				add_list.remove(add_list.size()-1);
+			
+				windows.add(new Window(add_list);
+				successor_touch.add(touch_list.get(touch_list.size()-1));
+
+				touch_list.remove(0);
+			}
+		}
+	}
+
+
+	///returns the index corresponding to the token which contains touch. returns -1 if no token contains touch
+	private int get_token_index(Touch touch){
+		//TODO check for correctness
+		List<Token> token_list = get_tokens();
+
+		for(int i=0;i<token_list.size();i++){
+			if(token_list.get(i).contains(touch)){
+				return i;
+			}
+		}
 		
+		return -1;
 	}
 
 
@@ -236,7 +323,6 @@ public class Chain{
 	
 	///compute the tokens
 	private void compute_tokens(){
-		//TODO
 		tokens = new ArrayList<Token>();
 
 		for(int i=0; i<token; i++){
