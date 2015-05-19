@@ -1,3 +1,7 @@
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
 ///TODO compute the windows somewhere. This will be based on the threshold, window, token sizes. This may change distributions? if a touch is thrown out?
 ///this class represents the marcov chain. It contains a sequence of touches and a distribution. I avoid doing any processing on touch being added because eventually this will be called on key press in android. Setting it up this way is more flexible to in the sense that processing may be done at any time.
 ///caches the result of each computation so it does not have to be repeated.
@@ -218,7 +222,7 @@ public class Chain{
 		// 3) assign a probability to the successor touch based on 1,2
 		List<Window> window_list = get_windows();
 		int occurrences_of_window;
-		int number_successions;
+		double number_successions;
 		double probability;
 
 		for(int i=0;i<window_list.size();i++){
@@ -229,8 +233,9 @@ public class Chain{
 			number_successions = 1 + (successor_touch.get(i).get_probability(window_list.get(i)) * occurrences_of_window);
 
 			//compute the probability
-			probability = ((double)number_successions) / ((double)occurrences_of_window)
+			probability = (number_successions) / ((double)occurrences_of_window);
 
+			//TODO update the probability of the other touches with this successor as well?
 			//set the probability of the successor touch. To do this, I need to know how many times this touch succeeds this window
 			successor_touch.get(i).set_probability(window_list.get(i), probability);
 		}
@@ -266,6 +271,7 @@ public class Chain{
 
 		//for each of the touches (they are in order)
 		for(int i=0; i<touches.size(); i++){
+			//TODO take into account that touches are also not good if they fall outside of their keycode distribution, or the overall distribution
 			//if the touch is good, add it to the touch list. A touch is good if it is within threshold time and it is contained in one of the tokens.
 			if(	(get_token_index(touches.get(i)>=0) && 
 				((touch_list.size()==0) || ((touches.get(i).get_timestamp()-touch_list.get(touch_list.size()-1).get_timestamp()) <= threshold)))

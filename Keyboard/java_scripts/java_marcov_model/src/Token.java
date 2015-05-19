@@ -28,10 +28,8 @@ public class Token{
 	public Token(double range_min, double range_max, int total_tokens, int token_index){
 		//TODO check for correctness
 		//clustering algorithm
-		double variation = (range_max - range_min) / total_tokens;
-
-		//variation is now the size of the tokens
-		this(variation*token_index, variation*(token_index+1));
+		//variation is now ((range_max - range_min) / total_tokens)
+		this(((range_max - range_min) / total_tokens)*token_index, ((range_max - range_min) / total_tokens)*(token_index+1));
 	}
 
 
@@ -62,7 +60,13 @@ public class Token{
 	
 	///compares This token to another to determine if they are the same
 	@Override
-	public boolean equals(other_token){
+	public boolean equals(Object o_t){
+		if(o_t==null){
+			return false;
+		}
+		
+		Token other_token = (Token)o_t;
+		
 		return (this.min == other_token.min) && (this.max == other_token.max);
 	}
 }
