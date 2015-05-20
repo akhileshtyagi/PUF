@@ -1,10 +1,10 @@
 package test;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
 import runtime.ChainBuilder;
-
 import components.Distribution;
 import components.Touch;
 
@@ -12,8 +12,8 @@ import components.Touch;
 ///This class is used to test that the model is being built correctly. Also tested is the model compairason. and various classes used in model creating. The idea is to print out the tests which fail.
 ///This class should have to do no actual work if the program is designed well.
 public class Main{
-	final String TOUCH_TEST_FILE_NAME = "test_touch.csv";
-	final int TOUCH_TEST_FILE_LENGTH = 1000;
+	final static String TOUCH_TEST_FILE_NAME = "test_touch.csv";
+	final static int TOUCH_TEST_FILE_LENGTH = 1000;
 	
 	///enumerate the differant types of tests which may be run
 	private enum TestTypes{
@@ -45,6 +45,11 @@ public class Main{
 
 		private final String description;
 		private final int identifier;
+		
+		TestFiles(String description, int identifier){
+			this.description = description;
+			this.identifier = identifier;
+		}
 
 		public String toString(){
 			return description;
@@ -65,6 +70,12 @@ public class Main{
 			private final int identifier;
 			private final double value;
 			
+			PressureAmount(String description, int identifier, double value){
+				this.description = description;
+				this.identifier = identifier;
+				this.value = value;
+			}
+			
 			public String toString(){
 				return description;
 			}
@@ -79,15 +90,21 @@ public class Main{
 		}
 
 		//Defines what type of distribution will be written to the test file
-		//TODO decide the value
+		//TODO decide the value of double
 		public enum Distribution{
-			NORMAL ("Normal, centered about pressure median", 0, null),
-			ABNORMAL ("Abnormal, centered about pressure median, but inverted", 1, null),
-			RANDOM ("Random, completly and utterly random", 2, null);
+			NORMAL ("Normal, centered about pressure median", 0, 0),
+			ABNORMAL ("Abnormal, centered about pressure median, but inverted", 1, 0),
+			RANDOM ("Random, completly and utterly random", 2, 0);
 
 			private final String description;
 			private final int identifier;
 			private final double value;
+			
+			Distribution(String description, int identifier, double value){
+				this.description = description;
+				this.identifier = identifier;
+				this.value = value;
+			}
 			
 			public String toString(){
 				return description;
@@ -105,13 +122,19 @@ public class Main{
 		//this determines the width of the distribution. high concentration implies low standard deviation.
 		//TODO decide the value
 		public enum Concentration{
-			HIGH ("High, [std deviation]", 0, null),
-			MEDIUM ("Medium, [std deviation]",1, null),
-			LOW ("Low, [std deviation]",2, null);
+			HIGH ("High, [std deviation]", 0, 0),
+			MEDIUM ("Medium, [std deviation]",1, 0),
+			LOW ("Low, [std deviation]",2, 0);
 
 			private final String description;
 			private final int identifier;
 			private final double value;
+			
+			Concentration(String description, int identifier, double value){
+				this.description = description;
+				this.identifier = identifier;
+				this.value = value;
+			}
 			
 			public String toString(){
 				return description;
@@ -128,7 +151,7 @@ public class Main{
 	}
 
 	//all methods return true if they pass
-	public static void Main(String args[]){
+	public static void main(String args[]){
 		// allow the user to select between tests for correctness and tests for speed
 		TestTypes type = get_user_input_test_type();
 
@@ -151,15 +174,17 @@ public class Main{
 		//TODO prompt the user, asking which type of test file they would like to generate.
 		Scanner input = new Scanner(System.in);
 		boolean invalid = true;
-		TestFiles type;
+		TestFiles type = null;
+		int choice;
 		
 		while(invalid){
 			prompt_test_file_type();
 
-			type = input.nextLine();
-			for(TestFiles t_f : TestFiles.values(){
-				if(t_f.get_identifier()==type){
+			choice = Integer.valueOf(input.nextLine());
+			for(TestFiles t_f : TestFiles.values()){
+				if(t_f.get_identifier()==choice){
 					invalid = false;
+					type = t_f;
 					break;
 				}
 			}
@@ -175,7 +200,12 @@ public class Main{
 				double file_pressure_amount = get_file_pressure_amount();
 
 				//construct the file based on these values
-				Scanner output = new Scanner(new File(file_name));
+				try {
+					Scanner output = new Scanner(new File(file_name));
+				} catch (FileNotFoundException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 				
 				for(int i=0;i<TOUCH_TEST_FILE_LENGTH;i++){
 					//TODO generate touch information
@@ -191,15 +221,17 @@ public class Main{
 	private static TestTypes get_user_input_test_type(){
 		Scanner input = new Scanner(System.in);
 		boolean invalid = true;
-		TestTypes type;
+		TestTypes type = null;
+		int choice;
 		
 		while(invalid){
 			prompt_test_type();
 
-			type = input.nextLine();
-			for(TestTypes t_t : TestTypes.values(){
-				if(t_t.get_identifier()==type){
+			choice = Integer.valueOf(input.nextLine());
+			for(TestTypes t_t : TestTypes.values()){
+				if(t_t.get_identifier()==choice){
 					invalid = false;
+					type = t_t;
 					break;
 				}
 			}
@@ -222,7 +254,7 @@ public class Main{
 
 	
 	// display user options for types of files
-	private static TestFiles prompt_test_file_type(){
+	private static void prompt_test_file_type(){
 		System.out.println("");		
 		System.out.println("Which type of test file would you like to use:");
 
@@ -237,15 +269,17 @@ public class Main{
 	private static double get_file_distribution(){
 		Scanner input = new Scanner(System.in);
 		boolean invalid = true;
-		TestFiles.Distribution type;
+		TestFiles.Distribution type = null;
+		int choice;
 		
 		while(invalid){
 			display_file_distribution_options();
 
-			type = input.nextLine();
-			for(TestFiles.Distribution t_f : TestFiles.Distribution.values(){
-				if(t_f.get_identifier()==type){
+			choice = Integer.valueOf(input.nextLine());
+			for(TestFiles.Distribution t_f : TestFiles.Distribution.values()){
+				if(t_f.get_identifier()==choice){
 					invalid = false;
+					type = t_f;
 					break;
 				}
 			}
@@ -259,15 +293,17 @@ public class Main{
 	private static double get_file_concentration(){
 		Scanner input = new Scanner(System.in);
 		boolean invalid = true;
-		TestFiles.Concentration type;
+		TestFiles.Concentration type = null;
+		int choice = 0;
 		
 		while(invalid){
 			display_file_concentration_options();
 
-			type = input.nextLine();
-			for(TestFiles.Concentration t_f : TestFiles.Concentration.values(){
-				if(t_f.get_identifier()==type){
+			choice = Integer.valueOf(input.nextLine());
+			for(TestFiles.Concentration t_f : TestFiles.Concentration.values()){
+				if(t_f.get_identifier()==choice){
 					invalid = false;
+					type=t_f;
 					break;
 				}
 			}
@@ -281,15 +317,17 @@ public class Main{
 	private static double get_file_pressure_amount(){
 		Scanner input = new Scanner(System.in);
 		boolean invalid = true;
-		TestFiles.PressureAmount type;
+		TestFiles.PressureAmount type = null;
+		int choice;
 		
 		while(invalid){
 			display_file_pressure_amount_options();
 
-			type = input.nextLine();
-			for(TestFiles.PressureAmount t_f : TestFiles.PressureAmount.values(){
-				if(t_f.get_identifier()==type){
+			choice = Integer.valueOf(input.nextLine());
+			for(TestFiles.PressureAmount t_f : TestFiles.PressureAmount.values()){
+				if(t_f.get_identifier()==choice){
 					invalid = false;
+					type = t_f;
 					break;
 				}
 			}
@@ -338,11 +376,14 @@ public class Main{
 	//TODO call tests for speed
 	private static boolean speed_test(){
 		//make calls to all of the speed test methods which return a long indicating the amount of time the action took. These actions will allow me to isolate slow points in processing and attempt to fix them.
-		long total_time;
+		long total_time = 0;
 
 		//output the results
 		System.out.println("");
 		System.out.println("total time taken: " + total_time);
+		
+		//return true or false depending on whether the tests pass.
+		return true;
 	}
 
 
@@ -389,6 +430,7 @@ public class Main{
 	//### classes to be tested ###
 	private static boolean test_model_compare(){
 		//TODO test the model_compare.java file for correctness
+		return true;
 	}
 	
 
@@ -430,12 +472,14 @@ public class Main{
 
 	private static boolean test_model_building(){
 		//TODO test different aspects of building the model for correctness
+		return true;
 	}
 
 	
 	///calls methods to test the chain class
 	private static boolean test_chain(){
 		//TODO call methods to test the functionality of the chain class
+		return true;
 	}
 
 
@@ -447,15 +491,15 @@ public class Main{
 		Distribution dist;
 
 		//create a List of touches with a minimum value
-		touches.add(new Touch('a',.1);
-		touches.add(new Touch('a',.2);
-		touches.add(new Touch('a',.3);
-		touches.add(new Touch('a',.4);
-		touches.add(new Touch('a',.5);
-		touches.add(new Touch('a',.6);
-		touches.add(new Touch('a',.7);
-		touches.add(new Touch('a',.8);
-		touches.add(new Touch('a',.9);
+		touches.add(new Touch('a',.1, 100));
+		touches.add(new Touch('a',.2, 200));
+		touches.add(new Touch('a',.3, 300));
+		touches.add(new Touch('a',.4, 400));
+		touches.add(new Touch('a',.5, 500));
+		touches.add(new Touch('a',.6, 600));
+		touches.add(new Touch('a',.7, 700));
+		touches.add(new Touch('a',.8, 800));
+		touches.add(new Touch('a',.9, 900));
 
 		
 		//test to see that calc_min finds this value correctly
@@ -475,16 +519,15 @@ public class Main{
 		Distribution dist;
 
 		//create a List of touches with a minimum value
-		touches.add(new Touch('a',.1);
-		touches.add(new Touch('a',.2);
-		touches.add(new Touch('a',.3);
-		touches.add(new Touch('a',.4);
-		touches.add(new Touch('a',.5);
-		touches.add(new Touch('a',.6);
-		touches.add(new Touch('a',.7);
-		touches.add(new Touch('a',.8);
-		touches.add(new Touch('a',.9);
-
+		touches.add(new Touch('a',.1, 100));
+		touches.add(new Touch('a',.2, 200));
+		touches.add(new Touch('a',.3, 300));
+		touches.add(new Touch('a',.4, 400));
+		touches.add(new Touch('a',.5, 500));
+		touches.add(new Touch('a',.6, 600));
+		touches.add(new Touch('a',.7, 700));
+		touches.add(new Touch('a',.8, 800));
+		touches.add(new Touch('a',.9, 900));
 		
 		//test to see that calc_min finds this value correctly
 		dist = new Distribution(touches);
@@ -503,15 +546,15 @@ public class Main{
 		Distribution dist;
 
 		//create a List of touches with a minimum value
-		touches.add(new Touch('a',.1);
-		touches.add(new Touch('a',.2);
-		touches.add(new Touch('a',.3);
-		touches.add(new Touch('a',.4);
-		touches.add(new Touch('a',.5);
-		touches.add(new Touch('a',.6);
-		touches.add(new Touch('a',.7);
-		touches.add(new Touch('a',.8);
-		touches.add(new Touch('a',.9);
+		touches.add(new Touch('a',.1, 100));
+		touches.add(new Touch('a',.2, 200));
+		touches.add(new Touch('a',.3, 300));
+		touches.add(new Touch('a',.4, 400));
+		touches.add(new Touch('a',.5, 500));
+		touches.add(new Touch('a',.6, 600));
+		touches.add(new Touch('a',.7, 700));
+		touches.add(new Touch('a',.8, 800));
+		touches.add(new Touch('a',.9, 900));
 
 		
 		//test to see that calc_min finds this value correctly
@@ -531,15 +574,15 @@ public class Main{
 		Distribution dist;
 
 		//create a List of touches with a minimum value
-		touches.add(new Touch('a',.1);
-		touches.add(new Touch('a',.2);
-		touches.add(new Touch('a',.3);
-		touches.add(new Touch('a',.4);
-		touches.add(new Touch('a',.5);
-		touches.add(new Touch('a',.6);
-		touches.add(new Touch('a',.7);
-		touches.add(new Touch('a',.8);
-		touches.add(new Touch('a',.9);
+		touches.add(new Touch('a',.1, 100));
+		touches.add(new Touch('a',.2, 200));
+		touches.add(new Touch('a',.3, 300));
+		touches.add(new Touch('a',.4, 400));
+		touches.add(new Touch('a',.5, 500));
+		touches.add(new Touch('a',.6, 600));
+		touches.add(new Touch('a',.7, 700));
+		touches.add(new Touch('a',.8, 800));
+		touches.add(new Touch('a',.9, 900));
 
 		
 		//test to see that calc_min finds this value correctly
@@ -582,7 +625,7 @@ public class Main{
 		ChainBuilder chain_builder = new ChainBuilder();
 
 		//initialize
-		chain_builder
+		//chain_builder
 
 		long start_time = System.currentTimeMillis();
 		//do the method
