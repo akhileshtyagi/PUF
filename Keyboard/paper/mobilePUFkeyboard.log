@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.4.20)  28 APR 2015 21:02
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.4.20)  30 APR 2015 16:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -288,28 +288,27 @@ Overfull \hbox (15.5365pt too wide) in paragraph at lines 160--160
 []\secfnt DIFFERENTIATING USER-DEVICE PAIRS 
  []
 
-No file mobilePUFkeyboard.bbl.
-[1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
+(./mobilePUFkeyboard.bbl) [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ] (./mobilePUFkeyboard.aux) ) 
 Here is how much of TeX's memory you used:
- 2763 strings out of 493109
- 34314 string characters out of 6140856
- 98804 words of memory out of 5000000
- 6174 multiletter control sequences out of 15000+600000
- 41684 words of font info for 55 fonts, out of 8000000 for 9000
+ 2771 strings out of 493109
+ 34419 string characters out of 6140856
+ 98807 words of memory out of 5000000
+ 6177 multiletter control sequences out of 15000+600000
+ 44167 words of font info for 58 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,10n,28p,599b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc
 }</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/tex
-mf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/
-urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
->
-Output written on mobilePUFkeyboard.pdf (1 page, 47654 bytes).
+mf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dist/fonts/t
+ype1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uh
+vr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
+Output written on mobilePUFkeyboard.pdf (1 page, 62924 bytes).
 PDF statistics:
- 25 PDF objects out of 1000 (max. 8388607)
- 17 compressed objects within 1 object stream
+ 29 PDF objects out of 1000 (max. 8388607)
+ 20 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -5,7 +5,7 @@ import java.util.List;
 
 ///This class represents a touch event.
 public class Touch implements Comparable<Touch>{
-	private char key;
+	private int key;
 	private double pressure;
 	private long timestamp;
 
@@ -44,7 +44,7 @@ public class Touch implements Comparable<Touch>{
 		//search for window in predecessor_window
 		for(index=0;index<predecessor_window.size();index++){
 			//does this window equal the current window?
-			if(predecessor_window.get(i).compareTo(preceeding_window)==0){
+			if(predecessor_window.get(index).compareTo(preceeding_window)==0){
 				break;
 			}
 		}
@@ -64,16 +64,18 @@ public class Touch implements Comparable<Touch>{
 		//TODO check for correctness
 		//take in a window and return the probability of this touch coming after that window
 		//search for window in predecessor_window
+		int index;
+		
 		for(index=0;index<predecessor_window.size();index++){
 			//does this window equal the current window?
-			if(predecessor_window.get(i).compareTo(preceeding_window)==0){
+			if(predecessor_window.get(index).compareTo(preceeding_window)==0){
 				break;
 			}
 		}
 
 		if(index < predecessor_window.size()){
 			//predecessor_window already exists, updateing probability
-			return probability(index);
+			return probability.get(index);
 		}else{
 			//window does not exist in predecessor window
 			//TODO determine what to do. is this correct?
@@ -87,7 +89,7 @@ public class Touch implements Comparable<Touch>{
 	}
 
 
-	public double get_key(){
+	public int get_key(){
 		return key;
 	}
 
@@ -100,8 +102,8 @@ public class Touch implements Comparable<Touch>{
 	///implement hash function for the touch class
 	@Override
 	public int hashCode(){
-		//TODO make this better
-		return Integer.valueOf(pressure);
+		//TODO make this better.
+		return (int)(pressure*37);
 	}
 
 
@@ -125,7 +127,7 @@ public class Touch implements Comparable<Touch>{
 
 		//do this check last so if they are indeed unequal, the differance in the pressure value will be returned (most likly)
 		if(this.pressure != other_touch.pressure){
-			differance = this.pressure - other_touch.pressure;
+			differance = (int)((this.pressure - other_touch.pressure)*100);
 		}
 
 		return differance;
@@ -134,24 +136,24 @@ public class Touch implements Comparable<Touch>{
 
 	///compare the lists contained within two touches for equality. return true if they are equal. Cannot compare predecessor_window here because it will create an infinite loop in calling the compareTo functions back and forth.
 	private boolean are_lists_equal(Touch t1, Touch t2){
-			//TODO check for correctness
+			//TODO check for correctness, also REWORK THIS FOR EFFICIENCY. THIS IS NOT THE IDEAL WAY TO ACCOMPLISH WHAT I WANT
 			int differance = 0;			
 
-			Iterator<Window> this_iterator = t1.probability.iterator();
-			Iterator<Window> other_iterator = t2.probability.iterator();
+			Iterator<Double> this_iterator = t1.probability.iterator();
+			Iterator<Double> other_iterator = t2.probability.iterator();
 
 			while(this_iterator.hasNext()){
-				Touch this_touch = this_iterator.next();
-				Touch other_touch = other_iterator.next();
+				double this_touch = this_iterator.next();
+				double other_touch = other_iterator.next();
 
 				//compare the touches
-				if(this_touch.compareTo(other_touch)!=0){
+				if((this_touch-other_touch) != 0){
 					//incrementing differance indicates they are not equal
 					differance++;
 					break;
 				}
 			}
 
-			return differance=0;
+			return differance==0;
 	}
 }

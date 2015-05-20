@@ -1,5 +1,6 @@
 package runtime;
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -25,10 +26,13 @@ public class ChainBuilder{
 	private Chain user_chain;
 	private Chain auth_chain;	
 	
+	private int count;
+	
 
 	public ChainBuilder(){
 		user_chain = new Chain(WINDOW, TOKEN, THRESHOLD, USER_MODEL_SIZE);
 		auth_chain = new Chain(WINDOW, TOKEN, THRESHOLD, AUTH_MODEL_SIZE);
+		count=0;
 	}
 
 	
@@ -36,8 +40,6 @@ public class ChainBuilder{
 	///I don't know by what method percicely this will need to be called in the android souce. It could be another class which simply handles touch events, or from the pre-existing android archetecture.
 	public void handle_touch(Touch touch){		
 		// add the touch to both chains
-		static int count = 0;
-
 		///need to ensure that each gets their own version of the same object
 		user_chain.add_touch(new Touch(touch));
 		auth_chain.add_touch(new Touch(touch));
@@ -45,7 +47,7 @@ public class ChainBuilder{
 		//every so often we want to trigger an authentication if this feature is enabled
 		if((count == COMPARE_INCREMENT) && INCREMENTAL_AUTHENTICATION_ON){
 			authenticate();
-			count==0;
+			count=0;
 		}
 		count++;
 	}
@@ -66,12 +68,12 @@ public class ChainBuilder{
 	public void build_chain_from_csv(File file){
 		//TODO check for correctness
 		// read in data from csv file and package them in touches. Then call handle_touch();
-		List<Touch> touches = parse_csv(File file);
+		List<Touch> touches = parse_csv(file);
 		
 		//add each of the items to the chain one at a time
 		Iterator<Touch> touch_iterator = touches.iterator();
 
-		while(touch_iterator.hasNext(){
+		while(touch_iterator.hasNext()){
 			handle_touch(touch_iterator.next());
 		}
 	}
@@ -82,7 +84,12 @@ public class ChainBuilder{
 		ArrayList<Touch> touches = new ArrayList<Touch>();
 
 		//add everything in the arraylist to thouches
-		Scanner scanner = new Scanner(file);
+		Scanner scanner=null;
+		try {
+			scanner = new Scanner(file);
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}
 
 		while(scanner.hasNext()){
 			//TODO parse the input. Need to know 1) where keycode values are  2) where touch pressure, timestamp are.

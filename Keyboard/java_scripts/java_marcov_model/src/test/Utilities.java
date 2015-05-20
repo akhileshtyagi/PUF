@@ -5,7 +5,7 @@ import components.Touch;
 
 
 ///This file contains utilities for building the model and working with directories. I will prioritize the ones related to building the model
-public static class Utilities{
+public class Utilities{
 	///get the current working directory
 	public static String get_current_dir(){
 	}

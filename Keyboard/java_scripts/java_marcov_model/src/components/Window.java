@@ -50,8 +50,8 @@ public class Window implements Comparable<Window>{
 		//ensure the windows are the same size
 		if(this.window_size == other_window.window_size){
 			//windows are the same size. compare the touches
-			Iterator<Window> this_iterator = this.window.iterator();
-			Iterator<Window> other_iterator = other_window.window.iterator();
+			Iterator<Touch> this_iterator = this.window.iterator();
+			Iterator<Touch> other_iterator = other_window.window.iterator();
 
 			while(this_iterator.hasNext()){
 				Touch this_touch = this_iterator.next();

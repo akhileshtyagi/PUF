@@ -3,10 +3,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import runtime.ChainBuilder;
+
 import components.Distribution;
 import components.Touch;
-
-import runtime.ChainBuilder;
 
 ///TODO generate a csv file for testing
 ///This class is used to test that the model is being built correctly. Also tested is the model compairason. and various classes used in model creating. The idea is to print out the tests which fail.
@@ -22,6 +22,11 @@ public class Main{
 
 		private final String description;
 		private final int identifier;
+		
+		TestTypes(String description, int identifier){
+			this.description = description;
+			this.identifier = identifier;
+		}
 
 		public String toString(){
 			return description;

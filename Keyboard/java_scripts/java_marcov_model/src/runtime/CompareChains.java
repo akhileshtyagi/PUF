@@ -37,9 +37,13 @@ public class CompareChains implements Runnable{
 		
 		// wait for each of the computation threads to finish
 		//TODO handle InterruptedException
-		dt.join();
-		kdt.join();
-		tpt.join();
+		try {
+			dt.join();
+			kdt.join();
+			tpt.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
 
 		///preform the comparason now that the values are cached in the Chain's	
 		differance = user_chain.compare_to(auth_chain);
@@ -83,8 +87,8 @@ public class CompareChains implements Runnable{
 	private class Touch_probability_thread implements Runnable{
 		@Override
 		public void run(){
-			user_chain.get_touch_probability(null, null);
-			auth_chain.get_touch_probability(null, null);
+			user_chain.get_touch_probability(null, 0);
+			auth_chain.get_touch_probability(null, 0);
 		}
 	}
 }

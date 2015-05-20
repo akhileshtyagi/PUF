@@ -58,7 +58,7 @@ public class Chain{
 	
 		this.distribution_computed = c.distribution_computed;
 		this.probability_computed = c.probability_computed;
-		this.key_distribution_coputed = c.key_distribution_computed;
+		this.key_distribution_computed = c.key_distribution_computed;
 		this.model_size = c.model_size;
 	}
 
@@ -169,17 +169,20 @@ public class Chain{
 		key_distribution = new ArrayList<Distribution>();
 		ArrayList<List<Touch>> list_of_keycodes = new ArrayList<List<Touch>>();
 
-		//for the entire list of touches
+		//for the entire list of touches. After this loop, all keycodes should be placed in a separate list in list_of_keycodes
 		for(int i=0;i<touches.size();i++){
 			//get the index of the current keycode
-			int keycode_index = keycode_index(list_of_keycodes,touches.get(i).get_key());
+			int keycode_index = keycode_index(list_of_keycodes, touches.get(i).get_key());
 
 			if(keycode_index==-1){
 				//the keycode does not already exist in list of keycodes, add it
-				list_of_keycodes.add((new ArrayList<Touch>()).add(touches.get(i)));
+				ArrayList<Touch> single_touch_list = new ArrayList<Touch>();
+				single_touch_list.add(touches.get(i));
+				
+				list_of_keycodes.add(single_touch_list);
 			}else{
 				//the keycode already exits. Simply add it to the array at keycode_index
-				list_of_keycodes.get(index).add(touches.get(i);
+				list_of_keycodes.get(keycode_index).add(touches.get(i));
 			}
 		}
 		
@@ -268,13 +271,13 @@ public class Chain{
 		// 3) throw out any window where the gap in touches is greater than threshold
 		windows = new ArrayList<Window>();
 		successor_touch = new ArrayList<Touch>();
-		List<Touch> touch_list = new ArrayLIst<Touch>();
+		List<Touch> touch_list = new ArrayList<Touch>();
 
 		//for each of the touches (they are in order)
 		for(int i=0; i<touches.size(); i++){
 			//TODO take into account that touches are also not good if they fall outside of their keycode distribution, or the overall distribution
 			//if the touch is good, add it to the touch list. A touch is good if it is within threshold time and it is contained in one of the tokens.
-			if(	(get_token_index(touches.get(i)>=0) && 
+			if(	(get_token_index(touches.get(i)) >=0 ) && 
 				((touch_list.size()==0) || ((touches.get(i).get_timestamp()-touch_list.get(touch_list.size()-1).get_timestamp()) <= threshold)))
 			{
 				//the touch is good
@@ -292,7 +295,7 @@ public class Chain{
 				add_list = new ArrayList<Touch>(touch_list);
 				add_list.remove(add_list.size()-1);
 			
-				windows.add(new Window(add_list);
+				windows.add(new Window(add_list));
 				successor_touch.add(touch_list.get(touch_list.size()-1));
 
 				touch_list.remove(0);

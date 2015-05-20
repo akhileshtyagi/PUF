@@ -10,7 +10,7 @@ public class Distribution{
 	private double average;
 	private double standard_deviation;
 
-	private char associated_keycode;
+	private int associated_keycode;
 
 	private boolean average_computed;
 	
@@ -26,7 +26,7 @@ public class Distribution{
 
 
 	///this constructor allows a keycode to be associated with the distribution
-	public Distribution(List<Touch> touches, char keycode){
+	public Distribution(List<Touch> touches, int keycode){
 		average_computed=false;
 		associated_keycode=keycode;
 
@@ -42,7 +42,7 @@ public class Distribution{
 		this.min = d.min;
 		this.max = d.max;
 		this.average = d.average;
-		this.stadard_deviation = d.standard_deviation;
+		this.standard_deviation = d.standard_deviation;
 	}
 
 
@@ -100,7 +100,7 @@ public class Distribution{
 		while(touches_iterator.hasNext()){
 			Touch t = touches_iterator.next();
 			
-			total_pressure += t.get_pressure()
+			total_pressure += t.get_pressure();
 		}
 
 		average = total_pressure/touches.size();
@@ -163,7 +163,7 @@ public class Distribution{
 
 
 	///returns the keycode associated with this distribution. If the distribution does not have an associated keycode, this method will return -1.
-	public char get_keycode(){
+	public int get_keycode(){
 		return associated_keycode;
 	}
 }
