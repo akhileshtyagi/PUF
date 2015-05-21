@@ -174,6 +174,7 @@ public class Main{
 	private static void build_touch_test_file(String file_name){
 		//TODO prompt the user, asking which type of test file they would like to generate.
 		Scanner input = new Scanner(System.in);
+		Scanner output = null;
 		boolean invalid = true;
 		TestFiles type = null;
 		int choice;
@@ -202,7 +203,7 @@ public class Main{
 
 				//construct the file based on these values
 				try {
-					Scanner output = new Scanner(new File(file_name));
+					output = new Scanner(new File(file_name));
 				} catch (FileNotFoundException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -213,8 +214,12 @@ public class Main{
 					//TODO write touch information to output
 				}
 
+				
 				break;
 		}
+		
+		output.close();
+		input.close();
 	}
 
 
@@ -238,6 +243,7 @@ public class Main{
 			}
 		}
 
+		input.close();
 		return type;
 	}
 
@@ -286,6 +292,7 @@ public class Main{
 			}
 		}
 
+		input.close();
 		return type.get_value();
 	}
 
@@ -310,6 +317,7 @@ public class Main{
 			}
 		}
 
+		input.close();
 		return type.get_value();
 	}
 
@@ -334,6 +342,7 @@ public class Main{
 			}
 		}
 
+		input.close();
 		return type.get_value();
 	}
 
@@ -432,9 +441,10 @@ public class Main{
 			}
 	}
 
-	
+	//###############################
 	//###############################
 	//#### Tests for correctness ####
+	//###############################
 	//###############################
 	
 	//############################
@@ -459,7 +469,7 @@ public class Main{
 		boolean test_calc_standard_deviation_success = test_calc_standard_deviation();
 		
 		//print out any errors in a readable way
-		System.out.println("distribution error log:");
+		System.out.println("\ndistribution error log:");
 
 		if(!test_calc_min_success){
 			System.out.println("\tcalc_min fails");
@@ -487,8 +497,38 @@ public class Main{
 	
 	//# Token class #
 	private static boolean test_token(){
-		//TODO test different aspects of building the model for correctness
-		return true;
+		boolean correct=true;
+
+		//test functions in the token class
+		boolean test_constructors_success = test_token_constructors();
+		boolean test_contains_success = test_token_contains();
+		boolean test_get_min_max_success = test_get_min_max();
+		boolean test_token_equals_success = test_token_equals();
+		
+		//print out any errors in a readable way
+		System.out.println("\ntoken error log:");
+
+		if(!test_constructors_success){
+			System.out.println("\ttoken constructors fails");
+			correct=false;
+		}
+		
+		if(!test_contains_success){
+			System.out.println("\ttoken_contains fails");
+			correct=false;
+		}
+
+		if(!test_get_min_max_success){
+			System.out.println("\tget_min_max fails");
+			correct=false;
+		}
+
+		if(!test_token_equals_success){
+			System.out.println("\ttoken_equals fails");
+			correct=false;
+		}
+		
+		return correct;
 	}
 
 	
@@ -524,11 +564,40 @@ public class Main{
 	//### methods to be tested ###
 	//############################
 	
-	
 	//TODO
 	//# Chain class#
+	private static boolean test_add_touch(){
+		//TODO
+		return false;
+	}
 	
 	
+	private static boolean test_get_touch_probability(){
+		//TODO
+		return false;
+	}
+	
+	
+	private static boolean test_get_distribution(){
+		//TODO
+		return false;
+	}
+	
+	
+	private static boolean test_get_key_distribution(){
+		//TODO
+		return false;
+	}
+	
+	
+	private static boolean test_chain_compare_to(){
+		//TODO
+		return false;
+	}
+	
+	
+	//# Distribution class #
+	//# Distribution class #
 	//# Distribution class #
 	private static boolean test_calc_min(){
 		boolean correct = false;	
@@ -645,26 +714,102 @@ public class Main{
 
 	//TODO
 	//# Token class #
+	private static boolean test_token_constructors(){
+		//TODO
+		return false;
+	}
 	
+	
+	private static boolean test_token_contains(){
+		//TODO
+		return false;
+	}
+	
+	
+	private static boolean test_get_min_max(){
+		//TODO
+		return false;
+	}
+	
+	
+	private static boolean test_token_equals(){
+		//TODO
+		return false;
+	}
 
+	
 	//TODO
 	//# Touch class #
-
+	private static boolean test_set_probability(){
+		//TODO
+		return false;
+	}
+	
+	
+	private static boolean test_get_probability(){
+		//TODO
+		return false;
+	}
+	
+	
+	private static boolean test_touch_hashCode(){
+		//TODO
+		return false;
+	}
+	
+	
+	private static boolean test_touch_compareTo(){
+		//TODO
+		return false;
+	}
+	
 	
 	//TODO
 	//# Window class #
-
+	private static boolean test_window_compareTo(){
+		//TODO
+		return false;
+	}
+	
+	
+	private static boolean test_window_hashCode(){
+		//TODO
+		return false;
+	}
+	
 
 	//TODO
 	//# ChainBuilder class
+	private static boolean test_handle_touch(){
+		//TODO
+		return false;
+	}
+	
+	
+	private static boolean test_authenticate(){
+		//TODO
+		return false;
+	}
+	
+	
+	private static boolean test_build_chain_from_csv(){
+		//TODO
+		return false;
+	}
 	
 	
 	//TODO
 	//# CompareChains class #
+	private static boolean test_compare_chains_run(){
+		//TODO
+		return false;
+	}
 
 	
 	//#########################
+	//#########################
 	//#### Tests for speed ####
+	//#########################
 	//#########################
 	// call all of the same methods as above, but return the time they take
 	

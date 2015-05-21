@@ -6,11 +6,11 @@ import java.util.List;
 ///This class will store and provide functions for a single window within the model
 
 public class Window implements Comparable<Window>{
-	List<Touch> window;
-	int window_size;
-	int hash; // stores the hash so it doesn't have to be recomputed, unless update
+	private List<Touch> window;
+	private int window_size;
+	private int hash; // stores the hash so it doesn't have to be recomputed, unless update
 
-	boolean hash_computed;
+	private boolean hash_computed;
 
 	public Window(List<Touch> touches){
 		window = new ArrayList<Touch>();
