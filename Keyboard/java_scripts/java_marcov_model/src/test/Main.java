@@ -453,8 +453,45 @@ public class Main{
 
 	//# Chain class #
 	private static boolean test_chain(){
-		//TODO call methods to test the functionality of the chain class
-		return true;
+		// call methods to test the functionality of the chain class
+		boolean correct=true;
+
+		//test functions in the distribution class
+		boolean test_add_touch_success = test_add_touch();
+		boolean test_get_touch_probability_success = test_get_touch_probability();
+		boolean test_get_distribution_success = test_get_distribution();
+		boolean test_get_key_distribution_success = test_get_key_distribution();
+		boolean test_chain_compare_to_success = test_chain_compare_to();
+		
+		//print out any errors in a readable way
+		System.out.println("\nchain error log:");
+
+		if(!test_add_touch_success){
+			System.out.println("\tadd_touch fails");
+			correct=false;
+		}
+		
+		if(!test_get_touch_probability_success){
+			System.out.println("\tget_touch_probability fails");
+			correct=false;
+		}
+
+		if(!test_get_distribution_success){
+			System.out.println("\tget_distribution fails");
+			correct=false;
+		}
+
+		if(!test_get_key_distribution_success){
+			System.out.println("\tcalc_standard_deviation fails");
+			correct=false;
+		}
+		
+		if(!test_chain_compare_to_success){
+			System.out.println("\tcompare_to fails");
+			correct=false;
+		}
+		
+		return correct;
 	}
 
 	
@@ -534,29 +571,117 @@ public class Main{
 	
 	//# Touch class #
 	private static boolean test_touch(){
-		//TODO call methods to test the functionality of the chain class
-		return true;
+		// call methods to test the functionality of the chain class
+		boolean correct=true;
+
+		//test functions in the distribution class
+		boolean test_set_probability_success = test_set_probability();
+		boolean test_get_probability_success = test_get_probability();
+		boolean test_touch_hashCode_success = test_touch_hashCode();
+		boolean test_touch_compareTo_success = test_touch_compareTo();
+		
+		//print out any errors in a readable way
+		System.out.println("\ntouch error log:");
+
+		if(!test_set_probability_success){
+			System.out.println("\tset_probability fails");
+			correct=false;
+		}
+		
+		if(!test_get_probability_success){
+			System.out.println("\tget_probability fails");
+			correct=false;
+		}
+		
+		if(!test_touch_hashCode_success){
+			System.out.println("\thashCode fails");
+			correct=false;
+		}
+		
+		if(!test_touch_compareTo_success){
+			System.out.println("\tcompareTo fails");
+			correct=false;
+		}
+		
+		return correct;
 	}
 
 
 	//# Window class #
 	private static boolean test_window(){
-		//TODO call methods to test the functionality of the chain class
-		return true;
+		//call methods to test the functionality of the chain class
+		boolean correct=true;
+
+		//test functions in the distribution class
+		boolean test_window_compareTo_success = test_window_compareTo();
+		boolean test_window_hashCode_success = test_window_hashCode();
+		
+		//print out any errors in a readable way
+		System.out.println("\nwindow error log:");
+
+		if(!test_window_compareTo_success){
+			System.out.println("\tcompareTo fails");
+			correct=false;
+		}
+		
+		if(!test_window_hashCode_success){
+			System.out.println("\thashCode fails");
+			correct=false;
+		}
+		
+		return correct;
 	}
 	
 	
 	//# ChainBuilder class #
 	private static boolean test_chain_builder(){
-		//TODO call methods to test the functionality of the chain class
-		return true;
+		// call methods to test the functionality of the chain class
+		boolean correct=true;
+
+		//test functions in the distribution class
+		boolean test_handle_touch_success = test_handle_touch();
+		boolean test_authenticate_success = test_authenticate();
+		boolean test_build_chain_from_csv_success = test_build_chain_from_csv();
+		
+		//print out any errors in a readable way
+		System.out.println("\nchainBuilder error log:");
+
+		if(!test_handle_touch_success){
+			System.out.println("\thandle_touch fails");
+			correct=false;
+		}
+		
+		if(!test_authenticate_success){
+			System.out.println("\tauthenticate fails");
+			correct=false;
+		}
+		
+		if(!test_build_chain_from_csv_success){
+			System.out.println("\tbuild_chain_from_csv fails");
+			correct=false;
+		}
+		
+		return correct;
 	}
 	
 	
 	//# CompareChains #
 	private static boolean test_compare_chains(){
 		//TODO call methods to test the functionality of the chain class
-		return true;
+		boolean correct=true;
+
+		//test functions in the distribution class
+		boolean test_compare_chains_run_success = test_compare_chains_run();
+		
+		//print out any errors in a readable way
+		System.out.println("\ncompareChains error log:");
+
+		if(!test_compare_chains_run_success){
+			System.out.println("\tcalc_min fails");
+			correct=false;
+		}
+		
+		return correct;
 	}
 	
 	
