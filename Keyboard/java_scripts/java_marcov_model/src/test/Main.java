@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import runtime.ChainBuilder;
+
 import components.Distribution;
 import components.Touch;
 
@@ -371,69 +372,83 @@ public class Main{
 		}
 	}
 	
-
+	
+	//############################
 	//##### BEGIN TEST CALLS #####
-	//TODO call tests for speed
-	private static boolean speed_test(){
+	//############################
+	//TODO call tests for speed. Print out results
+	private static void speed_test(){
 		//make calls to all of the speed test methods which return a long indicating the amount of time the action took. These actions will allow me to isolate slow points in processing and attempt to fix them.
+		//this will call individual methods instead of grouped together class methods. It will time everything and print the results.
+		
 		long total_time = 0;
 
 		//output the results
 		System.out.println("");
 		System.out.println("total time taken: " + total_time);
-		
-		//return true or false depending on whether the tests pass.
-		return true;
 	}
 
 
-	//call tests for correctness
-	private static boolean correctness_test(){
+	//call tests for correctness. Print out results
+	private static void correctness_test(){
 		//make calls to all of the classes to be tested
-		boolean test_model_compare_success = test_model_compare();
-		boolean test_distribution_success = test_distribution();
-		boolean test_model_building_success = test_model_building();
 		boolean test_chain_success = test_chain();
+		boolean test_distribution_success = test_distribution();
+		boolean test_token_success = test_token();
+		boolean test_touch_success = test_touch();
+		boolean test_window_success = test_window();
+		boolean test_chain_builder_success = test_chain_builder();
+		boolean test_compare_chains_success = test_compare_chains();
 
 		//print out errors in a readable format
-		System.out.println("program overview error log:");
+		System.out.println("\nprogram overview error log:");
 
-		if(test_model_compare_success &&
-			test_distribution_success &&
-			test_model_building_success &&
-			test_chain_success)
-		{
-			System.out.println("\tall tests successful");
-			return true;
-		}else{
-			if(!test_model_compare_success){
-				System.out.println("\tmodel_compare fails");
+			if(!test_chain_success){
+				System.out.println("\tchain fails");
 			}
 		
 			if(!test_distribution_success){
 				System.out.println("\tdistribution fails");
 			}
 	
-			if(!test_model_building_success){
-				System.out.println("\tmodel_building fails");
+			if(!test_token_success){
+				System.out.println("\ttoken fails");
 			}
 
-			if(!test_chain_success){
-				System.out.println("\tchain fails");
+			if(!test_touch_success){
+				System.out.println("\ttouch fails");
 			}
-			return false;
-		}
+			
+			if(!test_window_success){
+				System.out.println("\twindow fails");
+			}
+			
+			if(!test_chain_builder_success){
+				System.out.println("\tchain_builder fails");
+			}
+			
+			if(!test_compare_chains_success){
+				System.out.println("\tcompare_chains fails");
+			}
 	}
 
-
+	
+	//###############################
 	//#### Tests for correctness ####
+	//###############################
+	
+	//############################
 	//### classes to be tested ###
-	private static boolean test_model_compare(){
-		//TODO test the model_compare.java file for correctness
+	//############################
+
+	//# Chain class #
+	private static boolean test_chain(){
+		//TODO call methods to test the functionality of the chain class
 		return true;
 	}
-	
 
+	
+	//# Distribution class #
 	private static boolean test_distribution(){
 		boolean correct=true;
 
@@ -469,21 +484,51 @@ public class Main{
 		return correct;
 	}
 
-
-	private static boolean test_model_building(){
+	
+	//# Token class #
+	private static boolean test_token(){
 		//TODO test different aspects of building the model for correctness
 		return true;
 	}
 
 	
-	///calls methods to test the chain class
-	private static boolean test_chain(){
+	//# Touch class #
+	private static boolean test_touch(){
 		//TODO call methods to test the functionality of the chain class
 		return true;
 	}
 
 
+	//# Window class #
+	private static boolean test_window(){
+		//TODO call methods to test the functionality of the chain class
+		return true;
+	}
+	
+	
+	//# ChainBuilder class #
+	private static boolean test_chain_builder(){
+		//TODO call methods to test the functionality of the chain class
+		return true;
+	}
+	
+	
+	//# CompareChains #
+	private static boolean test_compare_chains(){
+		//TODO call methods to test the functionality of the chain class
+		return true;
+	}
+	
+	
+	//############################
 	//### methods to be tested ###
+	//############################
+	
+	
+	//TODO
+	//# Chain class#
+	
+	
 	//# Distribution class #
 	private static boolean test_calc_min(){
 		boolean correct = false;	
@@ -599,28 +644,60 @@ public class Main{
 	
 
 	//TODO
-	//# Model Compare #
+	//# Token class #
 	
 
 	//TODO
-	//# Model Building #
-
-
-	//TODO
-	//# Chain #
+	//# Touch class #
 
 	
 	//TODO
-	//# Window #
+	//# Window class #
 
 
 	//TODO
-	//# 
-
+	//# ChainBuilder class
+	
 	
 	//TODO
+	//# CompareChains class #
+
+	
+	//#########################
 	//#### Tests for speed ####
-	private static long test_model_build_time(){
+	//#########################
+	// call all of the same methods as above, but return the time they take
+	
+	//TODO
+	//# Chain class#
+	
+	
+	//TODO
+	//# Distribution class #
+	
+	
+	//TODO
+	//# Token class #
+		
+
+	//TODO
+	//# Touch class #
+
+		
+	//TODO
+	//# Window class #
+
+
+	//TODO
+	//# ChainBuilder class
+		
+		
+	//TODO
+	//# CompareChains class #	
+	
+	
+	//This is a generic method for testing the time of something
+	private static long test_time(){
 		//initialize things
 		ChainBuilder chain_builder = new ChainBuilder();
 
