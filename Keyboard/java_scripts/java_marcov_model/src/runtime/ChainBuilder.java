@@ -30,6 +30,7 @@ public class ChainBuilder{
 	
 
 	public ChainBuilder(){
+		//TODO auth chain should be built with the same distribution/ tokens as user_chain
 		user_chain = new Chain(WINDOW, TOKEN, THRESHOLD, USER_MODEL_SIZE);
 		auth_chain = new Chain(WINDOW, TOKEN, THRESHOLD, AUTH_MODEL_SIZE);
 		count=0;

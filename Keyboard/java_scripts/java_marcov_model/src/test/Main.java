@@ -2,11 +2,13 @@ package test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.Scanner;
 
 import runtime.ChainBuilder;
 
 import components.Distribution;
+import components.Token;
 import components.Touch;
 
 ///TODO generate a csv file for testing
@@ -156,9 +158,9 @@ public class Main{
 		// allow the user to select between tests for correctness and tests for speed
 		TestTypes type = get_user_input_test_type();
 
-		//construct the test file
-		build_touch_test_file(TOUCH_TEST_FILE_NAME);
-
+		//TODO construct the test file
+		//build_touch_test_file(TOUCH_TEST_FILE_NAME);
+		
 		switch(type){
 			case CORRECTNESS:
 				correctness_test();
@@ -181,8 +183,10 @@ public class Main{
 		
 		while(invalid){
 			prompt_test_file_type();
-
+			
+			while(!input.hasNextLine());
 			choice = Integer.valueOf(input.nextLine());
+			
 			for(TestFiles t_f : TestFiles.values()){
 				if(t_f.get_identifier()==choice){
 					invalid = false;
@@ -214,7 +218,6 @@ public class Main{
 					//TODO write touch information to output
 				}
 
-				
 				break;
 		}
 		
@@ -693,7 +696,9 @@ public class Main{
 	//# Chain class#
 	private static boolean test_add_touch(){
 		//TODO
-		return false;
+		boolean correct = true;
+		
+		return correct;
 	}
 	
 	
@@ -721,8 +726,6 @@ public class Main{
 	}
 	
 	
-	//# Distribution class #
-	//# Distribution class #
 	//# Distribution class #
 	private static boolean test_calc_min(){
 		boolean correct = false;	
@@ -840,14 +843,125 @@ public class Main{
 	//TODO
 	//# Token class #
 	private static boolean test_token_constructors(){
-		//TODO
-		return false;
+		boolean correct = true;
+		
+		//create a distribution to be used in the construction of tokens
+		ArrayList<Touch> touches = new ArrayList<Touch>();
+		Distribution dist;
+
+		//create a List of touches with a minimum value
+		touches.add(new Touch('a', 0, 0));
+		touches.add(new Touch('a',.1, 100));
+		touches.add(new Touch('a',.2, 200));
+		touches.add(new Touch('a',.3, 300));
+		touches.add(new Touch('a',.4, 400));
+		touches.add(new Touch('a',.5, 500));
+		touches.add(new Touch('a',.6, 600));
+		touches.add(new Touch('a',.7, 700));
+		touches.add(new Touch('a',.8, 800));
+		touches.add(new Touch('a',.9, 900));
+		touches.add(new Touch('a', 1, 1000));
+
+		
+		//test to see that calc_min finds this value correctly
+		dist = new Distribution(touches);
+		
+		//make a call to Token() constructors. Test one of them for correctness. Test the rest for equality to the fist.
+		ArrayList<Token> tokens_0 = new ArrayList<Token>();
+		ArrayList<Token> tokens_1 = new ArrayList<Token>();
+		ArrayList<Token> tokens_2 = new ArrayList<Token>();
+		
+		//create 10 tokens over the range 0 to 1 using the three different constructors.
+		for(int i=0;i<10;i++){
+			tokens_0.add(new Token(dist, 10, i, 2)); // this one should necessarily be differant from the other two
+			tokens_1.add(new Token(dist, 10, i));
+			tokens_2.add(new Token(0, 1, 10, i));
+		}
+		
+		//check for the correctness of each of the token sets
+		boolean token_0_incorrect = false;
+		boolean token_1_incorrect;
+		boolean token_2_incorrect;
+		double sigma = dist.get_standard_deviation();
+		
+		for(int i=0;i<10;i++){
+			//test each of the token sets for correctness
+			//System.out.print(((.4*sigma*i)+(dist.get_average()-2*sigma)));
+			//System.out.println("\t"+tokens_0.get(i).get_min());
+			
+			//TODO make sure this is a valid test
+			token_0_incorrect = !within_episilon(tokens_0.get(i).get_min(), ((.4*sigma*(i+1))+dist.get_average()-2*sigma), .01);
+			token_1_incorrect = !(tokens_1.get(i).get_min()==(.1*i));
+			token_2_incorrect = !(tokens_2.get(i).get_min()==(.1*i));
+			
+			if(	token_0_incorrect ||
+				token_1_incorrect ||
+				token_2_incorrect){
+				correct = false;
+			}
+		}
+		
+		return correct;
 	}
 	
 	
 	private static boolean test_token_contains(){
 		//TODO
-		return false;
+		boolean correct = true;
+		
+		//create a distribution to be used in the construction of tokens
+		ArrayList<Touch> touches = new ArrayList<Touch>();
+		Distribution dist;
+
+		//create a List of touches with a minimum value
+		touches.add(new Touch('a', 0, 0));
+		touches.add(new Touch('a',.1, 100));
+		touches.add(new Touch('a',.2, 200));
+		touches.add(new Touch('a',.3, 300));
+		touches.add(new Touch('a',.4, 400));
+		touches.add(new Touch('a',.5, 500));
+		touches.add(new Touch('a',.6, 600));
+		touches.add(new Touch('a',.7, 700));
+		touches.add(new Touch('a',.8, 800));
+		touches.add(new Touch('a',.9, 900));
+		touches.add(new Touch('a', 1, 1000));
+
+		
+		//test to see that calc_min finds this value correctly
+		dist = new Distribution(touches);
+		
+		//make a call to Token() constructors. Test one of them for correctness. Test the rest for equality to the fist.
+		ArrayList<Token> tokens_0 = new ArrayList<Token>();
+		ArrayList<Token> tokens_1 = new ArrayList<Token>();
+		ArrayList<Token> tokens_2 = new ArrayList<Token>();
+		
+		//create 10 tokens over the range 0 to 1 using the three different constructors.
+		for(int i=0;i<10;i++){
+			tokens_0.add(new Token(dist, 10, i, 2)); // this one should necessarily be differant from the other two
+			tokens_1.add(new Token(dist, 10, i));
+			tokens_2.add(new Token(0, 1, 10, i));
+		}
+		
+		//check for the correctness of each of the token sets
+		boolean token_2_incorrect;
+		
+		for(int i=0;i<10;i++){
+			//test each of the token sets for correctness
+			Touch t = new Touch('a',.5+i, 0);
+			
+			System.out.println(t.get_pressure());
+			System.out.println(tokens_2.get(i).get_min() + " : " + tokens_2.get(i).get_max());
+			
+			token_2_incorrect = !(tokens_2.get(i).contains(t));
+			
+			System.out.println(token_2_incorrect);
+			
+			if(token_2_incorrect){
+				correct = false;
+			}
+		}
+		
+		return correct;
 	}
 	
 	
@@ -979,5 +1093,18 @@ public class Main{
 		long end_time = System.currentTimeMillis();
 
 		return end_time-start_time;
+	}
+
+
+	//###################
+	//###################
+	//#### Utilities ####
+	//###################
+	//###################
+	//there are useful across all test cases
+	
+	///determines whether a is within episilon of b. true if a is within episilon of b.
+	private static boolean within_episilon(double a, double b, double episilon){
+		return ((a>(b-episilon)) && (a<(b+episilon)));
 	}
 }

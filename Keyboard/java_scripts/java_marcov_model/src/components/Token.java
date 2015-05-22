@@ -7,9 +7,12 @@ public class Token{
 	private double min;
 	private double max;
 
-	///TODO allow for creation of tokens with-in some number of standard deviations of a distribution
+	/// allow for creation of tokens with-in some number of standard deviations of a distribution
 	public Token(Distribution distribution, int total_tokens, int token_index, double standard_deviations){
-
+		//TODO check for correctness
+		this(	(distribution.get_average()-distribution.get_standard_deviation()*standard_deviations),
+				(distribution.get_average()+distribution.get_standard_deviation()*standard_deviations),
+				total_tokens, token_index);
 	}	
 
 
@@ -27,7 +30,6 @@ public class Token{
 		token_index, integer between 0 and total_tokens-1 indicating into which range this token falls
 	**/
 	public Token(double range_min, double range_max, int total_tokens, int token_index){
-		//TODO check for correctness
 		//clustering algorithm
 		//variation is now ((range_max - range_min) / total_tokens)
 		this(((range_max - range_min) / total_tokens)*token_index, ((range_max - range_min) / total_tokens)*(token_index+1));
@@ -43,7 +45,7 @@ public class Token{
 
 	///determines if a touch is within this token based on its pressure value
 	public boolean contains(Touch touch){
-		return (touch.get_pressure() < max) && (touch.get_pressure() > min);
+		return (touch.get_pressure() <= max) && (touch.get_pressure() > min);
 	}
 	
 	
