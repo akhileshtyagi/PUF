@@ -6,7 +6,10 @@ import components.Chain;
 
 public class CompareChains implements Runnable{
 	final double AUTHENTICATION_THRESHOLD = .7; //TODO find a reasonable / justifiable value for the authentication threshold	
-
+	
+	private volatile boolean is_authentic;
+	private volatile boolean complete; //indicates is_authentic contains the result 
+	
 	private Chain user_chain;
 	private Chain auth_chain;
 	
@@ -14,6 +17,9 @@ public class CompareChains implements Runnable{
 	public CompareChains(Chain user_chain, Chain auth_chain){
 		this.user_chain = new Chain(user_chain);
 		this.auth_chain = new Chain(auth_chain);
+		
+		is_authentic = false;
+		complete = false;
 	}
 
 	
@@ -52,10 +58,26 @@ public class CompareChains implements Runnable{
 			//TODO determine what to do when the user fails the authentication
 			//user fails the authentication
 			//possibly cause the lock screen to come up
+			is_authentic = false;
 			System.out.println("User fails to authenticate");
+		}else{
+			is_authentic = true;
 		}
+		complete=true;
 	}
-
+	
+	
+	///returns the result of the authentication. This method does not provide any guarentees that the compairason has finsihed yet. If the compairason has not yet finished it will return false;
+	public boolean get_auth_result(){
+		return is_authentic;
+	}
+	
+	
+	//returns true if the authentication has completed and is_authentic holds the result.
+	public boolean get_auth_complete(){
+		return complete;
+	}
+	
 	
 	///based on the value passed in, determine whether the user should be authenticaed or not. This is split out into a method because it will probably be more complex than this.
 	private boolean is_user_authentic(double differance){

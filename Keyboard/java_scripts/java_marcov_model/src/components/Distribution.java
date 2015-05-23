@@ -39,6 +39,10 @@ public class Distribution{
 
 	///copy constructor. This exists because computations are done in the constructor. Copying in this way avoids recomputation.
 	public Distribution(Distribution d){
+		//TODO does this make sence, will it cause issues
+		if(d==null){
+			return;
+		}
 		this.min = d.min;
 		this.max = d.max;
 		this.average = d.average;

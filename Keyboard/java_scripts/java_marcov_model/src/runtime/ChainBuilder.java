@@ -26,11 +26,18 @@ public class ChainBuilder{
 	private Chain user_chain;
 	private Chain auth_chain;	
 	
+	private CompareChains cc;
+	
 	private int count;
 	
+	public enum State{
+		IN_PROGRESS,
+		SUCCESS,
+		FAILURE;
+	}
 
 	public ChainBuilder(){
-		//TODO auth chain should be built with the same distribution/ tokens as user_chain
+		//TODO TODO TODO auth chain should be built with the same distribution/ tokens as user_chain
 		user_chain = new Chain(WINDOW, TOKEN, THRESHOLD, USER_MODEL_SIZE);
 		auth_chain = new Chain(WINDOW, TOKEN, THRESHOLD, AUTH_MODEL_SIZE);
 		count=0;
@@ -54,13 +61,33 @@ public class ChainBuilder{
 	}
 
 
-	///allow forced authentication from outside of ChainBuilder. this involves starting the CompareChains
+	///allow forced authentication from outside of ChainBuilder. this involves starting the CompareChains.
+	///this method starts the authentication
 	public void authenticate(){
 		//TODO check for correctness. Am i startign the thread correctly?
-		CompareChains cc = new CompareChains(user_chain, auth_chain);
+		cc = new CompareChains(user_chain, auth_chain);
 		Thread auth_thread = new Thread(cc);
 
-		auth_thread.start();
+		auth_thread.start();	
+	}
+	
+	
+	///handle requests for the current state of the authentication
+	public State get_authenticate_state(){
+		State state = null;
+		
+		if(!cc.get_auth_complete()){
+			//the authentication is not yet complete
+			state = State.IN_PROGRESS;
+		}else{
+			if(cc.get_auth_result()){
+				state = State.SUCCESS;
+			}else{
+				state = State.FAILURE;
+			}
+		}
+		
+		return state;
 	}
 
 

@@ -107,6 +107,7 @@ public class Touch implements Comparable<Touch>{
 	}
 
 
+	//TODO I may have used this to compare only pressure in other parts of the code. If this is the case, I could change this method to only represent differences in pressure.
 	///compare touches to one another. return negative if this touch is less than other_touch
 	@Override
 	public int compareTo(Touch other_touch){
@@ -127,7 +128,7 @@ public class Touch implements Comparable<Touch>{
 
 		//do this check last so if they are indeed unequal, the differance in the pressure value will be returned (most likly)
 		if(this.pressure != other_touch.pressure){
-			differance = (int)((this.pressure - other_touch.pressure)*100);
+			differance ++;
 		}
 
 		return differance;
@@ -142,7 +143,7 @@ public class Touch implements Comparable<Touch>{
 			Iterator<Double> this_iterator = t1.probability.iterator();
 			Iterator<Double> other_iterator = t2.probability.iterator();
 
-			while(this_iterator.hasNext()){
+			while(this_iterator.hasNext() && other_iterator.hasNext()){
 				double this_touch = this_iterator.next();
 				double other_touch = other_iterator.next();
 
@@ -153,6 +154,8 @@ public class Touch implements Comparable<Touch>{
 					break;
 				}
 			}
+			
+			differance += (this_iterator.hasNext() || other_iterator.hasNext())?1:0;
 
 			return differance==0;
 	}

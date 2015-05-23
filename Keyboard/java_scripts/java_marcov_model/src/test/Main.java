@@ -2,14 +2,16 @@ package test;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
-import java.util.Iterator;
+import java.util.List;
 import java.util.Scanner;
 
 import runtime.ChainBuilder;
 
+import components.Chain;
 import components.Distribution;
 import components.Token;
 import components.Touch;
+import components.Window;
 
 ///TODO generate a csv file for testing
 ///This class is used to test that the model is being built correctly. Also tested is the model compairason. and various classes used in model creating. The idea is to print out the tests which fail.
@@ -695,8 +697,19 @@ public class Main{
 	//TODO
 	//# Chain class#
 	private static boolean test_add_touch(){
-		//TODO
-		boolean correct = true;
+		boolean correct;
+		
+		// window 2, tokens 10, threshold 500, size 5
+		Chain chain = new Chain(2,10,500,5);
+		
+		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
+		for(int i=0;i<10;i++){
+			chain.add_touch(new Touch('a',.1*i,100*i));
+		}
+		
+		Distribution dist = chain.get_distribution();
+		// most rescent 5 touches are  pressure .9, .8, .7, .6, .5
+		correct = (dist.get_max() == .9) && (dist.get_min()== .5);
 		
 		return correct;
 	}
@@ -704,19 +717,48 @@ public class Main{
 	
 	private static boolean test_get_touch_probability(){
 		//TODO
-		return false;
+		boolean correct;
+		
+		// window 2, tokens 10, threshold 500, size 5
+		Chain chain = new Chain(2,10,500,10);
+		
+		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
+		for(int i=0;i<10;i++){
+			chain.add_touch(new Touch('a',.1*i,100*i));
+		}
+		//TODO create a window and tests that the correct probability is retrieved afterward
+		//double probability = chain.get_touch_probability();
+		
+		//correct = (probability==1);
+		
+		return correct = false;
 	}
 	
 	
 	private static boolean test_get_distribution(){
-		//TODO
-		return false;
+		// works per test_add_touch();
+		return true;
 	}
 	
 	
 	private static boolean test_get_key_distribution(){
 		//TODO
-		return false;
+		boolean correct;
+		
+		// window 2, tokens 10, threshold 500, size 9
+		Chain chain = new Chain(2,10,500,9);
+		
+		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
+		for(int i=0;i<9;i++){
+			//.1 though .9 pressures.... average is .5.... keycode is half a, half b
+			chain.add_touch(new Touch('a'+(i%2),.1*(i+1),100*i));
+		}
+		
+		List<Distribution> key_dist = chain.get_key_distribution();
+		// TODO determine whether key_dist is correct
+		correct = ;
+		
+		return correct;
 	}
 	
 	
@@ -830,7 +872,6 @@ public class Main{
 		//test to see that calc_min finds this value correctly
 		dist = new Distribution(touches);
 
-		//TODO make sure this is correct
 		//actual value should be around .2582
 		if(dist.get_standard_deviation()>(.258)&&dist.get_standard_deviation()<(.2585)){
 			correct=true;
@@ -840,7 +881,6 @@ public class Main{
 	}
 	
 
-	//TODO
 	//# Token class #
 	private static boolean test_token_constructors(){
 		boolean correct = true;
@@ -906,7 +946,6 @@ public class Main{
 	
 	
 	private static boolean test_token_contains(){
-		//TODO
 		boolean correct = true;
 		
 		//create a distribution to be used in the construction of tokens
@@ -931,14 +970,10 @@ public class Main{
 		dist = new Distribution(touches);
 		
 		//make a call to Token() constructors. Test one of them for correctness. Test the rest for equality to the fist.
-		ArrayList<Token> tokens_0 = new ArrayList<Token>();
-		ArrayList<Token> tokens_1 = new ArrayList<Token>();
 		ArrayList<Token> tokens_2 = new ArrayList<Token>();
 		
 		//create 10 tokens over the range 0 to 1 using the three different constructors.
 		for(int i=0;i<10;i++){
-			tokens_0.add(new Token(dist, 10, i, 2)); // this one should necessarily be differant from the other two
-			tokens_1.add(new Token(dist, 10, i));
 			tokens_2.add(new Token(0, 1, 10, i));
 		}
 		
@@ -949,12 +984,7 @@ public class Main{
 			//test each of the token sets for correctness
 			Touch t = new Touch('a',.5+i, 0);
 			
-			System.out.println(t.get_pressure());
-			System.out.println(tokens_2.get(i).get_min() + " : " + tokens_2.get(i).get_max());
-			
-			token_2_incorrect = !(tokens_2.get(i).contains(t));
-			
-			System.out.println(token_2_incorrect);
+			token_2_incorrect = (tokens_2.get(i).contains(t));
 			
 			if(token_2_incorrect){
 				correct = false;
@@ -966,48 +996,150 @@ public class Main{
 	
 	
 	private static boolean test_get_min_max(){
-		//TODO
-		return false;
+		boolean correct;
+		
+		Token t = new Token(0, 1, 10, 0);
+		
+		correct = t.get_max() == .1;
+		correct = correct && t.get_min()==0;
+		
+		return correct;
 	}
 	
 	
 	private static boolean test_token_equals(){
-		//TODO
-		return false;
+		boolean correct;
+		
+		Token t_1 = new Token(0, 1, 10, 0);
+		Token t_2 = new Token(0, 1, 10, 0);
+		Token t_3 = new Token(0, 1, 10, 5);
+		
+		correct = t_1.equals(t_2);
+		correct = correct && !t_3.equals(t_2);
+		
+		
+		return correct;
 	}
 
 	
-	//TODO
 	//# Touch class #
 	private static boolean test_set_probability(){
-		//TODO
-		return false;
+		boolean correct;
+		
+		Touch touch = new Touch('a', .5, 100);
+		Window window = new Window(new ArrayList<Touch>());
+		
+		touch.set_probability(window, .2);
+		correct = touch.get_probability(window)==.2;
+		
+		return correct;
 	}
 	
 	
 	private static boolean test_get_probability(){
-		//TODO
-		return false;
+		boolean correct;
+		
+		Touch touch = new Touch('a', .5, 100);
+		Window window = new Window(new ArrayList<Touch>());
+		
+		List<Touch> touches = new ArrayList<Touch>();
+		touches.add(touch);
+		
+		touch.set_probability(window, .2);
+		correct = touch.get_probability(window)==.2;
+		correct = correct && (0==touch.get_probability(new Window(touches)));
+		
+		return correct;
 	}
 	
 	
 	private static boolean test_touch_hashCode(){
 		//TODO
-		return false;
+		boolean correct;
+		
+		Touch touch = new Touch('a', .5, 100);
+		Window window = new Window(new ArrayList<Touch>());
+		
+		touch.set_probability(window, .2);
+		correct = (touch.hashCode() > 0);
+		
+		return correct;
 	}
 	
 	
 	private static boolean test_touch_compareTo(){
-		//TODO
-		return false;
+		boolean correct;
+		
+		Touch touch_0 = new Touch('a', .5, 100);
+		Touch touch_1 = new Touch('a', .5, 100);
+		Touch touch_2 = new Touch('b', .5, 100);
+		Touch touch_3 = new Touch('a', .6, 100);
+		Touch touch_4 = new Touch('a', .5, 200);
+		
+		Window window = new Window(new ArrayList<Touch>());
+		
+		List<Touch> touches = new ArrayList<Touch>();
+		touches.add(touch_0);
+		
+		//get the touches for equality
+		correct = touch_0.compareTo(touch_1) == 0; // are they equal?
+		
+		//change a touch
+		touch_0.set_probability(window, .2);
+		
+		//are they still equal? they shouldn't be.
+		correct = correct && (touch_0.compareTo(touch_1) > 0);
+	
+		//are the touches origionally not equal, still not equal?
+		correct = correct && (touch_1.compareTo(touch_2) > 0);
+		correct = correct && (touch_1.compareTo(touch_3) > 0);
+		correct = correct && (touch_1.compareTo(touch_4) > 0);
+
+		return correct;
 	}
 	
 	
-	//TODO
 	//# Window class #
 	private static boolean test_window_compareTo(){
-		//TODO
-		return false;
+		boolean correct;
+		
+		ArrayList<Touch> touches_0 = new ArrayList<Touch>();
+		ArrayList<Touch> touches_1 = new ArrayList<Touch>();
+		ArrayList<Touch> touches_2 = new ArrayList<Touch>();
+		
+		Touch touch_1 = new Touch('a', 0, 0);
+		Touch touch_2 = new Touch('a',.1, 100);
+		Touch touch_3 = new Touch('a',.2, 200);
+		Touch touch_4 = new Touch('b',.1, 300);
+		
+		touches_0.add(touch_1);
+		touches_0.add(touch_2);
+		touches_0.add(touch_3);
+		
+		touches_1.add(touch_1);
+		touches_1.add(touch_2);
+		touches_1.add(touch_3);
+		
+		touches_2.add(touch_1);
+		touches_2.add(touch_2);
+		touches_2.add(touch_4);
+		
+		Window window_0 = new Window(touches_0);
+		Window window_1 = new Window(touches_0); 
+		Window window_2 = new Window(touches_1);
+		Window window_3 = new Window(touches_2);
+		Window window_4 = new Window(new ArrayList<Touch>());
+		
+		//compare two windows created with the same touch list
+		correct = window_0.compareTo(window_1) == 0;
+		//compare two windows created with equal, but different touch lists. Should still be the same
+		correct = correct && window_0.compareTo(window_2) == 0;
+		//compare two windows created with unequal touch lists. They should be unequal
+		correct = correct && window_0.compareTo(window_3) > 0;
+		//compare two windows of differing size. They should not be equal
+		correct = correct && window_0.compareTo(window_4) > 0;
+		
+		return correct;
 	}
 	
 	
@@ -1017,17 +1149,54 @@ public class Main{
 	}
 	
 
-	//TODO
 	//# ChainBuilder class
 	private static boolean test_handle_touch(){
-		//TODO
-		return false;
+		boolean correct = true;
+		
+		ChainBuilder chain_builder = new ChainBuilder();
+		
+		try{
+			for(int i=0;i<10000;i++){
+				chain_builder.handle_touch(new Touch('a',1.0/i,100));
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+			correct=false;
+		}
+		
+		return correct;
 	}
 	
 	
 	private static boolean test_authenticate(){
-		//TODO
-		return false;
+		//TODO none of these will actually work yet because compare is not implemented. Right now I am more testing whether this causes an error that needs to be taken care of.
+		boolean correct;
+		
+		ChainBuilder chain_builder = new ChainBuilder();
+		
+		//try to authenticate two chains which are the same
+		for(int i=0;i<1000;i++){
+			chain_builder.handle_touch(new Touch('a',1.0/i,100));
+		}
+		
+		chain_builder.authenticate();
+		//wait for the authentication to finish
+		while(chain_builder.get_authenticate_state()==ChainBuilder.State.IN_PROGRESS){
+			
+		}
+		
+		correct = (chain_builder.get_authenticate_state()==ChainBuilder.State.SUCCESS);
+		
+		//TODO try to authenticate two chains which are different
+		
+		
+		//TODO try to authenticate two chains who's differance should amount to just above the authentication threshold
+		
+		
+		//TODO try to authenticate two chains who's differance should amount to just below the authentication threshold
+		
+		
+		return correct;
 	}
 	
 	
@@ -1037,11 +1206,11 @@ public class Main{
 	}
 	
 	
-	//TODO
 	//# CompareChains class #
 	private static boolean test_compare_chains_run(){
-		//TODO
-		return false;
+		//TODO in testing chain_builder, this method is also tested in authenticate
+		
+		return true;
 	}
 
 	
