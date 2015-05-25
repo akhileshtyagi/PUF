@@ -1,4 +1,5 @@
 package components;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -350,5 +351,25 @@ public class Chain{
 		}
 
 		return tokens;
+	}
+	
+	
+	///NOT USEFUL IN ANDROID. This is used for debugging purposes. Outputs the model to a csv file in a readable format.
+	public void output_to_csv(){
+		PrintWriter output=null;
+		
+		try {
+			output = new PrintWriter("the-file-name.txt", "UTF-8");
+			
+			output.println("");
+			for(){
+				output.println("");
+			}
+			
+			output.close();
+		} catch (Exeception e) {
+			System.out.println("Failed to open output file");
+			e.printStackTrace();
+		}
 	}
 }
