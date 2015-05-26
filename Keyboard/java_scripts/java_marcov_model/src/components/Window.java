@@ -83,4 +83,18 @@ public class Window implements Comparable<Window>{
 
 		return hashcode;
 	}
+	
+	
+	@Override
+	public String toString(){
+		String string="";
+		
+		string+=window.get(0).toString();
+		for(int i=1;i<window.size();i++){
+			string+=", ";
+			string+=window.get(i).toString();
+		}
+		
+		return string;
+	}
 }

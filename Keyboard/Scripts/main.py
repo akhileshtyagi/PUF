@@ -14,6 +14,7 @@ import user_class
 import effectiveness
 # import debug
 import convertXY
+#import print_model
 
 # 1. Find best fit for user profile
 # 2. Authenticate user based on profile
@@ -29,6 +30,7 @@ def print_options():
           "5. DEBUG: create log files\n"
           "6. Convert CSV file with x,y points to keyboard code\n"
           "7. DEBUG: augment data for histogram\n"
+		  "8. PRINT: print userfull information into csv files\n"
           "9. Exit\n")
 
 print_options()
@@ -49,6 +51,8 @@ while selection != '9':
         convertXY.convert_file()
     elif selection == '7':
         debug.augment_data()
+    elif selection == '8':
+		print_model.save_all()
 
     print_options()
     selection = raw_input("Choice: ")

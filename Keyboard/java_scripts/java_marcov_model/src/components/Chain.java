@@ -359,15 +359,20 @@ public class Chain{
 		PrintWriter output=null;
 		
 		try {
-			output = new PrintWriter("the-file-name.txt", "UTF-8");
+			output = new PrintWriter("test_model_construction.txt", "UTF-8");
 			
-			output.println("");
-			for(){
-				output.println("");
+			output.println("[preceeding sequence] [touch pressure, probability]");
+			for(int i=0;i<windows.size();i++){
+				String predecessor_window = windows.get(i).toString();
+				double touch_probability = successor_touch.get(i).get_probability(windows.get(i));
+				double touch_pressure = successor_touch.get(i).get_pressure();
+				
+				//output.print("-");
+				output.println("["+predecessor_window+"] ["+touch_pressure+", "+touch_probability+"]");
 			}
 			
 			output.close();
-		} catch (Exeception e) {
+		} catch (Exception e) {
 			System.out.println("Failed to open output file");
 			e.printStackTrace();
 		}

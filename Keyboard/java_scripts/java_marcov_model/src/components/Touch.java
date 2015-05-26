@@ -159,4 +159,14 @@ public class Touch implements Comparable<Touch>{
 
 			return differance==0;
 	}
+	
+	
+	@Override
+	public String toString(){
+		String string="";
+		
+		string += pressure;
+		
+		return string;
+	}
 }

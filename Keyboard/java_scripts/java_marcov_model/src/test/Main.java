@@ -467,6 +467,7 @@ public class Main{
 		boolean test_get_distribution_success = test_get_distribution();
 		boolean test_get_key_distribution_success = test_get_key_distribution();
 		boolean test_chain_compare_to_success = test_chain_compare_to();
+		test_output_to_csv();
 		
 		//print out any errors in a readable way
 		System.out.println("\nchain error log:");
@@ -770,17 +771,24 @@ public class Main{
 	
 	private static boolean test_output_to_csv(){
 		// window 2, tokens 10, threshold 500, size 9
-		Chain chain = new Chain(2,10,500,9);
+		Chain chain = new Chain(2,10,500,10000);
 		
 		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
-		for(int i=0;i<9;i++){
+		for(int i=0;i<10000;i++){
 			//.1 though .9 pressures.... average is .5.... keycode is half a, half b
-			chain.add_touch(new Touch('a'+(i%2),.1*(i+1),100*i));
+			Touch touch =new Touch('a'+(i%2),.1*((i+1)%11),100);
+			//System.out.println(touch);
+			
+			chain.add_touch(touch);
 		}
 		
+		//cause all computations to happen
+		chain.get_distribution();
+		chain.get_key_distribution();
+		chain.get_touch_probability(null, 0);
+		
+		//output the chain to a csv file
 		chain.output_to_csv();
-		// TODO determine whether key_dist is correct
-		//correct = ;
 		
 		return true;
 	}
