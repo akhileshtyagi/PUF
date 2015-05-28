@@ -1,3 +1,4 @@
+#! /bin/python2
 __author__ = 'Ian Richardson - iantrich@gmail.com'
 
 ###########################################################
@@ -25,7 +26,7 @@ from decimal import *
 # Raw Data directory
 raw_data_dir = myutilities.get_current_dir() + '/Data/Raw Data/'
 
-model_sizes = [4000]
+model_sizes = [2000,4000,6000,8000,10000]
 percentages = [50]
 
 for model_size in model_sizes:

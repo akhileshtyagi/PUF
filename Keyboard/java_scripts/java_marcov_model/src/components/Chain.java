@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+///TODO there needs to be a way to set the distribution used for achain. This is because the authentication chain is evaluated with the distribution of the base chain.
 ///TODO compute the windows somewhere. This will be based on the threshold, window, token sizes. This may change distributions? if a touch is thrown out?
 ///this class represents the marcov chain. It contains a sequence of touches and a distribution. I avoid doing any processing on touch being added because eventually this will be called on key press in android. Setting it up this way is more flexible to in the sense that processing may be done at any time.
 ///caches the result of each computation so it does not have to be repeated.
