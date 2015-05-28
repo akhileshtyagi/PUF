@@ -88,6 +88,17 @@ public class Chain{
 	}
 
 
+	///allows distribution to be set. If no distribution is set, the distribution for this chain of touches is computed.
+	///NOTE the distribution is not maintained when new touches are added.
+	public void set_distribution(Distribution distribution, List<Distribution> key_distribution){
+		this.distribution = distribution;
+		this.key_distribution = key_distribution;
+		
+		distribution_computed=true;
+		key_distribution_computed=true;
+	}
+	
+	
 	///returns the probability of a given touch (at the i'th index) based on the model. This will depend on the preceeding touches, in Window. A request for one probability will necessarily result in all of the probabilities being computed.
 	public double get_touch_probability(Window w, int i){
 		//TODO check for correctness
@@ -140,13 +151,78 @@ public class Chain{
 	}
 	
 
-	///returns a sort of percent difference between this model and the one passed in. The idea is that this may be used to authenticate. Most of this code should come from Model_Compare.py
+	///returns a list of percent differences for each compare iteration
+	/// a sort of percent difference between this model and the one passed in. The idea is that this may be used to authenticate. Most of this code should come from Model_Compare.py
 	//TODO consider doing this on multiple threads if preformance is an issue
 	public double compare_to(Chain auth_chain){
 		//TODO compare two chains and return the percent difference between them
 		//make sure to use the get_x() methods here instead of just using the instance variables. This will guarentee that the values have been calculated by the time they are used.
+		//preform this check to allow the assumption that the base_chain is larger than the auth chain.
+		if(this.windows.size()<auth_chain.windows.size()){
+			//preform the comparison the other direction
+			return auth_chain.compare_to(this);
+		}
+		
+		//from now on I can assume that this_chain has more windows than auth_chain
 		double differance = 0;
-
+		ArrayList<Double> differances_list = new ArrayList<Double>();
+		
+		//TODO get a list of probabilities for each compare iteration
+		int end_index = auth_chain.windows.size()-1; // index of the last window to compare in the base_model
+		int start_index = 0;
+		
+		while(end_index <= this.windows.size()-1){
+			//while we are still within the base_chain
+			//TODO do this as an incremental process.... compare should be done once before this loop, then each probability can be incrementally updated
+			differances_list.add(compare(this.windows, auth_chain.windows, start_index, end_index));			
+			
+			start_index++;
+			end_index++;
+		}
+		
+		//TODO use this list of probabilities to get an overall differance
+		double max_probability = 0;
+		double min_probability = 1;
+		double average_probability = 0;
+		double total_probability = 0;
+		
+		//compute the differant metrics that could be used to authenticate based on the probabilities list
+		for(int i=0;i<differances_list.size();i++){
+			if(differances_list.get(i)>max_probability){
+				max_probability = differances_list.get(i);
+			}
+			
+			if(differances_list.get(i)<min_probability){
+				min_probability = differances_list.get(i);
+			}
+			
+			total_probability+=differances_list.get(i);
+		}
+		
+		average_probability = total_probability/differances_list.size();
+		
+		//TODO determine what to return as a differance based on these metrics
+		differance = average_probability; //TODO change this
+		
+		return differance ;
+		
+	}
+	
+	
+	
+	///compare two equally sized chains. Return the differance between them
+	private double compare(List<Window> base_windows, List<Window> auth_windows, int base_start_index, int base_end_index){
+		//compare all of auth to base
+		//compare between base_start_index and base_end_index
+		double differance = 0;
+		
+		//for each window in auth_windows
+		for(int i=0;i<auth_windows.size();i++){
+			//TODO compare auth window to the same window in base_windows
+			//TODO handle when the window is not found
+			
+		}
+		
 		return differance;
 	}
 
