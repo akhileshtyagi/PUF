@@ -97,6 +97,29 @@ public class Touch implements Comparable<Touch>{
 	public long get_timestamp(){
 		return timestamp;
 	}
+	
+	
+	///compares the touches with the given token list.
+	///this function will return true if the touches are contained within the smae token
+	public boolean compare_with_token(List<Token> tokens, Touch other_touch){
+		Token this_touch_token = null;
+		Token other_touch_token = null;
+		int i = 0;
+		
+		while(((this_touch_token == null) || (other_touch_token==null)) && (i< tokens.size())){
+			if(tokens.get(i).contains(this)){
+				this_touch_token = tokens.get(i);
+			}
+			
+			if(tokens.get(i).contains(other_touch)){
+				other_touch_token = tokens.get(i);
+			}
+			
+			i++;
+		}
+		
+		return this_touch_token.equals(other_touch_token);
+	}
 
 
 	///implement hash function for the touch class

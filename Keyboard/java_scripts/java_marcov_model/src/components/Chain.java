@@ -4,8 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-///TODO there needs to be a way to set the distribution used for achain. This is because the authentication chain is evaluated with the distribution of the base chain.
-///TODO compute the windows somewhere. This will be based on the threshold, window, token sizes. This may change distributions? if a touch is thrown out?
+///TODO make sure to use get_XXXXXX instead of the instance variables
+///TODO put windows into a Trie data structure for building model faster
+///TODO anywhere where I need to compare windows, or Touches I need the option to do this with tokens
+///there needs to be a way to set the distribution used for a chain. This is because the authentication chain is evaluated with the distribution of the base chain.
+///compute the windows somewhere. This will be based on the threshold, window, token sizes. This may change distributions? if a touch is thrown out?
 ///this class represents the marcov chain. It contains a sequence of touches and a distribution. I avoid doing any processing on touch being added because eventually this will be called on key press in android. Setting it up this way is more flexible to in the sense that processing may be done at any time.
 ///caches the result of each computation so it does not have to be repeated.
 public class Chain{
@@ -154,11 +157,13 @@ public class Chain{
 	///returns a list of percent differences for each compare iteration
 	/// a sort of percent difference between this model and the one passed in. The idea is that this may be used to authenticate. Most of this code should come from Model_Compare.py
 	//TODO consider doing this on multiple threads if preformance is an issue
+	//TODO look at what happens when a window occurrs more than once in a chain
 	public double compare_to(Chain auth_chain){
 		//TODO compare two chains and return the percent difference between them
 		//make sure to use the get_x() methods here instead of just using the instance variables. This will guarentee that the values have been calculated by the time they are used.
 		//preform this check to allow the assumption that the base_chain is larger than the auth chain.
-		if(this.windows.size()<auth_chain.windows.size()){
+		//this check also forces the windows to be computed if they have not been alreadys
+		if(this.get_windows().size()<auth_chain.get_windows().size()){
 			//preform the comparison the other direction
 			return auth_chain.compare_to(this);
 		}
@@ -171,16 +176,24 @@ public class Chain{
 		int end_index = auth_chain.windows.size()-1; // index of the last window to compare in the base_model
 		int start_index = 0;
 		
+		double current_difference = compare(this, auth_chain, start_index, end_index);		
+		differances_list.add(current_difference);
+		start_index++;
+		end_index++;
+		
 		while(end_index <= this.windows.size()-1){
 			//while we are still within the base_chain
-			//TODO do this as an incremental process.... compare should be done once before this loop, then each probability can be incrementally updated
-			differances_list.add(compare(this.windows, auth_chain.windows, start_index, end_index));			
+			//do this as an incremental process.... compare should be done once before this loop, then each probability can be incrementally updated
+			//find the differance of the current window, using the current differance
+			current_difference += get_differential_difference(this, auth_chain, start_index, end_index);
+			
+			differances_list.add(current_difference);			
 			
 			start_index++;
 			end_index++;
 		}
 		
-		//TODO use this list of probabilities to get an overall differance
+		// use this list of probabilities to get an overall differance
 		double max_probability = 0;
 		double min_probability = 1;
 		double average_probability = 0;
@@ -209,21 +222,108 @@ public class Chain{
 	}
 	
 	
+	///return the difference between two given windows
+	///@param base window successor touch is the touch coming after base_window in the base model
+	///@param auth window_touches are the touches which succeeds auth_window
+	/// base_window_successor and auth_window_successor should be equivilent. This method simply returns the difference in their probabilities.
+	/// the reason this method is broken out is because this is likely to be modified to refine the model
+	private double get_window_difference(Window base_window, Window auth_window, Touch base_window_successor_touch, Touch auth_window_successor_touch){
+		//we want to know the differences in touch probability for the touches which come after these windows
+		double difference = 0;
+		
+		double base_probability = base_window_successor_touch.get_probability(base_window);
+		double auth_probability = auth_window_successor_touch.get_probability(auth_window);
+		
+		//TODO should this be absolute value?
+		difference = Math.abs(base_probability - auth_probability);
+		
+		return difference;
+	}
+	
+	
+	///get the amount the difference would change by adding this window,and removing the oldest window
+	///the last window given will be the window added
+	///the window being added is the one at base end index, this will correspond the the last 
+	private double get_differential_difference(Chain base_chain, Chain auth_chain, int base_start_index, int base_end_index){
+		//TODO determine what base_window and auth_window should be
+		double removed_window_difference = 0;
+		double added_window_difference = 0;
+		
+		Window base_removed_window = null;
+		Window auth_removed_window = null;
+		Touch base_removed_successor_touch = null;
+		Touch auth_removed_successor_touch = null;
+		removed_window_difference = get_window_difference(base_removed_window, auth_removed_window, base_removed_successor_touch, auth_removed_successor_touch);
+		
+		Window base_added_window = null;
+		Window auth_added_window = null;
+		Touch base_added_successor_touch = null;
+		Touch auth_added_successor_touch = null;
+		added_window_difference = get_window_difference(base_added_window, auth_added_window, base_added_successor_touch, auth_added_successor_touch);
+		
+		return (added_window_difference - removed_window_difference);
+	}
+	
 	
 	///compare two equally sized chains. Return the differance between them
-	private double compare(List<Window> base_windows, List<Window> auth_windows, int base_start_index, int base_end_index){
+	private double compare(Chain base_chain, Chain auth_chain, int base_start_index, int base_end_index){
 		//compare all of auth to base
 		//compare between base_start_index and base_end_index
 		double differance = 0;
+		int base_window_index = 0;
+		
+		List<Window> base_windows = base_chain.get_windows();
+		List<Window> auth_windows = auth_chain.get_windows();
+		Window base_window = null;
+		Window auth_window = null;
 		
 		//for each window in auth_windows
 		for(int i=0;i<auth_windows.size();i++){
 			//TODO compare auth window to the same window in base_windows
-			//TODO handle when the window is not found
+			// handle when the window is not found
+			// determine what base_window, auth_window should be
+			auth_window = auth_windows.get(i);
+			base_window_index = get_base_window_index(base_chain, auth_window, auth_chain.successor_touch.get(i), base_start_index, base_end_index);			
 			
+			if(base_window_index != -1){
+				//auth_window was found in base_windows
+				base_window = base_windows.get(base_window_index);
+				differance += get_window_difference(base_window, auth_window, base_chain.successor_touch.get(base_window_index), auth_chain.successor_touch.get(i));
+			}else{
+				//window in auth_windows was not found in base_windows
+				//TODO determine what to do... does this make sense
+				differance+=1;
+			}
 		}
 		
 		return differance;
+	}
+	
+	
+	//returns non -1 only if successor touches are the same for the given window
+	//returns the index of auth_window if it is contained in base window
+	//will only return the index if the successor touches are equivilent
+	//returns -1 if not contained
+	///this function will search between base start index, and base end index
+	private int get_base_window_index(Chain base_chain, Window auth_window, Touch auth_successor_touch, int base_start_index, int base_end_index){
+		//compre with tokens
+		int i=base_start_index;
+		
+		List<Window> base_windows = base_chain.get_windows();
+		List<Touch> base_successor_touch = base_chain.successor_touch;
+		
+		for(i=base_start_index;(i<base_windows.size()) && (i<base_end_index);i++){
+			//if the successor touches are the same 
+			if(base_successor_touch.get(i).compare_with_token(this.tokens, auth_successor_touch)){
+				//also if the windows are equal
+				if(base_windows.get(i).compare_with_token(this.get_tokens(), auth_window)){
+					break;
+				}
+			}
+
+		}
+		
+		return (i==base_windows.size())?(-1):(i);
 	}
 
 
