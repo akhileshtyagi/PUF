@@ -1198,17 +1198,21 @@ public class Main{
 		//TODO none of these will actually work yet because compare is not implemented. Right now I am more testing whether this causes an error that needs to be taken care of.
 		boolean correct;
 		
-		ChainBuilder chain_builder = new ChainBuilder();
+		ChainBuilder chain_builder = new ChainBuilder(5,5,1000,1000,500);
 		
 		//try to authenticate two chains which are the same
-		for(int i=0;i<1000;i++){
+		for(int i=0;i<3000;i++){
 			chain_builder.handle_touch(new Touch('a',1.0/i,100));
 		}
 		
 		chain_builder.authenticate();
 		//wait for the authentication to finish
 		while(chain_builder.get_authenticate_state()==ChainBuilder.State.IN_PROGRESS){
-			
+			try{
+				Thread.sleep(100);
+			}catch(Exception e){
+				e.printStackTrace();
+			}
 		}
 		
 		correct = (chain_builder.get_authenticate_state()==ChainBuilder.State.SUCCESS);
@@ -1236,7 +1240,7 @@ public class Main{
 	private static boolean test_compare_chains_run(){
 		//TODO in testing chain_builder, this method is also tested in authenticate
 		
-		return true;
+		return false;
 	}
 
 	

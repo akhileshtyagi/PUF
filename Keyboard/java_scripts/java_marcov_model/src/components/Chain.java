@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+///TODO make the chain's compare_to method be able to update incrementally
 ///TODO make sure to use get_XXXXXX() instead of the instance variables
 ///TODO put windows into a Trie data structure for building model faster
 ///TODO anywhere where I need to compare windows, or Touches I need the option to do this with tokens
@@ -113,7 +114,11 @@ public class Chain{
 			compute_probability();
 			probability_computed=true;
 		}
-
+		//TODO TODO does this check mess with the logic of the program?
+		if(touches.size() == 0){
+			return 0;
+		}
+		
 		return touches.get(i).get_probability(w);
 	}
 
@@ -157,18 +162,36 @@ public class Chain{
 	}
 	
 
+	///returns the percent difference between this chain and auth_chain.
+	///the value returned will be between 0 and 1
+	///0 indicates there is no difference
+	///1 indicates there is a large difference
+	public double compare_to(Chain auth_chain){
+		double difference = 0;
+		
+		//for every window in auth_chain
+		for(int i=0;i<auth_chain.get_windows().size();i++){
+			//find the difference between base_chain and auth_chain's corresponding window
+			difference += get_window_difference(this.get_windows().get(i), auth_chain.get_windows().get(i), this.successor_touch.get(i), auth_chain.successor_touch.get(i));
+		}
+		
+		return difference;
+	}
+	
+	
+	///THIS DOES NOT WORK, but there may be useful code here
 	///returns a list of percent differences for each compare iteration
 	/// a sort of percent difference between this model and the one passed in. The idea is that this may be used to authenticate. Most of this code should come from Model_Compare.py
 	//TODO consider doing this on multiple threads if preformance is an issue
 	//TODO look at what happens when a window occurrs more than once in a chain
-	public double compare_to(Chain auth_chain){
+	public double compare_to_old(Chain auth_chain){
 		//TODO compare two chains and return the percent difference between them
 		//make sure to use the get_x() methods here instead of just using the instance variables. This will guarentee that the values have been calculated by the time they are used.
 		//preform this check to allow the assumption that the base_chain is larger than the auth chain.
 		//this check also forces the windows to be computed if they have not been alreadys
 		if(this.get_windows().size()<auth_chain.get_windows().size()){
 			//preform the comparison the other direction
-			return auth_chain.compare_to(this);
+			return auth_chain.compare_to_old(this);
 		}
 		
 		//from now on I can assume that this_chain has more windows than auth_chain

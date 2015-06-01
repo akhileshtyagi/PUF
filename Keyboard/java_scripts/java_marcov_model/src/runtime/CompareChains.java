@@ -13,6 +13,8 @@ public class CompareChains implements Runnable{
 	private Chain user_chain;
 	private Chain auth_chain;
 	
+	private volatile double authentication_probability;
+	
 	/// will need to make copies of the chains passed in so they do not get updated by something else during the comparason
 	public CompareChains(Chain user_chain, Chain auth_chain){
 		this.user_chain = new Chain(user_chain);
@@ -54,10 +56,10 @@ public class CompareChains implements Runnable{
 			e.printStackTrace();
 		}
 
-		///preform the comparason now that the values are cached in the Chain's	
-		differance = user_chain.compare_to(auth_chain);
+		///perform the comparison now that the values are cached in the Chain's	
+		authentication_probability = 1-user_chain.compare_to(auth_chain);
 		
-		if(!is_user_authentic(differance)){
+		if(!is_user_authentic(authentication_probability)){
 			//TODO determine what to do when the user fails the authentication
 			//user fails the authentication
 			//possibly cause the lock screen to come up
@@ -69,6 +71,11 @@ public class CompareChains implements Runnable{
 		complete=true;
 	}
 	
+	
+	///returns the probability with which the
+	public double get_auth_probability(){
+		return authentication_probability;
+	}
 	
 	///returns the result of the authentication. This method does not provide any guarentees that the compairason has finsihed yet. If the compairason has not yet finished it will return false;
 	public boolean get_auth_result(){

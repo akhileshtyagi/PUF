@@ -61,6 +61,11 @@ public class Window implements Comparable<Window>{
 	@Override
 	public int compareTo(Window other_window){
 		//TODO check for correctness
+		if(other_window == null){
+			//indicate they are not equal
+			return 1;
+		}
+		
 		int differance = 0;
 		
 		//ensure the windows are the same size

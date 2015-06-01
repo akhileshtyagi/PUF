@@ -109,6 +109,12 @@ public class ChainBuilder{
 	}
 	
 	
+	///return the thread which is preforming the authentication. This method provides no guarentees about the state of the thread. It may even be null!
+	public CompareChains get_authenticate_thread(){
+		return cc;
+	}
+	
+	
 	///handle requests for the current state of the authentication
 	public State get_authenticate_state(){
 		State state = null;
@@ -147,6 +153,7 @@ public class ChainBuilder{
 	///parse the csv file NOT USEFULL ON ANDROID
 	public static List<Touch> parse_csv(File file){
 		ArrayList<Touch> touches = new ArrayList<Touch>();
+		String line;
 
 		//add everything in the arraylist to thouches
 		Scanner scanner=null;
@@ -155,7 +162,11 @@ public class ChainBuilder{
 			
 			while(scanner.hasNext()){
 				//TODO parse the input. Need to know 1) where keycode values are  2) where touch pressure, timestamp are.
+				//format of the file is timestamp,keycode,pressure
+				line = scanner.nextLine();
+				String[] line_parts = line.split(",");
 				
+				touches.add(new Touch(Integer.valueOf(line_parts[1]), Double.valueOf(line_parts[2]), Long.valueOf(line_parts[0])));
 			}
 		} catch (FileNotFoundException e) {
 			System.out.println("unable to open input file");
