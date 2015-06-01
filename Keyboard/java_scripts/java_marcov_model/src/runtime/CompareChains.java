@@ -27,6 +27,9 @@ public class CompareChains implements Runnable{
 	@Override
 	public void run(){
 		double differance;
+		
+		//set the distribution of auth_chain based on user chain
+		this.auth_chain.set_distribution(this.user_chain.get_distribution(), this.user_chain.get_key_distribution());
 
 		Distribution_thread distribution_thread = new Distribution_thread();
 		Key_distribution_thread key_distribution_thread = new Key_distribution_thread();

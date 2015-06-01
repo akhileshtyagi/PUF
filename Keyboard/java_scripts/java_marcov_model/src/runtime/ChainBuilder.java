@@ -14,8 +14,8 @@ import components.Touch;
 /// whenever I add a touch, I take
 
 public class ChainBuilder{
-	final int USER_MODEL_SIZE = 10000;
-	final int AUTH_MODEL_SIZE = 1000;
+	private int user_model_size;
+	private int auth_model_size;
 	final int COMPARE_INCREMENT = 1000; // compare the auth_model to the user_model every 1000 new touch inputs handled.
 	final boolean INCREMENTAL_AUTHENTICATION_ON = false; // set to true causes the class to authenticate automatically. In some situations this may be preferred
 
@@ -25,6 +25,7 @@ public class ChainBuilder{
 
 	private Chain user_chain;
 	private Chain auth_chain;	
+	private List<Touch> touch_list;
 	
 	private CompareChains cc;
 	
@@ -37,9 +38,25 @@ public class ChainBuilder{
 	}
 
 	public ChainBuilder(){
-		//TODO TODO TODO auth chain should be built with the same distribution/ tokens as user_chain
-		user_chain = new Chain(WINDOW, TOKEN, THRESHOLD, USER_MODEL_SIZE);
-		auth_chain = new Chain(WINDOW, TOKEN, THRESHOLD, AUTH_MODEL_SIZE);
+		user_model_size=6000;
+		auth_model_size=1000;
+		
+		// auth chain should be built with the same distribution/ tokens as user_chain
+		user_chain = new Chain(WINDOW, TOKEN, THRESHOLD, user_model_size);
+		auth_chain = new Chain(WINDOW, TOKEN, THRESHOLD, auth_model_size);
+		touch_list = new ArrayList<Touch>();
+		
+		count=0;
+	}
+	
+	
+	///allow model size, window, token values to be specified. This is mainly for testing purposes
+	public ChainBuilder(int window, int token, int threshold, int user_model_size, int auth_model_size){
+		// auth chain should be built with the same distribution/ tokens as user_chain
+		user_chain = new Chain(window, token, threshold, user_model_size);
+		auth_chain = new Chain(window, token, threshold, auth_model_size);
+		touch_list = new ArrayList<Touch>();
+		
 		count=0;
 	}
 
@@ -47,10 +64,14 @@ public class ChainBuilder{
 	///this method should be called in some way whenever there is a touch event in android. There should be minimal amounts of processing done here so the input to the device doesn't lag.
 	///I don't know by what method percicely this will need to be called in the android souce. It could be another class which simply handles touch events, or from the pre-existing android archetecture.
 	public void handle_touch(Touch touch){		
-		// add the touch to both chains
-		///need to ensure that each gets their own version of the same object
-		user_chain.add_touch(new Touch(touch));
-		auth_chain.add_touch(new Touch(touch));
+		// add the touch to the touch_list
+		touch_list.add(touch);
+		
+		//make sure the touch list is no larger than necessary
+		if(touch_list.size() > (user_model_size+auth_model_size)){
+			//remove the oldest touch
+			touch_list.remove(0);
+		}
 
 		//every so often we want to trigger an authentication if this feature is enabled
 		if((count == COMPARE_INCREMENT) && INCREMENTAL_AUTHENTICATION_ON){
@@ -64,7 +85,23 @@ public class ChainBuilder{
 	///allow forced authentication from outside of ChainBuilder. this involves starting the CompareChains.
 	///this method starts the authentication
 	public void authenticate(){
-		//TODO check for correctness. Am i startign the thread correctly?
+		//begin the compairason. This requires adding the touches to the corresponding chain.
+		int i=0;
+		for(Touch touch : touch_list){
+			//we want to add to the base chain if, we are within user_model_size
+			if(i<user_model_size){
+				user_chain.add_touch(touch_list.get(i));
+			}
+			
+			//we want to add to the auth_chain if, we have passed the user_model_size
+			if(i>=user_model_size){
+				auth_chain.add_touch(touch_list.get(i));
+			}
+			
+			i++;
+		}
+		
+		//afterward, create the thread to begin the authentication
 		cc = new CompareChains(user_chain, auth_chain);
 		Thread auth_thread = new Thread(cc);
 
@@ -108,20 +145,21 @@ public class ChainBuilder{
 
 
 	///parse the csv file NOT USEFULL ON ANDROID
-	private List<Touch> parse_csv(File file){
+	public static List<Touch> parse_csv(File file){
 		ArrayList<Touch> touches = new ArrayList<Touch>();
 
 		//add everything in the arraylist to thouches
 		Scanner scanner=null;
 		try {
 			scanner = new Scanner(file);
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-
-		while(scanner.hasNext()){
-			//TODO parse the input. Need to know 1) where keycode values are  2) where touch pressure, timestamp are.
 			
+			while(scanner.hasNext()){
+				//TODO parse the input. Need to know 1) where keycode values are  2) where touch pressure, timestamp are.
+				
+			}
+		} catch (FileNotFoundException e) {
+			System.out.println("unable to open input file");
+			e.printStackTrace();
 		}
 
 		return touches;

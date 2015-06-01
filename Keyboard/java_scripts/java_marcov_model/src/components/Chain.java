@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-///TODO make sure to use get_XXXXXX instead of the instance variables
+///TODO make sure to use get_XXXXXX() instead of the instance variables
 ///TODO put windows into a Trie data structure for building model faster
 ///TODO anywhere where I need to compare windows, or Touches I need the option to do this with tokens
 ///there needs to be a way to set the distribution used for a chain. This is because the authentication chain is evaluated with the distribution of the base chain.
@@ -99,6 +99,9 @@ public class Chain{
 		
 		distribution_computed=true;
 		key_distribution_computed=true;
+		
+		//will need to recompute the tokens because they depend on the distribution
+		tokens_computed=false;
 	}
 	
 	
