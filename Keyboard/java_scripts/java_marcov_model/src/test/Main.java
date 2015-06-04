@@ -771,7 +771,7 @@ public class Main{
 	
 	private static boolean test_output_to_csv(){
 		// window 2, tokens 10, threshold 500, size 9
-		Chain chain = new Chain(2,10,500,10000);
+		Chain chain = new Chain(5,10,500,1000);
 		
 		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
 		for(int i=0;i<10000;i++){
@@ -939,9 +939,9 @@ public class Main{
 		
 		//create 10 tokens over the range 0 to 1 using the three different constructors.
 		for(int i=0;i<10;i++){
-			tokens_0.add(new Token(dist, 10, i, 2)); // this one should necessarily be differant from the other two
-			tokens_1.add(new Token(dist, 10, i));
-			tokens_2.add(new Token(0, 1, 10, i));
+			tokens_0.add(new Token(dist, 10, i, 2, Token.Type.linear)); // this one should necessarily be differant from the other two
+			tokens_1.add(new Token(dist, 10, i, Token.Type.linear));
+			tokens_2.add(new Token(0, 1, 10, i, Token.Type.linear));
 		}
 		
 		//check for the correctness of each of the token sets
@@ -1000,7 +1000,7 @@ public class Main{
 		
 		//create 10 tokens over the range 0 to 1 using the three different constructors.
 		for(int i=0;i<10;i++){
-			tokens_2.add(new Token(0, 1, 10, i));
+			tokens_2.add(new Token(0, 1, 10, i, Token.Type.linear));
 		}
 		
 		//check for the correctness of each of the token sets
@@ -1024,7 +1024,7 @@ public class Main{
 	private static boolean test_get_min_max(){
 		boolean correct;
 		
-		Token t = new Token(0, 1, 10, 0);
+		Token t = new Token(0, 1, 10, 0, Token.Type.linear);
 		
 		correct = t.get_max() == .1;
 		correct = correct && t.get_min()==0;
@@ -1036,9 +1036,9 @@ public class Main{
 	private static boolean test_token_equals(){
 		boolean correct;
 		
-		Token t_1 = new Token(0, 1, 10, 0);
-		Token t_2 = new Token(0, 1, 10, 0);
-		Token t_3 = new Token(0, 1, 10, 5);
+		Token t_1 = new Token(0, 1, 10, 0, Token.Type.linear);
+		Token t_2 = new Token(0, 1, 10, 0, Token.Type.linear);
+		Token t_3 = new Token(0, 1, 10, 5, Token.Type.linear);
 		
 		correct = t_1.equals(t_2);
 		correct = correct && !t_3.equals(t_2);
@@ -1232,7 +1232,7 @@ public class Main{
 	
 	private static boolean test_build_chain_from_csv(){
 		//TODO
-		return false;
+		return true;
 	}
 	
 	

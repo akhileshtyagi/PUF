@@ -15,10 +15,10 @@ def save_constructed_model():
     #construct the model
     base_table = {}
 
-    token = 4
-    window = 4
-    threshold = 5000
-    model_size = 6000
+    token = 5
+    window = 5
+    threshold = 500
+    model_size = 5000
 
     # Use a clustering algorithm to find the distribution of touches
     distribution = myutilities.cluster_algorithm(raw_data_file_name, token, model_size)

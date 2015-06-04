@@ -151,6 +151,7 @@ public class ChainBuilder{
 
 
 	///parse the csv file NOT USEFULL ON ANDROID
+	@SuppressWarnings("resource")
 	public static List<Touch> parse_csv(File file){
 		ArrayList<Touch> touches = new ArrayList<Touch>();
 		String line;
