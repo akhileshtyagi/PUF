@@ -14,7 +14,7 @@ import user_class
 import effectiveness
 # import debug
 import convertXY
-#import print_model
+import print_model
 
 # 1. Find best fit for user profile
 # 2. Authenticate user based on profile

@@ -37,15 +37,16 @@ def save_constructed_model():
 
     #save the model to the output file
     #want to save it in format [predecessor window] [touch_pressure, touch_probability]
-    with open(output_file_name, 'w') as csvfile:
-        w = csv.writer(csvfile)
+    w = open(output_file_name, 'w')
+    w.write('[predecessor window] [touch_pressure, touch_probability]\n');
 
-        for k, v in base_table.items():
-            predecessor_window=
-            touch_pressure=
-            touch_probability=
+    for k, v in base_table.items():
+        for i, e in enumerate(v.get('chain')):
+            predecessor_window="".join(format(x, "6.3f") for x in e.get('sequence'))
+            touch_pressure=0
+            touch_probability=0 #is this correct?, look at what probabilities holds
 
-            w.writerow([predecessor_window] [touch_pressure, touch_probability])
+            w.write(str(predecessor_window)+' [%d, %d]\n' % (touch_pressure, touch_probability))
 #        for k, v in base_table.items():
 #            for i, e in enumerate(v.get('chain')):
 #                for k2, v2 in e.items():
