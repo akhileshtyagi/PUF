@@ -188,7 +188,7 @@ public class Touch implements Comparable<Touch>{
 	public String toString(){
 		String string="";
 		
-		string += pressure;
+		string += String.format("%.4f", pressure);
 		
 		return string;
 	}

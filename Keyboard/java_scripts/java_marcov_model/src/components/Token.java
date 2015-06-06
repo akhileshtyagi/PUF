@@ -53,10 +53,12 @@ public class Token{
 			case linear:
 				this.min = ((range_max - range_min) / total_tokens)*token_index;
 				this.max = ((range_max - range_min) / total_tokens)*(token_index+1);
+				break;
 			case keycode_mu:
 				//TODO
 				this.min = range_min;
 				this.max = range_max;
+				break;
 		}
 	}
 

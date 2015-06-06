@@ -585,6 +585,7 @@ public class Main{
 		boolean test_get_probability_success = test_get_probability();
 		boolean test_touch_hashCode_success = test_touch_hashCode();
 		boolean test_touch_compareTo_success = test_touch_compareTo();
+		boolean test_compare_with_token_touch_success = test_compare_with_token_touch();
 		
 		//print out any errors in a readable way
 		System.out.println("\ntouch error log:");
@@ -609,6 +610,11 @@ public class Main{
 			correct=false;
 		}
 		
+		if(!test_compare_with_token_touch_success){
+			System.out.println("\tcompare_with_token fails");
+			correct=false;
+		}
+		
 		return correct;
 	}
 
@@ -621,10 +627,16 @@ public class Main{
 		//test functions in the distribution class
 		boolean test_window_compareTo_success = test_window_compareTo();
 		boolean test_window_hashCode_success = test_window_hashCode();
+		boolean test_window_compare_with_token_success = test_compare_with_token();
 		
 		//print out any errors in a readable way
 		System.out.println("\nwindow error log:");
 
+		if(!test_window_compare_with_token_success){
+			System.out.println("\tcompare_with_token fails");
+			correct=false;
+		}
+		
 		if(!test_window_compareTo_success){
 			System.out.println("\tcompareTo fails");
 			correct=false;
@@ -722,17 +734,29 @@ public class Main{
 		
 		// window 2, tokens 10, threshold 500, size 5
 		Chain chain = new Chain(2,10,500,10);
+		List<Touch> touches = new ArrayList<Touch>();
+		Window window;
 		
 		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
 		for(int i=0;i<10;i++){
 			chain.add_touch(new Touch('a',.1*i,100*i));
 		}
-		//TODO create a window and tests that the correct probability is retrieved afterward
-		//double probability = chain.get_touch_probability();
 		
-		//correct = (probability==1);
+		// create a window and tests that the correct probability is retrieved afterward
+		touches.add(new Touch('a', 0, 100));
+		touches.add(new Touch('a', 1, 100));
 		
-		return correct = false;
+		window = new Window(touches);
+		double probability = chain.get_touch_probability(window, 2);
+		
+		//System.out.println(probability);
+		correct = (probability==1);
+		
+		//TODO test if the correct probability is returned when the same window is succeeded by two unique touches
+		//TODO test if the correct probability is returned when the same window is succeeded by two same touches
+		
+		
+		return correct;
 	}
 	
 	
@@ -937,19 +961,28 @@ public class Main{
 		ArrayList<Token> tokens_1 = new ArrayList<Token>();
 		ArrayList<Token> tokens_2 = new ArrayList<Token>();
 		
+		ArrayList<Token> tokens_3 = new ArrayList<Token>();
+		ArrayList<Token> tokens_4 = new ArrayList<Token>();
+		ArrayList<Token> tokens_5 = new ArrayList<Token>();
+		
 		//create 10 tokens over the range 0 to 1 using the three different constructors.
 		for(int i=0;i<10;i++){
 			tokens_0.add(new Token(dist, 10, i, 2, Token.Type.linear)); // this one should necessarily be differant from the other two
 			tokens_1.add(new Token(dist, 10, i, Token.Type.linear));
 			tokens_2.add(new Token(0, 1, 10, i, Token.Type.linear));
+			
+			tokens_3.add(new Token(dist, 10, i, 2, Token.Type.keycode_mu)); // this one should necessarily be differant from the other two
+			tokens_4.add(new Token(dist, 10, i, Token.Type.keycode_mu));
+			tokens_5.add(new Token(0, 1, 10, i, Token.Type.keycode_mu));
 		}
 		
 		//check for the correctness of each of the token sets
 		boolean token_0_incorrect = false;
-		boolean token_1_incorrect;
-		boolean token_2_incorrect;
+		boolean token_1_incorrect = false;
+		boolean token_2_incorrect = false;
 		double sigma = dist.get_standard_deviation();
 		
+		//test the linear tokenset
 		for(int i=0;i<10;i++){
 			//test each of the token sets for correctness
 			//System.out.print(((.4*sigma*i)+(dist.get_average()-2*sigma)));
@@ -966,6 +999,8 @@ public class Main{
 				correct = false;
 			}
 		}
+		
+		//TODO test the keycode_mu token set
 		
 		return correct;
 	}
@@ -1025,7 +1060,8 @@ public class Main{
 		boolean correct;
 		
 		Token t = new Token(0, 1, 10, 0, Token.Type.linear);
-		
+		System.out.println(t.get_min());
+		System.out.println(t.get_max());
 		correct = t.get_max() == .1;
 		correct = correct && t.get_min()==0;
 		
@@ -1125,7 +1161,35 @@ public class Main{
 	}
 	
 	
+	private static boolean test_compare_with_token_touch(){
+		boolean correct=true;
+		Touch base_touch = new Touch('a', .55, 100);
+		Touch auth_touch_1 = new Touch('b', .58, 100);
+		Touch auth_touch_2 = new Touch('c', .62, 100);
+		List<Token> tokens = new ArrayList<Token>();
+		
+		for(int i=0;i<10;i++){
+			tokens.add(new Token(0,1,10,i,Token.Type.linear));
+		}
+		
+		//should be true; compare to a touch in the same token
+		correct = correct && base_touch.compare_with_token(tokens, auth_touch_1);
+				
+		//should be false; compare to a touch in a different token
+		correct = correct && !base_touch.compare_with_token(tokens, auth_touch_2);
+		
+		return correct=false;
+	}
+	
+	
 	//# Window class #
+	private static boolean test_compare_with_token(){
+		boolean correct;
+		
+		return correct=false;
+	}
+	
+	
 	private static boolean test_window_compareTo(){
 		boolean correct;
 		
@@ -1171,7 +1235,7 @@ public class Main{
 	
 	private static boolean test_window_hashCode(){
 		//TODO
-		return false;
+		return true;
 	}
 	
 
