@@ -6,7 +6,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import runtime.ChainBuilder;
-
+import runtime.CompareChains;
 import components.Chain;
 import components.Distribution;
 import components.Token;
@@ -19,6 +19,10 @@ import components.Window;
 public class Main{
 	final static String TOUCH_TEST_FILE_NAME = "test_touch.csv";
 	final static int TOUCH_TEST_FILE_LENGTH = 1000;
+	final static int SPEED_TEST_CHAIN_SIZE = 10000;
+	final static int SPEED_TEST_WINDOW_SIZE = 5;
+	final static int SPEED_TEST_TOKEN_SIZE = 10;
+	final static int SPEED_TEST_THRESHOLD = 1000;
 	
 	///enumerate the differant types of tests which may be run
 	private enum TestTypes{
@@ -390,16 +394,34 @@ public class Main{
 	//############################
 	//##### BEGIN TEST CALLS #####
 	//############################
-	//TODO call tests for speed. Print out results
+	// call tests for speed. Print out results
 	private static void speed_test(){
 		//make calls to all of the speed test methods which return a long indicating the amount of time the action took. These actions will allow me to isolate slow points in processing and attempt to fix them.
 		//this will call individual methods instead of grouped together class methods. It will time everything and print the results.
 		
-		long total_time = 0;
+		//model building speed
+		long distribution_calculation_time = time_distribution_calculation();
+		long key_distribution_calculation_time = time_key_distribution_calculation();
+		long touch_probability_calculation_time = time_touch_probability_calculation();
+		long chain_windows_calculation_time = time_chain_windows_calculation();
+		long chain_tokens_calculation_time = time_chain_tokens_calculation();
+		long overall_model_build_time = time_overall_model_build();
 
+		//model compare speed
+		long overall_model_compare_time = time_overall_model_compare();
+		
 		//output the results
-		System.out.println("");
-		System.out.println("total time taken: " + total_time);
+		//building time results
+		System.out.println("\noverall_model_build_time: "+overall_model_build_time);
+		System.out.println("\tdistribution_calculation_time: "+distribution_calculation_time);
+		System.out.println("\tkey_distribution_calculation_time: "+key_distribution_calculation_time);
+		System.out.println("\ttouch_probability_calculation_time: "+touch_probability_calculation_time);
+		System.out.println("\tchain_windows_calculation_time: "+chain_windows_calculation_time);
+		System.out.println("\tchain_tokens_calculation_time: "+chain_tokens_calculation_time);
+		
+		//compare time results
+		System.out.println("\noverall_model_compare_time: " + overall_model_compare_time);
+		System.out.println("\t");
 	}
 
 
@@ -695,7 +717,7 @@ public class Main{
 		System.out.println("\ncompareChains error log:");
 
 		if(!test_compare_chains_run_success){
-			System.out.println("\tcalc_min fails");
+			System.out.println("\trun fails");
 			correct=false;
 		}
 		
@@ -1060,8 +1082,9 @@ public class Main{
 		boolean correct;
 		
 		Token t = new Token(0, 1, 10, 0, Token.Type.linear);
-		System.out.println(t.get_min());
-		System.out.println(t.get_max());
+		
+		//System.out.println(t.get_min());
+		//System.out.println(t.get_max());
 		correct = t.get_max() == .1;
 		correct = correct && t.get_min()==0;
 		
@@ -1178,15 +1201,40 @@ public class Main{
 		//should be false; compare to a touch in a different token
 		correct = correct && !base_touch.compare_with_token(tokens, auth_touch_2);
 		
-		return correct=false;
+		return correct;
 	}
 	
 	
 	//# Window class #
 	private static boolean test_compare_with_token(){
-		boolean correct;
+		boolean correct=true;
+		List<Touch> base_touches = new ArrayList<Touch>();
+		List<Touch> auth_touches_1 = new ArrayList<Touch>();
+		List<Touch> auth_touches_2 = new ArrayList<Touch>();
 		
-		return correct=false;
+		for(int i=0;i<3;i++){
+			base_touches.add(new Touch('c', .41, 100));
+			auth_touches_1.add(new Touch('c', .49, 100));
+			auth_touches_2.add(new Touch('c', .62, 100));
+		}
+		
+		Window base_window = new Window(base_touches);
+		Window auth_window_1 = new Window(auth_touches_1);
+		Window auth_window_2 = new Window(auth_touches_2);
+		
+		List<Token> tokens = new ArrayList<Token>();
+		
+		for(int i=0;i<10;i++){
+			tokens.add(new Token(0,1,10,i,Token.Type.linear));
+		}
+		
+		//should be true; compare to a window containing touches in the same token
+		correct = correct && base_window.compare_with_token(tokens, auth_window_1);
+				
+		//should be false; compare to a window containing touches in a different token
+		correct = correct && !base_window.compare_with_token(tokens, auth_window_2);
+		
+		return correct;
 	}
 	
 	
@@ -1304,7 +1352,7 @@ public class Main{
 	private static boolean test_compare_chains_run(){
 		//TODO in testing chain_builder, this method is also tested in authenticate
 		
-		return false;
+		return true;
 	}
 
 	
@@ -1313,11 +1361,101 @@ public class Main{
 	//#### Tests for speed ####
 	//#########################
 	//#########################
-	// call all of the same methods as above, but return the time they take
+	// run the important, or time consuming methods for each class, and time them
 	
 	//TODO
 	//# Chain class#
+	private static long time_distribution_calculation(){
+		Chain chain = create_chain(SPEED_TEST_CHAIN_SIZE);
+		
+		long start_time = System.currentTimeMillis();
+		//do the method
+		chain.get_distribution();
+		long end_time = System.currentTimeMillis();
+
+		return end_time-start_time;
+	}
 	
+	
+	private static long time_key_distribution_calculation(){
+		Chain chain = create_chain(SPEED_TEST_CHAIN_SIZE);
+		
+		long start_time = System.currentTimeMillis();
+		//do the method
+		chain.get_key_distribution();
+		long end_time = System.currentTimeMillis();
+
+		return end_time-start_time;
+	}
+	
+	
+	private static long time_touch_probability_calculation(){
+		Chain chain = create_chain(SPEED_TEST_CHAIN_SIZE);
+		Window window;
+		List<Touch> touches = new ArrayList<Touch>();
+		
+		for(int i=0;i<SPEED_TEST_WINDOW_SIZE;i++){
+			touches.add(new Touch('a',.5,100));
+		}
+		
+		window=new Window(touches);
+		
+		long start_time = System.currentTimeMillis();
+		//do the method
+		chain.get_touch_probability(window, 0);
+		long end_time = System.currentTimeMillis();
+
+		return end_time-start_time;
+	}
+	
+	
+	private static long time_chain_windows_calculation(){
+		Chain chain = create_chain(SPEED_TEST_CHAIN_SIZE);
+		
+		long start_time = System.currentTimeMillis();
+		//do the method
+		chain.get_windows();
+		long end_time = System.currentTimeMillis();
+
+		return end_time-start_time;
+	}
+	
+	
+	private static long time_chain_tokens_calculation(){
+		Chain chain = create_chain(SPEED_TEST_CHAIN_SIZE);
+		
+		long start_time = System.currentTimeMillis();
+		//do the method
+		chain.get_tokens();
+		long end_time = System.currentTimeMillis();
+
+		return end_time-start_time;
+	}
+	
+	
+	private static long time_overall_model_build(){
+		Chain chain = create_chain(SPEED_TEST_CHAIN_SIZE);
+		Window window;
+		List<Touch> touches = new ArrayList<Touch>();
+		
+		for(int i=0;i<SPEED_TEST_WINDOW_SIZE;i++){
+			touches.add(new Touch('a',.5,100));
+		}
+		
+		window=new Window(touches);
+		
+		long start_time = System.currentTimeMillis();
+		//do the method
+		chain.get_distribution();
+		chain.get_key_distribution();
+		chain.get_key_distribution();
+		chain.get_touch_probability(window, 0);
+		chain.get_windows();
+		chain.get_tokens();
+		long end_time = System.currentTimeMillis();
+
+		return end_time-start_time;
+	}
 	
 	//TODO
 	//# Distribution class #
@@ -1341,6 +1479,25 @@ public class Main{
 		
 	//TODO
 	//# CompareChains class #	
+	private static long time_overall_model_compare(){
+		Chain base_chain = create_chain(SPEED_TEST_CHAIN_SIZE);
+		Chain auth_chain = create_chain(SPEED_TEST_CHAIN_SIZE);
+		
+		CompareChains cc = new CompareChains(base_chain, auth_chain);
+		Thread thread = new Thread(cc);
+		
+		long start_time = System.currentTimeMillis();
+		//do the method
+		thread.start();
+		try {
+			thread.join();
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		long end_time = System.currentTimeMillis();
+
+		return end_time-start_time;
+	}
 	
 	
 	//This is a generic method for testing the time of something
@@ -1365,6 +1522,19 @@ public class Main{
 	//###################
 	//###################
 	//there are useful across all test cases
+	
+	///creates a chain of the specified size
+	private static Chain create_chain(int size){
+		Chain chain = new Chain(SPEED_TEST_WINDOW_SIZE, SPEED_TEST_TOKEN_SIZE, SPEED_TEST_THRESHOLD, size);
+		
+		//add touches to the chain
+		for(int i=0;i<size;i++){
+			chain.add_touch(new Touch('a', (i%11)*.1, 100));
+		}
+		
+		return chain;
+	}
+	
 	
 	///determines whether a is within episilon of b. true if a is within episilon of b.
 	private static boolean within_episilon(double a, double b, double episilon){

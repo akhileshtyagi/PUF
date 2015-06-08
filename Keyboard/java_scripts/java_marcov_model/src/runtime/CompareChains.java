@@ -64,7 +64,7 @@ public class CompareChains implements Runnable{
 			//user fails the authentication
 			//possibly cause the lock screen to come up
 			is_authentic = false;
-			System.out.println("User fails to authenticate");
+			//System.out.println("User fails to authenticate");
 		}else{
 			is_authentic = true;
 		}

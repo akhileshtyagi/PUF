@@ -450,7 +450,7 @@ public class Chain{
 			//compute the probability
 			probability = (number_successions) / ((double)occurrences_of_window);
 
-			//TODO update the probability of the other touches with this successor as well?
+			//TODO update the probability of the other touches with this predecessor window as well?
 			//set the probability of the successor touch. To do this, I need to know how many times this touch succeeds this window
 			successor_touch.get(i).set_probability(window_list.get(i), probability);
 		}
@@ -458,6 +458,7 @@ public class Chain{
 
 	
 	///return the number of occurrences of w in window_list
+	///TODO I think this method needs to be faster. Storing windows in a prefix tree would allow for this
 	private int occurrence_count(List<Window> window_list, Window w){
 		//TODO check for correctness
 		int occurrences=0;
@@ -531,7 +532,7 @@ public class Chain{
 
 
 	///handle requests for windows
-	private List<Window> get_windows(){
+	public List<Window> get_windows(){
 		//if windows have not been computed, compute them
 		if(!windows_computed){
 			compute_windows();
@@ -562,7 +563,7 @@ public class Chain{
 
 
 	///handle requests for tokens
-	private List<Token> get_tokens(){
+	public List<Token> get_tokens(){
 		//if tokens have not been computed, compute them
 		if(!tokens_computed){
 			compute_tokens();
