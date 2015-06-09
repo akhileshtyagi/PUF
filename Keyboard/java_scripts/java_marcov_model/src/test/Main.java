@@ -756,27 +756,83 @@ public class Main{
 		
 		// window 2, tokens 10, threshold 500, size 5
 		Chain chain = new Chain(2,10,500,10);
+		List<Touch> chain_touches = new ArrayList<Touch>();
 		List<Touch> touches = new ArrayList<Touch>();
 		Window window;
 		
 		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
 		for(int i=0;i<10;i++){
-			chain.add_touch(new Touch('a',.1*i,100*i));
+			Touch touch = new Touch('a',.1*i,100);
+			
+			chain_touches.add(touch);
+			chain.add_touch(touch);
 		}
 		
 		// create a window and tests that the correct probability is retrieved afterward
-		touches.add(new Touch('a', 0, 100));
-		touches.add(new Touch('a', 1, 100));
+		touches.add(chain_touches.get(0));
+		touches.add(chain_touches.get(1));
 		
 		window = new Window(touches);
-		double probability = chain.get_touch_probability(window, 2);
+		double probability = chain.get_touch_probability(window, chain_touches.get(2));
 		
-		//System.out.println(probability);
+		System.out.println(probability);
 		correct = (probability==1);
-		
+		//----------
 		//TODO test if the correct probability is returned when the same window is succeeded by two unique touches
-		//TODO test if the correct probability is returned when the same window is succeeded by two same touches
+		Chain chain_2 = new Chain(2,10,500,10);
+		List<Touch> chain_touches_2 = new ArrayList<Touch>();
+		List<Touch> touches_2 = new ArrayList<Touch>();
+		Window window_2;
 		
+		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
+		for(int i=0;i<7;i++){
+			Touch touch = new Touch('a',.1*(i%5),100);
+			
+			chain_touches_2.add(touch);
+			chain_2.add_touch(touch);
+		}
+		
+		for(int i=0;i<3;i++){
+			Touch touch = new Touch('a',.1*(i%5),100);
+			
+			chain_touches_2.add(touch);
+			chain_2.add_touch(touch);
+		}
+		
+		// create a window and tests that the correct probability is retrieved afterward
+		touches_2.add(chain_touches_2.get(0));
+		touches_2.add(chain_touches_2.get(1));
+		
+		window_2 = new Window(touches_2);
+		double probability_2 = chain_2.get_touch_probability(window_2, chain_touches_2.get(2));
+		
+		System.out.println(probability_2);
+		correct = correct && (probability_2==.5);
+		//----------
+		//TODO test if the correct probability is returned when the same window is succeeded by two same touches
+		Chain chain_3 = new Chain(2,10,500,10);
+		List<Touch> chain_touches_3 = new ArrayList<Touch>();
+		List<Touch> touches_3 = new ArrayList<Touch>();
+		Window window_3;
+		
+		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
+		for(int i=0;i<10;i++){
+			//0,.1,.2,.3,.4,0,.1,.2,.3,.4
+			Touch touch = new Touch('a',.1*(i%5),100);
+			
+			chain_touches_3.add(touch);
+			chain_3.add_touch(touch);
+		}
+		
+		// create a window and tests that the correct probability is retrieved afterward
+		touches_3.add(chain_touches_3.get(0));
+		touches_3.add(chain_touches_3.get(1));
+		
+		window_3 = new Window(touches_3);
+		double probability_3 = chain_3.get_touch_probability(window_3, chain_touches_3.get(2));
+		
+		System.out.println(probability_3);
+		correct = correct && (probability_3==1);
 		
 		return correct;
 	}
@@ -789,8 +845,7 @@ public class Main{
 	
 	
 	private static boolean test_get_key_distribution(){
-		//TODO
-		boolean correct = false;
+		boolean correct = true;
 		
 		// window 2, tokens 10, threshold 500, size 9
 		Chain chain = new Chain(2,10,500,9);
@@ -801,9 +856,38 @@ public class Main{
 			chain.add_touch(new Touch('a'+(i%2),.1*(i+1),100*i));
 		}
 		
+		//create distributions which should be created for the key_distribution
+		Distribution a_key_dist;
+		Distribution b_key_dist;
+		
+		List<Touch> a_touch_list = new ArrayList<Touch>();
+		List<Touch> b_touch_list = new ArrayList<Touch>();
+		
+		//for 'a'
+		for(int i=0;i<9;i+=2){
+			a_touch_list.add(new Touch('a',.1*(i+1),100*i));
+		}
+		
+		a_key_dist = new Distribution(a_touch_list, 'a');
+		
+		//for 'b'
+		for(int i=1;i<9;i+=2){
+			b_touch_list.add(new Touch('b',.1*(i+1),100*i));
+		}
+		
+		b_key_dist = new Distribution(b_touch_list, 'b');
+		
 		List<Distribution> key_dist = chain.get_key_distribution();
-		// TODO determine whether key_dist is correct
-		//correct = ;
+		//each index of key_distribution contains a distribution object.
+		//i need to determine if these distribution objects are correct
+		//this will be based on the touches i have added to the chain
+		if(key_dist.get(0).get_keycode()=='a'){
+			correct = correct && key_dist.get(0).equals(a_key_dist);
+			correct = correct && key_dist.get(1).equals(b_key_dist);
+		}else{
+			correct = correct && key_dist.get(1).equals(a_key_dist);
+			correct = correct && key_dist.get(0).equals(b_key_dist);
+		}
 		
 		return correct;
 	}
@@ -831,7 +915,7 @@ public class Main{
 		//cause all computations to happen
 		chain.get_distribution();
 		chain.get_key_distribution();
-		chain.get_touch_probability(null, 0);
+		chain.get_touch_probability(null, null);
 		
 		//output the chain to a csv file
 		chain.output_to_csv();
@@ -1131,8 +1215,15 @@ public class Main{
 		touches.add(touch);
 		
 		touch.set_probability(window, .2);
+		//test with a null window
 		correct = touch.get_probability(window)==.2;
+		
+		//test that a window not set returns 0
 		correct = correct && (0==touch.get_probability(new Window(touches)));
+		
+		//test that a window can be set and gotten if the window is not null
+		touch.set_probability(new Window(touches),1);
+		correct = correct && (1==touch.get_probability(new Window(touches)));
 		
 		return correct;
 	}
@@ -1402,7 +1493,7 @@ public class Main{
 		
 		long start_time = System.currentTimeMillis();
 		//do the method
-		chain.get_touch_probability(window, 0);
+		chain.get_touch_probability(window, touches.get(0));
 		long end_time = System.currentTimeMillis();
 
 		return end_time-start_time;
@@ -1449,7 +1540,7 @@ public class Main{
 		chain.get_distribution();
 		chain.get_key_distribution();
 		chain.get_key_distribution();
-		chain.get_touch_probability(window, 0);
+		chain.get_touch_probability(window, touches.get(0));
 		chain.get_windows();
 		chain.get_tokens();
 		long end_time = System.currentTimeMillis();

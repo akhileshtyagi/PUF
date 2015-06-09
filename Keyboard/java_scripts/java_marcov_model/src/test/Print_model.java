@@ -27,7 +27,7 @@ public class Print_model {
 		//cause computations to happen
 		chain.get_distribution();
 		chain.get_key_distribution();
-		chain.get_touch_probability(null, 0);
+		chain.get_touch_probability(null, null);
 		
 		// print out the model
 		chain.output_to_csv();

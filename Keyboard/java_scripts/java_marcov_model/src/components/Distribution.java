@@ -170,4 +170,28 @@ public class Distribution{
 	public int get_keycode(){
 		return associated_keycode;
 	}
+	
+	
+	///determine if this distribution is exactly equal to another distribution
+	@Override
+	public boolean equals(Object o){
+		//TODO test for correctness
+		if(o==null){
+			//because the '.' operator was used we know this object is not null, so not null does not equals null, return false
+			return false;
+		}
+		
+		boolean same = true;
+		Distribution other_distribution = (Distribution)o;
+		
+		if(this.get_max()!=other_distribution.get_max() ||
+				this.get_min()!=other_distribution.get_min() ||
+				this.get_average()!=other_distribution.get_average() ||
+				this.get_keycode()!=other_distribution.get_keycode() ||
+				this.get_standard_deviation()!=other_distribution.get_standard_deviation()){
+			same = false;
+		}
+		
+		return same;
+	}
 }

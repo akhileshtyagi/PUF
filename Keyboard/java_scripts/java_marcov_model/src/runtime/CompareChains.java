@@ -119,8 +119,8 @@ public class CompareChains implements Runnable{
 	private class Touch_probability_thread implements Runnable{
 		@Override
 		public void run(){
-			user_chain.get_touch_probability(null, 0);
-			auth_chain.get_touch_probability(null, 0);
+			user_chain.get_touch_probability(null, null);
+			auth_chain.get_touch_probability(null, null);
 		}
 	}
 }

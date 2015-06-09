@@ -113,19 +113,40 @@ public class Chain{
 	
 	
 	///returns the probability of a given touch (at the i'th index) based on the model. This will depend on the preceeding touches, in Window. A request for one probability will necessarily result in all of the probabilities being computed.
-	public double get_touch_probability(Window w, int i){
+	public double get_touch_probability(Window w, Touch t){
 		//TODO check for correctness
 		//if the probability has not been computed, compute it
 		if(!probability_computed){
 			compute_probability();
 			probability_computed=true;
 		}
-		//TODO TODO does this check mess with the logic of the program?
+				
 		if(touches.size() == 0){
 			return 0;
 		}
 		
-		return touches.get(i).get_probability(w);
+		if(t == null){
+			return 0;
+		}
+		
+		//find touch in the successors list
+		Touch successor = null;
+		Window predecessor = null;
+		for(int i=0;i<successor_touch.size();i++){
+			if((successor_touch.get(i).compare_with_token(get_tokens(), t)) &&
+					(windows.get(i).compare_with_token(this.get_tokens(), w))){
+				successor = successor_touch.get(i);
+				predecessor = windows.get(i);
+				break;
+			}
+		}
+		
+		if((successor == null) || (predecessor == null)){
+			System.out.println("zergling");
+			return 0;
+		}
+		
+		return successor.get_probability(predecessor);
 	}
 
 
@@ -437,7 +458,7 @@ public class Chain{
 		// 3) assign a probability to the successor touch based on 1,2
 		List<Window> window_list = get_windows();
 		int occurrences_of_window;
-		double number_successions;
+		int number_successions;
 		double probability;
 
 		for(int i=0;i<window_list.size();i++){
@@ -445,15 +466,32 @@ public class Chain{
 			occurrences_of_window = occurrence_count(window_list, window_list.get(i));
 			
 			//get the number of times a touch has succeeded this window. We can use the old probability following this window to figure this out. TODO if this method turns out not be correct, this would be a good place to begin looking for mistakes.
-			number_successions = 1 + (successor_touch.get(i).get_probability(window_list.get(i)) * occurrences_of_window);
-
+			//number_successions = 1 + (successor_touch.get(i).get_probability(window_list.get(i)) * occurrences_of_window);
+			//TODO this can deffonately be done faster (with a prefix tree?)
+			number_successions=successor_count(window_list, successor_touch, window_list.get(i), successor_touch.get(i));
+			
 			//compute the probability
-			probability = (number_successions) / ((double)occurrences_of_window);
-
-			//TODO update the probability of the other touches with this predecessor window as well?
+			probability = ((double)number_successions) / ((double)occurrences_of_window);
+			//System.out.println("number_successions:"+number_successions+" occurrences_of_windows:"+occurrences_of_window);
+			
 			//set the probability of the successor touch. To do this, I need to know how many times this touch succeeds this window
 			successor_touch.get(i).set_probability(window_list.get(i), probability);
 		}
+	}
+	
+	
+	///counts the number of times a given touch comes after a given window. in the given window, succesors list
+	private int successor_count(List<Window> window_list, List<Touch> successor_list, Window window, Touch touch){
+		int count = 0;
+		
+		for(int i=0;i<window_list.size();i++){
+			//for every occurrence of window, successor match, increment count
+			if((window_list.get(i).compare_with_token(this.get_tokens(), window)) && (successor_list.get(i).compare_with_token(this.get_tokens(),touch))){
+				count++;
+			}
+		}
+		
+		return count;
 	}
 
 	
@@ -465,7 +503,7 @@ public class Chain{
 		
 		for(int i=0;i<window_list.size();i++){
 			//determine if the windows are equal
-			if(window_list.get(i).compareTo(w)==0){
+			if(window_list.get(i).compare_with_token(this.get_tokens(),w)){
 				occurrences++;
 			}
 		}
@@ -475,6 +513,7 @@ public class Chain{
 
 
 	///compute the windows. This will also fill the successor_touch list
+	///this does not taken the token rules into account. this is done later in computing the probability
 	private void compute_windows(){
 		//TODO check for correctness
 		// this takes into account the time delay between touches when adding them to windows. There may be fewer (windows*window_size) than the total number of touches. This is because if there is too long a delay between touches, the window is simply thrown out.
