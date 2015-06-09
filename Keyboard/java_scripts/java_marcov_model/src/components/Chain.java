@@ -133,8 +133,8 @@ public class Chain{
 		Touch successor = null;
 		Window predecessor = null;
 		for(int i=0;i<successor_touch.size();i++){
-			System.out.println(successor_touch.get(i));
-			System.out.println(t);
+			//System.out.println(successor_touch.get(i));
+			//System.out.println(t);
 			if((successor_touch.get(i).compare_with_token(get_tokens(), t)) &&
 					(windows.get(i).compare_with_token(this.get_tokens(), w))){
 				successor = successor_touch.get(i);
@@ -198,14 +198,21 @@ public class Chain{
 	public double compare_to(Chain auth_chain){
 		double difference = 0;
 		
+		//guarentee that everything has been computed
+		this.get_distribution();
+		this.get_key_distribution();
+		this.get_tokens();
+		this.get_windows();
+		this.get_touch_probability(null, null);
+		
 		//for every window in auth_chain
 		for(int i=0;i<auth_chain.get_windows().size();i++){
 			//find the difference between base_chain and auth_chain's corresponding window
 			difference += get_window_difference(this.get_windows().get(i), auth_chain.get_windows().get(i), this.successor_touch.get(i), auth_chain.successor_touch.get(i));
 		}
-		
+
 		//return the average of the window differences
-		return difference/auth_chain.get_windows().size();
+		return difference/((double)auth_chain.get_windows().size());
 	}
 	
 	
@@ -289,6 +296,8 @@ public class Chain{
 		
 		double base_probability = base_window_successor_touch.get_probability(base_window);
 		double auth_probability = auth_window_successor_touch.get_probability(auth_window);
+		
+		//System.out.println("base_p:"+base_probability+" auth_p:"+auth_probability);
 		
 		//TODO should this be absolute value?
 		difference = Math.abs(base_probability - auth_probability);

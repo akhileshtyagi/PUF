@@ -751,7 +751,6 @@ public class Main{
 	
 	
 	private static boolean test_get_touch_probability(){
-		//TODO
 		boolean correct;
 		
 		// window 2, tokens 10, threshold 500, size 5
@@ -775,7 +774,7 @@ public class Main{
 		window = new Window(touches);
 		double probability = chain.get_touch_probability(window, chain_touches.get(2));
 		
-		System.out.println(probability);
+		//System.out.println(probability);
 		correct = (probability==1);
 		//----------
 		//TODO test if the correct probability is returned when the same window is succeeded by two unique touches
@@ -785,15 +784,15 @@ public class Main{
 		Window window_2;
 		
 		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
-		for(int i=0;i<7;i++){
-			Touch touch = new Touch('a',.1*(i%5),100);
+		for(int i=0;i<6;i++){
+			Touch touch = new Touch('a',.1*i,100);
 			
 			chain_touches_2.add(touch);
 			chain_2.add_touch(touch);
 		}
 		
 		for(int i=0;i<3;i++){
-			Touch touch = new Touch('a',.1*(i%5),100);
+			Touch touch = new Touch('a',.1*(i%2),100);
 			
 			chain_touches_2.add(touch);
 			chain_2.add_touch(touch);
@@ -806,7 +805,7 @@ public class Main{
 		window_2 = new Window(touches_2);
 		double probability_2 = chain_2.get_touch_probability(window_2, chain_touches_2.get(2));
 		
-		System.out.println(probability_2);
+		//System.out.println(probability_2);
 		correct = correct && (probability_2==.5);
 		//----------
 		//TODO test if the correct probability is returned when the same window is succeeded by two same touches
@@ -831,7 +830,7 @@ public class Main{
 		window_3 = new Window(touches_3);
 		double probability_3 = chain_3.get_touch_probability(window_3, chain_touches_3.get(2));
 		
-		System.out.println(probability_3);
+		//System.out.println(probability_3);
 		correct = correct && (probability_3==1);
 		
 		return correct;
@@ -894,8 +893,27 @@ public class Main{
 	
 	
 	private static boolean test_chain_compare_to(){
-		//TODO
-		return false;
+		//TODO test this to a greater degree
+		boolean correct = true;
+		
+		// window 2, tokens 10, threshold 500, size 10
+		Chain base_chain = new Chain(2,10,500,10);
+		Chain auth_chain = new Chain(2,10,500,10);
+		
+		// add touches to the chains
+		for(int i=0;i<10;i++){
+			base_chain.add_touch(new Touch('a',.1*(i),100));
+			auth_chain.add_touch(new Touch('a',0,100));
+		}
+		
+		// should be true; compare two chains which are the same
+		correct = correct && (0==base_chain.compare_to(base_chain));
+		
+		// compare two chains which are different completly
+		correct = correct && (1==base_chain.compare_to(auth_chain));
+		//System.out.println(base_chain.compare_to(auth_chain));
+		
+		return correct;
 	}
 	
 	
@@ -1401,6 +1419,7 @@ public class Main{
 		//TODO none of these will actually work yet because compare is not implemented. Right now I am more testing whether this causes an error that needs to be taken care of.
 		boolean correct;
 		
+		//window, token, threshold, user_model_size, auth_model_size, 
 		ChainBuilder chain_builder = new ChainBuilder(5,5,1000,1000,500);
 		
 		//try to authenticate two chains which are the same

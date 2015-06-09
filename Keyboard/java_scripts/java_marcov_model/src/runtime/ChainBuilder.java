@@ -86,8 +86,7 @@ public class ChainBuilder{
 	///this method starts the authentication
 	public void authenticate(){
 		//begin the compairason. This requires adding the touches to the corresponding chain.
-		int i=0;
-		for(Touch touch : touch_list){
+		for(int i=0;i<touch_list.size();i++){
 			//we want to add to the base chain if, we are within user_model_size
 			if(i<user_model_size){
 				user_chain.add_touch(touch_list.get(i));
@@ -97,10 +96,8 @@ public class ChainBuilder{
 			if(i>=user_model_size){
 				auth_chain.add_touch(touch_list.get(i));
 			}
-			
-			i++;
 		}
-		
+		System.out.println(touch_list.size());
 		//afterward, create the thread to begin the authentication
 		cc = new CompareChains(user_chain, auth_chain);
 		Thread auth_thread = new Thread(cc);

@@ -14,7 +14,7 @@ public class Print_model {
 	final static String data_path = "data_sets/3-30-15_timdee_07924e50.csv";
 	final static int window = 5;
 	final static int token = 5;
-	final static int threshold = 500;
+	final static int threshold = 50000;
 	final static int model_size = 5000;
 	
 	public static void main(String[] args){
