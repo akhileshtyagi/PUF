@@ -64,8 +64,10 @@ public class Token{
 
 
 	///determines if a touch is within this token based on its pressure value
+	/// this will return true if a touches pressure equals max or min, so
+	/// if max of one token is min of another token, both will return true
 	public boolean contains(Touch touch){
-		return (touch.get_pressure() <= max) && (touch.get_pressure() > min);
+		return (touch.get_pressure() <= max) && (touch.get_pressure() >= min);
 	}
 	
 	

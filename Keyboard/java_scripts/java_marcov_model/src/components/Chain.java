@@ -133,6 +133,8 @@ public class Chain{
 		Touch successor = null;
 		Window predecessor = null;
 		for(int i=0;i<successor_touch.size();i++){
+			System.out.println(successor_touch.get(i));
+			System.out.println(t);
 			if((successor_touch.get(i).compare_with_token(get_tokens(), t)) &&
 					(windows.get(i).compare_with_token(this.get_tokens(), w))){
 				successor = successor_touch.get(i);
@@ -142,7 +144,7 @@ public class Chain{
 		}
 		
 		if((successor == null) || (predecessor == null)){
-			System.out.println("zergling");
+			//System.out.println("zergling");
 			return 0;
 		}
 		
@@ -529,12 +531,14 @@ public class Chain{
 			//TODO take into account that touches are also not good if they fall outside of their keycode distribution, or the overall distribution
 			//if the touch is good, add it to the touch list. A touch is good if it is within threshold time and it is contained in one of the tokens.
 			if(	(get_token_index(touches.get(i)) >=0 ) && 
-				((touch_list.size()==0) || ((touches.get(i).get_timestamp()-touch_list.get(touch_list.size()-1).get_timestamp()) <= threshold)))
+					((touch_list.size()==0) || 
+						((touches.get(i).get_timestamp()-touch_list.get(touch_list.size()-1).get_timestamp()) <= threshold)))
 			{
 				//the touch is good
 				touch_list.add(touches.get(i));
 			}else{
 				//the touch is no good. Reset the touch list
+				//System.out.println("marine");
 				touch_list= new ArrayList<Touch>();
 			}
 
@@ -560,6 +564,7 @@ public class Chain{
 		//TODO check for correctness
 		List<Token> token_list = get_tokens();
 
+		//take the first token to return true
 		for(int i=0;i<token_list.size();i++){
 			if(token_list.get(i).contains(touch)){
 				return i;
