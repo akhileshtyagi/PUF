@@ -57,6 +57,9 @@ public class ChainBuilder{
 		auth_chain = new Chain(window, token, threshold, auth_model_size);
 		touch_list = new ArrayList<Touch>();
 		
+		this.user_model_size = user_model_size;
+		this.auth_model_size = auth_model_size;
+		
 		count=0;
 	}
 
@@ -97,7 +100,7 @@ public class ChainBuilder{
 				auth_chain.add_touch(touch_list.get(i));
 			}
 		}
-		System.out.println(touch_list.size());
+				
 		//afterward, create the thread to begin the authentication
 		cc = new CompareChains(user_chain, auth_chain);
 		Thread auth_thread = new Thread(cc);

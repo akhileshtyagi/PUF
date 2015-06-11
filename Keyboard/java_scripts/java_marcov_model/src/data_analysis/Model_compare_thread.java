@@ -51,17 +51,14 @@ public class Model_compare_thread implements Runnable{
 		List<Touch> base_touch_list;
 		List<Touch> auth_touch_list;
 		double result;
-		
-		//TODO doing this as an incremental process instead of comparing every time would make it go faster
-		//TODO adjust this bigger to make the test go faster
-		//minimum should be window size because less than that will result in no noticable changes
-		int size_increment = auth_model_size;
+
 		List<Double> authentication_probability_list = new ArrayList<Double>();
 		
 		//first parse the csv file to get a list of touches
 		base_touch_list = ChainBuilder.parse_csv(new File(base_data_path));
 		auth_touch_list = ChainBuilder.parse_csv(new File(auth_data_path));
 		
+		//this is doing several independtant segments of the chains. There are no overlapping touches
 		//TODO for each auth_model_size of auth data, authenticate against base_model
 		for(int a =0;((a<base_touch_list.size()) && (a<auth_touch_list.size()));a++){
 			//create base model

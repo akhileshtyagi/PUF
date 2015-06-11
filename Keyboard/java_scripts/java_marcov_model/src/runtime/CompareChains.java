@@ -28,8 +28,6 @@ public class CompareChains implements Runnable{
 	///compare user_chain and auth_chain and choose what to do with the result
 	@Override
 	public void run(){
-		double differance;
-		
 		//set the distribution of auth_chain based on user chain
 		this.auth_chain.set_distribution(this.user_chain.get_distribution(), this.user_chain.get_key_distribution());
 

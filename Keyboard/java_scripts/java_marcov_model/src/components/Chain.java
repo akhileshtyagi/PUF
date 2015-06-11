@@ -198,19 +198,29 @@ public class Chain{
 	public double compare_to(Chain auth_chain){
 		double difference = 0;
 		
-		//guarentee that everything has been computed
+		//guarentee that everything has been computed for this
 		this.get_distribution();
 		this.get_key_distribution();
 		this.get_tokens();
 		this.get_windows();
 		this.get_touch_probability(null, null);
 		
+		//guarentee that everything has been computed for that
+		auth_chain.get_distribution();
+		auth_chain.get_key_distribution();
+		auth_chain.get_tokens();
+		auth_chain.get_windows();
+		auth_chain.get_touch_probability(null, null);
+		
 		//for every window in auth_chain
 		for(int i=0;i<auth_chain.get_windows().size();i++){
 			//find the difference between base_chain and auth_chain's corresponding window
 			difference += get_window_difference(this.get_windows().get(i), auth_chain.get_windows().get(i), this.successor_touch.get(i), auth_chain.successor_touch.get(i));
 		}
-
+		
+		System.out.println(auth_chain.get_windows().size());
+		System.out.println(this.get_windows().size());
+		
 		//return the average of the window differences
 		return difference/((double)auth_chain.get_windows().size());
 	}
@@ -624,6 +634,26 @@ public class Chain{
 		}
 
 		return tokens;
+	}
+	
+	
+	///prints out all of the touches in order
+	@Override
+	public String toString(){
+		String s = "";
+		
+		s+= "[";
+		for(int i=0;i<touches.size();i++){
+			s+=touches.get(i).toString();
+			
+			if(i<touches.size()-1){
+				s+=", ";
+			}
+		}
+		
+		s+="]";
+		
+		return s;
 	}
 	
 	

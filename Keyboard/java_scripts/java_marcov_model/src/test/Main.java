@@ -161,9 +161,19 @@ public class Main{
 
 	//all methods return true if they pass
 	public static void main(String args[]){
+		TestTypes type;
+		
 		// allow the user to select between tests for correctness and tests for speed
-		TestTypes type = get_user_input_test_type();
-
+		if(args.length==0){
+			type = get_user_input_test_type();
+		}else{
+			if(0==Integer.valueOf(args[0])){
+				type = TestTypes.SPEED;
+			}else{
+				type = TestTypes.CORRECTNESS;
+			}
+		}
+		
 		//TODO construct the test file
 		//build_touch_test_file(TOUCH_TEST_FILE_NAME);
 		
@@ -489,6 +499,7 @@ public class Main{
 		boolean test_get_distribution_success = test_get_distribution();
 		boolean test_get_key_distribution_success = test_get_key_distribution();
 		boolean test_chain_compare_to_success = test_chain_compare_to();
+		boolean test_get_windows_success = test_get_windows();
 		test_output_to_csv();
 		
 		//print out any errors in a readable way
@@ -516,6 +527,11 @@ public class Main{
 		
 		if(!test_chain_compare_to_success){
 			System.out.println("\tcompare_to fails");
+			correct=false;
+		}
+		
+		if(!test_get_windows_success){
+			System.out.println("\tget_windows fails");
 			correct=false;
 		}
 		
@@ -911,7 +927,7 @@ public class Main{
 		
 		// compare two chains which are different completly
 		correct = correct && (1==base_chain.compare_to(auth_chain));
-		//System.out.println(base_chain.compare_to(auth_chain));
+		System.out.println(base_chain.compare_to(auth_chain));
 		
 		return correct;
 	}
@@ -922,9 +938,9 @@ public class Main{
 		Chain chain = new Chain(5,10,500,1000);
 		
 		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
-		for(int i=0;i<10000;i++){
+		for(int i=0;i<1000;i++){
 			//.1 though .9 pressures.... average is .5.... keycode is half a, half b
-			Touch touch =new Touch('a'+(i%2),.1*((i+1)%11),100);
+			Touch touch =new Touch('a'+(i%2),.1*((i)%11),100);
 			//System.out.println(touch);
 			
 			chain.add_touch(touch);
@@ -939,6 +955,60 @@ public class Main{
 		chain.output_to_csv();
 		
 		return true;
+	}
+	
+	
+	private static boolean test_get_windows(){
+		boolean correct=true;
+		
+		// window 2, tokens 10, threshold 500, size 9
+		Chain chain = new Chain(2,10,500,6);
+		List<Touch> chain_touches = new ArrayList<Touch>();
+		
+		//model size is 5. Add 10 touches to the model and see if the sliding is working correctly. The most rescent 5 touches should be retained.
+		for(int i=0;i<6;i++){
+			//.1 though .9 pressures.... average is .5.... keycode is half a, half b
+			Touch touch =new Touch('a',.1*(i%10),100);
+			//System.out.println(touch);
+			
+			chain_touches.add(touch);
+			chain.add_touch(touch);
+		}
+		
+		//create the windows i know should be created
+		List<Touch> touch_0 = new ArrayList<Touch>();
+		List<Touch> touch_1 = new ArrayList<Touch>();
+		List<Touch> touch_2 = new ArrayList<Touch>();
+		List<Touch> touch_3 = new ArrayList<Touch>();
+		
+		for(int i=0;i<2;i++){
+			touch_0.add(chain_touches.get(i));
+			touch_1.add(chain_touches.get(i+1));
+			touch_2.add(chain_touches.get(i+2));
+			touch_3.add(chain_touches.get(i+3));
+		}
+		
+		Window window_0 = new Window(touch_0);
+		Window window_1 = new Window(touch_1);
+		Window window_2 = new Window(touch_2);
+		Window window_3 = new Window(touch_3);
+		
+		//TODO make calls to get windows and verify if they are correct
+		correct = correct && (chain.get_windows().size()==4);
+		
+		//System.out.println(chain);
+		//System.out.println(chain.get_windows());
+		
+		//skip the rest of the tests if there are no windows, or an incorrect number of windows
+		if(correct){
+			//check each window to make sure it is correct
+			correct = correct && (chain.get_windows().get(0).compare_with_token(chain.get_tokens(), window_0));
+			correct = correct && (chain.get_windows().get(1).compare_with_token(chain.get_tokens(), window_1));
+			correct = correct && (chain.get_windows().get(2).compare_with_token(chain.get_tokens(), window_2));
+			correct = correct && (chain.get_windows().get(3).compare_with_token(chain.get_tokens(), window_3));
+		}
+		
+		return correct;
 	}
 	
 	
@@ -1416,7 +1486,7 @@ public class Main{
 	
 	
 	private static boolean test_authenticate(){
-		//TODO none of these will actually work yet because compare is not implemented. Right now I am more testing whether this causes an error that needs to be taken care of.
+		//TODO 
 		boolean correct;
 		
 		//window, token, threshold, user_model_size, auth_model_size, 
@@ -1424,7 +1494,7 @@ public class Main{
 		
 		//try to authenticate two chains which are the same
 		for(int i=0;i<3000;i++){
-			chain_builder.handle_touch(new Touch('a',1.0/i,100));
+			chain_builder.handle_touch(new Touch('a',.1*(i%10),100));
 		}
 		
 		chain_builder.authenticate();
@@ -1437,6 +1507,7 @@ public class Main{
 			}
 		}
 		
+		//System.out.println(chain_builder.get_authenticate_state());
 		correct = (chain_builder.get_authenticate_state()==ChainBuilder.State.SUCCESS);
 		
 		//TODO try to authenticate two chains which are different
