@@ -658,11 +658,11 @@ public class Chain{
 	
 	
 	///NOT USEFUL IN ANDROID. This is used for debugging purposes. Outputs the model to a csv file in a readable format.
-	public void output_to_csv(){
+	public void output_to_csv(String file_name){
 		PrintWriter output=null;
 		
 		try {
-			output = new PrintWriter("test_model_construction.txt", "UTF-8");
+			output = new PrintWriter(file_name, "UTF-8");
 			
 			output.println("[preceeding sequence] [touch pressure, probability]");
 			for(int i=0;i<windows.size();i++){

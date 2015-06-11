@@ -34,16 +34,16 @@ public class Marcov_console_panel extends JPanel {
 			Updating_output_stream text_stream;
 			
 			public Console_text_area(){
-				super(1000,1000);
+				super(16,60);
 				
 				//redirect std_out to text_stream
-				//text_stream= new Updating_output_stream(this);
-				//System.setOut(new PrintStream(text_stream));
+				text_stream= new Updating_output_stream(this);
+				System.setOut(new PrintStream(text_stream));
 				
 				//System.out.println("hi");
 				//System.setOut(System.out);
 				//System.out.println(text_stream.toString());
-				//this.setEditable(false);
+				this.setEditable(false);
 			}
 	
 			

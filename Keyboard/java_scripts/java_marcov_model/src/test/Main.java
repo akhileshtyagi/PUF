@@ -952,7 +952,7 @@ public class Main{
 		chain.get_touch_probability(null, null);
 		
 		//output the chain to a csv file
-		chain.output_to_csv();
+		chain.output_to_csv("test_model_construction.txt");
 		
 		return true;
 	}

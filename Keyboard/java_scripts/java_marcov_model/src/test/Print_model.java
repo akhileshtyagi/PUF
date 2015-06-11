@@ -30,6 +30,6 @@ public class Print_model {
 		chain.get_touch_probability(null, null);
 		
 		// print out the model
-		chain.output_to_csv();
+		chain.output_to_csv("print_model_output.txt");
 	}
 }
