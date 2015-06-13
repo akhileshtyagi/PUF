@@ -238,7 +238,7 @@ public class Chain{
 		
 		//System.out.println(difference);
 		//System.out.println(auth_chain.get_windows().size());
-		System.out.println(this.get_windows().size());
+		//System.out.println(this.get_windows().size());
 		
 		//windows depend on the distribution because tokens are created over the distribution
 		//therefore if no windows were created, then the chains are very unequal... The distribution of the second chain does not intersect the first
