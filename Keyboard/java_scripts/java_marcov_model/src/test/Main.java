@@ -824,7 +824,7 @@ public class Main{
 		//System.out.println(probability_2);
 		correct = correct && (probability_2==.5);
 		//----------
-		//TODO test if the correct probability is returned when the same window is succeeded by two same touches
+		// test if the correct probability is returned when the same window is succeeded by two same touches
 		Chain chain_3 = new Chain(2,10,500,10);
 		List<Touch> chain_touches_3 = new ArrayList<Touch>();
 		List<Touch> touches_3 = new ArrayList<Touch>();
@@ -915,19 +915,36 @@ public class Main{
 		// window 2, tokens 10, threshold 500, size 10
 		Chain base_chain = new Chain(2,10,500,10);
 		Chain auth_chain = new Chain(2,10,500,10);
+		Chain auth_chain_2 = new Chain(2,10,500,10);
 		
 		// add touches to the chains
 		for(int i=0;i<10;i++){
 			base_chain.add_touch(new Touch('a',.1*(i),100));
 			auth_chain.add_touch(new Touch('a',0,100));
+			
+			//0,0,.1,0,0,0....
+			auth_chain_2.add_touch(new Touch('a',((i%6==2)?(.1):(0)),100));
 		}
 		
+		//do each of the tests both directions. the result should be the same
 		// should be true; compare two chains which are the same
 		correct = correct && (0==base_chain.compare_to(base_chain));
 		
 		// compare two chains which are different completly
 		correct = correct && (1==base_chain.compare_to(auth_chain));
-		System.out.println(base_chain.compare_to(auth_chain));
+		correct = correct && (1==auth_chain.compare_to(base_chain));
+		
+		System.out.println(auth_chain);
+		System.out.println(auth_chain_2);
+		System.out.println(auth_chain.compare_to(auth_chain_2));
+		System.out.println(auth_chain_2.compare_to(auth_chain));
+		
+		//TODO test something inbetween... where approximatly half of the windows, probabilities should match
+		correct = correct && (.75>auth_chain_2.compare_to(auth_chain));
+		correct = correct && (.25<auth_chain_2.compare_to(auth_chain));
+		
+		correct = correct && (.75>auth_chain.compare_to(auth_chain_2));
+		correct = correct && (.25<auth_chain.compare_to(auth_chain_2));
 		
 		return correct;
 	}

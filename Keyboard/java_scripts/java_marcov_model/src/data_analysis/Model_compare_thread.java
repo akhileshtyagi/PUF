@@ -73,7 +73,8 @@ public class Model_compare_thread implements Runnable{
 			
 			//preform the authentication
 			result = base_chain.compare_to(auth_chain);
-			
+			//result = auth_chain.compare_to(base_chain);
+			//System.out.println(result);
 			//git the authentication result and add it to the probability list	
 			authentication_probability_list.add(1 - result);
 		}

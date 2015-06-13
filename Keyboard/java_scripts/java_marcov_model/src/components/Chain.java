@@ -67,6 +67,7 @@ public class Chain{
 		this.threshold = c.threshold;
 		this.model_size = c.model_size;
 	
+		this.windows_computed = c.windows_computed;
 		this.distribution_computed = c.distribution_computed;
 		this.probability_computed = c.probability_computed;
 		this.key_distribution_computed = c.key_distribution_computed;
@@ -109,6 +110,10 @@ public class Chain{
 		
 		//will need to recompute the tokens because they depend on the distribution
 		tokens_computed=false;
+		
+		//TODO is it necesary to recompute these as well
+		windows_computed=false;
+		probability_computed=false;
 	}
 	
 	
@@ -195,19 +200,32 @@ public class Chain{
 	///the value returned will be between 0 and 1
 	///0 indicates there is no difference
 	///1 indicates there is a large difference
+	//TODO compare should return the same thing both directions
 	public double compare_to(Chain auth_chain){
+		//TODO clean up replicated work
 		double difference = 0;
 		
-		//guarentee that everything has been computed for this
+		//recompute the distributions incase set_distribution has been called on this chain
+		distribution_computed=false;
+		key_distribution_computed=false;
+		windows_computed=false;
+		tokens_computed=false;
+		probability_computed=false;
+		
 		this.get_distribution();
 		this.get_key_distribution();
-		this.get_tokens();
 		this.get_windows();
+		this.get_tokens();
 		this.get_touch_probability(null, null);
 		
+		//set the distribution of the auth_chain based on the base chain
+		auth_chain.set_distribution(this.get_distribution(), this.get_key_distribution());
+		
 		//guarentee that everything has been computed for that
-		auth_chain.get_distribution();
-		auth_chain.get_key_distribution();
+		auth_chain.tokens_computed=false;
+		auth_chain.windows_computed=false;
+		auth_chain.probability_computed=false;
+		
 		auth_chain.get_tokens();
 		auth_chain.get_windows();
 		auth_chain.get_touch_probability(null, null);
@@ -215,11 +233,19 @@ public class Chain{
 		//for every window in auth_chain
 		for(int i=0;i<auth_chain.get_windows().size();i++){
 			//find the difference between base_chain and auth_chain's corresponding window
-			difference += get_window_difference(this.get_windows().get(i), auth_chain.get_windows().get(i), this.successor_touch.get(i), auth_chain.successor_touch.get(i));
+			difference += get_window_difference(this.get_windows(), this.successor_touch, auth_chain.get_windows().get(i), auth_chain.successor_touch.get(i));
 		}
 		
-		System.out.println(auth_chain.get_windows().size());
+		//System.out.println(difference);
+		//System.out.println(auth_chain.get_windows().size());
 		System.out.println(this.get_windows().size());
+		
+		//windows depend on the distribution because tokens are created over the distribution
+		//therefore if no windows were created, then the chains are very unequal... The distribution of the second chain does not intersect the first
+		if(auth_chain.get_windows().size()==0){
+			//furthest separation
+			return 1;
+		}
 		
 		//return the average of the window differences
 		return difference/((double)auth_chain.get_windows().size());
@@ -300,11 +326,32 @@ public class Chain{
 	///@param auth window_touches are the touches which succeeds auth_window
 	/// base_window_successor and auth_window_successor should be equivilent. This method simply returns the difference in their probabilities.
 	/// the reason this method is broken out is because this is likely to be modified to refine the model
-	private double get_window_difference(Window base_window, Window auth_window, Touch base_window_successor_touch, Touch auth_window_successor_touch){
+	private double get_window_difference(List<Window> base_window_list, List<Touch> base_successor_touch_list, Window auth_window, Touch auth_window_successor_touch){
+		//TODO this can deffonatly be made more effecient
 		//we want to know the differences in touch probability for the touches which come after these windows
 		double difference = 0;
 		
-		double base_probability = base_window_successor_touch.get_probability(base_window);
+		// What it sould be doing is:
+		//  find the auth window in base_window_list
+		//  compare the probability of the successor touches
+		//  windows and successor touches need to match
+		int index = -1;
+		for(int i=0;i<base_window_list.size();i++){
+			if((base_window_list.get(i).compare_with_token(this.get_tokens(), auth_window)) && (base_successor_touch_list.get(i).compare_with_token(this.get_tokens(), auth_window_successor_touch))){
+				index=i;
+				break;
+			}
+		}
+		
+		double base_probability;
+		if(index==-1){
+			//auth window not found in base_window; hense the difference is maximum
+			base_probability = 0;
+		}else{
+			//found it! now determine the probability of the same touch coming after
+			base_probability = base_successor_touch_list.get(index).get_probability(base_window_list.get(index));
+		}
+		
 		double auth_probability = auth_window_successor_touch.get_probability(auth_window);
 		
 		//System.out.println("base_p:"+base_probability+" auth_p:"+auth_probability);
@@ -544,7 +591,8 @@ public class Chain{
 		windows = new ArrayList<Window>();
 		successor_touch = new ArrayList<Touch>();
 		List<Touch> touch_list = new ArrayList<Touch>();
-
+		
+		//System.out.println(touches.size());
 		//for each of the touches (they are in order)
 		for(int i=0; i<touches.size(); i++){
 			//TODO take into account that touches are also not good if they fall outside of their keycode distribution, or the overall distribution
@@ -671,7 +719,7 @@ public class Chain{
 				double touch_pressure = successor_touch.get(i).get_pressure();
 				
 				//output.print("-");
-				output.println("["+predecessor_window+"] ["+touch_pressure+", "+touch_probability+"]");
+				output.println("["+ predecessor_window+"] ["+String.format("%.4f", touch_pressure)+", "+String.format("%.4f", touch_probability)+"]");
 			}
 			
 			output.close();
