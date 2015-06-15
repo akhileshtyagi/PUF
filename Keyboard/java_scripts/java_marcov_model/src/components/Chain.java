@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import runtime.Operation_thread;
+
 ///TODO make the chain's compare_to method be able to update incrementally
 ///TODO make sure to use get_XXXXXX() instead of the instance variables
 ///TODO put windows into a Trie data structure for building model faster
@@ -16,12 +18,12 @@ public class Chain{
 	private final Token.Type TOKEN_TYPE = Token.Type.linear;
 	
 	private Distribution distribution;
-	private List<Distribution> key_distribution;
+	private volatile List<Distribution> key_distribution;
 	
-	private List<Token> tokens; // tokens into which the range is split
-	private List<Touch> touches; // stores a list of all touch objects
-	private List<Window> windows; // this seems redundtant at first, but is necessary because a window is not necessarily touch[i,..,i+window]. Factored in are the timestamps associated with each touch.
-	private List<Touch> successor_touch; //keep a list of touches that come after windows at the same index
+	private volatile List<Token> tokens; // tokens into which the range is split
+	private volatile List<Touch> touches; // stores a list of all touch objects
+	private volatile List<Window> windows; // this seems redundtant at first, but is necessary because a window is not necessarily touch[i,..,i+window]. Factored in are the timestamps associated with each touch.
+	private volatile List<Touch> successor_touch; //keep a list of touches that come after windows at the same index
 
 	private int window;
 	private int token;
@@ -204,7 +206,7 @@ public class Chain{
 	public double compare_to(Chain auth_chain){
 		//TODO clean up replicated work
 		double difference = 0;
-		
+		//TODO do on threads
 		//recompute the distributions incase set_distribution has been called on this chain
 		distribution_computed=false;
 		key_distribution_computed=false;
@@ -212,23 +214,64 @@ public class Chain{
 		tokens_computed=false;
 		probability_computed=false;
 		
-		this.get_distribution();
-		this.get_key_distribution();
-		this.get_windows();
-		this.get_tokens();
-		this.get_touch_probability(null, null);
+		Operation_thread base_distribution_runnable = new Operation_thread(this, Operation_thread.Computation.DISTRIBUTION);
+		Operation_thread base_key_distriution_runnable = new Operation_thread(this, Operation_thread.Computation.KEY_DISTRIBUTION);
+		Operation_thread base_window_runnable = new Operation_thread(this, Operation_thread.Computation.WINDOW);
+		Operation_thread base_tokens_runnable = new Operation_thread(this, Operation_thread.Computation.TOKEN);
+		Operation_thread base_probability_runnable = new Operation_thread(this, Operation_thread.Computation.PROBABILITY);
+		
+		Thread base_distribution_thread = new Thread(base_distribution_runnable);
+		Thread base_key_distribution_thread = new Thread(base_key_distriution_runnable);
+		Thread base_window_thread = new Thread(base_window_runnable);
+		Thread base_tokens_thread = new Thread(base_tokens_runnable);
+		Thread base_probability_thread = new Thread(base_probability_runnable);
+		
+		base_distribution_thread.start();
+		base_key_distribution_thread.start();
+		base_window_thread.start();
+		base_tokens_thread.start();
+		base_probability_thread.start();
+		
+		//wait for distribution computation to finish before continuing
+		try{
+			base_distribution_thread.join();
+			base_key_distribution_thread.join();
+		}catch(InterruptedException e){
+			e.printStackTrace();
+		}
 		
 		//set the distribution of the auth_chain based on the base chain
 		auth_chain.set_distribution(this.get_distribution(), this.get_key_distribution());
 		
-		//guarentee that everything has been computed for that
+		//begin the auth chain computations
 		auth_chain.tokens_computed=false;
 		auth_chain.windows_computed=false;
 		auth_chain.probability_computed=false;
 		
-		auth_chain.get_tokens();
-		auth_chain.get_windows();
-		auth_chain.get_touch_probability(null, null);
+		Operation_thread auth_tokens_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.TOKEN);
+		Operation_thread auth_window_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.WINDOW);
+		Operation_thread auth_probability_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.PROBABILITY);
+		
+		Thread auth_tokens_thread = new Thread(auth_tokens_runnable);
+		Thread auth_window_thread = new Thread(auth_window_runnable);
+		Thread auth_probability_thread = new Thread(auth_probability_runnable);
+		
+		auth_tokens_thread.start();
+		auth_window_thread.start();
+		auth_probability_thread.start();
+		
+		//now, wait for all computations to finish before continuing with comparason
+		try{
+			base_window_thread.join();
+			base_tokens_thread.join();
+			base_probability_thread.join();
+			
+			auth_tokens_thread.join();
+			auth_window_thread.join();
+			auth_probability_thread.join();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
 		
 		//for every window in auth_chain
 		for(int i=0;i<auth_chain.get_windows().size();i++){
@@ -544,6 +587,20 @@ public class Chain{
 			
 			//set the probability of the successor touch. To do this, I need to know how many times this touch succeeds this window
 			successor_touch.get(i).set_probability(window_list.get(i), probability);
+		}
+	}
+	
+	
+	///Thread used to compute the probabilitys
+	private class Compute_partial_probability implements Runnable {
+		
+		public Compute_partial_probability(){
+			
+		}
+		
+		
+		public void run(){
+			
 		}
 	}
 	
