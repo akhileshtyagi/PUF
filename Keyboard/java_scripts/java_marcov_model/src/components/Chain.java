@@ -18,10 +18,10 @@ public class Chain{
 	private final Token.Type TOKEN_TYPE = Token.Type.linear;
 	
 	private Distribution distribution;
-	private volatile List<Distribution> key_distribution;
+	private List<Distribution> key_distribution;
 	
 	private volatile List<Token> tokens; // tokens into which the range is split
-	private volatile List<Touch> touches; // stores a list of all touch objects
+	private List<Touch> touches; // stores a list of all touch objects
 	private volatile List<Window> windows; // this seems redundtant at first, but is necessary because a window is not necessarily touch[i,..,i+window]. Factored in are the timestamps associated with each touch.
 	private volatile List<Touch> successor_touch; //keep a list of touches that come after windows at the same index
 
@@ -30,11 +30,11 @@ public class Chain{
 	private int threshold;
 	private int model_size;
 
-	private boolean distribution_computed;
-	private boolean probability_computed;
-	private boolean key_distribution_computed;
-	private boolean windows_computed;
-	private boolean tokens_computed;
+	private volatile boolean distribution_computed;
+	private volatile boolean probability_computed;
+	private volatile boolean key_distribution_computed;
+	private volatile boolean windows_computed;
+	private volatile boolean tokens_computed;
 
 	public Chain(int window, int token, int threshold, int model_size){	
 		this.key_distribution = new ArrayList<Distribution>();
@@ -204,6 +204,7 @@ public class Chain{
 	///1 indicates there is a large difference
 	//TODO compare should return the same thing both directions
 	public double compare_to(Chain auth_chain){
+		//TODO do this in a way that actually makes use of multipe threads
 		//TODO clean up replicated work
 		double difference = 0;
 		//TODO do on threads
@@ -217,19 +218,29 @@ public class Chain{
 		Operation_thread base_distribution_runnable = new Operation_thread(this, Operation_thread.Computation.DISTRIBUTION);
 		Operation_thread base_key_distriution_runnable = new Operation_thread(this, Operation_thread.Computation.KEY_DISTRIBUTION);
 		Operation_thread base_window_runnable = new Operation_thread(this, Operation_thread.Computation.WINDOW);
-		Operation_thread base_tokens_runnable = new Operation_thread(this, Operation_thread.Computation.TOKEN);
+		//Operation_thread base_tokens_runnable = new Operation_thread(this, Operation_thread.Computation.TOKEN);
 		Operation_thread base_probability_runnable = new Operation_thread(this, Operation_thread.Computation.PROBABILITY);
 		
 		Thread base_distribution_thread = new Thread(base_distribution_runnable);
 		Thread base_key_distribution_thread = new Thread(base_key_distriution_runnable);
 		Thread base_window_thread = new Thread(base_window_runnable);
-		Thread base_tokens_thread = new Thread(base_tokens_runnable);
+		//Thread base_tokens_thread = new Thread(base_tokens_runnable);
 		Thread base_probability_thread = new Thread(base_probability_runnable);
 		
 		base_distribution_thread.start();
 		base_key_distribution_thread.start();
+		this.get_tokens();
 		base_window_thread.start();
-		base_tokens_thread.start();
+		//base_tokens_thread.start();
+		
+		//wait for windows and tokens to finsih before starting the probability thread
+		try{
+			base_window_thread.join();
+			//base_tokens_thread.join();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		base_probability_thread.start();
 		
 		//wait for distribution computation to finish before continuing
@@ -258,16 +269,21 @@ public class Chain{
 		
 		auth_tokens_thread.start();
 		auth_window_thread.start();
+		
+		//wait for auth_windows and auth_tokens to be computed before starting probability computation
+		try{
+			auth_tokens_thread.join();
+			auth_window_thread.join();
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
 		auth_probability_thread.start();
 		
 		//now, wait for all computations to finish before continuing with comparason
 		try{
-			base_window_thread.join();
-			base_tokens_thread.join();
 			base_probability_thread.join();
 			
-			auth_tokens_thread.join();
-			auth_window_thread.join();
 			auth_probability_thread.join();
 		}catch(Exception e){
 			e.printStackTrace();
@@ -558,49 +574,95 @@ public class Chain{
 	///compute the probability
 	//TODO consider splitting this up across multiple threads if preformance is an issue. I'm fairly certain this will be the main performance concern.
 	private void compute_probability(){
-		//TODO
-		//assign the appropriate probability to each of the touch objects
-		//TODO consider computing windows on a separate thread, and joining this thread before windows are needed.
-		//TODO implementing hashing of the windows later
-		// basic process
-		// for a given window, I want to store in the next touch the probability of that touch coming after this window. This will depend on the other touches which have succeeded this sequence and the number of times the window occurrs. 
-		// 1) get a list of windows
-		// 2) determine how many times each of the windows occurrs
-		// 3) assign a probability to the successor touch based on 1,2
-		List<Window> window_list = get_windows();
-		int occurrences_of_window;
-		int number_successions;
-		double probability;
-
-		for(int i=0;i<window_list.size();i++){
-			//get the number of occurrences of this window
-			occurrences_of_window = occurrence_count(window_list, window_list.get(i));
-			
-			//get the number of times a touch has succeeded this window. We can use the old probability following this window to figure this out. TODO if this method turns out not be correct, this would be a good place to begin looking for mistakes.
-			//number_successions = 1 + (successor_touch.get(i).get_probability(window_list.get(i)) * occurrences_of_window);
-			//TODO this can deffonately be done faster (with a prefix tree?)
-			number_successions=successor_count(window_list, successor_touch, window_list.get(i), successor_touch.get(i));
-			
-			//compute the probability
-			probability = ((double)number_successions) / ((double)occurrences_of_window);
-			//System.out.println("number_successions:"+number_successions+" occurrences_of_windows:"+occurrences_of_window);
-			
-			//set the probability of the successor touch. To do this, I need to know how many times this touch succeeds this window
-			successor_touch.get(i).set_probability(window_list.get(i), probability);
+		//create threads which will preform the probability computation
+		ArrayList<Thread> threads = new ArrayList<Thread>();
+		int thread_responsibility = 100;
+		
+		//TODO figure out why this code doesn't work.. create all the threads
+//		for(int i=0;i<windows.size();i+=thread_responsibility){
+//			int end_index = (i+thread_responsibility)-1;
+//			
+//			if(end_index >= windows.size()){
+//				//System.out.println("here");
+//				end_index = windows.size()-1;
+//			}
+//			
+//			Runnable compute_partial = new Compute_partial_probability(i, end_index);
+//			Thread partial_thread = new Thread(compute_partial);
+//			
+//			threads.add(partial_thread);
+//		}
+		
+		//TODO test code... entire thing on one thread
+		Runnable compute_partial_1 = new Compute_partial_probability(0, windows.size()-1);
+		//Runnable compute_partial_2 = new Compute_partial_probability(windows.size()/2+1, windows.size()-1);
+		
+		Thread partial_thread_1 = new Thread(compute_partial_1);
+		//Thread partial_thread_2 = new Thread(compute_partial_2);
+		
+		threads.add(partial_thread_1);
+		//threads.add(partial_thread_2);
+		
+		//start all the threads
+		for(int i=0;i<threads.size();i++){
+			threads.get(i).start();
 		}
+		
+		//join all the threads
+		try{
+			for(int i=0;i<threads.size();i++){
+				threads.get(i).join();
+			}
+		}catch(Exception e){
+			e.printStackTrace();
+		}
+		
+		//System.out.println("size_threads:"+threads.size());
 	}
 	
 	
 	///Thread used to compute the probabilitys
 	private class Compute_partial_probability implements Runnable {
+		int begin_index;
+		int end_index;
 		
-		public Compute_partial_probability(){
-			
+		public Compute_partial_probability(int begin_index, int end_index){
+			this.begin_index = begin_index;
+			this.end_index = end_index;
 		}
 		
 		
 		public void run(){
-			
+			//TODO
+			//assign the appropriate probability to each of the touch objects
+			//TODO consider computing windows on a separate thread, and joining this thread before windows are needed.
+			//TODO implementing hashing of the windows later
+			// basic process
+			// for a given window, I want to store in the next touch the probability of that touch coming after this window. This will depend on the other touches which have succeeded this sequence and the number of times the window occurrs. 
+			// 1) get a list of windows
+			// 2) determine how many times each of the windows occurrs
+			// 3) assign a probability to the successor touch based on 1,2
+			List<Window> window_list = get_windows();
+			int occurrences_of_window;
+			int number_successions;
+			double probability;
+
+			for(int i=begin_index;i<=end_index;i++){
+				//get the number of occurrences of this window
+				occurrences_of_window = occurrence_count(window_list, window_list.get(i));
+				
+				//get the number of times a touch has succeeded this window. We can use the old probability following this window to figure this out. TODO if this method turns out not be correct, this would be a good place to begin looking for mistakes.
+				//number_successions = 1 + (successor_touch.get(i).get_probability(window_list.get(i)) * occurrences_of_window);
+				//TODO this can deffonately be done faster (with a prefix tree?)
+				number_successions=successor_count(window_list, successor_touch, window_list.get(i), successor_touch.get(i));
+				
+				//compute the probability
+				probability = ((double)number_successions) / ((double)occurrences_of_window);
+				//System.out.println("number_successions:"+number_successions+" occurrences_of_windows:"+occurrences_of_window);
+				
+				//set the probability of the successor touch. To do this, I need to know how many times this touch succeeds this window
+				successor_touch.get(i).set_probability(window_list.get(i), probability);
+			}
 		}
 	}
 	

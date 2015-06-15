@@ -415,7 +415,8 @@ public class Main{
 		long touch_probability_calculation_time = time_touch_probability_calculation();
 		long chain_windows_calculation_time = time_chain_windows_calculation();
 		long chain_tokens_calculation_time = time_chain_tokens_calculation();
-		long overall_model_build_time = time_overall_model_build();
+		long overall_model_build_time = distribution_calculation_time + key_distribution_calculation_time + touch_probability_calculation_time +
+					chain_windows_calculation_time;//time_overall_model_build();
 
 		//model compare speed
 		long overall_model_compare_time = time_overall_model_compare();
