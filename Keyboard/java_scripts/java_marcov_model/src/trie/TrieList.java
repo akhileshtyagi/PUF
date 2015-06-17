@@ -4,9 +4,10 @@ import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
-import com.google.*;
 
-public class TrieList<T> implements List<T>, PrefixTrie<E>{
+///TODO Eventually this will be implemented as a prefix tree. This will greatly speed up many of the operations causing the calculation of the probabilities to be slow.
+/// right now it is fine to have the backing be an arraylist
+public class TrieList<T> implements List<T>{
 
 	@Override
 	public boolean add(T arg0) {
