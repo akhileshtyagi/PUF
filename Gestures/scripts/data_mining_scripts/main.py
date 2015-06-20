@@ -13,10 +13,15 @@ def main():
 	prompt = prompt + "1) support vector classification\n"
 	prompt = prompt + "42) exit\n"
 
+	#TODO populate data_sets with files for a given (user,device,clallenge,response)
+	data_sets = []
+
 	#TODO create responses for all data sets for a given (user, challenge)	
 	response_set = []
-	
-	
+	for data_set in data_sets:
+		response = challenge_response.response(data_set)
+		response_set.append(resposne)
+
 	worker = trainer.trainer(response_set)
 	selection = -1
 
