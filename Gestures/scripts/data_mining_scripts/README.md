@@ -2,7 +2,8 @@
 The purpose of these scripts is to attempt to use machine learning algorithems to predict the next output given a few sets of input, output
 
 ###Tools Utilized
-scikit-learn		http://scikit-learn.org
+summary of available tools 	http://www.xavierdupre.fr/blog/2013-09-15_nojs.html
+scikit-learn				http://scikit-learn.org
 
 ---
 ###Script Files Detail
