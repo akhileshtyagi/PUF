@@ -198,6 +198,16 @@ public class Chain{
 	}
 	
 
+	///computes all uncomputed aspects of the chain
+	public void compute_uncomputed(){
+		//TODO eventually I want to do this on multiple threads
+		get_distribution();
+		get_key_distribution();
+		get_tokens();
+		get_windows();
+		get_touch_probability(null,null);
+	}
+	
 	///returns the percent difference between this chain and auth_chain.
 	///the value returned will be between 0 and 1
 	///0 indicates there is no difference
@@ -209,47 +219,47 @@ public class Chain{
 		double difference = 0;
 		//TODO do on threads
 		//recompute the distributions incase set_distribution has been called on this chain
-		distribution_computed=false;
-		key_distribution_computed=false;
-		windows_computed=false;
-		tokens_computed=false;
-		probability_computed=false;
+		//call on_model_update() invalidate any previous calculations
+		on_model_update();
 		
-		Operation_thread base_distribution_runnable = new Operation_thread(this, Operation_thread.Computation.DISTRIBUTION);
-		Operation_thread base_key_distriution_runnable = new Operation_thread(this, Operation_thread.Computation.KEY_DISTRIBUTION);
-		Operation_thread base_window_runnable = new Operation_thread(this, Operation_thread.Computation.WINDOW);
-		//Operation_thread base_tokens_runnable = new Operation_thread(this, Operation_thread.Computation.TOKEN);
-		Operation_thread base_probability_runnable = new Operation_thread(this, Operation_thread.Computation.PROBABILITY);
+		//calculate all uncalculated quantities
+		compute_uncomputed();
 		
-		Thread base_distribution_thread = new Thread(base_distribution_runnable);
-		Thread base_key_distribution_thread = new Thread(base_key_distriution_runnable);
-		Thread base_window_thread = new Thread(base_window_runnable);
-		//Thread base_tokens_thread = new Thread(base_tokens_runnable);
-		Thread base_probability_thread = new Thread(base_probability_runnable);
-		
-		base_distribution_thread.start();
-		base_key_distribution_thread.start();
-		this.get_tokens();
-		base_window_thread.start();
-		//base_tokens_thread.start();
-		
-		//wait for windows and tokens to finsih before starting the probability thread
-		try{
-			base_window_thread.join();
-			//base_tokens_thread.join();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		base_probability_thread.start();
-		
-		//wait for distribution computation to finish before continuing
-		try{
-			base_distribution_thread.join();
-			base_key_distribution_thread.join();
-		}catch(InterruptedException e){
-			e.printStackTrace();
-		}
+//		Operation_thread base_distribution_runnable = new Operation_thread(this, Operation_thread.Computation.DISTRIBUTION);
+//		Operation_thread base_key_distriution_runnable = new Operation_thread(this, Operation_thread.Computation.KEY_DISTRIBUTION);
+//		Operation_thread base_window_runnable = new Operation_thread(this, Operation_thread.Computation.WINDOW);
+//		//Operation_thread base_tokens_runnable = new Operation_thread(this, Operation_thread.Computation.TOKEN);
+//		Operation_thread base_probability_runnable = new Operation_thread(this, Operation_thread.Computation.PROBABILITY);
+//		
+//		Thread base_distribution_thread = new Thread(base_distribution_runnable);
+//		Thread base_key_distribution_thread = new Thread(base_key_distriution_runnable);
+//		Thread base_window_thread = new Thread(base_window_runnable);
+//		//Thread base_tokens_thread = new Thread(base_tokens_runnable);
+//		Thread base_probability_thread = new Thread(base_probability_runnable);
+//		
+//		base_distribution_thread.start();
+//		base_key_distribution_thread.start();
+//		this.get_tokens();
+//		base_window_thread.start();
+//		//base_tokens_thread.start();
+//		
+//		//wait for windows and tokens to finsih before starting the probability thread
+//		try{
+//			base_window_thread.join();
+//			//base_tokens_thread.join();
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+//		
+//		base_probability_thread.start();
+//		
+//		//wait for distribution computation to finish before continuing
+//		try{
+//			base_distribution_thread.join();
+//			base_key_distribution_thread.join();
+//		}catch(InterruptedException e){
+//			e.printStackTrace();
+//		}
 		
 		//set the distribution of the auth_chain based on the base chain
 		auth_chain.set_distribution(this.get_distribution(), this.get_key_distribution());
@@ -258,36 +268,38 @@ public class Chain{
 		auth_chain.tokens_computed=false;
 		auth_chain.windows_computed=false;
 		auth_chain.probability_computed=false;
+
+		auth_chain.compute_uncomputed();
 		
-		Operation_thread auth_tokens_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.TOKEN);
-		Operation_thread auth_window_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.WINDOW);
-		Operation_thread auth_probability_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.PROBABILITY);
-		
-		Thread auth_tokens_thread = new Thread(auth_tokens_runnable);
-		Thread auth_window_thread = new Thread(auth_window_runnable);
-		Thread auth_probability_thread = new Thread(auth_probability_runnable);
-		
-		auth_tokens_thread.start();
-		auth_window_thread.start();
-		
-		//wait for auth_windows and auth_tokens to be computed before starting probability computation
-		try{
-			auth_tokens_thread.join();
-			auth_window_thread.join();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		
-		auth_probability_thread.start();
-		
-		//now, wait for all computations to finish before continuing with comparason
-		try{
-			base_probability_thread.join();
-			
-			auth_probability_thread.join();
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+//		Operation_thread auth_tokens_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.TOKEN);
+//		Operation_thread auth_window_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.WINDOW);
+//		Operation_thread auth_probability_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.PROBABILITY);
+//		
+//		Thread auth_tokens_thread = new Thread(auth_tokens_runnable);
+//		Thread auth_window_thread = new Thread(auth_window_runnable);
+//		Thread auth_probability_thread = new Thread(auth_probability_runnable);
+//		
+//		auth_tokens_thread.start();
+//		auth_window_thread.start();
+//		
+//		//wait for auth_windows and auth_tokens to be computed before starting probability computation
+//		try{
+//			auth_tokens_thread.join();
+//			auth_window_thread.join();
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+//		
+//		auth_probability_thread.start();
+//		
+//		//now, wait for all computations to finish before continuing with comparason
+//		try{
+//			base_probability_thread.join();
+//			
+//			auth_probability_thread.join();
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
 		
 		//for every window in auth_chain
 		for(int i=0;i<auth_chain.get_windows().size();i++){
@@ -574,34 +586,41 @@ public class Chain{
 	///compute the probability
 	//TODO consider splitting this up across multiple threads if preformance is an issue. I'm fairly certain this will be the main performance concern.
 	private void compute_probability(){
+		//ensure windows are computed
+		//if there are now windows, probabality is undefined, simply return
+		if(this.get_windows().size()==0){
+			return;
+		}
+		
 		//create threads which will preform the probability computation
 		ArrayList<Thread> threads = new ArrayList<Thread>();
+		//TODO write a program to determine the optimal number of loopse per thread
 		int thread_responsibility = 100;
 		
 		//TODO figure out why this code doesn't work.. create all the threads
-//		for(int i=0;i<windows.size();i+=thread_responsibility){
-//			int end_index = (i+thread_responsibility)-1;
-//			
-//			if(end_index >= windows.size()){
-//				//System.out.println("here");
-//				end_index = windows.size()-1;
-//			}
-//			
-//			Runnable compute_partial = new Compute_partial_probability(i, end_index);
-//			Thread partial_thread = new Thread(compute_partial);
-//			
-//			threads.add(partial_thread);
-//		}
+		for(int i=0;i<windows.size();i+=thread_responsibility){
+			int end_index = (i+thread_responsibility)-1;
+			
+			if(end_index >= windows.size()){
+				//System.out.println("here");
+				end_index = windows.size()-1;
+			}
+			
+			Runnable compute_partial = new Compute_partial_probability(i, end_index);
+			Thread partial_thread = new Thread(compute_partial);
+			
+			threads.add(partial_thread);
+		}
 		
 		//TODO test code... entire thing on one thread
-		Runnable compute_partial_1 = new Compute_partial_probability(0, windows.size()-1);
-		//Runnable compute_partial_2 = new Compute_partial_probability(windows.size()/2+1, windows.size()-1);
-		
-		Thread partial_thread_1 = new Thread(compute_partial_1);
-		//Thread partial_thread_2 = new Thread(compute_partial_2);
-		
-		threads.add(partial_thread_1);
-		//threads.add(partial_thread_2);
+//		Runnable compute_partial_1 = new Compute_partial_probability(0, this.get_windows().size()/2);
+//		Runnable compute_partial_2 = new Compute_partial_probability(this.get_windows().size()/2+1, this.get_windows().size()-1);
+//		
+//		Thread partial_thread_1 = new Thread(compute_partial_1);
+//		Thread partial_thread_2 = new Thread(compute_partial_2);
+//		
+//		threads.add(partial_thread_1);
+//		threads.add(partial_thread_2);
 		
 		//start all the threads
 		for(int i=0;i<threads.size();i++){
@@ -642,7 +661,7 @@ public class Chain{
 			// 1) get a list of windows
 			// 2) determine how many times each of the windows occurrs
 			// 3) assign a probability to the successor touch based on 1,2
-			List<Window> window_list = get_windows();
+			List<Window> window_list = windows;
 			int occurrences_of_window;
 			int number_successions;
 			double probability;

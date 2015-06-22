@@ -74,11 +74,30 @@ public class Model_compare {
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
+			print_progress(i*(100.0/threads.size()));
 		}
 		
 		
 		//print the results to a txt file
 		print_results(test_models);
+	}
+	
+	
+	//prints out a progress bar
+	private static void print_progress(double percent){
+		char character='=';
+		
+		//make sure percent is between 0 and 100
+		percent = (percent>100)?(100):(percent);
+		percent = (percent<0)?(0):(percent);
+		
+		System.out.print("progress: 0:");
+		
+		for(int i=0;i<10;i++){
+			System.out.print((percent>=i*10)?(character):(' '));
+		}
+		
+		System.out.println(":100");
 	}
 	
 	

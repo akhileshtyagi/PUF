@@ -12,6 +12,9 @@ import components.Touch;
 ///this thread allows the preforming of a test compairason.
 ///when the compairason is finished, an instance variable will be set indicating different results.
 public class Model_compare_thread implements Runnable{
+	//TODO adjust this to determine how many portions of the data in each model will be compared
+	final int COMPARE_LIMIT = 10;
+	
 	public double max_authentication_probability;
 	public double min_authentication_probability;
 	public double average_authentication_probability;
@@ -60,7 +63,7 @@ public class Model_compare_thread implements Runnable{
 		
 		//this is doing several independtant segments of the chains. There are no overlapping touches
 		//TODO for each auth_model_size of auth data, authenticate against base_model
-		for(int a =0;((a<base_touch_list.size()) && (a<auth_touch_list.size()));a++){
+		for(int a =0;(((a<base_touch_list.size()) && (a<auth_touch_list.size())) && (a<COMPARE_LIMIT));a++){
 			//create base model
 			for(int b=0;((b<base_model_size) && (((a*base_model_size)+b)<base_touch_list.size()));b++){
 				base_chain.add_touch(base_touch_list.get((a*base_model_size)+b));
