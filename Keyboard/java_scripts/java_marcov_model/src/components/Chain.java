@@ -3,8 +3,11 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 import runtime.Operation_thread;
+import trie.TrieList;
 
 ///TODO make the chain's compare_to method be able to update incrementally
 ///TODO make sure to use get_XXXXXX() instead of the instance variables
@@ -41,7 +44,7 @@ public class Chain{
 
 		this.tokens = new ArrayList<Token>();
 		this.touches = new ArrayList<Touch>();
-		this.windows = new ArrayList<Window>();
+		this.windows = new TrieList();
 		this.successor_touch = new ArrayList<Touch>();
 
 		this.window = window;
@@ -61,7 +64,7 @@ public class Chain{
 
 		this.tokens = new ArrayList<Token>(c.tokens);
 		this.touches = new ArrayList<Touch>(c.touches);
-		this.windows = new ArrayList<Window>(c.windows);
+		this.windows = new TrieList((TrieList)c.windows);
 		this.successor_touch = new ArrayList<Touch>(c.successor_touch);
 		
 		this.window = c.window;
@@ -594,6 +597,7 @@ public class Chain{
 		
 		//create threads which will preform the probability computation
 		ArrayList<Thread> threads = new ArrayList<Thread>();
+		ExecutorService executor = Executors.newCachedThreadPool();
 		//TODO write a program to determine the optimal number of loopse per thread
 		int thread_responsibility = 100;
 		
@@ -609,8 +613,11 @@ public class Chain{
 			Runnable compute_partial = new Compute_partial_probability(i, end_index);
 			Thread partial_thread = new Thread(compute_partial);
 			
-			threads.add(partial_thread);
+			executor.execute(partial_thread);
 		}
+		
+		executor.shutdown();
+		while(!executor.isTerminated()){}
 		
 		//TODO test code... entire thing on one thread
 //		Runnable compute_partial_1 = new Compute_partial_probability(0, this.get_windows().size()/2);
@@ -623,18 +630,18 @@ public class Chain{
 //		threads.add(partial_thread_2);
 		
 		//start all the threads
-		for(int i=0;i<threads.size();i++){
-			threads.get(i).start();
-		}
+//		for(int i=0;i<threads.size();i++){
+//			threads.get(i).start();
+//		}
 		
 		//join all the threads
-		try{
-			for(int i=0;i<threads.size();i++){
-				threads.get(i).join();
-			}
-		}catch(Exception e){
-			e.printStackTrace();
-		}
+//		try{
+//			for(int i=0;i<threads.size();i++){
+//				threads.get(i).join();
+//			}
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
 		
 		//System.out.println("size_threads:"+threads.size());
 	}
@@ -661,19 +668,23 @@ public class Chain{
 			// 1) get a list of windows
 			// 2) determine how many times each of the windows occurrs
 			// 3) assign a probability to the successor touch based on 1,2
-			List<Window> window_list = windows;
+			TrieList window_list = (TrieList)windows;
 			int occurrences_of_window;
 			int number_successions;
 			double probability;
 
 			for(int i=begin_index;i<=end_index;i++){
 				//get the number of occurrences of this window
-				occurrences_of_window = occurrence_count(window_list, window_list.get(i));
+				
+				//occurrences_of_window = occurrence_count(window_list, window_list.get(i));
+				occurrences_of_window = window_list.occurrence_count(window_list.get(i));
 				
 				//get the number of times a touch has succeeded this window. We can use the old probability following this window to figure this out. TODO if this method turns out not be correct, this would be a good place to begin looking for mistakes.
 				//number_successions = 1 + (successor_touch.get(i).get_probability(window_list.get(i)) * occurrences_of_window);
 				//TODO this can deffonately be done faster (with a prefix tree?)
-				number_successions=successor_count(window_list, successor_touch, window_list.get(i), successor_touch.get(i));
+				
+				//number_successions=successor_count(window_list, successor_touch, window_list.get(i), successor_touch.get(i));
+				number_successions=window_list.successor_count(successor_touch, window_list.get(i), successor_touch.get(i));
 				
 				//compute the probability
 				probability = ((double)number_successions) / ((double)occurrences_of_window);
@@ -686,36 +697,36 @@ public class Chain{
 	}
 	
 	
-	///counts the number of times a given touch comes after a given window. in the given window, succesors list
-	private int successor_count(List<Window> window_list, List<Touch> successor_list, Window window, Touch touch){
-		int count = 0;
-		
-		for(int i=0;i<window_list.size();i++){
-			//for every occurrence of window, successor match, increment count
-			if((window_list.get(i).compare_with_token(this.get_tokens(), window)) && (successor_list.get(i).compare_with_token(this.get_tokens(),touch))){
-				count++;
-			}
-		}
-		
-		return count;
-	}
-
-	
-	///return the number of occurrences of w in window_list
-	///TODO I think this method needs to be faster. Storing windows in a prefix tree would allow for this
-	private int occurrence_count(List<Window> window_list, Window w){
-		//TODO check for correctness
-		int occurrences=0;
-		
-		for(int i=0;i<window_list.size();i++){
-			//determine if the windows are equal
-			if(window_list.get(i).compare_with_token(this.get_tokens(),w)){
-				occurrences++;
-			}
-		}
-
-		return occurrences;
-	}
+//	///counts the number of times a given touch comes after a given window. in the given window, succesors list
+//	private int successor_count(List<Window> window_list, List<Touch> successor_list, Window window, Touch touch){
+//		int count = 0;
+//		
+//		for(int i=0;i<window_list.size();i++){
+//			//for every occurrence of window, successor match, increment count
+//			if((window_list.get(i).compare_with_token(this.get_tokens(), window)) && (successor_list.get(i).compare_with_token(this.get_tokens(),touch))){
+//				count++;
+//			}
+//		}
+//		
+//		return count;
+//	}
+//
+//	
+//	///return the number of occurrences of w in window_list
+//	///TODO I think this method needs to be faster. Storing windows in a prefix tree would allow for this
+//	private int occurrence_count(List<Window> window_list, Window w){
+//		//TODO check for correctness
+//		int occurrences=0;
+//		
+//		for(int i=0;i<window_list.size();i++){
+//			//determine if the windows are equal
+//			if(window_list.get(i).compare_with_token(this.get_tokens(),w)){
+//				occurrences++;
+//			}
+//		}
+//
+//		return occurrences;
+//	}
 
 
 	///compute the windows. This will also fill the successor_touch list
@@ -726,9 +737,11 @@ public class Chain{
 		// 1) normalize the data based on the distribution (this is done already. can call tokens.get(i).contains(touch) to determine if a touch is within a given token.
 		// 2) throw out anything outside of 2 sigma ( these will have -1 returned when they are normalized
 		// 3) throw out any window where the gap in touches is greater than threshold
-		windows = new ArrayList<Window>();
+		windows = new TrieList();
 		successor_touch = new ArrayList<Touch>();
 		List<Touch> touch_list = new ArrayList<Touch>();
+		
+		((TrieList)windows).set_tokens(this.get_tokens());
 		
 		//System.out.println(touches.size());
 		//for each of the touches (they are in order)

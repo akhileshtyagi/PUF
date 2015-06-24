@@ -16,11 +16,11 @@ public class Model_compare {
 	private final static String input_folder_name = "data_sets";
 	
 	//specify different model sizes and 
-	private final static int[] window_sizes = {3};//{1,2,3,4,5,6,7,8,9,10,20,30,40,50};
-	private final static int[] token_sizes = {10};
+	private final static int[] window_sizes = {4,5,6};
+	private final static int[] token_sizes = {4,5,6};
 	private final static int[] thresholds = {5000};
-	private final static int[] user_model_sizes = {6000};
-	private final static int[] auth_model_sizes = {1000};
+	private final static int[] user_model_sizes = {5000,6000};
+	private final static int[] auth_model_sizes = {2000,3000};
 	
 	
 	public static void main(String[] args){

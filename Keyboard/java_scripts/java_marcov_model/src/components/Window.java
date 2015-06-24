@@ -43,6 +43,18 @@ public class Window implements Comparable<Window>{
 		
 		return same;
 	}
+	
+	
+	///returns the number of touches in the window
+	public int size(){
+		return window_size;
+	}
+	
+	
+	///returns the window in the form of a touch list
+	public List<Touch> get_touch_list(){
+		return this.window;
+	}
 
 
 	///implement a hash function which returns the hash of the current window
