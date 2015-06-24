@@ -14,6 +14,7 @@ import components.Window;
 /// right now it is fine to have the backing be an arraylist
 /// overrided methods are any that remove, modify, or add to the arraylist.
 /// these methods will also change the prefix tree
+//TODO eventaully I want this class to only implement the List<Window> interface. The fact that it must rely on an arraylist backing means it is taking up more memory than need be because all of the information can be gotten from the prefix tree.
 public class TrieList extends ArrayList<Window>{
 	private Trie trie;
 	private List<Token> tokens;	
@@ -150,15 +151,17 @@ public class TrieList extends ArrayList<Window>{
 	///return the number of occurrences of w in window_list
 	///TODO I think this method needs to be faster. Storing windows in a prefix tree would allow for this
 	public int occurrence_count(Window w){
-		//TODO check for correctness
+		//TODO use prefix tree to do this
 		int occurrences=0;
 		
-		for(int i=0;i<this.size();i++){
-			//determine if the windows are equal
-			if(this.get(i).compare_with_token(tokens,w)){
-				occurrences++;
-			}
-		}
+//		for(int i=0;i<this.size();i++){
+//			//determine if the windows are equal
+//			if(this.get(i).compare_with_token(tokens,w)){
+//				occurrences++;
+//			}
+//		}
+		
+		occurrences=trie.occurrence_count(encode(w));
 
 		return occurrences;
 	}
