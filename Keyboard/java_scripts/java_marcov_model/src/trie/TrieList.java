@@ -143,6 +143,8 @@ public class TrieList extends ArrayList<Window>{
 				count++;
 			}
 		}
+		//TODO
+		//System.out.println();
 		
 		return count;
 	}

@@ -16,8 +16,8 @@ public class Model_compare {
 	private final static String input_folder_name = "data_sets";
 	
 	//specify different model sizes and 
-	private final static int[] window_sizes = {4,5,6};
-	private final static int[] token_sizes = {4,5,6};
+	private final static int[] window_sizes = {3,4};
+	private final static int[] token_sizes = {9,10};
 	private final static int[] thresholds = {5000};
 	private final static int[] user_model_sizes = {5000,6000};
 	private final static int[] auth_model_sizes = {2000,3000};
