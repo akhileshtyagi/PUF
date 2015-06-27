@@ -44,7 +44,7 @@ public class TrieList extends ArrayList<Window>{
 	
 	@Override
 	public boolean add(Window arg0) {
-		this.add_to_trie(arg0);
+		this.add_to_trie(arg0, this.size());
 		
 		return super.add(arg0);
 	}
@@ -52,7 +52,8 @@ public class TrieList extends ArrayList<Window>{
 	
 	@Override
 	public void add(int arg0, Window arg1) {
-		this.add_to_trie(arg1);
+		this.add_to_trie(arg1, arg0);
+		//TODO update the indexes in the trie
 		
 		super.add(arg0, arg1);
 	}
@@ -61,20 +62,21 @@ public class TrieList extends ArrayList<Window>{
 	@Override
 	public boolean addAll(Collection<? extends Window> arg0) {
 		for(Window w : arg0){
-			this.add_to_trie(w);
+			this.add(w);
 		}
 		
-		return super.addAll(arg0);
+		return true;
 	}
 
 	
 	@Override
 	public boolean addAll(int arg0, Collection<? extends Window> arg1) {
-		for(Window w : arg1){
-			this.add_to_trie(w);
+		for(int i=arg1.size()-1;i>=0;i--){
+			//TODO this is an unsafe cast
+			this.add(arg0, ((ArrayList<Window>) arg1).get(i));
 		}
 		
-		return super.addAll(arg0, arg1);
+		return true;
 	}
 
 	
@@ -127,7 +129,7 @@ public class TrieList extends ArrayList<Window>{
 	@Override
 	public Window set(int arg0, Window arg1) {
 		this.remove_from_trie(this.get(arg0));
-		this.add_to_trie(arg1);
+		this.add_to_trie(arg1, arg0);
 		
 		return super.set(arg0, arg1);
 	}
@@ -135,18 +137,32 @@ public class TrieList extends ArrayList<Window>{
 	
 	///counts the number of times a given touch comes after a given window. in the given window, succesors list
 	public int successor_count(List<Touch> successor_list, Window window, Touch touch){
-		int count = 0;
+		//int count = 0;
+		int count2 = 0;
 		
-		for(int i=0;i<this.size();i++){
+//		for(int i=0;i<this.size();i++){
+//			//for every occurrence of window, successor match, increment count
+//			if((this.get(i).compare_with_token(tokens, window)) && (successor_list.get(i).compare_with_token(tokens,touch))){
+//				count++;
+//			}
+//		}
+		
+		//TODO
+		//1) get a list of the indexes which contain the window
+		//2) for each item in this list, test to see if the successor==touch
+		List<Integer> index_list = trie.get_index_list(encode(window));
+		
+		for(int i=0;i<index_list.size();i++){
 			//for every occurrence of window, successor match, increment count
-			if((this.get(i).compare_with_token(tokens, window)) && (successor_list.get(i).compare_with_token(tokens,touch))){
-				count++;
+			if((this.get(index_list.get(i)).compare_with_token(tokens, window)) && (successor_list.get(index_list.get(i)).compare_with_token(tokens,touch))){
+				count2++;
 			}
 		}
-		//TODO
-		//System.out.println();
 		
-		return count;
+		//System.out.println("count:"+count+"   count2:"+count2);
+		//System.out.println(count==count2);
+		
+		return count2;
 	}
 
 	
@@ -177,7 +193,7 @@ public class TrieList extends ArrayList<Window>{
 	
 	
 	///adds and element to the trie
-	private void add_to_trie(Window element){
+	private void add_to_trie(Window element, int index){
 		if(!are_tokens_set){
 			//tokens have not been set
 			return;
@@ -186,7 +202,7 @@ public class TrieList extends ArrayList<Window>{
 		//otherwise the tokens have been say and we are okay to continue
 		String encoding = encode(element);
 		
-		trie.insertString(encoding);
+		trie.insertString(encoding, index);
 	}
 	
 	
@@ -200,7 +216,6 @@ public class TrieList extends ArrayList<Window>{
 	
 	//encodes the window into a string. Each character c at index i is given by: the index of window.get(i) in tokens
 	private String encode(Window window){
-		//TODO
 		String encoding = "";
 		List<Touch> touches = window.get_touch_list();
 				

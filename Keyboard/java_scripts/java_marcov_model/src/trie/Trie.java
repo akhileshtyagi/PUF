@@ -1,10 +1,17 @@
 package trie;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import components.Window;
+
 ///Credit for portions of this implementation to:
 ///https://sites.google.com/site/indy256/algo/trie
 public class Trie {
    class TrieNode {
 	   TrieNode[] children;
+	   List<Integer> index_list;
+	   
 	   boolean leaf;
 	   int occurrences; // used to indicated how many times root -> leaf occurs
 	   
@@ -12,12 +19,14 @@ public class Trie {
 		   children = new TrieNode[128];
 		   leaf=false;
 		   occurrences=0;
+		   index_list=new ArrayList<Integer>();
 	   }
 	   
 	   
 	   public TrieNode(TrieNode t){
 		   this.children = new TrieNode[128];
 		   this.leaf = t.leaf;
+		   this.index_list = new ArrayList<Integer>(t.index_list);
 		   
 		   for(int i=0;i<t.children.length;i++){
 			   if(t.children[i] != null){
@@ -47,12 +56,12 @@ public class Trie {
   }
   
   
-  public  void insertString(String s){
-	  insertString(root,s);
+  public  void insertString(String s, int index){
+	  insertString(root,s,index);
   }
 
   ///inserts a string into the trie
-  private  void insertString(TrieNode root, String s) {
+  private  void insertString(TrieNode root, String s, int index) {
     TrieNode v = root;
     for (char ch : s.toCharArray()) {
       TrieNode next = v.children[ch];
@@ -63,6 +72,7 @@ public class Trie {
     
     v.leaf = true;
     v.occurrences++;
+    v.index_list.add(index);
   }
   
   
@@ -77,6 +87,20 @@ public class Trie {
 	    }
 	    
 	    return v.occurrences;
+  }
+  
+  
+  ///returns a list of indexes containing the given window
+  public List<Integer> get_index_list(String s){
+	  	TrieNode v = root;
+	    for (char ch : s.toCharArray()) {
+	    	TrieNode next = v.children[ch];
+	    	if (next == null)
+	    		break;
+	     		v = next;
+	    }
+	    
+	    return v.index_list;
   }
 
   
