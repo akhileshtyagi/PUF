@@ -138,11 +138,11 @@ public class Model_compare {
 				//output.print("-");
 				output.println(base_data_name + "\t"
 						+ auth_data_name + "\t"
-						+ test_models.get(i).get_window_size() + "\t\t"
-						+ test_models.get(i).get_token_size() + "\t\t"
-						+ test_models.get(i).get_threshold() + "\t\t"
-						+ test_models.get(i).get_base_model_size() + "\t\t"
-						+ test_models.get(i).get_auth_model_size() + "\t\t"
+						+ test_models.get(i).get_window_size() + "\t"
+						+ test_models.get(i).get_token_size() + "\t"
+						+ test_models.get(i).get_threshold() + "\t"
+						+ test_models.get(i).get_base_model_size() + "\t"
+						+ test_models.get(i).get_auth_model_size() + "\t"
 						+ test_models.get(i).min_authentication_probability + "\t"
 						+ test_models.get(i).max_authentication_probability + "\t"
 						+ test_models.get(i).average_authentication_probability);

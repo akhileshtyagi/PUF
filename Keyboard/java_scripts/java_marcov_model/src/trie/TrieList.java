@@ -154,7 +154,7 @@ public class TrieList extends ArrayList<Window>{
 		
 		for(int i=0;i<index_list.size();i++){
 			//for every occurrence of window, successor match, increment count
-			if((this.get(index_list.get(i)).compare_with_token(tokens, window)) && (successor_list.get(index_list.get(i)).compare_with_token(tokens,touch))){
+			if(successor_list.get(index_list.get(i)).compare_with_token(tokens,touch)){
 				count2++;
 			}
 		}
