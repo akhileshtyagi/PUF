@@ -16,7 +16,9 @@ public class Token{
 		//in the linear case, each token is a min, max. This is designed to be used to expose the variation in pressure for a given keycode
 		linear,
 		//this simply creates a token for a given keycode distribution. The benefit in doing this is that the token can be used to apply rules to the the keycodes. For example, if we want to say that a touch does not constitute a keycode if it falls outside of its pressure distribution's average +-2 sigma, then we can reduce the range_min,max to include on average +- 2 sigma. 
-		keycode_mu
+		keycode_mu,
+		//this is linear and keycode_mu combined,
+		combined
 	}
 	
 	

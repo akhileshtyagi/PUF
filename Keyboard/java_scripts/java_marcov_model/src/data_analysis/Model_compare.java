@@ -17,10 +17,10 @@ public class Model_compare {
 	
 	//specify different model sizes and 
 	private final static int[] window_sizes = {3};
-	private final static int[] token_sizes = {6,7,8};
+	private final static int[] token_sizes = {7};
 	private final static int[] thresholds = {5000};
 	private final static int[] user_model_sizes = {5000};
-	private final static int[] auth_model_sizes = {5000,4000};
+	private final static int[] auth_model_sizes = {4000};
 	
 	
 	public static void main(String[] args){

@@ -24,12 +24,12 @@ def main():
 
 	#TODO create response set for a given (user, device, challenge).
 	#in other words, user, device the 
-	#response_set = []
-	#for data_set in data_sets:
-	#	response = challenge_response.response(data_set)
-	#	response_set.append(resposne)
+	response_set = []
+	for data_set in data_sets:
+		response = challenge_response.response(data_set)
+		response_set.append(resposne)
 
-	worker = trainer.trainer(data_sets)
+	worker = trainer.trainer(response_set)
 	selection = -1
 
 	while selection != 42:
