@@ -11,6 +11,9 @@ import java.util.List;
 /// input: 	data_sets folder
 /// output: model_compare_output.txt
 public class Model_compare {
+	//setting this to true will print out the probability of each test instead of the min,max,average
+	final static boolean PRINT_ALL_PROBABILITY = false;
+	
 	//specify the input, output locations
 	private final static String output_file_name = "model_compare_output.txt";
 	private final static String input_folder_name = "data_sets";
@@ -103,6 +106,7 @@ public class Model_compare {
 	
 	///output the results to a text file
 	private static void print_results(List<Model_compare_thread> test_models){
+		//do things based on PRINT_ALL_PROBABILITY
 		//things I want to print
 		//1) probability with which the data sets authenticated [min, max, average]
 		//2) base data set used
@@ -114,38 +118,73 @@ public class Model_compare {
 		try {
 			output = new PrintWriter(output_file_name, "UTF-8");
 			
-			output.println("base_data_set\t"
-					+ "auth_data_set\t"
-					+ "window_size\t"
-					+ "token_size\t"
-					+ "threshold\t"
-					+ "base_model_size\t"
-					+ "auth_model_size\t"
-					+ "min\t"
-					+ "max\t"
-					+ "average");
-			for(int i=0;i<test_models.size();i++){	
-				String auth_data_name = test_models.get(i).get_auth_data_path();
-				String base_data_name = test_models.get(i).get_base_data_path();
-				
-				//put the data paths in a more read-able format
-				String[] split_auth_string = auth_data_name.split("/");
-				String[] split_base_string = base_data_name.split("/");
-				
-				auth_data_name = split_auth_string[split_auth_string.length-1];
-				base_data_name = split_base_string[split_base_string.length-1];
-				
-				//output.print("-");
-				output.println(base_data_name + "\t"
-						+ auth_data_name + "\t"
-						+ test_models.get(i).get_window_size() + "\t"
-						+ test_models.get(i).get_token_size() + "\t"
-						+ test_models.get(i).get_threshold() + "\t"
-						+ test_models.get(i).get_base_model_size() + "\t"
-						+ test_models.get(i).get_auth_model_size() + "\t"
-						+ test_models.get(i).min_authentication_probability + "\t"
-						+ test_models.get(i).max_authentication_probability + "\t"
-						+ test_models.get(i).average_authentication_probability);
+			if(!PRINT_ALL_PROBABILITY){
+				output.println("base_data_set\t"
+						+ "auth_data_set\t"
+						+ "window_size\t"
+						+ "token_size\t"
+						+ "threshold\t"
+						+ "base_model_size\t"
+						+ "auth_model_size\t"
+						+ "min\t"
+						+ "max\t"
+						+ "average");
+				for(int i=0;i<test_models.size();i++){	
+					String auth_data_name = test_models.get(i).get_auth_data_path();
+					String base_data_name = test_models.get(i).get_base_data_path();
+					
+					//put the data paths in a more read-able format
+					String[] split_auth_string = auth_data_name.split("/");
+					String[] split_base_string = base_data_name.split("/");
+					
+					auth_data_name = split_auth_string[split_auth_string.length-1];
+					base_data_name = split_base_string[split_base_string.length-1];
+					
+					//output.print("-");
+					output.println(base_data_name + "\t"
+							+ auth_data_name + "\t"
+							+ test_models.get(i).get_window_size() + "\t"
+							+ test_models.get(i).get_token_size() + "\t"
+							+ test_models.get(i).get_threshold() + "\t"
+							+ test_models.get(i).get_base_model_size() + "\t"
+							+ test_models.get(i).get_auth_model_size() + "\t"
+							+ test_models.get(i).min_authentication_probability + "\t"
+							+ test_models.get(i).max_authentication_probability + "\t"
+							+ test_models.get(i).average_authentication_probability);
+				}
+			}else{
+				//TODO print out the probability for each individual compairason
+				output.println("base_data_set\t"
+						+ "auth_data_set\t"
+						+ "window_size\t"
+						+ "token_size\t"
+						+ "threshold\t"
+						+ "base_model_size\t"
+						+ "auth_model_size\t"
+						+ "probability");
+				for(int i=0;i<test_models.size();i++){	
+					String auth_data_name = test_models.get(i).get_auth_data_path();
+					String base_data_name = test_models.get(i).get_base_data_path();
+					
+					//put the data paths in a more read-able format
+					String[] split_auth_string = auth_data_name.split("/");
+					String[] split_base_string = base_data_name.split("/");
+					
+					auth_data_name = split_auth_string[split_auth_string.length-1];
+					base_data_name = split_base_string[split_base_string.length-1];
+					
+					//output.print("-");
+					for(int k=0;k<test_models.get(i).get_auth_probability_list().size();k++){
+						output.println(base_data_name + "\t"
+								+ auth_data_name + "\t"
+								+ test_models.get(i).get_window_size() + "\t"
+								+ test_models.get(i).get_token_size() + "\t"
+								+ test_models.get(i).get_threshold() + "\t"
+								+ test_models.get(i).get_base_model_size() + "\t"
+								+ test_models.get(i).get_auth_model_size() + "\t"
+								+ test_models.get(i).get_auth_probability_list().get(k));
+					}
+				}
 			}
 			
 			output.close();
