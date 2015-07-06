@@ -12,7 +12,7 @@ import java.util.List;
 /// output: model_compare_output.txt
 public class Model_compare {
 	//setting this to true will print out the probability of each test instead of the min,max,average
-	final static boolean PRINT_ALL_PROBABILITY = false;
+	final static boolean PRINT_ALL_PROBABILITY = true;
 	
 	//specify the input, output locations
 	private final static String output_file_name = "model_compare_output.txt";
@@ -70,10 +70,32 @@ public class Model_compare {
 			threads.get(i).start();
 		}
 		
+		boolean finished;
+		int offset;
+		
 		// join all threads
 		for(int i=0;i<threads.size();i++){
+			finished = false;
+			offset = 0;
+			
 			try {
 				threads.get(i).join();
+				//TODO make this more functional version of a progress bar work
+//				while(!finished){
+//					if(threads.get(i+offset).isAlive()){
+//						threads.get(i+offset).join(100);
+//						
+//						//if the thread has been joined in the time
+//						if(threads.get(i+offset).isAlive()==false){
+//							finished=true;
+//						}
+//					}
+//					
+//					offset++;
+//					if((offset+i+1)>=threads.size()){
+//						offset=0;
+//					}
+//				}
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

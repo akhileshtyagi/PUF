@@ -17,12 +17,12 @@ public class Model_compare_thread implements Runnable{
 	// disjoint applies when base_data_path and auth_data_path are the same
 	// disjoint = true will do disjoint sets for each data file
 	// disjoint = false will do non-disjoint sets
-	final boolean DISJOINT = false;
+	final boolean DISJOINT = true;
 	// extensive will do every possible combination of data sets regaurdless of compare limit
 	// this will take some time and is useful to extract results after the parameters have been mostly tweaked
 	// extensive = true implies this sort of test
 	// extensive = true and DISJOINT = 1 results in non-disjoint sets being thrown out
-	final boolean EXTENSIVE = false;
+	final boolean EXTENSIVE = true;
 	
 	List<Double> authentication_probability_list;
 	public double max_authentication_probability;
@@ -108,33 +108,49 @@ public class Model_compare_thread implements Runnable{
 				authentication_probability_list.add(1 - result);
 			}
 		}else{
-			System.out.println("TODO");
 			//TODO
 			//this is the extended set of compairasons
 			//the idea here is to enumerate every combination of base and auth chains, putting them in their respective lists
 			//this determines how many touches we will advance each time we do a compare
-			int advance_amount = 500;
+			int advance_amount = 100;
 			//TODO TODO TODO TODO TODO
-			for(int a=0;a<base_touch_list.size();a+=advance_amount){
-				//TODO create a base model here
-				for(int b=0;((b<base_model_size) && (((a*base_model_size)+b)<base_touch_list.size()));b++){
+			for(int a=0;(a+base_model_size)<base_touch_list.size();a+=advance_amount){
+				//base touch list is created here
+				for(int b=0;((b<base_model_size) && ((a+b)<base_touch_list.size()));b++){
 					//for non disjoint for same data set
-					base_chain.add_touch(base_touch_list.get((a*base_model_size)+b));
+					base_chain.add_touch(base_touch_list.get(a+b));
 				}
 				
-				for(int b=0;b<auth_touch_list.size();b+=advance_amount){
+				for(int b=0;b+auth_model_size<auth_touch_list.size();b+=advance_amount){
 					//TODO create an auth model here... compare each of these to the base model...
+					//TODO test disjoint section
 					if((DISJOINT) && (base_data_path.equals(auth_data_path))){
 						//TODO don't include any overlapping a,b
+						if(b<=(a+base_model_size)){
+							b=a+base_model_size+1;
+						}
 						
+						//TODO this may cause the data sets to be non-disjoint
+						//ensure there are enough touches to fill the auth model
+						if((b+auth_model_size)>= auth_touch_list.size()){
+							b=0;
+						}
+						
+						//TODO create each auth model of auth_model_size
+						for(int c=0;(c<auth_model_size) && ((b+c)<auth_touch_list.size());c++){
+							auth_chain.add_touch(auth_touch_list.get(b+c));
+						}
 					}else{
 						//TODO create each auth model of auth_model_size
-						
+						for(int c=0;c<auth_model_size && ((b+c)<auth_touch_list.size());c++){
+							auth_chain.add_touch(auth_touch_list.get(b+c));
+						}
 						
 						//now compare all the chains we generated
 						result = base_chain.compare_to(auth_chain);
 						//result = auth_chain.compare_to(base_chain);
 						//System.out.println(result);
+						//System.out.println(base_chain +" : "+ auth_chain);
 						//git the authentication result and add it to the probability list	
 						authentication_probability_list.add(1 - result);
 					}
