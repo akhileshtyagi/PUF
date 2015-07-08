@@ -199,7 +199,14 @@ public class Chain{
 	public int get_threshold(){
 		return threshold;
 	}
+
 	
+	///resets the object.. this is the same as constructing a new chain, but faster
+	public void reset(){
+		touches= new ArrayList<Touch>();
+				
+		on_model_update();
+	}
 
 	///computes all uncomputed aspects of the chain
 	public void compute_uncomputed(){

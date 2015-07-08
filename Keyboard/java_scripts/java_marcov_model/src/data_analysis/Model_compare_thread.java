@@ -76,7 +76,11 @@ public class Model_compare_thread implements Runnable{
 			
 			//this is doing several independtant segments of the chains. There are no overlapping touches
 			//TODO for each auth_model_size of auth data, authenticate against base_model
-			for(int a =0;(((a<base_touch_list.size()) && (a<auth_touch_list.size())) && (a<COMPARE_LIMIT));a++){
+			for(int a =0;((((a*base_model_size)<base_touch_list.size()) && ((a*auth_model_size)<auth_touch_list.size())) && (a<COMPARE_LIMIT));a++){
+				//reset the changes so no old touches get used in the compairason
+				base_chain.reset();
+				auth_chain.reset();
+				
 				//create base model
 				for(int b=0;((b<base_model_size) && (((a*base_model_size)+b)<base_touch_list.size()));b++){
 					//for non disjoint for same data set
@@ -112,9 +116,13 @@ public class Model_compare_thread implements Runnable{
 			//this is the extended set of compairasons
 			//the idea here is to enumerate every combination of base and auth chains, putting them in their respective lists
 			//this determines how many touches we will advance each time we do a compare
-			int advance_amount = 100;
+			int advance_amount = 2000;
 			//TODO TODO TODO TODO TODO
 			for(int a=0;(a+base_model_size)<base_touch_list.size();a+=advance_amount){
+				//reset th chains so no old touches slip though
+				base_chain.reset();
+				auth_chain.reset();
+				
 				//base touch list is created here
 				for(int b=0;((b<base_model_size) && ((a+b)<base_touch_list.size()));b++){
 					//for non disjoint for same data set
@@ -133,27 +141,37 @@ public class Model_compare_thread implements Runnable{
 						//TODO this may cause the data sets to be non-disjoint
 						//ensure there are enough touches to fill the auth model
 						if((b+auth_model_size)>= auth_touch_list.size()){
-							b=0;
+							if(auth_touch_list.size()<auth_model_size){
+								//grab touches from the beginning if there are enough touches
+								b=0;
+							}else{
+								//we cannot create an auth model... simply break
+								//reset auth chain to clear all previous touches
+								auth_chain.reset();
+								break;
+							}
 						}
 						
 						//TODO create each auth model of auth_model_size
 						for(int c=0;(c<auth_model_size) && ((b+c)<auth_touch_list.size());c++){
 							auth_chain.add_touch(auth_touch_list.get(b+c));
 						}
+						
+						//System.out.println(base_chain+"\n" +auth_chain+ "\n");
 					}else{
 						//TODO create each auth model of auth_model_size
 						for(int c=0;c<auth_model_size && ((b+c)<auth_touch_list.size());c++){
 							auth_chain.add_touch(auth_touch_list.get(b+c));
 						}
-						
-						//now compare all the chains we generated
-						result = base_chain.compare_to(auth_chain);
-						//result = auth_chain.compare_to(base_chain);
-						//System.out.println(result);
-						//System.out.println(base_chain +" : "+ auth_chain);
-						//git the authentication result and add it to the probability list	
-						authentication_probability_list.add(1 - result);
 					}
+					
+					//now compare all the chains we generated
+					result = base_chain.compare_to(auth_chain);
+					//result = auth_chain.compare_to(base_chain);
+					//System.out.println(result);
+					//System.out.println(base_chain +" : "+ auth_chain);
+					//git the authentication result and add it to the probability list	
+					authentication_probability_list.add(1 - result);
 				}
 			}
 		}

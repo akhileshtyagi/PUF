@@ -16,6 +16,7 @@ public class Model_compare {
 	
 	//specify the input, output locations
 	private final static String output_file_name = "model_compare_output.txt";
+	private final static String statistics_output_file_name = "model_compare_output_statistics.txt";
 	private final static String input_folder_name = "data_sets";
 	
 	//specify different model sizes and 
@@ -105,6 +106,54 @@ public class Model_compare {
 		
 		//print the results to a txt file
 		print_results(test_models);
+		print_statistics(test_models);
+	}
+	
+	
+	//TODO print out the useful statistics like false_positive_percentage
+	private static void print_statistics(List<Model_compare_thread> test_models){
+		//I want to print the following: 
+		//best authentication percentage
+		//false postive percentage (at the authentication percentage)
+		//false negative percentage (at the authentication percentage)
+		PrintWriter output=null;
+		
+		double best_authentication_percentage = 1;
+		double false_positive_percentage = 1;
+		double false_negative_percentage = 1;
+		
+		ArrayList<Double> should_authenticate_percentages = new ArrayList<Double>();
+		ArrayList<Double> should_not_authenticate_percentages = new ArrayList<Double>();
+		
+		// first build a list of the result percentages from the test_models
+		for(int i=0;i<test_models.size();i++){
+			//they should authenticate if the touches came from different parts of the same data set
+			if(test_models.get(i).get_base_data_path().equals(test_models.get(i).get_auth_data_path())){
+				should_authenticate_percentages.addAll(test_models.get(i).get_auth_probability_list());
+			}else{
+				should_not_authenticate_percentages.addAll(test_models.get(i).get_auth_probability_list());
+			}
+		}
+		
+		// use Statistics class to calculate the false positive and false negative percentages
+		best_authentication_percentage = Statistics.best_authentication_percentage(should_authenticate_percentages, should_not_authenticate_percentages);
+		false_positive_percentage = Statistics.false_positive_percentage(best_authentication_percentage, should_authenticate_percentages, should_not_authenticate_percentages);
+		false_negative_percentage = Statistics.false_negative_percentage(best_authentication_percentage, should_authenticate_percentages, should_not_authenticate_percentages);
+		
+		try {
+			output = new PrintWriter(statistics_output_file_name, "UTF-8");
+			
+			//TODO print out the probability for each individual compairason
+			output.println("best_authentication_percentage: "+best_authentication_percentage+"\n"
+					+ "false_positive_percentage: "+false_positive_percentage+"\n"
+					+ "false_negative_percentage: "+false_negative_percentage+"\n"
+					+ "number_of_tests_conducted: "+(should_authenticate_percentages.size()+should_not_authenticate_percentages.size()));
+			
+			output.close();
+		} catch (Exception e) {
+			System.out.println("Failed to open output file");
+			e.printStackTrace();
+		}
 	}
 	
 	
