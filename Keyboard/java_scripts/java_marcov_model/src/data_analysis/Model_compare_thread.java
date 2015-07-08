@@ -116,7 +116,7 @@ public class Model_compare_thread implements Runnable{
 			//this is the extended set of compairasons
 			//the idea here is to enumerate every combination of base and auth chains, putting them in their respective lists
 			//this determines how many touches we will advance each time we do a compare
-			int advance_amount = 2000;
+			int advance_amount = 100;
 			//TODO TODO TODO TODO TODO
 			for(int a=0;(a+base_model_size)<base_touch_list.size();a+=advance_amount){
 				//reset th chains so no old touches slip though
