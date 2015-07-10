@@ -1,5 +1,6 @@
 #! /bin/python2
 
+import test_cases
 import trainer
 import challenge_response
 from scripts import util
@@ -17,6 +18,7 @@ def main():
 	prompt = prompt + "1) support vector machine\n"
 	prompt = prompt + "2) Logistic Regression\n"
 	prompt = prompt + "3) evolutionary strategy\n"
+	prompt = prompt + "20) test cases\n"
 	prompt = prompt + "42) exit\n"
 
 	#populate data_sets with files for a given (user,device,clallenge,response)
@@ -49,7 +51,10 @@ def main():
 
 		if selection == 3:
 			print worker.classify_evolution()
-
+		
+		if selection == 20:
+			#call the test code main class. This is for testing functionality
+			print test_cases.begin_test_suite()
 
 #finally, call the main method
 main()

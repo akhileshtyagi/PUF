@@ -76,11 +76,11 @@
        \affaddr{Ames, IA, USA}\\
        \email{deetimothy33@gmail.com}
 % 2nd. author
-\alignauthor Ian T. Richardson\\
-       \affaddr{Electrical \& Computer Engineering}\\
-       \affaddr{Iowa State University}\\
-       \affaddr{Ames, IA, USA}\\
-       \email{ian.t.rich@gmail.com}
+%\alignauthor Ian T. Richardson\\
+%       \affaddr{Electrical \& Computer Engineering}\\
+%       \affaddr{Iowa State University}\\
+%       \affaddr{Ames, IA, USA}\\
+%       \email{ian.t.rich@gmail.com}
 % 3nd. author
 \alignauthor Akhilesh Tyagi\\
       \affaddr{Electrical \& Computer Engineering}\\
@@ -96,8 +96,8 @@
 
 \maketitle
 \begin{abstract}
-%TODO
-Described in this document is a physical unclonable function (PUF) utilizing the variability derived from the pressure with which users interact with their mobile device touchscreens. We illustrate how a sequence of these pressure values from descrete touchscreen interactions may be used to uniquely characterize a user-device pair. This characterization method may find many applications in security. As a result the effectiveness of this scheme is described in terms of how one user may be differentiated from another.
+%TODO remove the last sentence, mabe?
+Described in this document is a physical unclonable function (PUF) utilizing the variability derived from the pressure with which users interact with their mobile device touchscreens. We illustrate how a sequence of these pressure values from descrete touchscreen interactions may be used to uniquely characterize a user-device pair. This characterization method may find many applications in protecting access to a mobile device from a malicious party. As a result, the effectiveness of this scheme is described in terms of how one user may be differentiated from another.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -160,19 +160,18 @@ The states of our marcov model are defined by the range in which
 \section{Differentiating User-Device Pairs}
 \label{sec:differentiation}
 
+\begin{figure}
+\centering
+\includegraphics[width=3.9in]{threshold_vs_percentages.png}
+\caption{TODO}
+\label{fig:threshold_vs_percentages}
+\end{figure}
 
 %what number of states exposed the most uniqueness e.g. how many tokens were best
 %with what accuracy could users be destinguished from one-another
 \section{Results}
 \label{sec:results}
 
-
-%\begin{figure}
-%\centering
-%\includegraphics[width=3.9in]{figures/DiffUserforStatECCModel}
-%\caption{Statistical Concentration/Correction for a User other than Profiled User}
-%\label{fig:diffuserstat}
-%\end{figure}
 
 \section{Conclusions}
 \label{sec:conclusions}
