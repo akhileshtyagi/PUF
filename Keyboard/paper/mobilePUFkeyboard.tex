@@ -114,6 +114,8 @@ Described in this document is a physical unclonable function (PUF) utilizing the
 Mobile devices are ubiquitus in the modern world. These devices are becoming progressively more important for many applications with security sensative data. 
 Securing mobile devices poses unique challenges and opportunities compared to traditional data security where it is difficult for an attacker to access the physical device on which the data is stored or from which the sensitive data may be accessed.
 %
+
+%TODO develop an understanding of the need for this system
 The reality that an attacker may be able to gain access to a physical device makes securing any data stored on or accessed by a mobile device significantly more challenging. Traditional physical unclonable functions (PUFs) which can be used to uniquely to a given hardware device are no longer sufficient to guarentee the authenticity of a user.
 %
 This modivates an extension of the traditional PUF known as a user-device physical unclonable function(UD-PUF). This UD-PUF entangles the physical characteristics of the user in combination with the device to enable a more secure authentication scheme.
@@ -123,7 +125,11 @@ This modivates an extension of the traditional PUF known as a user-device physic
 \section{Touchscreen Pressure}
 \label{sec:touchscreen}
 %TODO 
-current at sides of phone.\cite{zhu2013sensec}
+%describe what is touchscreen pressure
+If our goal is be be able to distinguish a user's interaction with a given device from this same user on a different devie and from different users on any device than our description of the user will need to be a product of both the user and the device. In the android operating system there exists a pressure function which returns a value proportional to current at sides of phone for a given touch screen interaction. \cite{zhu2013sensec} We will henseforth refer to this as touch pressure. 
+
+%describe why touchscreen pressure is a good candidate for our UD-PUF
+The pressure function is significant, because it's value not only depends on the characteristics of the device but also on the way in which a user interacts with a given device. The effect of a given device on the touch pressure value will differ significantly due to variations implicit in the manufacturing process for the touchscreens of these devices. \cite{manufacturing_differences} Our supposition is a given user will interact with a touchscreen in such a way as to cause significant variations in the touch pressure values when compared to other users \cite{user_touchscreen_interations}.  Given this, we have chosen touch pressure as the basis for our UD-PUF.
 
 %describe a marcov model in general
 %describe what it means to be an n-gram sliding marcov model
@@ -131,17 +137,18 @@ current at sides of phone.\cite{zhu2013sensec}
 %An n-gram sliding marcov model.
 \section{Modeling a User-Device Pair}
 \label{sec:modeling}
+%describe the motivation for the use of a marcov chain
 Interactions between useres and devices are complex. To interpret these actions in a meaningful way, in order to preform an authentication for example, it is necessary to simplify these interations. The chosen model must provide sufficient entropy such that a model generated with a given user-device pair is not consistantly reproducable by another user or on a different device. The modeling method must also be easily reproducable by the origional user on the origional device. A model having the neccessary characteristics required for this application is a Marcov Chain.
-%
+
 %TODO describe what is a marcov chain
 Marcov Chains are useful in predicting systems who's behavior can be modeled in descrete states. The transitions between states can be identified to happen with some probability.
+
 %Other information about marcov chains
 %TODO traditional use of marcov chains
 Historically the Marcov Chain has found applications in
 %
-Upon identification of an appropriate model the next step is to discover an optimal way in which it may be applied to the current problem. The goal is %TODO
+Upon identification of an appropriate model the next step is to discover an optimal way in which it may be applied to the current problem. An interaction between a user and device can be described as a sequence of touch pressure values. Using a Marcov Chain to describe this sequence is only reasonable if we suppose that a given touch pressure value depends on some number of preceeding touch pressure values. \cite{marcov_chains_previous_n_values}
 %
-
 
 %n-gram a continuious sequence of n items
 %markov model for comparason is built from a sliding model of the previous n touches
@@ -185,12 +192,14 @@ Once a compairason is established a natural extension is a system of authenticat
 %
 %TODO TODO add more metrics, and explain them, provide more graphs about them
 To determine how well this system does at differentiating users it is useful to develop metrics which describe the system's performance under conditions which are similar to it's protential real-world applications. Figure \ref{fig:threshold_vs_percentages} illustrates how false positive percentage and false negative percentage vary based on where the threshold for authentication is set. 
+
 %authentication threshold described
 Here, authentication threshold refers to the value of authentication percentage one model must have against another for the models to be considered the same; two models which are the same are supposed to have been created from touches generated by the same user-device pair.
 %false positive percentage described
 False positive percentage measures what fraction of authentcations between two sets of touch pressures which did not come from the same user-device pair, therefore these sets should not be considered the same, but did authenticate as being the same in our authentication system.
 %false negative percentage described
 False negative percentage is exactly the inverse of false positive percentage in that it describes what fraction of authentications between two sets of touch pressures which did come from the same user-device pair, but did not authenticate as being the same in our authentication system.
+
 %significance of the intersection of false positive, false negative values
 In Figure \ref{fig:threshold_vs_percentages} there exists a clear intersection between false negative and false positive percentages. This intersection is significant; at this point the system nither biased toward allowing user-device pairs which should not authenticate to pass authentication nor toward disallowing user-device pairs, which should authenticate, from passing authentication. This point represents a balance allowing for %TODO
 
