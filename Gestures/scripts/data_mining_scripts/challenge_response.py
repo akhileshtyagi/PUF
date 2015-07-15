@@ -3,6 +3,7 @@
 #Defined in this file is a class which contains information about the challenge #response pairs. This class knows how to read the data sets, and put them into a #usable format.
 
 #import NormalizedStrat4 responseGen
+#important!!! a response is generated from the raw data. This class will contain both the raw data and the response generated. The way this will be used is to train with the raw data, and see if the response can be predicted.
 class response:
 	#takes in the file containing information about the challenge response. This method will read in data from this file and populate the appropriate instance variables
 	def __init__(self, data_list_object):

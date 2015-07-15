@@ -3,7 +3,7 @@
 import test_cases
 import trainer
 import challenge_response
-from scripts import util
+from scripts import parse_raw_data_list
 
 ######main.py
 #Provides the ability to:
@@ -22,14 +22,15 @@ def main():
 	prompt = prompt + "42) exit\n"
 
 	#populate data_sets with files for a given (user,device,clallenge,response)
-	data_sets = util.getRawDataLists()
+	#this particular directory contains a few thousand of the same swipe
+	data_sets = parse_raw_data_list.getRawDataLists("/home/element/PUF/Gestures/OutputCSVs/tim_2000_1")
+	#print data_sets
 
-	#TODO create response set for a given (user, device, challenge).
-	#in other words, user, device the 
+	#TODO create response set for a given (user, device, challenge). 
 	response_set = []
 	for data_set in data_sets:
 		response = challenge_response.response(data_set)
-		response_set.append(resposne)
+		response_set.append(response)
 
 	worker = trainer.trainer(response_set)
 	selection = -1
@@ -54,7 +55,7 @@ def main():
 		
 		if selection == 20:
 			#call the test code main class. This is for testing functionality
-			print test_cases.begin_test_suite()
+			print test_cases.begin_test_suite(response_set)
 
 #finally, call the main method
 main()

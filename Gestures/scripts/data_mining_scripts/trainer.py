@@ -2,6 +2,9 @@ import challenge_response
 from sklearn import datasets
 from sklearn import svm
 
+import numpy as np
+import matplotlib.pyplot as plt
+
 ######trainer.py
 #Handles the training of the machine learning models. Offers methods to run #different types of machine learning tests, and returns their results.
 class trainer:
@@ -14,13 +17,31 @@ class trainer:
 
 	#support vector classification
 	def	classify_svm(self):
-		#TODO use gridsearch and crossvalidation to find good parameters
-		#create the model		
-		clf = svm.SVC(gamma=0.001, C=100)
-		#train the model
-		#clf.fit(self.digits.data[:-1], self.digits.target[:-1])
-		#use the model to predict the next thing
-		#clf.predict(digits.data[-1])
+		xx, yy = np.meshgrid(np.linspace(-3, 3, 500),
+                     np.linspace(-3, 3, 500))
+		np.random.seed(0)
+		X = np.random.randn(300, 2)
+		Y = np.logical_xor(X[:, 0] > 0, X[:, 1] > 0)
+
+		# fit the model
+		clf = svm.NuSVC()
+		clf.fit(X, Y)
+
+		# plot the decision function for each datapoint on the grid
+		Z = clf.decision_function(np.c_[xx.ravel(), yy.ravel()])
+		Z = Z.reshape(xx.shape)
+
+		plt.imshow(Z, interpolation='nearest',
+				   extent=(xx.min(), xx.max(), yy.min(), yy.max()), aspect='auto',
+				   origin='lower', cmap=plt.cm.PuOr_r)
+		contours = plt.contour(xx, yy, Z, levels=[0], linewidths=2,
+				               linetypes='--')
+		plt.scatter(X[:, 0], X[:, 1], s=30, c=Y, cmap=plt.cm.Paired)
+		plt.xticks(())
+		plt.yticks(())
+		plt.axis([-3, 3, -3, 3])
+		plt.show()
+
 		return "UNIMPLEMENTED"
 
 	

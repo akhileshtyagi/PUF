@@ -11,6 +11,7 @@ Describes the purpose of each file. Also describes the input, output used; how t
 
 ######challenge_response.py
 Defined in this file is a class which contains information about the challenge response pairs. This class knows how to read the data sets, and put them into a usable format.
+More simply put this class will contain the raw data, and the mu-sigma model built from the raw data. A set of these will be given to the data mining class for testing.
 
 ######main.py
 Provides the ability to:
