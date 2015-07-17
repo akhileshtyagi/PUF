@@ -23,14 +23,20 @@ public class Model_compare {
 	private final static int[] window_sizes = {3};
 	private final static int[] token_sizes = {7};
 	private final static int[] thresholds = {5000};
-	private final static int[] user_model_sizes = {5000};
-	private final static int[] auth_model_sizes = {4000};
+	private static int[] user_model_sizes = new int[50]; //5000
+	private static int[] auth_model_sizes = new int[50]; //4000
 	
 	
 	public static void main(String[] args){
 		ArrayList<Model_compare_thread> test_models = new ArrayList<Model_compare_thread>();
 		ArrayList<Thread> threads = new ArrayList<Thread>();
 		ArrayList<String> data_sets = new ArrayList<String>();
+		
+		//enumerate the user, auth model sizes
+		for(int i=0;i<user_model_sizes.length;i++){
+			user_model_sizes[i]=(i+1)*200;
+			auth_model_sizes[i]=(i+1)*200;
+		}
 		
 		//read in all data set paths into data_sets
 		File[] files = new File(input_folder_name).listFiles();
@@ -121,6 +127,7 @@ public class Model_compare {
 		double best_authentication_percentage = 1;
 		double false_positive_percentage = 1;
 		double false_negative_percentage = 1;
+		double authentication_accuracy = 0;
 		
 		ArrayList<Double> should_authenticate_percentages = new ArrayList<Double>();
 		ArrayList<Double> should_not_authenticate_percentages = new ArrayList<Double>();
@@ -139,6 +146,7 @@ public class Model_compare {
 		best_authentication_percentage = Statistics.best_authentication_percentage(should_authenticate_percentages, should_not_authenticate_percentages);
 		false_positive_percentage = Statistics.false_positive_percentage(best_authentication_percentage, should_authenticate_percentages, should_not_authenticate_percentages);
 		false_negative_percentage = Statistics.false_negative_percentage(best_authentication_percentage, should_authenticate_percentages, should_not_authenticate_percentages);
+		authentication_accuracy = Statistics.authentication_accuracy(best_authentication_percentage, should_authenticate_percentages, should_not_authenticate_percentages);
 		
 		try {
 			output = new PrintWriter(statistics_output_file_name, "UTF-8");
@@ -147,6 +155,7 @@ public class Model_compare {
 			output.println("best_authentication_percentage: "+best_authentication_percentage+"\n"
 					+ "false_positive_percentage: "+false_positive_percentage+"\n"
 					+ "false_negative_percentage: "+false_negative_percentage+"\n"
+					+ "authentication_accuracy: "+authentication_accuracy+"\n"
 					+ "number_of_tests_conducted: "+(should_authenticate_percentages.size()+should_not_authenticate_percentages.size()));
 			
 			output.close();
@@ -175,7 +184,7 @@ public class Model_compare {
 	}
 	
 	
-	///output the results to a text file
+	///output the results to a text file, these are the results for the individual compairasons
 	private static void print_results(List<Model_compare_thread> test_models){
 		//do things based on PRINT_ALL_PROBABILITY
 		//things I want to print

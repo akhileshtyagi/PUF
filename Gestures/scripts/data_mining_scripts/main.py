@@ -15,10 +15,11 @@ from scripts import parse_raw_data_list
 def main():
 	prompt = "Please select an option:\n"
 	prompt = prompt + "0) run all tests\n"
-	prompt = prompt + "1) support vector machine\n"
+	prompt = prompt + "1) support vector machine, classify, raw data\n"
 	prompt = prompt + "2) Logistic Regression\n"
 	prompt = prompt + "3) evolutionary strategy\n"
-	prompt = prompt + "20) test cases\n"
+	prompt = prompt + "51) support vector machine, prediction accuracy, raw data\n"
+	prompt = prompt + "40) test cases\n"
 	prompt = prompt + "42) exit\n"
 
 	#populate data_sets with files for a given (user,device,clallenge,response)
@@ -40,22 +41,25 @@ def main():
 		
 		if selection == 0:
 			#TODO run all tests
-			print worker.classify_svm()
-			print worker.classify_logistic_regression()
-			print worker.classify_evolution()
+			print worker.raw_classify_svm()
+			print worker.raw_classify_logistic_regression()
+			print worker.raw_classify_evolution()
 
 		if selection == 1:
-			print worker.classify_svm()
+			print worker.raw_classify_svm()
 
 		if selection == 2:
-			print worker.classify_logistic_regression()
+			print worker.raw_classify_logistic_regression()
 
 		if selection == 3:
-			print worker.classify_evolution()
+			print worker.raw_classify_evolution()
 		
-		if selection == 20:
+		if selection == 40:
 			#call the test code main class. This is for testing functionality
 			print test_cases.begin_test_suite(response_set)
+
+		if selection == 51:
+			print worker.raw_prediction_accuracy_svm()
 
 #finally, call the main method
 main()
