@@ -27,7 +27,21 @@ class trainer:
 		X = np.random.randn(300, 2)
 		Y = np.logical_xor(X[:, 0] > 0, X[:, 1] > 0)
 		
-		print Y
+		#TODO put my data in the correct format
+		print self.response_set[0].data_list.challengeList
+		print self.response_set[0].data_list.respList
+		print self.response_set[0].data_list.pressureList
+
+		X=[[]]
+		Y=[]
+
+		#for each challenge_response object
+		for response_object in response_set:
+			X.append(response_object.data_list.challengeList)
+			#TODO figure out what Y should actually be, mabe X is a vector [challenge, response]
+			Y.append(response_object.data_list.respList)
+
+		#print Y
 
 		# fit the model
 		clf = svm.NuSVC()

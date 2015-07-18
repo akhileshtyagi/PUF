@@ -23,9 +23,8 @@ public class Model_compare {
 	private final static int[] window_sizes = {3};
 	private final static int[] token_sizes = {7};
 	private final static int[] thresholds = {5000};
-	private static int[] user_model_sizes = new int[50]; //5000
-	private static int[] auth_model_sizes = new int[50]; //4000
-	
+	private static int[] user_model_sizes = new int[20]; //5000
+	private static int[] auth_model_sizes = new int[20]; //4000
 	
 	public static void main(String[] args){
 		ArrayList<Model_compare_thread> test_models = new ArrayList<Model_compare_thread>();
@@ -34,8 +33,8 @@ public class Model_compare {
 		
 		//enumerate the user, auth model sizes
 		for(int i=0;i<user_model_sizes.length;i++){
-			user_model_sizes[i]=(i+1)*200;
-			auth_model_sizes[i]=(i+1)*200;
+			user_model_sizes[i]=(i+1)*500;
+			auth_model_sizes[i]=(i+1)*500;
 		}
 		
 		//read in all data set paths into data_sets
