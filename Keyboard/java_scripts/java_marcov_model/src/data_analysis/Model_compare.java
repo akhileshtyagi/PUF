@@ -31,12 +31,6 @@ public class Model_compare {
 		ArrayList<Thread> threads = new ArrayList<Thread>();
 		ArrayList<String> data_sets = new ArrayList<String>();
 		
-//		//enumerate the user, auth model sizes
-//		for(int i=0;i<user_model_sizes.length;i++){
-//			user_model_sizes[i]=(i+1)*1000;
-//			auth_model_sizes[i]=(i+1)*1000;
-//		}
-		
 		//read in all data set paths into data_sets
 		File[] files = new File(input_folder_name).listFiles();
 		for(File file : files){

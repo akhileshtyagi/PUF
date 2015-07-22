@@ -32,16 +32,15 @@ class trainer:
 		print self.response_set[0].data_list.respList
 		print self.response_set[0].data_list.pressureList
 
-		X=[[]]
+		#TODO
+		X=[]
 		Y=[]
 
-		#for each challenge_response object
-		for response_object in response_set:
-			X.append(response_object.data_list.challengeList)
-			#TODO figure out what Y should actually be, mabe X is a vector [challenge, response]
-			Y.append(response_object.data_list.respList)
+		for response in self.response_set:
+			X.append(1) #response.data_list.challengeList) #Use the challenges as training vectors
+			Y.append([response.data_list.respList, response.data_list.pressureList]) #use respList, pressureList for real number in regression
 
-		#print Y
+		print X
 
 		# fit the model
 		clf = svm.NuSVC()

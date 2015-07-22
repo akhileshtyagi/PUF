@@ -111,17 +111,18 @@ Described in this document is a physical unclonable function (PUF) utilizing the
 
 \section{Introduction}
 \label{sec:intro}
-Mobile devices are ubiquitus in the modern world. These devices are becoming progressively more important for many applications with security sensative data. 
-Securing mobile devices poses unique challenges and opportunities compared to traditional data security where it is difficult for an attacker to access the physical device on which the data is stored or from which the sensitive data may be accessed.
+%Motivate the reasoning behind why we may want to secure mobile devices more
+Mobile devices are ubiquitus in the modern world. These devices are becoming progressively more important for many applications with security sensitive data. 
+Securing mobile devices poses unique challenges and opportunities compared to traditional data security where it is difficult for an attacker to access the physical device on which the data is stored or from which the sensitive data may be accessed. Although there is increased probability that a device may be compromised, there is also greater number of available sensors to measure the variablility in the way users interact with mobile devices compared compared to conventional computing technology.
 %
 
 %TODO develop an understanding of the need for this system
-The reality that an attacker may be able to gain access to a physical device makes securing any data stored on or accessed by a mobile device significantly more challenging. Traditional physical unclonable functions (PUFs) which can be used to uniquely to a given hardware device are no longer sufficient to guarentee the authenticity of a user.
+The reality that an attacker may be able to gain access to a physical device makes securing any data stored on or accessed by a mobile device significantly more challenging. Traditional physical unclonable functions (PUFs) which can only be used to uniquely to a given hardware device are no longer sufficient to guarentee the authenticity of a user.
 %
 This modivates an extension of the traditional PUF known as a user-device physical unclonable function(UD-PUF). This UD-PUF entangles the physical characteristics of the user in combination with the device to enable a more secure authentication scheme.
 
 %TODO problem statement, describe what the UD-PUF must accomplish 
-
+A UD-PUF is a function of both the hardware of a given device and the user of that device. Such a function must change significantly given unique user-device pairs, thus we must identify a property or properties which vary among mobile device hardware and a property or properties which vary among users of a given device. The best candidates to use will be properties which present with the most variability, and properties which are most easily exposed to the android operating system.
 
 \section{Related Work}
 \label{sec:related_work}
