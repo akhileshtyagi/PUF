@@ -1,5 +1,19 @@
 \begin{thebibliography}{1}
 
+\bibitem{feng2012continuous}
+T.~Feng, Z.~Liu, K.-A. Kwon, W.~Shi, B.~Carbunar, Y.~Jiang, and N.~K. Nguyen.
+\newblock Continuous mobile authentication using touchscreen gestures.
+\newblock In {\em Homeland Security (HST), 2012 IEEE Conference on Technologies
+  for}, pages 451--456. IEEE, 2012.
+
+\bibitem{shi2011senguard}
+W.~Shi, F.~Yang, Y.~Jiang, F.~Yang, and Y.~Xiong.
+\newblock Senguard: Passive user identification on smartphones using multiple
+  sensors.
+\newblock In {\em Wireless and Mobile Computing, Networking and Communications
+  (WiMob), 2011 IEEE 7th International Conference on}, pages 141--148. IEEE,
+  2011.
+
 \bibitem{zhu2013sensec}
 J.~Zhu, P.~Wu, X.~Wang, and J.~Zhang.
 \newblock Sensec: Mobile security through passive sensing.

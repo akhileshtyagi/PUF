@@ -96,7 +96,7 @@
 
 \maketitle
 \begin{abstract}
-%TODO remove the last sentence, mabe?
+%TODO remove the last sentence, mabe? Also, include numbers describing important results
 Described in this document is a physical unclonable function (PUF) utilizing the variability derived from the pressure with which users interact with their mobile device touchscreens. We illustrate how a sequence of these pressure values from descrete touchscreen interactions may be used to uniquely characterize a user-device pair. This characterization method may find many applications in protecting access to a mobile device from a malicious party. As a result, the effectiveness of this scheme is described in terms of how one user may be differentiated from another.
 \end{abstract}
 
@@ -107,7 +107,7 @@ Described in this document is a physical unclonable function (PUF) utilizing the
 
 %\terms{Theory}
 
-%\keywords{physical unclonable function (PUF), mobile device authentication} % NOT required for Proceedings
+%\keywords{physical unclonable function (PUF), user device physical unclonable function (UD-PUF)} % NOT required for Proceedings
 
 \section{Introduction}
 \label{sec:intro}
@@ -116,26 +116,41 @@ Mobile devices are ubiquitus in the modern world. These devices are becoming pro
 Securing mobile devices poses unique challenges and opportunities compared to traditional data security where it is difficult for an attacker to access the physical device on which the data is stored or from which the sensitive data may be accessed. Although there is increased probability that a device may be compromised, there is also greater number of available sensors to measure the variablility in the way users interact with mobile devices compared compared to conventional computing technology.
 %
 
-%TODO develop an understanding of the need for this system
+%develop an understanding of the need for this system
 The reality that an attacker may be able to gain access to a physical device makes securing any data stored on or accessed by a mobile device significantly more challenging. Traditional physical unclonable functions (PUFs) which can only be used to uniquely to a given hardware device are no longer sufficient to guarentee the authenticity of a user.
 %
 This modivates an extension of the traditional PUF known as a user-device physical unclonable function(UD-PUF). This UD-PUF entangles the physical characteristics of the user in combination with the device to enable a more secure authentication scheme.
 
-%TODO problem statement, describe what the UD-PUF must accomplish 
+%problem statement, describe what the UD-PUF must accomplish 
 A UD-PUF is a function of both the hardware of a given device and the user of that device. Such a function must change significantly given unique user-device pairs, thus we must identify a property or properties which vary among mobile device hardware and a property or properties which vary among users of a given device. The best candidates to use will be properties which present with the most variability, and properties which are most easily exposed to the android operating system.
+
+%problem statement continued, what must be the properties of the authentication system.
+Indentifing properties of device and user which can be used to construct our UD-PUF is insufficient; the system must also be practical under normal use conditions for mobile devices. The system must be non-intrusive to the user, fast enough to run on mobile devices, and accurate when authenticating users. If a user must spend a long time authenticating they are not able to use this time to accomplish the task for which they are being authenticated, this detracts from the efficiency of using a mobile device to complete the task. If the proposed system is too computationally intense to be run on a mobile device, or the system is only accurate some low percentage of the time then it is useless for any practical application. For these reasons we propose a system which operates under a continuious authentication scheme.
+
+%TODO describe in depth the continuious authentication scheme proposed, this is where the main contributions of this work should be discussed
+
+%TODO describe the structure of the paper, what is contained in each section
+
 
 \section{Related Work}
 \label{sec:related_work}
-%TODO
 %detail what was done in the sensec paper
-%provide a brief history of UD-PUFS
+SenSec, a similar authentication scheme to the one proposed in this paper, completed at Carnegie Mellon used information from from accelerometers, gyroscopes and magnetometers to construct a model of a user. \cite{zhu2013sensec} This method can be classified as a UD-PUF as each accelerometer, gyroscope and magnetometer will have some variance inherent in the manufacturing process for these devices \cite{?}; the input to these devices will also vary siginificantly by user \cite{?}. As a result the output is a function which varies with changes in user or device, a UD-PUF.
 
+%TODO more about sensec, relate things in sensec back to our work
+%TODO explain what we can learn from sensec use of marcov chain
+Another noteable aspect of the SenSec system is their method of modeling users with an n-order Markov Chain. This system presents several benefits which, according to sensec include, relative simplicity and scaleability. \cite{zhu2013sensec} 
+
+\cite{shi2011senguard}
+\cite{feng2012continuous}
+
+%provide a brief history of UD-PUFS
+%explain why are solution is better then previous/other solutions
 
 %describe what touchscreen pressure is
 %describe the physical component of the pressure (current at the edge of screen on android device)
 \section{Touchscreen Pressure}
 \label{sec:touchscreen}
-%TODO 
 %describe what is touchscreen pressure
 If our goal is be be able to distinguish a user's interaction with a given device from this same user on a different devie and from different users on any device than our description of the user will need to be a product of both the user and the device. In the android operating system there exists a pressure function which returns a value proportional to current at sides of phone for a given touch screen interaction. \cite{zhu2013sensec} We will henseforth refer to this as touch pressure. 
 
@@ -156,8 +171,8 @@ Marcov Chains are useful in predicting systems who's behavior can be modeled in 
 
 %Other information about marcov chains
 %TODO traditional use of marcov chains
-Historically the Marcov Chain has found applications in
-%
+Historically the Marcov Chain has found applications in (statistics?)
+
 Upon identification of an appropriate model the next step is to discover an optimal way in which it may be applied to the current problem. An interaction between a user and device can be described as a sequence of touch pressure values. Using a Marcov Chain to describe this sequence is only reasonable if we suppose that a given touch pressure value depends on some number of preceeding touch pressure values. \cite{marcov_chains_previous_n_values}
 %
 
@@ -213,12 +228,13 @@ False positive percentage measures what fraction of authentcations between two s
 False negative percentage is exactly the inverse of false positive percentage in that it describes what fraction of authentications between two sets of touch pressures which did come from the same user-device pair, but did not authenticate as being the same in our authentication system.
 
 %significance of the intersection of false positive, false negative values
-In Figure \ref{fig:threshold_vs_percentages} there exists a clear intersection between false negative and false positive percentages. This intersection is significant; at this point the system nither biased toward allowing user-device pairs which should not authenticate to pass authentication nor toward disallowing user-device pairs, which should authenticate, from passing authentication. This point represents a balance allowing for %TODO
+In Figure \ref{fig:threshold_vs_percentages} there exists a clear intersection between false negative and false positive percentages. This intersection is significant; at this point the system nither biased toward allowing user-device pairs which should not authenticate to pass authentication nor toward disallowing user-device pairs, which should authenticate, from passing authentication. This point represents a balance in design, but the best authentication threshold will depend on the application of this system.
 
 %what number of states exposed the most uniqueness e.g. how many tokens were best
 %with what accuracy could users be destinguished from one-another
 \section{Results}
 \label{sec:results}
+
 %this section describes how authentication accuracy was investigated. Also included are a few figures which describe the best authentication accuracy percentage
 \begin{figure}
 \centering
@@ -226,21 +242,29 @@ In Figure \ref{fig:threshold_vs_percentages} there exists a clear intersection b
 \caption{Authentication accuracy is a function of both the base model size and authentication model size.}
 \label{fig:authentication_accuracy}
 \end{figure}
-%TODO explain the contents of this figure.
-%TODO explain what each of the metrics used in the figure are.
+
+%explain the contents of this figure.
+%explain what each of the metrics used in the figure are.
 %
+In exploring the design space of this system we are trying to determine how well the system will perform in the end use case. Perhaps the best measure of the system's performance is how accurate the system is when authenticating users. Figure \ref{fig:authentication_accuracy} depicts authentication\_accuracy as a function of base\_model\_size, number of touches known to have origionated from an authentic user, and auth\_model\_size, number of touches which are to be checked against the model generated from the base touches. We define authentication\_accuracy to be the percentage of authentications for which our system makes the correct decision. In other words, an authentic user is authenticated and a non-authentic user is not authenticated. The size of base model and user model which result in a given authentication accuracy are aligned with that authentication accuracy on the horizontal axis in the chart. 
+
 \begin{figure}
 \centering
 \includegraphics[width=3.9in]{extensive_authentication_accuracy.png}
 \caption{Depicts the result of many model compairasons done around the area of best results in Figure \ref{fig:authentication_accuracy}.}
 \label{fig:extensive_authentication_accuracy}
 \end{figure}
+
 %TODO explain the contents of this figure.
 %TODO explain what each of the metrics used in the figure are.
+%
 
 \section{Conclusions}
 \label{sec:conclusions}
+%describe what has been presented in the paper
+This paper presents an approach toward continuious authentication which utilizes the variability in the way users interact with the touchscreens of their devices to differentiate distinct user-device combinations. Data for this approach comes from %TODO
 
+%describe the design space for the system presented in the paper
 
 %possible, describe applications  in terms of continuious authentication
 \section{Future Work}
