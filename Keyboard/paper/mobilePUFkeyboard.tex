@@ -128,9 +128,10 @@ A UD-PUF is a function of both the hardware of a given device and the user of th
 Indentifing properties of device and user which can be used to construct our UD-PUF is insufficient; the system must also be practical under normal use conditions for mobile devices. The system must be non-intrusive to the user, fast enough to run on mobile devices, and accurate when authenticating users. If a user must spend a long time authenticating they are not able to use this time to accomplish the task for which they are being authenticated, this detracts from the efficiency of using a mobile device to complete the task. If the proposed system is too computationally intense to be run on a mobile device, or the system is only accurate some low percentage of the time then it is useless for any practical application. For these reasons we propose a system which operates under a continuious authentication scheme.
 
 %TODO describe in depth the continuious authentication scheme proposed, this is where the main contributions of this work should be discussed
+While other solutions have shown that a user may be distinguished by using data from several different sensors, this paper establishes that variability in the way in which users interact with the touch screen may be enough to differentiate one user from another. %TODO continue
 
-%TODO describe the structure of the paper, what is contained in each section
-
+% describe the structure of the paper, what is contained in each section
+The structure of the paper is as follows. Section \ref{sec:related_work} discusses some related work. Touchscreen pressue and what it measures are described in section \ref{sec:touchscreen}. Reasons for choosing a given modeling sceme for users and devices is discuessed in section \ref{sec:modeling}. Section \ref{touch_pressure_modeling} provides some implementation details with respect to how touchscreen pressure is used in the modeling scheme. Data collection methods are discussed in section \ref{sec:data_collection}. The authentication scheme is discussed in section \ref{sec:differentiation}. The results including final numbers and suggestions in practical applications are articulated in section \ref{sec:results}. Conclusions are presented in section \ref{sec:conclusions}. Finally section \ref{sec:futurework} discuesses future work in this area. 
 
 \section{Related Work}
 \label{sec:related_work}
@@ -181,6 +182,7 @@ Upon identification of an appropriate model the next step is to discover an opti
 %describe how the marcov chain is applied to touch pressure to model a user
 %this is a description of our specific implementation of a marcov model
 \section{Touch Pressure Modeling}
+\label{touch_pressure_modeling}
 %TODO
 %describe the marcov model used
 %
@@ -188,7 +190,7 @@ The goal in modeling a system with a marcov model is to classify the system in t
 The states of our marcov model are defined by the range in which
 
 \section{Data Collection}
-\label{sec:differentiation}
+\label{sec:data_collection}
 %TODO
 %describe the number of users from which the data was collected
 %describe the method of collection
@@ -255,16 +257,18 @@ In exploring the design space of this system we are trying to determine how well
 \label{fig:extensive_authentication_accuracy}
 \end{figure}
 
-%TODO explain the contents of this figure.
-%TODO explain what each of the metrics used in the figure are.
+%explain the contents of this figure.
+%explain what each of the metrics used in the figure are.
 %
+To establish that the results in Figure \ref{fig:authentication_accuracy} hold for large numbers of compairasons many more compairasons where done around the area of best results. The results of these tests are presented in Figure \ref{fig:authentication:accuracy}. For the results depicted in the figure, user\_model\_size is held constant at ten thousand while auth\_model\_size is varied. The test was preformed in this way because variations in auth\_model\_size seems to have a greater inpact on authentication accuracy than variations in base\_model\_size. Approximately the same trend as seen in Figure \ref{fig:authentication_accuracy} prsents its self in Figure \ref{fig:extensive_authentication_accuracy}.
 
 \section{Conclusions}
 \label{sec:conclusions}
 %describe what has been presented in the paper
-This paper presents an approach toward continuious authentication which utilizes the variability in the way users interact with the touchscreens of their devices to differentiate distinct user-device combinations. Data for this approach comes from %TODO
+This paper presents an approach toward continuious authentication which utilizes the variability in the way users interact with the touchscreens of their devices to differentiate distinct user-device combinations. We model these interactions with an n-gram Markov model which allows us to describe the liklihood that two sequences of touch pressure values came from the same user in a probabalistic fashion. Data for this approach comes from the user's interactions with the touchscreen of their device. This data will be generated over time by the user; thus this scheme lends itself very well to a continuious authentication model.
 
-%describe the design space for the system presented in the paper
+%TODO describe the design space for the system presented in the paper
+Depending on the implementation of this system, varying the parameters of the modeling system can allow the implementer to tune the system to their specific purpose. 
 
 %possible, describe applications  in terms of continuious authentication
 \section{Future Work}
