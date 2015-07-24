@@ -153,10 +153,10 @@ Another noteable aspect of the SenSec system is their method of modeling users w
 \section{Touchscreen Pressure}
 \label{sec:touchscreen}
 %describe what is touchscreen pressure
-If our goal is be be able to distinguish a user's interaction with a given device from this same user on a different device and from different users on any device than our description of the user will need to be a product of both the user and the device. In the android operating system there exists a pressure function which returns a value proportional to current at sides of phone for a given touch screen interaction. \cite{zhu2013sensec} We will henseforth refer to this as touch pressure. 
+If our goal is be be able to distinguish a user's interaction with a given device from this same user on a different device and from different users on any device than our description of the user will need to be a product of both the user and the device. In the android operating system there exists a pressure function which returns a value proportional to current at sides of phone for a given touch screen interaction. \cite{zhu2013sensec} This is the value which will serve as the basis for our scheme and will henseforth be referred to as touch pressure. 
 
 %describe why touchscreen pressure is a good candidate for our UD-PUF
-The pressure function is significant, because it's value not only depends on the characteristics of the device but also on the way in which a user interacts with a given device. The effect of a given device on the touch pressure value will differ significantly due to variations implicit in the manufacturing process for the touchscreens of these devices. \cite{manufacturing_differences} Our supposition is a given user will interact with a touchscreen in such a way as to cause significant variations in the touch pressure values when compared to other users \cite{user_touchscreen_interations}.  Given this, we have chosen touch pressure as the basis for our UD-PUF.
+The pressure function is significant because it's value not only depends on the characteristics of the device but also on the way in which a user interacts with a given device. The effect of a given device on the touch pressure value will differ significantly due to variations implicit in the manufacturing process for the touchscreens of these devices. \cite{manufacturing_differences} Our supposition is a given user will interact with a touchscreen in such a way as to cause significant variations in the touch pressure values when compared to other users on the same touchscreen \cite{user_touchscreen_interations}.  Given this, we have chosen touch pressure as the basis for our UD-PUF.
 
 %describe a marcov model in general
 %describe what it means to be an n-gram sliding marcov model
@@ -183,11 +183,13 @@ Upon identification of an appropriate model the next step is to discover an opti
 %this is a description of our specific implementation of a marcov model
 \section{Touch Pressure Modeling}
 \label{touch_pressure_modeling}
-%TODO
-%describe the marcov model used
+%TODO this section should describe various implementation details
 %
+%describe the marcov model used
 The goal in modeling a system with a markov model is to classify the system in terms of its transitions between states. If such a model is to be used to purposes of uniquely identifying a given system, than the states of the model must be chosen in a way which exposes the uniqueness of the system.
 The states of our markov model are defined by the range in which
+
+%TODO TODO describe aspects of the implementation
 
 \section{Data Collection}
 \label{sec:data_collection}
