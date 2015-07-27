@@ -33,7 +33,7 @@
 % set the path for graphics
 \graphicspath{{figures/}}
 
-\title{User-Device Physical Unclonable Functions (UD-PUFs) based on Mobile Device Touchscreen Pressure}
+\title{Continuous Transparent Authentication with User-Device Physical Unclonable Functions (UD-PUFs) based on Mobile Device Touchscreen Interactions}
 %\subtitle{[Extended Abstract]
 %\titlenote{A full version of this paper is available as
 %\textit{Author's Guide to Preparing ACM SIG Proceedings Using
@@ -76,11 +76,11 @@
        \affaddr{Ames, IA, USA}\\
        \email{deetimothy33@gmail.com}
 % 2nd. author
-%\alignauthor Ian T. Richardson\\
-%       \affaddr{Electrical \& Computer Engineering}\\
-%       \affaddr{Iowa State University}\\
-%       \affaddr{Ames, IA, USA}\\
-%       \email{ian.t.rich@gmail.com}
+\alignauthor Ian T. Richardson\\
+      \affaddr{Electrical \& Computer Engineering}\\
+      \affaddr{Iowa State University}\\
+      \affaddr{Ames, IA, USA}\\
+      \email{ian.t.rich@gmail.com}
 % 3nd. author
 \alignauthor Akhilesh Tyagi\\
       \affaddr{Electrical \& Computer Engineering}\\
@@ -97,7 +97,16 @@
 \maketitle
 \begin{abstract}
 %TODO remove the last sentence, mabe? Also, include numbers describing important results
-Described in this document is a physical unclonable function (PUF) utilizing the variability derived from the pressure with which users interact with their mobile device touchscreens. We illustrate how a sequence of these pressure values from discrete touchscreen interactions may be used to uniquely characterize a user-device pair. This characterization method may find many applications in protecting access to a mobile device from a malicious party. As a result, the effectiveness of this scheme is described in terms of how one user may be differentiated from another.
+A mobile device user continually interacts with many sensors through the natural
+user interface (UI) of apps. These interactions are unique for each (user, device) pair
+forming a user-device biometric.  
+A physical unclonable function (PUF) can be realized
+from the touch screen pressure variability. We illustrate how a sequence of these pressure values from discrete touchscreen interactions may be used to uniquely characterize a user-device pair. These
+touch screen interactions Markov models can be integrated into a
+continuous authentication layer. Based on the most recent sequence of touch screen
+interactions, the continuous authentication layer can assign a probability that these
+interactions came from the authenticated (user, device) pair. Continuous authentication may help protect access to a mobile device from a malicious party by detecting the
+anomalies early. The effectiveness of this scheme is described in terms of how definitively can one user  be differentiated from another.
 \end{abstract}
 
 % A category with the (minimum) three required fields
@@ -112,26 +121,59 @@ Described in this document is a physical unclonable function (PUF) utilizing the
 \section{Introduction}
 \label{sec:intro}
 %Motivate the reasoning behind why we may want to secure mobile devices more
-Mobile devices are ubiquitous in the modern world. These devices are becoming progressively more important for many applications with security sensitive data. 
-Securing mobile devices poses unique challenges and opportunities compared to traditional data security where it is difficult for an attacker to access the physical device on which the data is stored or from which the sensitive data may be accessed. Although there is increased probability that a device may be compromised, there is also greater number of available sensors to measure the variability in the way users interact with mobile devices compared compared to conventional computing technology.
+Mobile devices are ubiquitous in the modern world. These devices are becoming progressively more important for many applications with hold sensitive data such as financial and health care data. 
+Securing mobile devices poses unique challenges and opportunities. Traditional user authentication
+is a single challenge-response model based on a password. 
+ A mobile device, however, has a greater number of available device sensors that have been
+used to capture the uniqueness of a specific user, device interaction for enhanced traditional
+user authentication. Traditional user authentication however leaves large gaps in between successive
+user authentications. If the device is compromised in between two successive user authentications,
+there is a long time available to the adversary for inflicting damage. This paper proposes a
+continuous authentication framework in which an authentication framework running in the background 
+is continually monitoring user activities. Moreover, this monitoring is based on the 
+combined biometric of the user and the device silicon captured as a physical unclonable function (PUF).
 %
 
 %develop an understanding of the need for this system
-The reality that an attacker may be able to gain access to a physical device makes securing any data stored on or accessed by a mobile device significantly more challenging. Traditional physical unclonable functions (PUFs) which can only be used to uniquely to a given hardware device are no longer sufficient to guarantee the authenticity of a user.
-%
-This motivates an extension of the traditional PUF known as a user-device physical unclonable function(UD-PUF). This UD-PUF entangles the physical characteristics of the user in combination with the device to enable a more secure authentication scheme.
+ Traditional physical unclonable functions (PUFs) which generate a unique signature of a given hardware device are not sufficient to guarantee the identity of a user.
+A mechanism that combines the biometric identity of a human user and the device silicon in 
+a way that is not mathematically separable is more robust in the mobile world. UD-PUFs (user-device
+entangled physical unclonable functions) \cite{ScheelTyagi15} serve just that role.
+Integration of such UD-PUFs into a continuous authentication environment is the main problem
+addressed in this paper.
+
 
 %problem statement, describe what the UD-PUF must accomplish 
-A UD-PUF is a function of both the hardware of a given device and the user of that device. Such a function must change significantly given unique user-device pairs, thus we must identify a property or properties which vary among mobile device hardware and a property or properties which vary among users of a given device. The best candidates to use will be properties which present with the most variability, and properties which are most easily exposed to the android operating system.
+A UD-PUF is a function of both the device silicon and the user behavior. Such a function must show 
+significant change in the output given a small change in any component of a user-device pair
+somewhat like a hash function. Hence the UD-PUF must be based on a property or properties which vary significantly and identifiably among mobile device hardware and users. The best candidates to use will be properties which offer the most variability, and properties which are most easily exposed in the android operating system.
 
 %problem statement continued, what must be the properties of the authentication system.
-Identifying properties of device and user which can be used to construct our UD-PUF is insufficient; the system must also be practical under normal use conditions for mobile devices. The system must be non-intrusive to the user, fast enough to run on mobile devices, and accurate when authenticating users. If a user must spend a long time authenticating they are not able to use this time to accomplish the task for which they are being authenticated, this detracts from the efficiency of using a mobile device to complete the task. If the proposed system is too computationally intense to be run on a mobile device, or the system is only accurate some low percentage of the time then it is useless for any practical application. For these reasons we propose a system which operates under a continuous authentication scheme.
+System efficiency and response times imposes additional constraints on properties to base a UD-PUF on.
+The system must also be practical under normal use conditions for mobile devices. The system must be non-intrusive to the user, fast enough to run on mobile devices, and accurate when authenticating users. If a user must spend a long time authenticating they are not able to use this time to accomplish the task for which they are being authenticated. This detracts from the efficiency of using a mobile device to complete the task. If the proposed system is too computationally intensive to be run on a mobile device, or the system has low accuracy then it is useless for any practical application. 
+%For these reasons we propose a system which operates under a continuous authentication scheme.
 
 %describe in depth the continuous authentication scheme proposed, this is where the main contributions of this work should be discussed
-While other solutions have shown that a user may be distinguished by using data from several different sensors, this paper establishes that variability in the way in which users interact with the touch screen may be enough to differentiate one user from another. In other words there is a single source of information which is also tied to the usability of the device. A failue of the touchscreen to function also constitues a failure in the device as a whole. Thus the system is robust because it will only fail upon failure of the device. Compare this to other systems whose functionality depends on many components. A failure in one of these components disrupts the authentication scheme making these systems more prone to failure. 
+In the continuation authentication world, a composite sensor vector \cite{zhu2013sensec} has been used
+to establish a user identity. Other user biometrics such as inter key stroke timing have also been
+used. In this paper, the continuous authentication is based on a combined user-device identity.
+The continuous authentication signature will fail if either the biometrically correct human being
+or the biometrically correct device component is removed.
+ This paper builds the continuous authentication framework on the user touch screen interactions.
+We establish that the user touch screen interactions do differentiate one user from another. 
+Note that there are advantages to basing a framework on a single source of information. A failure of the touchscreen to function also constitutes device failure. This system is more robust because it will only fail upon failure of the device touch screen. Compare this to other systems whose functionality depends on many components. A failure in any one of these components disrupts the authentication scheme making these systems more prone to failure. 
+
+
+Continuous authentication frameworks' basis premise is that a user behavior over time gravitates
+towards  predictable. It can be frequently modeled as an $n$-Markov model. It states that the
+user tokens of length $n$ repeat themselves with certain frequency. Hence if we can record history
+of $n$-token sequences, they could help us classify the user's current behavior. The tokens are
+touch screen pressure values that are continually generated as the user interacts with an app
+through a soft keyboard.
+
 
 % describe the structure of the paper, what is contained in each section
-The structure of the paper is as follows. Section \ref{sec:related_work} discusses some related work. Touchscreen pressure and what it measures are described in section \ref{sec:touchscreen}. Reasons for choosing a given modeling scheme for users and devices is discussed in section \ref{sec:modeling}. Section \ref{touch_pressure_modeling} provides some implementation details with respect to how touchscreen pressure is used in the modeling scheme. Data collection methods are discussed in section \ref{sec:data_collection}. The authentication scheme is discussed in section \ref{sec:differentiation}. The results including final numbers and suggestions in practical applications are articulated in section \ref{sec:results}. Conclusions are presented in section \ref{sec:conclusions}. Finally section \ref{sec:futurework} discusses future work in this area. 
+The structure of the paper is as follows. Section \ref{sec:related_work} discusses related work. Touchscreen pressure and the corresponding UD-PUF model are described in section \ref{sec:touchscreen}. The $n$-Markov model and its parametrization are discussed in section \ref{sec:modeling}. Section \ref{touch_pressure_modeling} provides some implementation details with respect to how touchscreen pressure is used in the modeling scheme. Data collection methods are discussed in section \ref{sec:data_collection}. The authentication scheme is discussed in section \ref{sec:differentiation}. The results including final numbers and suggestions in practical applications are articulated in section \ref{sec:results}. Conclusions are presented in section \ref{sec:conclusions}. Finally section \ref{sec:futurework} discusses future work in this area. 
 
 \section{Related Work}
 \label{sec:related_work}
@@ -140,22 +182,22 @@ SenSec, a similar authentication scheme to the one proposed in this paper, compl
 
 %TODO more about sensec, relate things in sensec back to our work
 %TODO explain what we can learn from sensec use of marcov chain
-Another noteable aspect of the SenSec system is their method of modeling users with an n-order Markov Chain. This system presents several benefits which, according to sensec include, relative simplicity and scaleability. \cite{zhu2013sensec} 
+Another noteable aspect of the SenSec system is their method of modeling users with an $n$-Markov model. This system presents several benefits which include relative simplicity and scaleability. \cite{zhu2013sensec} 
 
 \cite{shi2011senguard}
 \cite{feng2012continuous}
 
-%provide a brief history of UD-PUFS
-%explain why are solution is better than previous/other solutions
+%TODO provide a brief history of UD-PUFS
+%TODO explain why are solution is better than previous/other solutions
 
 %describe what touchscreen pressure is
 %describe the physical component of the pressure (current at the edge of screen on android device)
 \section{Touchscreen Pressure}
 \label{sec:touchscreen}
-%describe what is touchscreen pressure
+%TODO describe what is touchscreen pressure
 If our goal is be be able to distinguish a user's interaction with a given device from this same user on a different device and from different users on any device than our description of the user will need to be a product of both the user and the device. In the android operating system there exists a pressure function which returns a value proportional to current at sides of phone for a given touch screen interaction. \cite{zhu2013sensec} This is the value which will serve as the basis for our scheme and will henseforth be referred to as touch pressure. 
 
-%describe why touchscreen pressure is a good candidate for our UD-PUF
+%TODO describe why touchscreen pressure is a good candidate for our UD-PUF
 The pressure function is significant because it's value not only depends on the characteristics of the device but also on the way in which a user interacts with a given device. The effect of a given device on the touch pressure value will differ significantly due to variations implicit in the manufacturing process for the touchscreens of these devices. \cite{manufacturing_differences} Our supposition is a given user will interact with a touchscreen in such a way as to cause significant variations in the touch pressure values when compared to other users on the same touchscreen \cite{user_touchscreen_interations}.  Given this, we have chosen touch pressure as the basis for our UD-PUF.
 
 %describe a marcov model in general
@@ -275,8 +317,22 @@ To establish that the results in Figure \ref{fig:authentication_accuracy} hold f
 
 \section{Conclusions}
 \label{sec:conclusions}
+%make sure to re-tell the story in the conclusion.
 %describe what has been presented in the paper
-This paper presents an approach toward continuous authentication which utilizes the variability in the way users interact with the touchscreens of their devices to differentiate distinct user-device combinations. We model these interactions with an n-gram Markov model which allows us to describe the likelihood that two sequences of touch pressure values came from the same user in a probabilistic fashion. Data for this approach comes from the user's interactions with the touchscreen of their device. This data will be generated over time by the user; thus this scheme lends itself very well to a continuous authentication model.
+This paper presents an approach toward continuous authentication which utilizes the variability in the way users interact with the touchscreens of their devices to differentiate distinct user-device combinations. 
+%storytelling?
+This is useful in situations similar to theft where a mobile device is accessible to a party which may desire to use the device to compromose sensitive data. One shot authentication systems like passwords are not the idea solution in this case. If the password has also been compromised or is weak such that it may be easily broken, then the attacker has access to the device indeffonatly. In the continuious authentication model presented here, if the device is compromised then the way the attacker interacts with the device will deviate away from the model which has been established for the authentic user. After the the newest sequence of touch interactions has become significantly different from the established model, then the device may be locked or some other arbitrary action taken. 
+
+%describe the implementation, model, authentication
+%TODO discuss the advantages to using an n-marcov model over other modeling systsms
+The implementation of our system has both modeling and authentication components. The modeling component depends on the use of an $n$-Markov model constructed from a sequence of touches entered by the user. This allows for the likelihood that two sequences of touch pressure values came from the same user to be calculated in a probabilistic fashion.
+%authentication system,
+The authentication system constructs two models. One of the models coming from the most recent touches and the other coming from touches preceeding the most recent. A differance is derived between the models which is a function of the probabilily derived in the modeling phase. If differance is sufficiently large it can be said with reasonable certainty that the user from which the touch sequences origionated for the most recent touches differs from the user who generated the touches preceeding those most recent. 
+
+%describe where the data comes from, benefits (failure of the touchscreen constitutes failure of the device compared with the other systems where authentication may failwithout failure of the device.)
+Data for this approach comes from the user's interactions with the touchscreen of their device. This data will be generated over time by the user; thus this scheme lends itself very well to a continuous authentication model. In addition, this data is reliable over the lifespan of the device. The authentication system will persist as long as the touchscreen functions correctly. A failure of the touchscreen renders the mobile device useless; hense the system is more robust compared to systems which depend on multiple sensors contained on the mobile device.
+%why data from the touchscreen is a UD-PUF
+Mobile device touchscreen interactions are also ideal for use in an authentication scheme. They function both as a biometric of the human user and the silicon of the device; a change in either device or user will be detected as a result.
 
 %TODO describe the design space for the system presented in the paper
 Depending on the implementation of this system, varying the parameters of the modeling system can allow the implementer to tune the system to their specific purpose. 
