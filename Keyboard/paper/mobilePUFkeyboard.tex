@@ -184,12 +184,18 @@ Upon identification of an appropriate model the next step is to discover an opti
 \section{Touch Pressure Modeling}
 \label{touch_pressure_modeling}
 %TODO this section should describe various implementation details
-%
-%describe the marcov model used
-The goal in modeling a system with a markov model is to classify the system in terms of its transitions between states. If such a model is to be used to purposes of uniquely identifying a given system, than the states of the model must be chosen in a way which exposes the uniqueness of the system.
-The states of our markov model are defined by the range in which
+%TODO it may be useful to include all different parameters to the model, and the effects of varying each of them
+%TODO describe the marcov model used
+The goal in modeling a system with a Markov model is to classify the system in terms of its transitions between states. If such a model is to be used to purposes of uniquely identifying a given system, than the model must be chosen in a way which exposes the uniqueness of the system. Our scheme uses a Markov model constructed from the sequence of touches entered by a user. Each touch contains information about the pressure and location of the interaction with the touchscreen.
 
-%TODO TODO describe aspects of the implementation
+%TODO describe aspects of the implementation
+%describe how the model is constructed from the touch pressure sequence
+Our Markov model calculates the probability of a given touch coming after a sequence of $n$ touchs. $n$ is a parameter to the model which should allow for increased accuracy in determining the true probability of a given touch to come after a preceeding sequence of touches when given more data to construct the model. The increased accuracy is due to a greater number of possible model states which decreases the liklihood that a user will have states which overlap a different user.
+
+%TODO describe the probability calculation in detail
+%TODO cite some sources for this explaination
+The probability of a touch coming after a sequence of touches can be expressed as the number of occurrences of touch after a given sequence by the total number of occurrences of that sequence.
+%TODO this is the place for MLE, maximal liklihood estimation formulas
 
 \section{Data Collection}
 \label{sec:data_collection}
@@ -221,7 +227,7 @@ In distinguishing a particular user from another different user, it is necessary
 %
 Once a comparison is established a natural extension is a system of authentication. This system needs to determine when two sets of touch pressure values came from the same user-device pair. When authenticating a user, we take one minus the average difference between the model constructed from the two sets of touch pressure values. Take this value to be the authentication percentage for a given set of touch pressure values against another.
 %
-%TODO TODO add more metrics, and explain them, provide more graphs about them
+%add more metrics, and explain them, provide more graphs about them
 To determine how well this system does at differentiating users it is useful to develop metrics which describe the system's performance under conditions which are similar to it's potential real-world applications. Figure \ref{fig:threshold_vs_percentages} illustrates how false positive percentage and false negative percentage vary based on where the threshold for authentication is set. 
 
 %authentication threshold described
@@ -233,6 +239,9 @@ False negative percentage is exactly the inverse of false positive percentage in
 
 %significance of the intersection of false positive, false negative values
 In Figure \ref{fig:threshold_vs_percentages} there exists a clear intersection between false negative and false positive percentages. This intersection is significant; at this point the system neither biased toward allowing user-device pairs which should not authenticate to pass authentication nor toward disallowing user-device pairs, which should authenticate, from passing authentication. This point represents a balance in design, but the best authentication threshold will depend on the application of this system.
+
+%TODO describe the implementation of the authentication system, how the compairason works
+The implementation of the authentication system is as follows. A Markov model is constructed from a sequence of touches known to have come from the user. A seperate Markov model is then constructed from a sequence of touches which need to be compaired to the model. The probabilities computed for each of these models are then compaired and a percent difference is derived from these compairasons. We then choose to authentication only those models which have achieved a low enough percent difference.
 
 %what number of states exposed the most uniqueness e.g. how many tokens were best
 %with what accuracy could users be distinguished from one-another

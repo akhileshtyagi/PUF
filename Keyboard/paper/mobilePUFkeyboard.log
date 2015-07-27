@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.6.17)  24 JUL 2015 12:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.6.17)  24 JUL 2015 19:06
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -310,7 +310,7 @@ LaTeX Warning: Citation `marcov_chains_previous_n_values' on page \thepage  und
 efined on input line 177.
 
 
-Overfull \hbox (15.5365pt too wide) in paragraph at lines 202--202
+Overfull \hbox (15.5365pt too wide) in paragraph at lines 210--210
 []\secfnt DIFFERENTIATING USER-DEVICE PAIRS 
  []
 
@@ -319,24 +319,27 @@ File: figures/threshold_vs_percentages.png Graphic file (type png)
 
 <use figures/threshold_vs_percentages.png>
 Package pdftex.def Info: figures/threshold_vs_percentages.png used on input lin
-e 208.
+e 216.
 (pdftex.def)             Requested size: 281.85255pt x 174.28522pt.
 
-Overfull \hbox (41.85255pt too wide) in paragraph at lines 208--209
+Overfull \hbox (41.85255pt too wide) in paragraph at lines 216--217
  [][] 
  []
 
-[2 <./figures/threshold_vs_percentages.png>]
+[2]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 <figures/authentication_accuracy_vs_model_size.png, id=17, 602.25pt x 372.39125
 pt>
 File: figures/authentication_accuracy_vs_model_size.png Graphic file (type png)
 
  <use figures/authentication_accuracy_vs_model_size.png>
 Package pdftex.def Info: figures/authentication_accuracy_vs_model_size.png used
- on input line 243.
+ on input line 254.
 (pdftex.def)             Requested size: 281.85255pt x 174.28522pt.
 
-Overfull \hbox (41.85255pt too wide) in paragraph at lines 243--244
+Overfull \hbox (41.85255pt too wide) in paragraph at lines 254--255
  [][] 
  []
 
@@ -346,22 +349,21 @@ File: figures/extensive_authentication_accuracy.png Graphic file (type png)
 
 <use figures/extensive_authentication_accuracy.png>
 Package pdftex.def Info: figures/extensive_authentication_accuracy.png used on 
-input line 255.
+input line 266.
 (pdftex.def)             Requested size: 281.85255pt x 174.28522pt.
 
-Overfull \hbox (41.85255pt too wide) in paragraph at lines 255--256
+Overfull \hbox (41.85255pt too wide) in paragraph at lines 266--267
  [][] 
  []
 
 
 LaTeX Warning: Reference `fig:authentication:accuracy' on page \thepage  undefi
-ned on input line 263.
+ned on input line 274.
 
-[3 <./figures/authentication_accuracy_vs_model_size.png> <./figures/extensive_a
-uthentication_accuracy.png>] (./mobilePUFkeyboard.bbl) [4
+[3 <./figures/threshold_vs_percentages.png> <./figures/authentication_accuracy_
+vs_model_size.png>] (./mobilePUFkeyboard.bbl) [4
 
-]
-(./mobilePUFkeyboard.aux)
+ <./figures/extensive_authentication_accuracy.png>] (./mobilePUFkeyboard.aux)
 
 LaTeX Warning: There were undefined references.
 
@@ -369,21 +371,22 @@ LaTeX Warning: There were undefined references.
 Here is how much of TeX's memory you used:
  2809 strings out of 493109
  35493 string characters out of 6140856
- 101862 words of memory out of 5000000
+ 102862 words of memory out of 5000000
  6204 multiletter control sequences out of 15000+600000
  47315 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,10n,28p,973b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmt
-i9.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/t
-exmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type
-1/urw/times/utmb8a.pfb>
-Output written on mobilePUFkeyboard.pdf (4 pages, 150222 bytes).
+/amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
+r9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/sh
+are/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts
+/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utm
+b8a.pfb>
+Output written on mobilePUFkeyboard.pdf (4 pages, 165009 bytes).
 PDF statistics:
- 49 PDF objects out of 1000 (max. 8388607)
- 30 compressed objects within 1 object stream
+ 53 PDF objects out of 1000 (max. 8388607)
+ 33 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
