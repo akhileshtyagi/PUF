@@ -18,6 +18,10 @@ import java.io.FileWriter;
 import java.io.OutputStreamWriter;
 import java.util.ArrayList;
 
+import components.Chain;
+import components.Touch;
+import runtime.CompareChains;
+
 
 public class MainActivity extends ActionBarActivity {
     private EditText edit_text;
@@ -60,35 +64,20 @@ public class MainActivity extends ActionBarActivity {
         ArrayList<Integer> base_size = new ArrayList<Integer>();
         ArrayList<Integer> auth_size = new ArrayList<Integer>();
 
-        //models
-        //TODO Chain base_chain;
-        //TODo Chain auth_chain;
-
         //times
-        long start_time;
         long time_taken;
 
         //here I want to run code for the speedtest.
         //when the speedtest has completed I will want to output code to the textbox
-        //TODO run the tests
+        //run the tests
         for(int i=1000;i<10001;i+=500){
             for(int j=1000;j<10001;j+=500){
                 //store the model sizes
                 base_size.add(i);
                 auth_size.add(j);
 
-                //create the base and auth models
-                //TODO base_chain = ;
-                //TODO auth_chain = ;
-
-                //add the touches to the chains, try to create the worst case running time
-
-                //begin the timer
-                start_time = System.currentTimeMillis();
-                // TODO base_chain.compare_to(auth_chain);
-
-                //stop the timer, reccord the time
-                time_taken = System.currentTimeMillis() - start_time;
+                //test the amount of time these model sizes take to build and authenticate
+                time_taken = time_overall_model_compare(i, j);
 
                 //store the result... the time it took to build and compare these models
                 result_time.add(time_taken);
@@ -124,5 +113,45 @@ public class MainActivity extends ActionBarActivity {
         }catch(Exception e){
             e.printStackTrace();
         }
+    }
+
+
+    //constants used for speedtesting
+    final static int SPEED_TEST_WINDOW_SIZE = 5;
+    final static int SPEED_TEST_TOKEN_SIZE = 10;
+    final static int SPEED_TEST_THRESHOLD = 1000;
+
+    //returns the time it takes to build and compare the models
+    private static long time_overall_model_compare(int base_size, int auth_size){
+        Chain base_chain = create_chain(base_size);
+        Chain auth_chain = create_chain(auth_size);
+
+        CompareChains cc = new CompareChains(base_chain, auth_chain);
+        Thread thread = new Thread(cc);
+
+        long start_time = System.currentTimeMillis();
+        //do the method
+        thread.start();
+        try {
+            thread.join();
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        long end_time = System.currentTimeMillis();
+
+        return end_time-start_time;
+    }
+
+
+    ///creates a chain of the specified size
+    private static Chain create_chain(int size){
+        Chain chain = new Chain(SPEED_TEST_WINDOW_SIZE, SPEED_TEST_TOKEN_SIZE, SPEED_TEST_THRESHOLD, size);
+
+        //add touches to the chain
+        for(int i=0;i<size;i++){
+            chain.add_touch(new Touch('a', (i%11)*.1, 100));
+        }
+
+        return chain;
     }
 }
