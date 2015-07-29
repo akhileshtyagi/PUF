@@ -117,8 +117,8 @@ public class MainActivity extends ActionBarActivity {
 
 
     //constants used for speedtesting
-    final static int SPEED_TEST_WINDOW_SIZE = 5;
-    final static int SPEED_TEST_TOKEN_SIZE = 10;
+    final static int SPEED_TEST_WINDOW_SIZE = 3;
+    final static int SPEED_TEST_TOKEN_SIZE = 7;
     final static int SPEED_TEST_THRESHOLD = 1000;
 
     //returns the time it takes to build and compare the models

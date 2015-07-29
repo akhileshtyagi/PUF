@@ -315,6 +315,42 @@ In exploring the design space of this system we are trying to determine how well
 %
 To establish that the results in Figure \ref{fig:authentication_accuracy} hold for large numbers of comparisons many more comparisons where done around the area of best results. The results of these tests are presented in Figure \ref{fig:authentication:accuracy}. For the results depicted in the figure, user\_model\_size is held constant at ten thousand while auth\_model\_size is varied. The test was performed in this way because variations in auth\_model\_size seems to have a greater impact on authentication accuracy than variations in base\_model\_size. Approximately the same trend as seen in Figure \ref{fig:authentication_accuracy} presents itself in Figure \ref{fig:extensive_authentication_accuracy}.
 
+\begin{figure}
+\centering
+\includegraphics[width=3.9in]{nexus_speed_test.png}
+\caption{Depicts the time taken on a Nexus 7 tablet as a function of base model size and auth model size. Time taken is measured in milliseconds while model sizes are measured by number of touches.}
+\label{fig:nexus_speed_test}
+\end{figure}
+
+%explain the contents of these figures.
+%explain what each of the metrics used in the figure are.
+%fig:nexus_speed_test
+Figure \ref{fig:nexus_speed_test} depicts the runtime of our system on a Nexus 7 tablet. Time taken is measured in milliseconds while model sizes are measuered by number of touches used to construct the model. 
+The time taken metric does not include the overhead associated with adding touches to either the base or auth models; it is assumed this will be done over time as the user enters data. In addition, adding touches is not a computationally intense activty as it is designed to be done in constant time. 
+Time taken does include the probability computation for each of the models and the compairason between the models.
+This chart is a good representation of how each of the model sizes affect the runtime of the system and allows for the identification of an overall trend in the system's runtime. The overall time taken is trending upward as both base model size and auth model size increase; this suggests that the total number of touches used, that is the sum of base model size and auth model size, might be the most important factor in determining the runtime.
+The dependence on the total number of touches makes sence because the majority of the computations are used to determine the probabilitys of the Marcov model. A greater number of touches in a model reqires more of these probility computations to take place.
+Also of note, base model size and auth model size seem to affect time taken differently. A change of $k$ in the size of auth model seems to increase the total amount of time taken more than the same $k$-sized change in the base model. 
+
+\begin{figure}
+\centering
+\includegraphics[width=3.9in]{nexus_total_size_time.png}
+\caption{Depicts the time taken on a Nexus 7 tablet as a function of base model size plus auth model size. Time taken is measured in milliseconds while model sizes are measured by number of touches.}
+\label{fig:nexus_total_size_time}
+\end{figure}
+
+%fig:nexus_total_size_time
+Figure \ref{fig:nexus_total_size_time} illustrates how the time taken depends on the total number of touches used in createing the models. That is to say total size is the sum of base model size and auth model size. The trend in the model suggests that the total amount of time taken will increase exponentially as the number of touches used to generate the model increase.
+This figure also supports the conclusion that the total size of the model in number of touches has a larger influence on the runtime then the sizes of either the base or auth models individually; in general, more touches will lead to an increase in run time.
+
+%TODO discuss why each figure is important
+%figure x establishes that x model size has a greater influence on the speed and that overall performance seems to be in some way a function of the total number of touches used.
+%figure x2 establishes that there is an exponential trend in the runtime of this system. As 
+
+%tie it all together, discuss the importance of this section as a whole
+Figures \ref{fig:authentication_accuracy} and \ref{fig:extensive_authentication_accuracy} establish that in general a greater number of touches used in the authentication will result in a greater accuracy. This manifests in the charts as the peaks indicating the highest authentication accuracy existing aground areas where the largest numbers of touches are used to construct the models. Figures \ref{fig:nexus_speed_test} and \ref{fig:nexus_total_size_time} demonstrate the performance tradeoff associated with using increased numbers of touches. 
+As expected there exists an inverse relationship between performance in terms of speed and accuracy of authentication. That is, increased authentication accuracy comes at the expense of execution speed.
+
 \section{Conclusions}
 \label{sec:conclusions}
 %make sure to re-tell the story in the conclusion.
@@ -334,7 +370,7 @@ Data for this approach comes from the user's interactions with the touchscreen o
 %why data from the touchscreen is a UD-PUF
 Mobile device touchscreen interactions are also ideal for use in an authentication scheme. They function both as a biometric of the human user and the silicon of the device; a change in either device or user will be detected as a result.
 
-%TODO describe the design space for the system presented in the paper
+%TODO describe the design space for the system presented in the paper, also quantify best results
 Depending on the implementation of this system, varying the parameters of the modeling system can allow the implementer to tune the system to their specific purpose. 
 
 %possible, describe applications  in terms of continuous authentication
