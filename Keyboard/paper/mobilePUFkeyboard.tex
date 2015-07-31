@@ -172,8 +172,18 @@ touch screen pressure values that are continually generated as the user interact
 through a soft keyboard.
 
 
+%benefit of continuious authentication over other systems
+Consider an authentication scheme which seeks to achieve authentication over the duration of a device's use, but requires that some action must actively be taken by the user. Say that this system requires the user to complete some gesture in response to an image on the screen.
+This sort of authentication my interupt the user durring important tasks, or otherwise cause the device to be more difficult to use.
+This may lead to great frustration on the part of the user at having to reauthenticate.
+This senerio exposes a clear benefit of continious authentication which runs in the background. If the authentication system utilizes actions which are already being preformed by the user to preform the authentication then the user can go about their business completly unaware and uninterupted by the authentication system. 
+This means additional security is possible without causing undo stress on the user or making interation with the device an unpleasent experience.
+
+
 % describe the structure of the paper, what is contained in each section
-The structure of the paper is as follows. Section \ref{sec:related_work} discusses related work. Touchscreen pressure and the corresponding UD-PUF model are described in section \ref{sec:touchscreen}. The $n$-Markov model and its parametrization are discussed in section \ref{sec:modeling}. Section \ref{touch_pressure_modeling} provides some implementation details with respect to how touchscreen pressure is used in the modeling scheme. Data collection methods are discussed in section \ref{sec:data_collection}. The authentication scheme is discussed in section \ref{sec:differentiation}. The results including final numbers and suggestions in practical applications are articulated in section \ref{sec:results}. Conclusions are presented in section \ref{sec:conclusions}. Finally section \ref{sec:futurework} discusses future work in this area. 
+The structure of the paper is as follows. Section \ref{sec:related_work} discusses related work. Touchscreen pressure and the corresponding UD-PUF model are described in section \ref{sec:touchscreen}. The $n$-Markov model and its parametrization are discussed in section \ref{sec:modeling}. 
+%Section \ref{touch_pressure_modeling} provides some implementation details with respect to how touchscreen pressure is used in the modeling scheme. 
+Data collection methods are discussed in section \ref{sec:data_collection}. The authentication scheme is discussed in section \ref{sec:differentiation}. The results including final numbers and suggestions in practical applications are articulated in section \ref{sec:results}. Conclusions are presented in section \ref{sec:conclusions}. Finally section \ref{sec:futurework} discusses future work in this area. 
 
 \section{Related Work}
 \label{sec:related_work}
@@ -190,15 +200,32 @@ Another noteable aspect of the SenSec system is their method of modeling users w
 %TODO provide a brief history of UD-PUFS
 %TODO explain why are solution is better than previous/other solutions
 
+%TODO describe how our work differes from that of our predecessors
+
 %describe what touchscreen pressure is
 %describe the physical component of the pressure (current at the edge of screen on android device)
 \section{Touchscreen Pressure}
 \label{sec:touchscreen}
-%TODO describe what is touchscreen pressure
-If our goal is be be able to distinguish a user's interaction with a given device from this same user on a different device and from different users on any device than our description of the user will need to be a product of both the user and the device. In the android operating system there exists a pressure function which returns a value proportional to current at sides of phone for a given touch screen interaction. \cite{zhu2013sensec} This is the value which will serve as the basis for our scheme and will henseforth be referred to as touch pressure. 
+%describe how touchscreens work
+Many mobile devices today are equiped with capacitive touchscreens which have the ability to approximate, among other metrics, the pressure of a given interaction with the touchscreen. \cite{?} 
+When a user interacts with the touchscreen of their device they typically put their finger or fingers on the screen in order to indicate what operation they want the device to preform. This contact (or near contact) functions to increase the capacitance of the screen in a predictable way. 
+The touchscreen is split into many rows and columns; capacitance is measured indirectally as a function of the current increase in the row and column containing the touch.\ref{?} 
+
+%describe what is touchscreen pressure
+If our goal is be be able to distinguish a user's interaction with a given device from this same user on a different device and from different users on any device than our description of the user will need to be a product of both the user and the device. 
+In the android operating system there exists a pressure function which returns a value proportional to current at sides of the touchscreen for a given touchscreen interaction. \cite{?} 
+This measurement is a function of both the device silicon and the way the interacts with the touchscreen making this measurement a reasonable choice for use in our system.
+This is the value which will serve as the basis for our scheme and will henseforth be referred to as touch pressure. 
 
 %TODO describe why touchscreen pressure is a good candidate for our UD-PUF
 The pressure function is significant because it's value not only depends on the characteristics of the device but also on the way in which a user interacts with a given device. The effect of a given device on the touch pressure value will differ significantly due to variations implicit in the manufacturing process for the touchscreens of these devices. \cite{manufacturing_differences} Our supposition is a given user will interact with a touchscreen in such a way as to cause significant variations in the touch pressure values when compared to other users on the same touchscreen \cite{user_touchscreen_interations}.  Given this, we have chosen touch pressure as the basis for our UD-PUF.
+
+%TODO describe how we use touch pressure in our system, modeling and authentication
+In our system, we reccord the touch pressures generated by the user when they are using the system's soft keyboard. Once we have collected a sufficient number of touches, authentications may begin to be preformed on new data. Figure \ref{fig:authentication_accuracy} demonstrates that as few as 6000-8000 touches may be used to achieve accuracies higher than 80\%.
+A typical user can enter information into a devices soft keyboard at a rate of xx words per minute. \ref{}. %TODO do the calculations about how long before
+A word is on average five letters long leading to a rate of xx*5 touch interations per minute.
+This means in the average use case a user will generate enough information to begin being authenticated in about x minutes of continious use.
+Many applications utilize this as a method of input meaning that in the average use case there will be a constant influx of new data to be analyzed.
 
 %describe a marcov model in general
 %describe what it means to be an n-gram sliding marcov model
@@ -211,24 +238,51 @@ Interactions between users and devices are complex. To interpret these actions i
 
 %TODO describe what is a marcov chain
 Markov Chains are useful in predicting systems whose behavior can be modeled in discrete states. The transitions between states can be identified to happen with some probability.
+In general an $n$-Markov model states that the
+user tokens of length $n$ repeat themselves with certain frequency. Hence if we can record history
+of $n$-token sequences, they could help us classify the user's current behavior. The tokens are
+touch screen pressure values that are continually generated as the user interacts with an app
+through a soft keyboard.
 
 %Other information about marcov chains
 %TODO traditional use of marcov chains
-Historically the Marcov Chain has found applications in (statistics?)
+%Historically the Marcov Chain has found applications in (statistics?)
 
-Upon identification of an appropriate model the next step is to discover an optimal way in which it may be applied to the current problem. An interaction between a user and device can be described as a sequence of touch pressure values. Using a Markov Chain to describe this sequence is only reasonable if we suppose that a given touch pressure value depends on some number of preceding touch pressure values. \cite{marcov_chains_previous_n_values}
-%
+%begin talking about the construction of the model
+Upon identification of an appropriate model the next step is to discover an optimal way in which it may be applied to the current problem. Interactions between a user and device can be described as a sequence of touch pressure values which accumulates over time
+as the user continues to interact with apps though a soft keyboard.
+We use $n$-sized subsets of this sequence in the $n$-Markov model constructed for the user.\cite{marcov_chains_previous_n_values}
+
+%demonstrates how the range is split into many distinct token ranges by pressure
+\begin{figure}
+\centering
+\includegraphics[width=3.9in]{token_creation.png}
+\caption{Describes how a distribution may be split into distinct token ranges by pressure.}
+\label{fig:token_creation}
+\end{figure}
+
+%TODO continue talking about model construction.
+%how are tokens constructed
+%how are probabilities calculated
+In building the model we remove some touches likely to be mistakes by the user or simply outliers in the data set.
+The distribution of touch pressue values is calculated for each area on the touchscreen with which the user interacts. In our system these areas correspond to keys of the soft keyboard but they are not restricted to be this.
+The distribution, \mu and \sigma, values are calculated for each of these areas.
+If a key falls outside of \mu+/-2\sigma for a given area, then it is not included in any of the $n$-token sequences. 
+Figure \ref{fig:token_creation} illustrates how this works on a distribution which has been split into 7 token ranges.
+The value of \mu+/-2\sigma was chosen because statistically xx\% of touches will fall withing this range. \ref{statistically xx\%}
+For tokens to be considered equal, both the area from which the touch was generated and the pressure must match.
 
 %n-gram a continuious sequence of n items
 %markov model for comparason is built from a sliding model of the previous n touches
 %describe how the marcov chain is applied to touch pressure to model a user
 %this is a description of our specific implementation of a marcov model
-\section{Touch Pressure Modeling}
-\label{touch_pressure_modeling}
+%\section{Touch Pressure Modeling}
+%\label{touch_pressure_modeling}
 %TODO this section should describe various implementation details
 %TODO it may be useful to include all different parameters to the model, and the effects of varying each of them
 %TODO describe the marcov model used
-The goal in modeling a system with a Markov model is to classify the system in terms of its transitions between states. If such a model is to be used to purposes of uniquely identifying a given system, than the model must be chosen in a way which exposes the uniqueness of the system. Our scheme uses a Markov model constructed from the sequence of touches entered by a user. Each touch contains information about the pressure and location of the interaction with the touchscreen.
+The goal in modeling a system with a Markov model is to classify the system in terms of its transitions between states. If such a model is to be used to purposes of uniquely identifying a given system, than the model must be chosen in a way which exposes the uniqueness of the system. Our scheme uses a Markov model constructed from the sequence of touches entered by a user through the soft keyboard.
+Each touch contains information about the pressure and location of the interaction with the touchscreen.
 
 %TODO describe aspects of the implementation
 %describe how the model is constructed from the touch pressure sequence
@@ -238,14 +292,8 @@ Our Markov model calculates the probability of a given touch coming after a sequ
 %TODO cite some sources for this explaination
 The probability of a touch coming after a sequence of touches can be expressed as the number of occurrences of touch after a given sequence by the total number of occurrences of that sequence.
 %TODO this is the place for MLE, maximal liklihood estimation formulas
+\ref{something with mle formulas}
 
-\section{Data Collection}
-\label{sec:data_collection}
-%TODO
-%describe the number of users from which the data was collected
-%describe the method of collection
-Data for creating touch pressure models in this experiment was generated using a special keyboard application for the android operating system. Users would load the keyboard onto their device and continue using the device in the way they would normally. Some users were asked to play a typing game in order to help expedite the data collection process. After the users had generated at least ten thousand touches the data was collected from the user's device.
-%put the data in context by detailing the number of touches collected from each user and the number of touches used to build the model
 
 %basically the authentication scheme used
 %frame it in more general terms, independent of our specific application
@@ -283,12 +331,41 @@ False negative percentage is exactly the inverse of false positive percentage in
 In Figure \ref{fig:threshold_vs_percentages} there exists a clear intersection between false negative and false positive percentages. This intersection is significant; at this point the system neither biased toward allowing user-device pairs which should not authenticate to pass authentication nor toward disallowing user-device pairs, which should authenticate, from passing authentication. This point represents a balance in design, but the best authentication threshold will depend on the application of this system.
 
 %TODO describe the implementation of the authentication system, how the compairason works
-The implementation of the authentication system is as follows. A Markov model is constructed from a sequence of touches known to have come from the user. A seperate Markov model is then constructed from a sequence of touches which need to be compaired to the model. The probabilities computed for each of these models are then compaired and a percent difference is derived from these compairasons. We then choose to authentication only those models which have achieved a low enough percent difference.
+The implementation of the authentication system is as follows. A Markov model is constructed from a sequence of touches known to have come from the user. A seperate Markov model is then constructed from a sequence of touches which need to be compaired to the model.
+The model coming from the later sequence of touches is created with the same distribution as the base model. This affects the $n$-sized touches sequences which are added to the authentication model.
+Sequences containing touches which fall outside the base model's distribution are thrown out.
+The probabilities computed for each of these models are then compaired and a percent difference is derived from these compairasons. We then choose to authentication only those models which have achieved a low enough percent difference.
+
+%TODO describe the model compairason
+In comparing the base and auth Markov models each $n$-token sequence in the auth model is compared to the base model.
+For a given sequence in the auth model the base model is searched for a matching sequence.
+If a matching sequence is not found then the sequence in the auth model being considered is decided to be maximally different.
+If a matching sequence is found than the absolute value of the differance between probabilities computed for that sequence are considered to be the difference.
+The aggragate difference is the average of these difference values.  
+
+\section{Data Collection and Analysis}
+\label{sec:data_collection}
+%TODO
+%describe the number of users from which the data was collected
+%describe the method of collection
+Data for creating touch pressure models in this experiment was generated using a special keyboard application for the android operating system. Users would load the keyboard onto their device and continue using the device in the way they would normally. Some users were asked to play a typing game in order to help expedite the data collection process. After the users had generated at least ten thousand touches the data was collected from the user's device.
+%TODO put the data in context by detailing the number of touches collected from each user and the number of touches used to build the model
+
+%TODO describe the user base from which the data was collected for the results presented here
+The results presented here were derived from four user-device pairs each having a large number of touches.
+Each user was asked to use two different devices to collect data.
+The size of the data sets collected was approximately 20000-25000 for each user-device pair.
+
+%TODO describe how the data was analyzed
+
 
 %what number of states exposed the most uniqueness e.g. how many tokens were best
 %with what accuracy could users be distinguished from one-another
 \section{Results}
 \label{sec:results}
+%TODO discuss predictions and whether they were correct or incorrect.
+We predicted that an increase in the number of touches used to build the model would provide better accuracy in authentications. 
+In additon,
 
 %this section describes how authentication accuracy was investigated. Also included are a few figures which describe the best authentication accuracy percentage
 \begin{figure}
@@ -302,6 +379,16 @@ The implementation of the authentication system is as follows. A Markov model is
 %explain what each of the metrics used in the figure are.
 %
 In exploring the design space of this system we are trying to determine how well the system will perform in the end use case. Perhaps the best measure of the system's performance is how accurate the system is when authenticating users. Figure \ref{fig:authentication_accuracy} depicts authentication\_accuracy as a function of base\_model\_size, number of touches known to have originated from an authentic user, and auth\_model\_size, number of touches which are to be checked against the model generated from the base touches. We define authentication\_accuracy to be the percentage of authentications for which our system makes the correct decision. In other words, an authentic user is authenticated and a non-authentic user is not authenticated. The size of base model and user model which result in a given authentication accuracy are aligned with that authentication accuracy on the horizontal axis in the chart. 
+
+%explain why more touches does not always equal more accuracy
+In some instances, increased numbers of touches did not result in higher authentication accuracies. 
+These lower accuracies seem to correspond to areas where %TODO
+ This could be a result of the way the model decides to include $n$-sized touch sequences in the authentication. 
+In this case, an auth model which is  different will authenticate with low probability because sequences are punished for not existing in the base model if they exist in the auth model.
+If there are not many $n$-token sequences in the base model then high differences will be represent for models which are only slightly different, because many sequnces will not exist in the base model.
+This sequences will be considered maximally different and constitute a high proportion of the number of $n$-token sequences.
+%an alternative explaination
+%An alternitive explaination could be In the authentication, the distribution which was calculated for the base model is also used for the auth model.
 
 \begin{figure}
 \centering
@@ -366,14 +453,14 @@ The implementation of our system has both modeling and authentication components
 The authentication system constructs two models. One of the models coming from the most recent touches and the other coming from touches preceeding the most recent. A differance is derived between the models which is a function of the probabilily derived in the modeling phase. If differance is sufficiently large it can be said with reasonable certainty that the user from which the touch sequences origionated for the most recent touches differs from the user who generated the touches preceeding those most recent. 
 
 %describe where the data comes from, benefits (failure of the touchscreen constitutes failure of the device compared with the other systems where authentication may failwithout failure of the device.)
-Data for this approach comes from the user's interactions with the touchscreen of their device. This data will be generated over time by the user; thus this scheme lends itself very well to a continuous authentication model. In addition, this data is reliable over the lifespan of the device. The authentication system will persist as long as the touchscreen functions correctly. A failure of the touchscreen renders the mobile device useless; hense the system is more robust compared to systems which depend on multiple sensors contained on the mobile device.
+Data for this approach comes from the user's interactions with the soft keyboard of their device. This data will be generated over time by the user; thus this scheme lends itself very well to a continuous authentication model. In addition, this data is reliable over the lifespan of the device. The authentication system will persist as long as the touchscreen functions correctly. A failure of the touchscreen renders the mobile device useless; hense the system is more robust compared to systems which depend on multiple sensors contained on the mobile device.
 %why data from the touchscreen is a UD-PUF
 Mobile device touchscreen interactions are also ideal for use in an authentication scheme. They function both as a biometric of the human user and the silicon of the device; a change in either device or user will be detected as a result.
 
 %TODO describe the design space for the system presented in the paper, also quantify best results
 Depending on the implementation of this system, varying the parameters of the modeling system can allow the implementer to tune the system to their specific purpose. 
 
-%possible, describe applications  in terms of continuous authentication
+%TODO possible, describe applications  in terms of continuous authentication
 \section{Future Work}
 \label{sec:futurework}
 

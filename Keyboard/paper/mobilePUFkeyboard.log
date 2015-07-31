@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.6.17)  29 JUL 2015 14:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014/Arch Linux) (preloaded format=pdflatex 2015.6.17)  31 JUL 2015 18:25
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -290,31 +290,103 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ]
 
-LaTeX Warning: Citation `?' on page \thepage  undefined on input line 181.
+LaTeX Warning: Citation `?' on page \thepage  undefined on input line 191.
 
 
-LaTeX Warning: Citation `?' on page \thepage  undefined on input line 181.
+LaTeX Warning: Citation `?' on page \thepage  undefined on input line 191.
 
 
-Overfull \hbox (2.25705pt too wide) in paragraph at lines 185--186
+Overfull \hbox (2.25705pt too wide) in paragraph at lines 195--196
 []\T1/aer/m/n/9 Another note-able as-pect of the SenSec sys-tem is their method
 
  []
 
 
+LaTeX Warning: Citation `?' on page \thepage  undefined on input line 210.
+
+
+LaTeX Warning: Reference `?' on page \thepage  undefined on input line 212.
+
+
+Overfull \hbox (4.38132pt too wide) in paragraph at lines 210--213
+\T1/aer/m/n/9 Many mo-bile de-vices to-day are equiped with ca-pac-i-tive touch
+-
+ []
+
+
+LaTeX Warning: Citation `?' on page \thepage  undefined on input line 216.
+
+
 LaTeX Warning: Citation `manufacturing_differences' on page \thepage  undefined
- on input line 201.
+ on input line 221.
 
 
 LaTeX Warning: Citation `user_touchscreen_interations' on page \thepage  undefi
-ned on input line 201.
+ned on input line 221.
 
 
-LaTeX Warning: Citation `marcov_chains_previous_n_values' on page \thepage  und
-efined on input line 219.
+LaTeX Warning: Reference `' on page \thepage  undefined on input line 225.
 
 [2]
-Overfull \hbox (15.5365pt too wide) in paragraph at lines 252--252
+
+LaTeX Warning: Citation `marcov_chains_previous_n_values' on page \thepage  und
+efined on input line 254.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.261 The distribution, \mu
+                            and \sigma, values are calculated for each of th...
+
+? 
+! Missing \endcsname inserted.
+<to be read again> 
+                   \%
+l.263 ...hing this range. \ref{statistically xx\%}
+                                                  
+? 
+
+LaTeX Warning: Reference `\endcsname ' on page \thepage  undefined on input lin
+e 263.
+
+! Missing $ inserted.
+<inserted text> 
+                $
+l.276 
+      
+? 
+
+Overfull \hbox (62.23087pt too wide) in paragraph at lines 259--276
+\OML/cmm/m/it/9 ^^Vand^^[; valuesarecalculatedforeachoftheseareas:Ifakeyfallsou
+tsideof^^V \OT1/cmr/m/n/9 +
+ []
+
+
+Overfull \hbox (114.21495pt too wide) in paragraph at lines 259--276
+\OML/cmm/m/it/9 = \OMS/cmsy/m/n/9 ^^@ \OT1/cmr/m/n/9 2\OML/cmm/m/it/9 ^^[foragi
+venarea; thenitisnotincludedinanyofthe$\T1/aer/m/n/9 n$\OMS/cmsy/m/n/9 ^^@\OML/
+cmm/m/it/9 tokensequences:Thevalueof^^V \OT1/cmr/m/n/9 +
+ []
+
+
+Overfull \hbox (2072.38422pt too wide) in paragraph at lines 259--276
+\OML/cmm/m/it/9 = \OMS/cmsy/m/n/9 ^^@ \OT1/cmr/m/n/9 2\OML/cmm/m/it/9 ^^[wascho
+senbecausestatisticallyxx\OT1/cmr/m/n/9 %\OML/cmm/m/it/9 oftoucheswillfallwithi
+ngthisrange:[]statisticallyxx\OT1/cmr/m/n/9 %\OML/cmm/m/it/9 Thegoalinmodelinga
+systemwithaMarkovmodelistoclassifythesystemintermsofitstransitionsbetweenstates
+:Ifsuchamodelistobeusedtopurposesofuniquelyidentifyingagivensystem; thanthemode
+lmustbechoseninawaywhichexposestheuniquenessofthesystem:OurschemeusesaMarkovmod
+elconstructedfromthesequenceoftouchesenteredbyauserthroughthesoftkeyboard:Eacht
+ouchcontainsinformationaboutthepressureandlocationoftheinteractionwiththetouchs
+creen:$ 
+ []
+
+
+LaTeX Warning: Reference `something with mle formulas' on page \thepage  undefi
+ned on input line 285.
+
+
+Overfull \hbox (15.5365pt too wide) in paragraph at lines 290--290
 []\secfnt DIFFERENTIATING USER-DEVICE PAIRS 
  []
 
@@ -323,98 +395,105 @@ File: figures/threshold_vs_percentages.png Graphic file (type png)
 
 <use figures/threshold_vs_percentages.png>
 Package pdftex.def Info: figures/threshold_vs_percentages.png used on input lin
-e 258.
-(pdftex.def)             Requested size: 281.85255pt x 174.28522pt.
-
-Overfull \hbox (41.85255pt too wide) in paragraph at lines 258--259
- [][] 
- []
-
-
-<figures/authentication_accuracy_vs_model_size.png, id=17, 602.25pt x 372.39125
-pt>
-File: figures/authentication_accuracy_vs_model_size.png Graphic file (type png)
-
- <use figures/authentication_accuracy_vs_model_size.png>
-Package pdftex.def Info: figures/authentication_accuracy_vs_model_size.png used
- on input line 296.
+e 296.
 (pdftex.def)             Requested size: 281.85255pt x 174.28522pt.
 
 Overfull \hbox (41.85255pt too wide) in paragraph at lines 296--297
  [][] 
  []
 
-[3 <./figures/threshold_vs_percentages.png> <./figures/authentication_accuracy_
-vs_model_size.png>]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3 <./figures/threshold_vs_percentages.png>]
+<figures/authentication_accuracy_vs_model_size.png, id=22, 602.25pt x 372.39125
+pt>
+File: figures/authentication_accuracy_vs_model_size.png Graphic file (type png)
+
+ <use figures/authentication_accuracy_vs_model_size.png>
+Package pdftex.def Info: figures/authentication_accuracy_vs_model_size.png used
+ on input line 363.
+(pdftex.def)             Requested size: 281.85255pt x 174.28522pt.
+
+Overfull \hbox (41.85255pt too wide) in paragraph at lines 363--364
+ [][] 
+ []
+
+
 <figures/extensive_authentication_accuracy.png, id=23, 602.25pt x 372.39125pt>
 File: figures/extensive_authentication_accuracy.png Graphic file (type png)
 
 <use figures/extensive_authentication_accuracy.png>
 Package pdftex.def Info: figures/extensive_authentication_accuracy.png used on 
-input line 308.
+input line 385.
 (pdftex.def)             Requested size: 281.85255pt x 174.28522pt.
 
-Overfull \hbox (41.85255pt too wide) in paragraph at lines 308--309
+Overfull \hbox (41.85255pt too wide) in paragraph at lines 385--386
  [][] 
  []
 
 
 LaTeX Warning: Reference `fig:authentication:accuracy' on page \thepage  undefi
-ned on input line 316.
+ned on input line 393.
 
-<figures/nexus_speed_test.png, id=24, 602.25pt x 372.39125pt>
+
+Underfull \vbox (badness 6300) has occurred while \output is active []
+
+ [4 <./figures/authentication_accuracy_vs_model_size.png> <./figures/extensive_
+authentication_accuracy.png>]
+<figures/nexus_speed_test.png, id=29, 602.25pt x 372.39125pt>
 File: figures/nexus_speed_test.png Graphic file (type png)
 
 <use figures/nexus_speed_test.png>
-Package pdftex.def Info: figures/nexus_speed_test.png used on input line 320.
+Package pdftex.def Info: figures/nexus_speed_test.png used on input line 397.
 (pdftex.def)             Requested size: 281.85255pt x 174.28522pt.
 
-Overfull \hbox (41.85255pt too wide) in paragraph at lines 320--321
+Overfull \hbox (41.85255pt too wide) in paragraph at lines 397--398
  [][] 
  []
 
-<figures/nexus_total_size_time.png, id=25, 602.25pt x 372.39125pt>
+<figures/nexus_total_size_time.png, id=30, 602.25pt x 372.39125pt>
 File: figures/nexus_total_size_time.png Graphic file (type png)
 
 <use figures/nexus_total_size_time.png>
-Package pdftex.def Info: figures/nexus_total_size_time.png used on input line 3
-37.
+Package pdftex.def Info: figures/nexus_total_size_time.png used on input line 4
+14.
 (pdftex.def)             Requested size: 281.85255pt x 174.28522pt.
 
-Overfull \hbox (41.85255pt too wide) in paragraph at lines 337--338
+Overfull \hbox (41.85255pt too wide) in paragraph at lines 414--415
  [][] 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [4 <./figures/extensive_authentication_accuracy.png> <./figures/nexus_speed_te
-st.png>]
-(./mobilePUFkeyboard.bbl) [5 <./figures/nexus_total_size_time.png>]
-(./mobilePUFkeyboard.aux)
+ [5 <./figures/nexus_speed_test.png> <./figures/nexus_total_size_time.png>]
+(./mobilePUFkeyboard.bbl) [6
+
+] (./mobilePUFkeyboard.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2822 strings out of 493109
- 35884 string characters out of 6140856
- 101878 words of memory out of 5000000
- 6215 multiletter control sequences out of 15000+600000
- 47315 words of font info for 64 fonts, out of 8000000 for 9000
+ 2833 strings out of 493109
+ 35979 string characters out of 6140856
+ 101869 words of memory out of 5000000
+ 6222 multiletter control sequences out of 15000+600000
+ 53333 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,10n,28p,973b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cm
-r9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/sh
-are/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts
-/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utm
-b8a.pfb>
-Output written on mobilePUFkeyboard.pdf (5 pages, 253885 bytes).
+r9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/sh
+are/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dist/
+fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helv
+etic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
+Output written on mobilePUFkeyboard.pdf (6 pages, 252107 bytes).
 PDF statistics:
- 60 PDF objects out of 1000 (max. 8388607)
- 35 compressed objects within 1 object stream
+ 67 PDF objects out of 1000 (max. 8388607)
+ 40 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  26 words of extra memory for PDF output out of 10000 (max. 10000000)
 
