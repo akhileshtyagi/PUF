@@ -266,11 +266,19 @@ We use $n$-sized subsets of this sequence in the $n$-Markov model constructed fo
 %how are probabilities calculated
 In building the model we remove some touches likely to be mistakes by the user or simply outliers in the data set.
 The distribution of touch pressue values is calculated for each area on the touchscreen with which the user interacts. In our system these areas correspond to keys of the soft keyboard but they are not restricted to be this.
-The distribution, \mu and \sigma, values are calculated for each of these areas.
-If a key falls outside of \mu+/-2\sigma for a given area, then it is not included in any of the $n$-token sequences. 
+The distribution, $\mu$ and $\sigma$, values are calculated for each of these areas.
+If a key falls outside of $\mu\pm2\sigma$ for a given area, then it is not included in any of the $n$-token sequences. 
 Figure \ref{fig:token_creation} illustrates how this works on a distribution which has been split into 7 token ranges.
-The value of \mu+/-2\sigma was chosen because statistically xx\% of touches will fall withing this range. \ref{statistically xx\%}
+The value of $\mu\pm2\sigma$ was chosen because statistically xx\% of touches will fall withing this range for normally distributed data. \ref{statistically_xx_percent} Figure \ref{fig:normal_distribution} plots a set of touch pressures from one of our users which shows that our data can be described as having a normal distribution.
 For tokens to be considered equal, both the area from which the touch was generated and the pressure must match.
+
+%shows that our data is normally distributed
+\begin{figure}
+\centering
+\includegraphics[width=3.9in]{normal_distribution.png}
+\caption{This chart displays a set of pressure data from one of our uses. Note that the pressure values are nomally distributed.}
+\label{fig:normal_distribution}
+\end{figure}
 
 %n-gram a continuious sequence of n items
 %markov model for comparason is built from a sliding model of the previous n touches
@@ -278,19 +286,60 @@ For tokens to be considered equal, both the area from which the touch was genera
 %this is a description of our specific implementation of a marcov model
 %\section{Touch Pressure Modeling}
 %\label{touch_pressure_modeling}
-%TODO this section should describe various implementation details
+% this section should describe various implementation details
 %TODO it may be useful to include all different parameters to the model, and the effects of varying each of them
+
+%describes how the marcov model is built from the sequence of touch pressures
+\begin{figure*}
+\centering
+\includegraphics[width=3.9in]{marcov_model_building.png}
+\caption{The top of this figure depicts the raw imput origionating from the touchscreen. Each touch represents a single interaction between the user and the human user and the soft keyboard of the mobile device. The bottom images show how the raw input is organized into the marcov model. For example, the bottom left image can be interpreted as Touch\_4 succeeds the sequence Touch\_2, Touch\_3 with some probability.}
+\label{fig:markov_model_building}
+\end{figure*}
+
+%TODO desctibe, or reference somewhere, the above pictures
+
 %TODO describe the marcov model used
 The goal in modeling a system with a Markov model is to classify the system in terms of its transitions between states. If such a model is to be used to purposes of uniquely identifying a given system, than the model must be chosen in a way which exposes the uniqueness of the system. Our scheme uses a Markov model constructed from the sequence of touches entered by a user through the soft keyboard.
 Each touch contains information about the pressure and location of the interaction with the touchscreen.
 
 %TODO describe aspects of the implementation
 %describe how the model is constructed from the touch pressure sequence
-Our Markov model calculates the probability of a given touch coming after a sequence of $n$ touchs. $n$ is a parameter to the model which should allow for increased accuracy in determining the true probability of a given touch to come after a preceeding sequence of touches when given more data to construct the model. The increased accuracy is due to a greater number of possible model states which decreases the liklihood that a user will have states which overlap a different user.
+Our Markov model calculates the probability of a given touch coming after a sequence of $n$ touchs.
+$n$ is a parameter to the model which should allow for increased accuracy in determining the true probability of a given touch to come after a preceeding sequence of touches when given more data to construct the model. The increased accuracy is due to a greater number of possible model states which decreases the liklihood that a user will have states which overlap a different user.
+Figure \ref{fig:markov_model_building} demonstrates how the sequences for the Marcov model are generated from the user's raw input into the soft keyboard.
+
+%describes how the marcov model will look after it has been constructed
+\begin{figure*}
+\centering
+\includegraphics[width=3.9in]{final_marcov_model_state.png}
+\caption{This figure depicts the state of the Markov model after the probabilities have been calculated. The top image, for example, may be interpreted as Touch\_2 succeeds the sequence Touch\_0, Touch\_1 with probability 100\%.}
+\label{fig:final_markov_model_state}
+\end{figure*}
 
 %TODO describe the probability calculation in detail
-%TODO cite some sources for this explaination
 The probability of a touch coming after a sequence of touches can be expressed as the number of occurrences of touch after a given sequence by the total number of occurrences of that sequence.
+The idea behind this probability calculation is illustrated in Figure \ref{fig:final_markov_model_state}.
+Noteably, Touch\_$n$ is not distinct. In other words Touch\_$a$ will be considered equal to Touch\_$b$ if the keycodes of these touches are equal and the touches fall within the same pressure range. Pressure ranges are depicted in Figure \ref{fig:token_creation}.
+
+%TODO talk about how prefix tree is used to store these sequences in order to increase the speed.
+%TODO cite some source which supports the benefits of a prefix tree
+%TODO explain what a prefix tree is
+%TODO include some figures to illustrate what a prefix tree is
+The information needed to calculate the probability of a touch succeeding a given sequence is the number of times that touch succeeds the sequence and the number of times the sequence occurrs.
+The use of a prefix tree as a data structure can be used to make both of these numbers more readily accessible thus increasing the speed of the probability calculation.
+%TODO explain how prefix tree makes them readily accessible
+
+%TODO explain why this increases the speed of the probability caluclation... articulate how an alternative data structure would perform
+
+
+%explain how the prefix tree is implemented in our system
+In our system the $n$-token sequences are stored in a list while a prefix tree is used to store information about the each sequence.
+This information is stored on the nodes of the tree; it includes the number of occurrences of a sequence and a list of indexes where the sequence occurrs in the list storeing all the sequences.
+This index list is useful because it eliminates the need to search the list in order to determine what the successor touches of a window are.
+This approach requires much fewer calculations compared to simply using a list to store the sequences. 
+If only a list is used then in order to determine how many times a sequence occurrs the list must be searched.
+
 %TODO this is the place for MLE, maximal liklihood estimation formulas
 \ref{something with mle formulas}
 
