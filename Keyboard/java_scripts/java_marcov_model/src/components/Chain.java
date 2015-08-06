@@ -753,11 +753,12 @@ public class Chain{
 		//System.out.println(touches.size());
 		//for each of the touches (they are in order)
 		for(int i=0; i<touches.size(); i++){
-			//TODO take into account that touches are also not good if they fall outside of their keycode distribution, or the overall distribution
+			//TODO, decided against this, take into account that touches are also not good if they fall outside of their keycode distribution, or the overall distribution
 			//if the touch is good, add it to the touch list. A touch is good if it is within threshold time and it is contained in one of the tokens.
 			if(	(get_token_index(touches.get(i)) >=0 ) && 
 					((touch_list.size()==0) || 
-						((touches.get(i).get_timestamp()-touch_list.get(touch_list.size()-1).get_timestamp()) <= threshold)))
+						((touches.get(i).get_timestamp()-touch_list.get(touch_list.size()-1).get_timestamp()) <= threshold)) &&
+					is_touch_in_key_distribution(touches.get(i)))
 			{
 				//the touch is good
 				touch_list.add(touches.get(i));
@@ -783,6 +784,35 @@ public class Chain{
 		}
 	}
 
+	
+	///returns true if a touch is within 2 sigma for it's key distribution
+	public boolean is_touch_in_key_distribution(Touch touch){
+		int sigma = 2;
+		boolean is_touch_in = false;
+		Distribution key_dist = null;
+		List<Distribution> key_distributions = get_key_distribution();
+		
+		//determine if the touch is within 2 sigma for the mu of its key distribution
+		//1) get the distribution object for this keycode
+		if(key_distributions != null){
+			for(int i=0;i<key_distributions.size();i++){
+				if(key_distributions.get(i).get_keycode()==touch.get_key()){
+					key_dist=key_distributions.get(i);
+				}
+			}
+		}
+		
+		//2) check to see if the pressure value for this touch is within 2 sigma of mu for this distribution
+		if(key_dist != null){
+			if((touch.get_pressure() <= (key_dist.get_average()+sigma*key_dist.get_standard_deviation())) &&
+					(touch.get_pressure() >= (key_dist.get_average()-sigma*key_dist.get_standard_deviation()))){
+				is_touch_in=true;
+			}
+		}
+		
+		return is_touch_in;
+	}
+	
 
 	///returns the index corresponding to the token which contains touch. returns -1 if no token contains touch
 	private int get_token_index(Touch touch){
