@@ -1,3 +1,4 @@
+#! /bin/python2
 __author__ = 'Ian Richardson - iantrich@gmail.com'
 
 ###########################################################
@@ -21,10 +22,15 @@ times = []
 keycodes = []
 pressures = []
 
+print keycodeFile
+print pressureFile
+
 with open(currdir + '/' + keycodeFile, 'rt') as csvfile:
         reader = csv.reader(csvfile)
         for row in reader:
-            keycodes.append(row[0])
+                    stuff = row[0]
+                    if int(stuff) < 0: stuff=0
+                    keycodes.append(stuff)
 
 with open(currdir + '/' + pressureFile, 'rt') as csvfile:
         reader = csv.reader(csvfile)
