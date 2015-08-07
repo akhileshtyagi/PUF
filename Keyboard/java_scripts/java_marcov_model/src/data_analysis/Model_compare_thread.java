@@ -22,7 +22,7 @@ public class Model_compare_thread implements Runnable{
 	// this will take some time and is useful to extract results after the parameters have been mostly tweaked
 	// extensive = true implies this sort of test
 	// extensive = true and DISJOINT = 1 results in non-disjoint sets being thrown out
-	final boolean EXTENSIVE = true;
+	final boolean EXTENSIVE = false;
 	
 	List<Double> authentication_probability_list;
 	public double max_authentication_probability;
