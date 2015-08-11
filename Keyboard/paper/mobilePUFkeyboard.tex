@@ -437,22 +437,40 @@ In some instances, increased numbers of touches did not result in higher authent
 These lower accuracies seem to correspond to areas where %TODO
  This could be a result of the way the model decides to include $n$-sized touch sequences in the authentication. 
 In this case, an auth model which is  different will authenticate with low probability because sequences are punished for not existing in the base model if they exist in the auth model.
-If there are not many $n$-token sequences in the base model then high differences will be represent for models which are only slightly different, because many sequnces will not exist in the base model.
-This sequences will be considered maximally different and constitute a high proportion of the number of $n$-token sequences.
+If there are not many $n$-token sequences in the base model then high differences will be prepresent for models which are only slightly different, because many sequnces will not exist in the base model.
+These sequences will be considered maximally different and constitute a high proportion of the number of $n$-token sequences.
+The overall difference between two models is the average of the difference in probabilities between their $n$-token sequences; thus a high proportion of these sequences presenting a maximally different will cause the aggragate differance to be lower.
 %an alternative explaination
 %An alternitive explaination could be In the authentication, the distribution which was calculated for the base model is also used for the auth model.
 
+%describes authentication accuracy dependence on the amount of user data
 \begin{figure}
 \centering
-\includegraphics[width=3.9in]{extensive_authentication_accuracy.png}
-\caption{Depicts the result of many model comparisons done around the area of best results in Figure \ref{fig:authentication_accuracy}.}
-\label{fig:extensive_authentication_accuracy}
+\includegraphics[width=3.9in]{total_touches_vs_authentication_accuracy.png}
+\caption{Authentication accuracy is linked more closely to the total number of touches used in the authentication then to either the base model size or the authentication model size. Although authentication accuracy does not strictly increase with the number of touches it does trend upward.}
+\label{fig:total_touches_vs_authentication_accuracy}
 \end{figure}
+
+%TODO explain the contents of this figure.
+%explain what each of the metrics used in the figure are.
+%
+Figure \ref{fig:total_touches_vs_authentication_accuracy} presents the tradeoff between the amount of data needed for an authentication, and the accuracy of that authentication.
+In general, more data will yeild a better authentication accuracy, but this is not always true.
+The size of the base model seems to contribute more to authentication accuracy then does the size of the authentication model, therefore, if the goal is to increase authentication accuracy it seems to be better to increase the size of the base model compared to increasing the size of the authentication model.
+
+
+%TODO remove, and remove all reference to this
+%\begin{figure}
+%\centering
+%\includegraphics[width=3.9in]{extensive_authentication_accuracy.png}
+%\caption{Depicts the result of many model comparisons done around the area of best results in Figure \ref{fig:authentication_accuracy}.}
+%\label{fig:extensive_authentication_accuracy}
+%\end{figure}
 
 %explain the contents of this figure.
 %explain what each of the metrics used in the figure are.
 %
-To establish that the results in Figure \ref{fig:authentication_accuracy} hold for large numbers of comparisons many more comparisons where done around the area of best results. The results of these tests are presented in Figure \ref{fig:authentication:accuracy}. For the results depicted in the figure, user\_model\_size is held constant at ten thousand while auth\_model\_size is varied. The test was performed in this way because variations in auth\_model\_size seems to have a greater impact on authentication accuracy than variations in base\_model\_size. Approximately the same trend as seen in Figure \ref{fig:authentication_accuracy} presents itself in Figure \ref{fig:extensive_authentication_accuracy}.
+%To establish that the results in Figure \ref{fig:authentication_accuracy} hold for large numbers of comparisons many more comparisons where done around the area of best results. The results of these tests are presented in Figure \ref{fig:authentication:accuracy}. For the results depicted in the figure, user\_model\_size is held constant at ten thousand while auth\_model\_size is varied. The test was performed in this way because variations in auth\_model\_size seems to have a greater impact on authentication accuracy than variations in base\_model\_size. Approximately the same trend as seen in Figure \ref{fig:authentication_accuracy} presents itself in Figure \ref{fig:extensive_authentication_accuracy}.
 
 \begin{figure}
 \centering
