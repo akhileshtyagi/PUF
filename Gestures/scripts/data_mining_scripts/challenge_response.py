@@ -11,5 +11,5 @@ class response:
 		self.data_list = data_list_object
 		
 		#TODO build the response and store it in a variable
-		#TODO find the response in the output folders
+		#TODO find the response in the output folders?
 		self.response = "TODO"
