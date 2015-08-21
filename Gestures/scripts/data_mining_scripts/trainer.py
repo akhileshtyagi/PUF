@@ -4,6 +4,7 @@ from sklearn import svm
 
 import numpy as np
 import matplotlib.pyplot as plt
+import line_learner
 
 ######trainer.py
 #Handles the training of the machine learning models. Offers methods to run #different types of machine learning tests, and returns their results.
@@ -96,5 +97,19 @@ class trainer:
 	def raw_prediction_accuracy_svm(self):
 		#TODO
 		return "UNIMPLEMENTED"
+
+
+	def line_learner_svm(self):
+		learner = line_learner.line_learner(3)
+
+		#TODO for testing. train the learner with 1 point
+		learner.train(self.response_set[0].data_list.respList, self.response_set[0].data_list.pressureList)
+
+		#train the learner with all points
+		#for x in self.response_set
+		#	learner.train(x.data_list.respList, x.data_list.pressureList)
+
+		return "UNIMPLEMENTED"
+
 
 	#TODO write a function that will use (myplotlab probablly) to output a graph. this graph will show how much error in prediction there is for a given machine learning tactic given N inputs. N will be varied to see how it affects the prediction correct percentage

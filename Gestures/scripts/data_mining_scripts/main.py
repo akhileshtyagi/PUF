@@ -18,6 +18,7 @@ def main():
 	prompt = prompt + "1) support vector machine, classify, raw data\n"
 	prompt = prompt + "2) Logistic Regression\n"
 	prompt = prompt + "3) evolutionary strategy\n"
+	prompt = prompt + "4) line learner\n"
 	prompt = prompt + "51) support vector machine, prediction accuracy, raw data\n"
 	prompt = prompt + "40) test cases\n"
 	prompt = prompt + "42) exit\n"
@@ -53,6 +54,9 @@ def main():
 
 		if selection == 3:
 			print worker.raw_classify_evolution()
+
+		if selection == 4:
+			print worker.line_learner_svm()
 		
 		if selection == 40:
 			#call the test code main class. This is for testing functionality
