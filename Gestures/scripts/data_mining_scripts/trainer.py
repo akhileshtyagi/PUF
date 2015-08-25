@@ -109,6 +109,8 @@ class trainer:
 		#for x in self.response_set
 		#	learner.train(x.data_list.respList, x.data_list.pressureList)
 
+		
+
 		return "UNIMPLEMENTED"
 
 
