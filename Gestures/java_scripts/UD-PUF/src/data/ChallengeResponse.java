@@ -46,7 +46,7 @@ public class ChallengeResponse {
      */
     public void addResponsePoint(double x, double y, double pressure) {
 	ArrayList<Double> addList = new ArrayList<Double>();
-
+	
 	addList.add(x);
 	addList.add(y);
 	addList.add(pressure);
@@ -60,5 +60,13 @@ public class ChallengeResponse {
     public void clearAllPoints() {
 	challenge = new ArrayList<List<Double>>();
 	response = new ArrayList<List<Double>>();
+    }
+
+    public List<List<Double>> getChallengeList() {
+	return this.challenge;
+    }
+
+    public List<List<Double>> getResponseList() {
+	return this.response;
     }
 }

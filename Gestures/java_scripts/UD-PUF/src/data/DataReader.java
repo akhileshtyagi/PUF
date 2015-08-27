@@ -13,7 +13,7 @@ import java.util.Scanner;
  *
  */
 public class DataReader {
-    private final File inputFile;
+    private File inputFile;
 
     /**
      * Takes a directory where the output from the app is stored and provides
@@ -33,7 +33,11 @@ public class DataReader {
 	// create challengeResponse objects for every file in the input
 	// directory
 	// 1) create a list of files in the input directory
-	// TODO
+	File[] fileArray = this.inputFile.listFiles();
+
+	for (File f : fileArray) {
+	    files.add(f);
+	}
 
 	// 2) create the list of challengeResponse objects from the files
 	for (File file : files) {
@@ -54,7 +58,8 @@ public class DataReader {
 		splitResponse = line.split("\",\"");
 		response = new ChallengeResponse(splitResponse[2], splitResponse[3]);
 		// TODO this part really needs to be checked
-		response.addChallengePoint(Double.valueOf(splitResponse[0]), Double.valueOf(splitResponse[1]));
+		response.addChallengePoint(Double.valueOf(splitResponse[0].substring(1)),
+			Double.valueOf(splitResponse[1]));
 
 		// iterate over the challenge points
 		while (fileScanner.hasNextLine()) {
@@ -69,7 +74,8 @@ public class DataReader {
 			// add the line as a challenge point
 			splitResponse = line.split("\",\"");
 			// TODO this part really needs to be checked
-			response.addChallengePoint(Double.valueOf(splitResponse[0]), Double.valueOf(splitResponse[1]));
+			response.addChallengePoint(Double.valueOf(splitResponse[0].substring(1)),
+				Double.valueOf(splitResponse[1]));
 
 		    }
 		}
@@ -80,10 +86,15 @@ public class DataReader {
 
 		    // add the line as a response point
 		    splitResponse = line.split("\",\"");
-		    // TODO this part really needs to be checked. there is an extra " on these values
-		    response.addResponsePoint(Double.valueOf(splitResponse[0]), Double.valueOf(splitResponse[1]),
-			    Double.valueOf(splitResponse[2]));
+		    // TODO this part really needs to be checked. there is an
+		    // extra " on these values
+		    response.addResponsePoint(Double.valueOf(splitResponse[0].substring(1)),
+			    Double.valueOf(splitResponse[1]),
+			    Double.valueOf(splitResponse[2].substring(0, splitResponse[2].length() - 2)));
 		}
+
+		// add this response to the responses list
+		responses.add(response);
 
 		fileScanner.close();
 	    } catch (FileNotFoundException e) {

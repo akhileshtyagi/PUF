@@ -15,7 +15,6 @@ GENERATED_OUTPUT_DIR = "/home/element/PUF/Gestures/GeneratedOutput/"
 #this is essentially the code for get data lists from util.py with a few modifications
 #this file also contains modified code to create the responses
 def main():
-	print "bullacks"
 	NormalizedStrat4()
 	
 def getRawDataLists(directory="/home/rascheel/git/PUFProject/OutputCSVs/"):
