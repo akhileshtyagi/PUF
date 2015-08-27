@@ -37,7 +37,7 @@ public class ReadData {
 	System.out.println(responses.get(0).getChallengeList().get(0));
 
 	// construct the list of normalized models for each response
-	NormalizedResponse normalizedResponse = new NormalizedResponse(responses);
+	NormalizedResponse normalizedResponse = new NormalizedResponse(responses, 1);
 
 	// TODO check the normalized model for correctness
 	List<List<Double>> normalizedModel = normalizedResponse.getModel();
