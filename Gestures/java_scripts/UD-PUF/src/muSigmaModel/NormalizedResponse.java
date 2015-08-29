@@ -13,7 +13,7 @@ import data.ChallengeResponse;
  *
  */
 public class NormalizedResponse {
-    // list of {(mu_x,mu_y,sigma), (mu_x,mu_y,sigma), ...}
+    // list of {(mu_x,mu_y,sigma_x,sigma_y), (mu_x,mu_y,sigma_x,sigma_y), ...}
     List<List<Double>> sigmaModel;
     int challengeNumber;
 
@@ -29,7 +29,8 @@ public class NormalizedResponse {
 
 	// TODO this will be normalization strat 4
 	// TODO construct the mu,sigma model here
-	this.sigmaModel = normalizeChallengeResponseList(challengeResponseList);
+	List<List<Double>> normalizedList = normalizeChallengeResponseList(challengeResponseList);
+	this.sigmaModel = computeMuSigma(normalizedList);
     }
 
     /**
@@ -41,15 +42,42 @@ public class NormalizedResponse {
 	ArrayList<List<Double>> normalizedList = new ArrayList<List<Double>>();
 	ArrayList<Double> normalizedElement = new ArrayList<Double>();
 
-	// TODO compute necessary information about the ChallengeResponseLIst
-
 	// TODO normalize the list
-	
+
 	return normalizedList;
     }
 
+    /**
+     * computes mu-sigma model for a list which has already been normalized.
+     * 
+     * @param normalizedList
+     * @return
+     */
+    private List<List<Double>> computeMuSigma(List<List<Double>> normalizedList) {
+	// TODO
+	return null;
+    }
+
+    /**
+     * compute average of the list
+     */
+    private double computeMu(List<Double> list) {
+	// TODO
+	return 0;
+    }
+
+    /**
+     * compute the standard deviation for the list
+     * 
+     * @return
+     */
+    private double computeSigma(List<Double> list) {
+	// TODO
+	return 0;
+    }
+
     /*
-     * get the mu-sigmal model. {(mu_x,mu_y,sigma), (mu_x,mu_y,sigma), ...}
+     * get the mu-sigmal model.
      */
     public List<List<Double>> getModel() {
 	return this.sigmaModel;

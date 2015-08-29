@@ -57,7 +57,9 @@ public class DataReader {
 		line = fileScanner.nextLine();
 		splitResponse = line.split("\",\"");
 		response = new ChallengeResponse(splitResponse[2], splitResponse[3]);
-		// TODO this part really needs to be checked
+
+		// build the challengeResponse object from x,y challenge points
+		// in the file
 		response.addChallengePoint(Double.valueOf(splitResponse[0].substring(1)),
 			Double.valueOf(splitResponse[1]));
 

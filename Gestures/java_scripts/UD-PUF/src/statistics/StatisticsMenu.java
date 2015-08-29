@@ -26,7 +26,7 @@ public class StatisticsMenu {
 
     public static void main(String[] args) {
 	File file = new File(inputFileName);
-	Hammering hammer = new Hammering(file);
+	Hamming hammer = new Hamming(file);
 	GeneralStatistics stats = new GeneralStatistics(file);
 
 	int selection = getUserChoice();

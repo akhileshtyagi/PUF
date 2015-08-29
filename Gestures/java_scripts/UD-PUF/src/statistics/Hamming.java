@@ -8,12 +8,12 @@ import java.io.File;
  * @author element
  *
  */
-public class Hammering {
+public class Hamming {
     /**
      * Takes the folder which holds the input files in and reads in data used to
      * produce hammering statistics.
      */
-    public Hammering(File file) {
+    public Hamming(File file) {
 	//TODO
     }
 
