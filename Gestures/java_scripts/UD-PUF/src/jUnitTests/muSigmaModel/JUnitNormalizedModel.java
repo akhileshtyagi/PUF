@@ -3,6 +3,7 @@ package jUnitTests.muSigmaModel;
 import static org.junit.Assert.assertTrue;
 
 import java.io.File;
+import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
@@ -80,12 +81,58 @@ public class JUnitNormalizedModel {
 
     @Test
     public void testComputeChallengeYDistance() {
-	assertTrue(false);
+	boolean correct = false;
+	ChallengeResponse response;
+
+	// create a challengeResponse with known XDistance
+	response = new ChallengeResponse("", "");
+
+	// add challenge points the the response
+	for (int i = 0; i < 100; i++) {
+	    response.addChallengePoint(100.0, i);
+	}
+
+	// run the private method
+	String methodName = "computeChallengeYDistance";
+	Class[] classList = { ChallengeResponse.class };
+	Object[] methodParameters = { response };
+
+	double answer = (double) runPrivateMethod(normalizedResponse, methodName, classList, methodParameters);
+
+	// actual value should be around 100
+	if (answer > (98.95) && answer < (99.05)) {
+	    correct = true;
+	}
+
+	assertTrue(correct);
     }
 
     @Test
     public void testComputeChallengeXDistance() {
-	assertTrue(false);
+	boolean correct = false;
+	ChallengeResponse response;
+
+	// create a challengeResponse with known XDistance
+	response = new ChallengeResponse("", "");
+
+	// add challenge points the the response
+	for (int i = 0; i < 100; i++) {
+	    response.addChallengePoint(i, 100.0);
+	}
+
+	// run the private method
+	String methodName = "computeChallengeXDistance";
+	Class[] classList = { ChallengeResponse.class };
+	Object[] methodParameters = { response };
+
+	double answer = (double) runPrivateMethod(normalizedResponse, methodName, classList, methodParameters);
+
+	// actual value should be around 100
+	if (answer > (98.95) && answer < (99.05)) {
+	    correct = true;
+	}
+
+	assertTrue(correct);
     }
 
     @Test
@@ -95,11 +142,6 @@ public class JUnitNormalizedModel {
 
     @Test
     public void testComputeMu() {
-	assertTrue(false);
-    }
-
-    @Test
-    public void testComputeSigma() {
 	boolean correct = false;
 	ArrayList<Double> numbers = new ArrayList<Double>();
 
@@ -108,10 +150,37 @@ public class JUnitNormalizedModel {
 	    numbers.add(.1 * (i + 1));
 	}
 
-	// TODO get the method
+	// run the private method
+	String methodName = "computeMu";
+	Class[] classList = { java.util.List.class };
+	Object[] methodParameters = { numbers };
 
-	// test to see if computeSigma finds std deviation
-	double answer = normalizedResponse.computeSigma(numbers);
+	double answer = (double) runPrivateMethod(normalizedResponse, methodName, classList, methodParameters);
+
+	// actual value should be around .5
+	if (answer > (.49) && answer < (.51)) {
+	    correct = true;
+	}
+
+	assertTrue(correct);
+    }
+
+    @Test
+    public void testComputeSigma() throws IllegalAccessException, IllegalArgumentException, InvocationTargetException {
+	boolean correct = false;
+	ArrayList<Double> numbers = new ArrayList<Double>();
+
+	// create a List of touches with a minimum value
+	for (int i = 0; i < 9; i++) {
+	    numbers.add(.1 * (i + 1));
+	}
+
+	// run the private method
+	String methodName = "computeSigma";
+	Class[] classList = { java.util.List.class };
+	Object[] methodParameters = { numbers };
+
+	double answer = (double) runPrivateMethod(normalizedResponse, methodName, classList, methodParameters);
 
 	// actual value should be around .2582
 	if (answer > (.258) && answer < (.2585)) {
@@ -126,22 +195,35 @@ public class JUnitNormalizedModel {
      * 
      * @param o
      */
-    private Method setMethodsPublic(Object o, String methodName, Class[] argClasses) {
+    private Object runPrivateMethod(Object o, String methodName, Class[] argClasses, Object[] methodParameters) {
 	Method method = null;
+	Object object = null;
 
 	try {
 	    method = o.getClass().getDeclaredMethod(methodName, argClasses);
 
 	    // set method to accessible
 	    method.setAccessible(true);
+
+	    // invoke the method
+	    object = method.invoke(o, methodParameters);
 	} catch (NoSuchMethodException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
 	} catch (SecurityException e) {
 	    // TODO Auto-generated catch block
 	    e.printStackTrace();
+	} catch (IllegalAccessException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (IllegalArgumentException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
+	} catch (InvocationTargetException e) {
+	    // TODO Auto-generated catch block
+	    e.printStackTrace();
 	}
 
-	return method;
+	return object;
     }
 }
