@@ -1,6 +1,11 @@
 package data;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import graph.StateEdge;
 import graph.StateGraph;
+import graph.StateNode;
 
 /**
  * provides tools for allowing the user of this library to create a transition
@@ -25,11 +30,35 @@ public class TransitionMatrix {
 	 * @param graph
 	 */
 	public TransitionMatrix(StateGraph graph) {
-		// TODO populate transition_matrix from state graph
-		
-		
-		// TODO create the initial vector (1/n) based on how many states there
+		List<Integer> identifiers = new ArrayList<Integer>();
+		List<StateNode> nodes = graph.get_nodes();
+
+		// initialize the matrix to zero
+		for (int i = 0; i < nodes.size(); i++) {
+			List<Double> row = new ArrayList<Double>();
+
+			for (int j = 0; j < nodes.size(); j++) {
+				row.add(0.0);
+			}
+			transition_matrix.add_row(row);
+		}
+
+		// populate transition_matrix from state graph
+		for (StateNode node : nodes) {
+			// for each edge coming out of a node, I need to update its
+			// probability into the matrix
+			int column = node.get_identifier();
+			for (StateEdge edge : node.getEdges()) {
+				int row = edge.get_destination().get_identifier();
+				double value = edge.get_probability();
+
+				transition_matrix.set(row, column, value);
+			}
+		}
+
+		// create the initial vector (1/n) based on how many states there
 		// are in the graph
+		vector = new ProbabilityVector(identifiers);
 	}
 
 	/**

@@ -11,6 +11,13 @@ public class Matrix<E> {
 	}
 
 	/**
+	 * sets a specific element in the matrix to value.
+	 */
+	public void set(int row, int column, E value) {
+		matrix.get(row).set(column, value);
+	}
+
+	/**
 	 * add a row to the matrix
 	 */
 	public void add_row(List<E> row) {
