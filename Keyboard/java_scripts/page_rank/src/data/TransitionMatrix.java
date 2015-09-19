@@ -19,7 +19,7 @@ import graph.StateNode;
  *
  */
 public class TransitionMatrix {
-	final double EPISILON = 100.0;
+	final double EPISILON = 0.01;
 
 	private Matrix<Double> transition_matrix;
 	private ProbabilityVector vector;
@@ -30,6 +30,7 @@ public class TransitionMatrix {
 	 * @param graph
 	 */
 	public TransitionMatrix(StateGraph graph) {
+		transition_matrix = new Matrix<Double>();
 		List<Integer> identifiers = new ArrayList<Integer>();
 		List<StateNode> nodes = graph.get_nodes();
 
@@ -91,6 +92,13 @@ public class TransitionMatrix {
 	 */
 	public ProbabilityVector get_vector() {
 		return vector;
+	}
+
+	/**
+	 * returns the transition matrix created
+	 */
+	public Matrix<Double> get_matrix() {
+		return transition_matrix;
 	}
 
 	@Override
