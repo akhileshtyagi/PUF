@@ -48,6 +48,8 @@ public class TransitionMatrix {
 			// for each edge coming out of a node, I need to update its
 			// probability into the matrix
 			int column = node.get_identifier();
+			identifiers.add(column);
+
 			for (StateEdge edge : node.getEdges()) {
 				int row = edge.get_destination().get_identifier();
 				double value = edge.get_probability();
@@ -89,5 +91,16 @@ public class TransitionMatrix {
 	 */
 	public ProbabilityVector get_vector() {
 		return vector;
+	}
+
+	@Override
+	public String toString() {
+		String s_rep = "";
+
+		s_rep += this.transition_matrix.toString();
+		s_rep += "\n";
+		s_rep += this.vector.toString();
+
+		return s_rep;
 	}
 }

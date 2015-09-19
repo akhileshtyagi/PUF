@@ -1,7 +1,7 @@
 package graph;
 
-import java.util.Set;
-import java.util.TreeSet;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Represents a state in the model.
@@ -10,11 +10,11 @@ import java.util.TreeSet;
  *
  */
 public class StateNode {
-	private Set<StateEdge> edges;
+	private List<StateEdge> edges;
 	private int identifier;
 
 	public StateNode(int identifier) {
-		edges = new TreeSet<StateEdge>();
+		edges = new ArrayList<StateEdge>();
 
 		this.identifier = identifier;
 	}
@@ -29,7 +29,7 @@ public class StateNode {
 		edges.add(edge);
 	}
 
-	public Set<StateEdge> getEdges() {
+	public List<StateEdge> getEdges() {
 		return edges;
 	}
 

@@ -2,11 +2,13 @@ package graph;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 /**
  * allows for the creation of a state graph. Information about the edges is
  * stored on the nodes from which the edges originate.
+ * 
+ * This is a specialized graph to store probabilities of transitions between
+ * states.
  * 
  * @author element
  *
@@ -52,7 +54,7 @@ public class StateGraph {
 	 * gets the edges for the specified node. Edges stored on a node describe an
 	 * edge from that node to a different node.
 	 */
-	public Set<StateEdge> get_edges(int identifier) {
+	public List<StateEdge> get_edges(int identifier) {
 		return nodes.get(identifier).getEdges();
 	}
 

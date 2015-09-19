@@ -37,4 +37,23 @@ public class Matrix<E> {
 	public List<E> get_row(int index) {
 		return matrix.get(index);
 	}
+
+	@Override
+	public String toString() {
+		String s_rep = "";
+
+		// for each row, create a line
+		for (List<E> row : matrix) {
+			s_rep += "[ ";
+
+			for (E item : row) {
+				s_rep += item.toString();
+				s_rep += ", ";
+			}
+
+			s_rep += "]\n";
+		}
+
+		return s_rep;
+	}
 }

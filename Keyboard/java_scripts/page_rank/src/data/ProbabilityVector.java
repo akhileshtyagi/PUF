@@ -88,4 +88,21 @@ public class ProbabilityVector {
 
 		return sum;
 	}
+
+	@Override
+	public String toString() {
+		String s_rep = "";
+
+		// for each row, create a line
+		for (int i = 0; i < identifiers.size(); i++) {
+			s_rep += "[ ";
+
+			s_rep += identifiers.get(i) + ", ";
+			s_rep += probabilities.get(i) + " ";
+
+			s_rep += "]\n";
+		}
+
+		return s_rep;
+	}
 }
