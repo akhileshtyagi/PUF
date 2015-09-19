@@ -6,7 +6,6 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import runtime.Operation_thread;
 import trie.TrieList;
 
 ///TODO make the chain's compare_to method be able to update incrementally
@@ -872,6 +871,11 @@ public class Chain{
 		return tokens;
 	}
 	
+
+	///get a list of all touches in the chain
+	public List<Touch> get_touches(){
+		return touches;
+	}
 	
 	///prints out all of the touches in order
 	@Override
