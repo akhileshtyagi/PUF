@@ -1,0 +1,68 @@
+package test;
+
+import static org.junit.Assert.assertTrue;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import components.Touch;
+import runtime.ChainBuilder;
+import runtime.CompareChains;
+
+/**
+ * Test the compairason with ranks
+ * 
+ * @author element
+ *
+ */
+public class UnitRankCompare {
+	ChainBuilder chain_builder;
+
+	@Before
+	public void init() {
+		// window, token, threshold, user_model_size, auth_model_size,
+		chain_builder = new ChainBuilder(5, 5, 1000, 1000, 500);
+
+		// try to authenticate two chains which are the same
+		for (int i = 0; i < 3000; i++) {
+			chain_builder.handle_touch(new Touch('a', .1 * (i % 10), 100));
+		}
+
+		chain_builder.authenticate();
+		// wait for the authentication to finish
+		while (chain_builder.get_authenticate_state() == ChainBuilder.State.IN_PROGRESS) {
+			try {
+				Thread.sleep(100);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * checks that the probabilities are correct
+	 */
+	@Test
+	public void test_compare_correct() {
+		// System.out.println(chain_builder.get_authenticate_state());
+		assertTrue(chain_builder.get_authenticate_state() == ChainBuilder.State.SUCCESS);
+	}
+
+	/**
+	 * check the test that the compare vectors are correct
+	 */
+	@Test
+	public void test_auth_probability() {
+		CompareChains authenticate_thread = chain_builder.get_authenticate_thread();
+
+		assertTrue(authenticate_thread.get_auth_probability() == 0);
+	}
+
+	/**
+	 * example test
+	 */
+	@Test
+	public void test() {
+
+	}
+}

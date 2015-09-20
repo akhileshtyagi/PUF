@@ -8,6 +8,7 @@ import java.util.Scanner;
 
 import components.Chain;
 import components.Touch;
+import rank.CompareChainsRank;
 
 ///TODO write a HashList class (most likely extends HashMap and implemetns list to store the hash of everything. Replace ArrayList with this class whereever arraylist is used. The other option is to use LinkedHashList.
 /// handles building of the model based on input events. This may not be necessary in android framework, but it will allow a consistant way of building the model across platforms to allow for easier migration to android device.
@@ -102,7 +103,9 @@ public class ChainBuilder{
 		}
 				
 		//afterward, create the thread to begin the authentication
-		cc = new CompareChains(user_chain, auth_chain);
+		//TODO change this back to CompareChains
+		cc = new CompareChainsRank(user_chain, auth_chain);
+		//cc = new CompareChains(user_chain, auth_chain);
 		Thread auth_thread = new Thread(cc);
 
 		auth_thread.start();	

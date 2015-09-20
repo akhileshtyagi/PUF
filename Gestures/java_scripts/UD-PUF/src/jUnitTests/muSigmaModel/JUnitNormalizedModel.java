@@ -191,7 +191,7 @@ public class JUnitNormalizedModel {
     }
 
     /**
-     * returns the method requested in an accessible state.
+     * returns the method result.
      * 
      * @param o
      */
