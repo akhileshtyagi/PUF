@@ -56,7 +56,6 @@ public class Chain{
 
 	
 	///copy constructor. New chain object should have the same state as the old with differant object references.
-	//TODO check copy constructors for correctness
 	public Chain(Chain c){
 		this.key_distribution = new ArrayList<Distribution>(c.key_distribution);
 		this.distribution = new Distribution(c.distribution);
@@ -192,6 +191,11 @@ public class Chain{
 
 	public int get_token(){
 		return token;
+	}
+	
+	
+	public int get_model_size(){
+		return model_size;
 	}
 
 
