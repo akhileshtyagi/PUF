@@ -23,7 +23,7 @@ public class Response {
      * Normalizes points in response. The normalizingPoints are a list of points
      * to normalize the response to. In other words the response will then
      * contain exactly these point having some pressure determined by the
-     * origional response.
+     * original response.
      */
     public void normalize(List<Point> normalizingPoints, boolean isChallengeHorizontal) {
 	// Implement method of normalizing ResponsePattern to points
