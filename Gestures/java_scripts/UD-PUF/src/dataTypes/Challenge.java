@@ -26,6 +26,8 @@ public class Challenge {
     // for this challenge
     private List<Response> responses;
 
+    private boolean isChallengeHorizontal;
+
     // Profile associated with this challenge
     private Profile profile;
 
@@ -35,15 +37,21 @@ public class Challenge {
 	responses = new ArrayList<Response>();
 	profile = new Profile();
 
+	// determine if the challenge is more horizontal or more vertical in
+	// oreantation
+	double x_dist = computeChallengeXDistance();
+	double y_dist = computeChallengeYDistance();
+	isChallengeHorizontal = x_dist > y_dist;
+
 	// compute the list of points used to normalize the responses to this
 	// challenge
-	normalizingPoints = computeNormalizingPoints();
+	normalizingPoints = computeNormalizingPoints(x_dist, y_dist);
     }
 
     // Adds normalized response to the list or Responses
     public void addResponse(Response response) {
 	// normlaize the response before it is added to the challenge
-	response.normalize(normalizingPoints);
+	response.normalize(normalizingPoints, isChallengeHorizontal);
 
 	responses.add(response);
     }
@@ -61,15 +69,10 @@ public class Challenge {
     /**
      * computes a list of points to be used in normalization of responses
      */
-    private List<Point> computeNormalizingPoints() {
+    private List<Point> computeNormalizingPoints(double x_dist, double y_dist) {
 	List<Point> x_y_list;
 
-	// determine if the challenge is more horizontal or more vertical in
-	// oreantation
-	double x_dist = computeChallengeXDistance();
-	double y_dist = computeChallengeYDistance();
-
-	if (x_dist > y_dist) {
+	if (isChallengeHorizontal) {
 	    // normalize with respect to x
 	    x_y_list = computeHorizontalPointsAlongChallenge(x_dist);
 	} else {
