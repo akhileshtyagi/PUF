@@ -34,4 +34,11 @@ public class MuSigma {
         return sigmaValues;
     }
 
+    public void addMuSigma(double mu, double sigma)
+    {
+        this.muValues.add(mu);
+        this.sigmaValues.add(sigma);
+
+    }
+
 }

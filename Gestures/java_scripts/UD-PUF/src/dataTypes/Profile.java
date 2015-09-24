@@ -15,7 +15,7 @@ public class Profile {
     private List<Response> normalizedResponses;
 
     // Mu Sigma values that define the profile
-    private List<MuSigma> muSigmaValues;
+    private MuSigma muSigmaValues;
 
     public Profile(List<Response> normalizedResponses) {
 	this.normalizedResponses = normalizedResponses;
@@ -24,7 +24,7 @@ public class Profile {
 	// Calculate mu and sigma values for this profile
 	// and assign them to muValues and sigmaValues
 	// For now, just create blank ones
-    muSigmaValues = new ArrayList<MuSigma>();
+    muSigmaValues = new MuSigma();
 
     }
 
@@ -32,14 +32,14 @@ public class Profile {
     // challenge
     public Profile() {
     normalizedResponses = new ArrayList<Response>();
-    muSigmaValues = new ArrayList<MuSigma>();
+    muSigmaValues = new MuSigma();
     }
 
     public void addNormalizedResponses(List<Response> normalizedResponses) {
 	this.normalizedResponses = normalizedResponses;
     }
 
-    public List<MuSigma> getMuSigmaValues() {
+    public MuSigma getMuSigmaValues() {
 	return muSigmaValues;
     }
 
@@ -59,12 +59,31 @@ public class Profile {
 	    Double t = iterator.next();
 
 	    total += t;
+
 	}
 
 	average = total / list.size();
 
 	return average;
     }
+
+	/**
+	 * Create and add Mu and Sigma values to the MuSigma
+	 */
+	private void addMuSigma(MuSigma ms, List<Response> rs)
+	{
+		for(int i=0;i<rs.size();i++)
+		{
+			ArrayList<Double> lpressure = new ArrayList<Double>();
+			for(int j=0;j<rs.get(i).getResponse().size();j++)
+			{
+				lpressure.add(rs.get(i).getResponse().get(j).getPressure());
+			}
+			double mu = computeMu(lpressure);
+			double sigma = computeSigma(lpressure,mu);
+            ms.addMuSigma(mu,sigma);
+		}
+	}
 
     /**
      * compute the standard deviation for the list of points
