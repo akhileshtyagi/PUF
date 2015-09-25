@@ -65,6 +65,10 @@ public class Challenge {
     public Profile getProfile() {
 	return profile;
     }
+    
+    public List<Point> getChallengePattern(){
+	return challengePattern;
+    }
 
     /**
      * computes a list of points to be used in normalization of responses

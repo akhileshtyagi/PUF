@@ -5,7 +5,7 @@ import java.util.List;
 
 import data.ChallengeResponse;
 import data.DataReader;
-import muSigmaModel.NormalizedModel;
+import dataTypes.Challenge;
 
 /**
  * Tests the ability to read data from the storage device. This is an ad-hoc
@@ -36,11 +36,19 @@ public class ReadData {
 	System.out.println(responses.get(0).getResponseList().get(0));
 	System.out.println(responses.get(0).getChallengeList().get(0));
 
+	// read in the data in a different format
+	List<Challenge> challenge_objects = reader.readDataDirecotryChallenge();
+	
+	//check to see if the data is correct in the Challenges
+	System.out.println("");
+	System.out.println(challenge_objects.get(0).getChallengePattern().get(0));
+
 	// construct the list of normalized models for each response
-	NormalizedModel normalizedResponse = new NormalizedModel(responses, 1);
+	// NormalizedModel normalizedResponse = new NormalizedModel(responses,
+	// 1);
 
 	// TODO check the normalized model for correctness
-	List<List<Double>> normalizedModel = normalizedResponse.getModel();
+	// List<List<Double>> normalizedModel = normalizedResponse.getModel();
 	// System.out.println(normalizedModel);
     }
 }

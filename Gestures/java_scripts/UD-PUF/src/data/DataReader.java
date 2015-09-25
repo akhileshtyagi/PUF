@@ -6,6 +6,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
+import dataTypes.Challenge;
+import dataTypes.Point;
+import dataTypes.Response;
+
 /**
  * This class will have tools to retrieve the data from the storage device.
  * 
@@ -107,5 +111,85 @@ public class DataReader {
 	}
 
 	return responses;
+    }
+
+    /**
+     * Returns a list of challenge response objects.
+     */
+    public List<Challenge> readDataDirecotryChallenge() {
+	List<ChallengeResponse> responses = readDataDirecotry();
+
+	// loop through all the challenges
+	// create challenge objects for each unique challenge
+	// add responses to the challenges
+	List<Challenge> challenges = new ArrayList<Challenge>();
+
+	for (ChallengeResponse response : responses) {
+	    // if there is not a challenge object for the responses already,
+	    // create it.
+	    if (getChallengeIndex(challenges, response.getChallengeList()) == -1) {
+		List<Point> challengePoints = new ArrayList<Point>();
+
+		// populate the list of challenge points
+		for (List<Double> point : response.getChallengeList()) {
+		    challengePoints.add(new Point(point.get(0), point.get(1), 0.0));
+		}
+
+		// create a new challenge
+		Challenge challenge = new Challenge(challengePoints, challenges.size());
+
+		challenges.add(challenge);
+	    }
+
+	    // create response object from the list of points
+	    List<Point> response_object_points = new ArrayList<Point>();
+
+	    // convert the list of response points into a respoonse object
+	    for (List<Double> response_point : response.getResponseList()) {
+		response_object_points
+			.add(new Point(response_point.get(0), response_point.get(1), response_point.get(2)));
+	    }
+
+	    Response response_object = new Response(response_object_points);
+
+	    // add the response to the appropriate challenge
+	    challenges.get(getChallengeIndex(challenges, response.getChallengeList())).addResponse(response_object);
+	}
+
+	return challenges;
+    }
+
+    /**
+     * gets the index of the list of points in the challenges list. Returns -1
+     * if it doesn't exist
+     * 
+     * @return
+     */
+    private int getChallengeIndex(List<Challenge> challenges, List<List<Double>> list_of_points) {
+	int index = -1;
+
+	// search though challenges for list_of_points
+	for (int i = 0; i < challenges.size(); i++) {
+	    boolean list_equals_challenge = true;
+
+	    // test each of the points to make sure list_of_points is the same
+	    // as challenge points
+	    for (int j = 0; j < challenges.get(i).getChallengePattern().size(); j++) {
+		Point challenge_pattern_point = challenges.get(i).getChallengePattern().get(j);
+
+		// test x,y values equal
+		list_equals_challenge = list_equals_challenge
+			&& (challenge_pattern_point.getX() == list_of_points.get(j).get(0));
+		list_equals_challenge = list_equals_challenge
+			&& (challenge_pattern_point.getY() == list_of_points.get(j).get(1));
+	    }
+
+	    if (list_equals_challenge) {
+		index = i;
+		break;
+	    }
+	}
+
+	return index;
     }
 }
