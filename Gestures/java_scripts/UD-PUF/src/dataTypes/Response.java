@@ -76,21 +76,33 @@ public class Response {
 		}
 	    }
 
-	    // TODO find pressure value for this point by considering the
+	    // find pressure value for this point by considering the
 	    // closest points
 	    double deltaX = closestRightPoint.getX() - closestLeftPoint.getX();
 	    double deltaY = closestRightPoint.getY() - closestLeftPoint.getY();
 	    double angle = (isChallengeHorizontal) ? (Math.abs(Math.atan(deltaY / deltaX)))
 		    : (Math.abs(Math.atan(deltaX / deltaY)));
 
-	    //TODO
-	    //double deltaLeft = normalizingPoint.getX() - closestLeftPoint.getX();
-	    //double leftPart = deltaLeft / Math.cos(angle);
+	    if (isChallengeHorizontal) {
+		double deltaLeft = normalizingPoint.getX() - closestLeftPoint.getX();
+		double leftPart = deltaLeft / Math.cos(angle);
 
-	    //double totalPart = deltaX / Math.cos(angle);
-	    //double rightpart = totalPart - leftPart;
+		double totalPart = deltaX / Math.cos(angle);
+		double rightPart = totalPart - leftPart;
 
-	    pressure = (0);
+		pressure = (leftPart / totalPart) * closestLeftPoint.getPressure()
+			+ (rightPart / totalPart) * closestRightPoint.getPressure();
+	    } else {
+		// should this be sine?
+		double deltaLeft = normalizingPoint.getY() - closestLeftPoint.getY();
+		double leftPart = deltaLeft / Math.cos(angle);
+
+		double totalPart = deltaY / Math.cos(angle);
+		double rightPart = totalPart - leftPart;
+
+		pressure = (leftPart / totalPart) * closestLeftPoint.getPressure()
+			+ (rightPart / totalPart) * closestRightPoint.getPressure();
+	    }
 
 	    // create normalized point to add to the list based on found
 	    // pressure value
