@@ -3,7 +3,7 @@ package authentication;
 import java.util.List;
 
 import data.ChallengeResponse;
-import data.Profile;
+import dataTypes.UserDevicePair;
 
 /**
  * Provides the ability to take a profile and new data to perform an
@@ -13,7 +13,7 @@ import data.Profile;
  *
  */
 public class Authenticator {
-    Profile profile;
+    UserDevicePair profile;
 
     /**
      * Takes in the profile which new data will be authenticated against. It is
@@ -24,7 +24,7 @@ public class Authenticator {
      * 
      * @param profile
      */
-    public Authenticator(Profile profile) {
+    public Authenticator(UserDevicePair profile) {
 	this.profile = profile;
     }
 
@@ -35,7 +35,7 @@ public class Authenticator {
      * @return
      */
     public boolean authenticate(List<ChallengeResponse> newData) {
-	//TODO
+	// TODO
 	return true;
     }
 }
