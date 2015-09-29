@@ -33,4 +33,16 @@ public class Point {
     public double getPressure() {
 	return pressure;
     }
+
+    @Override
+    public boolean equals(Object p) {
+	Point other = (Point) p;
+	boolean same = true;
+	
+	same = same && this.x == other.x;
+	same = same && this.y == other.y;
+	same = same && this.pressure == other.pressure;
+	
+	return same;
+    }
 }
