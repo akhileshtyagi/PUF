@@ -26,11 +26,11 @@ public class MuSigma {
         this.sigmaValues = sigmaValues;
     }
 
-    private List<Double> getMuValues() {
+    public List<Double> getMuValues() {
         return muValues;
     }
 
-    private List<Double> getSigmaValues() {
+    public List<Double> getSigmaValues() {
         return sigmaValues;
     }
 
@@ -40,5 +40,4 @@ public class MuSigma {
         this.sigmaValues.add(sigma);
 
     }
-
 }

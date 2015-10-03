@@ -35,7 +35,7 @@ public class Challenge {
 	this.challengePattern = challengePattern;
 	this.challengeID = challengeID;
 	responses = new ArrayList<Response>();
-	profile = new Profile();
+	profile = null;
 
 	// determine if the challenge is more horizontal or more vertical in
 	// oreantation
@@ -57,17 +57,24 @@ public class Challenge {
     }
 
     // Creates a profile associate with this challenge with NORMALIZED responses
-    public Profile createPofile() {
-	profile = new Profile(responses);
+    public Profile getProfile() {
+	// if the profile hasn't been created, create the profile
+	if(profile == null){
+	    profile = new Profile(responses);
+	}
 	return profile;
     }
 
-    public Profile getProfile() {
-	return profile;
+    public List<Point> getChallengePattern() {
+	return challengePattern;
+    }
+
+    public int getChallengeID() {
+	return this.challengeID;
     }
     
-    public List<Point> getChallengePattern(){
-	return challengePattern;
+    public boolean isHorizontal(){
+	return isChallengeHorizontal;
     }
 
     /**

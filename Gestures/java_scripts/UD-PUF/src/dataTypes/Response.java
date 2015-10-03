@@ -74,8 +74,8 @@ public class Response {
 		}
 	    }
 
-	    System.out.println(closestRightPoint.getX());
-	    System.out.println(closestLeftPoint.getX());
+	    //System.out.println(closestRightPoint.getX());
+	    //System.out.println(closestLeftPoint.getX());
 
 	    // if the closest left and right points are equal, simply add the
 	    // pressure value of that point to the list
