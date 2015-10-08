@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">PUF Enrollment</string>
+    <string name="enrollment_button_text">Enrollment</string>
+</resources>

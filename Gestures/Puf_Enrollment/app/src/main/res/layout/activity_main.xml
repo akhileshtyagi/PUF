@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical">
+
+    <Button
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginTop="30dp"
+        android:text="Authenticate"
+        android:textSize="30sp"
+        android:id="@+id/authenticate_button"
+        android:onClick="authenticate_pressed"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/authenticate_button"
+        android:layout_marginBottom="30dp"
+        android:text="@string/enrollment_button_text"
+        android:textSize="30sp"
+        android:id="@+id/enroll_button"
+        android:onClick="enroll_pressed"/>
+
+</RelativeLayout>
