@@ -103,7 +103,7 @@ public class ChainBuilder{
 		}
 				
 		//afterward, create the thread to begin the authentication
-		//TODO change this back to CompareChains
+		//TODO change this back to CompareChains TODO
 		cc = new CompareChainsRank(user_chain, auth_chain);
 		//cc = new CompareChains(user_chain, auth_chain);
 		Thread auth_thread = new Thread(cc);
