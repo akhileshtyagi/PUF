@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename type &apos;data_analysis.model_compare&apos; to &apos;Model_compare&apos;&#x0A;- Original project: &apos;java_marcov_model&apos;&#x0A;- Original element: &apos;data_analysis.model_compare&apos;&#x0A;- Renamed element: &apos;data_analysis.Model_compare&apos;&#x0A;- Update references to refactored element&#x0A;- Update textual occurrences in comments and strings" description="Rename type &apos;model_compare&apos;" flags="589830" id="org.eclipse.jdt.ui.rename.type" input="/src&lt;data_analysis{model_compare.java[model_compare" matchStrategy="1" name="Model_compare" qualified="false" references="true" similarDeclarations="false" stamp="1432938643598" textual="false" version="1.0"/>
+</session>

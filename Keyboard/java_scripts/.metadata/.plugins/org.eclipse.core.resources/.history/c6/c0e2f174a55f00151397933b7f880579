@@ -1,0 +1,85 @@
+package test;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import components.Chain;
+import rank.CompareChainsRank;
+
+public class UnitCompareChainsRank {
+	private CompareChainsRank compare_chains_rank;
+
+	@Before
+	public void init() {
+		Chain user_chain;
+		Chain auth_chain;
+
+		// TODO create a user chain
+
+		// TODO create an auth chain
+
+		compare_chains_rank = new CompareChainsRank(user_chain, auth_chain);
+	}
+
+	/**
+	 * tetss chain_to_graph method to make sure the chain is converted to a
+	 * StateGraph correctly.
+	 */
+	@Test
+	public void test_chain_to_graph() {
+		// run the private method
+		String methodName = "computeSigma";
+		Class[] classList = { java.util.List.class };
+		Object[] methodParameters = { numbers };
+
+		double answer = (double) runPrivateMethod(normalizedResponse, methodName, classList, methodParameters);
+	}
+
+	/**
+	 * example test
+	 */
+	@Test
+	public void test() {
+
+	}
+
+	/**
+	 * returns the method result.
+	 * 
+	 * @param o
+	 */
+	private Object runPrivateMethod(Object o, String methodName, Class[] argClasses, Object[] methodParameters) {
+		Method method = null;
+		Object object = null;
+
+		try {
+			method = o.getClass().getDeclaredMethod(methodName, argClasses);
+
+			// set method to accessible
+			method.setAccessible(true);
+
+			// invoke the method
+			object = method.invoke(o, methodParameters);
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return object;
+	}
+}

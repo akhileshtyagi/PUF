@@ -30,7 +30,7 @@ public class Challenge {
 
     // Profile associated with this challenge
     private Profile profile;
-
+//changes
     public Challenge(List<Point> challengePattern, int challengeID) {
 	this.challengePattern = challengePattern;
 	this.challengeID = challengeID;
