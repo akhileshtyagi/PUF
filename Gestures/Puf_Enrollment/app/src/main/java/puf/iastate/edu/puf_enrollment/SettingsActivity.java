@@ -23,11 +23,11 @@ public class SettingsActivity extends PreferenceActivity {
 		public void onCreate(Bundle savedInstanceState) {
 			super.onCreate(savedInstanceState);
 
-			//Make sure default values are applied
-			PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
-
-			//Load preferences from XML resource
-			addPreferencesFromResource(R.xml.preferences);
+//			//Make sure default values are applied
+//			PreferenceManager.setDefaultValues(getActivity(), R.xml.preferences, false);
+//
+//			//Load preferences from XML resource
+//			addPreferencesFromResource(R.xml.preferences);
 		}
 	}
 }
