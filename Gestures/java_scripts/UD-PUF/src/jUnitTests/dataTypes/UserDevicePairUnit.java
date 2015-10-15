@@ -142,7 +142,7 @@ public class UserDevicePairUnit {
     }
 
     @Test
-    public void test_failed_points() {
+    public void test_failed_points_all_fail() {
 	// create new response to be used
 	List<Point> new_response = new ArrayList<Point>();
 
@@ -160,6 +160,28 @@ public class UserDevicePairUnit {
 
 	int answer = (int) TestUtil.runPrivateMethod(this.ud_pair, methodName, classList, methodParameters);
 
-	assertTrue(answer == 1);
+	assertTrue(answer == 32);
+    }
+    
+    @Test
+    public void test_failed_points_all_pass() {
+	// create new response to be used
+	List<Point> new_response = new ArrayList<Point>();
+
+	for (int j = 0; j < 32; j++) {
+	    new_response.add(new Point((300 / 32) * j + 100, 100, 1));
+	}
+
+	// create new challenge to be used
+	Challenge challenge = ud_pair.getChallenges().get(0);
+
+	// call the private method of UserDevicePair
+	String methodName = "failed_points";
+	Class[] classList = { List.class, Challenge.class, double.class };
+	Object[] methodParameters = { new_response, challenge, 1 };
+
+	int answer = (int) TestUtil.runPrivateMethod(this.ud_pair, methodName, classList, methodParameters);
+
+	assertTrue(answer == 0);
     }
 }

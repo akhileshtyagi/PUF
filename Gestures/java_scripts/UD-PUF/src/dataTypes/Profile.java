@@ -86,23 +86,28 @@ public class Profile {
      * method will set the value of this.muSigmaValues to the appropriate value
      */
     private void compute_mu_sigma() {
+	// make sure there are normalized responses to compute mu,sigma for
+	if (this.normalizedResponses.get(0) == null) {
+	    return;
+	}
+
 	List<Double> normalized_point_pressure_list = null;
 	this.muSigmaValues = new MuSigma();
-	
+
 	// for each point in the distribution, compute mu an sigma
-	for (int i = 0; i < this.normalizedResponses.size(); i++) {
+	for (int i = 0; i < this.normalizedResponses.get(0).getResponse().size(); i++) {
 	    // go though each of the responses collecting value
 	    // of point i in the response
 	    normalized_point_pressure_list = new ArrayList<Double>();
-	    for(Response response : this.normalizedResponses){
+	    for (Response response : this.normalizedResponses) {
 		normalized_point_pressure_list.add(response.getResponse().get(i).getPressure());
 	    }
-	    
+
 	    // compute the average (mu)
 	    // compute std deviation
 	    double mu = this.computeMu(normalized_point_pressure_list);
 	    double sigma = this.computeSigma(normalized_point_pressure_list, mu);
-	    
+
 	    this.muSigmaValues.addMuSigma(mu, sigma);
 	}
 

@@ -62,6 +62,9 @@ public class ProfileUnit {
 	this.profile = challenge.getProfile();
     }
 
+    /**
+     * test teh getMuSigmaValues method for correctness.
+     */
     @Test
     public void test_get_mu_sigma_values() {
 	MuSigma mu_sigma = this.profile.getMuSigmaValues();
@@ -75,5 +78,23 @@ public class ProfileUnit {
 	    assertTrue(mu_list.get(i) == 1);
 	    assertTrue(sigma_list.get(i) == Math.sqrt(2.0 / 3.0));
 	}
+    }
+
+    /**
+     * test that MuSigma computes a mu, sigma value for each point in the
+     * normalized response
+     */
+    @Test
+    public void test_number_points_correct() {
+	MuSigma mu_sigma = this.profile.getMuSigmaValues();
+
+	List<Double> mu_list = mu_sigma.getMuValues();
+	List<Double> sigma_list = mu_sigma.getSigmaValues();
+
+	// System.out.println(mu_list.size());
+	// System.out.println(sigma_list.size());
+
+	assertTrue(mu_list.size() == 32);
+	assertTrue(sigma_list.size() == 32);
     }
 }

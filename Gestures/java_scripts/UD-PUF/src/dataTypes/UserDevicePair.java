@@ -52,7 +52,6 @@ public class UserDevicePair {
 
 	// if there are no responses to authenticate against, return false
 	if (challenge.getProfile().getNormalizedResponses().size() == 0) {
-	    System.out.println("size 0");
 	    return false;
 	}
 
@@ -61,12 +60,6 @@ public class UserDevicePair {
 
 	// determine the size of the list
 	int list_size = challenge.getProfile().getNormalizedResponses().get(0).getResponse().size();
-
-	System.out.println("new_response_data: " + new_response_data);
-	System.out.println(
-		"normalized_response: " + challenge.getProfile().getNormalizedResponses().get(0).getResponse());
-	System.out.println("failed_points: " + failed_points);
-	System.out.println("list size: " + list_size);
 
 	// if the fraction of points that pass is greater than the
 	// authentication threshold, then we pass this person
@@ -128,7 +121,6 @@ public class UserDevicePair {
 	    }
 	}
 
-	System.out.println(points);
 	return points;
     }
 }
