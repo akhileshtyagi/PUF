@@ -62,7 +62,7 @@ public class UserDevicePairUnit {
 
 	// the mu sigma for the responses should be
 	// mu : 1
-	// sigma : 2/3
+	// sigma : sqrt(2/3)
 	ud_pair.addChallenge(challenge);
     }
 
