@@ -49,9 +49,10 @@ public class UserDevicePair {
      */
     public boolean authenticate(List<Point> new_response_data, int challenge_id) {
 	Challenge challenge = get_challenge_index(challenge_id);
-	
+
 	// if there are no responses to authenticate against, return false
 	if (challenge.getProfile().getNormalizedResponses().size() == 0) {
+	    System.out.println("size 0");
 	    return false;
 	}
 
@@ -61,9 +62,22 @@ public class UserDevicePair {
 	// determine the size of the list
 	int list_size = challenge.getProfile().getNormalizedResponses().get(0).getResponse().size();
 
+	System.out.println("new_response_data: " + new_response_data);
+	System.out.println(
+		"normalized_response: " + challenge.getProfile().getNormalizedResponses().get(0).getResponse());
+	System.out.println("failed_points: " + failed_points);
+	System.out.println("list size: " + list_size);
+
 	// if the fraction of points that pass is greater than the
 	// authentication threshold, then we pass this person
 	return ((list_size - failed_points) / list_size) >= AUTHENTICATION_THRESHOLD;
+    }
+
+    /**
+     * return the userDeviceId
+     */
+    public int getUserDeviceId() {
+	return this.userDeviceID;
     }
 
     /**

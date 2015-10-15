@@ -1,5 +1,24 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
 <libraryInfos>
+<libraryInfo home="/usr/lib/jvm/java-7-jdk/jre" version="1.7.0_79">
+<bootpath>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/resources.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/rt.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/sunrsasign.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/jsse.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/jce.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/charsets.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/jfr.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/ext"/>
+<entry path="/usr/java/packages/lib/ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/endorsed"/>
+</endorsedDirs>
+</libraryInfo>
 <libraryInfo home="/usr/lib/jvm/java-7-openjdk" version="1.7.0_85">
 <bootpath>
 <entry path="/usr/lib/jvm/java-7-openjdk/jre/lib/resources.jar"/>
@@ -18,6 +37,25 @@
 </extensionDirs>
 <endorsedDirs>
 <entry path="/usr/lib/jvm/java-7-openjdk/jre/lib/endorsed"/>
+</endorsedDirs>
+</libraryInfo>
+<libraryInfo home="/usr/lib/jvm/java-7-jdk" version="1.7.0_79">
+<bootpath>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/resources.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/rt.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/sunrsasign.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/jsse.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/jce.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/charsets.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/jfr.jar"/>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/classes"/>
+</bootpath>
+<extensionDirs>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/ext"/>
+<entry path="/usr/java/packages/lib/ext"/>
+</extensionDirs>
+<endorsedDirs>
+<entry path="/usr/lib/jvm/java-7-jdk/jre/lib/endorsed"/>
 </endorsedDirs>
 </libraryInfo>
 </libraryInfos>

@@ -51,5 +51,5 @@
     "org.eclipse.pde.core::The current target platform contains errors*",
     ":org.eclipse.equinox.security.storage.StorageException:"
   ],
-  "problemsZipLastDownloadTimestamp": 0
+  "problemsZipLastDownloadTimestamp": 1444621645298
 }
