@@ -8,22 +8,43 @@ import java.util.List;
  * all challenges correlating to that user
  */
 public class UserDevicePair {
-    final double ALLOWED_DEVIATIONS = 1.0;
-    final double AUTHENTICATION_THRESHOLD = 0.75;
+    final static double DEFAULT_ALLOWED_DEVIATIONS = 1.0;
+    final static double DEFAULT_AUTHENTICATION_THRESHOLD = 0.75;
 
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
 
     // Unique identifier given to each user/device pair
     private int userDeviceID;
+    private double allowed_deviations;
+    private double authentication_threshold;
+
+    // stores the failed points from the previous authentication
+    // -1 if not set
+    private double authentication_failed_point_ratio;
 
     public UserDevicePair(int userDeviceID) {
 	this(userDeviceID, new ArrayList<Challenge>());
     }
 
     public UserDevicePair(int userDeviceID, List<Challenge> challenges) {
-	this.challenges = challenges;
+	this(userDeviceID, challenges, DEFAULT_ALLOWED_DEVIATIONS, DEFAULT_AUTHENTICATION_THRESHOLD);
+    }
+
+    /**
+     * all other constructors call this constructor indirectly. Each of the
+     * other constructors provides default parameters in some sense.
+     * 
+     * @param userDeviceID
+     * @param challenges
+     */
+    public UserDevicePair(int userDeviceID, List<Challenge> challenges, double allowed_deviations,
+	    double authentication_threshold) {
 	this.userDeviceID = userDeviceID;
+	this.challenges = challenges;
+	this.allowed_deviations = allowed_deviations;
+	this.authentication_threshold = authentication_threshold;
+	this.authentication_failed_point_ratio = -1;
     }
 
     // Adds challenge to list of challenges correlating to this user/device pair
@@ -56,14 +77,17 @@ public class UserDevicePair {
 	}
 
 	// determine the number of failed points
-	int failed_points = failed_points(new_response_data, challenge, ALLOWED_DEVIATIONS);
+	int failed_points = failed_points(new_response_data, challenge, this.allowed_deviations);
 
 	// determine the size of the list
 	int list_size = challenge.getProfile().getNormalizedResponses().get(0).getResponse().size();
 
+	// set the failed point ratio
+	this.authentication_failed_point_ratio = failed_points / list_size;
+
 	// if the fraction of points that pass is greater than the
 	// authentication threshold, then we pass this person
-	return ((list_size - failed_points) / list_size) >= AUTHENTICATION_THRESHOLD;
+	return ((list_size - failed_points) / list_size) >= this.authentication_threshold;
     }
 
     /**
@@ -71,6 +95,16 @@ public class UserDevicePair {
      */
     public int getUserDeviceId() {
 	return this.userDeviceID;
+    }
+
+    /**
+     * return the number of failed points from the previous authentication.
+     * Return -1 if there is not previous authentication.
+     * 
+     * @return
+     */
+    public double failedPointRatio() {
+	return this.authentication_failed_point_ratio;
     }
 
     /**
