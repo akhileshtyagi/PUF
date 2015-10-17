@@ -55,12 +55,11 @@ public class Activity_menu extends AppCompatActivity {
         });
 
         /**
-         * activate the collect swipe responses activity. Log something for testing?
+         * activate the collect swipe responses activity. Log something for testing? Do not record the responses.
          */
         test_swipe_box_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Intent i = new Intent(getActivity(), CrimePagerActivity.class);
-                //startActivityForResult(i, 0);
+                start_activity_swipe_box();
             }//End onClick
         });
 
@@ -125,5 +124,10 @@ public class Activity_menu extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void start_activity_swipe_box(){
+        Intent intent = new Intent(this, Activity_swipe_box.class);
+        startActivity(intent);
     }
 }
