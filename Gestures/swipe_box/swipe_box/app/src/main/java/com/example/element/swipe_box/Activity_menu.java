@@ -34,6 +34,8 @@ public class Activity_menu extends AppCompatActivity {
         }
     }
 
+    EditText output_console_edit_text;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -44,7 +46,7 @@ public class Activity_menu extends AppCompatActivity {
         /**
          * find the edit text for output
          */
-        EditText output_console_edit_text = (EditText)findViewById(R.id.output_console_edit_text);
+        output_console_edit_text = (EditText)findViewById(R.id.output_console_edit_text);
         output_console_edit_text.setText("Load Successful");
 
         /**
@@ -90,8 +92,11 @@ public class Activity_menu extends AppCompatActivity {
          */
         analyze_responses_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Intent i = new Intent(getActivity(), CrimePagerActivity.class);
-                //startActivityForResult(i, 0);
+                // perform analysis of the Responses Will use the UD-PUF library here
+
+
+                // update the edit text console with the results
+                output_console_edit_text.setText("stuff");
             }//End onClick
         });
 
