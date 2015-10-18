@@ -13,7 +13,26 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Activity_menu extends AppCompatActivity {
+
+    ArrayList<List<Point>> responses;
+
+    public enum Result{
+        RESPONSE(0),
+        RESPONSE_TEST(1);
+
+        private int int_value;
+        public int get_int_value(){
+            return int_value;
+        }
+
+        Result(int int_value){
+            this.int_value = int_value;
+        }
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,9 +67,12 @@ public class Activity_menu extends AppCompatActivity {
          */
         collect_swipe_responses_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Log.d("button", "button pressed");
-                //Intent i = new Intent(getActivity(), CrimePagerActivity.class);
-                //startActivityForResult(i, 0);
+                responses = new ArrayList<List<Point>>();
+
+                // start the swipe box activity. Responses will be loged in onActivityResult()
+                for(int i=0;i<10; i++){
+                    start_activity_swipe_box();
+                }
             }//End onClick
         });
 
@@ -59,7 +81,7 @@ public class Activity_menu extends AppCompatActivity {
          */
         test_swipe_box_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                start_activity_swipe_box();
+                start_activity_swipe_box_test();
             }//End onClick
         });
 
@@ -126,8 +148,31 @@ public class Activity_menu extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if ((requestCode == Result.RESPONSE_TEST.get_int_value()) && (resultCode == RESULT_OK)){
+            //String response = data.getStringExtra("response");
+            ArrayList<Point> response = (ArrayList<Point>)data.getExtras().getSerializable("response");
+
+            // Have retrieved the response from
+            Log.d("return", response.toString());
+        }else if ((requestCode == Result.RESPONSE.get_int_value()) && (resultCode == RESULT_OK)){
+            //String response = data.getStringExtra("response");
+            ArrayList<Point> response = (ArrayList<Point>)data.getExtras().getSerializable("response");
+
+            // put the responses into the response object
+            responses.add(response);
+        }
+    }
+
+    private void start_activity_swipe_box_test(){
+        Intent intent = new Intent(this, Activity_swipe_box.class);
+        startActivityForResult(intent, Result.RESPONSE_TEST.get_int_value());
+    }
+
     private void start_activity_swipe_box(){
         Intent intent = new Intent(this, Activity_swipe_box.class);
-        startActivity(intent);
+        startActivityForResult(intent, Result.RESPONSE.get_int_value());
     }
 }

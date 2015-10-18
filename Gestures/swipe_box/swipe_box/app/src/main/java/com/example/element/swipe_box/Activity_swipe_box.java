@@ -1,5 +1,6 @@
 package com.example.element.swipe_box;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -10,6 +11,8 @@ import java.util.List;
 
 public class Activity_swipe_box extends AppCompatActivity {
 
+    PufDrawView pufDrawView;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -19,11 +22,20 @@ public class Activity_swipe_box extends AppCompatActivity {
 
         TextView tv = (TextView) findViewById(R.id.point_text_view);
 
-        PufDrawView pufDrawView = (PufDrawView) findViewById(R.id.puf_draw_view);
+        pufDrawView = (PufDrawView) findViewById(R.id.puf_draw_view);
         pufDrawView.setTV(tv);
 
         ArrayList<Point> challenge = generateChallenge();
         pufDrawView.giveChallenge(challenge.toArray(new Point[challenge.size()]));
+    }
+
+    @Override
+    public void finish() {
+        Intent data = new Intent();
+        data.putExtra("response", pufDrawView.get_response());
+        setResult(RESULT_OK, data);
+
+        super.finish();
     }
 
     /**

@@ -1,6 +1,8 @@
 package com.example.element.swipe_box;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
@@ -81,8 +83,8 @@ public class PufDrawView extends View
                 }
             }
             canvas.drawPath(challengePath, redPaint);
-            canvas.drawPath(challengeMiddle, bluePaint);
-            canvas.drawPath(challengeStart, greenPaint);
+            canvas.drawPath(challengeMiddle, redPaint);
+            canvas.drawPath(challengeStart, redPaint);
         }
         else if(challenge.length == 2)
         {
@@ -98,6 +100,10 @@ public class PufDrawView extends View
     {
         this.challenge = challenge;
         this.invalidate();
+    }
+
+    public ArrayList<Point> get_response(){
+        return this.response;
     }
 
     @Override
@@ -117,6 +123,8 @@ public class PufDrawView extends View
                 //TODO: rather hacky reference to mainactivity that could cause 
                 //problems if this code is ever re-used
                 //((MainActivity)getContext()).informOfResponse();
+                Activity activity = (Activity)getContext();
+                activity.finish();
 
                 break;
             case MotionEvent.ACTION_MOVE:
