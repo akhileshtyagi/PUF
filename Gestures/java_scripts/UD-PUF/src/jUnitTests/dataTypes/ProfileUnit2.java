@@ -1,6 +1,5 @@
 package jUnitTests.dataTypes;
 
-<<<<<<< HEAD
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 
@@ -178,5 +177,4 @@ public class ProfileUnit {
 	assertTrue(mu_list.size() == 32);
 	assertTrue(sigma_list.size() == 32);
     }
->>>>>>> 6d79e1d2cb2c7b9d406db78a7435383712254f5c
 }
