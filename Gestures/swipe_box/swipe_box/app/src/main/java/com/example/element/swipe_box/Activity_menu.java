@@ -16,9 +16,11 @@ import android.widget.EditText;
 import java.util.ArrayList;
 import java.util.List;
 
+import dataTypes.Response;
+
 public class Activity_menu extends AppCompatActivity {
 
-    ArrayList<List<Point>> responses;
+    private ArrayList<Response> responses;
 
     public enum Result{
         RESPONSE(0),
@@ -42,6 +44,11 @@ public class Activity_menu extends AppCompatActivity {
         setContentView(R.layout.activity_menu);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
+        /**
+         * initialize variables
+         */
+        this.responses = new ArrayList<Response>();
 
         /**
          * find the edit text for output
@@ -69,7 +76,7 @@ public class Activity_menu extends AppCompatActivity {
          */
         collect_swipe_responses_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                responses = new ArrayList<List<Point>>();
+                responses = new ArrayList<Response>();
 
                 // start the swipe box activity. Responses will be loged in onActivityResult()
                 for(int i=0;i<10; i++){
@@ -93,10 +100,17 @@ public class Activity_menu extends AppCompatActivity {
         analyze_responses_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 // perform analysis of the Responses Will use the UD-PUF library here
+                // build various functions which generate different results
+                int number_responses = responses.size();
+                //TODO write functions to analyze the thing and print out the results
+
+                // turn the results into an output string
+                String console_output = "";
+                console_output += "number of responses: " + number_responses + "\n";
 
 
                 // update the edit text console with the results
-                output_console_edit_text.setText("stuff");
+                output_console_edit_text.setText(console_output);
             }//End onClick
         });
 
@@ -164,11 +178,28 @@ public class Activity_menu extends AppCompatActivity {
             Log.d("return", response.toString());
         }else if ((requestCode == Result.RESPONSE.get_int_value()) && (resultCode == RESULT_OK)){
             //String response = data.getStringExtra("response");
-            ArrayList<Point> response = (ArrayList<Point>)data.getExtras().getSerializable("response");
+            ArrayList<Point> array_response = (ArrayList<Point>)data.getExtras().getSerializable("response");
+
+            //convert the arraylist of points into a ud_puf response object
+            Response response = array_to_response(array_response);
 
             // put the responses into the response object
             responses.add(response);
         }
+    }
+
+    /**
+     * takes an ArrayList<Point> and turns it into a UD_PUF response
+     */
+    private Response array_to_response(ArrayList<Point> array_response){
+        ArrayList<dataTypes.Point> points = new ArrayList<dataTypes.Point>();
+
+        //for each point in the array, add it to the response
+        for(Point array_point : array_response){
+            points.add(new dataTypes.Point(array_point.x, array_point.y, array_point.pressure));
+        }
+
+        return new Response(points);
     }
 
     private void start_activity_swipe_box_test(){

@@ -120,9 +120,7 @@ public class PufDrawView extends View
                 tv.setText( "No touch detected." );
                 //RECORD ACTION FINISH
 
-                //TODO: rather hacky reference to mainactivity that could cause 
-                //problems if this code is ever re-used
-                //((MainActivity)getContext()).informOfResponse();
+                // get a reference to the activit and finish it
                 Activity activity = (Activity)getContext();
                 activity.finish();
 
