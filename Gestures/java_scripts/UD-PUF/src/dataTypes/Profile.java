@@ -1,5 +1,6 @@
 package dataTypes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -10,7 +11,11 @@ import java.util.List;
  * 
  * This class assumees the responses have already been normalized.
  */
-public class Profile {
+public class Profile implements Serializable{
+    /**
+     * serial version id
+     */
+    private static final long serialVersionUID = -8090388590557141249L;
 
     // List of normalized Responses
     private List<Response> normalizedResponses;
@@ -19,7 +24,7 @@ public class Profile {
     private MuSigma muSigmaValues;
 
     // true if mu sigma has been computed
-    boolean mu_sigma_computed;
+    private boolean mu_sigma_computed;
 
     public Profile(List<Response> normalizedResponses) {
 	this.normalizedResponses = normalizedResponses;

@@ -2,6 +2,7 @@ package jUnitTests.dataTypes;
 
 import static org.junit.Assert.assertTrue;
 
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -96,5 +97,21 @@ public class ProfileUnit {
 
 	assertTrue(mu_list.size() == 32);
 	assertTrue(sigma_list.size() == 32);
+    }
+
+    /**
+     * test if profile is serializable
+     */
+    @Test
+    public void test_serializable() {
+	// try to write object to console
+	try {
+	    ObjectOutputStream out = new ObjectOutputStream(System.out);
+	    out.writeObject(this.profile);
+	    out.close();
+	} catch (Exception e) {
+	    e.printStackTrace();
+	    assertTrue(false);
+	}
     }
 }
