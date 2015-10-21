@@ -70,17 +70,31 @@ public class UserDevicePair {
      */
     public boolean authenticate(List<Point> new_response_data, int challenge_id) {
 	Challenge challenge = get_challenge_index(challenge_id);
+	Profile profile = challenge.getProfile();
+
+	return authenticate(new_response_data, profile);
+    }
+
+    /**
+     * provides for authentication against a profile. This is as opposed to
+     * authentication against a challenge
+     * 
+     * @param new_response_data
+     * @param profile
+     * @return
+     */
+    public boolean authenticate(List<Point> new_response_data, Profile profile) {
 
 	// if there are no responses to authenticate against, return false
-	if (challenge.getProfile().getNormalizedResponses().size() == 0) {
+	if (profile.getNormalizedResponses().size() == 0) {
 	    return false;
 	}
 
 	// determine the number of failed points
-	int failed_points = failed_points(new_response_data, challenge, this.allowed_deviations);
+	int failed_points = failed_points(new_response_data, profile, this.allowed_deviations);
 
 	// determine the size of the list
-	int list_size = challenge.getProfile().getNormalizedResponses().get(0).getResponse().size();
+	int list_size = profile.getNormalizedResponses().get(0).getResponse().size();
 
 	// set the failed point ratio
 	this.authentication_failed_point_ratio = failed_points / list_size;
@@ -129,17 +143,18 @@ public class UserDevicePair {
      * calculate the number of points in the new response which fall outside of
      * number_standard_deviations of mean
      */
-    private int failed_points(List<Point> new_response, Challenge challenge, double allowed_deviations) {
+    private int failed_points(List<Point> new_response, Profile profile, double allowed_deviations) {
 	int points = 0;
 
 	// get the mu, sigma values from the profile
-	List<Double> mu_values = challenge.getProfile().getMuSigmaValues().getMuValues();
-	List<Double> sigma_values = challenge.getProfile().getMuSigmaValues().getSigmaValues();
+	List<Double> mu_values = profile.getMuSigmaValues().getMuValues();
+	List<Double> sigma_values = profile.getMuSigmaValues().getSigmaValues();
 
 	// normalize the response
 	Response response_object = new Response(new_response);
-	response_object.normalize(challenge.getProfile().getNormalizedResponses().get(0).getResponse(),
-		challenge.isHorizontal());
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getResponse());
+
+	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
 
 	// compare the response to the challenge_profile
 	// For each point determine whether or not it falls with in
@@ -156,5 +171,35 @@ public class UserDevicePair {
 	}
 
 	return points;
+    }
+
+    /**
+     * determine if the list of points given is more horizontal or more vertical
+     * 
+     * @return true if the list is more horizontal
+     * @return false if thel ist is more vertical
+     */
+    private boolean is_horizontal(List<Point> point_list) {
+	int x_dist = 0;
+	int y_dist = 0;
+
+	// calculate x_dist and y_dist covered by the list
+	Point prev_challenge_point = null;
+
+	for (Point challenge_point : point_list) {
+	    if (prev_challenge_point == null) {
+		prev_challenge_point = challenge_point;
+		continue;
+	    }
+
+	    // compute the distance between the current point and the previous
+	    // point
+	    x_dist += Math.abs(challenge_point.getX() - prev_challenge_point.getX());
+	    y_dist += Math.abs(challenge_point.getY() - prev_challenge_point.getY());
+	    
+	    prev_challenge_point = challenge_point;
+	}
+	
+	return x_dist > y_dist;
     }
 }

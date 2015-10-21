@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import dataTypes.Challenge;
 import dataTypes.Point;
+import dataTypes.Profile;
 import dataTypes.Response;
 import dataTypes.UserDevicePair;
 
@@ -152,17 +153,18 @@ public class UserDevicePairUnit {
 
 	// create new challenge to be used
 	Challenge challenge = ud_pair.getChallenges().get(0);
+	Profile profile = challenge.getProfile();
 
 	// call the private method of UserDevicePair
 	String methodName = "failed_points";
-	Class[] classList = { List.class, Challenge.class, double.class };
-	Object[] methodParameters = { new_response, challenge, 1 };
+	Class[] classList = { List.class, Profile.class, double.class };
+	Object[] methodParameters = { new_response, profile, 1 };
 
 	int answer = (int) TestUtil.runPrivateMethod(this.ud_pair, methodName, classList, methodParameters);
 
 	assertTrue(answer == 32);
     }
-    
+
     @Test
     public void test_failed_points_all_pass() {
 	// create new response to be used
@@ -174,11 +176,12 @@ public class UserDevicePairUnit {
 
 	// create new challenge to be used
 	Challenge challenge = ud_pair.getChallenges().get(0);
+	Profile profile = challenge.getProfile();
 
 	// call the private method of UserDevicePair
 	String methodName = "failed_points";
-	Class[] classList = { List.class, Challenge.class, double.class };
-	Object[] methodParameters = { new_response, challenge, 1 };
+	Class[] classList = { List.class, Profile.class, double.class };
+	Object[] methodParameters = { new_response, profile, 1 };
 
 	int answer = (int) TestUtil.runPrivateMethod(this.ud_pair, methodName, classList, methodParameters);
 
