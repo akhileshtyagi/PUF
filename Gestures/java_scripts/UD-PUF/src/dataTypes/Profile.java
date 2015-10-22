@@ -18,7 +18,7 @@ public class Profile implements Serializable{
     private static final long serialVersionUID = -8090388590557141249L;
 
     // List of normalized Responses
-    private List<Response> normalizedResponses;
+    private ArrayList<Response> normalizedResponses;
 
     // Mu Sigma values that define the profile
     private MuSigma muSigmaValues;
@@ -27,7 +27,7 @@ public class Profile implements Serializable{
     private boolean mu_sigma_computed;
 
     public Profile(List<Response> normalizedResponses) {
-	this.normalizedResponses = normalizedResponses;
+	this.normalizedResponses = new ArrayList<Response>(normalizedResponses);
 
 	// TODO
 	// Calculate mu and sigma values for this profile
@@ -62,7 +62,7 @@ public class Profile implements Serializable{
 	return muSigmaValues;
     }
 
-    public List<Response> getNormalizedResponses() {
+    public ArrayList<Response> getNormalizedResponses() {
 	return normalizedResponses;
     }
 

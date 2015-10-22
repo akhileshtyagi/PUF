@@ -107,7 +107,8 @@ public class ProfileUnit {
 	// try to write object to console
 	try {
 	    ObjectOutputStream out = new ObjectOutputStream(System.out);
-	    out.writeObject(this.profile);
+	    out.writeObject(this.profile.getMuSigmaValues()); // ok
+	    out.writeObject((this.profile.getNormalizedResponses())); // not ok
 	    out.close();
 	} catch (Exception e) {
 	    e.printStackTrace();

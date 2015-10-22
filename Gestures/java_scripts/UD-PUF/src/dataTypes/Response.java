@@ -1,18 +1,20 @@
 package dataTypes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Represents one response created by a user
  */
-public class Response {
+public class Response implements Serializable {
+    private static final long serialVersionUID = -292775056595225846L;
 
     // List of points which the user swiped
-    private List<Point> responsePattern;
+    private ArrayList<Point> responsePattern;
 
     public Response(List<Point> responsePattern) {
-	this.responsePattern = responsePattern;
+	this.responsePattern = new ArrayList<Point>(responsePattern);
     }
 
     public List<Point> getResponse() {
@@ -28,7 +30,7 @@ public class Response {
     public void normalize(List<Point> normalizingPoints, boolean isChallengeHorizontal) {
 	// Implement method of normalizing ResponsePattern to points
 	// given in to method
-	List<Point> normalizedResponsePattern = new ArrayList<Point>();
+	ArrayList<Point> normalizedResponsePattern = new ArrayList<Point>();
 	Point closestLeftPoint = null; // left or below
 	Point closestRightPoint = null; // right or above
 	Point normalizedPoint = null;
@@ -74,8 +76,8 @@ public class Response {
 		}
 	    }
 
-	    //System.out.println(closestRightPoint.getX());
-	    //System.out.println(closestLeftPoint.getX());
+	    // System.out.println(closestRightPoint.getX());
+	    // System.out.println(closestLeftPoint.getX());
 
 	    // if the closest left and right points are equal, simply add the
 	    // pressure value of that point to the list

@@ -15,10 +15,10 @@ public class MuSigma implements Serializable {
     private static final long serialVersionUID = 828607022763636779L;
 
     // List of mu values, which for our uses are average pressures
-    private List<Double> muValues;
+    private ArrayList<Double> muValues;
 
     // List of sigma values, the standard deviation for each mu value
-    private List<Double> sigmaValues;
+    private ArrayList<Double> sigmaValues;
 
     // Empty constructor
     public MuSigma() {
@@ -28,8 +28,8 @@ public class MuSigma implements Serializable {
 
     // Constructor for including lists of values
     public MuSigma(List<Double> muValues, List<Double> sigmaValues) {
-	this.muValues = muValues;
-	this.sigmaValues = sigmaValues;
+	this.muValues = new ArrayList<Double>(muValues);
+	this.sigmaValues = new ArrayList<Double>(sigmaValues);
     }
 
     public List<Double> getMuValues() {
