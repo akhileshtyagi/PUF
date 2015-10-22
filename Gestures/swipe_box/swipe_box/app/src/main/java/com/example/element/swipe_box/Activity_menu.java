@@ -14,8 +14,10 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import dataTypes.Challenge;
 import dataTypes.Response;
 
 public class Activity_menu extends AppCompatActivity {
@@ -101,13 +103,21 @@ public class Activity_menu extends AppCompatActivity {
             public void onClick(View v) {
                 // perform analysis of the Responses Will use the UD-PUF library here
                 // build various functions which generate different results
+                // TODO normalize the responses using the UD_PUF library
+                //Challenge challenge = new Challenge();
+
+                // write functions to analyze the thing and print out the results
                 int number_responses = responses.size();
-                //TODO write functions to analyze the thing and print out the results
+                List<Double> mu_responses = compute_mu_list(responses);
+                List<Double> sigma_responses = compute_sigma_list(responses, mu_responses);
+                List<Double> variance_by_mean_responses = compute_variance_by_mean_list(mu_responses, sigma_responses);
 
                 // turn the results into an output string
                 String console_output = "";
                 console_output += "number of responses: " + number_responses + "\n";
-
+                console_output += "average of responses: " + mu_responses + "\n";
+                console_output += "sigma of responses: " + sigma_responses + "\n";
+                console_output += "variance by mean of responses: " + variance_by_mean_responses + "\n";
 
                 // update the edit text console with the results
                 output_console_edit_text.setText(console_output);
@@ -210,5 +220,123 @@ public class Activity_menu extends AppCompatActivity {
     private void start_activity_swipe_box(){
         Intent intent = new Intent(this, Activity_swipe_box.class);
         startActivityForResult(intent, Result.RESPONSE.get_int_value());
+    }
+
+    /**
+     * computes variance by mean for the responses
+     * @param mu_list
+     * @param sigma_list
+     * @return
+     */
+    private List<Double> compute_variance_by_mean_list(List<Double> mu_list, List<Double> sigma_list){
+        List<Double> variance_by_mean_list = new ArrayList<Double>();
+
+        // compute variance by mean
+        // variance = sigma^2 / mu
+        for(int i = 0; i<mu_list.size();i++){
+            variance_by_mean_list.add(sigma_list.get(i)*sigma_list.get(i) / mu_list.get(i));
+        }
+
+        return variance_by_mean_list;
+    }
+
+    /**
+     * computes the average for each point in the list
+     * returns the average of each point in a list
+     * @param response_list
+     * @return
+     */
+    private List<Double> compute_mu_list(List<Response> response_list){
+        List<Double> sigma_list = new ArrayList<Double>();
+        List<Double> pressure_list;
+
+        // compute mu for each point in the list
+        for(int i=0;i<response_list.get(0).getResponse().size();i++){
+            //for each response create a list of pressure values
+            pressure_list = new ArrayList<Double>();
+
+            for(dataTypes.Point point : response_list.get(i).getResponse()){
+                pressure_list.add(point.getPressure());
+            }
+
+            // compute mu for the point
+            sigma_list.add(compute_mu(pressure_list));
+        }
+
+        return sigma_list;
+    }
+
+    /**
+     * compute the std deviation given an number of responses. this will return a list of std deviation for each point i nthe list.
+     * @param response_list
+     * @return
+     */
+    private List<Double> compute_sigma_list(List<Response> response_list, List<Double> mu_list){
+        List<Double> sigma_list = new ArrayList<Double>();
+        List<Double> pressure_list;
+
+        // compute sigma for each point in the list
+        for(int i=0;i<response_list.get(i).getResponse().size();i++){
+            //for each response create a list of pressure values
+            pressure_list = new ArrayList<Double>();
+
+            for(dataTypes.Point point : response_list.get(i).getResponse()){
+                pressure_list.add(point.getPressure());
+            }
+
+            // compute sigma for the point
+            sigma_list.add(compute_sigma(pressure_list, mu_list.get(i)));
+        }
+
+        return sigma_list;
+    }
+
+    /**
+     * compute the standard deviation for the list of points
+     *
+     * @return
+     */
+    private double compute_sigma(List<Double> list, double mu) {
+        double std = 0;
+
+        // 1. Work out the Mean (the simple average of the numbers)
+        // 2. Then for each number: subtract the Mean and square the result
+        // 3. Then work out the mean of those squared differences.
+        // 4. Take the square root of that and we are done!
+        Iterator<Double> iterator = list.iterator();
+        int count = 0;
+        double total_subtract_mean_squared = 0;
+
+        while (iterator.hasNext()) {
+            Double t = iterator.next();
+
+            total_subtract_mean_squared += Math.pow(t - mu, 2);
+            count++;
+        }
+
+        // std is the square root of the average of these numbers
+        std = Math.sqrt(total_subtract_mean_squared / count);
+
+        return std;
+    }
+
+    /**
+     * compute average of the list of points
+     */
+    private double compute_mu(List<Double> list) {
+        Iterator<Double> iterator = list.iterator();
+        double average = 0;
+        double total = 0;
+
+        while (iterator.hasNext()) {
+            Double t = iterator.next();
+
+            total += t;
+
+        }
+
+        average = total / list.size();
+
+        return average;
     }
 }

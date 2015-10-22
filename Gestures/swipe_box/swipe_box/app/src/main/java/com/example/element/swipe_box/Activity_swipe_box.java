@@ -50,6 +50,9 @@ public class Activity_swipe_box extends AppCompatActivity {
     }
 
     /**
+     * Possibly a^2 / 16 to maximuze variance
+     * a being the size of the screen
+     *
      * create a box given the x_size, y_size, x_offset, and y_offset.
      * x,y offset begin at 0,0 in the upper left corner of the screen
      */
