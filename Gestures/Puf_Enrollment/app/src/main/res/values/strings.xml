@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">PUF Enrollment</string>
+    <string name="enrollment_button_text">Enrollment</string>
+    <string name="pin_label">Enter Pin</string>
+    <string name="pin_begin_enrollment_button">Begin Enrollment</string>
+
+<!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>

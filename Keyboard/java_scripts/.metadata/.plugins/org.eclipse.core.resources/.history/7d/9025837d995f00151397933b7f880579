@@ -1,0 +1,46 @@
+package test;
+
+import static org.junit.Assert.fail;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import components.Chain;
+import components.Touch;
+
+/**
+ * Test the compairason with ranks
+ * 
+ * @author element
+ *
+ */
+public class UnitRankCompare {
+
+	@Before
+	public void init() {
+		// window 2, tokens 10, threshold 500, size 9
+		Chain chain = new Chain(2, 10, 500, 6);
+		List<Touch> chain_touches = new ArrayList<Touch>();
+
+		// model size is 5. Add 10 touches to the model and see if the sliding
+		// is working correctly. The most rescent 5 touches should be retained.
+		for (int i = 0; i < 6; i++) {
+			// .1 though .9 pressures.... average is .5.... keycode is half a,
+			// half b
+			Touch touch = new Touch('a', .1 * (i % 10), 100);
+			// System.out.println(touch);
+
+			chain_touches.add(touch);
+			chain.add_touch(touch);
+		}
+	}
+
+	@Test
+	public void test() {
+		fail("Not yet implemented");
+	}
+
+}

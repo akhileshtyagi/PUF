@@ -1,0 +1,281 @@
+%% The comment character in TeX / LaTeX is the percent character.
+%% The following chunk is called the header
+
+\documentclass{article} % essential first line
+\usepackage{times}    % this uses fonts which will look nice in PDF format
+\usepackage{graphicx}   % needed for the figures
+\usepackage{url}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{listings}
+\usepackage{color}
+\usepackage{float}
+
+\definecolor{dkgreen}{rgb}{0,0.6,0}
+\definecolor{gray}{rgb}{0.5,0.5,0.5}
+\definecolor{mauve}{rgb}{0.58,0,0.82}
+
+\lstset{frame=tb,
+  language=Java,
+  aboveskip=3mm,
+  belowskip=3mm,
+  showstringspaces=false,
+  columns=flexible,
+  basicstyle={\small\ttfamily},
+  numbers=none,
+  numberstyle=\tiny\color{gray},
+  keywordstyle=\color{blue},
+  commentstyle=\color{dkgreen},
+  stringstyle=\color{mauve},
+  breaklines=true,
+  breakatwhitespace=true,
+  tabsize=3
+}
+
+%% Set the folder where pictures are located
+\graphicspath{ {images/} }
+
+%% Here I adjust the margins
+
+\oddsidemargin -0.25in    % Left margin is 1in + this value
+\textwidth 6.75in   % Right margin is not set explicitly
+\topmargin 0in      % Top margin is 1in + this value
+\textheight 9in     % Bottom margin is not set explicitly
+\columnsep 0.25in   % separation between columns
+
+%% Define a macro for inserting postscript images
+%% ==============================================
+%% This is a macro which nominally takes 3 parameters, 
+%% it would be used as follows to insert and encapsulated postscript
+%% image at the location where it is used.
+%%
+%% \EPSFIG{epsfilename}{caption}{label}
+%% - epsfilename is the name of the encapsulated postscript file to be
+%%               inserted at this location
+%% - caption is the text to be shown as the figure caption, it will be
+%%           prepended by Figure X.  The number X can be referenced
+%%           using the label parameter.
+%% - label is a name given to the figure, it can be referenced using the
+%%         \ref{label} command.
+
+%\def\EPSFIG[#1]#2#3#4{   % Don't be scared by this monsrosity
+%\begin{figure}[hbt]    % it is a macro to save typing later
+%\begin{center}     % 
+%\includegraphics[#1]{#2} %
+%\end{center}     %
+%\caption{#3}     %
+%\label{#4}     %
+%\end{figure}     %
+%}        %
+
+%% Define the fields to be displayed by a \maketitle command
+\author{Timothy Dee, Nick Mont.....}
+%{\it Undergraduate, Department of Electrical and Computer Engineering, Iowa State University}
+\title{UD-PUF API}
+
+%%
+%% Header now finished
+%%
+\begin{document}    % Critical
+%\twocolumn
+\thispagestyle{empty}   % Inhibit the page number on this page
+\maketitle      % Use the \author, \title and \date info
+
+% List out and describe the public API
+\section{Public API}
+\subsection{UserDevicePair}
+This class is the most useful object in the UD-PUF library. It is used to represent a user device combination. This class implements the authentication component of the library.
+This class holds a list of challenges for a given user. For each challenge there are presumably multiple responses.
+Authentication entails comparing a new response for a given challenge to the existing profile built for that challenge.
+\subsubsection{Constructors}
+Below are listed the constructors for the UserDevicePair class. The final constructor on line 5 provides the ability to create a UserDevicePair object by specifying all of the parameters.
+The other constructors provide default parameters for the parameters which are not specified.
+
+\begin{table}[H]
+\centering
+\begin{tabular}{ | l | l | p{6.5cm} | p{3cm}|}
+\hline
+
+Type & Parameter & Meaning & Default Value \\ \hline
+int & userDeviceID & UserDeviceID can be used to keep track of the user & \\ \hline
+List\textless Challenge\textgreater & challenges & A list of Challenge objects corresponding to challenges already constructed for the user, device & empty ArrayList\textless Challenge\textgreater \\ \hline
+double & allowed\_deviations & This is a parameter used during authentication. When testing for points which don't match the profile this value determines the number of standard deviations a point in a response may be away from the corresponding average for that point in the profile. 
+Points which fall outside of this number of standard deviations will be considered not within the profile.
+We call these failed points. & 1.0 \\ \hline
+double & authentication\_threshold & The ratio of failed points to total points at which the user will be considered within the profile and pass authentication. & 0.75 \\ \hline
+
+\hline
+\end{tabular}
+\end{table}
+
+\begin{lstlisting}[numbers=left]
+public UserDevicePair(int userDeviceID){}
+
+public UserDevicePair(int userDeviceID, List<Challenge> challenges){}
+
+public UserDevicePair(int userDeviceID, List<Challenge> challenges, double allowed_deviations, double authentication_threshold){}
+\end{lstlisting}
+
+\subsubsection{Public Methods}
+\begin{lstlisting}[numbers=left]
+// Adds challenge to list of challenges correlating to this user/device pair
+public void addChallenge(Challenge challenge){}
+
+// gets the challenges for this user, device
+public List<Challenge> getChallenges(){}
+
+/**
+ * true if the new_response_data has a certain percentage of points which
+ * fall within the profile for the challenge indicated by challenge_id
+ * 
+ * The testPressListVsDistrib() method in the Util file seems to be
+ * performing the authentication
+ */
+public boolean authenticate(List<Point> new_response_data, int challenge_id){}
+
+// return the userDeviceID
+public int getUserDeviceId(){}
+
+/**
+ * return the number of failed points from the previous authentication.
+ * Return -1 if there is not previous authentication.
+ */
+public double failedPointRatio(){}
+\end{lstlisting}
+
+\subsection{Response}
+\subsubsection{Constructors}
+Response constructor takes in a responsePattern. This responsePattern represents the Points the user traced in response to the provided challenge.
+\begin{lstlisting}[numbers=left]
+public Response(List<Point> responsePattern){}
+\end{lstlisting}
+
+\subsubsection{Public Methods}
+Normalize method preforms the following function. Normalizes points in response. The normalizingPoints are a list of points to normalize the response to. In other words the response will then contain exactly these point having some pressure determined by the original response.
+\begin{lstlisting}[numbers=left]
+public List<Point> getResponse() {}
+
+public void normalize(List<Point> normalizingPoints, boolean isChallengeHorizontal) {}
+\end{lstlisting}
+
+\subsection{Challenge}
+\subsubsection{Constructors}
+Takes a list of Points corresponding to the challenge points presented to the user.
+\begin{lstlisting}[numbers=left]
+public Challenge(List<Point> challengePattern, int challengeID) {}
+\end{lstlisting}
+
+\subsubsection{Public Methods}
+The challenge contains a number of responses. These responses correspond to the responses generated by the user when they are presented this challenge. A response is normalized when it is added to the Challenge.
+\begin{lstlisting}[numbers=left]
+// add a response to this challenge
+// this method will normalize the response before adding it
+public void addResponse(Response response) {}
+
+// return the mu sigma profile for the responses to this challenge
+public Profile getProfile() {}
+
+// return the challenge points
+public List<Point> getChallengePattern() {}
+
+// return the ID of this challenge
+public int getChallengeID() {}
+
+// Determine if the challenge is more horizontal than vertical in oreantation
+public boolean isHorizontal(){}
+\end{lstlisting}
+
+\subsection{Point}
+\subsubsection{Constructors}
+Constructor which take x, y, pressure represented x position, y position, and pressure of the point respectively.
+\begin{lstlisting}[numbers=left]
+public Point(double x, double y, double pressure) {}
+
+public Point(Point p) {}
+\end{lstlisting}
+
+\subsubsection{Public Methods}
+\begin{lstlisting}[numbers=left]
+public double getX() {}
+
+public double getY() {}
+
+public double getPressure() {}
+    
+// compares each of x, y, pressure for equality
+public boolean equals(Object p) {}
+\end{lstlisting}
+
+% example use of the library
+\section{Examples}
+% describes the process to create and use a UserDevicePair
+\subsection{Creating a UserDevicePair}
+
+\begin{lstlisting}[numbers=left]
+  Challenge challenge;
+  Response response;
+  List<Point> response_points;
+
+  // create a userDeficePair
+  ud_pair = new UserDevicePair(0);
+
+  // create a list of challenge points
+  List<Point> challenge_points = new ArrayList<Point>();
+
+  // sample points for testing
+  challenge_points.add(new Point(100, 100, 0));
+  challenge_points.add(new Point(200, 100, 0));
+  challenge_points.add(new Point(300, 100, 0));
+  challenge_points.add(new Point(400, 100, 0));
+
+  // add the challenge to it which I want to authenticate against
+  // create 3 responses to add to this challenge
+  challenge = new Challenge(challenge_points, 0);
+
+  for (int i = 0; i < 3; i++) {
+      response_points = new ArrayList<Point>();
+
+      // create the response
+      for (int j = 0; j < 32; j++) {
+    response_points.add(new Point((300 / 32) * j + 100, 100, i));
+      }
+
+      response = new Response(response_points);
+      challenge.addResponse(response);
+  }
+
+  // the mu sigma for the responses should be
+  // mu : 1
+  // sigma : sqrt(2/3)
+  ud_pair.addChallenge(challenge);
+\end{lstlisting}
+
+\subsection{Creating a Response Object}
+\begin{lstlisting}[numbers=left]
+  // create the response object
+  List<Point> response_points = new ArrayList<Point>();
+
+  // populate the response_points list with 10 points
+  for (int i = 0; i < 9; i++) {
+      response_points.add(new Point(i, i, .1 * i));
+  }
+
+  response = new Response(response_points);
+\end{lstlisting}
+
+\subsection{Creating a Challenge Object}
+\begin{lstlisting}[numbers=left]
+  // construct some test data
+  List<Challenge> challenges = new ArrayList<Challenge>();
+  List<Point> challenge_points = new ArrayList<Point>();
+
+  // sample points
+  challenge_points.add(new Point(100, 100, 0));
+  challenge_points.add(new Point(200, 200, 0));
+  challenge_points.add(new Point(300, 300, 0));
+  challenge_points.add(new Point(400, 400, 0));
+
+  challenges.add(new Challenge(challenge_points, 0));
+\end{lstlisting}
+
+\end{document}

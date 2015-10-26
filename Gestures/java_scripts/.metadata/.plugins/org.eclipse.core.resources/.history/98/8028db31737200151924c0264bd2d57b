@@ -1,0 +1,36 @@
+package api;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import dataTypes.UserDevicePair;
+
+/**
+ * This class is meant to implement the public API for the UD_PUF project. Users
+ * of this project are mant to use this class to interact with UD_PUF
+ * 
+ * If you only need to keep track of one user, you could also user
+ * UserDevicePair class
+ * 
+ * This class keeps track of multiple users in a system
+ * 
+ * @author element
+ *
+ */
+public class UD_PUF {
+    private List<UserDevicePair> users;
+
+    // if we are going to have the user configure the UD-PUF library, this is
+    // the place to do it
+    public UD_PUF() {
+	this.users = new ArrayList<UserDevicePair>();
+    }
+
+    /**
+     * creates a new user and returns the userId
+     * @return user id
+     */
+    public int createUser() {
+
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+<fullyQualifiedTypeName name="components.Token"/>
+<fullyQualifiedTypeName name="runtime.ChainBuilder.State"/>
+<fullyQualifiedTypeName name="runtime.ChainBuilder"/>
+<fullyQualifiedTypeName name="components.Token.Type"/>
+<fullyQualifiedTypeName name="java.util.concurrent.Executors"/>
+<fullyQualifiedTypeName name="java.util.concurrent.ExecutorService"/>
+<fullyQualifiedTypeName name="trie.TrieList"/>
+<fullyQualifiedTypeName name="javax.swing.plaf.nimbus.State"/>
+<fullyQualifiedTypeName name="compute.Rank"/>
+<fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="components.Distribution"/>
+<fullyQualifiedTypeName name="components.Window"/>
+</qualifiedTypeNameHistroy>

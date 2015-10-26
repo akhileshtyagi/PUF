@@ -1,0 +1,17 @@
+package api;
+
+/**
+ * This class is meant to implement the public API for the UD_PUF project.
+ * Users of this project are ment to use this class to interact with UD_PUF
+ * 
+ * This class keeps track of multiple users in a system
+ * @author element
+ *
+ */
+public class UD_PUF {
+    private List<UserDevicePair> users;
+    
+    public void createUser(){
+	
+    }
+}

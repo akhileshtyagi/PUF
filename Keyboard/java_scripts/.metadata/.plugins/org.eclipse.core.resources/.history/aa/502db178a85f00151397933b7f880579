@@ -1,0 +1,141 @@
+package test;
+
+import java.lang.reflect.InvocationTargetException;
+import java.lang.reflect.Method;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import components.Chain;
+import components.Touch;
+import graph.StateGraph;
+import rank.CompareChainsRank;
+
+public class UnitCompareChainsRank {
+	private CompareChainsRank compare_chains_rank;
+	Chain user_chain;
+	Touch user_chain_touch;
+
+	@Before
+	public void init() {
+		user_chain = null;
+		Chain auth_chain = null;
+		user_chain_touch = null;
+
+		// TODO create a user chain
+		// window 2, tokens 10, threshold 500, size 9
+		Chain chain = new Chain(2, 10, 500, 6);
+		List<Touch> chain_touches = new ArrayList<Touch>();
+
+		// model size is 5. Add 10 touches to the model and see if the sliding
+		// is working correctly. The most rescent 5 touches should be retained.
+		for (int i = 0; i < 6; i++) {
+			// .1 though .9 pressures.... average is .5.... keycode is half a,
+			// half b
+			Touch touch = new Touch('a', .1 * (i % 10), 100);
+			// System.out.println(touch);
+
+			chain_touches.add(touch);
+			chain.add_touch(touch);
+		}
+
+		// TODO create an auth chain
+
+		compare_chains_rank = new CompareChainsRank(user_chain, auth_chain);
+		Thread compare_thread = new Thread(compare_chains_rank);
+		compare_thread.run();
+	}
+
+	/**
+	 * tests chain_to_graph method to make sure the chain is converted to a
+	 * StateGraph correctly.
+	 */
+	@Test
+	public void test_chain_to_graph() {
+		// run the private method
+		String methodName = "chain_to_graph";
+		Class[] classList = { Chain.class };
+		Object[] methodParameters = { user_chain };
+
+		StateGraph answer = (StateGraph) runPrivateMethod(compare_chains_rank, methodName, classList, methodParameters);
+
+		// TODO check answer for correctness
+	}
+
+	/**
+	 * make sure touch index returns the correct index in the list
+	 */
+	@Test
+	public void test_touch_index() {
+		// run the private method
+		String methodName = "touch_index";
+		Class[] classList = { Touch.class, Chain.class };
+		Object[] methodParameters = { user_chain_touch, user_chain };
+
+		Integer answer = (Integer) runPrivateMethod(compare_chains_rank, methodName, classList, methodParameters);
+
+		// TODO check answer for correctness
+	}
+
+	/**
+	 * make sure the touch_window() returns the correct window in chain.
+	 */
+	@Test
+	public void test_touch_window() {
+		// run the private method
+		String methodName = "touch_window";
+		Class[] classList = { Touch.class, Chain.class };
+		Object[] methodParameters = { user_chain_touch, user_chain };
+
+		StateGraph answer = (StateGraph) runPrivateMethod(compare_chains_rank, methodName, classList, methodParameters);
+
+		// TODO check answer for correctness
+	}
+
+	/**
+	 * example test
+	 */
+	@Test
+	public void test() {
+
+	}
+
+	/**
+	 * returns the method result.
+	 * 
+	 * @param o
+	 */
+	private Object runPrivateMethod(Object o, String methodName, Class[] argClasses, Object[] methodParameters) {
+		Method method = null;
+		Object object = null;
+
+		try {
+			method = o.getClass().getDeclaredMethod(methodName, argClasses);
+
+			// set method to accessible
+			method.setAccessible(true);
+
+			// invoke the method
+			object = method.invoke(o, methodParameters);
+		} catch (NoSuchMethodException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvocationTargetException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return object;
+	}
+}

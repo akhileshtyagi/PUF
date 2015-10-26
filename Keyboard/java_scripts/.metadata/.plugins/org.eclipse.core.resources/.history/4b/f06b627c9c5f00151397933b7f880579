@@ -1,0 +1,55 @@
+package test;
+
+import org.junit.Before;
+import org.junit.Test;
+
+import components.Chain;
+import components.Touch;
+import runtime.ChainBuilder;
+
+/**
+ * Test the compairason with ranks
+ * 
+ * @author element
+ *
+ */
+public class UnitRankCompare {
+	Chain chain;
+
+	@Before
+	public void init() {
+		// window, token, threshold, user_model_size, auth_model_size,
+		ChainBuilder chain_builder = new ChainBuilder(5, 5, 1000, 1000, 500);
+
+		// try to authenticate two chains which are the same
+		for (int i = 0; i < 3000; i++) {
+			chain_builder.handle_touch(new Touch('a', .1 * (i % 10), 100));
+		}
+
+		chain_builder.authenticate();
+		// wait for the authentication to finish
+		while (chain_builder.get_authenticate_state() == ChainBuilder.State.IN_PROGRESS) {
+			try {
+				Thread.sleep(100);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+
+		// System.out.println(chain_builder.get_authenticate_state());
+		correct = (chain_builder.get_authenticate_state() == ChainBuilder.State.SUCCESS);
+	}
+
+	/**
+	 * checks that the probabilities are correct
+	 */
+	@Test
+	public void test_compare_probability() {
+
+	}
+
+	@Test
+	public void test() {
+
+	}
+}

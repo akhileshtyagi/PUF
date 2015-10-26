@@ -10,9 +10,12 @@ import java.util.List;
  * challenge
  */
 public class Challenge {
-    // number of elements in normalized list.
-    final int NORMALIZED_ELEMENTS = 32;
+    // number of elements in normalized list default value.
+    final static int NORMALIZED_ELEMENTS_DEFAULT = 32;
 
+    // number of elements in the normalized list
+    private int normalized_elements;
+    
     // Pattern of points that create the challenge
     private List<Point> challengePattern;
 
@@ -30,12 +33,24 @@ public class Challenge {
 
     // Profile associated with this challenge
     private Profile profile;
-
+//changes
     public Challenge(List<Point> challengePattern, int challengeID) {
+	this(challengePattern, challengeID, NORMALIZED_ELEMENTS_DEFAULT);
+    }
+    
+    /**
+     * allows for parameterization of the number of normalized elements
+     * @param challengePattern
+     * @param challengeID
+     * @param normalizationPoints
+     */
+    public Challenge(List<Point> challengePattern, int challengeID, int normalizationPoints){
 	this.challengePattern = challengePattern;
 	this.challengeID = challengeID;
+	this.normalized_elements = normalizationPoints;
+	
 	responses = new ArrayList<Response>();
-	profile = new Profile();
+	profile = null;
 
 	// determine if the challenge is more horizontal or more vertical in
 	// oreantation
@@ -57,13 +72,24 @@ public class Challenge {
     }
 
     // Creates a profile associate with this challenge with NORMALIZED responses
-    public Profile createPofile() {
-	profile = new Profile(responses);
+    public Profile getProfile() {
+	// if the profile hasn't been created, create the profile
+	if(profile == null){
+	    profile = new Profile(responses);
+	}
 	return profile;
     }
 
-    public Profile getProfile() {
-	return profile;
+    public List<Point> getChallengePattern() {
+	return challengePattern;
+    }
+
+    public int getChallengeID() {
+	return this.challengeID;
+    }
+    
+    public boolean isHorizontal(){
+	return isChallengeHorizontal;
     }
 
     /**
@@ -91,10 +117,10 @@ public class Challenge {
 	ArrayList<Point> points = new ArrayList<Point>();
 
 	// amount of x separation for each point
-	double point_increment = x_dist / NORMALIZED_ELEMENTS;
+	double point_increment = x_dist / this.normalized_elements;
 	Point next_point = null;
 
-	for (int i = 0; i < NORMALIZED_ELEMENTS; i++) {
+	for (int i = 0; i < this.normalized_elements; i++) {
 	    // do something different for the first iteration
 	    if (points.size() == 0) {
 		// use the x,y values of the first point
@@ -121,10 +147,10 @@ public class Challenge {
 	ArrayList<Point> points = new ArrayList<Point>();
 
 	// amount of y separation for each point
-	double point_increment = y_dist / NORMALIZED_ELEMENTS;
+	double point_increment = y_dist / this.normalized_elements;
 	Point next_point = null;
 
-	for (int i = 0; i < NORMALIZED_ELEMENTS; i++) {
+	for (int i = 0; i < this.normalized_elements; i++) {
 	    // do something different for the first iteration
 	    if (points.size() == 0) {
 		// use the x,y values of the first point
