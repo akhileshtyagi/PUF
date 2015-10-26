@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<PreferenceCategory android:title="Challenge Generation">
+	    <EditTextPreference
+	        android:title="Tester Name"
+	        android:summary="Name of the person generating the challenges (you)"
+ 	        android:defaultValue=""
+ 	        android:key="TesterName" />
+	    <EditTextPreference
+	        android:title="Device Name"
+	        android:summary="Name of the device testing"
+ 	        android:defaultValue=""
+ 	        android:key="DeviceName" />
+	    <EditTextPreference
+	        android:title="Initial Seed"
+	        android:summary="Initial value that the seed is set to (one for most tests)"
+ 	        android:defaultValue="1" 
+ 	        android:numeric="integer"
+ 	        android:key="InitialSeed" />
+        <CheckBoxPreference
+            android:title="Auto increment seed"
+            android:summary="When checked the seed will auto increment after tracing a path."
+            android:defaultValue="true"
+            android:key="AutoIncSeed" />
+	</PreferenceCategory>
+
+</PreferenceScreen>
