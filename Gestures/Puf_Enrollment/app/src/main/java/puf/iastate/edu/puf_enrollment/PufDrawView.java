@@ -1,45 +1,38 @@
 package puf.iastate.edu.puf_enrollment;
 
-import java.io.File;
-import java.io.FileWriter;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.os.Environment;
-import android.preference.PreferenceManager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
-//import au.com.bytecode.opencsv.CSVWriter;
 
 public class PufDrawView extends View
 {
     private Paint redPaint;
     private Paint greenPaint;
     private Paint bluePaint;
-    private TextView tv;
+    private TextView mUpdateView;
     private Point[] challenge;
     private ArrayList<Point> response;
+    private RegisterGesturesActivity mRGA;
 
     public PufDrawView(Context context, AttributeSet attr)
     {
         super(context, attr);
         init();
+        mRGA = (RegisterGesturesActivity) context;
     }
 
-    public void setTV(TextView tv)
+    public void setUpdateView(TextView tv)
     {
-        this.tv = tv;
+        this.mUpdateView = tv;
     }
 
     private void init()
@@ -116,22 +109,16 @@ public class PufDrawView extends View
         switch( me.getAction() )
         {
             case MotionEvent.ACTION_DOWN:
-                tv.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") - Pressure = " + me.getPressure() );
+                mUpdateView.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") - Pressure = " + me.getPressure() );
                 response.clear();
                 response.add(new Point(me.getX(), me.getY(), me.getPressure()));
                 break;
             case MotionEvent.ACTION_UP:
-                tv.setText( "No touch detected." );
-                //RECORD ACTION FINISH 
-//                writeResponseCsv();
-
-                //TODO: rather hacky reference to mainactivity that could cause 
-                //problems if this code is ever re-used
-                ((Authenticate)getContext()).informOfResponse();
-
+                mUpdateView.setText( "No touch detected." );
+                mRGA.onResponseAttempt(response);
                 break;
             case MotionEvent.ACTION_MOVE:
-                tv.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") Pressure = " + me.getPressure() );
+                mUpdateView.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") Pressure = " + me.getPressure() );
                 response.add(new Point(me.getX(), me.getY(), me.getPressure()));
                 break;
             default:
@@ -140,61 +127,8 @@ public class PufDrawView extends View
 
         return true;
     }
-//
-//    public void writeResponseCsv()
-//    {
-//        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getContext());
-//        String testerName = prefs.getString("TesterName", "Ryan Scheel");
-//        String deviceName = prefs.getString("DeviceName", "nexus-03");
-//        String currentSeed = prefs.getString("CurrSeed", "1");
-//
-//        File baseDir = new File(Environment.getExternalStorageDirectory(), "581Proj");
-//        if (!baseDir.exists())
-//        {
-//            baseDir.mkdirs();
-//        }
-//        String fileName = currentSeed + ": " + deviceName + " " + testerName + " " + getCurrentLocalTime() + ".csv";
-//        File f = new File(baseDir, fileName);
-//        try
-//        {
-//            f.createNewFile();
-//            CSVWriter csvWrite = new CSVWriter(new FileWriter(f));
-//            String[] challengeHeaders = {"ChallengeX", "ChallengeY", "Tester Name", "Device Name"};
-//            csvWrite.writeNext(challengeHeaders);
-//            for( int i = 0; i < challenge.length; i++)
-//            {
-//                Point point = challenge[i];
-//                String[] row = { Float.toString(point.x),
-//                    Float.toString(point.y),
-//                    testerName,
-//                    deviceName };
-//                csvWrite.writeNext(row);
-//            }
-//
-//            String[] headers = { "X", "Y", "PRESSURE" };
-//            csvWrite.writeNext(headers);
-//            for( int i = 0; i < response.size(); i++)
-//            {
-//                Point point = response.get(i);
-//                String[] row = { Float.toString(point.x),
-//                    Float.toString(point.y),
-//                    Float.toString(point.pressure) };
-//                csvWrite.writeNext(row);
-//            }
-//            csvWrite.close();
-//        }
-//        catch( Exception e)
-//        {
-//            Toast.makeText(getContext(), e.toString(),
-//                                    Toast.LENGTH_SHORT).show();
-//        }
-//    }
 
-    public String getCurrentLocalTime()
-    {
-        Calendar c = Calendar.getInstance(); 
-        String format = "yyyy-MM-dd hh:mm:ss aa";
-        SimpleDateFormat localSdf = new SimpleDateFormat(format);
-        return localSdf.format(c.getTime());
+    public interface ResponseListener{
+        void onResponseAttempt(ArrayList<Point> response);
     }
 }

@@ -20,18 +20,27 @@ public class MainActivity extends AppCompatActivity  {
         setContentView(R.layout.activity_main);
     }
 
+    /**
+     * Start enrollment process
+     * @param v The enrollment start button
+     */
     public void enroll_pressed(View v) {
-
         Intent intent = new Intent(this, PinPatternGen.class);
         startActivity(intent);
-
     }
 
-
+    /**
+     * TODO: What should this do?
+     * @param v
+     */
     public void authenticate_pressed(View v) {
         Toast.makeText(this, "Launching Authentication", Toast.LENGTH_SHORT).show();
     }
 
+    /**
+     * TODO: What is this?
+     * @param v
+     */
     public void pin_pressed(View v) {
         RelativeLayout layoutToAdd = (RelativeLayout) findViewById(R.id.main_view);
         LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
