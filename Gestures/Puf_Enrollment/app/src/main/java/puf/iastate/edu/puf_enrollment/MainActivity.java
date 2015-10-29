@@ -30,22 +30,11 @@ public class MainActivity extends AppCompatActivity  {
     }
 
     /**
-     * TODO: What should this do?
-     * @param v
+     * Start example authentication process
+     * @param v authentication start button
      */
     public void authenticate_pressed(View v) {
         Toast.makeText(this, "Launching Authentication", Toast.LENGTH_SHORT).show();
-    }
-
-    /**
-     * TODO: What is this?
-     * @param v
-     */
-    public void pin_pressed(View v) {
-        RelativeLayout layoutToAdd = (RelativeLayout) findViewById(R.id.main_view);
-        LayoutInflater inflater = LayoutInflater.from(getApplicationContext());
-        View view = inflater.inflate(R.layout.pin_enter, null);
-        layoutToAdd.addView(view);
     }
 
 }

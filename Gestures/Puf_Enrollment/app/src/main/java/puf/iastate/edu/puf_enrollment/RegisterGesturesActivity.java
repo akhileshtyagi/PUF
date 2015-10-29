@@ -21,11 +21,13 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
 
     private long mSeed; //Seed for generating challenges
     private ArrayList<Point> mCurChallenge; //Current challenge
+    private int mRemainingSwipes; //Remaining swipes until enrolled
 
     private ChallengeGenerator mCg;
 
     private TextView mUpdateView;
     private TextView mSeedView;
+    private TextView mRemainingView;
     private PufDrawView mPdv;
 
     @Override
@@ -37,6 +39,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         mPdv = (PufDrawView) findViewById(R.id.pufDrawView);
         mUpdateView = (TextView) findViewById(R.id.updateView);
         mSeedView = (TextView) findViewById(R.id.seedView);
+        mRemainingView = (TextView) findViewById(R.id.entriesRemainingView);
 
         mPdv.setUpdateView(mUpdateView);
 
@@ -51,6 +54,9 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         //Setup an initial challenge and give the challenge
         mCurChallenge = mCg.generateChallenge();
         mPdv.giveChallenge(mCurChallenge.toArray(new Point[mCurChallenge.size()]));
+
+        //Initialize remaining swipes
+        mRemainingSwipes = 20;
     }
 
     /**
@@ -60,9 +66,15 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
      */
     @Override
     public void onResponseAttempt(ArrayList<Point> response) {
+        if(--mRemainingSwipes == 0)
+        {
+            Toast.makeText(this, "Completed Authentication", Toast.LENGTH_SHORT).show();
+            finish();
+        }
         writeResponseCsv(response, "DeviceName", "UserName");
         mCurChallenge = mCg.generateChallenge();
-        mPdv.giveChallenge(mCurChallenge.toArray(new Point[mCurChallenge.size()]));
+        //mPdv.giveChallenge(mCurChallenge.toArray(new Point[mCurChallenge.size()]));
+        mRemainingView.setText(mRemainingSwipes + " Left");
     }
 
     /**
@@ -71,7 +83,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
      */
     public void writeResponseCsv(ArrayList<Point> response, String deviceName, String testerName)
     {
-        File baseDir = new File(getFilesDir(), "581Proj");
+        File baseDir = new File(getFilesDir(), "PUFProfile");
 
         if (!baseDir.exists())
         {
