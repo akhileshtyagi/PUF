@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
@@ -114,7 +115,13 @@ public class PufDrawView extends View
             case MotionEvent.ACTION_DOWN:
                 tv.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") - Pressure = " + me.getPressure() );
                 response.clear();
-                response.add(new Point(me.getX(), me.getY(), me.getPressure()));
+
+                // only add the point if the motion event is inside the bounds of the box
+                // add the first response reguardless
+                //if(within_challenge(me)) {
+                    response.add(new Point(me.getX(), me.getY(), me.getPressure()));
+                //}
+
                 break;
             case MotionEvent.ACTION_UP:
                 tv.setText( "No touch detected." );
@@ -127,12 +134,33 @@ public class PufDrawView extends View
                 break;
             case MotionEvent.ACTION_MOVE:
                 tv.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") Pressure = " + me.getPressure() );
-                response.add(new Point(me.getX(), me.getY(), me.getPressure()));
+
+                // only add the point if the motion event is inside the bounds of the box
+                if(within_challenge(me)) {
+                    response.add(new Point(me.getX(), me.getY(), me.getPressure()));
+                }
+
                 break;
             default:
                 break;
         }
 
         return true;
+    }
+
+    /**
+     * determines whether the motion event falls within the bounds of the box
+     * @return true if the motion event is contained within the box
+     */
+    private boolean within_challenge(MotionEvent me){
+        boolean within = true;
+
+        within = within && (me.getX() > challenge[0].x); // left boundry
+        within = within && (me.getX() < challenge[2].x); // right boundry
+
+        within = within && (me.getY() < challenge[2].y); // lower boundry
+        within = within && (me.getY() > challenge[0].y); // upper boundry
+
+        return within;
     }
 }

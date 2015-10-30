@@ -82,4 +82,13 @@
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:minLines="15" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Authenticate\n Against Responses"
+        android:id="@+id/authenticate_against_responses"
+        android:layout_below="@+id/collect_swipe_responses_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

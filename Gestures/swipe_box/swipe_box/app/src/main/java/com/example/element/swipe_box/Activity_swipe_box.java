@@ -12,6 +12,9 @@ import java.util.List;
 public class Activity_swipe_box extends AppCompatActivity {
 
     PufDrawView pufDrawView;
+    private int box_width;
+    private int box_height;
+    private Point box_upper_left_corner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +27,11 @@ public class Activity_swipe_box extends AppCompatActivity {
 
         pufDrawView = (PufDrawView) findViewById(R.id.puf_draw_view);
         pufDrawView.setTV(tv);
+
+        // get the box from the put_extra from the intent
+        this.box_height = this.getIntent().getIntExtra("box_height", 0);
+        this.box_width = this.getIntent().getIntExtra("box_width", 0);
+        this.box_upper_left_corner = (Point)(this.getIntent().getExtras().getSerializable("box_upper_left_corner"));
 
         ArrayList<Point> challenge = generateChallenge();
         pufDrawView.giveChallenge(challenge.toArray(new Point[challenge.size()]));
@@ -44,7 +52,8 @@ public class Activity_swipe_box extends AppCompatActivity {
     private ArrayList<Point> generateChallenge(){
         ArrayList<Point> challenge_list = new ArrayList<Point>();
 
-        challenge_list.addAll(create_box_challenge(750, 300, 100, 100));
+        // width = 750, height = 300 seems to work fine
+        challenge_list.addAll(create_box_challenge(box_width, box_height, (int)(box_upper_left_corner.x), (int)(box_upper_left_corner.y)));
 
         return challenge_list;
     }
