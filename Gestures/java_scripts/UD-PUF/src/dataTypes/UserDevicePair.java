@@ -147,8 +147,8 @@ public class UserDevicePair {
 	int points = 0;
 
 	// get the mu, sigma values from the profile
-	List<Double> mu_values = profile.getMuSigmaValues().getMuValues();
-	List<Double> sigma_values = profile.getMuSigmaValues().getSigmaValues();
+	List<Double> pressure_mu_values = profile.getPressureMuSigmaValues().getMuValues();
+	List<Double> pressure_sigma_values = profile.getPressureMuSigmaValues().getSigmaValues();
 
 	// normalize the response
 	Response response_object = new Response(new_response);
@@ -159,12 +159,13 @@ public class UserDevicePair {
 	// compare the response to the challenge_profile
 	// For each point determine whether or not it falls with in
 	// std_deviations
+	// for PRESSURE
 	for (int i = 0; i < response_object.getResponse().size(); i++) {
 	    // determine if this point fails
 	    if ((response_object.getResponse().get(i)
-		    .getPressure() < (mu_values.get(i) - sigma_values.get(i) * allowed_deviations))
-		    || (response_object.getResponse().get(i)
-			    .getPressure() > (mu_values.get(i) + sigma_values.get(i) * allowed_deviations))) {
+		    .getPressure() < (pressure_mu_values.get(i) - pressure_sigma_values.get(i) * allowed_deviations))
+		    || (response_object.getResponse().get(i).getPressure() > (pressure_mu_values.get(i)
+			    + pressure_sigma_values.get(i) * allowed_deviations))) {
 		// point fails
 		points++;
 	    }
@@ -196,10 +197,10 @@ public class UserDevicePair {
 	    // point
 	    x_dist += Math.abs(challenge_point.getX() - prev_challenge_point.getX());
 	    y_dist += Math.abs(challenge_point.getY() - prev_challenge_point.getY());
-	    
+
 	    prev_challenge_point = challenge_point;
 	}
-	
+
 	return x_dist > y_dist;
     }
 }

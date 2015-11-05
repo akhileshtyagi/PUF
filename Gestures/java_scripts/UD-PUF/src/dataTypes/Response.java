@@ -35,6 +35,7 @@ public class Response implements Serializable {
 	Point closestRightPoint = null; // right or above
 	Point normalizedPoint = null;
 	double pressure = 0;
+	double point_distance = 0;
 
 	// we need to find the correct pressure value for each normalizingPoints
 	for (Point normalizingPoint : normalizingPoints) {
@@ -83,6 +84,10 @@ public class Response implements Serializable {
 	    // pressure value of that point to the list
 	    if (closestRightPoint.equals(closestLeftPoint)) {
 		pressure = closestRightPoint.getPressure();
+		
+		// if the challenge is horizontal => we have points along the x axis => we want Y value
+		// if the challenge is not horizontal => we have points along y axis => we want X value
+		point_distance = (isChallengeHorizontal) ? (closestRightPoint.getY()) : (closestRightPoint.getX());
 	    } else {
 		// find pressure value for this point by considering the
 		// closest points
@@ -98,24 +103,37 @@ public class Response implements Serializable {
 		    double totalPart = deltaX / Math.cos(angle);
 		    double rightPart = totalPart - leftPart;
 
+		    // determine the normaized pressue
 		    pressure = (leftPart / totalPart) * closestLeftPoint.getPressure()
 			    + (rightPart / totalPart) * closestRightPoint.getPressure();
+		    
+		    // determine the point distance
+		    // horizontal challenge => we have points along x axis => need y values
+		    point_distance = (leftPart / totalPart) * closestLeftPoint.getY()
+			    + (rightPart / totalPart) * closestRightPoint.getY();
+		    
 		} else {
-		    // should this be sine?
+		    // should this be sine? no, finding x component of distance.
 		    double deltaLeft = normalizingPoint.getY() - closestLeftPoint.getY();
 		    double leftPart = deltaLeft / Math.cos(angle);
 
 		    double totalPart = deltaY / Math.cos(angle);
 		    double rightPart = totalPart - leftPart;
 
+		    // determine normalized pressure
 		    pressure = (leftPart / totalPart) * closestLeftPoint.getPressure()
 			    + (rightPart / totalPart) * closestRightPoint.getPressure();
+		    
+		    // determine the point distance
+		    // vertical challenge => we have points along y axis => need x values
+		    point_distance = (leftPart / totalPart) * closestLeftPoint.getX()
+			    + (rightPart / totalPart) * closestRightPoint.getX();
 		}
 	    }
 
 	    // create normalized point to add to the list based on found
 	    // pressure value
-	    normalizedPoint = new Point(normalizingPoint.getX(), normalizingPoint.getY(), pressure);
+	    normalizedPoint = new Point(normalizingPoint.getX(), normalizingPoint.getY(), pressure, point_distance);
 
 	    normalizedResponsePattern.add(normalizedPoint);
 	}

@@ -67,8 +67,8 @@ public class ProfileUnit {
      * test teh getMuSigmaValues method for correctness.
      */
     @Test
-    public void test_get_mu_sigma_values() {
-	MuSigma mu_sigma = this.profile.getMuSigmaValues();
+    public void test_get_pressure_mu_sigma_values() {
+	MuSigma mu_sigma = this.profile.getPressureMuSigmaValues();
 
 	List<Double> mu_list = mu_sigma.getMuValues();
 	List<Double> sigma_list = mu_sigma.getSigmaValues();
@@ -86,8 +86,44 @@ public class ProfileUnit {
      * normalized response
      */
     @Test
-    public void test_number_points_correct() {
-	MuSigma mu_sigma = this.profile.getMuSigmaValues();
+    public void test_pressure_number_points_correct() {
+	MuSigma mu_sigma = this.profile.getPressureMuSigmaValues();
+
+	List<Double> mu_list = mu_sigma.getMuValues();
+	List<Double> sigma_list = mu_sigma.getSigmaValues();
+
+	// System.out.println(mu_list.size());
+	// System.out.println(sigma_list.size());
+
+	assertTrue(mu_list.size() == 32);
+	assertTrue(sigma_list.size() == 32);
+    }
+    
+    /**
+     * test teh getMuSigmaValues method for correctness. TODO
+     */
+    @Test
+    public void test_get_point_distance_mu_sigma_values() {
+	MuSigma mu_sigma = this.profile.getPointDistanceMuSigmaValues();
+
+	List<Double> mu_list = mu_sigma.getMuValues();
+	List<Double> sigma_list = mu_sigma.getSigmaValues();
+
+	// assert that mu an sigma are what they should be for all points
+	for (int i = 0; i < mu_list.size(); i++) {
+	    // for each point check that it is correct
+	    assertTrue(mu_list.get(i) == 1);
+	    assertTrue(sigma_list.get(i) == Math.sqrt(2.0 / 3.0));
+	}
+    }
+
+    /**
+     * test that MuSigma computes a mu, sigma value for each point in the
+     * normalized response TODO
+     */
+    @Test
+    public void test_point_distance_number_points_correct() {
+	MuSigma mu_sigma = this.profile.getPointDistanceMuSigmaValues();
 
 	List<Double> mu_list = mu_sigma.getMuValues();
 	List<Double> sigma_list = mu_sigma.getSigmaValues();
@@ -107,7 +143,7 @@ public class ProfileUnit {
 	// try to write object to console
 	try {
 	    ObjectOutputStream out = new ObjectOutputStream(System.out);
-	    out.writeObject(this.profile.getMuSigmaValues()); // ok
+	    out.writeObject(this.profile.getPressureMuSigmaValues()); // ok
 	    out.writeObject((this.profile.getNormalizedResponses())); // not ok
 	    out.close();
 	} catch (Exception e) {
