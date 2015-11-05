@@ -36,6 +36,7 @@ public class Response implements Serializable {
 	Point normalizedPoint = null;
 	double pressure = 0;
 	double point_distance = 0;
+	double time = 0;
 
 	// we need to find the correct pressure value for each normalizingPoints
 	for (Point normalizingPoint : normalizingPoints) {
@@ -84,9 +85,11 @@ public class Response implements Serializable {
 	    // pressure value of that point to the list
 	    if (closestRightPoint.equals(closestLeftPoint)) {
 		pressure = closestRightPoint.getPressure();
-		
-		// if the challenge is horizontal => we have points along the x axis => we want Y value
-		// if the challenge is not horizontal => we have points along y axis => we want X value
+
+		// if the challenge is horizontal => we have points along the x
+		// axis => we want Y value
+		// if the challenge is not horizontal => we have points along y
+		// axis => we want X value
 		point_distance = (isChallengeHorizontal) ? (closestRightPoint.getY()) : (closestRightPoint.getX());
 	    } else {
 		// find pressure value for this point by considering the
@@ -106,12 +109,17 @@ public class Response implements Serializable {
 		    // determine the normaized pressue
 		    pressure = (leftPart / totalPart) * closestLeftPoint.getPressure()
 			    + (rightPart / totalPart) * closestRightPoint.getPressure();
-		    
+
 		    // determine the point distance
-		    // horizontal challenge => we have points along x axis => need y values
+		    // horizontal challenge => we have points along x axis =>
+		    // need y values
 		    point_distance = (leftPart / totalPart) * closestLeftPoint.getY()
 			    + (rightPart / totalPart) * closestRightPoint.getY();
-		    
+
+		    // determine the normalized time
+		    time = (leftPart / totalPart) * closestLeftPoint.getTime()
+			    + (rightPart / totalPart) * closestRightPoint.getTime();
+
 		} else {
 		    // should this be sine? no, finding x component of distance.
 		    double deltaLeft = normalizingPoint.getY() - closestLeftPoint.getY();
@@ -123,17 +131,23 @@ public class Response implements Serializable {
 		    // determine normalized pressure
 		    pressure = (leftPart / totalPart) * closestLeftPoint.getPressure()
 			    + (rightPart / totalPart) * closestRightPoint.getPressure();
-		    
+
 		    // determine the point distance
-		    // vertical challenge => we have points along y axis => need x values
+		    // vertical challenge => we have points along y axis => need
+		    // x values
 		    point_distance = (leftPart / totalPart) * closestLeftPoint.getX()
 			    + (rightPart / totalPart) * closestRightPoint.getX();
+
+		    // determine the normalized time
+		    time = (leftPart / totalPart) * closestLeftPoint.getTime()
+			    + (rightPart / totalPart) * closestRightPoint.getTime();
 		}
 	    }
 
 	    // create normalized point to add to the list based on found
 	    // pressure value
-	    normalizedPoint = new Point(normalizingPoint.getX(), normalizingPoint.getY(), pressure, point_distance);
+	    normalizedPoint = new Point(normalizingPoint.getX(), normalizingPoint.getY(), pressure, point_distance,
+		    time);
 
 	    normalizedResponsePattern.add(normalizedPoint);
 	}

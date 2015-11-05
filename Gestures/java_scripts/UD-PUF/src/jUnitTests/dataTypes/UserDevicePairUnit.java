@@ -26,7 +26,8 @@ import dataTypes.UserDevicePair;
 
 public class UserDevicePairUnit {
     UserDevicePair ud_pair;
-//TODO make tests which incorporate point distance
+
+    // TODO make tests which incorporate point distance
     @Before
     public void init() {
 	Challenge challenge;
@@ -190,7 +191,40 @@ public class UserDevicePairUnit {
 
     @Test
     public void test_failed_points_ratio() {
-	// TODO
-	assertTrue(false);
+	// test combinations which result in failed point ratio of 0, .5, 1
+	// combination result in 0
+	List<Point> new_response = new ArrayList<Point>();
+
+	for (int j = 0; j < 32; j++) {
+	    new_response.add(new Point((300 / 32) * j + 100, 100, 1));
+	}
+
+	// create new challenge to be used
+	Challenge challenge = ud_pair.getChallenges().get(0);
+	Profile profile = challenge.getProfile();
+
+	this.ud_pair.authenticate(new_response, profile);
+	assertTrue(this.ud_pair.failedPointRatio() == 0);
+	
+	// combination result in 1
+	new_response = new ArrayList<Point>();
+
+	for (int j = 0; j < 32; j++) {
+	    new_response.add(new Point((300 / 32) * j + 100, 100, 0));
+	}
+	
+	this.ud_pair.authenticate(new_response, profile);
+	assertTrue(this.ud_pair.failedPointRatio() == 1);
+	
+	// combination result in .5
+	new_response = new ArrayList<Point>();
+
+	for (int j = 0; j < 32; j++) {
+	    new_response.add(new Point((300 / 32) * j + 100, 100, j%2));
+	}
+	
+	this.ud_pair.authenticate(new_response, profile);
+	System.out.println(this.ud_pair.failedPointRatio());
+	assertTrue(this.ud_pair.failedPointRatio() == 1);
     }
 }

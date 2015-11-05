@@ -23,6 +23,7 @@ public class Profile implements Serializable {
     // Mu Sigma values that define the profile
     private MuSigma pressure_muSigmaValues;
     private MuSigma point_distance_muSigmaValues;
+    private MuSigma time_muSigmaValues;
 
     // true if mu sigma has been computed
     private boolean mu_sigma_computed;
@@ -36,6 +37,7 @@ public class Profile implements Serializable {
 	// For now, just create blank ones
 	pressure_muSigmaValues = new MuSigma();
 	point_distance_muSigmaValues = new MuSigma();
+	time_muSigmaValues = new MuSigma();
 
 	mu_sigma_computed = false;
     }
@@ -46,6 +48,7 @@ public class Profile implements Serializable {
 	normalizedResponses = new ArrayList<Response>();
 	pressure_muSigmaValues = new MuSigma();
 	point_distance_muSigmaValues = new MuSigma();
+	time_muSigmaValues = new MuSigma();
 
 	mu_sigma_computed = false;
     }
@@ -72,6 +75,15 @@ public class Profile implements Serializable {
 	}
 
 	return point_distance_muSigmaValues;
+    }
+
+    public MuSigma getTimeDistanceMuSigmaValues() {
+	// if mu sigma have not been computed, compute them
+	if (!mu_sigma_computed) {
+	    compute_mu_sigma();
+	}
+
+	return time_muSigmaValues;
     }
 
     public ArrayList<Response> getNormalizedResponses() {
@@ -108,6 +120,16 @@ public class Profile implements Serializable {
 	    return;
 	}
 
+	// call methods to load the correct mu, sigma objects into instance
+	// variables
+	compute_pressure_mu_sigma();
+	compute_point_distance_mu_sigma();
+	compute_time_distance_mu_sigma();
+
+	this.mu_sigma_computed = true;
+    }
+
+    private void compute_pressure_mu_sigma() {
 	// compute mu sigma for pressure
 	List<Double> normalized_point_pressure_list = null;
 	this.pressure_muSigmaValues = new MuSigma();
@@ -128,7 +150,9 @@ public class Profile implements Serializable {
 
 	    this.pressure_muSigmaValues.addMuSigma(mu, sigma);
 	}
+    }
 
+    private void compute_point_distance_mu_sigma() {
 	// compute mu sigma for point distance
 	List<Double> normalized_point_distance_list = null;
 	this.point_distance_muSigmaValues = new MuSigma();
@@ -139,8 +163,8 @@ public class Profile implements Serializable {
 	    // of point i in the response
 	    normalized_point_distance_list = new ArrayList<Double>();
 	    for (Response response : this.normalizedResponses) {
-		// y values in the list correspond to point distance
-		normalized_point_distance_list.add(response.getResponse().get(i).getY());
+		// distance values in the list correspond to point distance
+		normalized_point_distance_list.add(response.getResponse().get(i).getDistance());
 	    }
 
 	    // compute the average (mu)
@@ -150,8 +174,30 @@ public class Profile implements Serializable {
 
 	    this.point_distance_muSigmaValues.addMuSigma(mu, sigma);
 	}
+    }
 
-	this.mu_sigma_computed = true;
+    private void compute_time_distance_mu_sigma() {
+	// compute mu sigma for point distance
+	List<Double> normalized_time_list = null;
+	this.time_muSigmaValues = new MuSigma();
+
+	// for each point in the distribution, compute mu an sigma
+	for (int i = 0; i < this.normalizedResponses.get(0).getResponse().size(); i++) {
+	    // go though each of the responses collecting value
+	    // of point i in the response
+	    normalized_time_list = new ArrayList<Double>();
+	    for (Response response : this.normalizedResponses) {
+		// distance values in the list correspond to point distance
+		normalized_time_list.add(response.getResponse().get(i).getTime());
+	    }
+
+	    // compute the average (mu)
+	    // compute std deviation
+	    double mu = this.computeMu(normalized_time_list);
+	    double sigma = this.computeSigma(normalized_time_list, mu);
+
+	    this.time_muSigmaValues.addMuSigma(mu, sigma);
+	}
     }
 
     /**
