@@ -83,14 +83,16 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
      */
     public void writeResponseCsv(ArrayList<Point> response, String deviceName, String testerName)
     {
-        File baseDir = new File(getFilesDir(), "PUFProfile");
+        //File baseDir = new File(getFilesDir(), "PUFProfile");
+        File baseDir = new File(Environment.getExternalStorageDirectory(), "PUFProfile");
 
         if (!baseDir.exists())
         {
             baseDir.mkdirs();
         }
 
-        String fileName = mSeed + ": " + deviceName + " " + testerName + " " + getCurrentLocalTime() + ".csv";
+        //String fileName = mSeed + ": " + deviceName + " " + testerName + " " + getCurrentLocalTime() + ".csv";
+        String fileName = mSeed + ": " + getCurrentLocalTime() + ".csv";
 
         File f = new File(baseDir, fileName);
 
