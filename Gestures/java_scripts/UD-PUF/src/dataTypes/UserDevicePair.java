@@ -101,7 +101,7 @@ public class UserDevicePair {
 
 	// if the fraction of points that pass is greater than the
 	// authentication threshold, then we pass this person
-	return ((list_size - failed_points) / list_size) >= this.authentication_threshold;
+	return ((double)(list_size - failed_points) / list_size) >= this.authentication_threshold;
     }
 
     /**
