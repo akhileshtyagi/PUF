@@ -53,7 +53,7 @@ public class Challenge {
 	profile = null;
 
 	// determine if the challenge is more horizontal or more vertical in
-	// oreantation
+	// orientation
 	double x_dist = computeChallengeXDistance();
 	double y_dist = computeChallengeYDistance();
 	isChallengeHorizontal = x_dist > y_dist;
@@ -84,7 +84,11 @@ public class Challenge {
 	return challengePattern;
     }
 
-    public int getChallengeID() {
+	public List<Response> getResponsePattern() {
+		return responses;
+	}
+
+	public int getChallengeID() {
 	return this.challengeID;
     }
     
