@@ -97,7 +97,7 @@ public class UserDevicePair {
 	int list_size = profile.getNormalizedResponses().get(0).getResponse().size();
 
 	// set the failed point ratio
-	this.authentication_failed_point_ratio = failed_points / list_size;
+	this.authentication_failed_point_ratio = ((double)failed_points) / list_size;
 
 	// if the fraction of points that pass is greater than the
 	// authentication threshold, then we pass this person

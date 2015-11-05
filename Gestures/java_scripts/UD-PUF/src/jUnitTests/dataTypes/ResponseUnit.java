@@ -18,7 +18,7 @@ import dataTypes.Response;
 public class ResponseUnit {
     private Response response;
     private MathContext context;
-
+//TODO make tests which incorporate distance
     @Before
     public void initObjects() throws SecurityException, InstantiationException, IllegalAccessException {
 	// set up the context for compairing doubles

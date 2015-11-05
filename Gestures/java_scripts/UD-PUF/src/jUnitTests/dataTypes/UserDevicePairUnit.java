@@ -26,7 +26,7 @@ import dataTypes.UserDevicePair;
 
 public class UserDevicePairUnit {
     UserDevicePair ud_pair;
-
+//TODO make tests which incorporate point distance
     @Before
     public void init() {
 	Challenge challenge;
@@ -186,5 +186,11 @@ public class UserDevicePairUnit {
 	int answer = (int) TestUtil.runPrivateMethod(this.ud_pair, methodName, classList, methodParameters);
 
 	assertTrue(answer == 0);
+    }
+
+    @Test
+    public void test_failed_points_ratio() {
+	// TODO
+	assertTrue(false);
     }
 }
