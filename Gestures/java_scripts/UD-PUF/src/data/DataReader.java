@@ -9,6 +9,8 @@ import java.util.Scanner;
 import dataTypes.Challenge;
 import dataTypes.Point;
 import dataTypes.Response;
+import jUnitTests.dataTypes.ChallengeUnit;
+import jUnitTests.dataTypes.ResponseUnit;
 
 /**
  * This class will have tools to retrieve the data from the storage device.
@@ -30,9 +32,10 @@ public class DataReader {
     /**
      * Returns a list of challenge response objects.
      */
-    public List<ChallengeResponse> readDataDirecotry() {
+    public Challenge readDataDirecotry() {
 	ArrayList<File> files = new ArrayList<File>();
 	ArrayList<ChallengeResponse> responses = new ArrayList<ChallengeResponse>();
+	Challenge challenge = null;
 
 	// create challengeResponse objects for every file in the input
 	// directory
@@ -48,8 +51,14 @@ public class DataReader {
 	    Scanner fileScanner;
 	    String line = "";
 	    String responseHeaderString = "\"X\",\"Y\",\"PRESSURE\"";
-	    ChallengeResponse response = null;
-	    String[] splitResponse = null;
+//	    ChallengeResponse response = null;
+
+		List<Point> challangePoints = new ArrayList<Point>();
+		List<Point> responsePoints = new ArrayList<Point>();
+
+		Response response = null;
+
+		String[] splitResponse = null;
 
 	    try {
 		fileScanner = new Scanner(file);
@@ -60,16 +69,18 @@ public class DataReader {
 		// grab the name from the first challenge line
 		line = fileScanner.nextLine();
 		splitResponse = line.split("\",\"");
-		response = new ChallengeResponse(splitResponse[2], splitResponse[3]);
+//		response = new ChallengeResponse(splitResponse[2], splitResponse[3]);
 
 		// build the challengeResponse object from x,y challenge points
 		// in the file
-		response.addChallengePoint(Double.valueOf(splitResponse[0].substring(1)),
-			Double.valueOf(splitResponse[1]));
+//		response.addChallengePoint(Double.valueOf(splitResponse[0].substring(1)),
+//			Double.valueOf(splitResponse[1]));
+
+		//challangePoints.add(new Point(Double.parseDouble(splitResponse[2]),Double.parseDouble(splitResponse[3]),0));
+
 
 		// iterate over the challenge points
 		while (fileScanner.hasNextLine()) {
-		    line = fileScanner.nextLine();
 		    /*
 		     * if the header to the response data is detected, I should
 		     * break and start reading response data
@@ -80,11 +91,16 @@ public class DataReader {
 			// add the line as a challenge point
 			splitResponse = line.split("\",\"");
 			// TODO this part really needs to be checked
-			response.addChallengePoint(Double.valueOf(splitResponse[0].substring(1)),
-				Double.valueOf(splitResponse[1]));
-
+//			response.addChallengePoint(Double.valueOf(splitResponse[0].substring(1)),
+//				Double.valueOf(splitResponse[1]));
+				challangePoints.add(new Point(Double.parseDouble(splitResponse[0].substring(1)),Double.parseDouble(splitResponse[1]),0));
 		    }
+			line = fileScanner.nextLine();
 		}
+
+		// Create challange from list of points
+		// TODO Assign proper IDs to these
+		challenge = new Challenge(challangePoints,0);
 
 		// iterate over the response points
 		while (fileScanner.hasNextLine()) {
@@ -92,15 +108,18 @@ public class DataReader {
 
 		    // add the line as a response point
 		    splitResponse = line.split("\",\"");
-		    // TODO this part really needs to be checked. there is an
-		    // extra " on these values
-		    response.addResponsePoint(Double.valueOf(splitResponse[0].substring(1)),
-			    Double.valueOf(splitResponse[1]),
-			    Double.valueOf(splitResponse[2].substring(0, splitResponse[2].length() - 2)));
+//		    response.addResponsePoint(Double.valueOf(splitResponse[0].substring(1)),
+//			    Double.valueOf(splitResponse[1]),
+//			    Double.valueOf(splitResponse[2].substring(0, splitResponse[2].length() - 2)));
+			responsePoints.add(new Point(Double.parseDouble(splitResponse[0].substring(1)),
+				Double.parseDouble(splitResponse[1]),
+				Double.parseDouble(splitResponse[2].substring(0, splitResponse[2].length() - 2))));
+
 		}
 
-		// add this response to the responses list
-		responses.add(response);
+		// create response from list of points and add it to challenge
+		response = new Response(responsePoints);
+		challenge.addResponse(response);
 
 		fileScanner.close();
 	    } catch (FileNotFoundException e) {
@@ -110,14 +129,15 @@ public class DataReader {
 
 	}
 
-	return responses;
+	return challenge;
     }
 
     /**
      * Returns a list of challenge response objects.
+	 * NOTE USED ANYMORE
      */
     public List<Challenge> readDataDirecotryChallenge() {
-	List<ChallengeResponse> responses = readDataDirecotry();
+	List<ChallengeResponse> responses = null ;
 
 	// loop through all the challenges
 	// create challenge objects for each unique challenge
