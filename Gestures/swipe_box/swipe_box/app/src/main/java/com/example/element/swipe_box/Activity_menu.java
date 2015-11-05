@@ -130,8 +130,8 @@ public class Activity_menu extends AppCompatActivity {
 
                 // write functions to analyze the thing and print out the results
                 int number_responses = challenge.getProfile().getNormalizedResponses().size();
-                List<Double> mu_responses = challenge.getProfile().getMuSigmaValues().getMuValues(); // compute_mu_list(responses);
-                List<Double> sigma_responses = challenge.getProfile().getMuSigmaValues().getSigmaValues(); // compute_sigma_list(responses, mu_responses);
+                List<Double> mu_responses = challenge.getProfile().getPressureMuSigmaValues().getMuValues(); // compute_mu_list(responses);
+                List<Double> sigma_responses = challenge.getProfile().getPressureMuSigmaValues().getSigmaValues(); // compute_sigma_list(responses, mu_responses);
                 List<Double> variance_by_mean_responses = compute_variance_by_mean_list(mu_responses, sigma_responses);
 
                 // turn the results into an output string
@@ -274,7 +274,7 @@ public class Activity_menu extends AppCompatActivity {
         ud_pair.addChallenge(challenge);
 
         // use ud_pair to authenticate
-        boolean authenticated = ud_pair.authenticate(response.getResponse(),0);
+        boolean authenticated = ud_pair.authenticate(response.getResponse(), challenge.getProfile());
 
         // print out information about the authentication to the console
         String console_output = "";
