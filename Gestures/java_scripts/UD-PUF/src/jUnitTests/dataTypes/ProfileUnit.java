@@ -1,8 +1,12 @@
 package jUnitTests.dataTypes;
 
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
 
 import java.io.ObjectOutputStream;
+import java.math.BigDecimal;
+import java.math.MathContext;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -25,12 +29,17 @@ import dataTypes.Response;
 public class ProfileUnit {
     private Profile profile;
 
+    private MathContext context;
+
     @Before
     public void init() {
 	// create a new challenge and extract the profile
 	Challenge challenge;
 	Response response;
 	List<Point> response_points;
+
+	// set up the context for compairing doubles
+	context = new MathContext(3);
 
 	// create a list of challenge points
 	List<Point> challenge_points = new ArrayList<Point>();
@@ -50,7 +59,7 @@ public class ProfileUnit {
 
 	    // create the response
 	    for (int j = 0; j < 32; j++) {
-		response_points.add(new Point((300 / 32) * j + 100, 100, i));
+		response_points.add(new Point((300 / 32) * j + 100, 100, i, 100, j));
 	    }
 
 	    response = new Response(response_points);
@@ -98,9 +107,9 @@ public class ProfileUnit {
 	assertTrue(mu_list.size() == 32);
 	assertTrue(sigma_list.size() == 32);
     }
-    
+
     /**
-     * test teh getMuSigmaValues method for correctness. TODO
+     * test teh getMuSigmaValues method for correctness.
      */
     @Test
     public void test_get_point_distance_mu_sigma_values() {
@@ -112,14 +121,14 @@ public class ProfileUnit {
 	// assert that mu an sigma are what they should be for all points
 	for (int i = 0; i < mu_list.size(); i++) {
 	    // for each point check that it is correct
-	    assertTrue(mu_list.get(i) == 1);
-	    assertTrue(sigma_list.get(i) == Math.sqrt(2.0 / 3.0));
+	    assertThat(new BigDecimal(mu_list.get(i)).round(context), is((new BigDecimal(100)).round(context)));
+	    assertThat(new BigDecimal(sigma_list.get(i) + 0.0).round(context), is(new BigDecimal(0.0).round(context)));
 	}
     }
 
     /**
      * test that MuSigma computes a mu, sigma value for each point in the
-     * normalized response TODO
+     * normalized response
      */
     @Test
     public void test_point_distance_number_points_correct() {

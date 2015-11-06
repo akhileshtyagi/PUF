@@ -29,7 +29,7 @@ public class ResponseUnit {
 
 	// populate the response_points list with 64 points
 	for (int i = 0; i < 9; i++) {
-	    response_points.add(new Point(i, i, .1 * i));
+	    response_points.add(new Point(i, i, .1 * i,100,i));
 	}
 
 	response = new Response(response_points);

@@ -91,4 +91,18 @@ public class Point implements Serializable {
 
 	return same;
     }
+    
+    @Override
+    public String toString(){
+	String string = "";
+	
+	string += "[";
+	string += this.x + ", ";
+	string += this.y + ", ";
+	string += String.format("%.3f", this.pressure) + ", ";
+	string += this.distance + ", ";
+	string += this.time + "]";
+	
+	return string;
+    }
 }

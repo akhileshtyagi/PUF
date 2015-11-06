@@ -97,11 +97,11 @@ public class UserDevicePair {
 	int list_size = profile.getNormalizedResponses().get(0).getResponse().size();
 
 	// set the failed point ratio
-	this.authentication_failed_point_ratio = ((double)failed_points) / list_size;
+	this.authentication_failed_point_ratio = ((double) failed_points) / list_size;
 
 	// if the fraction of points that pass is greater than the
 	// authentication threshold, then we pass this person
-	return ((double)(list_size - failed_points) / list_size) >= this.authentication_threshold;
+	return ((double) (list_size - failed_points) / list_size) >= this.authentication_threshold;
     }
 
     /**
@@ -146,9 +146,21 @@ public class UserDevicePair {
     private int failed_points(List<Point> new_response, Profile profile, double allowed_deviations) {
 	int points = 0;
 
+	// get the number of failed pressure points
+	points += failed_pressure_points(new_response, profile, allowed_deviations);
+
+	return points;
+    }
+
+    /**
+     * Computes the number of pressure points which have failed authentication
+     */
+    private int failed_pressure_points(List<Point> new_response, Profile profile, double allowed_deviations) {
+	int points = 0;
+
 	// get the mu, sigma values from the profile
-	List<Double> pressure_mu_values = profile.getPressureMuSigmaValues().getMuValues();
-	List<Double> pressure_sigma_values = profile.getPressureMuSigmaValues().getSigmaValues();
+	List<Double> mu_values = profile.getPressureMuSigmaValues().getMuValues();
+	List<Double> sigma_values = profile.getPressureMuSigmaValues().getSigmaValues();
 
 	// normalize the response
 	Response response_object = new Response(new_response);
@@ -156,16 +168,71 @@ public class UserDevicePair {
 
 	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
 
+	points = failed_points(mu_values, sigma_values, response_object.getResponse());
+
+	return points;
+    }
+
+    /**
+     * Computes the number of distance points which have failed authentication
+     */
+    private int failed_distance_points(List<Point> new_response, Profile profile, double allowed_deviations) {
+	int points = 0;
+
+	// get the mu, sigma values from the profile
+	List<Double> mu_values = profile.getPointDistanceMuSigmaValues().getMuValues();
+	List<Double> sigma_values = profile.getPointDistanceMuSigmaValues().getSigmaValues();
+
+	// normalize the response
+	Response response_object = new Response(new_response);
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getResponse());
+
+	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
+
+	points = failed_points(mu_values, sigma_values, response_object.getResponse());
+
+	return points;
+    }
+
+    /**
+     * Computes the number of time points which have failed authentication
+     */
+    private int failed_time_points(List<Point> new_response, Profile profile, double allowed_deviations) {
+	int points = 0;
+
+	// get the mu, sigma values from the profile
+	List<Double> mu_values = profile.getTimeDistanceMuSigmaValues().getMuValues();
+	List<Double> sigma_values = profile.getTimeDistanceMuSigmaValues().getSigmaValues();
+
+	// normalize the response
+	Response response_object = new Response(new_response);
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getResponse());
+
+	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
+
+	points = failed_points(mu_values, sigma_values, response_object.getResponse());
+
+	return points;
+    }
+
+    /**
+     * return the number of failed points in the given mu, sigma band Takes in
+     * mu_values, sigma_values, normalized list of points from response
+     */
+    private int failed_points(List<Double> mu_values, List<Double> sigma_values,
+	    List<Point> normalized_response_points) {
+	int points = 0;
+
 	// compare the response to the challenge_profile
 	// For each point determine whether or not it falls with in
 	// std_deviations
 	// for PRESSURE
-	for (int i = 0; i < response_object.getResponse().size(); i++) {
+	for (int i = 0; i < normalized_response_points.size(); i++) {
 	    // determine if this point fails
-	    if ((response_object.getResponse().get(i)
-		    .getPressure() < (pressure_mu_values.get(i) - pressure_sigma_values.get(i) * allowed_deviations))
-		    || (response_object.getResponse().get(i).getPressure() > (pressure_mu_values.get(i)
-			    + pressure_sigma_values.get(i) * allowed_deviations))) {
+	    if ((normalized_response_points.get(i)
+		    .getPressure() < (mu_values.get(i) - sigma_values.get(i) * allowed_deviations))
+		    || (normalized_response_points.get(i)
+			    .getPressure() > (mu_values.get(i) + sigma_values.get(i) * allowed_deviations))) {
 		// point fails
 		points++;
 	    }
@@ -173,12 +240,21 @@ public class UserDevicePair {
 
 	return points;
     }
+    
+    /**
+     * takes two doubles to see if they are roughly equivilent
+     * 
+     * true if a and b are within a percent differance of one another
+     */
+    private boolean within_episilon(double a, double b, double percent_difference){
+	return true;
+    }
 
     /**
      * determine if the list of points given is more horizontal or more vertical
      * 
      * @return true if the list is more horizontal
-     * @return false if thel ist is more vertical
+     * @return false if the list is more vertical
      */
     private boolean is_horizontal(List<Point> point_list) {
 	int x_dist = 0;
@@ -202,5 +278,67 @@ public class UserDevicePair {
 	}
 
 	return x_dist > y_dist;
+    }
+
+    /**
+     * TEST METHODS from here to the end. These will be REMOVED eventually.
+     */
+    /**
+     * This method returns a string with a lot of information 
+     */
+    public String information_dump_authenticate(List<Point> new_response_data, Profile profile){
+	String information = "";
+	
+	// gather information about the authentication in general
+	information += "allowed_deviations: " + this.allowed_deviations + "\n";
+	information += "authentication_threshold: " + this.authentication_threshold + "\n";
+	
+	// gather information about this specific authentication
+	// how does authentication behave as a whole
+	information += "authenticated: " + this.authenticate(new_response_data, profile) + "\n";
+	
+	// how do specific aspects of authentication behave
+	int pressure_failed_points = this.failed_pressure_points(new_response_data, profile, this.allowed_deviations);
+	int distance_failed_points = this.failed_distance_points(new_response_data, profile, this.allowed_deviations);
+	int time_failed_points = this.failed_time_points(new_response_data, profile, this.allowed_deviations);
+	int list_size = profile.getNormalizedResponses().get(0).getResponse().size();
+	
+	information += "pressure_failed_points: " + pressure_failed_points + "\n";
+	information += "distance_failed_points: " + distance_failed_points + "\n";
+	information += "time_failed_points: " + time_failed_points + "\n";
+	
+	// derived metrics
+	information += "pressure_failed_points_ratio: " + ((double) pressure_failed_points) / list_size + "\n";
+	information += "distance_failed_points_ratio: " + ((double) distance_failed_points) / list_size + "\n";
+	information += "time_failed_points_ratio: " + ((double) time_failed_points) / list_size + "\n";
+	
+	// put a vertical space before the next segment which prints out lists
+	information += "\n";
+	
+	// print lists used in authetnication
+	MuSigma pressure_mu_sigma = profile.getPressureMuSigmaValues();
+	MuSigma distance_mu_sigma = profile.getPointDistanceMuSigmaValues();
+	MuSigma time_mu_sigma = profile.getTimeDistanceMuSigmaValues();
+	
+	information += "Profile pressure_mu_values: "+ pressure_mu_sigma.getMuValues() + "\n";
+	information += "Profile pressure_sigma_values: "+ pressure_mu_sigma.getSigmaValues() + "\n";
+	
+	information += "Profile distance_mu_values: "+ distance_mu_sigma.getMuValues() + "\n";
+	information += "Profile distance_sigma_values: "+ distance_mu_sigma.getSigmaValues() + "\n";
+	
+	information += "Profile time_mu_values: "+ time_mu_sigma.getMuValues() + "\n";
+	information += "Profile time_sigma_values: "+ time_mu_sigma.getSigmaValues() + "\n";
+	
+	// print the pre/post normalized response data
+	information += "respones_points: " + new_response_data +"\n";
+	
+	// normalize the response
+	Response response_object = new Response(new_response_data);
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getResponse());
+	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
+	
+	information += "normalized_response_points: "+ response_object.getResponse() + "\n";
+	
+	return information;
     }
 }

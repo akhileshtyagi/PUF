@@ -55,7 +55,7 @@ public class UserDevicePairUnit {
 
 	    // create the response
 	    for (int j = 0; j < 32; j++) {
-		response_points.add(new Point((300 / 32) * j + 100, 100, i));
+		response_points.add(new Point((300 / 32) * j + 100, 100, i, 100, j));
 	    }
 
 	    response = new Response(response_points);
@@ -189,6 +189,9 @@ public class UserDevicePairUnit {
 	assertTrue(answer == 0);
     }
 
+    /**
+     * TODO figure out why this test fails!!!
+     */
     @Test
     public void test_failed_points_ratio() {
 	// test combinations which result in failed point ratio of 0, .5, 1
@@ -205,26 +208,44 @@ public class UserDevicePairUnit {
 
 	this.ud_pair.authenticate(new_response, profile);
 	assertTrue(this.ud_pair.failedPointRatio() == 0);
-	
+
 	// combination result in 1
 	new_response = new ArrayList<Point>();
 
 	for (int j = 0; j < 32; j++) {
 	    new_response.add(new Point((300 / 32) * j + 100, 100, 0));
 	}
-	
+
 	this.ud_pair.authenticate(new_response, profile);
 	assertTrue(this.ud_pair.failedPointRatio() == 1);
-	
+
 	// combination result in .5
 	new_response = new ArrayList<Point>();
 
 	for (int j = 0; j < 32; j++) {
-	    new_response.add(new Point((300 / 32) * j + 100, 100, j%2));
+	    new_response.add(new Point((300 / 32) * j + 100, 100, j % 2));
 	}
-	
+
 	this.ud_pair.authenticate(new_response, profile);
-	System.out.println(this.ud_pair.failedPointRatio());
-	assertTrue(this.ud_pair.failedPointRatio() == 1);
+	// System.out.println(this.ud_pair.failedPointRatio());
+	// System.out.println(new_response);
+	assertTrue(this.ud_pair.failedPointRatio() == .5);
+    }
+
+    @Test
+    public void test_info_dump_authenticate() {
+	Challenge challenge = ud_pair.getChallenges().get(0);
+	Profile profile = challenge.getProfile();
+	
+	// combination result in .5
+	ArrayList<Point> new_response = new ArrayList<Point>();
+
+	for (int j = 0; j < 32; j++) {
+	    new_response.add(new Point((300 / 32) * j + 100, 100, j % 2, 100,j));
+	}
+
+	System.out.println(this.ud_pair.information_dump_authenticate(new_response, profile));
+	
+	assertTrue(this.ud_pair.failedPointRatio() == .5);
     }
 }
