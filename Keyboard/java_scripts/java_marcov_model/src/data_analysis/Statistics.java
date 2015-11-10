@@ -117,7 +117,7 @@ public class Statistics {
 			
 			//try a range of authentication thresholds
 			for(int i=0;i<400;i++){
-				//go from 60 to 100, in steps of .1
+				//go from 60 to 100, in steps of .001
 				double current_threshold = .60+(.001*i);
 				
 				//System.out.println(String.format("%f", false_positive_percentage(current_threshold, should_authenticate, should_not_authenticate)));
