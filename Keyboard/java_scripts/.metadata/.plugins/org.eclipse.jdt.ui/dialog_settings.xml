@@ -18,6 +18,9 @@
 	</section>
 	<section name="JavaElementSearchActions">
 	</section>
+	<section name="BuildPathsPropertyPage">
+		<item value="3" key="pageIndex"/>
+	</section>
 	<section name="JarPackageWizard">
 		<item value="false" key="JarPackageWizardPage.INCLUDE_DIRECTORY_ENTRIES"/>
 		<item value="true" key="JarManifestWizardPage.GENERATE_MANIFEST"/>
@@ -30,8 +33,8 @@
 		<item value="true" key="jarOptionsWizardPage.EXPORT_ERRORS"/>
 		<item value="true" key="JarPackageWizardPage.EXPORT_CLASS_FILES"/>
 		<item value="false" key="jarOptionsWizardPage.SAVE_DESCRIPTION"/>
-		<item value="false" key="JarManifestWizardPage.SAVE_MANIFEST"/>
 		<item value="false" key="JarPackageWizardPage.EXPORT_JAVA_FILES"/>
+		<item value="false" key="JarManifestWizardPage.SAVE_MANIFEST"/>
 		<item value="false" key="JarPackageWizardPage.EXPORT_OUTPUT_FOLDER"/>
 		<item value="true" key="JarPackageWizardPage.COMPRESS"/>
 		<item value="true" key="jarOptionsWizardPage.BUILD_IF_NEEDED"/>
@@ -42,16 +45,14 @@
 			<item value="java_marco_model.jar"/>
 		</list>
 	</section>
-	<section name="BuildPathsPropertyPage">
-		<item value="3" key="pageIndex"/>
-	</section>
 	<section name="FatJarPackageWizard">
-		<item value="java_marcov_model/gui_1.7.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
+		<item value="java_marcov_model/gui_window_size_vs_auth_accuracy.jar" key="FatJarPackageWizardPage.DESTINATION_PATH_SELECTION"/>
 		<item value="StartGUI - java_marcov_model" key="FatJarPackageWizardPage.LAUNCH_CONFIGURATION_SELECTION_NAME"/>
 		<item value="/home/element/PUF/Keyboard/java_scripts" key="FatJarPackageWizardPage.ANTSCRIPT_LOCATION"/>
 		<item value="false" key="FatJarPackageWizardPage.ANTSCRIPT_SAVE"/>
 		<item value="1" key="FatJarPackageWizardPage.LIBRARY_HANDLING"/>
 		<list key="FatJarPackageWizardPage.DESTINATION_NAMES_ID">
+			<item value="java_marcov_model/gui_window_size_vs_auth_accuracy.jar"/>
 			<item value="java_marcov_model/gui_1.7.jar"/>
 			<item value="java_marcov_model/gui_1.6.jar"/>
 			<item value="java_marcov_model/gui_1.5.jar"/>
@@ -63,11 +64,14 @@
 			<item value=".xml"/>
 		</list>
 	</section>
+	<section name="quick_assist_proposal_size">
+	</section>
 	<section name="NewClassWizardPage">
 		<item value="false" key="create_constructor"/>
 		<item value="true" key="create_unimplemented"/>
 	</section>
-	<section name="quick_assist_proposal_size">
+	<section name="ClasspathContainerSelectionPage">
+		<item value="3" key="index"/>
 	</section>
 	<section name="org.eclipse.jdt.internal.ui.text.QuickOutline">
 		<item value="false" key="GoIntoTopLevelTypeAction.isChecked"/>
@@ -75,9 +79,6 @@
 		<item value="400" key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_WIDTH"/>
 		<item value="531" key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_HEIGHT"/>
 		<item value="false" key="org.eclipse.jdt.internal.ui.text.JavaOutlineInformationControlDIALOG_USE_PERSISTED_LOCATION"/>
-	</section>
-	<section name="ClasspathContainerSelectionPage">
-		<item value="3" key="index"/>
 	</section>
 	<section name="NewPackageWizardPage">
 		<item value="false" key="create_package_info_java"/>

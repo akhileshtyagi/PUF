@@ -15,8 +15,8 @@ public class Model_compare {
 	final static boolean PRINT_ALL_PROBABILITY = true;
 	
 	//specify the input, output locations
-	private final static String output_file_name = "model_compare_output.txt";
-	private final static String statistics_output_file_name = "model_compare_output_statistics.txt";
+	private final static String output_file_name = "results/model_compare_output.txt";
+	private final static String statistics_output_file_name = "results/model_compare_output_statistics.txt";
 	private final static String input_folder_name = "data_sets";
 	
 	//specify different model sizes and 
