@@ -91,56 +91,69 @@ public class Response implements Serializable {
 		// if the challenge is not horizontal => we have points along y
 		// axis => we want X value
 		point_distance = (isChallengeHorizontal) ? (closestRightPoint.getY()) : (closestRightPoint.getX());
+
+		time = closestRightPoint.getTime();
 	    } else {
-		// find pressure value for this point by considering the
-		// closest points
-		double deltaX = closestRightPoint.getX() - closestLeftPoint.getX();
-		double deltaY = closestRightPoint.getY() - closestLeftPoint.getY();
-		double angle = (isChallengeHorizontal) ? (Math.abs(Math.atan(deltaY / deltaX)))
-			: (Math.abs(Math.atan(deltaX / deltaY)));
-
 		if (isChallengeHorizontal) {
-		    double deltaLeft = normalizingPoint.getX() - closestLeftPoint.getX();
-		    double leftPart = deltaLeft / Math.cos(angle);
+		    // find the slope of the pressure, distance, and time
+		    // between the points
+		    double pressure_slope = (closestRightPoint.getPressure() - closestLeftPoint.getPressure())
+			    / (closestRightPoint.getX() - closestLeftPoint.getX());
+		    double distance_slope = (closestRightPoint.getY() - closestLeftPoint.getY())
+			    / (closestRightPoint.getX() - closestLeftPoint.getX()); // Y
+										    // =
+										    // distance
+										    // for
+										    // horizontal
+										    // challenge
+		    double time_slope = (closestRightPoint.getTime() - closestLeftPoint.getTime())
+			    / (closestRightPoint.getX() - closestLeftPoint.getX());
 
-		    double totalPart = deltaX / Math.cos(angle);
-		    double rightPart = totalPart - leftPart;
+		    // find the difference between normalized point and the
+		    // point on the left
+		    double x_differance = normalizingPoint.getX() - closestLeftPoint.getX();
 
 		    // determine the normaized pressue
-		    pressure = (leftPart / totalPart) * closestLeftPoint.getPressure()
-			    + (rightPart / totalPart) * closestRightPoint.getPressure();
+		    pressure = closestLeftPoint.getPressure() + pressure_slope * x_differance;
 
 		    // determine the point distance
 		    // horizontal challenge => we have points along x axis =>
 		    // need y values
-		    point_distance = (leftPart / totalPart) * closestLeftPoint.getY()
-			    + (rightPart / totalPart) * closestRightPoint.getY();
+		    point_distance = closestLeftPoint.getY() + distance_slope * x_differance;
 
 		    // determine the normalized time
-		    time = (leftPart / totalPart) * closestLeftPoint.getTime()
-			    + (rightPart / totalPart) * closestRightPoint.getTime();
+		    time = closestLeftPoint.getTime() + time_slope * x_differance;
 
 		} else {
-		    // should this be sine? no, finding x component of distance.
-		    double deltaLeft = normalizingPoint.getY() - closestLeftPoint.getY();
-		    double leftPart = deltaLeft / Math.cos(angle);
+		    // challenge is not horizontal => projected onto Y axis
+		    // find the slope of the pressure, distance, and time
+		    // between the points
+		    double pressure_slope = (closestRightPoint.getPressure() - closestLeftPoint.getPressure())
+			    / (closestRightPoint.getY() - closestLeftPoint.getY());
+		    double distance_slope = (closestRightPoint.getX() - closestLeftPoint.getX())
+			    / (closestRightPoint.getY() - closestLeftPoint.getY()); // X
+										    // =
+										    // distance
+										    // for
+										    // non-horizontal
+										    // challenge
+		    double time_slope = (closestRightPoint.getTime() - closestLeftPoint.getTime())
+			    / (closestRightPoint.getY() - closestLeftPoint.getY());
 
-		    double totalPart = deltaY / Math.cos(angle);
-		    double rightPart = totalPart - leftPart;
+		    // find the difference between normalized point and the
+		    // point on the left
+		    double y_differance = normalizingPoint.getY() - closestLeftPoint.getY();
 
 		    // determine normalized pressure
-		    pressure = (leftPart / totalPart) * closestLeftPoint.getPressure()
-			    + (rightPart / totalPart) * closestRightPoint.getPressure();
+		    pressure = closestLeftPoint.getPressure() + pressure_slope * y_differance;
 
 		    // determine the point distance
 		    // vertical challenge => we have points along y axis => need
 		    // x values
-		    point_distance = (leftPart / totalPart) * closestLeftPoint.getX()
-			    + (rightPart / totalPart) * closestRightPoint.getX();
+		    point_distance = closestLeftPoint.getX() + distance_slope * y_differance;
 
 		    // determine the normalized time
-		    time = (leftPart / totalPart) * closestLeftPoint.getTime()
-			    + (rightPart / totalPart) * closestRightPoint.getTime();
+		    time = closestLeftPoint.getTime() + time_slope * y_differance;
 		}
 	    }
 

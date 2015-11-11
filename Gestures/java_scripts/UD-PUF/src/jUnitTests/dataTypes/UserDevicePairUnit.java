@@ -232,6 +232,9 @@ public class UserDevicePairUnit {
 	assertTrue(this.ud_pair.failedPointRatio() == .5);
     }
 
+    /**
+     * dumps a lot of information which is useful for debugging
+     */
     @Test
     public void test_info_dump_authenticate() {
 	Challenge challenge = ud_pair.getChallenges().get(0);
