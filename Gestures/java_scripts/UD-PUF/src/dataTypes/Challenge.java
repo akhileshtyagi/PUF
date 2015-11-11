@@ -121,7 +121,7 @@ public class Challenge {
 	ArrayList<Point> points = new ArrayList<Point>();
 
 	// amount of x separation for each point
-	double point_increment = x_dist / this.normalized_elements;
+	double point_increment = x_dist / ( this.normalized_elements - 1 );
 	Point next_point = null;
 
 	for (int i = 0; i < this.normalized_elements; i++) {
@@ -151,7 +151,7 @@ public class Challenge {
 	ArrayList<Point> points = new ArrayList<Point>();
 
 	// amount of y separation for each point
-	double point_increment = y_dist / this.normalized_elements;
+	double point_increment = y_dist / ( this.normalized_elements - 1 );
 	Point next_point = null;
 
 	for (int i = 0; i < this.normalized_elements; i++) {

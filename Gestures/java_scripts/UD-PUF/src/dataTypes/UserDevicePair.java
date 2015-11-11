@@ -11,6 +11,10 @@ public class UserDevicePair {
     final static double DEFAULT_ALLOWED_DEVIATIONS = 1.0;
     final static double DEFAULT_AUTHENTICATION_THRESHOLD = 0.75;
 
+    public enum RatioType {
+	PRESSURE, DISTANCE, TIME
+    }
+
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
 
@@ -21,7 +25,9 @@ public class UserDevicePair {
 
     // stores the failed points from the previous authentication
     // -1 if not set
-    private double authentication_failed_point_ratio;
+    private double pressure_authentication_failed_point_ratio;
+    private double distance_authentication_failed_point_ratio;
+    private double time_authentication_failed_point_ratio;
 
     public UserDevicePair(int userDeviceID) {
 	this(userDeviceID, new ArrayList<Challenge>());
@@ -44,7 +50,9 @@ public class UserDevicePair {
 	this.challenges = challenges;
 	this.allowed_deviations = allowed_deviations;
 	this.authentication_threshold = authentication_threshold;
-	this.authentication_failed_point_ratio = -1;
+	this.pressure_authentication_failed_point_ratio = -1;
+	this.distance_authentication_failed_point_ratio = -1;
+	this.time_authentication_failed_point_ratio = -1;
     }
 
     // Adds challenge to list of challenges correlating to this user/device pair
@@ -91,17 +99,22 @@ public class UserDevicePair {
 	}
 
 	// determine the number of failed points
-	int failed_points = failed_points(new_response_data, profile, this.allowed_deviations);
-
+	int failed_pressure_points = failed_pressure_points(new_response_data, profile, this.allowed_deviations);
+	int failed_distance_points = failed_distance_points(new_response_data, profile, this.allowed_deviations);
+	int failed_time_points = failed_time_points(new_response_data, profile, this.allowed_deviations);
+	
 	// determine the size of the list
 	int list_size = profile.getNormalizedResponses().get(0).getResponse().size();
 
-	// set the failed point ratio
-	this.authentication_failed_point_ratio = ((double) failed_points) / list_size;
+	// set the failed point ratio for pressure time and distance
+	this.pressure_authentication_failed_point_ratio = ((double) failed_pressure_points) / list_size;
+	this.distance_authentication_failed_point_ratio = ((double) failed_distance_points) / list_size;
+	this.time_authentication_failed_point_ratio = ((double) failed_time_points) / list_size;
 
 	// if the fraction of points that pass is greater than the
 	// authentication threshold, then we pass this person
-	return ((double) (list_size - failed_points) / list_size) >= this.authentication_threshold;
+	//TODO right now this only uses pressure, incorporate time and distance
+	return ((double) (list_size - failed_pressure_points) / list_size) >= this.authentication_threshold;
     }
 
     /**
@@ -115,10 +128,29 @@ public class UserDevicePair {
      * return the number of failed points from the previous authentication.
      * Return -1 if there is not previous authentication.
      * 
+     * failed ratio is [failed points / total points] in the authentication
+     * 
      * @return
      */
-    public double failedPointRatio() {
-	return this.authentication_failed_point_ratio;
+    public double failedPointRatio(RatioType type) {
+	double failed_ratio = -1;
+
+	// return a failed point ratio dependtant on the ratio type
+	switch (type) {
+	case PRESSURE:
+	    failed_ratio = this.pressure_authentication_failed_point_ratio;
+	    break;
+
+	case DISTANCE:
+	    failed_ratio = this.distance_authentication_failed_point_ratio;
+	    break;
+
+	case TIME:
+	    failed_ratio = this.time_authentication_failed_point_ratio;
+	    break;
+	}
+
+	return failed_ratio;
     }
 
     /**
@@ -240,13 +272,13 @@ public class UserDevicePair {
 
 	return points;
     }
-    
+
     /**
      * takes two doubles to see if they are roughly equivilent
      * 
      * true if a and b are within a percent differance of one another
      */
-    private boolean within_episilon(double a, double b, double percent_difference){
+    private boolean within_episilon(double a, double b, double percent_difference) {
 	return true;
     }
 
@@ -284,61 +316,61 @@ public class UserDevicePair {
      * TEST METHODS from here to the end. These will be REMOVED eventually.
      */
     /**
-     * This method returns a string with a lot of information 
+     * This method returns a string with a lot of information
      */
-    public String information_dump_authenticate(List<Point> new_response_data, Profile profile){
+    public String information_dump_authenticate(List<Point> new_response_data, Profile profile) {
 	String information = "";
-	
+
 	// gather information about the authentication in general
 	information += "allowed_deviations: " + this.allowed_deviations + "\n";
 	information += "authentication_threshold: " + this.authentication_threshold + "\n";
-	
+
 	// gather information about this specific authentication
 	// how does authentication behave as a whole
 	information += "authenticated: " + this.authenticate(new_response_data, profile) + "\n";
-	
+
 	// how do specific aspects of authentication behave
 	int pressure_failed_points = this.failed_pressure_points(new_response_data, profile, this.allowed_deviations);
 	int distance_failed_points = this.failed_distance_points(new_response_data, profile, this.allowed_deviations);
 	int time_failed_points = this.failed_time_points(new_response_data, profile, this.allowed_deviations);
 	int list_size = profile.getNormalizedResponses().get(0).getResponse().size();
-	
+
 	information += "pressure_failed_points: " + pressure_failed_points + "\n";
 	information += "distance_failed_points: " + distance_failed_points + "\n";
 	information += "time_failed_points: " + time_failed_points + "\n";
-	
+
 	// derived metrics
 	information += "pressure_failed_points_ratio: " + ((double) pressure_failed_points) / list_size + "\n";
 	information += "distance_failed_points_ratio: " + ((double) distance_failed_points) / list_size + "\n";
 	information += "time_failed_points_ratio: " + ((double) time_failed_points) / list_size + "\n";
-	
+
 	// put a vertical space before the next segment which prints out lists
 	information += "\n";
-	
+
 	// print lists used in authetnication
 	MuSigma pressure_mu_sigma = profile.getPressureMuSigmaValues();
 	MuSigma distance_mu_sigma = profile.getPointDistanceMuSigmaValues();
 	MuSigma time_mu_sigma = profile.getTimeDistanceMuSigmaValues();
-	
-	information += "Profile pressure_mu_values: "+ pressure_mu_sigma.getMuValues() + "\n";
-	information += "Profile pressure_sigma_values: "+ pressure_mu_sigma.getSigmaValues() + "\n";
-	
-	information += "Profile distance_mu_values: "+ distance_mu_sigma.getMuValues() + "\n";
-	information += "Profile distance_sigma_values: "+ distance_mu_sigma.getSigmaValues() + "\n";
-	
-	information += "Profile time_mu_values: "+ time_mu_sigma.getMuValues() + "\n";
-	information += "Profile time_sigma_values: "+ time_mu_sigma.getSigmaValues() + "\n";
-	
+
+	information += "Profile pressure_mu_values: " + pressure_mu_sigma.getMuValues() + "\n";
+	information += "Profile pressure_sigma_values: " + pressure_mu_sigma.getSigmaValues() + "\n";
+
+	information += "Profile distance_mu_values: " + distance_mu_sigma.getMuValues() + "\n";
+	information += "Profile distance_sigma_values: " + distance_mu_sigma.getSigmaValues() + "\n";
+
+	information += "Profile time_mu_values: " + time_mu_sigma.getMuValues() + "\n";
+	information += "Profile time_sigma_values: " + time_mu_sigma.getSigmaValues() + "\n";
+
 	// print the pre/post normalized response data
-	information += "respones_points: " + new_response_data +"\n";
-	
+	information += "respones_points: " + new_response_data + "\n";
+
 	// normalize the response
 	Response response_object = new Response(new_response_data);
 	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getResponse());
 	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
-	
-	information += "normalized_response_points: "+ response_object.getResponse() + "\n";
-	
+
+	information += "normalized_response_points: " + response_object.getResponse() + "\n";
+
 	return information;
     }
 }
