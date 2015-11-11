@@ -1,0 +1,368 @@
+This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2015.7.9)  7 NOV 2015 11:30
+entering extended mode
+**mobilePUFkeyboard.tex
+(C:\papers\TimDee\contTouch\mobilePUFkeyboard.tex
+LaTeX2e <2009/09/24>
+Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, german, ngerman, german-x-2009-06-19, ngerm
+an-x-2009-06-19, french, loaded.
+(C:\papers\TimDee\contTouch\acm_proc_article-sp.cls ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\epsfig.sty"
+Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\graphicx.sty"
+Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\keyval.sty"
+Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+\KV@toks@=\toks14
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\graphics.sty"
+Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\trig.sty"
+Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\00miktex\graphics.cfg"
+File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+)
+Package graphics Info: Driver file: pdftex.def on input line 91.
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\pdftex-def\pdftex.def"
+File: pdftex.def 2010/02/14 v0.04n Graphics/color for pdfTeX
+\Gread@gobject=\count79
+))
+\Gin@req@height=\dimen102
+\Gin@req@width=\dimen103
+)
+\epsfxsize=\dimen104
+\epsfysize=\dimen105
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\amsfonts\amssymb.sty"
+Package: amssymb 2009/06/22 v3.00
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\amsfonts\amsfonts.sty"
+Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+\@emptytoks=\toks15
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+))
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ams\math\amsmath.sty"
+Package: amsmath 2000/07/18 v2.13 AMS math features
+\@mathmargin=\skip41
+
+For additional information on amsmath, use the `?' option.
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ams\math\amstext.sty"
+Package: amstext 2000/06/29 v2.01
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ams\math\amsgen.sty"
+File: amsgen.sty 1999/11/30 v2.0
+\@emptytoks=\toks16
+\ex@=\dimen106
+))
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ams\math\amsbsy.sty"
+Package: amsbsy 1999/11/29 v1.2d
+\pmbraise@=\dimen107
+)
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ams\math\amsopn.sty"
+Package: amsopn 1999/12/14 v2.01 operator names
+)
+\inf@bad=\count80
+LaTeX Info: Redefining \frac on input line 211.
+\uproot@=\count81
+\leftroot@=\count82
+LaTeX Info: Redefining \overline on input line 307.
+\classnum@=\count83
+\DOTSCASE@=\count84
+LaTeX Info: Redefining \ldots on input line 379.
+LaTeX Info: Redefining \dots on input line 382.
+LaTeX Info: Redefining \cdots on input line 467.
+\Mathstrutbox@=\box26
+\strutbox@=\box27
+\big@size=\dimen108
+LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+\macc@depth=\count85
+\c@MaxMatrixCols=\count86
+\dotsspace@=\muskip10
+\c@parentequation=\count87
+\dspbrk@lvl=\count88
+\tag@help=\toks17
+\row@=\count89
+\column@=\count90
+\maxfields@=\count91
+\andhelp@=\toks18
+\eqnshift@=\dimen109
+\alignsep@=\dimen110
+\tagshift@=\dimen111
+\tagwidth@=\dimen112
+\totwidth@=\dimen113
+\lineht@=\dimen114
+\@envbody=\toks19
+\multlinegap=\skip42
+\multlinetaggap=\skip43
+\mathdisplay@stack=\toks20
+LaTeX Info: Redefining \[ on input line 2666.
+LaTeX Info: Redefining \] on input line 2667.
+)
+Document Class 'acm_proc_article-sp' <22nd. April '09>. Modified by G.K.M. Tobin
+Based in part upon document Style `acmconf' <22 May 89>. Hacked 4/91 by
+shivers@cs.cmu.edu, 4/93 by theobald@cs.mcgill.ca
+Excerpts were taken from (Journal Style) 'esub2acm.cls'.
+****** Bugs/comments/suggestions to Gerry Murray -- murray@hq.acm.org ******
+\footheight=\dimen115
+\@maxsep=\dimen116
+\@dblmaxsep=\dimen117
+\aucount=\count92
+\originalaucount=\count93
+\auwidth=\dimen118
+\auskip=\dimen119
+\auskipcount=\count94
+\auskip=\dimen120
+\allauboxes=\dimen121
+\addauthors=\toks21
+\addauflag=\count95
+\subtitletext=\toks22
+\savesection=\count96
+\sectioncntr=\count97
+\c@figure=\count98
+\c@table=\count99
+\titleboxnotes=\toks23
+\titleboxnoteflag=\count100
+Document Class: acm_proc_article-sp 2009/04/22 - V3.2SP - based on esub2acm.sty <23 April 96>
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\latexsym.sty"
+Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
+\symlasy=\mathgroup6
+LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+)
+\@acmtitlebox=\box28
+\titlenotecount=\count101
+\tntoks=\toks24
+\tntokstwo=\toks25
+\tntoksthree=\toks26
+\tntoksfour=\toks27
+\tntoksfive=\toks28
+\catcount=\count102
+\copyrightnotice=\toks29
+\conf=\toks30
+\confinfo=\toks31
+\c@part=\count103
+\c@section=\count104
+\c@subsection=\count105
+\c@subsubsection=\count106
+\c@paragraph=\count107
+
+Using 'Abbrev' bibliography style
+LaTeX Info: Redefining \cite on input line 1236.
+\bibindent=\dimen122
+\colcntr=\count108
+\saveb@x=\box29
+\copyrtyr=\toks32
+\acmcopyr=\toks33
+\boilerplate=\toks34
+\copyrightetc=\toks35
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\fontenc.sty"
+Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\t1enc.def"
+File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+)
+LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
+ ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ae\t1aer.fd"
+File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
+))) (C:\papers\TimDee\contTouch\mobilePUFkeyboard.aux)
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
+LaTeX Font Info:    ... okay on input line 32.
+ ("C:\Program Files (x86)\MiKTeX 2.8\tex\context\base\supp-pdf.tex"
+[Loading MPS to PDF converter (version 2006.09.02).]
+\scratchcounter=\count109
+\scratchdimen=\dimen123
+\scratchbox=\box30
+\nofMPsegments=\count110
+\nofMParguments=\count111
+\everyMPshowfont=\toks36
+\MPscratchCnt=\count112
+\MPscratchDim=\dimen124
+\MPnumerator=\count113
+\everyMPtoPDFconversion=\toks37
+)
+LaTeX Font Info:    Try loading font information for U+msa on input line 98.
+ ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\amsfonts\umsa.fd"
+File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+)
+LaTeX Font Info:    Try loading font information for U+msb on input line 98.
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\amsfonts\umsb.fd"
+File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+)
+LaTeX Font Info:    Try loading font information for U+lasy on input line 98.
+
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\ulasy.fd"
+File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
+)
+
+LaTeX Warning: No \author given.
+
+LaTeX Font Info:    Try loading font information for T1+aett on input line 171.
+("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ae\t1aett.fd"
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+)
+Overfull \hbox (8.11598pt too wide) in paragraph at lines 169--179
+\T1/aett/m/n/9 tion-Event \T1/aer/m/n/9 (http://developer.android.com/reference/android/ 
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1{C:/ProgramData/MiKTeX/2.8/pdftex/config/pdftex.map}
+
+
+] <figures/token_creation.png, id=9, 594.22pt x 222.8325pt>
+File: figures/token_creation.png Graphic file (type png)
+ <use figures/token_creation.png>
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 247--248
+ [][] 
+ []
+
+<figures/normal_distribution.png, id=11, 602.25pt x 372.39125pt>
+File: figures/normal_distribution.png Graphic file (type png)
+ <use figures/normal_distribution.png>
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 276--277
+ [][] 
+ []
+
+[2 <C:/papers/TimDee/contTouch/figures/token_creation.png> <C:/papers/TimDee/contTouch/figures/normal_distribution.png>]
+<figures/Markov_model_building.png, id=22, 764.8575pt x 328.22626pt>
+File: figures/Markov_model_building.png Graphic file (type png)
+ <use figures/Markov_model_building.png>
+Overfull \hbox (5.71754pt too wide) in paragraph at lines 321--322
+ [][] 
+ []
+
+
+Overfull \hbox (26.3266pt too wide) in paragraph at lines 328--341
+\OML/cmm/m/it/9 T[]\OT1/cmr/m/n/9 ))$\T1/aer/m/n/9 , where $\OML/cmm/m/it/9 T[]$ \T1/aer/m/n/9 rep-re-sents the to-ken s
+e-quence $\OML/cmm/m/it/9 T[]; T[]; [] ; T[]$\T1/aer/m/n/9 .
+ []
+
+<figures/final_Markov_model_state.png, id=23, 774.895pt x 354.32375pt>
+File: figures/final_Markov_model_state.png Graphic file (type png)
+ <use figures/final_Markov_model_state.png>
+Overfull \hbox (5.71754pt too wide) in paragraph at lines 350--352
+ [][] 
+ []
+
+
+Overfull \hbox (15.5365pt too wide) in paragraph at lines 389--389
+[]\secfnt DIFFERENTIATING USER-DEVICE PAIRS 
+ []
+
+<figures/threshold_vs_percentages.png, id=24, 602.25pt x 372.39125pt>
+File: figures/threshold_vs_percentages.png Graphic file (type png)
+ <use figures/threshold_vs_percentages.png>
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 398--399
+ [][] 
+ []
+
+
+Overfull \hbox (24.63332pt too wide) in paragraph at lines 408--418
+\OML/cmm/m/it/9 distance\OT1/cmr/m/n/9 [(\OML/cmm/m/it/9 T[]T[] [] T[]\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 (
+\OML/cmm/m/it/9 p[]; p[]; [] ; p[]\OT1/cmr/m/n/9 )]$ \T1/aer/m/n/9 and $\OT1/cmr/m/n/9 [(\OML/cmm/m/it/9 T[]T[] [] T[]\O
+T1/cmr/m/n/9 )\OML/cmm/m/it/9 ; [] 
+ []
+
+[3 <C:/papers/TimDee/contTouch/figures/Markov_model_building.png> <C:/papers/TimDee/contTouch/figures/final_Markov_model
+_state.png>] <figures/authentication_accuracy_vs_model_size.png, id=35, 602.25pt x 372.39125pt>
+File: figures/authentication_accuracy_vs_model_size.png Graphic file (type png)
+
+<use figures/authentication_accuracy_vs_model_size.png>
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 474--475
+ [][] 
+ []
+
+[4 <C:/papers/TimDee/contTouch/figures/threshold_vs_percentages.png> <C:/papers/TimDee/contTouch/figures/authentication_
+accuracy_vs_model_size.png>] <figures/total_touches_vs_authentication_accuracy.png, id=42, 602.25pt x 372.39125pt>
+File: figures/total_touches_vs_authentication_accuracy.png Graphic file (type png)
+
+<use figures/total_touches_vs_authentication_accuracy.png>
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 509--510
+ [][] 
+ []
+
+<figures/nexus_speed_test.png, id=43, 602.25pt x 372.39125pt>
+File: figures/nexus_speed_test.png Graphic file (type png)
+ <use figures/nexus_speed_test.png>
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 537--538
+ [][] 
+ []
+
+
+Underfull \vbox (badness 2538) has occurred while \output is active []
+
+
+<figures/nexus_total_size_time.png, id=44, 602.25pt x 372.39125pt>
+File: figures/nexus_total_size_time.png Graphic file (type png)
+ <use figures/nexus_total_size_time.png>
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 558--559
+ [][] 
+ []
+
+
+Overfull \hbox (1.30322pt too wide) in paragraph at lines 572--575
+\T1/aer/m/n/9 mance trade-off as-so-ci-ated with in-creased num-bers of touches.
+ []
+
+[5 <C:/papers/TimDee/contTouch/figures/total_touches_vs_authentication_accuracy.png> <C:/papers/TimDee/contTouch/figures
+/nexus_speed_test.png> <C:/papers/TimDee/contTouch/figures/nexus_total_size_time.png>]
+Overfull \hbox (5.70876pt too wide) in paragraph at lines 576--576
+[]\secfnt DISTRIBUTED USER-DEVICE (UD-) PUF 
+ []
+
+
+Overfull \hbox (4.88376pt too wide) in paragraph at lines 591--593
+\T1/aer/m/n/9 user-device com-bi-na-tions. A con-tin-u-ous au-then-ti-ca-tion model
+ []
+
+(C:\papers\TimDee\contTouch\mobilePUFkeyboard.bbl
+Overfull \hbox (21.45428pt too wide) in paragraph at lines 81--87
+\T1/aer/m/n/9 http://www.consumerreports.org/cro/news/2014/04/smart- 
+ []
+
+) [6] (C:\papers\TimDee\contTouch\mobilePUFkeyboard.aux) ) 
+Here is how much of TeX's memory you used:
+ 2290 strings out of 495285
+ 28217 string characters out of 3179828
+ 84422 words of memory out of 3000000
+ 5449 multiletter control sequences out of 15000+200000
+ 45495 words of font info for 64 fonts, out of 3000000 for 9000
+ 14 hyphenation exceptions out of 8191
+ 39i,8n,26p,738b,224s stack positions out of 5000i,500n,10000p,200000b,50000s
+{C:/Program Files (x86)/MiKTeX 2.8/fonts/enc/dvips/fontname/8r
+.enc}<C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program Files (x86)/MiKTeX 2.8/font
+s/type1/public/amsfonts/cmextra/cmex9.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C
+:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1
+/public/amsfonts/cm/cmmi9.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Program Fil
+es (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfon
+ts/cm/cmr9.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Program Files (x86)/MiKTe
+X 2.8/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmsy9.p
+fb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/
+type1/public/amsfonts/cm/cmtt9.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Fi
+les (x86)/MiKTeX 2.8/fonts/type1/urw/times/utmb8a.pfb>
+Output written on mobilePUFkeyboard.pdf (6 pages, 420226 bytes).
+PDF statistics:
+ 101 PDF objects out of 1000 (max. 8388607)
+ 0 named destinations out of 1000 (max. 500000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+

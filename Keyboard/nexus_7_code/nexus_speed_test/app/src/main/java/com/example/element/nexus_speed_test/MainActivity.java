@@ -63,6 +63,7 @@ public class MainActivity extends ActionBarActivity {
         ArrayList<Long> result_time = new ArrayList<Long>();
         ArrayList<Integer> base_size = new ArrayList<Integer>();
         ArrayList<Integer> auth_size = new ArrayList<Integer>();
+        ArrayList<Integer> window_size = new ArrayList<Integer>();
 
         //times
         long time_taken;
@@ -70,17 +71,20 @@ public class MainActivity extends ActionBarActivity {
         //here I want to run code for the speedtest.
         //when the speedtest has completed I will want to output code to the textbox
         //run the tests
-        for(int i=1000;i<10001;i+=500){
-            for(int j=1000;j<10001;j+=500){
-                //store the model sizes
-                base_size.add(i);
-                auth_size.add(j);
+        for(int i=8000;i<10001;i+=5000){     // base size
+            for(int j=4000;j<10001;j+=5000){ // auth size
+                for(int k=1;k<11;k++) {     // window size
+                    //store the model sizes
+                    base_size.add(i);
+                    auth_size.add(j);
+                    window_size.add(k);
 
-                //test the amount of time these model sizes take to build and authenticate
-                time_taken = time_overall_model_compare(i, j);
+                    //test the amount of time these model sizes take to build and authenticate
+                    time_taken = time_overall_model_compare(i, j, k);
 
-                //store the result... the time it took to build and compare these models
-                result_time.add(time_taken);
+                    //store the result... the time it took to build and compare these models
+                    result_time.add(time_taken);
+                }
             }
         }
 
@@ -89,11 +93,11 @@ public class MainActivity extends ActionBarActivity {
 
         //construct the output string from the test resuls
         //print a header
-        output = "base_size\tauth_size\ttime_taken\n";
+        output = "base_size\tauth_size\twindow_size\ttime_taken\n";
 
         //print the results of all the tests
         for(int i =0;i<result_time.size();i++){
-            output = output + base_size.get(i)+"\t"+auth_size.get(i)+"\t"+result_time.get(i)+"\n";
+            output = output + base_size.get(i)+"\t"+auth_size.get(i)+"\t"+window_size.get(i)+"\t"+result_time.get(i)+"\n";
         }
 
         edit_text.setText(output);
@@ -117,14 +121,14 @@ public class MainActivity extends ActionBarActivity {
 
 
     //constants used for speedtesting
-    final static int SPEED_TEST_WINDOW_SIZE = 3;
+    //final static int SPEED_TEST_WINDOW_SIZE = 3;
     final static int SPEED_TEST_TOKEN_SIZE = 7;
     final static int SPEED_TEST_THRESHOLD = 1000;
 
     //returns the time it takes to build and compare the models
-    private static long time_overall_model_compare(int base_size, int auth_size){
-        Chain base_chain = create_chain(base_size);
-        Chain auth_chain = create_chain(auth_size);
+    private static long time_overall_model_compare(int base_size, int auth_size, int window_size){
+        Chain base_chain = create_chain(base_size, window_size);
+        Chain auth_chain = create_chain(auth_size, window_size);
 
         CompareChains cc = new CompareChains(base_chain, auth_chain);
         Thread thread = new Thread(cc);
@@ -144,11 +148,11 @@ public class MainActivity extends ActionBarActivity {
 
 
     ///creates a chain of the specified size
-    private static Chain create_chain(int size){
-        Chain chain = new Chain(SPEED_TEST_WINDOW_SIZE, SPEED_TEST_TOKEN_SIZE, SPEED_TEST_THRESHOLD, size);
+    private static Chain create_chain(int chain_size, int window_size){
+        Chain chain = new Chain(window_size, SPEED_TEST_TOKEN_SIZE, SPEED_TEST_THRESHOLD, chain_size);
 
         //add touches to the chain
-        for(int i=0;i<size;i++){
+        for(int i=0;i<chain_size;i++){
             chain.add_touch(new Touch('a', (i%11)*.1, 100));
         }
 
