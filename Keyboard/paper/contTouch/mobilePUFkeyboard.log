@@ -1,33 +1,40 @@
-This is pdfTeX, Version 3.1415926-1.40.10 (MiKTeX 2.8) (preloaded format=pdflatex 2015.7.9)  7 NOV 2015 11:30
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2015.10.11)  11 NOV 2015 18:09
 entering extended mode
+ restricted \write18 enabled.
+ %&-line parsing enabled.
 **mobilePUFkeyboard.tex
-(C:\papers\TimDee\contTouch\mobilePUFkeyboard.tex
-LaTeX2e <2009/09/24>
-Babel <v3.8l> and hyphenation patterns for english, dumylang, nohyphenation, german, ngerman, german-x-2009-06-19, ngerm
-an-x-2009-06-19, french, loaded.
-(C:\papers\TimDee\contTouch\acm_proc_article-sp.cls ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\epsfig.sty"
+(./mobilePUFkeyboard.tex
+LaTeX2e <2015/01/01>
+Babel <3.9l> and hyphenation patterns for 79 languages loaded.
+(./acm_proc_article-sp.cls (/usr/share/texmf-dist/tex/latex/graphics/epsfig.sty
 Package: epsfig 1999/02/16 v1.7a (e)psfig emulation (SPQR)
+(/usr/share/texmf-dist/tex/latex/graphics/graphicx.sty
+Package: graphicx 2014/10/28 v1.0g Enhanced LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\graphicx.sty"
-Package: graphicx 1999/02/16 v1.0f Enhanced LaTeX Graphics (DPC,SPQR)
-
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\keyval.sty"
-Package: keyval 1999/03/16 v1.13 key=value parser (DPC)
+(/usr/share/texmf-dist/tex/latex/graphics/keyval.sty
+Package: keyval 2014/10/28 v1.15 key=value parser (DPC)
 \KV@toks@=\toks14
 )
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\graphics.sty"
-Package: graphics 2009/02/05 v1.0o Standard LaTeX Graphics (DPC,SPQR)
+(/usr/share/texmf-dist/tex/latex/graphics/graphics.sty
+Package: graphics 2014/10/28 v1.0p Standard LaTeX Graphics (DPC,SPQR)
 
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\graphics\trig.sty"
+(/usr/share/texmf-dist/tex/latex/graphics/trig.sty
 Package: trig 1999/03/16 v1.09 sin cos tan (DPC)
 )
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\00miktex\graphics.cfg"
-File: graphics.cfg 2007/01/18 v1.5 graphics configuration of teTeX/TeXLive
+(/usr/share/texmf-dist/tex/latex/latexconfig/graphics.cfg
+File: graphics.cfg 2010/04/23 v1.9 graphics configuration of TeX Live
 )
-Package graphics Info: Driver file: pdftex.def on input line 91.
+Package graphics Info: Driver file: pdftex.def on input line 94.
 
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\pdftex-def\pdftex.def"
-File: pdftex.def 2010/02/14 v0.04n Graphics/color for pdfTeX
+(/usr/share/texmf-dist/tex/latex/pdftex-def/pdftex.def
+File: pdftex.def 2011/05/27 v0.06d Graphics/color for pdfTeX
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/infwarerr.sty
+Package: infwarerr 2010/04/08 v1.3 Providing info/warning/error messages (HO)
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/ltxcmds.sty
+Package: ltxcmds 2011/11/09 v1.22 LaTeX kernel commands for general use (HO)
+)
 \Gread@gobject=\count79
 ))
 \Gin@req@height=\dimen102
@@ -36,52 +43,52 @@ File: pdftex.def 2010/02/14 v0.04n Graphics/color for pdfTeX
 \epsfxsize=\dimen104
 \epsfysize=\dimen105
 )
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\amsfonts\amssymb.sty"
-Package: amssymb 2009/06/22 v3.00
+(/usr/share/texmf-dist/tex/latex/amsfonts/amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
 
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\amsfonts\amsfonts.sty"
-Package: amsfonts 2009/06/22 v3.00 Basic AMSFonts support
+(/usr/share/texmf-dist/tex/latex/amsfonts/amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
 \@emptytoks=\toks15
 \symAMSa=\mathgroup4
 \symAMSb=\mathgroup5
 LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
-(Font)                  U/euf/m/n --> U/euf/b/n on input line 96.
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
 ))
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ams\math\amsmath.sty"
-Package: amsmath 2000/07/18 v2.13 AMS math features
+(/usr/share/texmf-dist/tex/latex/amsmath/amsmath.sty
+Package: amsmath 2013/01/14 v2.14 AMS math features
 \@mathmargin=\skip41
 
 For additional information on amsmath, use the `?' option.
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ams\math\amstext.sty"
+(/usr/share/texmf-dist/tex/latex/amsmath/amstext.sty
 Package: amstext 2000/06/29 v2.01
 
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ams\math\amsgen.sty"
+(/usr/share/texmf-dist/tex/latex/amsmath/amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0
 \@emptytoks=\toks16
 \ex@=\dimen106
 ))
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ams\math\amsbsy.sty"
+(/usr/share/texmf-dist/tex/latex/amsmath/amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d
 \pmbraise@=\dimen107
 )
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ams\math\amsopn.sty"
+(/usr/share/texmf-dist/tex/latex/amsmath/amsopn.sty
 Package: amsopn 1999/12/14 v2.01 operator names
 )
 \inf@bad=\count80
-LaTeX Info: Redefining \frac on input line 211.
+LaTeX Info: Redefining \frac on input line 210.
 \uproot@=\count81
 \leftroot@=\count82
-LaTeX Info: Redefining \overline on input line 307.
+LaTeX Info: Redefining \overline on input line 306.
 \classnum@=\count83
 \DOTSCASE@=\count84
-LaTeX Info: Redefining \ldots on input line 379.
-LaTeX Info: Redefining \dots on input line 382.
-LaTeX Info: Redefining \cdots on input line 467.
+LaTeX Info: Redefining \ldots on input line 378.
+LaTeX Info: Redefining \dots on input line 381.
+LaTeX Info: Redefining \cdots on input line 466.
 \Mathstrutbox@=\box26
 \strutbox@=\box27
 \big@size=\dimen108
-LaTeX Font Info:    Redeclaring font encoding OML on input line 567.
-LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
+LaTeX Font Info:    Redeclaring font encoding OML on input line 566.
+LaTeX Font Info:    Redeclaring font encoding OMS on input line 567.
 \macc@depth=\count85
 \c@MaxMatrixCols=\count86
 \dotsspace@=\muskip10
@@ -102,10 +109,11 @@ LaTeX Font Info:    Redeclaring font encoding OMS on input line 568.
 \multlinegap=\skip42
 \multlinetaggap=\skip43
 \mathdisplay@stack=\toks20
-LaTeX Info: Redefining \[ on input line 2666.
-LaTeX Info: Redefining \] on input line 2667.
+LaTeX Info: Redefining \[ on input line 2665.
+LaTeX Info: Redefining \] on input line 2666.
 )
-Document Class 'acm_proc_article-sp' <22nd. April '09>. Modified by G.K.M. Tobin
+Document Class 'acm_proc_article-sp' <22nd. April '09>. Modified by G.K.M. Tobi
+n
 Based in part upon document Style `acmconf' <22 May 89>. Hacked 4/91 by
 shivers@cs.cmu.edu, 4/93 by theobald@cs.mcgill.ca
 Excerpts were taken from (Journal Style) 'esub2acm.cls'.
@@ -129,12 +137,13 @@ Excerpts were taken from (Journal Style) 'esub2acm.cls'.
 \c@table=\count99
 \titleboxnotes=\toks23
 \titleboxnoteflag=\count100
-Document Class: acm_proc_article-sp 2009/04/22 - V3.2SP - based on esub2acm.sty <23 April 96>
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\latexsym.sty"
+Document Class: acm_proc_article-sp 2009/04/22 - V3.2SP - based on esub2acm.sty
+ <23 April 96>
+(/usr/share/texmf-dist/tex/latex/base/latexsym.sty
 Package: latexsym 1998/08/17 v2.2e Standard LaTeX package (lasy symbols)
 \symlasy=\mathgroup6
 LaTeX Font Info:    Overwriting symbol font `lasy' in version `bold'
-(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 47.
+(Font)                  U/lasy/m/n --> U/lasy/b/n on input line 52.
 )
 \@acmtitlebox=\box28
 \titlenotecount=\count101
@@ -162,17 +171,20 @@ LaTeX Info: Redefining \cite on input line 1236.
 \acmcopyr=\toks33
 \boilerplate=\toks34
 \copyrightetc=\toks35
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\fontenc.sty"
+(/usr/share/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2005/09/27 v1.99g Standard LaTeX package
 
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\t1enc.def"
+(/usr/share/texmf-dist/tex/latex/base/t1enc.def
 File: t1enc.def 2005/09/27 v1.99g Standard LaTeX file
-LaTeX Font Info:    Redeclaring font encoding T1 on input line 43.
+LaTeX Font Info:    Redeclaring font encoding T1 on input line 48.
 )
-LaTeX Font Info:    Try loading font information for T1+aer on input line 100.
- ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ae\t1aer.fd"
+LaTeX Font Info:    Try loading font information for T1+aer on input line 105.
+
+(/usr/share/texmf-dist/tex/latex/ae/t1aer.fd
 File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
-))) (C:\papers\TimDee\contTouch\mobilePUFkeyboard.aux)
+))) (./mobilePUFkeyboard.aux)
+\openout1 = `mobilePUFkeyboard.aux'.
+
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 32.
 LaTeX Font Info:    ... okay on input line 32.
 LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 32.
@@ -185,7 +197,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 32.
 LaTeX Font Info:    ... okay on input line 32.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 32.
 LaTeX Font Info:    ... okay on input line 32.
- ("C:\Program Files (x86)\MiKTeX 2.8\tex\context\base\supp-pdf.tex"
+
+(/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count109
 \scratchdimen=\dimen123
@@ -196,70 +209,142 @@ LaTeX Font Info:    ... okay on input line 32.
 \MPscratchCnt=\count112
 \MPscratchDim=\dimen124
 \MPnumerator=\count113
+\makeMPintoPDFobject=\count114
 \everyMPtoPDFconversion=\toks37
+) (/usr/share/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
+Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifpdf.sty
+Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
+Package ifpdf Info: pdfTeX in PDF mode is detected.
+)
+Package pdftexcmds Info: LuaTeX not detected.
+Package pdftexcmds Info: \pdf@primitive is available.
+Package pdftexcmds Info: \pdf@ifprimitive is available.
+Package pdftexcmds Info: \pdfdraftmode found.
+)
+(/usr/share/texmf-dist/tex/latex/oberdiek/epstopdf-base.sty
+Package: epstopdf-base 2010/02/09 v2.5 Base part for package epstopdf
+
+(/usr/share/texmf-dist/tex/latex/oberdiek/grfext.sty
+Package: grfext 2010/08/19 v1.1 Manage graphics extensions (HO)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/kvdefinekeys.sty
+Package: kvdefinekeys 2011/04/07 v1.3 Define keys (HO)
+))
+(/usr/share/texmf-dist/tex/latex/oberdiek/kvoptions.sty
+Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
+Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+)))
+Package grfext Info: Graphics extension search list:
+(grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
+G,.JBIG2,.JB2,.eps]
+(grfext)             \AppendGraphicsExtensions on input line 452.
+
+(/usr/share/texmf-dist/tex/latex/latexconfig/epstopdf-sys.cfg
+File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
+e
+))
 LaTeX Font Info:    Try loading font information for U+msa on input line 98.
- ("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\amsfonts\umsa.fd"
-File: umsa.fd 2009/06/22 v3.00 AMS symbols A
+
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
 LaTeX Font Info:    Try loading font information for U+msb on input line 98.
 
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\amsfonts\umsb.fd"
-File: umsb.fd 2009/06/22 v3.00 AMS symbols B
+(/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
 LaTeX Font Info:    Try loading font information for U+lasy on input line 98.
 
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\base\ulasy.fd"
+(/usr/share/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
 
 LaTeX Warning: No \author given.
 
 LaTeX Font Info:    Try loading font information for T1+aett on input line 171.
-("C:\Program Files (x86)\MiKTeX 2.8\tex\latex\ae\t1aett.fd"
+
+(/usr/share/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
 Overfull \hbox (8.11598pt too wide) in paragraph at lines 169--179
-\T1/aett/m/n/9 tion-Event \T1/aer/m/n/9 (http://developer.android.com/reference/android/ 
+\T1/aett/m/n/9 tion-Event \T1/aer/m/n/9 (http://developer.android.com/reference
+/android/ 
  []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [1{C:/ProgramData/MiKTeX/2.8/pdftex/config/pdftex.map}
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
-] <figures/token_creation.png, id=9, 594.22pt x 222.8325pt>
+]
+<figures/token_creation.png, id=11, 594.22pt x 222.8325pt>
 File: figures/token_creation.png Graphic file (type png)
- <use figures/token_creation.png>
+
+<use figures/token_creation.png>
+Package pdftex.def Info: figures/token_creation.png used on input line 247.
+(pdftex.def)             Requested size: 260.17244pt x 97.56717pt.
+
 Overfull \hbox (20.17244pt too wide) in paragraph at lines 247--248
  [][] 
  []
 
-<figures/normal_distribution.png, id=11, 602.25pt x 372.39125pt>
+<figures/normal_distribution.png, id=13, 602.25pt x 372.39125pt>
 File: figures/normal_distribution.png Graphic file (type png)
- <use figures/normal_distribution.png>
+
+<use figures/normal_distribution.png>
+Package pdftex.def Info: figures/normal_distribution.png used on input line 276
+.
+(pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
+
 Overfull \hbox (20.17244pt too wide) in paragraph at lines 276--277
  [][] 
  []
 
-[2 <C:/papers/TimDee/contTouch/figures/token_creation.png> <C:/papers/TimDee/contTouch/figures/normal_distribution.png>]
-<figures/Markov_model_building.png, id=22, 764.8575pt x 328.22626pt>
-File: figures/Markov_model_building.png Graphic file (type png)
- <use figures/Markov_model_building.png>
+[2 <./figures/token_creation.png> <./figures/normal_distribution.png>]
+<figures/markov_model_building.png, id=24, 764.8575pt x 328.22626pt>
+File: figures/markov_model_building.png Graphic file (type png)
+
+<use figures/markov_model_building.png>
+Package pdftex.def Info: figures/markov_model_building.png used on input line 3
+21.
+(pdftex.def)             Requested size: 245.71754pt x 105.44522pt.
+
 Overfull \hbox (5.71754pt too wide) in paragraph at lines 321--322
  [][] 
  []
 
 
 Overfull \hbox (26.3266pt too wide) in paragraph at lines 328--341
-\OML/cmm/m/it/9 T[]\OT1/cmr/m/n/9 ))$\T1/aer/m/n/9 , where $\OML/cmm/m/it/9 T[]$ \T1/aer/m/n/9 rep-re-sents the to-ken s
-e-quence $\OML/cmm/m/it/9 T[]; T[]; [] ; T[]$\T1/aer/m/n/9 .
+\OML/cmm/m/it/9 T[]\OT1/cmr/m/n/9 ))$\T1/aer/m/n/9 , where $\OML/cmm/m/it/9 T[]
+$ \T1/aer/m/n/9 rep-re-sents the to-ken se-quence $\OML/cmm/m/it/9 T[]; T[]; []
+ ; T[]$\T1/aer/m/n/9 .
  []
 
-<figures/final_Markov_model_state.png, id=23, 774.895pt x 354.32375pt>
-File: figures/final_Markov_model_state.png Graphic file (type png)
- <use figures/final_Markov_model_state.png>
+<figures/final_markov_model_state.png, id=25, 774.895pt x 354.32375pt>
+File: figures/final_markov_model_state.png Graphic file (type png)
+
+<use figures/final_markov_model_state.png>
+Package pdftex.def Info: figures/final_markov_model_state.png used on input lin
+e 350.
+(pdftex.def)             Requested size: 245.71754pt x 112.35326pt.
+
 Overfull \hbox (5.71754pt too wide) in paragraph at lines 350--352
  [][] 
  []
@@ -269,100 +354,146 @@ Overfull \hbox (15.5365pt too wide) in paragraph at lines 389--389
 []\secfnt DIFFERENTIATING USER-DEVICE PAIRS 
  []
 
-<figures/threshold_vs_percentages.png, id=24, 602.25pt x 372.39125pt>
+<figures/threshold_vs_percentages.png, id=26, 602.25pt x 372.39125pt>
 File: figures/threshold_vs_percentages.png Graphic file (type png)
- <use figures/threshold_vs_percentages.png>
+
+<use figures/threshold_vs_percentages.png>
+Package pdftex.def Info: figures/threshold_vs_percentages.png used on input lin
+e 398.
+(pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
+
 Overfull \hbox (20.17244pt too wide) in paragraph at lines 398--399
  [][] 
  []
 
 
 Overfull \hbox (24.63332pt too wide) in paragraph at lines 408--418
-\OML/cmm/m/it/9 distance\OT1/cmr/m/n/9 [(\OML/cmm/m/it/9 T[]T[] [] T[]\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 (
-\OML/cmm/m/it/9 p[]; p[]; [] ; p[]\OT1/cmr/m/n/9 )]$ \T1/aer/m/n/9 and $\OT1/cmr/m/n/9 [(\OML/cmm/m/it/9 T[]T[] [] T[]\O
-T1/cmr/m/n/9 )\OML/cmm/m/it/9 ; [] 
+\OML/cmm/m/it/9 distance\OT1/cmr/m/n/9 [(\OML/cmm/m/it/9 T[]T[] [] T[]\OT1/cmr/
+m/n/9 )\OML/cmm/m/it/9 ; \OT1/cmr/m/n/9 (\OML/cmm/m/it/9 p[]; p[]; [] ; p[]\OT1
+/cmr/m/n/9 )]$ \T1/aer/m/n/9 and $\OT1/cmr/m/n/9 [(\OML/cmm/m/it/9 T[]T[] [] T[
+]\OT1/cmr/m/n/9 )\OML/cmm/m/it/9 ; [] 
  []
 
-[3 <C:/papers/TimDee/contTouch/figures/Markov_model_building.png> <C:/papers/TimDee/contTouch/figures/final_Markov_model
-_state.png>] <figures/authentication_accuracy_vs_model_size.png, id=35, 602.25pt x 372.39125pt>
+[3 <./figures/markov_model_building.png> <./figures/final_markov_model_state.pn
+g> <./figures/threshold_vs_percentages.png>]
+<figures/window_size_vs_authentication_accuracy.png, id=37, 602.25pt x 372.3912
+5pt>
+File: figures/window_size_vs_authentication_accuracy.png Graphic file (type png
+)
+ <use figures/window_size_vs_authentication_accuracy.png>
+Package pdftex.def Info: figures/window_size_vs_authentication_accuracy.png use
+d on input line 449.
+(pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
+
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 449--450
+ [][] 
+ []
+
+
+Underfull \vbox (badness 2564) has occurred while \output is active []
+
+
+<figures/authentication_accuracy_vs_model_size.png, id=38, 602.25pt x 372.39125
+pt>
 File: figures/authentication_accuracy_vs_model_size.png Graphic file (type png)
 
-<use figures/authentication_accuracy_vs_model_size.png>
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 474--475
+ <use figures/authentication_accuracy_vs_model_size.png>
+Package pdftex.def Info: figures/authentication_accuracy_vs_model_size.png used
+ on input line 488.
+(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
+
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 488--489
  [][] 
  []
 
-[4 <C:/papers/TimDee/contTouch/figures/threshold_vs_percentages.png> <C:/papers/TimDee/contTouch/figures/authentication_
-accuracy_vs_model_size.png>] <figures/total_touches_vs_authentication_accuracy.png, id=42, 602.25pt x 372.39125pt>
-File: figures/total_touches_vs_authentication_accuracy.png Graphic file (type png)
+[4 <./figures/window_size_vs_authentication_accuracy.png> <./figures/authentica
+tion_accuracy_vs_model_size.png>]
+<figures/total_touches_vs_authentication_accuracy.png, id=45, 602.25pt x 372.39
+125pt>
+File: figures/total_touches_vs_authentication_accuracy.png Graphic file (type p
+ng)
+ <use figures/total_touches_vs_authentication_accuracy.png>
+Package pdftex.def Info: figures/total_touches_vs_authentication_accuracy.png u
+sed on input line 523.
+(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-<use figures/total_touches_vs_authentication_accuracy.png>
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 509--510
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 523--524
  [][] 
  []
 
-<figures/nexus_speed_test.png, id=43, 602.25pt x 372.39125pt>
+<figures/nexus_speed_test.png, id=46, 602.25pt x 372.39125pt>
 File: figures/nexus_speed_test.png Graphic file (type png)
- <use figures/nexus_speed_test.png>
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 537--538
+
+<use figures/nexus_speed_test.png>
+Package pdftex.def Info: figures/nexus_speed_test.png used on input line 551.
+(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
+
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 551--552
  [][] 
  []
 
-
-Underfull \vbox (badness 2538) has occurred while \output is active []
-
-
-<figures/nexus_total_size_time.png, id=44, 602.25pt x 372.39125pt>
+<figures/nexus_total_size_time.png, id=47, 602.25pt x 372.39125pt>
 File: figures/nexus_total_size_time.png Graphic file (type png)
- <use figures/nexus_total_size_time.png>
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 558--559
+
+<use figures/nexus_total_size_time.png>
+Package pdftex.def Info: figures/nexus_total_size_time.png used on input line 5
+72.
+(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
+
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 572--573
  [][] 
  []
 
-
-Overfull \hbox (1.30322pt too wide) in paragraph at lines 572--575
-\T1/aer/m/n/9 mance trade-off as-so-ci-ated with in-creased num-bers of touches.
+[5 <./figures/total_touches_vs_authentication_accuracy.png> <./figures/nexus_sp
+eed_test.png> <./figures/nexus_total_size_time.png>]
+Overfull \hbox (1.30322pt too wide) in paragraph at lines 586--589
+\T1/aer/m/n/9 mance trade-off as-so-ci-ated with in-creased num-bers of touches
+.
  []
 
-[5 <C:/papers/TimDee/contTouch/figures/total_touches_vs_authentication_accuracy.png> <C:/papers/TimDee/contTouch/figures
-/nexus_speed_test.png> <C:/papers/TimDee/contTouch/figures/nexus_total_size_time.png>]
-Overfull \hbox (5.70876pt too wide) in paragraph at lines 576--576
+
+Overfull \hbox (5.70876pt too wide) in paragraph at lines 590--590
 []\secfnt DISTRIBUTED USER-DEVICE (UD-) PUF 
  []
 
 
-Overfull \hbox (4.88376pt too wide) in paragraph at lines 591--593
-\T1/aer/m/n/9 user-device com-bi-na-tions. A con-tin-u-ous au-then-ti-ca-tion model
+Overfull \hbox (4.88376pt too wide) in paragraph at lines 605--607
+\T1/aer/m/n/9 user-device com-bi-na-tions. A con-tin-u-ous au-then-ti-ca-tion m
+odel
  []
 
-(C:\papers\TimDee\contTouch\mobilePUFkeyboard.bbl
+(./mobilePUFkeyboard.bbl
 Overfull \hbox (21.45428pt too wide) in paragraph at lines 81--87
 \T1/aer/m/n/9 http://www.consumerreports.org/cro/news/2014/04/smart- 
  []
 
-) [6] (C:\papers\TimDee\contTouch\mobilePUFkeyboard.aux) ) 
+) [6] (./mobilePUFkeyboard.aux) ) 
 Here is how much of TeX's memory you used:
- 2290 strings out of 495285
- 28217 string characters out of 3179828
- 84422 words of memory out of 3000000
- 5449 multiletter control sequences out of 15000+200000
- 45495 words of font info for 64 fonts, out of 3000000 for 9000
- 14 hyphenation exceptions out of 8191
- 39i,8n,26p,738b,224s stack positions out of 5000i,500n,10000p,200000b,50000s
-{C:/Program Files (x86)/MiKTeX 2.8/fonts/enc/dvips/fontname/8r
-.enc}<C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmbx9.pfb><C:/Program Files (x86)/MiKTeX 2.8/font
-s/type1/public/amsfonts/cmextra/cmex9.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmmi5.pfb><C
-:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmmi6.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1
-/public/amsfonts/cm/cmmi9.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr5.pfb><C:/Program Fil
-es (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmr6.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfon
-ts/cm/cmr9.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmsy5.pfb><C:/Program Files (x86)/MiKTe
-X 2.8/fonts/type1/public/amsfonts/cm/cmsy6.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmsy9.p
-fb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/public/amsfonts/cm/cmti9.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/
-type1/public/amsfonts/cm/cmtt9.pfb><C:/Program Files (x86)/MiKTeX 2.8/fonts/type1/urw/helvetic/uhvb8a.pfb><C:/Program Fi
-les (x86)/MiKTeX 2.8/fonts/type1/urw/times/utmb8a.pfb>
-Output written on mobilePUFkeyboard.pdf (6 pages, 420226 bytes).
+ 2879 strings out of 493089
+ 37372 string characters out of 6140693
+ 102178 words of memory out of 5000000
+ 6284 multiletter control sequences out of 15000+600000
+ 45495 words of font info for 64 fonts, out of 8000000 for 9000
+ 1141 hyphenation exceptions out of 8191
+ 41i,8n,28p,737b,237s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r
+.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/shar
+e/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/t
+ype1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8
+a.pfb>
+Output written on mobilePUFkeyboard.pdf (6 pages, 476201 bytes).
 PDF statistics:
- 101 PDF objects out of 1000 (max. 8388607)
+ 105 PDF objects out of 1000 (max. 8388607)
+ 61 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 51 words of extra memory for PDF output out of 10000 (max. 10000000)
 
