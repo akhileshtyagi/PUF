@@ -269,7 +269,7 @@ public class Activity_menu extends AppCompatActivity {
      */
     private void authenticate_against_responses(Response response){
         // construct a new user device pair object to analyze the data
-        UserDevicePair ud_pair = new UserDevicePair(0);
+        UserDevicePair ud_pair = new UserDevicePair(0,2,UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD);
 
         ud_pair.addChallenge(challenge);
 
@@ -279,7 +279,9 @@ public class Activity_menu extends AppCompatActivity {
         // print out information about the authentication to the console
         String console_output = "";
         console_output += "authenticated: " + authenticated + "\n";
-        console_output += "failed_points_ratio: " + String.format("%.5f", (ud_pair.failedPointRatio()));
+        console_output += "failed_pressure_points_ratio: " + String.format("%.5f", (ud_pair.failedPointRatio(UserDevicePair.RatioType.PRESSURE))) + "\n";
+        console_output += "failed_distance_points_ratio: " + String.format("%.5f", (ud_pair.failedPointRatio(UserDevicePair.RatioType.DISTANCE))) + "\n";
+        console_output += "failed_time_points_ratio: " + String.format("%.5f", (ud_pair.failedPointRatio(UserDevicePair.RatioType.TIME)));
 
         // output to the console
         output_console_edit_text = (EditText)findViewById(R.id.output_console_edit_text);
