@@ -8,8 +8,8 @@ import java.util.List;
  * all challenges correlating to that user
  */
 public class UserDevicePair {
-    final static double DEFAULT_ALLOWED_DEVIATIONS = 1.0;
-    final static double DEFAULT_AUTHENTICATION_THRESHOLD = 0.75;
+    public final static double DEFAULT_ALLOWED_DEVIATIONS = 1.0;
+    public final static double DEFAULT_AUTHENTICATION_THRESHOLD = 0.75;
 
     public enum RatioType {
 	PRESSURE, DISTANCE, TIME
@@ -35,6 +35,10 @@ public class UserDevicePair {
 
     public UserDevicePair(int userDeviceID, List<Challenge> challenges) {
 	this(userDeviceID, challenges, DEFAULT_ALLOWED_DEVIATIONS, DEFAULT_AUTHENTICATION_THRESHOLD);
+    }
+
+    public UserDevicePair(int userDeviceID, double allowed_deviations, double authentication_threshold) {
+	this(userDeviceID, new ArrayList<Challenge>(), allowed_deviations, authentication_threshold);
     }
 
     /**
