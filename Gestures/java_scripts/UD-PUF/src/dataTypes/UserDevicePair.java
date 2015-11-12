@@ -102,7 +102,7 @@ public class UserDevicePair {
 	int failed_pressure_points = failed_pressure_points(new_response_data, profile, this.allowed_deviations);
 	int failed_distance_points = failed_distance_points(new_response_data, profile, this.allowed_deviations);
 	int failed_time_points = failed_time_points(new_response_data, profile, this.allowed_deviations);
-	
+
 	// determine the size of the list
 	int list_size = profile.getNormalizedResponses().get(0).getResponse().size();
 
@@ -113,7 +113,7 @@ public class UserDevicePair {
 
 	// if the fraction of points that pass is greater than the
 	// authentication threshold, then we pass this person
-	//TODO right now this only uses pressure, incorporate time and distance
+	// TODO right now this only uses pressure, incorporate time and distance
 	return ((double) (list_size - failed_pressure_points) / list_size) >= this.authentication_threshold;
     }
 
@@ -278,8 +278,8 @@ public class UserDevicePair {
      * 
      * true if a and b are within a percent differance of one another
      */
-    private boolean within_episilon(double a, double b, double percent_difference) {
-	return true;
+    private boolean within_episilon(double a, double b) {
+	return (a - b) < Math.ulp(a);
     }
 
     /**

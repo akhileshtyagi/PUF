@@ -80,7 +80,7 @@ public class ChallengeUnit {
 	// that the x distance was computed correctly
 	// check all points along challenge
 	for (int i = 0; i < answer.size(); i++) {
-	    assertTrue(answer.get(i).getX() == 100 + (i * x_distance / answer.size()));
+	    assertTrue(answer.get(i).getX() == 100 + (i * x_distance / (answer.size() - 1)));
 	    assertTrue(answer.get(i).getY() == 100);
 	}
     }
@@ -115,7 +115,7 @@ public class ChallengeUnit {
 	// that the x distance was computed correctly
 	// check all points along challenge
 	for (int i = 0; i < answer.size(); i++) {
-	    assertTrue(answer.get(i).getY() == 100 + (i * y_distance / answer.size()));
+	    assertTrue(answer.get(i).getY() == 100 + (i * y_distance / (answer.size() - 1)));
 	    assertTrue(answer.get(i).getX() == 100);
 	}
     }

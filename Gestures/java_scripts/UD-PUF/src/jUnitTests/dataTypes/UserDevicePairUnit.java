@@ -244,11 +244,12 @@ public class UserDevicePairUnit {
 	ArrayList<Point> new_response = new ArrayList<Point>();
 
 	for (int j = 0; j < 32; j++) {
-	    new_response.add(new Point((300 / 32) * j + 100, 100, j % 2, 100, j));
+	    new_response.add(new Point((300.0 / 31) * j + 100, 100, j % 2, 100, j));
 	}
 
 	System.out.println(this.ud_pair.information_dump_authenticate(new_response, profile));
 
+	// should not ac
 	assertTrue(this.ud_pair.failedPointRatio(UserDevicePair.RatioType.PRESSURE) == .5);
     }
 }
