@@ -11,4 +11,10 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="remaining_swipes">20 Left</string>
+    <string name="profile_info_text">Using Profile: NONE</string>
+    <string name="authenticate_text">Authenticate</string>
+    <string name="choose_profile_text">Choose Profile</string>
+    <string name="title_activity_profile_setter">ProfileSetter</string>
+    <string name="profile_string">NONE</string>
+    <string name="profile_default_string">NONE</string>
 </resources>

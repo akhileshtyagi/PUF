@@ -24,12 +24,12 @@
 
     <Button
         android:layout_width="match_parent"
-        android:layout_height="100dp"
-        android:layout_marginTop="100dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
         android:text="@string/pin_begin_enrollment_button"
-        android:textSize="30sp"
+        android:textSize="25sp"
         android:onClick="begin_pressed"/>
 
 </LinearLayout>
