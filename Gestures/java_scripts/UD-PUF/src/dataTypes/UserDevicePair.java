@@ -140,9 +140,7 @@ public class UserDevicePair {
 	    double time_failed_point_ratio) {
 	boolean pressure_pass = (1 - pressure_failed_point_ratio) > this.authentication_threshold;
 	boolean distance_pass = (1 - distance_failed_point_ratio) > this.authentication_threshold;
-	;
 	boolean time_pass = (1 - time_failed_point_ratio) > this.authentication_threshold;
-	;
 
 	return pressure_pass || (distance_pass && time_pass);
     }
@@ -244,6 +242,7 @@ public class UserDevicePair {
 	// get the mu, sigma values from the profile
 	List<Double> mu_values = profile.getPressureMuSigmaValues().getMuValues();
 	List<Double> sigma_values = profile.getPressureMuSigmaValues().getSigmaValues();
+	List<Double> point_values = new ArrayList<Double>();
 
 	// normalize the response
 	Response response_object = new Response(new_response);
@@ -251,7 +250,12 @@ public class UserDevicePair {
 
 	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
 
-	points = failed_points(mu_values, sigma_values, response_object.getResponse(), allowed_deviations);
+	// create a list of point values for pressure
+	for (Point response_point : response_object.getResponse()) {
+	    point_values.add(response_point.getPressure());
+	}
+
+	points = failed_points(mu_values, sigma_values, point_values, allowed_deviations);
 
 	return points;
     }
@@ -265,6 +269,7 @@ public class UserDevicePair {
 	// get the mu, sigma values from the profile
 	List<Double> mu_values = profile.getPointDistanceMuSigmaValues().getMuValues();
 	List<Double> sigma_values = profile.getPointDistanceMuSigmaValues().getSigmaValues();
+	List<Double> point_values = new ArrayList<Double>();
 
 	// normalize the response
 	Response response_object = new Response(new_response);
@@ -272,7 +277,12 @@ public class UserDevicePair {
 
 	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
 
-	points = failed_points(mu_values, sigma_values, response_object.getResponse(), allowed_deviations);
+	// create a list of point values for distance
+	for (Point response_point : response_object.getResponse()) {
+	    point_values.add(response_point.getDistance());
+	}
+
+	points = failed_points(mu_values, sigma_values, point_values, allowed_deviations);
 
 	return points;
     }
@@ -286,6 +296,7 @@ public class UserDevicePair {
 	// get the mu, sigma values from the profile
 	List<Double> mu_values = profile.getTimeDistanceMuSigmaValues().getMuValues();
 	List<Double> sigma_values = profile.getTimeDistanceMuSigmaValues().getSigmaValues();
+	List<Double> point_values = new ArrayList<Double>();
 
 	// normalize the response
 	Response response_object = new Response(new_response);
@@ -293,7 +304,12 @@ public class UserDevicePair {
 
 	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
 
-	points = failed_points(mu_values, sigma_values, response_object.getResponse(), allowed_deviations);
+	// create a list of point values for time
+	for (Point response_point : response_object.getResponse()) {
+	    point_values.add(response_point.getTime());
+	}
+
+	points = failed_points(mu_values, sigma_values, point_values, allowed_deviations);
 
 	return points;
     }
@@ -302,7 +318,7 @@ public class UserDevicePair {
      * return the number of failed points in the given mu, sigma band Takes in
      * mu_values, sigma_values, normalized list of points from response
      */
-    private int failed_points(List<Double> mu_values, List<Double> sigma_values, List<Point> normalized_response_points,
+    private int failed_points(List<Double> mu_values, List<Double> sigma_values, List<Double> point_values,
 	    double allowed_deviations) {
 	int points = 0;
 
@@ -310,12 +326,12 @@ public class UserDevicePair {
 	// For each point determine whether or not it falls with in
 	// std_deviations
 	// for PRESSURE
-	for (int i = 0; i < normalized_response_points.size(); i++) {
+	for (int i = 0; i < point_values.size(); i++) {
 	    // determine if this point fails
-	    if ((normalized_response_points.get(i)
-		    .getPressure() < (mu_values.get(i) - sigma_values.get(i) * allowed_deviations))
-		    || (normalized_response_points.get(i)
-			    .getPressure() > (mu_values.get(i) + sigma_values.get(i) * allowed_deviations))) {
+	    if ((point_values.get(i) < (mu_values.get(i) - sigma_values.get(i) * allowed_deviations))
+		    || (point_values.get(i) > (mu_values.get(i) + sigma_values.get(i) * allowed_deviations))) {
+		// System.out.println("point value \ mu_value: " +
+		// normalized_response_points.get(i). + "\n");
 		// point fails
 		points++;
 	    }

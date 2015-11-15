@@ -143,6 +143,42 @@ public class ProfileUnit {
 	assertTrue(mu_list.size() == 32);
 	assertTrue(sigma_list.size() == 32);
     }
+    
+    /**
+     * test teh getMuSigmaValues method for correctness.
+     */
+    @Test
+    public void test_get_point_time_mu_sigma_values() {
+	MuSigma mu_sigma = this.profile.getTimeDistanceMuSigmaValues();
+
+	List<Double> mu_list = mu_sigma.getMuValues();
+	List<Double> sigma_list = mu_sigma.getSigmaValues();
+
+	// assert that mu an sigma are what they should be for all points
+	for (int i = 0; i < mu_list.size(); i++) {
+	    // for each point check that it is correct
+	    assertThat(new BigDecimal(mu_list.get(i)).round(context), is((new BigDecimal(i)).round(context)));
+	    assertThat(new BigDecimal(sigma_list.get(i) + 0.0).round(context), is(new BigDecimal(0.0).round(context)));
+	}
+    }
+
+    /**
+     * test that MuSigma computes a mu, sigma value for each point in the
+     * normalized response
+     */
+    @Test
+    public void test_point_time_number_points_correct() {
+	MuSigma mu_sigma = this.profile.getTimeDistanceMuSigmaValues();
+
+	List<Double> mu_list = mu_sigma.getMuValues();
+	List<Double> sigma_list = mu_sigma.getSigmaValues();
+
+	// System.out.println(mu_list.size());
+	// System.out.println(sigma_list.size());
+
+	assertTrue(mu_list.size() == 32);
+	assertTrue(sigma_list.size() == 32);
+    }
 
     /**
      * test if profile is serializable
