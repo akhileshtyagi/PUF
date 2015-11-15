@@ -8,7 +8,9 @@ import java.util.List;
  * all challenges correlating to that user
  */
 public class UserDevicePair {
-    public final static double DEFAULT_ALLOWED_DEVIATIONS = 1.0;
+    public final static double PRESSURE_DEFAULT_ALLOWED_DEVIATIONS = 3.0;
+    public final static double DISTANCE_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
+    public final static double TIME_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
     public final static double DEFAULT_AUTHENTICATION_THRESHOLD = 0.75;
 
     public enum RatioType {
@@ -20,7 +22,9 @@ public class UserDevicePair {
 
     // Unique identifier given to each user/device pair
     private int userDeviceID;
-    private double allowed_deviations;
+    private double pressure_allowed_deviations;
+    private double distance_allowed_deviations;
+    private double time_allowed_deviations;
     private double authentication_threshold;
 
     // stores the failed points from the previous authentication
@@ -34,11 +38,14 @@ public class UserDevicePair {
     }
 
     public UserDevicePair(int userDeviceID, List<Challenge> challenges) {
-	this(userDeviceID, challenges, DEFAULT_ALLOWED_DEVIATIONS, DEFAULT_AUTHENTICATION_THRESHOLD);
+	this(userDeviceID, challenges, PRESSURE_DEFAULT_ALLOWED_DEVIATIONS, DISTANCE_DEFAULT_ALLOWED_DEVIATIONS,
+		TIME_DEFAULT_ALLOWED_DEVIATIONS, DEFAULT_AUTHENTICATION_THRESHOLD);
     }
 
-    public UserDevicePair(int userDeviceID, double allowed_deviations, double authentication_threshold) {
-	this(userDeviceID, new ArrayList<Challenge>(), allowed_deviations, authentication_threshold);
+    public UserDevicePair(int userDeviceID, double pressure_allowed_deviations, double distance_allowed_deviations,
+	    double time_allowed_deviations, double authentication_threshold) {
+	this(userDeviceID, new ArrayList<Challenge>(), pressure_allowed_deviations, distance_allowed_deviations,
+		time_allowed_deviations, authentication_threshold);
     }
 
     /**
@@ -48,11 +55,13 @@ public class UserDevicePair {
      * @param userDeviceID
      * @param challenges
      */
-    public UserDevicePair(int userDeviceID, List<Challenge> challenges, double allowed_deviations,
-	    double authentication_threshold) {
+    public UserDevicePair(int userDeviceID, List<Challenge> challenges, double pressure_allowed_deviations,
+	    double distance_allowed_deviations, double time_allowed_deviations, double authentication_threshold) {
 	this.userDeviceID = userDeviceID;
 	this.challenges = challenges;
-	this.allowed_deviations = allowed_deviations;
+	this.pressure_allowed_deviations = pressure_allowed_deviations;
+	this.distance_allowed_deviations = distance_allowed_deviations;
+	this.time_allowed_deviations = time_allowed_deviations;
 	this.authentication_threshold = authentication_threshold;
 	this.pressure_authentication_failed_point_ratio = -1;
 	this.distance_authentication_failed_point_ratio = -1;
@@ -103,9 +112,11 @@ public class UserDevicePair {
 	}
 
 	// determine the number of failed points
-	int failed_pressure_points = failed_pressure_points(new_response_data, profile, this.allowed_deviations);
-	int failed_distance_points = failed_distance_points(new_response_data, profile, this.allowed_deviations);
-	int failed_time_points = failed_time_points(new_response_data, profile, this.allowed_deviations);
+	int failed_pressure_points = failed_pressure_points(new_response_data, profile,
+		this.pressure_allowed_deviations);
+	int failed_distance_points = failed_distance_points(new_response_data, profile,
+		this.distance_allowed_deviations);
+	int failed_time_points = failed_time_points(new_response_data, profile, this.time_allowed_deviations);
 
 	// determine the size of the list
 	int list_size = profile.getNormalizedResponses().get(0).getResponse().size();
@@ -117,8 +128,23 @@ public class UserDevicePair {
 
 	// if the fraction of points that pass is greater than the
 	// authentication threshold, then we pass this person
-	// TODO right now this only uses pressure, incorporate time and distance
-	return ((double) (list_size - failed_pressure_points) / list_size) >= this.authentication_threshold;
+	return authenticatePreticate(this.pressure_authentication_failed_point_ratio,
+		this.distance_authentication_failed_point_ratio, this.time_authentication_failed_point_ratio);
+    }
+
+    /**
+     * preticate used to combine the failed point ratios. Returns true if the
+     * device passes. preticate: (pressure) or (distance and time)
+     */
+    private boolean authenticatePreticate(double pressure_failed_point_ratio, double distance_failed_point_ratio,
+	    double time_failed_point_ratio) {
+	boolean pressure_pass = (1 - pressure_failed_point_ratio) > this.authentication_threshold;
+	boolean distance_pass = (1 - distance_failed_point_ratio) > this.authentication_threshold;
+	;
+	boolean time_pass = (1 - time_failed_point_ratio) > this.authentication_threshold;
+	;
+
+	return pressure_pass || (distance_pass && time_pass);
     }
 
     /**
@@ -155,6 +181,27 @@ public class UserDevicePair {
 	}
 
 	return failed_ratio;
+    }
+
+    /**
+     * allow the number of std deviations from the mean allowed in the
+     * authentication to be set.
+     */
+    public void setStandardDeviations(RatioType type, double standard_deviations) {
+	// set dependtant on type
+	switch (type) {
+	case PRESSURE:
+	    this.pressure_allowed_deviations = standard_deviations;
+	    break;
+
+	case DISTANCE:
+	    this.distance_allowed_deviations = standard_deviations;
+	    break;
+
+	case TIME:
+	    this.time_allowed_deviations = standard_deviations;
+	    break;
+	}
     }
 
     /**
@@ -204,7 +251,7 @@ public class UserDevicePair {
 
 	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
 
-	points = failed_points(mu_values, sigma_values, response_object.getResponse());
+	points = failed_points(mu_values, sigma_values, response_object.getResponse(), allowed_deviations);
 
 	return points;
     }
@@ -225,7 +272,7 @@ public class UserDevicePair {
 
 	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
 
-	points = failed_points(mu_values, sigma_values, response_object.getResponse());
+	points = failed_points(mu_values, sigma_values, response_object.getResponse(), allowed_deviations);
 
 	return points;
     }
@@ -246,7 +293,7 @@ public class UserDevicePair {
 
 	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
 
-	points = failed_points(mu_values, sigma_values, response_object.getResponse());
+	points = failed_points(mu_values, sigma_values, response_object.getResponse(), allowed_deviations);
 
 	return points;
     }
@@ -255,8 +302,8 @@ public class UserDevicePair {
      * return the number of failed points in the given mu, sigma band Takes in
      * mu_values, sigma_values, normalized list of points from response
      */
-    private int failed_points(List<Double> mu_values, List<Double> sigma_values,
-	    List<Point> normalized_response_points) {
+    private int failed_points(List<Double> mu_values, List<Double> sigma_values, List<Point> normalized_response_points,
+	    double allowed_deviations) {
 	int points = 0;
 
 	// compare the response to the challenge_profile
@@ -326,7 +373,9 @@ public class UserDevicePair {
 	String information = "";
 
 	// gather information about the authentication in general
-	information += "allowed_deviations: " + this.allowed_deviations + "\n";
+	information += "pressure_allowed_deviations: " + this.pressure_allowed_deviations + "\n";
+	information += "distance_allowed_deviations: " + this.distance_allowed_deviations + "\n";
+	information += "time_allowed_deviations: " + this.time_allowed_deviations + "\n";
 	information += "authentication_threshold: " + this.authentication_threshold + "\n";
 
 	// gather information about this specific authentication
@@ -334,9 +383,11 @@ public class UserDevicePair {
 	information += "authenticated: " + this.authenticate(new_response_data, profile) + "\n";
 
 	// how do specific aspects of authentication behave
-	int pressure_failed_points = this.failed_pressure_points(new_response_data, profile, this.allowed_deviations);
-	int distance_failed_points = this.failed_distance_points(new_response_data, profile, this.allowed_deviations);
-	int time_failed_points = this.failed_time_points(new_response_data, profile, this.allowed_deviations);
+	int pressure_failed_points = this.failed_pressure_points(new_response_data, profile,
+		this.pressure_allowed_deviations);
+	int distance_failed_points = this.failed_distance_points(new_response_data, profile,
+		this.distance_allowed_deviations);
+	int time_failed_points = this.failed_time_points(new_response_data, profile, this.time_allowed_deviations);
 	int list_size = profile.getNormalizedResponses().get(0).getResponse().size();
 
 	information += "pressure_failed_points: " + pressure_failed_points + "\n";
