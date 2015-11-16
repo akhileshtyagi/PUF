@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:orientation="vertical"
+    android:id="@+id/main_view">
+
+    <Button
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:text="@string/authenticate_text"
+        android:textSize="30sp"
+        android:id="@+id/authenticate_button"
+        android:onClick="authenticate_pressed"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/authenticate_button"
+        android:layout_marginBottom="30dp"
+        android:text="@string/enrollment_button_text"
+        android:textSize="30sp"
+        android:id="@+id/enroll_button"
+        android:onClick="enroll_pressed"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:layout_above="@id/enroll_button"
+        android:layout_centerInParent="true"
+        android:id="@+id/profile_info"
+        android:textSize="20sp"
+        android:text="@string/profile_info_text"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/authenticate_button"
+        android:layout_marginTop="30dp"
+        android:text="@string/choose_profile_text"
+        android:textSize="30sp"
+        android:id="@+id/grab_profile_button"
+        android:onClick="grab_profile"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scrollbars="vertical"
+        android:id="@+id/profile_data"/>
+</RelativeLayout>

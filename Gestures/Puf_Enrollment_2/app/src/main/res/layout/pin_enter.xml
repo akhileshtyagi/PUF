@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:text="@string/pin_label"
+        android:gravity="center"
+        android:textSize="50sp"
+        android:id="@+id/pin_enter_layout"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:textSize="60sp"
+        android:layout_marginBottom="50dp"
+        android:id="@+id/pin_edit_text"
+        android:textAlignment="center"
+        android:maxLength="4"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="80dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="50dp"
+        android:layout_marginRight="50dp"
+        android:text="@string/pin_begin_enrollment_button"
+        android:textSize="25sp"
+        android:onClick="begin_pressed"/>
+
+</LinearLayout>
