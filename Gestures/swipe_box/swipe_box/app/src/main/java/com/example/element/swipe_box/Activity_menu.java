@@ -1,6 +1,7 @@
 package com.example.element.swipe_box;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -13,6 +14,9 @@ import android.view.MenuItem;
 import android.widget.Button;
 import android.widget.EditText;
 
+import java.io.IOException;
+import java.io.ObjectOutputStream;
+import java.io.PrintStream;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -22,6 +26,7 @@ import dataTypes.Response;
 import dataTypes.UserDevicePair;
 
 public class Activity_menu extends AppCompatActivity {
+    public static final String SHARED_PREFERENCES_FILE = "swipe_box_preferences";
 
     private Challenge challenge;
 
@@ -173,8 +178,27 @@ public class Activity_menu extends AppCompatActivity {
          */
         save_responses_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Intent i = new Intent(getActivity(), CrimePagerActivity.class);
-                //startActivityForResult(i, 0);
+                // get editor
+                SharedPreferences.Editor editor = getSharedPreferences(SHARED_PREFERENCES_FILE, MODE_PRIVATE).edit();
+
+                // set the value to be saved
+                PrintStream buffer = null;
+
+                try {
+                    buffer = new PrintStream("temp");
+                    ObjectOutputStream object_output = new ObjectOutputStream(buffer);
+
+                    object_output.writeObject(challenge);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                if (buffer != null) {
+                    editor.putString("challenge", buffer.toString());
+                }
+
+                // save to shared prefs
+                editor.commit();
             }//End onClick
         });
 
@@ -183,8 +207,9 @@ public class Activity_menu extends AppCompatActivity {
          */
         load_responses_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                //Intent i = new Intent(getActivity(), CrimePagerActivity.class);
-                //startActivityForResult(i, 0);
+                SharedPreferences preferences = getSharedPreferences(SHARED_PREFERENCES_FILE, MODE_PRIVATE);
+
+                //challenge = preferences.getString("challenge", new Challenge(0));
             }//End onClick
         });
 
@@ -269,7 +294,7 @@ public class Activity_menu extends AppCompatActivity {
      */
     private void authenticate_against_responses(Response response){
         // construct a new user device pair object to analyze the data
-        UserDevicePair ud_pair = new UserDevicePair(0,2,UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD);
+        UserDevicePair ud_pair = new UserDevicePair(0);
 
         ud_pair.addChallenge(challenge);
 

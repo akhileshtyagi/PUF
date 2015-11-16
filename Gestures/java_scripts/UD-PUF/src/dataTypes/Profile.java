@@ -187,7 +187,7 @@ public class Profile implements Serializable {
 	    // of point i in the response
 	    normalized_time_list = new ArrayList<Double>();
 	    for (Response response : this.normalizedResponses) {
-		// distance values in the list correspond to point distance
+		// grab the time values from ith point in the list of responses
 		normalized_time_list.add(response.getResponse().get(i).getTime());
 	    }
 
@@ -195,6 +195,7 @@ public class Profile implements Serializable {
 	    // compute std deviation
 	    double mu = this.computeMu(normalized_time_list);
 	    double sigma = this.computeSigma(normalized_time_list, mu);
+	    //System.out.println("mu: " + mu + " | time_list: " + normalized_time_list + "\n");
 
 	    this.time_muSigmaValues.addMuSigma(mu, sigma);
 	}
