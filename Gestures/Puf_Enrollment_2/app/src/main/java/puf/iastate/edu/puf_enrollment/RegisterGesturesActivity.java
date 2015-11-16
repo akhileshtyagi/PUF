@@ -1,14 +1,15 @@
 package puf.iastate.edu.puf_enrollment;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
@@ -16,6 +17,10 @@ import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+
+import data.DataReader;
+import dataTypes.Challenge;
+import dataTypes.Response;
 
 public class RegisterGesturesActivity extends AppCompatActivity implements PufDrawView.ResponseListener{
 
@@ -30,11 +35,17 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     private TextView mRemainingView;
     private PufDrawView mPdv;
 
+    private ArrayList<Integer> ResLens;
+
+    private Challenge mChallenge;
+    private ArrayList<Response> mResponses;
+    private ArrayList<dataTypes.Point> mChallengePoints;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_register_gestures);
-
+        ResLens = new ArrayList<Integer>();
         //Setup views
         mPdv = (PufDrawView) findViewById(R.id.pufDrawView);
         mUpdateView = (TextView) findViewById(R.id.updateView);
@@ -54,6 +65,8 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         //Setup an initial challenge and give the challenge
         mCurChallenge = mCg.generateChallenge();
         mPdv.giveChallenge(mCurChallenge.toArray(new Point[mCurChallenge.size()]));
+        mResponses = new ArrayList<>();
+        mChallengePoints = new ArrayList<>();
 
         //Initialize remaining swipes
         mRemainingSwipes = 20;
@@ -68,7 +81,20 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     public void onResponseAttempt(ArrayList<Point> response) {
         if(--mRemainingSwipes == 0)
         {
+            DataReader reader = new DataReader(new File(Environment.getExternalStorageDirectory() + "/PUFProfile"));
+            Gson gson = new Gson();
             Toast.makeText(this, "Completed Authentication", Toast.LENGTH_SHORT).show();
+//            Challenge challenge = reader.readDataDirecotry();
+            Challenge challenge = new Challenge(mChallengePoints,42);
+            for(Response r : mResponses) {
+                challenge.addResponse(r);
+            }
+            String json = gson.toJson(challenge,challenge.getClass());
+
+            SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.profile", Context.MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPref.edit();
+            editor.putString(getString(R.string.profile_string), json);
+            editor.commit();
             finish();
         }
         writeResponseCsv(response, "DeviceName", "UserName");
@@ -83,6 +109,10 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
      */
     public void writeResponseCsv(ArrayList<Point> response, String deviceName, String testerName)
     {
+
+
+        ArrayList<dataTypes.Point> points = new ArrayList<>();
+
         //File baseDir = new File(getFilesDir(), "PUFProfile");
         File baseDir = new File(Environment.getExternalStorageDirectory(), "PUFProfile");
 
@@ -110,21 +140,27 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
                         testerName,
                         deviceName };
                 csvWrite.writeNext(row);
+
+                if(mChallengePoints.size() < 4)mChallengePoints.add(new dataTypes.Point(point.x,point.y,0));
             }
 
             String[] headers = { "X", "Y", "PRESSURE" };
 
             csvWrite.writeNext(headers);
+            int m=0;
 
             for( int i = 0; i < response.size(); i++)
             {
+                m++;
                 Point point = response.get(i);
                 String[] row = { Float.toString(point.x),
                         Float.toString(point.y),
                         Float.toString(point.pressure) };
                 csvWrite.writeNext(row);
+                points.add(new dataTypes.Point(point.x, point.y, point.pressure));
             }
-
+            mResponses.add(new Response(points));
+            ResLens.add(m);
             csvWrite.close();
 
             Toast.makeText(this, "Challenge response written to CSV.", Toast.LENGTH_SHORT).show();
@@ -133,6 +169,29 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
+    }
+
+    //Calculate mean of response lengths
+    public double sdMean()
+    {
+        int sum = 0;
+        for(int i=0;i<ResLens.size();i++)
+        {
+            sum = sum + ResLens.get(i);
+        }
+        return ((double)sum)/ResLens.size();
+    }
+
+    //Calculate standard deviation of response lengths
+    public double sdReslen()
+    {
+        double mean =sdMean();
+        double sq = 0;
+        for(int i=0;i<ResLens.size();i++)
+        {
+            sq = sq+ Math.pow((ResLens.get(i)- mean),2);
+        }
+        return sq/ResLens.size();
     }
 
     public String getCurrentLocalTime()

@@ -20,8 +20,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:22.2.0'
     compile files('src/main/java/puf/iastate/edu/puf_enrollment/libs/opencsv-3.5.jar')
+    compile files('src/main/java/puf/iastate/edu/puf_enrollment/libs/gson-2.2.2.jar')
 }
