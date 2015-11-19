@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -40,10 +41,26 @@ public class Activity_swipe_box extends AppCompatActivity {
     @Override
     public void finish() {
         Intent data = new Intent();
+        // test purposes
+        test_responses();
         data.putExtra("response", pufDrawView.get_response());
         setResult(RESULT_OK, data);
 
         super.finish();
+    }
+
+    /**
+     * test the responses as they come back. This method is used for test purposes.
+     */
+    private void test_responses(){
+        //collect all of the time and print
+        ArrayList<Double> time_list = new ArrayList<Double>();
+
+        for(Point response_point : pufDrawView.get_response()) {
+            time_list.add(response_point.time);
+        }
+
+        Log.d("response", time_list.toString());
     }
 
     /**
@@ -68,11 +85,11 @@ public class Activity_swipe_box extends AppCompatActivity {
     private List<Point> create_box_challenge(int x_size, int y_size, int x_offset, int y_offset){
         ArrayList box_corner_list = new ArrayList<Point>();
 
-        box_corner_list.add(new Point(x_offset,y_offset,0));
-        box_corner_list.add(new Point(x_offset+x_size,y_offset,0));
-        box_corner_list.add(new Point(x_offset+x_size,y_offset + y_size,0));
-        box_corner_list.add(new Point(x_offset,y_offset + y_size,0));
-        box_corner_list.add(new Point(x_offset,y_offset,0));
+        box_corner_list.add(new Point(x_offset,y_offset,0,0));
+        box_corner_list.add(new Point(x_offset+x_size,y_offset,0,0));
+        box_corner_list.add(new Point(x_offset+x_size,y_offset + y_size,0,0));
+        box_corner_list.add(new Point(x_offset,y_offset + y_size,0,0));
+        box_corner_list.add(new Point(x_offset,y_offset,0,0));
 
         return box_corner_list;
     }

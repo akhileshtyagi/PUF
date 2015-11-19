@@ -119,7 +119,7 @@ public class PufDrawView extends View
                 // only add the point if the motion event is inside the bounds of the box
                 // add the first response reguardless
                 //if(within_challenge(me)) {
-                    response.add(new Point(me.getX(), me.getY(), me.getPressure()));
+                    response.add(new Point(me.getX(), me.getY(), me.getPressure(), me.getEventTime()-me.getDownTime()));
                 //}
 
                 break;
@@ -137,7 +137,8 @@ public class PufDrawView extends View
 
                 // only add the point if the motion event is inside the bounds of the box
                 if(within_challenge(me)) {
-                    response.add(new Point(me.getX(), me.getY(), me.getPressure()));
+                    // me.getEventTime()-me.getDownTime() is the time sense the beginning
+                    response.add(new Point(me.getX(), me.getY(), me.getPressure(), me.getEventTime()-me.getDownTime()));
                 }
 
                 break;

@@ -64,7 +64,7 @@ public class Activity_menu extends AppCompatActivity {
         // initialize the box variables which will be passed to the activity which draws the box.
         this.box_width = 750;
         this.box_height = 300;
-        this.box_upper_left_corner = new Point(100,100,0);
+        this.box_upper_left_corner = new Point(100,100,0,0);
 
         // set up the challenge pattern
         ArrayList<dataTypes.Point> challenge_pattern_list = new ArrayList<dataTypes.Point>();
@@ -130,32 +130,56 @@ public class Activity_menu extends AppCompatActivity {
             public void onClick(View v) {
                 // perform analysis of the Responses Will use the UD-PUF library here
                 // build various functions which generate different results
-                // TODO normalize the responses using the UD_PUF library
                 //Challenge challenge = new Challenge();
 
                 // write functions to analyze the thing and print out the results
                 int number_responses = challenge.getProfile().getNormalizedResponses().size();
-                List<Double> mu_responses = challenge.getProfile().getPressureMuSigmaValues().getMuValues(); // compute_mu_list(responses);
-                List<Double> sigma_responses = challenge.getProfile().getPressureMuSigmaValues().getSigmaValues(); // compute_sigma_list(responses, mu_responses);
-                List<Double> variance_by_mean_responses = compute_variance_by_mean_list(mu_responses, sigma_responses);
+                List<Double> pressure_mu_responses = challenge.getProfile().getPressureMuSigmaValues().getMuValues(); // compute_mu_list(responses);
+                List<Double> pressure_sigma_responses = challenge.getProfile().getPressureMuSigmaValues().getSigmaValues(); // compute_sigma_list(responses, mu_responses);
+                List<Double> pressure_variance_by_mean_responses = compute_variance_by_mean_list(pressure_mu_responses, pressure_sigma_responses);
+
+                List<Double> distance_mu_responses = challenge.getProfile().getPointDistanceMuSigmaValues().getMuValues(); // compute_mu_list(responses);
+                List<Double> distance_sigma_responses = challenge.getProfile().getPointDistanceMuSigmaValues().getSigmaValues(); // compute_sigma_list(responses, mu_responses);
+                List<Double> distance_variance_by_mean_responses = compute_variance_by_mean_list(distance_mu_responses, distance_sigma_responses);
+
+                List<Double> time_mu_responses = challenge.getProfile().getTimeDistanceMuSigmaValues().getMuValues(); // compute_mu_list(responses);
+                List<Double> time_sigma_responses = challenge.getProfile().getTimeDistanceMuSigmaValues().getSigmaValues(); // compute_sigma_list(responses, mu_responses);
+                List<Double> time_variance_by_mean_responses = compute_variance_by_mean_list(time_mu_responses, time_sigma_responses);
 
                 // turn the results into an output string
-                String console_output_0 = "";
-                console_output_0 += "number of responses: " + number_responses + "\n";
-                console_output_0 += "average of responses: " + mu_responses + "\n";
-                console_output_0 += "sigma of responses: " + sigma_responses + "\n";
-                console_output_0 += "variance by mean of responses: " + variance_by_mean_responses + "\n";
+                //String console_output_0 = "";
+                //console_output_0 += "number of responses: " + number_responses + "\n";
+                //console_output_0 += "average of responses: " + mu_responses + "\n";
+                //console_output_0 += "sigma of responses: " + sigma_responses + "\n";
+                //console_output_0 += "variance by mean of responses: " + variance_by_mean_responses + "\n";
 
                 // a neater way of displaying the information
                 String console_output_1 = new String();
 
                 // header for information
                 console_output_1 += "number of responses: " + number_responses + "\n";
+                console_output_1 += "PRESSURE\n";
                 console_output_1 += "avg : sigma : variance/mean\n";
 
                 // for each point, print out average, std deviation, and variance by mean
-                for(int i = 0; i < mu_responses.size(); i++){
-                    console_output_1 += String.format("%.5f", mu_responses.get(i)) + " : " + String.format("%.5f", sigma_responses.get(i)) + " : " + String.format("%.5f", variance_by_mean_responses.get(i)) + "\n";
+                for(int i = 0; i < pressure_mu_responses.size(); i++){
+                    console_output_1 += String.format("%.5f", pressure_mu_responses.get(i)) + " : " + String.format("%.5f", pressure_sigma_responses.get(i)) + " : " + String.format("%.5f", pressure_variance_by_mean_responses.get(i)) + "\n";
+                }
+
+                console_output_1 += "\nDISTANCE\n";
+                console_output_1 += "avg : sigma : variance/mean\n";
+
+                // for each point, print out average, std deviation, and variance by mean
+                for(int i = 0; i < distance_mu_responses.size(); i++){
+                    console_output_1 += String.format("%.5f", distance_mu_responses.get(i)) + " : " + String.format("%.5f", distance_sigma_responses.get(i)) + " : " + String.format("%.5f", distance_variance_by_mean_responses.get(i)) + "\n";
+                }
+
+                console_output_1 += "\nTIME\n";
+                console_output_1 += "avg : sigma : variance/mean\n";
+
+                // for each point, print out average, std deviation, and variance by mean
+                for(int i = 0; i < time_mu_responses.size(); i++){
+                    console_output_1 += String.format("%.5f", time_mu_responses.get(i)) + " : " + String.format("%.5f", time_sigma_responses.get(i)) + " : " + String.format("%.5f", time_variance_by_mean_responses.get(i)) + "\n";
                 }
 
                 // update the edit text console with the results
@@ -314,14 +338,17 @@ public class Activity_menu extends AppCompatActivity {
     }
 
     /**
-     * takes an ArrayList<Point> and turns it into a UD_PUF response
+     * takes an ArrayList<Point> and turns it into a UD_PUF response. Somewhat confusing, there are two kinds of points.
+     * The first kind of point is Points generated by swipe_box.
+     * The second kind of point is Points used by UD_PUF.
+     * This method servers as a conversion between the two.
      */
     private Response array_to_response(ArrayList<Point> array_response){
         ArrayList<dataTypes.Point> points = new ArrayList<dataTypes.Point>();
 
         //for each point in the array, add it to the response
         for(Point array_point : array_response){
-            points.add(new dataTypes.Point(array_point.x, array_point.y, array_point.pressure));
+            points.add(new dataTypes.Point(array_point.x, array_point.y, array_point.pressure, 0, array_point.time));
         }
 
         return new Response(points);
