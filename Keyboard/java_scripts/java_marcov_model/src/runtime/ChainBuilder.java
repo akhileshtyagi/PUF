@@ -37,6 +37,13 @@ public class ChainBuilder{
 		SUCCESS,
 		FAILURE;
 	}
+	
+	public enum CompareMethod{
+		PROBABILITY_VECTOR_DIFFERANCE,
+		COMPARE_RANK;
+	}
+	
+	final CompareMethod compare_method = CompareMethod.COMPARE_RANK; //CompareMethod.PROBABILITY_VECTOR_DIFFERANCE;
 
 	public ChainBuilder(){
 		user_model_size=6000;
@@ -104,8 +111,12 @@ public class ChainBuilder{
 				
 		//afterward, create the thread to begin the authentication
 		//TODO change this back to CompareChains TODO
-		//cc = new CompareChainsRank(user_chain, auth_chain);
-		cc = new CompareChains(user_chain, auth_chain);
+		if(compare_method == CompareMethod.PROBABILITY_VECTOR_DIFFERANCE){
+			cc = new CompareChains(user_chain, auth_chain);
+		} else {
+			cc = new CompareChainsRank(user_chain, auth_chain);
+		}
+		
 		Thread auth_thread = new Thread(cc);
 
 		auth_thread.start();	
