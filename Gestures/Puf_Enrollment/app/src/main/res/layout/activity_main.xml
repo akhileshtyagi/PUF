@@ -27,15 +27,15 @@
         android:id="@+id/enroll_button"
         android:onClick="enroll_pressed"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="20dp"
-        android:layout_above="@id/enroll_button"
-        android:layout_centerInParent="true"
-        android:id="@+id/profile_info"
-        android:textSize="20sp"
-        android:text="@string/profile_info_text"/>
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginBottom="20dp"-->
+        <!--android:layout_above="@id/enroll_button"-->
+        <!--android:layout_centerInParent="true"-->
+        <!--android:id="@+id/profile_info"-->
+        <!--android:textSize="20sp"-->
+        <!--android:text="@string/profile_info_text"/>-->
 
     <Button
         android:layout_width="wrap_content"
@@ -48,9 +48,4 @@
         android:id="@+id/grab_profile_button"
         android:onClick="grab_profile"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scrollbars="vertical"
-        android:id="@+id/profile_data"/>
 </RelativeLayout>

@@ -1,0 +1,9 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="UD-PUF:jar">
+    <output-path>$PROJECT_DIR$/classes/artifacts/UD_PUF_jar</output-path>
+    <root id="archive" name="UD-PUF.jar">
+      <element id="module-output" name="UD-PUF" />
+      <element id="library" level="module" name="junit4" module-name="UD-PUF" />
+    </root>
+  </artifact>
+</component>

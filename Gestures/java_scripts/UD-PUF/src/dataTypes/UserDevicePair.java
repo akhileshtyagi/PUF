@@ -89,7 +89,7 @@ public class UserDevicePair {
      * The testPressListVsDistrib() method in the Util file seems to be
      * performing the authentication
      */
-    public boolean authenticate(List<Point> new_response_data, int challenge_id) {
+    public boolean authenticate(List<Point> new_response_data, long challenge_id) {
 	Challenge challenge = get_challenge_index(challenge_id);
 	Profile profile = challenge.getProfile();
 
@@ -210,7 +210,7 @@ public class UserDevicePair {
      * @param allowed_deviations
      * @return
      */
-    private Challenge get_challenge_index(int challenge_id) {
+    private Challenge get_challenge_index(long challenge_id) {
 	for (Challenge challenge : challenges) {
 	    if (challenge.getChallengeID() == challenge_id) {
 		return challenge;

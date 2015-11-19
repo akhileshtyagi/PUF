@@ -37,6 +37,7 @@ public class PinPatternGen  extends AppCompatActivity {
             //Pass pin to gesture training activity
             Intent authenticate = new Intent(this, RegisterGesturesActivity.class);
             authenticate.putExtra("pin", pin);
+            authenticate.putExtra("mode", "enroll");
             startActivity(authenticate);
 
             Toast.makeText(this, "Beginning Enrollment", Toast.LENGTH_SHORT).show();

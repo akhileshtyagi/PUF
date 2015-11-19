@@ -23,7 +23,7 @@ public class Challenge {
     List<Point> normalizingPoints;
 
     // Unique identifier to distinguish which challenge this is
-    private int challengeID;
+    private long challengeID;
 
     // List of NORMALIZED responses, each representing one response by the user
     // for this challenge
@@ -34,7 +34,7 @@ public class Challenge {
     // Profile associated with this challenge
     private Profile profile;
 //changes
-    public Challenge(List<Point> challengePattern, int challengeID) {
+    public Challenge(List<Point> challengePattern, long challengeID) {
 	this(challengePattern, challengeID, NORMALIZED_ELEMENTS_DEFAULT);
     }
     
@@ -44,7 +44,7 @@ public class Challenge {
      * @param challengeID
      * @param normalizationPoints
      */
-    public Challenge(List<Point> challengePattern, int challengeID, int normalizationPoints){
+    public Challenge(List<Point> challengePattern, long challengeID, int normalizationPoints){
 	this.challengePattern = challengePattern;
 	this.challengeID = challengeID;
 	this.normalized_elements = normalizationPoints;
@@ -53,7 +53,7 @@ public class Challenge {
 	profile = null;
 
 	// determine if the challenge is more horizontal or more vertical in
-	// orientation
+	// orientationjjjj
 	double x_dist = computeChallengeXDistance();
 	double y_dist = computeChallengeYDistance();
 	isChallengeHorizontal = x_dist > y_dist;
@@ -80,6 +80,10 @@ public class Challenge {
 	return profile;
     }
 
+	public void setChallengeID(long challengeID) { this.challengeID = challengeID; }
+
+	public long getChallengeID() { return challengeID; }
+
     public List<Point> getChallengePattern() {
 	return challengePattern;
     }
@@ -87,10 +91,6 @@ public class Challenge {
 	public List<Response> getResponsePattern() {
 		return responses;
 	}
-
-	public int getChallengeID() {
-	return this.challengeID;
-    }
     
     public boolean isHorizontal(){
 	return isChallengeHorizontal;

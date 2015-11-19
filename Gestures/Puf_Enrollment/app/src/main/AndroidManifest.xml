@@ -30,6 +30,14 @@
             android:name=".RegisterGesturesActivity"
             android:label="@string/title_activity_register_gestures" >
         </activity>
+        <activity
+            android:name=".ShowProfile"
+            android:label="@string/title_activity_show_profile" >
+        </activity>
+        <activity
+            android:name=".Authenticate"
+            android:label="@string/title_activity_authenticate" >
+        </activity>
     </application>
 
 </manifest>

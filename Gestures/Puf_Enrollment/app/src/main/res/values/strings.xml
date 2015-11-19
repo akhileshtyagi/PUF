@@ -13,8 +13,12 @@
     <string name="remaining_swipes">20 Left</string>
     <string name="profile_info_text">Using Profile: NONE</string>
     <string name="authenticate_text">Authenticate</string>
-    <string name="choose_profile_text">Choose Profile</string>
+    <string name="choose_profile_text">View Profile</string>
     <string name="title_activity_profile_setter">ProfileSetter</string>
     <string name="profile_string">NONE</string>
     <string name="profile_default_string">NONE</string>
+    <string name="title_activity_show_profile">ShowProfile</string>
+    <string name="profile_temp_text">Profile Data Here</string>
+    <string name="title_activity_authenticate">Authenticate</string>
+    <string name="authenticating_status">Authenticating...</string>
 </resources>

@@ -33,7 +33,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     private long mSeed; //Seed for generating challenges
     private ArrayList<Point> mCurChallenge; //Current challenge
     private int mRemainingSwipes; //Remaining swipes until enrolled
-
+    private String mode; //Either "enroll" or "authenticate"
     private ChallengeGenerator mCg;
 
     private TextView mUpdateView;
@@ -62,8 +62,18 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         Intent i = getIntent();
         mCg = new ChallengeGenerator(i.getIntExtra("pin", 0)); //Default value is nada
 
+        //Get mode of operation (enroll or authenticate)
+        mode = i.getStringExtra("mode");
+        if(mode.equals("authenticate")) {
+            mRemainingView.setText("Authenticating");
+            mSeed = i.getLongExtra("seed",0);
+        }
+
         //Set the seed for referential purposes
-        mSeed = mCg.getSeed();
+        else {
+            mSeed = mCg.getSeed();
+        }
+
         mSeedView.setText("Seed: " + mSeed);
 
         //Setup an initial challenge and give the challenge
@@ -83,28 +93,38 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
      */
     @Override
     public void onResponseAttempt(ArrayList<Point> response) {
-        if(--mRemainingSwipes == 0)
-        {
-            DataReader reader = new DataReader(new File(Environment.getExternalStorageDirectory() + "/PUFProfile"));
-            Gson gson = new Gson();
-            Toast.makeText(this, "Completed Authentication", Toast.LENGTH_SHORT).show();
-//            Challenge challenge = reader.readDataDirecotry();
-            Challenge challenge = new Challenge(mChallengePoints,42);
-            for(Response r : mResponses) {
-                challenge.addResponse(r);
-            }
-            String json = gson.toJson(challenge,challenge.getClass());
+        if (mode.equals("enroll")) {
+            if (--mRemainingSwipes == 0) {
+                DataReader reader = new DataReader(new File(Environment.getExternalStorageDirectory() + "/PUFProfile"));
+                Gson gson = new Gson();
+                Toast.makeText(this, "Completed Authentication", Toast.LENGTH_SHORT).show();
+                Challenge challenge = new Challenge(mChallengePoints, mSeed);
+                for (Response r : mResponses) {
+                    challenge.addResponse(r);
+                }
+                String json = gson.toJson(challenge, challenge.getClass());
 
-            SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.profile", Context.MODE_PRIVATE);
+                SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.profile", Context.MODE_PRIVATE);
+                SharedPreferences.Editor editor = sharedPref.edit();
+                editor.putString(getString(R.string.profile_string), json);
+                editor.commit();
+                finish();
+            }
+            writeResponseCsv(response, "DeviceName", "UserName");
+            mCurChallenge = mCg.generateChallenge();
+            //mPdv.giveChallenge(mCurChallenge.toArray(new Point[mCurChallenge.size()]));
+            mRemainingView.setText(mRemainingSwipes + " Left");
+        }
+        else if (mode.equals("authenticate")) {
+            writeResponseCsv(response, "DeviceName", "UserName");
+            Gson gson = new Gson();
+            String json = gson.toJson(mResponses.get(0), mResponses.get(0).getClass());
+            SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.response", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString(getString(R.string.profile_string), json);
             editor.commit();
             finish();
         }
-        writeResponseCsv(response, "DeviceName", "UserName");
-        mCurChallenge = mCg.generateChallenge();
-        //mPdv.giveChallenge(mCurChallenge.toArray(new Point[mCurChallenge.size()]));
-        mRemainingView.setText(mRemainingSwipes + " Left");
     }
 
     /**
@@ -116,8 +136,11 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
 
         ArrayList<dataTypes.Point> points = new ArrayList<>();
 
+        File baseDir;
+
         //File baseDir = new File(getFilesDir(), "PUFProfile");
-        File baseDir = new File(Environment.getExternalStorageDirectory(), "PUFProfile");
+        if(mode.equals("enroll")) baseDir = new File(Environment.getExternalStorageDirectory(), "PUFProfile");
+        else baseDir = new File(Environment.getExternalStorageDirectory(), "PUFAuthenticate");
 
         if (!baseDir.exists())
         {
