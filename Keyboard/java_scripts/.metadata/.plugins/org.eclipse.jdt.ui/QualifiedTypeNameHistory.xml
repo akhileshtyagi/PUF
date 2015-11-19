@@ -10,6 +10,7 @@
 <fullyQualifiedTypeName name="javax.swing.plaf.nimbus.State"/>
 <fullyQualifiedTypeName name="compute.Rank"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="components.Distribution"/>
 <fullyQualifiedTypeName name="components.Window"/>
+<fullyQualifiedTypeName name="components.Touch"/>
+<fullyQualifiedTypeName name="components.Distribution"/>
 </qualifiedTypeNameHistroy>
