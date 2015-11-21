@@ -11,10 +11,11 @@ public class UserDevicePair {
     public final static double PRESSURE_DEFAULT_ALLOWED_DEVIATIONS = 3.0;
     public final static double DISTANCE_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
     public final static double TIME_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
+    public final static double TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
     public final static double DEFAULT_AUTHENTICATION_THRESHOLD = 0.75;
 
     public enum RatioType {
-	PRESSURE, DISTANCE, TIME
+	PRESSURE, DISTANCE, TIME, TIME_LENGTH
     }
 
     // List of challenges correlating to this user/device pair
@@ -25,6 +26,7 @@ public class UserDevicePair {
     private double pressure_allowed_deviations;
     private double distance_allowed_deviations;
     private double time_allowed_deviations;
+    private double time_length_allowed_deviations;
     private double authentication_threshold;
 
     // stores the failed points from the previous authentication
@@ -66,6 +68,8 @@ public class UserDevicePair {
 	this.pressure_authentication_failed_point_ratio = -1;
 	this.distance_authentication_failed_point_ratio = -1;
 	this.time_authentication_failed_point_ratio = -1;
+
+	this.time_length_allowed_deviations = TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS;
     }
 
     // Adds challenge to list of challenges correlating to this user/device pair
@@ -76,6 +80,34 @@ public class UserDevicePair {
     // gets the challenges for this user, device
     public List<Challenge> getChallenges() {
 	return challenges;
+    }
+
+    /**
+     * returns true if the pre-normalization amount of time from the beginning
+     * to end of the response is within the given number of std deviations.
+     */
+    public boolean isWithinTimeLength(List<Point> new_response_data, long challenge_id) {
+	Challenge challenge = get_challenge_index(challenge_id);
+	Profile profile = challenge.getProfile();
+
+	return isWithinTimeLength(new_response_data, profile);
+    }
+
+    /**
+     * returns true if the pre-normalization amount of time from the beginning
+     * to end of the response is within the given number of std deviations.
+     */
+    public boolean isWithinTimeLength(List<Point> new_response_data, Profile profile) {
+	Response response = new Response(new_response_data);
+
+	if ((response.getTimeLength() < (profile.getTimeLengthMu()
+		+ profile.getTimeLengthSigma() * this.time_length_allowed_deviations))
+		&& (response.getTimeLength() > (profile.getTimeLengthMu()
+			- profile.getTimeLengthSigma() * this.time_length_allowed_deviations))) {
+	    return true;
+	}
+
+	return false;
     }
 
     /**
@@ -198,6 +230,10 @@ public class UserDevicePair {
 
 	case TIME:
 	    this.time_allowed_deviations = standard_deviations;
+	    break;
+	    
+	case TIME_LENGTH:
+	    this.time_length_allowed_deviations = standard_deviations;
 	    break;
 	}
     }

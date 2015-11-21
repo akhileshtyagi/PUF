@@ -15,7 +15,7 @@ public class Challenge {
 
     // number of elements in the normalized list
     private int normalized_elements;
-    
+
     // Pattern of points that create the challenge
     private List<Point> challengePattern;
 
@@ -33,23 +33,29 @@ public class Challenge {
 
     // Profile associated with this challenge
     private Profile profile;
-//changes
+    
+    // time_length values for the responses
+    private ArrayList<Double> time_lengths;
+
+    // changes
     public Challenge(List<Point> challengePattern, long challengeID) {
 	this(challengePattern, challengeID, NORMALIZED_ELEMENTS_DEFAULT);
     }
-    
+
     /**
      * allows for parameterization of the number of normalized elements
+     * 
      * @param challengePattern
      * @param challengeID
      * @param normalizationPoints
      */
-    public Challenge(List<Point> challengePattern, long challengeID, int normalizationPoints){
+    public Challenge(List<Point> challengePattern, long challengeID, int normalizationPoints) {
 	this.challengePattern = challengePattern;
 	this.challengeID = challengeID;
 	this.normalized_elements = normalizationPoints;
-	
+
 	responses = new ArrayList<Response>();
+	this.time_lengths = new ArrayList<Double>();
 	profile = null;
 
 	// determine if the challenge is more horizontal or more vertical in
@@ -65,6 +71,9 @@ public class Challenge {
 
     // Adds normalized response to the list or Responses
     public void addResponse(Response response) {
+	// add the time length of the response to the list
+	this.time_lengths.add(response.getTimeLength());
+	
 	// normlaize the response before it is added to the challenge
 	response.normalize(normalizingPoints, isChallengeHorizontal);
 
@@ -74,25 +83,30 @@ public class Challenge {
     // Creates a profile associate with this challenge with NORMALIZED responses
     public Profile getProfile() {
 	// if the profile hasn't been created, create the profile
-	if(profile == null){
-	    profile = new Profile(responses);
+	if (profile == null) {
+	    // all properties of the points are computed when this is created
+	    profile = new Profile(responses, time_lengths);
 	}
 	return profile;
     }
 
-	public void setChallengeID(long challengeID) { this.challengeID = challengeID; }
+    public void setChallengeID(long challengeID) {
+	this.challengeID = challengeID;
+    }
 
-	public long getChallengeID() { return challengeID; }
+    public long getChallengeID() {
+	return challengeID;
+    }
 
     public List<Point> getChallengePattern() {
 	return challengePattern;
     }
 
-	public List<Response> getResponsePattern() {
-		return responses;
-	}
-    
-    public boolean isHorizontal(){
+    public List<Response> getResponsePattern() {
+	return responses;
+    }
+
+    public boolean isHorizontal() {
 	return isChallengeHorizontal;
     }
 
@@ -121,7 +135,7 @@ public class Challenge {
 	ArrayList<Point> points = new ArrayList<Point>();
 
 	// amount of x separation for each point
-	double point_increment = x_dist / ( this.normalized_elements - 1 );
+	double point_increment = x_dist / (this.normalized_elements - 1);
 	Point next_point = null;
 
 	for (int i = 0; i < this.normalized_elements; i++) {
@@ -151,7 +165,7 @@ public class Challenge {
 	ArrayList<Point> points = new ArrayList<Point>();
 
 	// amount of y separation for each point
-	double point_increment = y_dist / ( this.normalized_elements - 1 );
+	double point_increment = y_dist / (this.normalized_elements - 1);
 	Point next_point = null;
 
 	for (int i = 0; i < this.normalized_elements; i++) {

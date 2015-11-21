@@ -20,18 +20,25 @@ public class Profile implements Serializable {
     // List of normalized Responses
     private ArrayList<Response> normalizedResponses;
 
+    // list of time_lengths corresponding to the responses in the
+    // normalizedResponses list
+    private ArrayList<Double> time_lengths;
+
     // Mu Sigma values that define the profile
     private MuSigma pressure_muSigmaValues;
     private MuSigma point_distance_muSigmaValues;
     private MuSigma time_muSigmaValues;
 
+    private double time_length_mu;
+    private double time_length_sigma;
+
     // true if mu sigma has been computed
     private boolean mu_sigma_computed;
 
-    public Profile(List<Response> normalizedResponses) {
+    public Profile(List<Response> normalizedResponses, List<Double> time_lengths) {
 	this.normalizedResponses = new ArrayList<Response>(normalizedResponses);
+	this.time_lengths = new ArrayList<Double>(time_lengths);
 
-	// TODO
 	// Calculate mu and sigma values for this profile
 	// and assign them to muValues and sigmaValues
 	// For now, just create blank ones
@@ -46,9 +53,13 @@ public class Profile implements Serializable {
     // challenge
     public Profile() {
 	normalizedResponses = new ArrayList<Response>();
+	this.time_lengths = new ArrayList<Double>();
 	pressure_muSigmaValues = new MuSigma();
 	point_distance_muSigmaValues = new MuSigma();
 	time_muSigmaValues = new MuSigma();
+
+	time_length_mu = 0;
+	time_length_sigma = 0;
 
 	mu_sigma_computed = false;
     }
@@ -84,6 +95,27 @@ public class Profile implements Serializable {
 	}
 
 	return time_muSigmaValues;
+    }
+
+    /**
+     * return the pre-normalized mu_sigma time length values.
+     */
+    public double getTimeLengthSigma() {
+	// if mu sigma have not been computed, compute them
+	if (!mu_sigma_computed) {
+	    compute_mu_sigma();
+	}
+
+	return time_length_sigma;
+    }
+
+    public double getTimeLengthMu() {
+	// if mu sigma have not been computed, compute them
+	if (!mu_sigma_computed) {
+	    compute_mu_sigma();
+	}
+
+	return time_length_mu;
     }
 
     public ArrayList<Response> getNormalizedResponses() {
@@ -125,6 +157,7 @@ public class Profile implements Serializable {
 	compute_pressure_mu_sigma();
 	compute_point_distance_mu_sigma();
 	compute_time_distance_mu_sigma();
+	compute_time_length_mu_sigma();
 
 	this.mu_sigma_computed = true;
     }
@@ -195,10 +228,20 @@ public class Profile implements Serializable {
 	    // compute std deviation
 	    double mu = this.computeMu(normalized_time_list);
 	    double sigma = this.computeSigma(normalized_time_list, mu);
-	    //System.out.println("mu: " + mu + " | time_list: " + normalized_time_list + "\n");
+	    // System.out.println("mu: " + mu + " | time_list: " +
+	    // normalized_time_list + "\n");
 
 	    this.time_muSigmaValues.addMuSigma(mu, sigma);
 	}
+    }
+
+    /**
+     * computes the time_length mu sigma values and stores them in the
+     * appropriate instance variables.
+     */
+    private void compute_time_length_mu_sigma() {
+	this.time_length_mu = computeMu(this.time_lengths);
+	this.time_length_sigma = computeSigma(time_lengths, this.time_length_mu);
     }
 
     /**

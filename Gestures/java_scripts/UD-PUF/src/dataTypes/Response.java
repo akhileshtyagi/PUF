@@ -21,6 +21,17 @@ public class Response implements Serializable {
 	return responsePattern;
     }
 
+    /**
+     * returns the time of the last point minus the time of the first point.
+     * This method preforms the function literally. the time mig variable will
+     * be changed durring normalization. After the point is normalized this will
+     * mostlikly reutrn a different value compared to before the response being
+     * normalized.
+     */
+    public double getTimeLength() {
+	return responsePattern.get(responsePattern.size() - 1).getTime() - responsePattern.get(0).getTime();
+    }
+
     /*
      * Normalizes points in response. The normalizingPoints are a list of points
      * to normalize the response to. In other words the response will then
@@ -37,7 +48,7 @@ public class Response implements Serializable {
 	double pressure = 0;
 	double point_distance = 0;
 	double time = 0;
-
+	
 	// we need to find the correct pressure value for each normalizingPoints
 	for (Point normalizingPoint : normalizingPoints) {
 	    // if the person did the challenge in the correct direction
