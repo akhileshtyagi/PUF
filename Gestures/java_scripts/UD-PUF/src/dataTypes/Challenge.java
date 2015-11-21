@@ -33,7 +33,7 @@ public class Challenge {
 
     // Profile associated with this challenge
     private Profile profile;
-    
+
     // time_length values for the responses
     private ArrayList<Double> time_lengths;
 
@@ -73,11 +73,14 @@ public class Challenge {
     public void addResponse(Response response) {
 	// add the time length of the response to the list
 	this.time_lengths.add(response.getTimeLength());
-	
+
 	// normlaize the response before it is added to the challenge
 	response.normalize(normalizingPoints, isChallengeHorizontal);
 
 	responses.add(response);
+
+	// profile is now invalid and needs to be re-computed
+	this.profile = null;
     }
 
     // Creates a profile associate with this challenge with NORMALIZED responses
