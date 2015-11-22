@@ -42,7 +42,7 @@ import dataTypes.UserDevicePair;
 public class Activity_menu extends AppCompatActivity {
     public static final String SHARED_PREFERENCES_FILE = "swipe_box_preferences";
     public static final String ANALYSIS_FILENAME = "analysis_interpoint_time";
-    public static final String RESPONSES_FILENAME = "response_profile_tim";
+    public static final String RESPONSES_FILENAME = "response_profile_carlos";
 
     private Challenge challenge;
     private ArrayList<Response> responses;
@@ -173,9 +173,9 @@ public class Activity_menu extends AppCompatActivity {
             public void onClick(View v) {
                 // write a file in json format which contains the responses
                 Gson gson = new Gson();
-                String json = gson.toJson(responses, responses.getClass());
+                String json = gson.toJson(responses.toArray(), responses.toArray().getClass());
 
-                //Log.d("json", json);
+                Log.d("json", json);
 
                 write_responses_to_file(RESPONSES_FILENAME, json);
             }//End onClick
@@ -282,8 +282,8 @@ public class Activity_menu extends AppCompatActivity {
             //convert the arraylist of points into a ud_puf response object
             Response response = array_to_response(array_response);
 
-            // add the response to the list of responses
-            responses.add(response);
+            // add the response to the list of responses (must be done in a way that will cause it not to be changed)
+            responses.add(new Response(response.getResponse()));
 
             // put the responses into the challenge object
             challenge.addResponse(response);
