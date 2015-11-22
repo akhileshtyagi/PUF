@@ -1,0 +1,94 @@
+package analysis;
+
+import java.util.ArrayList;
+import java.util.List;
+
+/**
+ * The goal of this class is to find the model parameters which maximize the
+ * effectiveness.
+ * 
+ * for now we will define maximizing effectiveness as maximized accuracy, but I
+ * suppose I could use a composite of false positive, false negative, and
+ * accuracy ratios
+ * 
+ * @author element
+ *
+ */
+public class BestModelParameters {
+
+    /**
+     * WARNING: this method takes 10-15 minutes to complete
+     * 
+     * compute the effectiveness for each combination of model parameters.
+     * maximize accuracy.
+     * 
+     * @param args
+     */
+    public static void main(String[] args) {
+	ArrayList<Combination> combinations = new ArrayList<Combination>();
+
+	ArrayList<Double> pressure_deviations_list = new ArrayList<Double>();
+	ArrayList<Double> distance_deviations_list = new ArrayList<Double>();
+	ArrayList<Double> time_deviations_list = new ArrayList<Double>();
+	ArrayList<Double> time_length_deviations_list = new ArrayList<Double>();
+	ArrayList<Double> authentication_threshold_list = new ArrayList<Double>();
+
+	// generate a set of parameters to try for each deviation
+	for (int i = 0; i < 3; i++) {
+	    double deviations = (i * 1) + 1;
+	    pressure_deviations_list.add(deviations);
+	    distance_deviations_list.add(deviations);
+	    time_deviations_list.add(deviations);
+	    time_length_deviations_list.add(deviations);
+	}
+
+	// for threshold
+	for (int i = 0; i < 50; i++) {
+	    authentication_threshold_list.add((double) (i + 50));
+	}
+
+	// generate all combinations of these parameters
+	for (Double pressure_deviation : pressure_deviations_list) {
+	    for (Double distance_deviation : distance_deviations_list) {
+		for (Double time_deviation : time_deviations_list) {
+		    for (Double time_length_deviation : time_length_deviations_list) {
+			for (Double authentication_threshold : authentication_threshold_list) {
+			    long time = System.currentTimeMillis();
+
+			    combinations.add(new Combination(pressure_deviation, distance_deviation, time_deviation,
+				    time_length_deviation, authentication_threshold));
+
+			    System.out.print("time taken: " + (System.currentTimeMillis() - time) + "\n");
+			}
+		    }
+		}
+	    }
+	}
+
+	// find the combination with the best accuracy
+	Combination best = best_accuracy(combinations);
+
+	System.out.println(best);
+    }
+
+    /**
+     * return the combination which has the best accuracy
+     */
+    private static Combination best_accuracy(List<Combination> combinations) {
+	// if combinations is empty or null, we can't do anything
+	if (combinations == null || combinations.size() == 0) {
+	    return null;
+	}
+
+	// set best equal to the first combination
+	Combination best = combinations.get(0);
+
+	for (Combination c : combinations) {
+	    if (c.accuracy > best.accuracy) {
+		best = c;
+	    }
+	}
+
+	return best;
+    }
+}

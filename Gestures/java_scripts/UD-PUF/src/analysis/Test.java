@@ -40,6 +40,13 @@ public class Test {
 		UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD);
     }
 
+    public Test(Response response, List<Response> response_set, boolean expected_result, List<Point> challenge_points,
+	    Combination c) {
+	this(response, response_set, expected_result, challenge_points, c.pressure_allowed_deviations,
+		c.distance_allowed_deviations, c.time_allowed_deviations, c.time_length_allowed_deviations,
+		c.authentication_threshold);
+    }
+
     /**
      * final constructor which will cause the test to actually be run.
      */
@@ -62,7 +69,8 @@ public class Test {
 	}
 
 	// preform the authentication
-	UserDevicePair ud_pair = new UserDevicePair(0,this.pressure_allowed_deviations, this.distance_allowed_deviations, this.time_allowed_deviations, this.authentication_threshold);
+	UserDevicePair ud_pair = new UserDevicePair(0, this.pressure_allowed_deviations,
+		this.distance_allowed_deviations, this.time_allowed_deviations, this.authentication_threshold);
 	ud_pair.setStandardDeviations(UserDevicePair.RatioType.TIME_LENGTH, this.time_length_allowed_deviations);
 	ud_pair.addChallenge(challenge);
 

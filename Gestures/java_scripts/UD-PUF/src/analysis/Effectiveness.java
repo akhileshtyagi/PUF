@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import dataTypes.Point;
 import dataTypes.Response;
+import dataTypes.UserDevicePair;
 
 /**
  * The goal of this class is to analyze the effectiveness of the authentication
@@ -25,14 +26,43 @@ public class Effectiveness {
     public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
 
     private static ArrayList<Point> challenge_points;
+    private Combination model_parameters;
+
+    // results
+    public double false_positive;
+    public double false_negative;
+    public double accuracy;
 
     public static void main(String[] args) {
+	// Effectiveness self = new Effectiveness(new
+	// Combination(UserDevicePair.PRESSURE_DEFAULT_ALLOWED_DEVIATIONS,
+	// UserDevicePair.DISTANCE_DEFAULT_ALLOWED_DEVIATIONS,
+	// UserDevicePair.TIME_DEFAULT_ALLOWED_DEVIATIONS,
+	// UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS,
+	// UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD));
+
+	Combination self = new Combination(UserDevicePair.PRESSURE_DEFAULT_ALLOWED_DEVIATIONS,
+		UserDevicePair.DISTANCE_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.TIME_DEFAULT_ALLOWED_DEVIATIONS,
+		UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD);
+
+	// print out the results
+	StringBuilder output = new StringBuilder();
+
+	output.append("false positive: " + self.false_positive + "\n");
+	output.append("false negative: " + self.false_negative + "\n");
+	output.append("accuracy: " + self.accuracy + "\n");
+
+	System.out.println(output);
+    }
+
+    public Effectiveness(Combination model_parameters) {
 	ArrayList<Test> test_set = new ArrayList<Test>();
 
 	// set up the challenge points
-	challenge_points = new ArrayList<Point>();
-	challenge_points.add(new Point(150, 150, 0));
-	challenge_points.add(new Point(600, 150, 0));
+	set_up_challenge_points();
+
+	// set up model_parameters
+	this.model_parameters = model_parameters;
 
 	// read in the files with response objects
 	ArrayList<Response> profile_a_responses = get_response_list(PROFILE_A_FILENAME);
@@ -45,25 +75,23 @@ public class Effectiveness {
 	analyze_test_results(test_set);
     }
 
-    private static void analyze_test_results(ArrayList<Test> test_set) {
+    private static void set_up_challenge_points() {
+	// set up the challenge points
+	challenge_points = new ArrayList<Point>();
+	challenge_points.add(new Point(150, 150, 0));
+	challenge_points.add(new Point(600, 150, 0));
+    }
+
+    private void analyze_test_results(ArrayList<Test> test_set) {
 	// analyze the results of the tests
 	// 1) false positive
 	// 2) false negative
 	// 3) accuracy
 
 	// analyze each of the three metrics for this test set
-	double false_positive = compute_false_positive(test_set);
-	double false_negative = compute_false_negative(test_set);
-	double accuracy = compute_accuracy(test_set);
-
-	// print out the results
-	StringBuilder output = new StringBuilder();
-
-	output.append("false positive: " + false_positive + "\n");
-	output.append("false negative: " + false_negative + "\n");
-	output.append("accuracy: " + accuracy + "\n");
-
-	System.out.println(output);
+	this.false_positive = compute_false_positive(test_set);
+	this.false_negative = compute_false_negative(test_set);
+	this.accuracy = compute_accuracy(test_set);
     }
 
     /**
@@ -135,7 +163,7 @@ public class Effectiveness {
      * 
      * @return
      */
-    private static ArrayList<Test> generate_tests(ArrayList<Response> profile_a_responses,
+    private ArrayList<Test> generate_tests(ArrayList<Response> profile_a_responses,
 	    ArrayList<Response> profile_b_responses) {
 	ArrayList<Test> test_set = new ArrayList<Test>();
 	ArrayList<Response> a_first_half = new ArrayList<Response>();
@@ -154,10 +182,12 @@ public class Effectiveness {
 	for (int i = (profile_a_responses.size() / 2); i < profile_a_responses.size(); i++) {
 	    boolean same_file = PROFILE_A_FILENAME.equals(PROFILE_B_FILENAME);
 
-	    Test test_a = new Test(profile_a_responses.get(i), a_first_half, true, challenge_points);
+	    Test test_a = new Test(profile_a_responses.get(i), a_first_half, true, challenge_points,
+		    this.model_parameters);
 	    // should be false unless profile a and b come from the same file
 	    // (same person on same device)
-	    Test test_b = new Test(profile_a_responses.get(i), b_first_half, same_file, challenge_points);
+	    Test test_b = new Test(profile_a_responses.get(i), b_first_half, same_file, challenge_points,
+		    this.model_parameters);
 
 	    test_set.add(test_a);
 	    test_set.add(test_b);
@@ -169,8 +199,10 @@ public class Effectiveness {
 
 	    // should be false unless profile a and b come from the same file
 	    // (same person on same device)
-	    Test test_a = new Test(profile_b_responses.get(j), a_first_half, same_file, challenge_points);
-	    Test test_b = new Test(profile_b_responses.get(j), b_first_half, true, challenge_points);
+	    Test test_a = new Test(profile_b_responses.get(j), a_first_half, same_file, challenge_points,
+		    this.model_parameters);
+	    Test test_b = new Test(profile_b_responses.get(j), b_first_half, true, challenge_points,
+		    this.model_parameters);
 
 	    test_set.add(test_a);
 	    test_set.add(test_b);
@@ -198,9 +230,9 @@ public class Effectiveness {
 	    e.printStackTrace();
 	}
 
-	for (int i = 0; i < responses.length; i++) {
-	    System.out.println(responses[i].getResponse());
-	}
+	// for (int i = 0; i < responses.length; i++) {
+	// System.out.println(responses[i].getResponse());
+	// }
 
 	ArrayList<Response> response_list = new ArrayList<Response>();
 
