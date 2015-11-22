@@ -5,11 +5,11 @@
       <GradleProjectSettings>
         <option name="distributionType" value="DEFAULT_WRAPPED" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
-        <option name="gradleJvm" value="1.7" />
+        <option name="gradleJvm" value="1.8" />
         <option name="modules">
           <set>
-            <option value="/mnt/win/Users/Nick/Documents/gitReposWin/PUF/Gestures/Puf_Enrollment" />
-            <option value="/mnt/win/Users/Nick/Documents/gitReposWin/PUF/Gestures/Puf_Enrollment/app" />
+            <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
           </set>
         </option>
       </GradleProjectSettings>

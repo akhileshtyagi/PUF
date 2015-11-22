@@ -25,4 +25,6 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.0'
     compile 'com.android.support:design:23.1.0'
     compile files('libs/Ud_puf.jar')
+    compile files('libs/opencsv-2.3.jar')
+    compile 'com.google.code.gson:gson:2.2.4'
 }

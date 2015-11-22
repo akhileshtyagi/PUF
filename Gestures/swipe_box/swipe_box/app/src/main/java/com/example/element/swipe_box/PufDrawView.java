@@ -24,6 +24,8 @@ public class PufDrawView extends View
     private Point[] challenge;
     private ArrayList<Point> response;
 
+    private long last_motion_event_time;
+
     public PufDrawView(Context context, AttributeSet attr)
     {
         super(context, attr);
@@ -56,6 +58,7 @@ public class PufDrawView extends View
         greenPaint.setStrokeWidth(5);
 
         response = new ArrayList<Point>();
+        last_motion_event_time = 0;
     }
 
     @Override
@@ -138,7 +141,19 @@ public class PufDrawView extends View
                 // only add the point if the motion event is inside the bounds of the box
                 if(within_challenge(me)) {
                     // me.getEventTime()-me.getDownTime() is the time sense the beginning
-                    response.add(new Point(me.getX(), me.getY(), me.getPressure(), me.getEventTime()-me.getDownTime()));
+                    // time sense beginning // response.add(new Point(me.getX(), me.getY(), me.getPressure(), me.getEventTime()-me.getDownTime()));
+
+                    //Log.d("history_size: ", new Integer(me.getHistorySize()).toString());
+                    //Log.d("interpoint_time: ", new Long(me.getEventTime()-me.getHistoricalEventTime(me.getHistorySize() - 1)).toString());
+                    //Log.d("last_motion_event_time_difference", new Long(me.getEventTime() - this.last_motion_event_time).toString());
+
+                    // if this is the first time though..... consider this point to have 0 time since the previous
+                    if(this.last_motion_event_time == 0){
+                        this.last_motion_event_time = me.getEventTime();
+                    }
+
+                    response.add(new Point(me.getX(), me.getY(), me.getPressure(), me.getEventTime()-this.last_motion_event_time));
+                    this.last_motion_event_time = me.getEventTime();
                 }
 
                 break;

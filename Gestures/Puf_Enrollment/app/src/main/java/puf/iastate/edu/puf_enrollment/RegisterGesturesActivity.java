@@ -7,6 +7,7 @@ import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -103,6 +104,9 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
                     challenge.addResponse(r);
                 }
                 String json = gson.toJson(challenge, challenge.getClass());
+
+                Log.d("distance mu", challenge.getProfile().getPointDistanceMuSigmaValues().getMuValues().toString());
+                Log.d("distance sigma", challenge.getProfile().getPointDistanceMuSigmaValues().getSigmaValues().toString());
 
                 SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.profile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();

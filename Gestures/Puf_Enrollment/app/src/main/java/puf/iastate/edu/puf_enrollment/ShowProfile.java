@@ -36,6 +36,8 @@ public class ShowProfile extends Activity {
 
             StringBuilder sb = new StringBuilder();
 
+            Log.d("number of responses", new Integer(mChallenge.getProfile().getNormalizedResponses().size()).toString());
+
             sb.append("Challenge Points:\n");
             sb.append("X: " + mChallenge.getChallengePattern().get(0).getX() + ", Y: " + mChallenge.getChallengePattern().get(0).getY() + "\n");
             sb.append("X: " + mChallenge.getChallengePattern().get(1).getX() + ", Y: " + mChallenge.getChallengePattern().get(1).getY() + "\n");

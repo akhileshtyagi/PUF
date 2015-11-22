@@ -57,7 +57,7 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Output Responses To CSV"
+        android:text="Output Responses To Json"
         android:id="@+id/output_responses_to_csv_button"
         android:layout_below="@+id/analyze_responses_button"
         android:layout_alignParentLeft="true"
@@ -89,6 +89,15 @@
         android:text="Authenticate\n Against Responses"
         android:id="@+id/authenticate_against_responses"
         android:layout_below="@+id/collect_swipe_responses_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Output Analysis to CSV"
+        android:id="@+id/output_analysis_to_csv_button"
+        android:layout_below="@+id/authenticate_against_responses"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 </RelativeLayout>
