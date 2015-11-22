@@ -24,13 +24,15 @@ public class Effectiveness {
     public static final String PROFILE_A_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
     public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
 
+    private static ArrayList<Point> challenge_points;
+
     public static void main(String[] args) {
 	ArrayList<Test> test_set = new ArrayList<Test>();
 
 	// set up the challenge points
-	ArrayList<Point> challenge_points = new ArrayList<Point>();
-
-	challenge_points.add(new Point(0, 0, 0, 0, 0));
+	challenge_points = new ArrayList<Point>();
+	challenge_points.add(new Point(150, 150, 0));
+	challenge_points.add(new Point(600, 150, 0));
 
 	// read in the files with response objects
 	ArrayList<Response> profile_a_responses = get_response_list(PROFILE_A_FILENAME);
@@ -73,7 +75,15 @@ public class Effectiveness {
      * @return
      */
     private static double compute_false_positive(ArrayList<Test> test_set) {
-	return 0;
+	int false_positive_count = 0;
+
+	for (Test t : test_set) {
+	    if ((t.expected_authentication_result == false) && (t.authentication_result == true)) {
+		false_positive_count++;
+	    }
+	}
+
+	return ((double) false_positive_count) / ((double) test_set.size());
     }
 
     /**
@@ -85,7 +95,15 @@ public class Effectiveness {
      * @return
      */
     private static double compute_false_negative(ArrayList<Test> test_set) {
-	return 0;
+	int false_negative_count = 0;
+
+	for (Test t : test_set) {
+	    if ((t.expected_authentication_result == true) && (t.authentication_result == false)) {
+		false_negative_count++;
+	    }
+	}
+
+	return ((double) false_negative_count) / ((double) test_set.size());
     }
 
     /**
@@ -98,7 +116,16 @@ public class Effectiveness {
      * @return
      */
     private static double compute_accuracy(ArrayList<Test> test_set) {
-	return 0;
+	int correct = 0;
+
+	for (Test t : test_set) {
+	    if (((t.expected_authentication_result == true) && (t.authentication_result == true))
+		    || ((t.expected_authentication_result == false) && (t.authentication_result == false))) {
+		correct++;
+	    }
+	}
+
+	return ((double) correct) / ((double) test_set.size());
     }
 
     /**
@@ -111,11 +138,43 @@ public class Effectiveness {
     private static ArrayList<Test> generate_tests(ArrayList<Response> profile_a_responses,
 	    ArrayList<Response> profile_b_responses) {
 	ArrayList<Test> test_set = new ArrayList<Test>();
+	ArrayList<Response> a_first_half = new ArrayList<Response>();
+	ArrayList<Response> b_first_half = new ArrayList<Response>();
 
-	// TODO
-	// Test test = new Test(,,challenge_points);
+	// grab the first half of each set to be used as profile
+	for (int i = 0; i < profile_a_responses.size() / 2; i++) {
+	    a_first_half.add(profile_a_responses.get(i));
+	}
 
-	// test_set.add(test,test,true);
+	for (int i = 0; i < profile_b_responses.size() / 2; i++) {
+	    b_first_half.add(profile_b_responses.get(i));
+	}
+
+	// for the second half of the responses in a
+	for (int i = (profile_a_responses.size() / 2); i < profile_a_responses.size(); i++) {
+	    boolean same_file = PROFILE_A_FILENAME.equals(PROFILE_B_FILENAME);
+
+	    Test test_a = new Test(profile_a_responses.get(i), a_first_half, true, challenge_points);
+	    // should be false unless profile a and b come from the same file
+	    // (same person on same device)
+	    Test test_b = new Test(profile_a_responses.get(i), b_first_half, same_file, challenge_points);
+
+	    test_set.add(test_a);
+	    test_set.add(test_b);
+	}
+
+	// for the second half of the responses in b
+	for (int j = (profile_b_responses.size() / 2); j < profile_b_responses.size(); j++) {
+	    boolean same_file = PROFILE_A_FILENAME.equals(PROFILE_B_FILENAME);
+
+	    // should be false unless profile a and b come from the same file
+	    // (same person on same device)
+	    Test test_a = new Test(profile_b_responses.get(j), a_first_half, same_file, challenge_points);
+	    Test test_b = new Test(profile_b_responses.get(j), b_first_half, true, challenge_points);
+
+	    test_set.add(test_a);
+	    test_set.add(test_b);
+	}
 
 	return test_set;
     }
@@ -127,7 +186,6 @@ public class Effectiveness {
      * @return
      */
     private static ArrayList<Response> get_response_list(String filename) {
-	// TODO
 	Gson gson = new Gson();
 	BufferedReader br = null;
 	Response[] responses = {};
