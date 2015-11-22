@@ -9,7 +9,6 @@ import com.google.gson.Gson;
 
 import dataTypes.Point;
 import dataTypes.Response;
-import dataTypes.UserDevicePair;
 
 /**
  * The goal of this class is to analyze the effectiveness of the authentication
@@ -23,7 +22,7 @@ import dataTypes.UserDevicePair;
 public class Effectiveness {
     public static final String PROFILE_DIRECTORY = "response_profiles/";
     public static final String PROFILE_A_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
-    public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
+    public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_ross";
 
     private static ArrayList<Point> challenge_points;
     private Combination model_parameters;
@@ -41,9 +40,15 @@ public class Effectiveness {
 	// UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS,
 	// UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD));
 
-	Combination self = new Combination(UserDevicePair.PRESSURE_DEFAULT_ALLOWED_DEVIATIONS,
-		UserDevicePair.DISTANCE_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.TIME_DEFAULT_ALLOWED_DEVIATIONS,
-		UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD);
+	// Combination self = new
+	// Combination(UserDevicePair.PRESSURE_DEFAULT_ALLOWED_DEVIATIONS,
+	// UserDevicePair.DISTANCE_DEFAULT_ALLOWED_DEVIATIONS,
+	// UserDevicePair.TIME_DEFAULT_ALLOWED_DEVIATIONS,
+	// UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS,
+	// UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD);
+
+	Combination self = new Combination(1.5, 0, 0, 1, .75);
+	//Combination self = new Combination(1.8, 0, 0, 1, .85);
 
 	// print out the results
 	StringBuilder output = new StringBuilder();

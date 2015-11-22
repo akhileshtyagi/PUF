@@ -33,18 +33,31 @@ public class BestModelParameters {
 	ArrayList<Double> time_length_deviations_list = new ArrayList<Double>();
 	ArrayList<Double> authentication_threshold_list = new ArrayList<Double>();
 
+	// time length deviations doesn't matter right now
+	time_length_deviations_list.add(1.0);
+	distance_deviations_list.add(100.0);
+	time_deviations_list.add(0.0);
+
+	// pressure_deviations_list.add(3.0);
+	// authentication_threshold_list.add(.5);
+	// authentication_threshold_list.add(.75);
+
 	// generate a set of parameters to try for each deviation
 	for (int i = 0; i < 3; i++) {
-	    double deviations = (i * 1) + 1;
+	    double deviations = (i * 1.0) + 1.0;
 	    pressure_deviations_list.add(deviations);
-	    distance_deviations_list.add(deviations);
-	    time_deviations_list.add(deviations);
-	    time_length_deviations_list.add(deviations);
 	}
-
+	
+	// for time
+	for (int i = 0; i < 3; i++) {
+	    double deviations = (i * 1.0) + 1.0;
+	    time_deviations_list.add(deviations);
+	}
+	
 	// for threshold
-	for (int i = 0; i < 50; i++) {
-	    authentication_threshold_list.add((double) (i + 50));
+	int steps = 100;
+	for (int i = 0; i < steps; i++) {
+	    authentication_threshold_list.add(((i * (1.0/steps)) + 0.0));
 	}
 
 	// generate all combinations of these parameters
@@ -54,16 +67,19 @@ public class BestModelParameters {
 		    for (Double time_length_deviation : time_length_deviations_list) {
 			for (Double authentication_threshold : authentication_threshold_list) {
 			    long time = System.currentTimeMillis();
+			    combinations.add(new Combination(new Double(pressure_deviation),
+				    new Double(distance_deviation), new Double(time_deviation),
+				    new Double(time_length_deviation), new Double(authentication_threshold)));
 
-			    combinations.add(new Combination(pressure_deviation, distance_deviation, time_deviation,
-				    time_length_deviation, authentication_threshold));
-
-			    System.out.print("time taken: " + (System.currentTimeMillis() - time) + "\n");
+			    System.out.print("time_taken / accuracy: " + (System.currentTimeMillis() - time) + " / "
+				    + combinations.get(combinations.size() - 1).accuracy + "\n");
 			}
 		    }
 		}
 	    }
 	}
+
+	// System.out.print(combinations);
 
 	// find the combination with the best accuracy
 	Combination best = best_accuracy(combinations);
