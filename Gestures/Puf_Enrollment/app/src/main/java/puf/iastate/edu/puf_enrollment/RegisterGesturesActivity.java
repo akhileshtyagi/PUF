@@ -3,31 +3,25 @@ package puf.iastate.edu.puf_enrollment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.os.Environment;
-import android.provider.ContactsContract;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.os.Environment;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
 import data.DataReader;
 import dataTypes.Challenge;
-import dataTypes.Profile;
 import dataTypes.Response;
-
-import com.google.gson.Gson;
 
 public class RegisterGesturesActivity extends AppCompatActivity implements PufDrawView.ResponseListener{
 
@@ -61,20 +55,25 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
 
         //Grab pin from PinPatternGen Activity
         Intent i = getIntent();
-        mCg = new ChallengeGenerator(i.getIntExtra("pin", 0)); //Default value is nada
+
+
 
         //Get mode of operation (enroll or authenticate)
         mode = i.getStringExtra("mode");
         if(mode.equals("authenticate")) {
             mRemainingView.setText("Authenticating");
-            mSeed = i.getLongExtra("seed",0);
+            mSeed = seed.curseed;
+            System.out.println("CurrentSeed = "+ mSeed);
         }
-
         //Set the seed for referential purposes
         else {
-            mSeed = mCg.getSeed();
+            seed.curseed = i.getIntExtra("pin", 0); //Default value is nada
+            mSeed = seed.curseed;
+            seed.curseed= mSeed;
+            System.out.println("CurrentSeed = "+ mSeed);
         }
 
+        mCg = new ChallengeGenerator(mSeed);
         mSeedView.setText("Seed: " + mSeed);
 
         //Setup an initial challenge and give the challenge
@@ -99,7 +98,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
                 DataReader reader = new DataReader(new File(Environment.getExternalStorageDirectory() + "/PUFProfile"));
                 Gson gson = new Gson();
                 Toast.makeText(this, "Completed Authentication", Toast.LENGTH_SHORT).show();
-                Challenge challenge = new Challenge(mChallengePoints, mSeed);
+                Challenge challenge = new Challenge(mChallengePoints, (int)mSeed);
                 for (Response r : mResponses) {
                     challenge.addResponse(r);
                 }
