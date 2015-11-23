@@ -20,10 +20,16 @@ import dataTypes.Response;
  *
  */
 public class Effectiveness {
+    public enum ChallengeType{
+	BOX, BIG_SQUIGGLE;
+    }
+    
     public static final String PROFILE_DIRECTORY = "response_profiles/";
     public static final String PROFILE_A_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
-    public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_ross";
+    public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
 
+    public static final ChallengeType CHALLENGE_TYPE = ChallengeType.BIG_SQUIGGLE;
+    
     private static ArrayList<Point> challenge_points;
     private Combination model_parameters;
 
@@ -83,8 +89,21 @@ public class Effectiveness {
     private static void set_up_challenge_points() {
 	// set up the challenge points
 	challenge_points = new ArrayList<Point>();
-	challenge_points.add(new Point(150, 150, 0));
-	challenge_points.add(new Point(600, 150, 0));
+	
+	switch(CHALLENGE_TYPE){
+	case BOX:
+	    challenge_points.add(new Point(150, 150, 0));
+	    challenge_points.add(new Point(600, 150, 0));
+	    break;
+	case BIG_SQUIGGLE:
+	    // on nexus 7
+	    challenge_points.add(new Point(88, 75, 0));
+	    challenge_points.add(new Point(274, 752, 0));
+	    challenge_points.add(new Point(461, 300, 0));
+	    challenge_points.add(new Point(648, 978, 0));
+	    break;
+	}
+	
     }
 
     private void analyze_test_results(ArrayList<Test> test_set) {

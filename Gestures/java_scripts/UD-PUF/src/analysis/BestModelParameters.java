@@ -33,15 +33,6 @@ public class BestModelParameters {
 	ArrayList<Double> time_length_deviations_list = new ArrayList<Double>();
 	ArrayList<Double> authentication_threshold_list = new ArrayList<Double>();
 
-	// time length deviations doesn't matter right now
-	time_length_deviations_list.add(1.0);
-	distance_deviations_list.add(100.0);
-	time_deviations_list.add(0.0);
-
-	// pressure_deviations_list.add(3.0);
-	// authentication_threshold_list.add(.5);
-	// authentication_threshold_list.add(.75);
-
 	// generate a set of parameters to try for each deviation
 	for (int i = 0; i < 3; i++) {
 	    double deviations = (i * 1.0) + 1.0;
@@ -54,12 +45,24 @@ public class BestModelParameters {
 	    time_deviations_list.add(deviations);
 	}
 	
-	// for threshold
+	// for authentication threshold
 	int steps = 100;
 	for (int i = 0; i < steps; i++) {
 	    authentication_threshold_list.add(((i * (1.0/steps)) + 0.0));
 	}
-
+	
+	// for distance
+	for (int i = 0; i < 3; i++) {
+	    double deviations = (i * 1.0) + 1.0;
+	    distance_deviations_list.add(deviations);
+	}
+	
+	// for time length
+	for (int i = 0; i < 1; i++) {
+	    double deviations = (i * 1.0) + 1.0;
+	    time_length_deviations_list.add(deviations);
+	}
+	
 	// generate all combinations of these parameters
 	for (Double pressure_deviation : pressure_deviations_list) {
 	    for (Double distance_deviation : distance_deviations_list) {
