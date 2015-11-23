@@ -48,4 +48,14 @@
         android:id="@+id/grab_profile_button"
         android:onClick="grab_profile"/>
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Secret"
+        android:id="@+id/secret"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="secret_pressed" />
+
 </RelativeLayout>

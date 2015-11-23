@@ -42,7 +42,7 @@ import dataTypes.UserDevicePair;
 public class Activity_menu extends AppCompatActivity {
     public static final String SHARED_PREFERENCES_FILE = "swipe_box_preferences";
     public static final String ANALYSIS_FILENAME = "analysis_interpoint_time";
-    public static final String RESPONSES_FILENAME = "response_profile_carlos";
+    public static final String RESPONSES_FILENAME = "response_profile_friend";
 
     private Challenge challenge;
     private ArrayList<Response> responses;

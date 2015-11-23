@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -11,6 +12,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Activity_swipe_box extends AppCompatActivity {
+    public enum ChallengeType {
+        BOX, BIG_SQUIGGLE;
+    }
+
+    public final ChallengeType CHALLENGE_TYPE= ChallengeType.BIG_SQUIGGLE;
 
     PufDrawView pufDrawView;
     private int box_width;
@@ -34,7 +40,20 @@ public class Activity_swipe_box extends AppCompatActivity {
         this.box_width = this.getIntent().getIntExtra("box_width", 0);
         this.box_upper_left_corner = (Point)(this.getIntent().getExtras().getSerializable("box_upper_left_corner"));
 
-        ArrayList<Point> challenge = generateChallenge();
+        // get the challenge type from the extra
+        // TODO
+
+        ArrayList<Point> challenge;
+
+        switch(CHALLENGE_TYPE){
+            case BIG_SQUIGGLE:
+                challenge = generateSquiggleChallenge();
+                break;
+            default:
+                challenge = generateChallenge();
+                break;
+        }
+
         pufDrawView.giveChallenge(challenge.toArray(new Point[challenge.size()]));
     }
 
@@ -70,7 +89,7 @@ public class Activity_swipe_box extends AppCompatActivity {
         ArrayList<Point> challenge_list = new ArrayList<Point>();
 
         // width = 750, height = 300 seems to work fine
-        challenge_list.addAll(create_box_challenge(box_width, box_height, (int)(box_upper_left_corner.x), (int)(box_upper_left_corner.y)));
+        challenge_list.addAll(create_box_challenge(box_width, box_height, (int) (box_upper_left_corner.x), (int) (box_upper_left_corner.y)));
 
         return challenge_list;
     }
@@ -89,9 +108,31 @@ public class Activity_swipe_box extends AppCompatActivity {
         box_corner_list.add(new Point(x_offset+x_size,y_offset,0,0));
         box_corner_list.add(new Point(x_offset+x_size,y_offset + y_size,0,0));
         box_corner_list.add(new Point(x_offset,y_offset + y_size,0,0));
-        box_corner_list.add(new Point(x_offset,y_offset,0,0));
+        box_corner_list.add(new Point(x_offset, y_offset, 0, 0));
 
         return box_corner_list;
     }
 
+    /**
+     * generates a big squiggle. This is meant to emulate the way NG will use this.
+     */
+    private ArrayList<Point> generateSquiggleChallenge(){
+        ArrayList<Point> challenge_list = new ArrayList<Point>();
+
+        // get some properties of the screen
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int bounding_box_width = (int)(metrics.widthPixels * .7);
+        int bounding_box_height = (int)(metrics.heightPixels * 6 / 8);
+
+        // width = 750, height = 300 seems to work fine
+        //challenge_list.addAll(create_box_challenge(box_width, box_height, (int) (box_upper_left_corner.x), (int) (box_upper_left_corner.y)));
+        challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y, 0, 0));
+        challenge_list.add(new Point(this.box_upper_left_corner.x + (bounding_box_width / 3), box_upper_left_corner.y + (bounding_box_height * 3 / 4), 0, 0));
+        challenge_list.add(new Point(this.box_upper_left_corner.x+ (bounding_box_width * 2 / 3), box_upper_left_corner.y + (bounding_box_height / 4), 0, 0));
+        challenge_list.add(new Point(this.box_upper_left_corner.x + bounding_box_width, box_upper_left_corner.y + bounding_box_height, 0, 0));
+
+        return challenge_list;
+    }
 }

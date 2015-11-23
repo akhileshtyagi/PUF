@@ -38,6 +38,11 @@
             android:name=".Authenticate"
             android:label="@string/title_activity_authenticate" >
         </activity>
+        <activity
+            android:name=".SecretAcrivity"
+            android:label="@string/title_activity_secret_acrivity"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

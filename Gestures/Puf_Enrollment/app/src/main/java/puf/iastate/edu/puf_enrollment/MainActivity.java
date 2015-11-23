@@ -50,6 +50,11 @@ public class MainActivity extends AppCompatActivity  {
         startActivity(intent);
     }
 
-
-
+    /**
+     * start the super secret activity
+     */
+    public void secret_pressed(View v){
+        Intent intent = new Intent(this, SecretAcrivity.class);
+        startActivity(intent);
+    }
 }
