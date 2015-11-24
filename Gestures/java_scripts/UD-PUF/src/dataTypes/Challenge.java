@@ -13,6 +13,9 @@ public class Challenge {
     // number of elements in normalized list default value.
     final static int NORMALIZED_ELEMENTS_DEFAULT = 32;
 
+    // threshold for determining if response has enough motion events
+    final static int NORMALIZED_THRESHOLD = 20;
+
     // number of elements in the normalized list
     private int normalized_elements;
 
@@ -50,48 +53,56 @@ public class Challenge {
      * @param normalizationPoints
      */
     public Challenge(List<Point> challengePattern, long challengeID, int normalizationPoints) {
-	this.challengePattern = challengePattern;
-	this.challengeID = challengeID;
-	this.normalized_elements = normalizationPoints;
+        this.challengePattern = challengePattern;
+        this.challengeID = challengeID;
+        this.normalized_elements = normalizationPoints;
 
-	responses = new ArrayList<Response>();
-	this.time_lengths = new ArrayList<Double>();
-	profile = null;
+        responses = new ArrayList<Response>();
+        this.time_lengths = new ArrayList<Double>();
+        profile = null;
 
-	// determine if the challenge is more horizontal or more vertical in
-	// orientationjjjj
-	double x_dist = computeChallengeXDistance();
-	double y_dist = computeChallengeYDistance();
-	isChallengeHorizontal = x_dist > y_dist;
-
-	// compute the list of points used to normalize the responses to this
-	// challenge
-	normalizingPoints = computeNormalizingPoints(x_dist, y_dist);
     }
 
     // Adds normalized response to the list or Responses
     public void addResponse(Response response) {
-	// add the time length of the response to the list
-	this.time_lengths.add(response.getTimeLength());
+        // add the time length of the response to the list
+        this.time_lengths.add(response.getTimeLength());
 
-	// normlaize the response before it is added to the challenge
-	response.normalize(normalizingPoints, isChallengeHorizontal);
+        // If first response added, use it as baseline for number of normalization points,
+        // then calculated normalizing points with
+        if(responses.size() <= 0) {
+            this.normalized_elements = response.getResponse().size() - NORMALIZED_THRESHOLD;
+            // determine if the challenge is more horizontal or more vertical in
+            // orientation
+            double x_dist = computeChallengeXDistance();
+            double y_dist = computeChallengeYDistance();
+            isChallengeHorizontal = x_dist > y_dist;
 
-	responses.add(response);
+            // compute the list of points used to normalize the responses to this
+            // challenge
+            normalizingPoints = computeNormalizingPoints(x_dist, y_dist);
+        }
 
-	// profile is now invalid and needs to be re-computed
-	this.profile = null;
+        // normalize the response before it is added to the challenge
+        response.normalize(normalizingPoints, isChallengeHorizontal);
+
+        responses.add(response);
+
+        // profile is now invalid and needs to be re-computed
+        this.profile = null;
     }
 
     // Creates a profile associate with this challenge with NORMALIZED responses
     public Profile getProfile() {
-	// if the profile hasn't been created, create the profile
-	if (profile == null) {
-	    // all properties of the points are computed when this is created
-	    profile = new Profile(responses, time_lengths);
-	}
-	return profile;
+        // if the profile hasn't been created, create the profile
+        if (profile == null) {
+            // all properties of the points are computed when this is created
+            profile = new Profile(responses, time_lengths);
+        }
+        return profile;
     }
+
+    public int getNormalizedElementsCount() { return normalized_elements; }
 
     public void setChallengeID(long challengeID) {
 	this.challengeID = challengeID;
@@ -117,17 +128,17 @@ public class Challenge {
      * computes a list of points to be used in normalization of responses
      */
     private List<Point> computeNormalizingPoints(double x_dist, double y_dist) {
-	List<Point> x_y_list;
+        List<Point> x_y_list;
 
-	if (isChallengeHorizontal) {
-	    // normalize with respect to x
-	    x_y_list = computeHorizontalPointsAlongChallenge(x_dist);
-	} else {
-	    // normalize with respect to y
-	    x_y_list = computeVerticalPointsAlongChallenge(y_dist);
-	}
+        if (isChallengeHorizontal) {
+            // normalize with respect to x
+            x_y_list = computeHorizontalPointsAlongChallenge(x_dist);
+        } else {
+            // normalize with respect to y
+            x_y_list = computeVerticalPointsAlongChallenge(y_dist);
+        }
 
-	return x_y_list;
+        return x_y_list;
     }
 
     /**

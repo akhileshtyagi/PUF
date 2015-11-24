@@ -39,6 +39,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     private Challenge mChallenge;
     private ArrayList<Response> mResponses;
     private ArrayList<dataTypes.Point> mChallengePoints;
+    private boolean mChallengePointsAssigned;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +85,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
 
         //Initialize remaining swipes
         mRemainingSwipes = 20;
+        mChallengePointsAssigned = false;
     }
 
     /**
@@ -94,18 +96,14 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     @Override
     public void onResponseAttempt(ArrayList<Point> response) {
         if (mode.equals("enroll")) {
-            if (--mRemainingSwipes == 0) {
+            if (mRemainingSwipes-- == 0) {
                 DataReader reader = new DataReader(new File(Environment.getExternalStorageDirectory() + "/PUFProfile"));
                 Gson gson = new Gson();
                 Toast.makeText(this, "Completed Authentication", Toast.LENGTH_SHORT).show();
-                Challenge challenge = new Challenge(mChallengePoints, (int)mSeed);
-                for (Response r : mResponses) {
-                    challenge.addResponse(r);
-                }
-                String json = gson.toJson(challenge, challenge.getClass());
+                String json = gson.toJson(mChallenge, mChallenge.getClass());
 
-                Log.d("distance mu", challenge.getProfile().getPointDistanceMuSigmaValues().getMuValues().toString());
-                Log.d("distance sigma", challenge.getProfile().getPointDistanceMuSigmaValues().getSigmaValues().toString());
+                Log.d("distance mu", mChallenge.getProfile().getPointDistanceMuSigmaValues().getMuValues().toString());
+                Log.d("distance sigma", mChallenge.getProfile().getPointDistanceMuSigmaValues().getSigmaValues().toString());
 
                 SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.profile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
@@ -136,9 +134,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
      */
     public void writeResponseCsv(ArrayList<Point> response, String deviceName, String testerName)
     {
-
         ArrayList<dataTypes.Point> points = new ArrayList<>();
-
         File baseDir;
 
         //File baseDir = new File(getFilesDir(), "PUFProfile");
@@ -150,7 +146,6 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
             baseDir.mkdirs();
         }
 
-        //String fileName = mSeed + ": " + deviceName + " " + testerName + " " + getCurrentLocalTime() + ".csv";
         String fileName = mSeed + ": " + getCurrentLocalTime() + ".csv";
 
         File f = new File(baseDir, fileName);
@@ -170,7 +165,12 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
                         deviceName };
                 csvWrite.writeNext(row);
 
-                if(mChallengePoints.size() < 4)mChallengePoints.add(new dataTypes.Point(point.x,point.y,0));
+                if(!mChallengePointsAssigned) mChallengePoints.add(new dataTypes.Point(point.x,point.y,0));
+            }
+
+            if(!mChallengePointsAssigned) {
+                mChallenge = new Challenge(mChallengePoints, (int)mSeed);
+                mChallengePointsAssigned = true;
             }
 
             String[] headers = { "X", "Y", "PRESSURE" };
@@ -186,7 +186,9 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
                 csvWrite.writeNext(row);
                 points.add(new dataTypes.Point(point.x, point.y, point.pressure));
             }
-            mResponses.add(new Response(points));
+            Response tempResponse = new Response(points, response.size());
+            mResponses.add(new Response(tempResponse.getResponse()));
+            mChallenge.addResponse(tempResponse);
             csvWrite.close();
 
             Toast.makeText(this, "Challenge response written to CSV.", Toast.LENGTH_SHORT).show();

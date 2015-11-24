@@ -13,19 +13,29 @@ public class Response implements Serializable {
     // List of points which the user swiped
     private ArrayList<Point> responsePattern;
 
+	// Count of motion events this response originally had
+	private int motionEvenCount;
+
     public Response(List<Point> responsePattern) {
 	this.responsePattern = new ArrayList<Point>(responsePattern);
-    }
+    motionEvenCount = 0;
+	}
 
-    public List<Point> getResponse() {
+	public Response(List<Point> responsePattern, int motionEvenCount) {
+		this.responsePattern = new ArrayList<Point>(responsePattern);
+		this.motionEvenCount = motionEvenCount;
+	}
+
+	public List<Point> getResponse() {
 	return responsePattern;
     }
 
+	public int getMotionEvenCount() { return motionEvenCount; }
     /**
      * returns the time of the last point minus the time of the first point.
      * This method preforms the function literally. the time mig variable will
-     * be changed durring normalization. After the point is normalized this will
-     * mostlikly reutrn a different value compared to before the response being
+     * be changed during normalization. After the point is normalized this will
+     * most likely return a different value compared to before the response being
      * normalized.
      */
     public double getTimeLength() {

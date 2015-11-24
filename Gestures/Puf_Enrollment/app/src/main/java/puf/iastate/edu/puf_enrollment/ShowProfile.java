@@ -38,6 +38,7 @@ public class ShowProfile extends Activity {
 
             Log.d("number of responses", new Integer(mChallenge.getProfile().getNormalizedResponses().size()).toString());
 
+            sb.append("Number of Normalized Points: " + mChallenge.getNormalizedElementsCount() + "\n\n");
             sb.append("Challenge Points:\n");
             sb.append("X: " + mChallenge.getChallengePattern().get(0).getX() + ", Y: " + mChallenge.getChallengePattern().get(0).getY() + "\n");
             sb.append("X: " + mChallenge.getChallengePattern().get(1).getX() + ", Y: " + mChallenge.getChallengePattern().get(1).getY() + "\n");
@@ -46,19 +47,19 @@ public class ShowProfile extends Activity {
 
             sb.append("\nNormalized Pressure Mu and Sigma values\n");
 
-            for(int i = 0; i < mChallenge.getProfile().getNormalizedResponses().size(); i++) {
+            for(int i = 0; i < mChallenge.getNormalizedElementsCount(); i++) {
                 sb.append("Mu: " + String.format("%.4f",mChallenge.getProfile().getPressureMuSigmaValues().getMuValues().get(i)) + ", Sigma: " + String.format("%.4f",mChallenge.getProfile().getPressureMuSigmaValues().getSigmaValues().get(i)) + "\n");
             }
 
             sb.append("\nNormalized Time Mu and Sigma values\n");
 
-            for(int i = 0; i < mChallenge.getProfile().getNormalizedResponses().size(); i++) {
+            for(int i = 0; i < mChallenge.getNormalizedElementsCount(); i++) {
                 sb.append("Mu: " + String.format("%.4f",mChallenge.getProfile().getTimeDistanceMuSigmaValues().getMuValues().get(i)) + ", Sigma: " + String.format("%.4f", mChallenge.getProfile().getTimeDistanceMuSigmaValues().getSigmaValues().get(i)) + "\n");
             }
 
             sb.append("\nNormalized Point Distance Mu and Sigma values\n");
 
-            for(int i = 0; i < mChallenge.getProfile().getNormalizedResponses().size(); i++) {
+            for(int i = 0; i < mChallenge.getNormalizedElementsCount(); i++) {
                 sb.append("Mu: " + String.format("%.4f",mChallenge.getProfile().getPointDistanceMuSigmaValues().getMuValues().get(i)) + ", Sigma: " + String.format("%.4f",mChallenge.getProfile().getPointDistanceMuSigmaValues().getSigmaValues().get(i)) + "\n");
             }
 
