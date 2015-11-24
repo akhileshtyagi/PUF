@@ -20,16 +20,16 @@ import dataTypes.Response;
  *
  */
 public class Effectiveness {
-    public enum ChallengeType{
-	BOX, BIG_SQUIGGLE;
+    public enum ChallengeType {
+	BOX, BIG_SQUIGGLE, CHECK;
     }
-    
+
     public static final String PROFILE_DIRECTORY = "response_profiles/";
     public static final String PROFILE_A_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
-    public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
+    public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_josh";
 
-    public static final ChallengeType CHALLENGE_TYPE = ChallengeType.BIG_SQUIGGLE;
-    
+    public static final ChallengeType CHALLENGE_TYPE = ChallengeType.CHECK;
+
     private static ArrayList<Point> challenge_points;
     private Combination model_parameters;
 
@@ -53,8 +53,8 @@ public class Effectiveness {
 	// UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS,
 	// UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD);
 
-	Combination self = new Combination(1.5, 0, 0, 1, .75);
-	//Combination self = new Combination(1.8, 0, 0, 1, .85);
+	Combination self = new Combination(1.5, 0, .5, 0, .8);
+	// Combination self = new Combination(1.8, 0, 0, 1, .85);
 
 	// print out the results
 	StringBuilder output = new StringBuilder();
@@ -89,11 +89,12 @@ public class Effectiveness {
     private static void set_up_challenge_points() {
 	// set up the challenge points
 	challenge_points = new ArrayList<Point>();
-	
-	switch(CHALLENGE_TYPE){
+
+	switch (CHALLENGE_TYPE) {
 	case BOX:
-	    challenge_points.add(new Point(150, 150, 0));
-	    challenge_points.add(new Point(600, 150, 0));
+	    // on nesus 7
+	    challenge_points.add(new Point(88, 150, 0));
+	    challenge_points.add(new Point(648, 150, 0));
 	    break;
 	case BIG_SQUIGGLE:
 	    // on nexus 7
@@ -102,8 +103,14 @@ public class Effectiveness {
 	    challenge_points.add(new Point(461, 300, 0));
 	    challenge_points.add(new Point(648, 978, 0));
 	    break;
+	case CHECK:
+	    // on nexus 7
+	    challenge_points.add(new Point(88, 75, 0));
+	    challenge_points.add(new Point(188, 376, 0));
+	    challenge_points.add(new Point(288, 275, 0));
+	    break;
 	}
-	
+
     }
 
     private void analyze_test_results(ArrayList<Test> test_set) {

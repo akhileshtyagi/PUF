@@ -18,6 +18,13 @@ public class UserDevicePair {
 	PRESSURE, DISTANCE, TIME, TIME_LENGTH
     }
 
+    public enum AuthenticationPredicate {
+	PRESSURE, NO_PRESSURE, TIME, DISTANCE, TIME_LENGTH, TIME_OR_DISTANCE;
+    }
+
+    // determine what type of predicate to authenticate with
+    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.TIME_LENGTH;
+
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
 
@@ -158,10 +165,16 @@ public class UserDevicePair {
 	this.distance_authentication_failed_point_ratio = ((double) failed_distance_points) / list_size;
 	this.time_authentication_failed_point_ratio = ((double) failed_time_points) / list_size;
 
+	double response_time_length = new_response_data.get(new_response_data.size() - 1).getTime()
+		- new_response_data.get(0).getTime();
+	boolean time_length_within_sigma = (Math.abs(profile.getTimeLengthMu()
+		- response_time_length) <= (profile.getTimeLengthSigma() * this.time_length_allowed_deviations));
+
 	// if the fraction of points that pass is greater than the
 	// authentication threshold, then we pass this person
 	return authenticatePreticate(this.pressure_authentication_failed_point_ratio,
-		this.distance_authentication_failed_point_ratio, this.time_authentication_failed_point_ratio);
+		this.distance_authentication_failed_point_ratio, this.time_authentication_failed_point_ratio,
+		time_length_within_sigma);
     }
 
     /**
@@ -169,12 +182,39 @@ public class UserDevicePair {
      * device passes. preticate: (pressure) or (distance and time)
      */
     private boolean authenticatePreticate(double pressure_failed_point_ratio, double distance_failed_point_ratio,
-	    double time_failed_point_ratio) {
+	    double time_failed_point_ratio, boolean time_length_within_sigma) {
+	boolean pass = false;
+
 	boolean pressure_pass = (1 - pressure_failed_point_ratio) > this.authentication_threshold;
 	boolean distance_pass = (1 - distance_failed_point_ratio) > this.authentication_threshold;
 	boolean time_pass = (1 - time_failed_point_ratio) > this.authentication_threshold;
+	boolean time_length_pass = time_length_within_sigma;
 
-	return pressure_pass || (distance_pass && time_pass);
+	switch (AUTHENTICATION_PREDICATE) {
+	case TIME_OR_DISTANCE:
+	    pass = time_pass || distance_pass;
+	    break;
+	case TIME_LENGTH:
+	    pass = time_length_pass;
+	    break;
+	case DISTANCE:
+	    pass = distance_pass;
+	    break;
+	case PRESSURE:
+	    pass = pressure_pass;
+	    break;
+	case NO_PRESSURE:
+	    pass = distance_pass && time_pass;
+	    break;
+	case TIME:
+	    pass = time_pass;
+	    break;
+	default:
+	    pass = pressure_pass || (distance_pass && time_pass);
+	    break;
+	}
+
+	return pass;
     }
 
     /**
@@ -231,7 +271,7 @@ public class UserDevicePair {
 	case TIME:
 	    this.time_allowed_deviations = standard_deviations;
 	    break;
-	    
+
 	case TIME_LENGTH:
 	    this.time_length_allowed_deviations = standard_deviations;
 	    break;
