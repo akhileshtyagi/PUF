@@ -13,10 +13,10 @@ import java.util.List;
 
 public class Activity_swipe_box extends AppCompatActivity {
     public enum ChallengeType {
-        BOX, BIG_SQUIGGLE;
+        BOX, BIG_SQUIGGLE, CHECK;
     }
 
-    public final ChallengeType CHALLENGE_TYPE= ChallengeType.BIG_SQUIGGLE;
+    public final ChallengeType CHALLENGE_TYPE= ChallengeType.CHECK;
 
     PufDrawView pufDrawView;
     private int box_width;
@@ -46,6 +46,9 @@ public class Activity_swipe_box extends AppCompatActivity {
         ArrayList<Point> challenge;
 
         switch(CHALLENGE_TYPE){
+            case CHECK:
+                challenge = generateCheckChallenge();
+                break;
             case BIG_SQUIGGLE:
                 challenge = generateSquiggleChallenge();
                 break;
@@ -54,6 +57,7 @@ public class Activity_swipe_box extends AppCompatActivity {
                 break;
         }
 
+        Log.d("challenge: ", challenge.toString());
         pufDrawView.giveChallenge(challenge.toArray(new Point[challenge.size()]));
     }
 
@@ -132,6 +136,26 @@ public class Activity_swipe_box extends AppCompatActivity {
         challenge_list.add(new Point(this.box_upper_left_corner.x + (bounding_box_width / 3), box_upper_left_corner.y + (bounding_box_height * 3 / 4), 0, 0));
         challenge_list.add(new Point(this.box_upper_left_corner.x+ (bounding_box_width * 2 / 3), box_upper_left_corner.y + (bounding_box_height / 4), 0, 0));
         challenge_list.add(new Point(this.box_upper_left_corner.x + bounding_box_width, box_upper_left_corner.y + bounding_box_height, 0, 0));
+
+        return challenge_list;
+    }
+
+    private ArrayList<Point> generateCheckChallenge(){
+        ArrayList<Point> challenge_list = new ArrayList<Point>();
+
+        // get some properties of the screen
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int bounding_box_width = (int)(metrics.widthPixels / 4);
+        int bounding_box_height = (int)(metrics.heightPixels / 4);
+
+        // width = 750, height = 300 seems to work fine
+        //challenge_list.addAll(create_box_challenge(box_width, box_height, (int) (box_upper_left_corner.x), (int) (box_upper_left_corner.y)));
+        challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y, 0, 0));
+        challenge_list.add(new Point(this.box_upper_left_corner.x + (bounding_box_width / 2), box_upper_left_corner.y + bounding_box_height , 0, 0));
+        challenge_list.add(new Point(this.box_upper_left_corner.x+ bounding_box_width, box_upper_left_corner.y + (bounding_box_height * 2 / 3), 0, 0));
+        challenge_list.add(new Point(this.box_upper_left_corner.x+ bounding_box_width, box_upper_left_corner.y + (bounding_box_height * 2 / 3), 0, 0));
 
         return challenge_list;
     }

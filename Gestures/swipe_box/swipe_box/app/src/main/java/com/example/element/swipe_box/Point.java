@@ -17,4 +17,18 @@ public class Point implements java.io.Serializable
         this.pressure = _pressure;
         this.time = _time;
     }
+
+    @Override
+    public String toString(){
+        StringBuilder output = new StringBuilder();
+
+        output.append("[");
+        output.append("x:" + this.x + ", ");
+        output.append("y:" + this.y + ", ");
+        output.append("pressure:" + this.pressure + ", ");
+        output.append("time:" + this.time + ", ");
+        output.append("]");
+
+        return output.toString();
+    }
 }
