@@ -150,6 +150,13 @@ public class UserDevicePair {
 	    return false;
 	}
 
+    // if number of points in new response data is not within 3 sigma of mean of
+    // MotionEvent objects in profile's challenge, reject it immediately
+    if (new_response_data.size() < (profile.getMotionEventCountMu() - (3 * profile.getMotionEventCountSigma()))
+            || (new_response_data.size() > (profile.getMotionEventCountMu() + (3 * profile.getMotionEventCountSigma())))) {
+        return false;
+    }
+
 	// determine the number of failed points
 	int failed_pressure_points = failed_pressure_points(new_response_data, profile,
 		this.pressure_allowed_deviations);
@@ -281,9 +288,6 @@ public class UserDevicePair {
     /**
      * return the challenge with the given challenge_id
      * 
-     * @param new_response
-     * @param challenge_profile
-     * @param allowed_deviations
      * @return
      */
     private Challenge get_challenge_index(long challenge_id) {

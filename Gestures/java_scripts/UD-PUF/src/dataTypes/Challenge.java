@@ -19,6 +19,10 @@ public class Challenge {
     // number of elements in the normalized list
     private int normalized_elements;
 
+    // a list of number of points in each response added to the challenge
+    // (used for computing mu/sigma of number of MotionEvents
+    private ArrayList<Double> motion_event_counts;
+
     // Pattern of points that create the challenge
     private List<Point> challengePattern;
 
@@ -60,7 +64,7 @@ public class Challenge {
         responses = new ArrayList<Response>();
         this.time_lengths = new ArrayList<Double>();
         profile = null;
-
+        motion_event_counts = new ArrayList<Double>();
     }
 
     // Adds normalized response to the list or Responses
@@ -71,7 +75,8 @@ public class Challenge {
         // If first response added, use it as baseline for number of normalization points,
         // then calculated normalizing points with
         if(responses.size() <= 0) {
-            this.normalized_elements = response.getResponse().size() - NORMALIZED_THRESHOLD;
+            this.normalized_elements = response.getResponse().size();
+//            this.normalized_elements = 32;
             // determine if the challenge is more horizontal or more vertical in
             // orientation
             double x_dist = computeChallengeXDistance();
@@ -82,6 +87,9 @@ public class Challenge {
             // challenge
             normalizingPoints = computeNormalizingPoints(x_dist, y_dist);
         }
+
+        // before normalizing response, add length of the response to list of motion_event_counts
+        motion_event_counts.add(new Double(response.getMotionEvenCount()));
 
         // normalize the response before it is added to the challenge
         response.normalize(normalizingPoints, isChallengeHorizontal);
@@ -97,7 +105,7 @@ public class Challenge {
         // if the profile hasn't been created, create the profile
         if (profile == null) {
             // all properties of the points are computed when this is created
-            profile = new Profile(responses, time_lengths);
+            profile = new Profile(responses, time_lengths, motion_event_counts);
         }
         return profile;
     }
@@ -112,6 +120,9 @@ public class Challenge {
 	return challengeID;
     }
 
+    public List<Double> getmotion_event_counts() {
+        return motion_event_counts;
+    }
     public List<Point> getChallengePattern() {
 	return challengePattern;
     }
@@ -203,7 +214,6 @@ public class Challenge {
     /**
      * computes the y distance covered by this challenge
      * 
-     * @param response
      * @return
      */
     private double computeChallengeYDistance() {
@@ -231,7 +241,6 @@ public class Challenge {
     /**
      * computes the x distance covered by this challenge
      * 
-     * @param response
      * @return
      */
     private double computeChallengeXDistance() {

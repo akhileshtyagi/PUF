@@ -18,13 +18,9 @@ public class Response implements Serializable {
 
     public Response(List<Point> responsePattern) {
 	this.responsePattern = new ArrayList<Point>(responsePattern);
-    motionEvenCount = 0;
+    motionEvenCount = responsePattern.size();
 	}
 
-	public Response(List<Point> responsePattern, int motionEvenCount) {
-		this.responsePattern = new ArrayList<Point>(responsePattern);
-		this.motionEvenCount = motionEvenCount;
-	}
 
 	public List<Point> getResponse() {
 	return responsePattern;
