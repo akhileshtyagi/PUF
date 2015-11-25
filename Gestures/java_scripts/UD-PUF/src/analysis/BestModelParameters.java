@@ -34,35 +34,40 @@ public class BestModelParameters {
 	ArrayList<Double> authentication_threshold_list = new ArrayList<Double>();
 
 	// generate a set of parameters to try for each deviation
-	for (int i = 0; i < 3; i++) {
-	    double deviations = (i * 1.0) + 1.0;
+	// for pressure
+	int p_steps = 1;
+	for (int i = 0; i < p_steps; i++) {
+	    double deviations = (i * (2.0 / p_steps)) + 0.0;
 	    pressure_deviations_list.add(deviations);
 	}
-	
+
 	// for time
-	for (int i = 0; i < 3; i++) {
-	    double deviations = (i * 1.0) + 1.0;
+	int t_steps = 1;
+	for (int i = 0; i < t_steps; i++) {
+	    double deviations = (i * 1.0 / t_steps) + 0.0; // + .275;
 	    time_deviations_list.add(deviations);
 	}
-	
+
 	// for authentication threshold
-	int steps = 100;
-	for (int i = 0; i < steps; i++) {
-	    authentication_threshold_list.add(((i * (1.0/steps)) + 0.0));
+	int a_steps = 20;
+	for (int i = 0; i < a_steps; i++) {
+	    authentication_threshold_list.add(((i * (1.0 / a_steps)) + 0.0));
 	}
-	
+
 	// for distance
-	for (int i = 0; i < 3; i++) {
-	    double deviations = (i * 1.0) + 1.0;
+	int d_steps = 1;
+	for (int i = 0; i < d_steps; i++) {
+	    double deviations = (i * 3.0 / d_steps) + 0.0;
 	    distance_deviations_list.add(deviations);
 	}
-	
+
 	// for time length
-	for (int i = 0; i < 1; i++) {
-	    double deviations = (i * 1.0) + 1.0;
+	int tl_steps = 300;
+	for (int i = 0; i < tl_steps; i++) {
+	    double deviations = (i * 3.0 / tl_steps) + 0.0;
 	    time_length_deviations_list.add(deviations);
 	}
-	
+
 	// generate all combinations of these parameters
 	for (Double pressure_deviation : pressure_deviations_list) {
 	    for (Double distance_deviation : distance_deviations_list) {
