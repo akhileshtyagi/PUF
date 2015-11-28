@@ -13,26 +13,28 @@ public class Response implements Serializable {
     // List of points which the user swiped
     private ArrayList<Point> responsePattern;
 
-	// Count of motion events this response originally had
-	private int motionEvenCount;
+    // Count of motion events this response originally had
+    private int motionEvenCount;
 
     public Response(List<Point> responsePattern) {
 	this.responsePattern = new ArrayList<Point>(responsePattern);
-    motionEvenCount = responsePattern.size();
-	}
+	motionEvenCount = responsePattern.size();
+    }
 
-
-	public List<Point> getResponse() {
+    public List<Point> getResponse() {
 	return responsePattern;
     }
 
-	public int getMotionEvenCount() { return motionEvenCount; }
+    public int getMotionEvenCount() {
+	return motionEvenCount;
+    }
+
     /**
      * returns the time of the last point minus the time of the first point.
      * This method preforms the function literally. the time mig variable will
      * be changed during normalization. After the point is normalized this will
-     * most likely return a different value compared to before the response being
-     * normalized.
+     * most likely return a different value compared to before the response
+     * being normalized.
      */
     public double getTimeLength() {
 	return responsePattern.get(responsePattern.size() - 1).getTime() - responsePattern.get(0).getTime();
@@ -54,7 +56,7 @@ public class Response implements Serializable {
 	double pressure = 0;
 	double point_distance = 0;
 	double time = 0;
-	
+
 	// we need to find the correct pressure value for each normalizingPoints
 	for (Point normalizingPoint : normalizingPoints) {
 	    // if the person did the challenge in the correct direction

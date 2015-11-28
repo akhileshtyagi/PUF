@@ -24,8 +24,8 @@ public class Profile implements Serializable {
     // normalizedResponses list
     private ArrayList<Double> time_lengths;
 
-	// list of motion event counts for each response in the challenge
-	private ArrayList<Double> motion_event_counts;
+    // list of motion event counts for each response in the challenge
+    private ArrayList<Double> motion_event_counts;
 
     // Mu Sigma values that define the profile
     private MuSigma pressure_muSigmaValues;
@@ -35,8 +35,8 @@ public class Profile implements Serializable {
     private double time_length_mu;
     private double time_length_sigma;
 
-	private double motion_event_count_mu;
-	private double motion_event_count_sigma;
+    private double motion_event_count_mu;
+    private double motion_event_count_sigma;
 
     // true if mu sigma has been computed
     private boolean mu_sigma_computed;
@@ -72,7 +72,14 @@ public class Profile implements Serializable {
     }
 
     public void addNormalizedResponses(List<Response> normalizedResponses) {
-	this.normalizedResponses.addAll(normalizedResponses);
+	for (Response response : normalizedResponses) {
+	    // add the response to this list of normalized responses
+	    this.normalizedResponses.add(response);
+
+	    // also add the motion_event_count of this normalized response to
+	    // the list
+	    this.motion_event_counts.add(new Double(response.getMotionEvenCount()));
+	}
 
 	this.mu_sigma_computed = false;
     }
@@ -125,27 +132,26 @@ public class Profile implements Serializable {
 	return time_length_mu;
     }
 
-
-	/**
-	 * return the pre-normalized mu_sigma motion event count values.
-	 */
-	public double getMotionEventCountSigma() {
-		// if mu sigma have not been computed, compute them
-		if (!mu_sigma_computed) {
-			compute_mu_sigma();
-		}
-
-		return motion_event_count_sigma;
+    /**
+     * return the pre-normalized mu_sigma motion event count values.
+     */
+    public double getMotionEventCountSigma() {
+	// if mu sigma have not been computed, compute them
+	if (!mu_sigma_computed) {
+	    compute_mu_sigma();
 	}
 
-	public double getMotionEventCountMu() {
-		// if mu sigma have not been computed, compute them
-		if (!mu_sigma_computed) {
-			compute_mu_sigma();
-		}
+	return motion_event_count_sigma;
+    }
 
-		return motion_event_count_mu;
+    public double getMotionEventCountMu() {
+	// if mu sigma have not been computed, compute them
+	if (!mu_sigma_computed) {
+	    compute_mu_sigma();
 	}
+
+	return motion_event_count_mu;
+    }
 
     public ArrayList<Response> getNormalizedResponses() {
 	return normalizedResponses;
@@ -171,7 +177,7 @@ public class Profile implements Serializable {
 	return average;
     }
 
-	/**
+    /**
      * Find mu and sigma values for all points in the normalized list. This
      * method will set the value of this.muSigmaValues to the appropriate value
      */
@@ -273,10 +279,11 @@ public class Profile implements Serializable {
 	this.time_length_sigma = computeSigma(time_lengths, this.time_length_mu);
     }
 
-	private void compute_motion_event_count_mu_sigma() {
-		this.motion_event_count_mu = computeMu(this.motion_event_counts);
-		this.motion_event_count_sigma = computeSigma(this.motion_event_counts, this.motion_event_count_mu);
-	}
+    private void compute_motion_event_count_mu_sigma() {
+	// compute the mu, sigma values for motion_event_count
+	this.motion_event_count_mu = computeMu(this.motion_event_counts);
+	this.motion_event_count_sigma = computeSigma(this.motion_event_counts, this.motion_event_count_mu);
+    }
 
     /**
      * Create and add Mu and Sigma values to the MuSigma

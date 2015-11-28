@@ -8,22 +8,22 @@ import java.util.List;
  * all challenges correlating to that user
  */
 public class UserDevicePair {
-    public final static double PRESSURE_DEFAULT_ALLOWED_DEVIATIONS = 3.0;
+    public final static double PRESSURE_DEFAULT_ALLOWED_DEVIATIONS = 1.86;
     public final static double DISTANCE_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
-    public final static double TIME_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
+    public final static double TIME_DEFAULT_ALLOWED_DEVIATIONS = .415;
     public final static double TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
-    public final static double DEFAULT_AUTHENTICATION_THRESHOLD = 0.75;
+    public final static double DEFAULT_AUTHENTICATION_THRESHOLD = 0.6;
 
     public enum RatioType {
 	PRESSURE, DISTANCE, TIME, TIME_LENGTH
     }
 
     public enum AuthenticationPredicate {
-	PRESSURE, NO_PRESSURE, TIME, DISTANCE, TIME_LENGTH, TIME_OR_DISTANCE;
+	PRESSURE, NO_PRESSURE, TIME, DISTANCE, TIME_LENGTH, TIME_OR_DISTANCE, PRESSURE_OR_TIME;
     }
 
     // determine what type of predicate to authenticate with
-    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.TIME_LENGTH;
+    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.PRESSURE;
 
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
@@ -144,18 +144,20 @@ public class UserDevicePair {
      * @return
      */
     public boolean authenticate(List<Point> new_response_data, Profile profile) {
-
 	// if there are no responses to authenticate against, return false
 	if (profile.getNormalizedResponses().size() == 0) {
 	    return false;
 	}
 
-    // if number of points in new response data is not within 3 sigma of mean of
-    // MotionEvent objects in profile's challenge, reject it immediately
-    if (new_response_data.size() < (profile.getMotionEventCountMu() - (3 * profile.getMotionEventCountSigma()))
-            || (new_response_data.size() > (profile.getMotionEventCountMu() + (3 * profile.getMotionEventCountSigma())))) {
-        return false;
-    }
+	// if number of points in new response data is not within 3 sigma of
+	// mean of
+	// MotionEvent objects in profile's challenge, reject it immediately
+	if (new_response_data.size() < (profile.getMotionEventCountMu() - (3 * profile.getMotionEventCountSigma()))
+		|| (new_response_data
+			.size() > (profile.getMotionEventCountMu() + (3 * profile.getMotionEventCountSigma())))) {
+	    System.out.println("Mu / Sigma : " + profile.getMotionEventCountMu() + " / " + profile.getMotionEventCountSigma());
+	    return false;
+	}
 
 	// determine the number of failed points
 	int failed_pressure_points = failed_pressure_points(new_response_data, profile,
@@ -215,6 +217,9 @@ public class UserDevicePair {
 	    break;
 	case TIME:
 	    pass = time_pass;
+	    break;
+	case PRESSURE_OR_TIME:
+	    pass = pressure_pass || time_pass;
 	    break;
 	default:
 	    pass = pressure_pass || (distance_pass && time_pass);
@@ -476,7 +481,7 @@ public class UserDevicePair {
 
 	// gather information about this specific authentication
 	// how does authentication behave as a whole
-	information += "authenticated: " + this.authenticate(new_response_data, profile) + "\n";
+	information += "authenticated: " + new Boolean(this.authenticate(new_response_data, profile)).toString() + "\n";
 
 	// how do specific aspects of authentication behave
 	int pressure_failed_points = this.failed_pressure_points(new_response_data, profile,
