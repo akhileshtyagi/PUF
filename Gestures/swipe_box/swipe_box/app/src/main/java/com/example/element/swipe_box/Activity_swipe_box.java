@@ -16,7 +16,7 @@ public class Activity_swipe_box extends AppCompatActivity {
         BOX, BIG_SQUIGGLE, CHECK;
     }
 
-    public final ChallengeType CHALLENGE_TYPE= ChallengeType.CHECK;
+    public final ChallengeType CHALLENGE_TYPE= ChallengeType.BOX;
 
     PufDrawView pufDrawView;
     private int box_width;
