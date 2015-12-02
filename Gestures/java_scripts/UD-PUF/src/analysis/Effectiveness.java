@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 
 import dataTypes.Point;
 import dataTypes.Response;
+import dataTypes.UserDevicePair;
 
 /**
  * The goal of this class is to analyze the effectiveness of the authentication
@@ -46,14 +47,11 @@ public class Effectiveness {
 	// UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS,
 	// UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD));
 
-	// Combination self = new
-	// Combination(UserDevicePair.PRESSURE_DEFAULT_ALLOWED_DEVIATIONS,
-	// UserDevicePair.DISTANCE_DEFAULT_ALLOWED_DEVIATIONS,
-	// UserDevicePair.TIME_DEFAULT_ALLOWED_DEVIATIONS,
-	// UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS,
-	// UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD);
+	Combination self = new Combination(UserDevicePair.PRESSURE_DEFAULT_ALLOWED_DEVIATIONS,
+		UserDevicePair.DISTANCE_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.TIME_DEFAULT_ALLOWED_DEVIATIONS,
+		UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD);
 
-	Combination self = new Combination(1.86, 1, .5, 1, .6);
+	// Combination self = new Combination(1.86, 1, .5, 1, .6);
 	// Combination self = new Combination(1.8, 0, 0, 1, .85);
 
 	// print out the results
@@ -273,6 +271,8 @@ public class Effectiveness {
 	    // pattern
 	    response_list.add(new Response(responses[i].getResponse()));
 	}
+
+	//System.out.println(response_list.get(0).getResponse());
 
 	return response_list;
     }

@@ -8,11 +8,11 @@ import java.util.List;
  * all challenges correlating to that user
  */
 public class UserDevicePair {
-    public final static double PRESSURE_DEFAULT_ALLOWED_DEVIATIONS = 1.86;
+    public final static double PRESSURE_DEFAULT_ALLOWED_DEVIATIONS = 2.46;
     public final static double DISTANCE_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
     public final static double TIME_DEFAULT_ALLOWED_DEVIATIONS = .415;
     public final static double TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
-    public final static double DEFAULT_AUTHENTICATION_THRESHOLD = 0.6;
+    public final static double DEFAULT_AUTHENTICATION_THRESHOLD = 0.7;
 
     public enum RatioType {
 	PRESSURE, DISTANCE, TIME, TIME_LENGTH
@@ -23,7 +23,7 @@ public class UserDevicePair {
     }
 
     // determine what type of predicate to authenticate with
-    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.PRESSURE;
+    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.DISTANCE;
 
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
@@ -72,9 +72,9 @@ public class UserDevicePair {
 	this.distance_allowed_deviations = distance_allowed_deviations;
 	this.time_allowed_deviations = time_allowed_deviations;
 	this.authentication_threshold = authentication_threshold;
-	this.pressure_authentication_failed_point_ratio = -1;
-	this.distance_authentication_failed_point_ratio = -1;
-	this.time_authentication_failed_point_ratio = -1;
+	this.pressure_authentication_failed_point_ratio = 1;
+	this.distance_authentication_failed_point_ratio = 1;
+	this.time_authentication_failed_point_ratio = 1;
 
 	this.time_length_allowed_deviations = TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS;
     }
@@ -144,8 +144,14 @@ public class UserDevicePair {
      * @return
      */
     public boolean authenticate(List<Point> new_response_data, Profile profile) {
+	// set a value which represents all points failing
+	this.pressure_authentication_failed_point_ratio = 1.0;
+	this.distance_authentication_failed_point_ratio = 1.0;
+	this.time_authentication_failed_point_ratio = 1.0;
+
 	// if there are no responses to authenticate against, return false
 	if (profile.getNormalizedResponses().size() == 0) {
+	    System.out.println("no normalized responses");
 	    return false;
 	}
 
@@ -155,7 +161,8 @@ public class UserDevicePair {
 	if (new_response_data.size() < (profile.getMotionEventCountMu() - (3 * profile.getMotionEventCountSigma()))
 		|| (new_response_data
 			.size() > (profile.getMotionEventCountMu() + (3 * profile.getMotionEventCountSigma())))) {
-	    System.out.println("Mu / Sigma : " + profile.getMotionEventCountMu() + " / " + profile.getMotionEventCountSigma());
+	    System.out.println(
+		    "Mu / Sigma : " + profile.getMotionEventCountMu() + " / " + profile.getMotionEventCountSigma());
 	    return false;
 	}
 

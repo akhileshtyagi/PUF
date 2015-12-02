@@ -11,7 +11,12 @@ public class Response implements Serializable {
     private static final long serialVersionUID = -292775056595225846L;
 
     // List of points which the user swiped
+    // always maintains the origional response pattern
     private ArrayList<Point> responsePattern;
+
+    // normalized list of points. This will be overridden every time normalize
+    // is called
+    private ArrayList<Point> normalizedResponsePattern;
 
     // Count of motion events this response originally had
     private int motionEvenCount;
@@ -19,10 +24,15 @@ public class Response implements Serializable {
     public Response(List<Point> responsePattern) {
 	this.responsePattern = new ArrayList<Point>(responsePattern);
 	motionEvenCount = responsePattern.size();
+
+	this.normalizedResponsePattern = new ArrayList<Point>(responsePattern);
     }
 
+    /**
+     * return the normalized response pattern
+     */
     public List<Point> getResponse() {
-	return responsePattern;
+	return this.normalizedResponsePattern;
     }
 
     public int getMotionEvenCount() {
@@ -57,21 +67,31 @@ public class Response implements Serializable {
 	double point_distance = 0;
 	double time = 0;
 
+	int closestLeftIndex = 0;
+	int closestRightIndex = 0;
+
 	// we need to find the correct pressure value for each normalizingPoints
 	for (Point normalizingPoint : normalizingPoints) {
 	    // if the person did the challenge in the correct direction
 	    closestLeftPoint = responsePattern.get(0);
 	    closestRightPoint = responsePattern.get(responsePattern.size() - 1);
 
+	    closestLeftIndex = 0;
+	    closestRightIndex = responsePattern.size() - 1;
+
 	    // if the person did the challenge in the incorrect direction
-	    if (responsePattern.get(0).getX() > normalizingPoints.get(0).getX()) {
-		closestLeftPoint = responsePattern.get(0);
-		closestRightPoint = responsePattern.get(responsePattern.size() - 1);
-	    }
+	    // if (responsePattern.get(0).getX() >
+	    // normalizingPoints.get(0).getX()) {
+	    // closestLeftPoint = responsePattern.get(0);
+	    // closestRightPoint = responsePattern.get(responsePattern.size() -
+	    // 1);
+	    // }
 
 	    // find the closest left/ below point and the closest right
 	    // above point
-	    for (Point responsePoint : responsePattern) {
+	    for (int i = 0; i < responsePattern.size(); i++) {
+		Point responsePoint = responsePattern.get(i);
+
 		// if response Point is closer to the left then it becomes
 		// closestLeftPoint
 		if (((isChallengeHorizontal)
@@ -82,6 +102,7 @@ public class Response implements Serializable {
 				&& ((normalizingPoint.getY() - responsePoint.getY() >= 0)))) {
 
 		    closestLeftPoint = responsePoint;
+		    closestLeftIndex = i;
 		}
 
 		// if responsePoint is closer to the right then it becomes
@@ -94,22 +115,167 @@ public class Response implements Serializable {
 				&& ((normalizingPoint.getY() - responsePoint.getY() <= 0)))) {
 
 		    closestRightPoint = responsePoint;
+		    closestRightIndex = i;
 		}
 	    }
+
+	    // check to see if there is a descrepency between the closest right
+	    // point and the closest left point
+	    if (!((closestRightIndex == (closestLeftIndex + 1)) || (closestRightIndex == closestLeftIndex))) {
+		// print out the values
+		// System.out.println("---------------");
+		// System.out.println(closestLeftIndex);
+		// System.out.println(closestRightIndex);
+		// System.out.println("---------------");
+
+		// check to see which point is closer to the previous value in
+		// the sequence
+		if (normalizedResponsePattern.size() > 0) {
+		    // find the point closest to the previous response.
+		    Point previous_point = normalizedResponsePattern.get(normalizedResponsePattern.size() - 1);
+
+		    if (isChallengeHorizontal) {
+			// closest in X
+			if (Math.abs(previous_point.getX() - responsePattern.get(closestLeftIndex).getX()) < Math
+				.abs(previous_point.getX() - responsePattern.get(closestRightIndex).getX())) {
+			    // the left point is closest
+			    if (closestLeftIndex < responsePattern.size() - 1) {
+				// the index will not be out of bounds
+				closestRightIndex = closestLeftIndex + 1;
+			    } else {
+				// the index will be out of bounds, so set it to
+				// the last point in the array.
+				// we know this is closestLeftIndex :p
+				closestRightIndex = closestLeftIndex;
+			    }
+			} else {
+			    // the right point is closest
+			    if (closestLeftIndex > 0) {
+				// the index will not be out of bounds
+				closestLeftIndex = closestRightIndex - 1;
+			    } else {
+				// the index will be out of bounds, so set it to
+				// the last point in the array.
+				// we know this is closestRightIndex :p
+				closestLeftIndex = closestRightIndex;
+			    }
+			}
+		    } else {
+			// closest in Y
+			if (Math.abs(previous_point.getY() - responsePattern.get(closestLeftIndex).getY()) < Math
+				.abs(previous_point.getY() - responsePattern.get(closestRightIndex).getY())) {
+			    // the left point is closest
+			    if (closestLeftIndex < responsePattern.size() - 1) {
+				// the index will not be out of bounds
+				closestRightIndex = closestLeftIndex + 1;
+			    } else {
+				// the index will be out of bounds, so set it to
+				// the last point in the array.
+				// we know this is closestLeftIndex :p
+				closestRightIndex = closestLeftIndex;
+			    }
+			} else {
+			    // the right point is closest
+			    if (closestLeftIndex > 0) {
+				// the index will not be out of bounds
+				closestLeftIndex = closestRightIndex - 1;
+			    } else {
+				// the index will be out of bounds, so set it to
+				// the last point in the array.
+				// we know this is closestRightIndex :p
+				closestLeftIndex = closestRightIndex;
+			    }
+			}
+		    }
+		} else {
+		    // there are no previous responses, choose the response
+		    // closest to the upper left
+		    // TODO find a better method of doing this
+		    if (isChallengeHorizontal) {
+			// closest in X
+			if (responsePattern.get(closestLeftIndex).getX() < responsePattern.get(closestRightIndex)
+				.getX()) {
+			    // the left point is closest
+			    if (closestLeftIndex < responsePattern.size() - 1) {
+				// the index will not be out of bounds
+				closestRightIndex = closestLeftIndex + 1;
+			    } else {
+				// the index will be out of bounds, so set it to
+				// the last point in the array.
+				// we know this is closestLeftIndex :p
+				closestRightIndex = closestLeftIndex;
+			    }
+			} else {
+			    // the right point is closest
+			    if (closestLeftIndex > 0) {
+				// the index will not be out of bounds
+				closestLeftIndex = closestRightIndex - 1;
+			    } else {
+				// the index will be out of bounds, so set it to
+				// the last point in the array.
+				// we know this is closestRightIndex :p
+				closestLeftIndex = closestRightIndex;
+			    }
+			}
+		    } else {
+			// closest in Y
+			if (responsePattern.get(closestLeftIndex).getY() < responsePattern.get(closestRightIndex)
+				.getY()) {
+			    // the left point is closest
+			    if (closestLeftIndex < responsePattern.size() - 1) {
+				// the index will not be out of bounds
+				closestRightIndex = closestLeftIndex + 1;
+			    } else {
+				// the index will be out of bounds, so set it to
+				// the last point in the array.
+				// we know this is closestLeftIndex :p
+				closestRightIndex = closestLeftIndex;
+			    }
+			} else {
+			    // the right point is closest
+			    if (closestLeftIndex > 0) {
+				// the index will not be out of bounds
+				closestLeftIndex = closestRightIndex - 1;
+			    } else {
+				// the index will be out of bounds, so set it to
+				// the last point in the array.
+				// we know this is closestRightIndex :p
+				closestLeftIndex = closestRightIndex;
+			    }
+			}
+		    }
+		}
+
+		// set the response points based on the new indexes
+		closestRightPoint = responsePattern.get(closestRightIndex);
+		closestLeftPoint = responsePattern.get(closestLeftIndex);
+	    }
+
+	    // System.out.println("+++++++++++++++");
+	    // System.out.println(closestLeftIndex);
+	    // System.out.println(closestRightIndex);
+	    // System.out.println("+++++++++++++++");
 
 	    // System.out.println(closestRightPoint.getX());
 	    // System.out.println(closestLeftPoint.getX());
 
-	    // if the closest left and right points are equal, simply add the
+	    // if the closest left and right points are equal, simply add
+	    // the
 	    // pressure value of that point to the list
 	    if (closestRightPoint.equals(closestLeftPoint)) {
 		pressure = closestRightPoint.getPressure();
 
-		// if the challenge is horizontal => we have points along the x
+		// if the challenge is horizontal => we have points along
+		// the x
 		// axis => we want Y value
-		// if the challenge is not horizontal => we have points along y
+		// if the challenge is not horizontal => we have points
+		// along y
 		// axis => we want X value
 		point_distance = (isChallengeHorizontal) ? (closestRightPoint.getY()) : (closestRightPoint.getX());
+
+		System.out.println(closestRightPoint);
+		// System.out.println(point_distance);
+		// System.out.println(isChallengeHorizontal);
 
 		time = closestRightPoint.getTime();
 	    } else {
@@ -136,9 +302,12 @@ public class Response implements Serializable {
 		    pressure = closestLeftPoint.getPressure() + pressure_slope * x_differance;
 
 		    // determine the point distance
-		    // horizontal challenge => we have points along x axis =>
+		    // horizontal challenge => we have points along x axis
+		    // =>
 		    // need y values
 		    point_distance = closestLeftPoint.getY() + distance_slope * x_differance;
+
+		    // System.out.println(point_distance);
 
 		    // determine the normalized time
 		    time = closestLeftPoint.getTime() + time_slope * x_differance;
@@ -167,14 +336,24 @@ public class Response implements Serializable {
 		    pressure = closestLeftPoint.getPressure() + pressure_slope * y_differance;
 
 		    // determine the point distance
-		    // vertical challenge => we have points along y axis => need
+		    // vertical challenge => we have points along y axis =>
+		    // need
 		    // x values
 		    point_distance = closestLeftPoint.getX() + distance_slope * y_differance;
+
+		    // System.out.println(point_distance);
 
 		    // determine the normalized time
 		    time = closestLeftPoint.getTime() + time_slope * y_differance;
 		}
 	    }
+
+	    // TODO figure out why point_distance is not being computed
+	    // correctly
+	    // System.out.println(point_distance);
+
+	    // TODO figure out why time is incorrect
+	    // System.out.println(time);
 
 	    // create normalized point to add to the list based on found
 	    // pressure value
@@ -184,6 +363,6 @@ public class Response implements Serializable {
 	    normalizedResponsePattern.add(normalizedPoint);
 	}
 
-	this.responsePattern = normalizedResponsePattern;
+	this.normalizedResponsePattern = new ArrayList<Point>(normalizedResponsePattern);
     }
 }
