@@ -139,7 +139,7 @@ public class PufDrawView extends View
                 tv.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") Pressure = " + me.getPressure() );
 
                 // only add the point if the motion event is inside the bounds of the box
-                if(within_challenge(me)) {
+                //if(within_challenge(me)) {
                     // me.getEventTime()-me.getDownTime() is the time sense the beginning
                     // time sense beginning // response.add(new Point(me.getX(), me.getY(), me.getPressure(), me.getEventTime()-me.getDownTime()));
 
@@ -154,7 +154,7 @@ public class PufDrawView extends View
 
                     response.add(new Point(me.getX(), me.getY(), me.getPressure(), me.getEventTime()-this.last_motion_event_time));
                     this.last_motion_event_time = me.getEventTime();
-                }
+                //}
 
                 break;
             default:
