@@ -23,7 +23,7 @@ public class UserDevicePair {
     }
 
     // determine what type of predicate to authenticate with
-    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.DISTANCE;
+    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.PRESSURE;
 
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
@@ -161,8 +161,9 @@ public class UserDevicePair {
 	if (new_response_data.size() < (profile.getMotionEventCountMu() - (3 * profile.getMotionEventCountSigma()))
 		|| (new_response_data
 			.size() > (profile.getMotionEventCountMu() + (3 * profile.getMotionEventCountSigma())))) {
-	    System.out.println(
-		    "Mu / Sigma : " + profile.getMotionEventCountMu() + " / " + profile.getMotionEventCountSigma());
+	    // System.out.println(
+	    // "Mu / Sigma : " + profile.getMotionEventCountMu() + " / " +
+	    // profile.getMotionEventCountSigma());
 	    return false;
 	}
 

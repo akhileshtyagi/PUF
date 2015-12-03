@@ -269,10 +269,13 @@ public class Effectiveness {
 	    // because there are newer versions of Response, run the response
 	    // pattern though the constructor to effectivly create the new
 	    // pattern
+
 	    response_list.add(new Response(responses[i].getResponse()));
+	    // response_list.add(responses[i]);
 	}
 
-	//System.out.println(response_list.get(0).getResponse());
+	// System.out.println(response_list.get(0).getResponse());
+	// System.out.println(response_list.get(0).getOrigionalResponse());
 
 	return response_list;
     }

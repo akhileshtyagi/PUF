@@ -97,7 +97,6 @@ public class Challenge {
 
 	// normalize the response before it is added to the challenge
 	// System.out.println(isChallengeHorizontal);
-	isChallengeHorizontal = true;
 	response.normalize(normalizingPoints, isChallengeHorizontal);
 
 	responses.add(response);

@@ -16,7 +16,7 @@ public class Response implements Serializable {
 
     // normalized list of points. This will be overridden every time normalize
     // is called
-    private ArrayList<Point> normalizedResponsePattern;
+    // private ArrayList<Point> normalizedResponsePattern;
 
     // Count of motion events this response originally had
     private int motionEvenCount;
@@ -25,15 +25,24 @@ public class Response implements Serializable {
 	this.responsePattern = new ArrayList<Point>(responsePattern);
 	motionEvenCount = responsePattern.size();
 
-	this.normalizedResponsePattern = new ArrayList<Point>(responsePattern);
+	// this.normalizedResponsePattern = new
+	// ArrayList<Point>(responsePattern);
     }
 
     /**
      * return the normalized response pattern
      */
     public List<Point> getResponse() {
-	return this.normalizedResponsePattern;
+	return this.responsePattern;
+	// return this.normalizedResponsePattern;
     }
+
+    /**
+     * return the origional response pattern
+     */
+    // public List<Point> getOrigionalResponse() {
+    // return this.responsePattern;
+    // }
 
     public int getMotionEvenCount() {
 	return motionEvenCount;
@@ -273,7 +282,7 @@ public class Response implements Serializable {
 		// axis => we want X value
 		point_distance = (isChallengeHorizontal) ? (closestRightPoint.getY()) : (closestRightPoint.getX());
 
-		System.out.println(closestRightPoint);
+		// System.out.println(closestRightPoint);
 		// System.out.println(point_distance);
 		// System.out.println(isChallengeHorizontal);
 
@@ -363,6 +372,7 @@ public class Response implements Serializable {
 	    normalizedResponsePattern.add(normalizedPoint);
 	}
 
-	this.normalizedResponsePattern = new ArrayList<Point>(normalizedResponsePattern);
+	this.responsePattern = normalizedResponsePattern;
+	// this.normalizedResponsePattern = normalizedResponsePattern;
     }
 }

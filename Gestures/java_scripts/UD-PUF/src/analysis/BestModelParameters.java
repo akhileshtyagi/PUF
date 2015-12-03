@@ -35,7 +35,7 @@ public class BestModelParameters {
 
 	// generate a set of parameters to try for each deviation
 	// for pressure
-	int p_steps = 1;
+	int p_steps = 100;
 	for (int i = 0; i < p_steps; i++) {
 	    double deviations = (i * (3.0 / p_steps)) + 0.0;
 	    pressure_deviations_list.add(deviations);
@@ -55,9 +55,9 @@ public class BestModelParameters {
 	}
 
 	// for distance
-	int d_steps = 100;
+	int d_steps = 1;
 	for (int i = 0; i < d_steps; i++) {
-	    double deviations = (i * 3.0 / d_steps) + 6.0;
+	    double deviations = (i * 3.0 / d_steps) + 0;
 	    distance_deviations_list.add(deviations);
 	}
 
