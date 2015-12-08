@@ -27,7 +27,7 @@ public class Effectiveness {
 
     public static final String PROFILE_DIRECTORY = "response_profiles/";
     public static final String PROFILE_A_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
-    public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_josh";
+    public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_ross";
 
     public static final ChallengeType CHALLENGE_TYPE = ChallengeType.BOX;
 

@@ -83,7 +83,9 @@ public class Challenge {
 	    // orientation
 	    double x_dist = computeChallengeXDistance();
 	    double y_dist = computeChallengeYDistance();
-	    System.out.println("X:" + x_dist + " Y:" + y_dist);
+
+	    // System.out.println("X:" + x_dist + " Y:" + y_dist);
+
 	    isChallengeHorizontal = x_dist > y_dist;
 
 	    // compute the list of points used to normalize the responses to
@@ -188,7 +190,7 @@ public class Challenge {
 
 	    points.add(next_point);
 	}
-	
+
 	return points;
 
     }
