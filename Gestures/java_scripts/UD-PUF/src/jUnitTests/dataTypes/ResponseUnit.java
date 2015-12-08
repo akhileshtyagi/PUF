@@ -18,7 +18,8 @@ import dataTypes.Response;
 public class ResponseUnit {
     private Response response;
     private MathContext context;
-//TODO make tests which incorporate distance
+
+    // TODO make tests which incorporate distance
     @Before
     public void initObjects() throws SecurityException, InstantiationException, IllegalAccessException {
 	// set up the context for compairing doubles
@@ -29,7 +30,7 @@ public class ResponseUnit {
 
 	// populate the response_points list with 64 points
 	for (int i = 0; i < 9; i++) {
-	    response_points.add(new Point(i, i, .1 * i,100,i));
+	    response_points.add(new Point(i, i, .1 * i, 100, i));
 	}
 
 	response = new Response(response_points);
@@ -53,18 +54,18 @@ public class ResponseUnit {
 
 	// check to see that each of the points in the normalized list is
 	// correct
-	assertTrue(response.getResponse().get(0).getX() == 0);
-	assertTrue(response.getResponse().get(0).getY() == 0);
-	assertThat(response.getResponse().get(0).getPressure(), is(0.0));
+	assertTrue(response.getNormalizedResponse().get(0).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(0).getY() == 0);
+	assertThat(response.getNormalizedResponse().get(0).getPressure(), is(0.0));
 
-	assertTrue(response.getResponse().get(1).getX() == 3);
-	assertTrue(response.getResponse().get(1).getY() == 0);
-	assertThat(new BigDecimal(response.getResponse().get(1).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(1).getX() == 3);
+	assertTrue(response.getNormalizedResponse().get(1).getY() == 0);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(1).getPressure()).round(context),
 		is(new BigDecimal(.3).round(context)));
 
-	assertTrue(response.getResponse().get(2).getX() == 6);
-	assertTrue(response.getResponse().get(2).getY() == 0);
-	assertThat(new BigDecimal(response.getResponse().get(2).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(2).getX() == 6);
+	assertTrue(response.getNormalizedResponse().get(2).getY() == 0);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(2).getPressure()).round(context),
 		is(new BigDecimal(.6).round(context)));
     }
 
@@ -86,18 +87,18 @@ public class ResponseUnit {
 
 	// check to see that each of the points in the normalized list is
 	// correct
-	assertTrue(response.getResponse().get(0).getX() == 0);
-	assertTrue(response.getResponse().get(0).getY() == 0);
-	assertThat(response.getResponse().get(0).getPressure(), is(0.0));
+	assertTrue(response.getNormalizedResponse().get(0).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(0).getY() == 0);
+	assertThat(response.getNormalizedResponse().get(0).getPressure(), is(0.0));
 
-	assertTrue(response.getResponse().get(1).getX() == 0);
-	assertTrue(response.getResponse().get(1).getY() == 3);
-	assertThat(new BigDecimal(response.getResponse().get(1).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(1).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(1).getY() == 3);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(1).getPressure()).round(context),
 		is(new BigDecimal(.3).round(context)));
 
-	assertTrue(response.getResponse().get(2).getX() == 0);
-	assertTrue(response.getResponse().get(2).getY() == 6);
-	assertThat(new BigDecimal(response.getResponse().get(2).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(2).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(2).getY() == 6);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(2).getPressure()).round(context),
 		is(new BigDecimal(.6).round(context)));
     }
 
@@ -120,19 +121,19 @@ public class ResponseUnit {
 
 	// check to see that each of the points in the normalized list is
 	// correct
-	assertTrue(response.getResponse().get(0).getX() == .5);
-	assertTrue(response.getResponse().get(0).getY() == 0);
-	assertThat(new BigDecimal(response.getResponse().get(0).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(0).getX() == .5);
+	assertTrue(response.getNormalizedResponse().get(0).getY() == 0);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(0).getPressure()).round(context),
 		is(new BigDecimal(.05).round(context)));
 
-	assertTrue(response.getResponse().get(1).getX() == 3.5);
-	assertTrue(response.getResponse().get(1).getY() == 0);
-	assertThat(new BigDecimal(response.getResponse().get(1).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(1).getX() == 3.5);
+	assertTrue(response.getNormalizedResponse().get(1).getY() == 0);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(1).getPressure()).round(context),
 		is(new BigDecimal(.35).round(context)));
 
-	assertTrue(response.getResponse().get(2).getX() == 6.5);
-	assertTrue(response.getResponse().get(2).getY() == 0);
-	assertThat(new BigDecimal(response.getResponse().get(2).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(2).getX() == 6.5);
+	assertTrue(response.getNormalizedResponse().get(2).getY() == 0);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(2).getPressure()).round(context),
 		is(new BigDecimal(.65).round(context)));
     }
 
@@ -155,19 +156,19 @@ public class ResponseUnit {
 
 	// check to see that each of the points in the normalized list is
 	// correct
-	assertTrue(response.getResponse().get(0).getX() == 0);
-	assertTrue(response.getResponse().get(0).getY() == .5);
-	assertThat(new BigDecimal(response.getResponse().get(0).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(0).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(0).getY() == .5);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(0).getPressure()).round(context),
 		is(new BigDecimal(.05).round(context)));
 
-	assertTrue(response.getResponse().get(1).getX() == 0);
-	assertTrue(response.getResponse().get(1).getY() == 3.5);
-	assertThat(new BigDecimal(response.getResponse().get(1).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(1).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(1).getY() == 3.5);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(1).getPressure()).round(context),
 		is(new BigDecimal(.35).round(context)));
 
-	assertTrue(response.getResponse().get(2).getX() == 0);
-	assertTrue(response.getResponse().get(2).getY() == 6.5);
-	assertThat(new BigDecimal(response.getResponse().get(2).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(2).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(2).getY() == 6.5);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(2).getPressure()).round(context),
 		is(new BigDecimal(.65).round(context)));
     }
 
@@ -189,18 +190,18 @@ public class ResponseUnit {
 
 	// check to see that each of the points in the normalized list is
 	// correct
-	assertTrue(response.getResponse().get(2).getX() == 0);
-	assertTrue(response.getResponse().get(2).getY() == 0);
-	assertThat(response.getResponse().get(2).getPressure(), is(0.0));
+	assertTrue(response.getNormalizedResponse().get(2).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(2).getY() == 0);
+	assertThat(response.getNormalizedResponse().get(2).getPressure(), is(0.0));
 
-	assertTrue(response.getResponse().get(1).getX() == 3);
-	assertTrue(response.getResponse().get(1).getY() == 0);
-	assertThat(new BigDecimal(response.getResponse().get(1).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(1).getX() == 3);
+	assertTrue(response.getNormalizedResponse().get(1).getY() == 0);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(1).getPressure()).round(context),
 		is(new BigDecimal(.3).round(context)));
 
-	assertTrue(response.getResponse().get(0).getX() == 6);
-	assertTrue(response.getResponse().get(0).getY() == 0);
-	assertThat(new BigDecimal(response.getResponse().get(0).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(0).getX() == 6);
+	assertTrue(response.getNormalizedResponse().get(0).getY() == 0);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(0).getPressure()).round(context),
 		is(new BigDecimal(.6).round(context)));
     }
 
@@ -222,18 +223,18 @@ public class ResponseUnit {
 
 	// check to see that each of the points in the normalized list is
 	// correct
-	assertTrue(response.getResponse().get(2).getX() == 0);
-	assertTrue(response.getResponse().get(2).getY() == 0);
-	assertThat(response.getResponse().get(2).getPressure(), is(0.0));
+	assertTrue(response.getNormalizedResponse().get(2).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(2).getY() == 0);
+	assertThat(response.getNormalizedResponse().get(2).getPressure(), is(0.0));
 
-	assertTrue(response.getResponse().get(1).getX() == 0);
-	assertTrue(response.getResponse().get(1).getY() == 3);
-	assertThat(new BigDecimal(response.getResponse().get(1).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(1).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(1).getY() == 3);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(1).getPressure()).round(context),
 		is(new BigDecimal(.3).round(context)));
 
-	assertTrue(response.getResponse().get(0).getX() == 0);
-	assertTrue(response.getResponse().get(0).getY() == 6);
-	assertThat(new BigDecimal(response.getResponse().get(0).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(0).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(0).getY() == 6);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(0).getPressure()).round(context),
 		is(new BigDecimal(.6).round(context)));
     }
 
@@ -256,19 +257,19 @@ public class ResponseUnit {
 
 	// check to see that each of the points in the normalized list is
 	// correct
-	assertTrue(response.getResponse().get(2).getX() == .5);
-	assertTrue(response.getResponse().get(2).getY() == 0);
-	assertThat(new BigDecimal(response.getResponse().get(2).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(2).getX() == .5);
+	assertTrue(response.getNormalizedResponse().get(2).getY() == 0);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(2).getPressure()).round(context),
 		is(new BigDecimal(.05).round(context)));
 
-	assertTrue(response.getResponse().get(1).getX() == 3.5);
-	assertTrue(response.getResponse().get(1).getY() == 0);
-	assertThat(new BigDecimal(response.getResponse().get(1).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(1).getX() == 3.5);
+	assertTrue(response.getNormalizedResponse().get(1).getY() == 0);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(1).getPressure()).round(context),
 		is(new BigDecimal(.35).round(context)));
 
-	assertTrue(response.getResponse().get(0).getX() == 6.5);
-	assertTrue(response.getResponse().get(0).getY() == 0);
-	assertThat(new BigDecimal(response.getResponse().get(0).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(0).getX() == 6.5);
+	assertTrue(response.getNormalizedResponse().get(0).getY() == 0);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(0).getPressure()).round(context),
 		is(new BigDecimal(.65).round(context)));
     }
 
@@ -291,19 +292,19 @@ public class ResponseUnit {
 
 	// check to see that each of the points in the normalized list is
 	// correct
-	assertTrue(response.getResponse().get(2).getX() == 0);
-	assertTrue(response.getResponse().get(2).getY() == .5);
-	assertThat(new BigDecimal(response.getResponse().get(2).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(2).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(2).getY() == .5);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(2).getPressure()).round(context),
 		is(new BigDecimal(.05).round(context)));
 
-	assertTrue(response.getResponse().get(1).getX() == 0);
-	assertTrue(response.getResponse().get(1).getY() == 3.5);
-	assertThat(new BigDecimal(response.getResponse().get(1).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(1).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(1).getY() == 3.5);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(1).getPressure()).round(context),
 		is(new BigDecimal(.35).round(context)));
 
-	assertTrue(response.getResponse().get(0).getX() == 0);
-	assertTrue(response.getResponse().get(0).getY() == 6.5);
-	assertThat(new BigDecimal(response.getResponse().get(0).getPressure()).round(context),
+	assertTrue(response.getNormalizedResponse().get(0).getX() == 0);
+	assertTrue(response.getNormalizedResponse().get(0).getY() == 6.5);
+	assertThat(new BigDecimal(response.getNormalizedResponse().get(0).getPressure()).round(context),
 		is(new BigDecimal(.65).round(context)));
     }
 }

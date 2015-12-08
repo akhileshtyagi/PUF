@@ -29,7 +29,7 @@ public class Effectiveness {
     public static final String PROFILE_A_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
     public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_josh";
 
-    public static final ChallengeType CHALLENGE_TYPE = ChallengeType.CHECK;
+    public static final ChallengeType CHALLENGE_TYPE = ChallengeType.BOX;
 
     private static ArrayList<Point> challenge_points;
     private Combination model_parameters;

@@ -83,6 +83,7 @@ public class Challenge {
 	    // orientation
 	    double x_dist = computeChallengeXDistance();
 	    double y_dist = computeChallengeYDistance();
+	    System.out.println("X:" + x_dist + " Y:" + y_dist);
 	    isChallengeHorizontal = x_dist > y_dist;
 
 	    // compute the list of points used to normalize the responses to
@@ -171,12 +172,13 @@ public class Challenge {
 	// amount of x separation for each point
 	double point_increment = x_dist / (this.normalized_elements - 1);
 	Point next_point = null;
+	Point min_challenge_point = min_challenge_point_x();
 
 	for (int i = 0; i < this.normalized_elements; i++) {
 	    // do something different for the first iteration
 	    if (points.size() == 0) {
 		// use the x,y values of the first point
-		next_point = new Point(this.challengePattern.get(0));
+		next_point = new Point(min_challenge_point);
 	    } else {
 		// add point increment to the x value while staying at the same
 		// y value
@@ -186,7 +188,7 @@ public class Challenge {
 
 	    points.add(next_point);
 	}
-
+	
 	return points;
 
     }
@@ -201,12 +203,13 @@ public class Challenge {
 	// amount of y separation for each point
 	double point_increment = y_dist / (this.normalized_elements - 1);
 	Point next_point = null;
+	Point min_challenge_point = min_challenge_point_y();
 
 	for (int i = 0; i < this.normalized_elements; i++) {
 	    // do something different for the first iteration
 	    if (points.size() == 0) {
-		// use the x,y values of the first point
-		next_point = new Point(this.challengePattern.get(0));
+		// use the x,y values of the minimum point
+		next_point = new Point(min_challenge_point);
 	    } else {
 		// add point increment to the y value while staying at the same
 		// x value
@@ -226,25 +229,24 @@ public class Challenge {
      * @return
      */
     private double computeChallengeYDistance() {
-	double y_dist = 0;
-
-	// calculate x_dist and y_dist covered by the list
-	Point prev_challenge_point = null;
-
-	for (Point challenge_point : this.challengePattern) {
-	    if (prev_challenge_point == null) {
-		prev_challenge_point = challenge_point;
-		continue;
-	    }
-
-	    // compute the distance between the current point and the previous
-	    // point
-	    y_dist += Math.abs(challenge_point.getY() - prev_challenge_point.getY());
-
-	    prev_challenge_point = challenge_point;
+	if (challengePattern == null) {
+	    return 0.0;
 	}
 
-	return y_dist;
+	Point min = this.challengePattern.get(0);
+	Point max = this.challengePattern.get(0);
+
+	for (Point challenge_point : this.challengePattern) {
+	    if (challenge_point.getY() < min.getY()) {
+		min = challenge_point;
+	    }
+
+	    if (challenge_point.getY() > max.getY()) {
+		max = challenge_point;
+	    }
+	}
+
+	return max.getY() - min.getY();
     }
 
     /**
@@ -253,24 +255,100 @@ public class Challenge {
      * @return
      */
     private double computeChallengeXDistance() {
-	double x_dist = 0;
-
-	// calculate x_dist and y_dist covered by the list
-	Point prev_challenge_point = null;
-
-	for (Point challenge_point : this.challengePattern) {
-	    if (prev_challenge_point == null) {
-		prev_challenge_point = challenge_point;
-		continue;
-	    }
-
-	    // compute the distance between the current point and the previous
-	    // point
-	    x_dist += Math.abs(challenge_point.getX() - prev_challenge_point.getX());
-
-	    prev_challenge_point = challenge_point;
+	if (challengePattern == null) {
+	    return 0.0;
 	}
 
-	return x_dist;
+	Point min = this.challengePattern.get(0);
+	Point max = this.challengePattern.get(0);
+
+	for (Point challenge_point : this.challengePattern) {
+	    if (challenge_point.getX() < min.getX()) {
+		min = challenge_point;
+	    }
+
+	    if (challenge_point.getX() > max.getX()) {
+		max = challenge_point;
+	    }
+	}
+
+	return max.getX() - min.getX();
+    }
+
+    /**
+     * get the max challenge point
+     */
+    private Point max_challenge_point_x() {
+	if (challengePattern == null) {
+	    return null;
+	}
+
+	Point min = this.challengePattern.get(0);
+	Point max = this.challengePattern.get(0);
+
+	for (Point challenge_point : this.challengePattern) {
+	    if (challenge_point.getX() > max.getX()) {
+		max = challenge_point;
+	    }
+	}
+
+	return max;
+    }
+
+    /**
+     * get the min challenge point
+     */
+    private Point min_challenge_point_x() {
+	if (challengePattern == null) {
+	    return null;
+	}
+
+	Point min = this.challengePattern.get(0);
+
+	for (Point challenge_point : this.challengePattern) {
+	    if (challenge_point.getX() < min.getX()) {
+		min = challenge_point;
+	    }
+	}
+
+	return min;
+    }
+
+    /**
+     * get the max challenge point
+     */
+    private Point max_challenge_point_y() {
+	if (challengePattern == null) {
+	    return null;
+	}
+
+	Point max = this.challengePattern.get(0);
+
+	for (Point challenge_point : this.challengePattern) {
+	    if (challenge_point.getY() > max.getY()) {
+		max = challenge_point;
+	    }
+	}
+
+	return max;
+    }
+
+    /**
+     * get the min challenge point
+     */
+    private Point min_challenge_point_y() {
+	if (challengePattern == null) {
+	    return null;
+	}
+
+	Point min = this.challengePattern.get(0);
+
+	for (Point challenge_point : this.challengePattern) {
+	    if (challenge_point.getY() < min.getY()) {
+		min = challenge_point;
+	    }
+	}
+
+	return min;
     }
 }
