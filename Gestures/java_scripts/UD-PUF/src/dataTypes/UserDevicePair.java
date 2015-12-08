@@ -19,11 +19,11 @@ public class UserDevicePair {
     }
 
     public enum AuthenticationPredicate {
-	PRESSURE, NO_PRESSURE, TIME, DISTANCE, TIME_LENGTH, TIME_OR_DISTANCE, PRESSURE_OR_TIME;
+	PRESSURE, NO_PRESSURE, TIME, DISTANCE, TIME_LENGTH, TIME_OR_DISTANCE, PRESSURE_OR_TIME, PRESSURE_OR_DISTANCE_AND_TIME;
     }
 
     // determine what type of predicate to authenticate with
-    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.PRESSURE;
+    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.PRESSURE_OR_DISTANCE_AND_TIME;
 
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
@@ -175,7 +175,7 @@ public class UserDevicePair {
 	int failed_time_points = failed_time_points(new_response_data, profile, this.time_allowed_deviations);
 
 	// determine the size of the list
-	int list_size = profile.getNormalizedResponses().get(0).getResponse().size();
+	int list_size = profile.getNormalizedResponses().get(0).getNormalizedResponse().size();
 
 	// set the failed point ratio for pressure time and distance
 	this.pressure_authentication_failed_point_ratio = ((double) failed_pressure_points) / list_size;
@@ -228,6 +228,9 @@ public class UserDevicePair {
 	    break;
 	case PRESSURE_OR_TIME:
 	    pass = pressure_pass || time_pass;
+	    break;
+	case PRESSURE_OR_DISTANCE_AND_TIME:
+	    pass = pressure_pass || (distance_pass && time_pass);
 	    break;
 	default:
 	    pass = pressure_pass || (distance_pass && time_pass);
@@ -339,12 +342,13 @@ public class UserDevicePair {
 
 	// normalize the response
 	Response response_object = new Response(new_response);
-	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getResponse());
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
-	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
+	response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
+		is_profile_horizontal);
 
 	// create a list of point values for pressure
-	for (Point response_point : response_object.getResponse()) {
+	for (Point response_point : response_object.getNormalizedResponse()) {
 	    point_values.add(response_point.getPressure());
 	}
 
@@ -366,12 +370,13 @@ public class UserDevicePair {
 
 	// normalize the response
 	Response response_object = new Response(new_response);
-	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getResponse());
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
-	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
+	response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
+		is_profile_horizontal);
 
 	// create a list of point values for distance
-	for (Point response_point : response_object.getResponse()) {
+	for (Point response_point : response_object.getNormalizedResponse()) {
 	    point_values.add(response_point.getDistance());
 	}
 
@@ -393,12 +398,13 @@ public class UserDevicePair {
 
 	// normalize the response
 	Response response_object = new Response(new_response);
-	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getResponse());
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
-	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
+	response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
+		is_profile_horizontal);
 
 	// create a list of point values for time
-	for (Point response_point : response_object.getResponse()) {
+	for (Point response_point : response_object.getNormalizedResponse()) {
 	    point_values.add(response_point.getTime());
 	}
 
@@ -497,7 +503,7 @@ public class UserDevicePair {
 	int distance_failed_points = this.failed_distance_points(new_response_data, profile,
 		this.distance_allowed_deviations);
 	int time_failed_points = this.failed_time_points(new_response_data, profile, this.time_allowed_deviations);
-	int list_size = profile.getNormalizedResponses().get(0).getResponse().size();
+	int list_size = profile.getNormalizedResponses().get(0).getNormalizedResponse().size();
 
 	information += "pressure_failed_points: " + pressure_failed_points + "\n";
 	information += "distance_failed_points: " + distance_failed_points + "\n";
@@ -530,10 +536,11 @@ public class UserDevicePair {
 
 	// normalize the response
 	Response response_object = new Response(new_response_data);
-	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getResponse());
-	response_object.normalize(profile.getNormalizedResponses().get(0).getResponse(), is_profile_horizontal);
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+	response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
+		is_profile_horizontal);
 
-	information += "normalized_response_points: " + response_object.getResponse() + "\n";
+	information += "normalized_response_points: " + response_object.getNormalizedResponse() + "\n";
 
 	return information;
     }

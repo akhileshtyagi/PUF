@@ -203,12 +203,12 @@ public class Profile implements Serializable {
 	this.pressure_muSigmaValues = new MuSigma();
 
 	// for each point in the distribution, compute mu an sigma
-	for (int i = 0; i < this.normalizedResponses.get(0).getResponse().size(); i++) {
+	for (int i = 0; i < this.normalizedResponses.get(0).getNormalizedResponse().size(); i++) {
 	    // go though each of the responses collecting value
 	    // of point i in the response
 	    normalized_point_pressure_list = new ArrayList<Double>();
 	    for (Response response : this.normalizedResponses) {
-		normalized_point_pressure_list.add(response.getResponse().get(i).getPressure());
+		normalized_point_pressure_list.add(response.getNormalizedResponse().get(i).getPressure());
 	    }
 
 	    // compute the average (mu)
@@ -226,13 +226,13 @@ public class Profile implements Serializable {
 	this.point_distance_muSigmaValues = new MuSigma();
 
 	// for each point in the distribution, compute mu an sigma
-	for (int i = 0; i < this.normalizedResponses.get(0).getResponse().size(); i++) {
+	for (int i = 0; i < this.normalizedResponses.get(0).getNormalizedResponse().size(); i++) {
 	    // go though each of the responses collecting value
 	    // of point i in the response
 	    normalized_point_distance_list = new ArrayList<Double>();
 	    for (Response response : this.normalizedResponses) {
 		// distance values in the list correspond to point distance
-		normalized_point_distance_list.add(response.getResponse().get(i).getDistance());
+		normalized_point_distance_list.add(response.getNormalizedResponse().get(i).getDistance());
 	    }
 
 	    // compute the average (mu)
@@ -250,13 +250,13 @@ public class Profile implements Serializable {
 	this.time_muSigmaValues = new MuSigma();
 
 	// for each point in the distribution, compute mu an sigma
-	for (int i = 0; i < this.normalizedResponses.get(0).getResponse().size(); i++) {
+	for (int i = 0; i < this.normalizedResponses.get(0).getNormalizedResponse().size(); i++) {
 	    // go though each of the responses collecting value
 	    // of point i in the response
 	    normalized_time_list = new ArrayList<Double>();
 	    for (Response response : this.normalizedResponses) {
 		// grab the time values from ith point in the list of responses
-		normalized_time_list.add(response.getResponse().get(i).getTime());
+		normalized_time_list.add(response.getNormalizedResponse().get(i).getTime());
 	    }
 
 	    // compute the average (mu)

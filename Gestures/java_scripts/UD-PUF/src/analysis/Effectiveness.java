@@ -270,14 +270,28 @@ public class Effectiveness {
 	    // pattern though the constructor to effectivly create the new
 	    // pattern
 
-	    response_list.add(new Response(responses[i].getResponse()));
+	    response_list.add(new Response(responses[i].getOrigionalResponse()));
 	    // response_list.add(responses[i]);
 	}
 
-	// System.out.println(response_list.get(0).getResponse());
-	// System.out.println(response_list.get(0).getOrigionalResponse());
+	// find the average number of points in a response responses
+	// System.out.println(average_points(response_list));
+	// System.out.println(response_list.get(0).getResponse().size());
 
 	return response_list;
+    }
+
+    private static double average_points(ArrayList<Response> list) {
+	double sum = 0;
+	double count = 0;
+
+	for (Response response : list) {
+	    sum += response.getOrigionalResponse().size();
+	    // System.out.println(response.getResponse().size());
+	    count++;
+	}
+
+	return sum / count;
     }
 
 }

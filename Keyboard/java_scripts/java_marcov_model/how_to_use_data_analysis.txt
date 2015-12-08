@@ -1,0 +1,92 @@
+Using the Data analysis scripts.
+---
+Scripts involved:
+  Model_compare
+  Model_compare_thread
+  Statistics
+---
+There are a two phases to using the data analysis scripts.
+1) run Model_compare on a number of data sets
+2) run Statistics on the output of Model_compare
+
+Below I have a quick description of each script, and
+a listing of the things which can be modified in each file.
+I have listed out the effect of modifying each thing.
+---
+Model_compare:
+  description:
+This script uses input data sets from the specified input_folder_name.
+It will attempt to compare every data set in input_folder_name to
+every data set in input_folder_name (this includes the same data set against itself).
+This script uses Model_compare_thread to preform the actual tests.
+When this script completes, it outputs a file which can be read in by statistics.
+This script also produces some useful statistics itself.
+
+*The output of this script is only useful to statistics if PRINT_ALL_PROBABILITY=true; 
+*Time taken by this script can be on the order of hours if you provide too many parameters.
+
+  modifiable parameters:
+    PRINT_ALL_PROBABILITY =
+      true will cause the authentication_probability of each test to be printed.
+      false will cause the average authentication_probability to be printed.
+      
+    input_folder_name =
+      The folder from which Model_compare will take the datasets.
+      Each file in this folder is a dataset.
+    
+  *** For all of the following parameters,
+      You must provide a list of values you want to test at.
+    
+    window_sizes =
+      Refers to the size of the sliding window in the Markov model.
+    
+    token_sizes =
+      Number of tokens per screen area.
+    
+    thresholds =
+      Time threshold for touches to be included in a window.
+    
+    user_model_sizes =
+      Number of touches used to build the base model / profile.
+    
+    auth_model_sizes =
+      Number of touches used to authenticate against base model / profile.
+      
+  ***    
+---
+Model_compare_thread:
+  description:
+This script is not run directly.
+Model_compare uses this script to conduct tests.
+Each test is its own thread.
+When the thread completes, Model_compare reads results from the thread.
+This design was used to improve testing speed.
+
+  modifiable parameters:
+    COMPARE_LIMIT = 
+      # limit on the number of times any given data sets will be compared. This only applies when EXTENSIVE = false;
+      
+    DISJOINT =
+      true only compare non-overlapping sets of points within data sets coming from the same file.
+      false compare overlapping sets read from the same file.
+      
+    EXTENSIVE = 
+      true disregard COMPARE_LIMIT and compare all combinations of one file with the others.
+      false use COMPARE_LIMIT to dictate how many times any two data sets may be compared. 
+---
+Statistics:
+  description:
+This script uses uses output from Model_compare.
+This script generates data on:
+  authentication_accuracy
+  false_positive rate
+  false_netative rate
+If the autentication_threshold is set to a given value.
+
+*Statistics output is only valid if Model_compare was run for 1 set of model parameters.
+
+  modifiable parameters:
+    Input & Output file names.
+---
+After I ran these scripts and got the output from Statistics,
+I would often do some more analysis in a spreadsheet program.

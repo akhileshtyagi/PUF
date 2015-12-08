@@ -74,9 +74,10 @@ public class Test {
 	ud_pair.setStandardDeviations(UserDevicePair.RatioType.TIME_LENGTH, this.time_length_allowed_deviations);
 	ud_pair.addChallenge(challenge);
 
-	System.out.println(ud_pair.information_dump_authenticate(response.getResponse(), challenge.getProfile()));
+	// System.out.println(ud_pair.information_dump_authenticate(response.getResponse(),
+	// challenge.getProfile()));
 
 	// set authentication result based on the outcome
-	this.authentication_result = ud_pair.authenticate(response.getResponse(), challenge.getProfile());
+	this.authentication_result = ud_pair.authenticate(response.getOrigionalResponse(), challenge.getProfile());
     }
 }

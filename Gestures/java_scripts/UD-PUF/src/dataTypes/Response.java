@@ -16,7 +16,7 @@ public class Response implements Serializable {
 
     // normalized list of points. This will be overridden every time normalize
     // is called
-    // private ArrayList<Point> normalizedResponsePattern;
+    private ArrayList<Point> normalizedResponsePattern;
 
     // Count of motion events this response originally had
     private int motionEvenCount;
@@ -25,24 +25,24 @@ public class Response implements Serializable {
 	this.responsePattern = new ArrayList<Point>(responsePattern);
 	motionEvenCount = responsePattern.size();
 
-	// this.normalizedResponsePattern = new
+	this.normalizedResponsePattern = this.responsePattern;
 	// ArrayList<Point>(responsePattern);
     }
 
     /**
      * return the normalized response pattern
      */
-    public List<Point> getResponse() {
+    public List<Point> getOrigionalResponse() {
 	return this.responsePattern;
 	// return this.normalizedResponsePattern;
     }
 
     /**
-     * return the origional response pattern
+     * return the normalized response pattern
      */
-    // public List<Point> getOrigionalResponse() {
-    // return this.responsePattern;
-    // }
+    public List<Point> getNormalizedResponse() {
+	return this.normalizedResponsePattern;
+    }
 
     public int getMotionEvenCount() {
 	return motionEvenCount;
@@ -66,6 +66,8 @@ public class Response implements Serializable {
      * original response.
      */
     public void normalize(List<Point> normalizingPoints, boolean isChallengeHorizontal) {
+	// System.out.println("before:\t" + this.responsePattern);
+
 	// Implement method of normalizing ResponsePattern to points
 	// given in to method
 	ArrayList<Point> normalizedResponsePattern = new ArrayList<Point>();
@@ -258,6 +260,8 @@ public class Response implements Serializable {
 		// set the response points based on the new indexes
 		closestRightPoint = responsePattern.get(closestRightIndex);
 		closestLeftPoint = responsePattern.get(closestLeftIndex);
+
+		// System.out.println(responsePattern);
 	    }
 
 	    // System.out.println("+++++++++++++++");
@@ -357,6 +361,10 @@ public class Response implements Serializable {
 		}
 	    }
 
+	    // if (closestLeftIndex == closestRightIndex) {
+	    // System.out.println(point_distance);
+	    // }
+
 	    // TODO figure out why point_distance is not being computed
 	    // correctly
 	    // System.out.println(point_distance);
@@ -372,7 +380,10 @@ public class Response implements Serializable {
 	    normalizedResponsePattern.add(normalizedPoint);
 	}
 
-	this.responsePattern = normalizedResponsePattern;
+	this.normalizedResponsePattern = normalizedResponsePattern;
 	// this.normalizedResponsePattern = normalizedResponsePattern;
+
+	// System.out.println("before:\t" + this.responsePattern);
+	// System.out.println("after:\t" + this.normalizedResponsePattern);
     }
 }

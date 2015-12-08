@@ -76,7 +76,7 @@ public class Challenge {
 	// normalization points,
 	// then calculated normalizing points with
 	if (responses.size() <= 0) {
-	    this.normalized_elements = response.getResponse().size();
+	    this.normalized_elements = response.getOrigionalResponse().size();
 
 	    // TODO move this back to constructor
 	    // determine if the challenge is more horizontal or more vertical in
