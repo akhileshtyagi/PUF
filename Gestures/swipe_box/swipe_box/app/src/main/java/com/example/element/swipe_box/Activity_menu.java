@@ -42,7 +42,7 @@ import dataTypes.UserDevicePair;
 public class Activity_menu extends AppCompatActivity {
     public static final String SHARED_PREFERENCES_FILE = "swipe_box_preferences";
     public static final String ANALYSIS_FILENAME = "analysis_interpoint_time";
-    public static final String RESPONSES_FILENAME = "response_profile_friend";
+    public static final String RESPONSES_FILENAME = "response_profile_tim";
 
     private Challenge challenge;
     private ArrayList<Response> responses;
@@ -283,7 +283,7 @@ public class Activity_menu extends AppCompatActivity {
             Response response = array_to_response(array_response);
 
             // add the response to the list of responses (must be done in a way that will cause it not to be changed)
-            responses.add(new Response(response.getResponse()));
+            responses.add(new Response(response.getOrigionalResponse()));
 
             // put the responses into the challenge object
             challenge.addResponse(response);
@@ -311,7 +311,7 @@ public class Activity_menu extends AppCompatActivity {
         ud_pair.addChallenge(challenge);
 
         // use ud_pair to authenticate
-        boolean authenticated = ud_pair.authenticate(response.getResponse(), challenge.getProfile());
+        boolean authenticated = ud_pair.authenticate(response.getOrigionalResponse(), challenge.getProfile());
 
         // print out information about the authentication to the console
         String console_output = "";
@@ -413,11 +413,11 @@ public class Activity_menu extends AppCompatActivity {
         List<Double> pressure_list;
 
         // compute mu for each point in the list
-        for(int i=0;i<response_list.get(0).getResponse().size();i++){
+        for(int i=0;i<response_list.get(0).getNormalizedResponse().size();i++){
             //for each response create a list of pressure values
             pressure_list = new ArrayList<Double>();
 
-            for(dataTypes.Point point : response_list.get(i).getResponse()){
+            for(dataTypes.Point point : response_list.get(i).getNormalizedResponse()){
                 pressure_list.add(point.getPressure());
             }
 
@@ -438,11 +438,11 @@ public class Activity_menu extends AppCompatActivity {
         List<Double> pressure_list;
 
         // compute sigma for each point in the list
-        for(int i=0;i<response_list.get(i).getResponse().size();i++){
+        for(int i=0;i<response_list.get(i).getNormalizedResponse().size();i++){
             //for each response create a list of pressure values
             pressure_list = new ArrayList<Double>();
 
-            for(dataTypes.Point point : response_list.get(i).getResponse()){
+            for(dataTypes.Point point : response_list.get(i).getNormalizedResponse()){
                 pressure_list.add(point.getPressure());
             }
 
