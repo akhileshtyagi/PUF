@@ -23,7 +23,7 @@ public class UserDevicePair {
     }
 
     // determine what type of predicate to authenticate with
-    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.PRESSURE_OR_DISTANCE_AND_TIME;
+    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.DISTANCE;
 
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
