@@ -11,6 +11,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.opencsv.CSVWriter;
 
 import java.io.File;
@@ -98,7 +99,8 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         if (mode.equals("enroll")) {
             if (mRemainingSwipes-- == 0) {
                 DataReader reader = new DataReader(new File(Environment.getExternalStorageDirectory() + "/PUFProfile"));
-                Gson gson = new Gson();
+                Gson gson = new GsonBuilder()
+                        .serializeNulls().serializeSpecialFloatingPointValues().create();
                 Toast.makeText(this, "Completed Authentication", Toast.LENGTH_SHORT).show();
                 String json = gson.toJson(mChallenge, mChallenge.getClass());
 
@@ -186,8 +188,8 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
                 csvWrite.writeNext(row);
                 points.add(new dataTypes.Point(point.x, point.y, point.pressure));
             }
-            Response tempResponse = new Response(points, response.size());
-            mResponses.add(new Response(tempResponse.getResponse()));
+            Response tempResponse = new Response(points);
+            mResponses.add(new Response(tempResponse.getNormalizedResponse()));
             mChallenge.addResponse(tempResponse);
             csvWrite.close();
 

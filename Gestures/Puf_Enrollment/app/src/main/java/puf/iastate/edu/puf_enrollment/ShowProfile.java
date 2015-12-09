@@ -40,6 +40,12 @@ public class ShowProfile extends Activity {
 
             sb.append("Number of Normalized Points: " + mChallenge.getNormalizedElementsCount() + "\n\n");
             sb.append("Challenge Points:\n");
+            sb.append("Profile Grade: " + mChallenge.getProfile().getConfidence_interval() + "\n");
+            sb.append("Number of Points Confidence Interval: " + mChallenge.getProfile().get_num_motion_event_contribution() + "\n");
+            sb.append("Standard Deviation of Points Confidence Interval: " + mChallenge.getProfile().get_sd_motion_event_contribution() + "\n");
+            sb.append("Standard Deviation of Pressure Confidence Interval: " + mChallenge.getProfile().get_sd_pressure_contribution() + "\n");
+            sb.append("Standard Deviation of Time Confidence Interval: " + mChallenge.getProfile().get_sd_time_contribution() + "\n");
+            sb.append("Standard Deviation of Distance Confidence Interval: " + mChallenge.getProfile().get_sd_distance_contribution() + "\n\n");
             sb.append("X: " + mChallenge.getChallengePattern().get(0).getX() + ", Y: " + mChallenge.getChallengePattern().get(0).getY() + "\n");
             sb.append("X: " + mChallenge.getChallengePattern().get(1).getX() + ", Y: " + mChallenge.getChallengePattern().get(1).getY() + "\n");
             sb.append("X: " + mChallenge.getChallengePattern().get(2).getX() + ", Y: " + mChallenge.getChallengePattern().get(2).getY() + "\n");

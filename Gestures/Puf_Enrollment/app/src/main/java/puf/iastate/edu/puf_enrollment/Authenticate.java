@@ -63,7 +63,7 @@ public class Authenticate extends Activity {
 
         UserDevicePair udPair = new UserDevicePair(0,mChallenges);
 
-        boolean validUser = udPair.authenticate(mResponse.getResponse(), mChallenges.get(0).getChallengeID());
+        boolean validUser = udPair.authenticate(mResponse.getNormalizedResponse(), mChallenges.get(0).getChallengeID());
         if(validUser) mTV.setText("Valid Authentication!");
         else mTV.setText("Denied");
 

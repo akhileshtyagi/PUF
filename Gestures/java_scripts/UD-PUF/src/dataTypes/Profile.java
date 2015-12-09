@@ -20,6 +20,9 @@ public class Profile implements Serializable {
     // List of normalized Responses
     private ArrayList<Response> normalizedResponses;
 
+	// Confidence Interval for this Profile
+	private double confidence_interval;
+
     // list of time_lengths corresponding to the responses in the
     // normalizedResponses list
     private ArrayList<Double> time_lengths;
@@ -41,6 +44,14 @@ public class Profile implements Serializable {
     // true if mu sigma has been computed
     private boolean mu_sigma_computed;
 
+	double num_motion_events_contribution;
+	double sd_motion_events_contribution;
+
+	// Standard Deviations of pressure, time, and distance
+	double sd_pressure_contribution;
+	double sd_time_contribution;
+	double sd_distance_contribution;
+
     public Profile(List<Response> normalizedResponses, List<Double> time_lengths, List<Double> motion_event_counts) {
 	this.normalizedResponses = new ArrayList<Response>(normalizedResponses);
 	this.time_lengths = new ArrayList<Double>(time_lengths);
@@ -53,7 +64,9 @@ public class Profile implements Serializable {
 	time_muSigmaValues = new MuSigma();
 
 	mu_sigma_computed = false;
-    }
+	confidence_interval = -1;
+
+	}
 
     // Constructor without normalized responses, for initially constructing a
     // challenge
@@ -69,7 +82,15 @@ public class Profile implements Serializable {
 	time_length_sigma = 0;
 
 	mu_sigma_computed = false;
-    }
+	confidence_interval = -1;
+
+    num_motion_events_contribution = 0;
+    sd_motion_events_contribution = 0;
+
+    sd_pressure_contribution = 0;
+    sd_time_contribution = 0;
+    sd_distance_contribution = 0;
+	}
 
     public void addNormalizedResponses(List<Response> normalizedResponses) {
 	for (Response response : normalizedResponses) {
@@ -176,6 +197,74 @@ public class Profile implements Serializable {
 
 	return average;
     }
+
+	/**
+	 * computes confidence interval (if not yet computed), then returns
+	 * confidence interval
+	 */
+	public double getConfidence_interval() {
+		if(confidence_interval < 0) compute_confidence_interval();
+		return confidence_interval;
+	}
+
+	public double get_sd_pressure_contribution() {
+		if(confidence_interval < 0) compute_confidence_interval();
+		return sd_pressure_contribution;
+	}
+
+	public double get_sd_time_contribution() {
+		if(confidence_interval < 0) compute_confidence_interval();
+		return sd_time_contribution;
+	}
+
+	public double get_sd_distance_contribution() {
+		if(confidence_interval < 0) compute_confidence_interval();
+		return sd_distance_contribution;
+	}
+
+	public double get_num_motion_event_contribution() {
+		if(confidence_interval < 0) compute_confidence_interval();
+		return num_motion_events_contribution;
+	}
+
+	public double get_sd_motion_event_contribution() {
+		if(confidence_interval < 0) compute_confidence_interval();
+		return sd_motion_events_contribution;
+	}
+
+	/**
+	 * computes confidence interval by using:
+	 * 	1) # of Motion Events Used in Normalizing
+	 * 	2) Standard deviation of motion events
+	 * 	3) Average standard deviations for point attributes (pressure, time, and distance)
+	 */
+	private void compute_confidence_interval() {
+
+		if (!mu_sigma_computed) {
+			compute_mu_sigma();
+		}
+
+		// TODO
+		// calculate compute challenge's challenge's normalized_elements count to a standard
+		// to determine if the profile has enough points
+		num_motion_events_contribution = motion_event_count_mu / 200;
+
+		sd_motion_events_contribution = motion_event_count_sigma;
+
+		for(int i = 0; i < normalizedResponses.size(); i++) {
+			sd_pressure_contribution += (pressure_muSigmaValues.getSigmaValues().get(i) / pressure_muSigmaValues.getMuValues().get(i));
+			sd_time_contribution += (time_muSigmaValues.getSigmaValues().get(i) / time_muSigmaValues.getMuValues().get(i));
+			sd_distance_contribution += (time_muSigmaValues.getSigmaValues().get(i) / time_muSigmaValues.getMuValues().get(i));
+		}
+
+		sd_pressure_contribution = 1 - sd_distance_contribution;
+		sd_time_contribution = 1 - sd_time_contribution;
+		sd_distance_contribution = 1 - sd_distance_contribution;
+
+		confidence_interval = ((1/5) * num_motion_events_contribution) + ((1/5) * sd_motion_events_contribution) + ((1/5) * sd_pressure_contribution)
+				+ ((1/5) * sd_time_contribution) + ((1/5) * sd_distance_contribution);
+
+	}
 
     /**
      * Find mu and sigma values for all points in the normalized list. This
@@ -328,4 +417,6 @@ public class Profile implements Serializable {
 
 	return std;
     }
+
+
 }
