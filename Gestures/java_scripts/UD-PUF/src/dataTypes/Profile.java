@@ -23,7 +23,10 @@ public class Profile implements Serializable {
 	// Confidence Interval for this Profile
 	private double confidence_interval;
 
-    // list of time_lengths corresponding to the responses in the
+	// Confidence Interval for the most recent authenticating response
+	private double new_response_confidence_interval;
+
+	// list of time_lengths corresponding to the responses in the
     // normalizedResponses list
     private ArrayList<Double> time_lengths;
 
@@ -47,10 +50,15 @@ public class Profile implements Serializable {
 	double num_motion_events_contribution;
 	double sd_motion_events_contribution;
 
-	// Standard Deviations of pressure, time, and distance
+	// Profile Standard Deviations of pressure, time, and distance
 	double sd_pressure_contribution;
 	double sd_time_contribution;
 	double sd_distance_contribution;
+
+	// Authentication Standard Deviations of pressure, time, and distance
+	double auth_sd_pressure_contribution;
+	double auth_sd_time_contribution;
+	double auth_sd_distance_contribution;
 
     public Profile(List<Response> normalizedResponses, List<Double> time_lengths, List<Double> motion_event_counts) {
 	this.normalizedResponses = new ArrayList<Response>(normalizedResponses);
@@ -64,7 +72,6 @@ public class Profile implements Serializable {
 	time_muSigmaValues = new MuSigma();
 
 	mu_sigma_computed = false;
-	confidence_interval = -1;
 
 	}
 
@@ -83,6 +90,7 @@ public class Profile implements Serializable {
 
 	mu_sigma_computed = false;
 	confidence_interval = -1;
+	new_response_confidence_interval = -1;
 
     num_motion_events_contribution = 0;
     sd_motion_events_contribution = 0;
@@ -90,6 +98,10 @@ public class Profile implements Serializable {
     sd_pressure_contribution = 0;
     sd_time_contribution = 0;
     sd_distance_contribution = 0;
+
+	auth_sd_pressure_contribution = 0;
+	auth_sd_time_contribution = 0;
+	auth_sd_distance_contribution = 0;
 	}
 
     public void addNormalizedResponses(List<Response> normalizedResponses) {
@@ -199,38 +211,72 @@ public class Profile implements Serializable {
     }
 
 	/**
-	 * computes confidence interval (if not yet computed), then returns
+	 * computes Profile confidence interval (if not yet computed), then returns
 	 * confidence interval
 	 */
 	public double getConfidence_interval() {
-		if(confidence_interval < 0) compute_confidence_interval();
+		if(confidence_interval <= 0) compute_confidence_interval();
 		return confidence_interval;
 	}
 
 	public double get_sd_pressure_contribution() {
-		if(confidence_interval < 0) compute_confidence_interval();
+		if(confidence_interval <= 0) compute_confidence_interval();
 		return sd_pressure_contribution;
 	}
 
 	public double get_sd_time_contribution() {
-		if(confidence_interval < 0) compute_confidence_interval();
+		if(confidence_interval <= 0) compute_confidence_interval();
 		return sd_time_contribution;
 	}
 
 	public double get_sd_distance_contribution() {
-		if(confidence_interval < 0) compute_confidence_interval();
+		if(confidence_interval <= 0) compute_confidence_interval();
 		return sd_distance_contribution;
 	}
 
 	public double get_num_motion_event_contribution() {
-		if(confidence_interval < 0) compute_confidence_interval();
+		if(confidence_interval <= 0) compute_confidence_interval();
 		return num_motion_events_contribution;
 	}
 
 	public double get_sd_motion_event_contribution() {
-		if(confidence_interval < 0) compute_confidence_interval();
+		if(confidence_interval <= 0) compute_confidence_interval();
 		return sd_motion_events_contribution;
 	}
+
+	/**
+	 * computes Authenticating confidence interval (if not yet computed), then returns
+	 * confidence interval
+	 */
+	public double get_new_response_CI(List<Point> new_response_data) {
+		if(new_response_confidence_interval < 0) compute_new_response_CI(new_response_data);
+		return new_response_confidence_interval;
+	}
+
+	public double get_auth_pressure_contribution(List<Point> new_response_data) {
+		if(new_response_confidence_interval < 0) compute_new_response_CI(new_response_data);
+		return auth_sd_pressure_contribution;
+	}
+
+	public double get_auth_time_contribution(List<Point> new_response_data) {
+		if(new_response_confidence_interval < 0) compute_new_response_CI(new_response_data);
+		return auth_sd_time_contribution;
+	}
+
+	public double get_auth_distance_contribution(List<Point> new_response_data) {
+		if(new_response_confidence_interval < 0) compute_new_response_CI(new_response_data);
+		return auth_sd_distance_contribution;
+	}
+
+//	public double get_auth_motion_event_contribution(List<Point> new_response_data) {
+//		if(new_response_confidence_interval < 0) compute_new_response_CI(new_response_data);
+//		return auth_num_motion_event_contribution;
+//	}
+
+//	public double get_auth_motion_event_contribution(List<Point> new_response_data) {
+//		if(new_response_confidence_interval < 0) compute_new_response_CI(new_response_data);
+//		return auth_ds_motion_event_contribution;
+//	}
 
 	/**
 	 * computes confidence interval by using:
@@ -244,29 +290,79 @@ public class Profile implements Serializable {
 			compute_mu_sigma();
 		}
 
+		int num_points = normalizedResponses.get(0).getNormalizedResponse().size();
+
+		for(int i = 0; i < num_points; i++) {
+			if(!Double.isNaN(pressure_muSigmaValues.getSigmaValues().get(i))) sd_pressure_contribution += (1 - (pressure_muSigmaValues.getSigmaValues().get(i) / pressure_muSigmaValues.getMuValues().get(i)));
+			if(!Double.isNaN(time_muSigmaValues.getSigmaValues().get(i)))sd_time_contribution += (1 - (time_muSigmaValues.getSigmaValues().get(i) / time_muSigmaValues.getMuValues().get(i)));
+			if(!Double.isNaN(point_distance_muSigmaValues.getSigmaValues().get(i)))sd_distance_contribution += (1 - (point_distance_muSigmaValues.getSigmaValues().get(i) / point_distance_muSigmaValues.getMuValues().get(i)));
+		}
+
+		if(!Double.isNaN(sd_pressure_contribution)) sd_pressure_contribution = sd_distance_contribution / num_points;
+		else sd_pressure_contribution = 0;
+
+		if(!Double.isNaN(sd_time_contribution)) sd_time_contribution = sd_time_contribution / num_points;
+		else sd_time_contribution = 0;
+
+		if(!Double.isNaN(sd_distance_contribution)) sd_distance_contribution = sd_distance_contribution / num_points;
+		else sd_distance_contribution = 0;
+
 		// TODO
 		// calculate compute challenge's challenge's normalized_elements count to a standard
 		// to determine if the profile has enough points
-		num_motion_events_contribution = motion_event_count_mu / 200;
 
-		sd_motion_events_contribution = motion_event_count_sigma;
+//		num_motion_events_contribution = motion_event_count_mu / 200;
+//		sd_motion_events_contribution = motion_event_count_sigma;
+//		confidence_interval = ( num_motion_events_contribution + sd_motion_events_contribution + sd_pressure_contribution
+//				+ sd_time_contribution + sd_distance_contribution) / 5;
 
-		for(int i = 0; i < normalizedResponses.size(); i++) {
-			sd_pressure_contribution += (pressure_muSigmaValues.getSigmaValues().get(i) / pressure_muSigmaValues.getMuValues().get(i));
-			sd_time_contribution += (time_muSigmaValues.getSigmaValues().get(i) / time_muSigmaValues.getMuValues().get(i));
-			sd_distance_contribution += (time_muSigmaValues.getSigmaValues().get(i) / time_muSigmaValues.getMuValues().get(i));
-		}
-
-		sd_pressure_contribution = 1 - sd_distance_contribution;
-		sd_time_contribution = 1 - sd_time_contribution;
-		sd_distance_contribution = 1 - sd_distance_contribution;
-
-		confidence_interval = ((1/5) * num_motion_events_contribution) + ((1/5) * sd_motion_events_contribution) + ((1/5) * sd_pressure_contribution)
-				+ ((1/5) * sd_time_contribution) + ((1/5) * sd_distance_contribution);
+		// just contributions from pressure, time, and distance for now
+		confidence_interval = (sd_pressure_contribution + sd_time_contribution + sd_distance_contribution) / 3;
 
 	}
 
-    /**
+	/**
+	 * calculate and return the confidence interval for an attempted responses
+	 */
+	private void compute_new_response_CI(List<Point> new_response) {
+
+		if (!mu_sigma_computed) {
+			compute_mu_sigma();
+		}
+
+		int num_points = normalizedResponses.get(0).getNormalizedResponse().size();
+
+		// [1 - Sigma_{i=1}^N( |p_i - mu_i| / mu_i)] / N
+		for(int i = 0; i < num_points; i++) {
+			if(!Double.isNaN(pressure_muSigmaValues.getSigmaValues().get(i))) {
+				auth_sd_pressure_contribution += (1 - (Math.abs(new_response.get(i).getPressure()
+						- (pressure_muSigmaValues.getMuValues().get(i))) / pressure_muSigmaValues.getMuValues().get(i)));
+			}
+
+			if(!Double.isNaN(time_muSigmaValues.getSigmaValues().get(i))) {
+				auth_sd_time_contribution += (1 - (Math.abs(new_response.get(i).getTime()
+						- (time_muSigmaValues.getMuValues().get(i))) / time_muSigmaValues.getMuValues().get(i)));
+			}
+
+			if(!Double.isNaN(point_distance_muSigmaValues.getSigmaValues().get(i))) {
+				auth_sd_distance_contribution += (1 - (Math.abs(new_response.get(i).getDistance()
+						- (point_distance_muSigmaValues.getMuValues().get(i))) / point_distance_muSigmaValues.getMuValues().get(i)));
+			}
+		}
+
+		if(!Double.isNaN(auth_sd_pressure_contribution)) auth_sd_pressure_contribution = auth_sd_distance_contribution / num_points;
+		else auth_sd_pressure_contribution = 0;
+
+		if(!Double.isNaN(auth_sd_time_contribution)) auth_sd_time_contribution = auth_sd_time_contribution / num_points;
+		else auth_sd_time_contribution = 0;
+
+		if(!Double.isNaN(auth_sd_distance_contribution)) auth_sd_distance_contribution = auth_sd_distance_contribution / num_points;
+		else auth_sd_distance_contribution = 0;
+
+		new_response_confidence_interval = (auth_sd_pressure_contribution + auth_sd_time_contribution + auth_sd_distance_contribution) / 3;
+	}
+
+	/**
      * Find mu and sigma values for all points in the normalized list. This
      * method will set the value of this.muSigmaValues to the appropriate value
      */

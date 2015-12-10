@@ -42,7 +42,10 @@ public class UserDevicePair {
     private double distance_authentication_failed_point_ratio;
     private double time_authentication_failed_point_ratio;
 
-    public UserDevicePair(int userDeviceID) {
+	// Confidence Interval for the most recent authenticating response
+	private double new_response_confidence_interval;
+
+	public UserDevicePair(int userDeviceID) {
 	this(userDeviceID, new ArrayList<Challenge>());
     }
 
@@ -77,6 +80,7 @@ public class UserDevicePair {
 	this.time_authentication_failed_point_ratio = 1;
 
 	this.time_length_allowed_deviations = TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS;
+	this.new_response_confidence_interval = -1;
     }
 
     // Adds challenge to list of challenges correlating to this user/device pair
@@ -149,6 +153,8 @@ public class UserDevicePair {
 	this.distance_authentication_failed_point_ratio = 1.0;
 	this.time_authentication_failed_point_ratio = 1.0;
 
+	new_response_confidence_interval = profile.get_new_response_CI(new_response_data);
+
 	// if there are no responses to authenticate against, return false
 	if (profile.getNormalizedResponses().size() == 0) {
 	    System.out.println("no normalized responses");
@@ -166,7 +172,6 @@ public class UserDevicePair {
 	    // profile.getMotionEventCountSigma());
 	    return false;
 	}
-
 	// determine the number of failed points
 	int failed_pressure_points = failed_pressure_points(new_response_data, profile,
 		this.pressure_allowed_deviations);
@@ -239,6 +244,13 @@ public class UserDevicePair {
 
 	return pass;
     }
+
+	/**
+	 * returns the authenticating response's confidence interval
+	 */
+	public double getNew_response_confidence_interval() {
+		return new_response_confidence_interval;
+	}
 
     /**
      * return the userDeviceId
