@@ -249,22 +249,22 @@ public class Profile implements Serializable {
 	 * confidence interval
 	 */
 	public double get_new_response_CI(List<Point> new_response_data) {
-		if(new_response_confidence_interval < 0) compute_new_response_CI(new_response_data);
+		compute_new_response_CI(new_response_data);
 		return new_response_confidence_interval;
 	}
 
 	public double get_auth_pressure_contribution(List<Point> new_response_data) {
-		if(new_response_confidence_interval < 0) compute_new_response_CI(new_response_data);
+		compute_new_response_CI(new_response_data);
 		return auth_sd_pressure_contribution;
 	}
 
 	public double get_auth_time_contribution(List<Point> new_response_data) {
-		if(new_response_confidence_interval < 0) compute_new_response_CI(new_response_data);
+		compute_new_response_CI(new_response_data);
 		return auth_sd_time_contribution;
 	}
 
 	public double get_auth_distance_contribution(List<Point> new_response_data) {
-		if(new_response_confidence_interval < 0) compute_new_response_CI(new_response_data);
+		compute_new_response_CI(new_response_data);
 		return auth_sd_distance_contribution;
 	}
 
@@ -350,7 +350,7 @@ public class Profile implements Serializable {
 			}
 		}
 
-		if(!Double.isNaN(auth_sd_pressure_contribution)) auth_sd_pressure_contribution = auth_sd_distance_contribution / num_points;
+		if(!Double.isNaN(auth_sd_pressure_contribution)) auth_sd_pressure_contribution = auth_sd_pressure_contribution / num_points;
 		else auth_sd_pressure_contribution = 0;
 
 		if(!Double.isNaN(auth_sd_time_contribution)) auth_sd_time_contribution = auth_sd_time_contribution / num_points;
