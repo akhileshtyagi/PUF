@@ -101,7 +101,6 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
                 DataReader reader = new DataReader(new File(Environment.getExternalStorageDirectory() + "/PUFProfile"));
                 Gson gson = new GsonBuilder()
                         .serializeNulls().serializeSpecialFloatingPointValues().create();
-                Toast.makeText(this, "Completed Authentication", Toast.LENGTH_SHORT).show();
                 String json = gson.toJson(mChallenge, mChallenge.getClass());
 
                 Log.d("distance mu", mChallenge.getProfile().getPointDistanceMuSigmaValues().getMuValues().toString());

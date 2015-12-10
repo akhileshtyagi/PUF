@@ -55,6 +55,12 @@ public class Authenticate extends Activity {
 
     public void check_authentication(View v) {
         TextView mTV = (TextView) findViewById(R.id.authenticating_status);
+
+        TextView CI_tv = (TextView) findViewById(R.id.auth_confidence_interval);
+        TextView pressure_CI_tv = (TextView) findViewById(R.id.auth_pressure_ci);
+        TextView distance_CI_tv = (TextView) findViewById(R.id.auth_distance_ci);
+        TextView time_CI_tv = (TextView) findViewById(R.id.auth_time_ci);
+
         Gson gson = new Gson();
 
         SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.response", Context.MODE_PRIVATE);
@@ -66,6 +72,11 @@ public class Authenticate extends Activity {
         boolean validUser = udPair.authenticate(mResponse.getNormalizedResponse(), mChallenges.get(0).getChallengeID());
         if(validUser) mTV.setText("Valid Authentication!");
         else mTV.setText("Denied");
+
+        CI_tv.setText("Authentication CI: " + udPair.getNew_response_confidence_interval());
+        pressure_CI_tv.setText("Pressure CI: " + udPair.getChallenges().get(0).getProfile().get_auth_pressure_contribution(mResponse.getNormalizedResponse()));
+        distance_CI_tv.setText("Distance CI: " + udPair.getChallenges().get(0).getProfile().get_auth_distance_contribution(mResponse.getNormalizedResponse()));
+        time_CI_tv.setText("Time CI: " + udPair.getChallenges().get(0).getProfile().get_auth_time_contribution(mResponse.getNormalizedResponse()));
 
     }
 
