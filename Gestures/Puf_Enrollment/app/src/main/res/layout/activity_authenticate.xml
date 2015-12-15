@@ -34,7 +34,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text=""
-        android:textSize="40sp"
+        android:textSize="20sp"
         android:id="@+id/auth_confidence_interval"/>
 
     <TextView
@@ -44,7 +44,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text=""
-        android:textSize="40sp"
+        android:textSize="20sp"
         android:id="@+id/auth_pressure_ci"/>
 
     <TextView
@@ -54,7 +54,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text=""
-        android:textSize="40sp"
+        android:textSize="20sp"
         android:id="@+id/auth_distance_ci"/>
 
     <TextView
@@ -64,7 +64,7 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:text=""
-        android:textSize="40sp"
+        android:textSize="20sp"
         android:id="@+id/auth_time_ci"/>
 
 </RelativeLayout>
