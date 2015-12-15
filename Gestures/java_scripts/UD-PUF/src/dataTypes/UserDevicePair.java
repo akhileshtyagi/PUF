@@ -19,11 +19,11 @@ public class UserDevicePair {
     }
 
     public enum AuthenticationPredicate {
-	PRESSURE, NO_PRESSURE, TIME, DISTANCE, TIME_LENGTH, TIME_OR_DISTANCE, PRESSURE_OR_TIME, PRESSURE_OR_DISTANCE_AND_TIME;
+	PRESSURE, NO_PRESSURE, TIME, DISTANCE, TIME_LENGTH, TIME_OR_DISTANCE, PRESSURE_OR_TIME, PRESSURE_OR_DISTANCE_AND_TIME, PRESSURE_OR_DISTANCE;
     }
 
     // determine what type of predicate to authenticate with
-    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.DISTANCE;
+    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.PRESSURE_OR_DISTANCE;
 
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
@@ -42,10 +42,10 @@ public class UserDevicePair {
     private double distance_authentication_failed_point_ratio;
     private double time_authentication_failed_point_ratio;
 
-	// Confidence Interval for the most recent authenticating response
-	private double new_response_confidence_interval;
+    // Confidence Interval for the most recent authenticating response
+    private double new_response_confidence_interval;
 
-	public UserDevicePair(int userDeviceID) {
+    public UserDevicePair(int userDeviceID) {
 	this(userDeviceID, new ArrayList<Challenge>());
     }
 
@@ -237,6 +237,9 @@ public class UserDevicePair {
 	case PRESSURE_OR_DISTANCE_AND_TIME:
 	    pass = pressure_pass || (distance_pass && time_pass);
 	    break;
+	case PRESSURE_OR_DISTANCE:
+	    pass = pressure_pass || distance_pass;
+	    break;
 	default:
 	    pass = pressure_pass || (distance_pass && time_pass);
 	    break;
@@ -245,12 +248,12 @@ public class UserDevicePair {
 	return pass;
     }
 
-	/**
-	 * returns the authenticating response's confidence interval
-	 */
-	public double getNew_response_confidence_interval() {
-		return new_response_confidence_interval;
-	}
+    /**
+     * returns the authenticating response's confidence interval
+     */
+    public double getNew_response_confidence_interval() {
+	return new_response_confidence_interval;
+    }
 
     /**
      * return the userDeviceId
