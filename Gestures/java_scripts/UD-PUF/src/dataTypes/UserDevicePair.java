@@ -8,11 +8,13 @@ import java.util.List;
  * all challenges correlating to that user
  */
 public class UserDevicePair {
-    public final static double PRESSURE_DEFAULT_ALLOWED_DEVIATIONS = 2.46;
+    public final static double PRESSURE_DEFAULT_ALLOWED_DEVIATIONS = .89;
     public final static double DISTANCE_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
     public final static double TIME_DEFAULT_ALLOWED_DEVIATIONS = .415;
     public final static double TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
-    public final static double DEFAULT_AUTHENTICATION_THRESHOLD = 0.7;
+    public final static double PRESSURE_DEFAULT_AUTHENTICATION_THRESHOLD = 0.4;
+    public final static double DISTANCE_DEFAULT_AUTHENTICATION_THRESHOLD = 1.11;
+    public final static double TIME_DEFAULT_AUTHENTICATION_THRESHOLD = 0.7;
 
     public enum RatioType {
 	PRESSURE, DISTANCE, TIME, TIME_LENGTH
@@ -34,10 +36,12 @@ public class UserDevicePair {
     private double distance_allowed_deviations;
     private double time_allowed_deviations;
     private double time_length_allowed_deviations;
-    private double authentication_threshold;
+
+    private double pressure_authentication_threshold;
+    private double distance_authentication_threshold;
+    private double time_authentication_threshold;
 
     // stores the failed points from the previous authentication
-    // -1 if not set
     private double pressure_authentication_failed_point_ratio;
     private double distance_authentication_failed_point_ratio;
     private double time_authentication_failed_point_ratio;
@@ -51,7 +55,7 @@ public class UserDevicePair {
 
     public UserDevicePair(int userDeviceID, List<Challenge> challenges) {
 	this(userDeviceID, challenges, PRESSURE_DEFAULT_ALLOWED_DEVIATIONS, DISTANCE_DEFAULT_ALLOWED_DEVIATIONS,
-		TIME_DEFAULT_ALLOWED_DEVIATIONS, DEFAULT_AUTHENTICATION_THRESHOLD);
+		TIME_DEFAULT_ALLOWED_DEVIATIONS, PRESSURE_DEFAULT_AUTHENTICATION_THRESHOLD);
     }
 
     public UserDevicePair(int userDeviceID, double pressure_allowed_deviations, double distance_allowed_deviations,
@@ -74,7 +78,11 @@ public class UserDevicePair {
 	this.pressure_allowed_deviations = pressure_allowed_deviations;
 	this.distance_allowed_deviations = distance_allowed_deviations;
 	this.time_allowed_deviations = time_allowed_deviations;
-	this.authentication_threshold = authentication_threshold;
+
+	this.pressure_authentication_threshold = authentication_threshold;
+	this.distance_authentication_threshold = authentication_threshold;
+	this.time_authentication_threshold = authentication_threshold;
+
 	this.pressure_authentication_failed_point_ratio = 1;
 	this.distance_authentication_failed_point_ratio = 1;
 	this.time_authentication_failed_point_ratio = 1;
@@ -157,7 +165,7 @@ public class UserDevicePair {
 	Response response_object = new Response(new_response_data);
 	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 	response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-				is_profile_horizontal);
+		is_profile_horizontal);
 
 	// compute confidence interval with normalized points
 	new_response_confidence_interval = profile.get_new_response_CI(response_object.getNormalizedResponse());
@@ -214,9 +222,9 @@ public class UserDevicePair {
 	    double time_failed_point_ratio, boolean time_length_within_sigma) {
 	boolean pass = false;
 
-	boolean pressure_pass = (1 - pressure_failed_point_ratio) > this.authentication_threshold;
-	boolean distance_pass = (1 - distance_failed_point_ratio) > this.authentication_threshold;
-	boolean time_pass = (1 - time_failed_point_ratio) > this.authentication_threshold;
+	boolean pressure_pass = (1 - pressure_failed_point_ratio) > this.pressure_authentication_threshold;
+	boolean distance_pass = (1 - distance_failed_point_ratio) > this.distance_authentication_threshold;
+	boolean time_pass = (1 - time_failed_point_ratio) > this.time_authentication_threshold;
 	boolean time_length_pass = time_length_within_sigma;
 
 	switch (AUTHENTICATION_PREDICATE) {
@@ -262,38 +270,38 @@ public class UserDevicePair {
 	return new_response_confidence_interval;
     }
 
-	public double getNew_response_pressure_CI(List<Point> new_response_data, Profile profile) {
-		// normalize the response
-		Response response_object = new Response(new_response_data);
-		boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
-		response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-				is_profile_horizontal);
+    public double getNew_response_pressure_CI(List<Point> new_response_data, Profile profile) {
+	// normalize the response
+	Response response_object = new Response(new_response_data);
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+	response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
+		is_profile_horizontal);
 
-		// compute confidence interval with normalized points
-		return profile.get_auth_pressure_contribution(response_object.getNormalizedResponse());
-	}
+	// compute confidence interval with normalized points
+	return profile.get_auth_pressure_contribution(response_object.getNormalizedResponse());
+    }
 
-	public double getNew_response_time_CI(List<Point> new_response_data, Profile profile) {
-		// normalize the response
-		Response response_object = new Response(new_response_data);
-		boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
-		response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-				is_profile_horizontal);
+    public double getNew_response_time_CI(List<Point> new_response_data, Profile profile) {
+	// normalize the response
+	Response response_object = new Response(new_response_data);
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+	response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
+		is_profile_horizontal);
 
-		// compute confidence interval with normalized points
-		return profile.get_auth_time_contribution(response_object.getNormalizedResponse());
-	}
+	// compute confidence interval with normalized points
+	return profile.get_auth_time_contribution(response_object.getNormalizedResponse());
+    }
 
-	public double getNew_response_distance_CI(List<Point> new_response_data, Profile profile) {
-		// normalize the response
-		Response response_object = new Response(new_response_data);
-		boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
-		response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-				is_profile_horizontal);
+    public double getNew_response_distance_CI(List<Point> new_response_data, Profile profile) {
+	// normalize the response
+	Response response_object = new Response(new_response_data);
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+	response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
+		is_profile_horizontal);
 
-		// compute confidence interval with normalized points
-		return profile.get_auth_distance_contribution(response_object.getNormalizedResponse());
-	}
+	// compute confidence interval with normalized points
+	return profile.get_auth_distance_contribution(response_object.getNormalizedResponse());
+    }
 
     /**
      * return the userDeviceId
@@ -352,6 +360,38 @@ public class UserDevicePair {
 
 	case TIME_LENGTH:
 	    this.time_length_allowed_deviations = standard_deviations;
+	    break;
+	}
+    }
+
+    /**
+     * sets the authentication threshold.
+     * 
+     * IF the threshold provide is greater than 1 or less than 0. THAN threshold
+     * will be set to the closest of these values.
+     */
+    public void setAuthenticationThreshold(RatioType type, double threshold) {
+	// if the threshold is greater than 1 or less than 0, change it to the
+	// closest of these values.
+	double new_threshold = (threshold > 1) ? (1.0) : (threshold);
+	new_threshold = (threshold < 0) ? (0.0) : (threshold);
+
+	// set dependtant on type
+	switch (type) {
+	case PRESSURE:
+	    this.pressure_authentication_threshold = new_threshold;
+	    break;
+
+	case DISTANCE:
+	    this.distance_authentication_threshold = new_threshold;
+	    break;
+
+	case TIME:
+	    this.time_authentication_threshold = new_threshold;
+	    break;
+
+	case TIME_LENGTH:
+	    // do nothing
 	    break;
 	}
     }
@@ -546,7 +586,7 @@ public class UserDevicePair {
 	information += "pressure_allowed_deviations: " + this.pressure_allowed_deviations + "\n";
 	information += "distance_allowed_deviations: " + this.distance_allowed_deviations + "\n";
 	information += "time_allowed_deviations: " + this.time_allowed_deviations + "\n";
-	information += "authentication_threshold: " + this.authentication_threshold + "\n";
+	information += "pressure_authentication_threshold: " + this.pressure_authentication_threshold + "\n";
 
 	// gather information about this specific authentication
 	// how does authentication behave as a whole

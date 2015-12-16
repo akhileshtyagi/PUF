@@ -16,15 +16,21 @@ public class Combination {
     public double pressure_allowed_deviations;
     public double distance_allowed_deviations;
     public double time_allowed_deviations;
-    public double authentication_threshold;
+    public double pressure_authentication_threshold;
+    public double distance_authentication_threshold;
+    public double time_authentication_threshold;
     public double time_length_allowed_deviations;
 
     public Combination(double pressure_allowed_deviations, double distance_allowed_deviations,
-	    double time_allowed_deviations, double time_length_allowed_deviations, double authentication_threshold) {
+	    double time_allowed_deviations, double time_length_allowed_deviations,
+	    double pressure_authentication_threshold, double distance_authentication_threshold,
+	    double time_authentication_threshold) {
 	this.pressure_allowed_deviations = pressure_allowed_deviations;
 	this.distance_allowed_deviations = distance_allowed_deviations;
 	this.time_allowed_deviations = time_allowed_deviations;
-	this.authentication_threshold = authentication_threshold;
+	this.pressure_authentication_threshold = pressure_authentication_threshold;
+	this.distance_authentication_threshold = distance_authentication_threshold;
+	this.time_authentication_threshold = time_authentication_threshold;
 	this.time_length_allowed_deviations = time_length_allowed_deviations;
 
 	// compute the effectiveness
@@ -56,7 +62,9 @@ public class Combination {
 	output.append("distance_allowed_deviations: " + this.distance_allowed_deviations + "\n");
 	output.append("time_allowed_deviations: " + this.time_allowed_deviations + "\n");
 	output.append("time_length_allowed_deviations: " + this.time_length_allowed_deviations + "\n");
-	output.append("authentication_threshold: " + this.authentication_threshold + "\n");
+	output.append("pressure_authentication_threshold: " + this.pressure_authentication_threshold + "\n");
+	output.append("distance_authentication_threshold: " + this.distance_authentication_threshold + "\n");
+	output.append("time_authentication_threshold: " + this.time_authentication_threshold + "\n");
 
 	return output.toString();
     }

@@ -24,7 +24,9 @@ public class Test {
     public double pressure_allowed_deviations;
     public double distance_allowed_deviations;
     public double time_allowed_deviations;
-    public double authentication_threshold;
+    public double pressure_authentication_threshold;
+    public double distance_authentication_threshold;
+    public double time_authentication_threshold;
     public double time_length_allowed_deviations;
 
     /**
@@ -37,14 +39,16 @@ public class Test {
 	this(response, response_set, expected_result, challenge_points,
 		UserDevicePair.PRESSURE_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.DISTANCE_DEFAULT_ALLOWED_DEVIATIONS,
 		UserDevicePair.TIME_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS,
-		UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD);
+		UserDevicePair.PRESSURE_DEFAULT_AUTHENTICATION_THRESHOLD, UserDevicePair.DISTANCE_DEFAULT_AUTHENTICATION_THRESHOLD,
+		UserDevicePair.TIME_DEFAULT_AUTHENTICATION_THRESHOLD);
     }
 
     public Test(Response response, List<Response> response_set, boolean expected_result, List<Point> challenge_points,
 	    Combination c) {
 	this(response, response_set, expected_result, challenge_points, c.pressure_allowed_deviations,
 		c.distance_allowed_deviations, c.time_allowed_deviations, c.time_length_allowed_deviations,
-		c.authentication_threshold);
+		c.pressure_authentication_threshold, c.distance_authentication_threshold,
+		c.time_authentication_threshold);
     }
 
     /**
@@ -52,12 +56,15 @@ public class Test {
      */
     public Test(Response response, List<Response> response_set, boolean expected_result, List<Point> challenge_points,
 	    double pressure_allowed_deviations, double distance_allowed_deviations, double time_allowed_deviations,
-	    double time_length_allowed_deviations, double authentication_threshold) {
+	    double time_length_allowed_deviations, double pressure_authentication_threshold,
+	    double distance_authentication_threshold, double time_authentication_threshold) {
 	this.expected_authentication_result = expected_result;
 	this.pressure_allowed_deviations = pressure_allowed_deviations;
 	this.distance_allowed_deviations = distance_allowed_deviations;
 	this.time_allowed_deviations = time_allowed_deviations;
-	this.authentication_threshold = authentication_threshold;
+	this.pressure_authentication_threshold = pressure_authentication_threshold;
+	this.distance_authentication_threshold = distance_authentication_threshold;
+	this.time_authentication_threshold = time_authentication_threshold;
 	this.time_length_allowed_deviations = time_length_allowed_deviations;
 
 	// run the test
@@ -70,7 +77,12 @@ public class Test {
 
 	// preform the authentication
 	UserDevicePair ud_pair = new UserDevicePair(0, this.pressure_allowed_deviations,
-		this.distance_allowed_deviations, this.time_allowed_deviations, this.authentication_threshold);
+		this.distance_allowed_deviations, this.time_allowed_deviations, this.pressure_authentication_threshold);
+
+	ud_pair.setAuthenticationThreshold(UserDevicePair.RatioType.PRESSURE, this.pressure_authentication_threshold);
+	ud_pair.setAuthenticationThreshold(UserDevicePair.RatioType.DISTANCE, this.distance_authentication_threshold);
+	ud_pair.setAuthenticationThreshold(UserDevicePair.RatioType.TIME, this.time_authentication_threshold);
+
 	ud_pair.setStandardDeviations(UserDevicePair.RatioType.TIME_LENGTH, this.time_length_allowed_deviations);
 	ud_pair.addChallenge(challenge);
 

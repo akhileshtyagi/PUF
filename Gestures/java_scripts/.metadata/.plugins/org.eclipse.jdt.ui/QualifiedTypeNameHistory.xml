@@ -5,6 +5,6 @@
 <fullyQualifiedTypeName name="dataTypes.Point"/>
 <fullyQualifiedTypeName name="dataTypes.Response"/>
 <fullyQualifiedTypeName name="dataTypes.UserDevicePair"/>
-<fullyQualifiedTypeName name="dataTypes.UserDevicePair.RatioType"/>
 <fullyQualifiedTypeName name="java.util.List"/>
+<fullyQualifiedTypeName name="dataTypes.UserDevicePair.RatioType"/>
 </qualifiedTypeNameHistroy>

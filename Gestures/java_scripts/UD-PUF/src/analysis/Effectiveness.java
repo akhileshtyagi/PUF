@@ -27,9 +27,9 @@ public class Effectiveness {
 
     public static final String PROFILE_DIRECTORY = "response_profiles/";
     public static final String PROFILE_A_FILENAME = PROFILE_DIRECTORY + "response_profile_tim";
-    public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_ross";
+    public static final String PROFILE_B_FILENAME = PROFILE_DIRECTORY + "response_profile_josh";
 
-    public static final ChallengeType CHALLENGE_TYPE = ChallengeType.BOX;
+    public static final ChallengeType CHALLENGE_TYPE = ChallengeType.CHECK;
 
     private static ArrayList<Point> challenge_points;
     private Combination model_parameters;
@@ -49,7 +49,10 @@ public class Effectiveness {
 
 	Combination self = new Combination(UserDevicePair.PRESSURE_DEFAULT_ALLOWED_DEVIATIONS,
 		UserDevicePair.DISTANCE_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.TIME_DEFAULT_ALLOWED_DEVIATIONS,
-		UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.DEFAULT_AUTHENTICATION_THRESHOLD);
+		UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS,
+		UserDevicePair.PRESSURE_DEFAULT_AUTHENTICATION_THRESHOLD,
+		UserDevicePair.DISTANCE_DEFAULT_AUTHENTICATION_THRESHOLD,
+		UserDevicePair.TIME_DEFAULT_AUTHENTICATION_THRESHOLD);
 
 	// Combination self = new Combination(1.86, 1, .5, 1, .6);
 	// Combination self = new Combination(1.8, 0, 0, 1, .85);

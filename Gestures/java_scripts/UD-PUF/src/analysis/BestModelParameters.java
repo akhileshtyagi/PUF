@@ -31,7 +31,9 @@ public class BestModelParameters {
 	ArrayList<Double> distance_deviations_list = new ArrayList<Double>();
 	ArrayList<Double> time_deviations_list = new ArrayList<Double>();
 	ArrayList<Double> time_length_deviations_list = new ArrayList<Double>();
-	ArrayList<Double> authentication_threshold_list = new ArrayList<Double>();
+	ArrayList<Double> pressure_authentication_threshold_list = new ArrayList<Double>();
+	ArrayList<Double> distance_authentication_threshold_list = new ArrayList<Double>();
+	ArrayList<Double> time_authentication_threshold_list = new ArrayList<Double>();
 
 	// generate a set of parameters to try for each deviation
 	// for pressure
@@ -49,9 +51,21 @@ public class BestModelParameters {
 	}
 
 	// for authentication threshold
-	int a_steps = 10;
-	for (int i = 0; i < a_steps; i++) {
-	    authentication_threshold_list.add(((i * (1.0 / a_steps)) + 0.0));
+	int pa_steps = 1;
+	for (int i = 0; i < pa_steps; i++) {
+	    pressure_authentication_threshold_list.add(((i * (1.0 / pa_steps)) + 0.0));
+	}
+
+	// for authentication threshold
+	int da_steps = 10;
+	for (int i = 0; i < da_steps; i++) {
+	    distance_authentication_threshold_list.add(((i * (1.0 / da_steps)) + 0.0));
+	}
+
+	// for authentication threshold
+	int ta_steps = 1;
+	for (int i = 0; i < ta_steps; i++) {
+	    time_authentication_threshold_list.add(((i * (1.0 / ta_steps)) + 0.0));
 	}
 
 	// for distance
@@ -73,14 +87,22 @@ public class BestModelParameters {
 	    for (Double distance_deviation : distance_deviations_list) {
 		for (Double time_deviation : time_deviations_list) {
 		    for (Double time_length_deviation : time_length_deviations_list) {
-			for (Double authentication_threshold : authentication_threshold_list) {
-			    long time = System.currentTimeMillis();
-			    combinations.add(new Combination(new Double(pressure_deviation),
-				    new Double(distance_deviation), new Double(time_deviation),
-				    new Double(time_length_deviation), new Double(authentication_threshold)));
+			for (Double pressure_authentication_threshold : pressure_authentication_threshold_list) {
+			    for (Double distance_authentication_threshold : distance_authentication_threshold_list) {
+				for (Double time_authentication_threshold : time_authentication_threshold_list) {
 
-			    System.out.print("time_taken / accuracy: " + (System.currentTimeMillis() - time) + " / "
-				    + combinations.get(combinations.size() - 1).accuracy + "\n");
+				    long time = System.currentTimeMillis();
+				    combinations.add(new Combination(new Double(pressure_deviation),
+					    new Double(distance_deviation), new Double(time_deviation),
+					    new Double(time_length_deviation),
+					    new Double(pressure_authentication_threshold),
+					    new Double(distance_authentication_threshold),
+					    new Double(time_authentication_threshold)));
+
+				    System.out.print("time_taken / accuracy: " + (System.currentTimeMillis() - time)
+					    + " / " + combinations.get(combinations.size() - 1).accuracy + "\n");
+				}
+			    }
 			}
 		    }
 		}
@@ -93,6 +115,7 @@ public class BestModelParameters {
 	Combination best = best_accuracy(combinations);
 
 	System.out.println(best);
+
     }
 
     /**
