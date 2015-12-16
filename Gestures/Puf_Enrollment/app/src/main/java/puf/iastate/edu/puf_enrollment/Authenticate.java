@@ -15,6 +15,7 @@ import com.google.gson.JsonParseException;
 import java.util.ArrayList;
 
 import dataTypes.Challenge;
+import dataTypes.Profile;
 import dataTypes.Response;
 import dataTypes.UserDevicePair;
 
@@ -68,15 +69,16 @@ public class Authenticate extends Activity {
         Response mResponse = gson.fromJson(json, Response.class);
 
         UserDevicePair udPair = new UserDevicePair(0,mChallenges);
+        Profile mProfile = udPair.getChallenges().get(0).getProfile();
 
         boolean validUser = udPair.authenticate(mResponse.getNormalizedResponse(), mChallenges.get(0).getChallengeID());
-        if(validUser) mTV.setText("Valid Authentication!");
-        else mTV.setText("Denied");
+        if(validUser) mTV.setText("Valid Authentication! number of points = " + mResponse.getNormalizedResponse().size());
+        else mTV.setText("Denied, number of points = " + mResponse.getNormalizedResponse().size());
 
+        pressure_CI_tv.setText("Pressure CI: " + udPair.getNew_response_pressure_CI(mResponse.getNormalizedResponse(), mProfile));
+        distance_CI_tv.setText("Distance CI: " +  udPair.getNew_response_distance_CI(mResponse.getNormalizedResponse(), mProfile));
+        time_CI_tv.setText("Time CI: " + udPair.getNew_response_time_CI(mResponse.getNormalizedResponse(), mProfile));
         CI_tv.setText("Authentication CI: " + udPair.getNew_response_confidence_interval());
-        pressure_CI_tv.setText("Pressure CI: " + udPair.getChallenges().get(0).getProfile().get_auth_pressure_contribution(mResponse.getNormalizedResponse()));
-        distance_CI_tv.setText("Distance CI: " + udPair.getChallenges().get(0).getProfile().get_auth_distance_contribution(mResponse.getNormalizedResponse()));
-        time_CI_tv.setText("Time CI: " + udPair.getChallenges().get(0).getProfile().get_auth_time_contribution(mResponse.getNormalizedResponse()));
 
     }
 
