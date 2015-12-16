@@ -153,7 +153,14 @@ public class UserDevicePair {
 	this.distance_authentication_failed_point_ratio = 1.0;
 	this.time_authentication_failed_point_ratio = 1.0;
 
-	new_response_confidence_interval = profile.get_new_response_CI(new_response_data);
+	// normalize the response
+	Response response_object = new Response(new_response_data);
+	boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+	response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
+				is_profile_horizontal);
+
+	// compute confidence interval with normalized points
+	new_response_confidence_interval = profile.get_new_response_CI(response_object.getNormalizedResponse());
 
 	// if there are no responses to authenticate against, return false
 	if (profile.getNormalizedResponses().size() == 0) {
@@ -250,6 +257,39 @@ public class UserDevicePair {
 	 */
 	public double getNew_response_confidence_interval() {
 		return new_response_confidence_interval;
+	}
+
+	public double getNew_response_pressure_CI(List<Point> new_response_data, Profile profile) {
+		// normalize the response
+		Response response_object = new Response(new_response_data);
+		boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+		response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
+				is_profile_horizontal);
+
+		// compute confidence interval with normalized points
+		return profile.get_auth_pressure_contribution(response_object.getNormalizedResponse());
+	}
+
+	public double getNew_response_time_CI(List<Point> new_response_data, Profile profile) {
+		// normalize the response
+		Response response_object = new Response(new_response_data);
+		boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+		response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
+				is_profile_horizontal);
+
+		// compute confidence interval with normalized points
+		return profile.get_auth_time_contribution(response_object.getNormalizedResponse());
+	}
+
+	public double getNew_response_distance_CI(List<Point> new_response_data, Profile profile) {
+		// normalize the response
+		Response response_object = new Response(new_response_data);
+		boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+		response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
+				is_profile_horizontal);
+
+		// compute confidence interval with normalized points
+		return profile.get_auth_distance_contribution(response_object.getNormalizedResponse());
 	}
 
     /**

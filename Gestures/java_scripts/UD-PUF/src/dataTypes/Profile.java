@@ -248,22 +248,22 @@ public class Profile implements Serializable {
 	 * computes Authenticating confidence interval (if not yet computed), then returns
 	 * confidence interval
 	 */
-	public double get_new_response_CI(List<Point> new_response_data) {
+	protected double get_new_response_CI(List<Point> new_response_data) {
 		compute_new_response_CI(new_response_data);
 		return new_response_confidence_interval;
 	}
 
-	public double get_auth_pressure_contribution(List<Point> new_response_data) {
+	protected double get_auth_pressure_contribution(List<Point> new_response_data) {
 		compute_new_response_CI(new_response_data);
 		return auth_sd_pressure_contribution;
 	}
 
-	public double get_auth_time_contribution(List<Point> new_response_data) {
+	protected double get_auth_time_contribution(List<Point> new_response_data) {
 		compute_new_response_CI(new_response_data);
 		return auth_sd_time_contribution;
 	}
 
-	public double get_auth_distance_contribution(List<Point> new_response_data) {
+	protected double get_auth_distance_contribution(List<Point> new_response_data) {
 		compute_new_response_CI(new_response_data);
 		return auth_sd_distance_contribution;
 	}
@@ -286,6 +286,8 @@ public class Profile implements Serializable {
 	 */
 	private void compute_confidence_interval() {
 
+		int valid_Confidence_Interval_contributions = 0;
+
 		if (!mu_sigma_computed) {
 			compute_mu_sigma();
 		}
@@ -298,13 +300,22 @@ public class Profile implements Serializable {
 			if(!Double.isNaN(point_distance_muSigmaValues.getSigmaValues().get(i)))sd_distance_contribution += (1 - (point_distance_muSigmaValues.getSigmaValues().get(i) / point_distance_muSigmaValues.getMuValues().get(i)));
 		}
 
-		if(!Double.isNaN(sd_pressure_contribution)) sd_pressure_contribution = sd_distance_contribution / num_points;
+		if(!Double.isNaN(sd_pressure_contribution) && sd_pressure_contribution > 0) {
+			sd_pressure_contribution = sd_distance_contribution / num_points;
+			valid_Confidence_Interval_contributions++;
+		}
 		else sd_pressure_contribution = 0;
 
-		if(!Double.isNaN(sd_time_contribution)) sd_time_contribution = sd_time_contribution / num_points;
+		if(!Double.isNaN(sd_time_contribution) && sd_time_contribution > 0) {
+			sd_time_contribution = sd_time_contribution / num_points;
+			valid_Confidence_Interval_contributions++;
+		}
 		else sd_time_contribution = 0;
 
-		if(!Double.isNaN(sd_distance_contribution)) sd_distance_contribution = sd_distance_contribution / num_points;
+		if(!Double.isNaN(sd_distance_contribution) && sd_distance_contribution > 0) {
+			sd_distance_contribution = sd_distance_contribution / num_points;
+			valid_Confidence_Interval_contributions++;
+		}
 		else sd_distance_contribution = 0;
 
 		// TODO
@@ -317,49 +328,62 @@ public class Profile implements Serializable {
 //				+ sd_time_contribution + sd_distance_contribution) / 5;
 
 		// just contributions from pressure, time, and distance for now
-		confidence_interval = (sd_pressure_contribution + sd_time_contribution + sd_distance_contribution) / 3;
+		if(valid_Confidence_Interval_contributions > 0) confidence_interval = (sd_pressure_contribution + sd_time_contribution + sd_distance_contribution) / valid_Confidence_Interval_contributions;
+		else confidence_interval = -1;
 
 	}
 
 	/**
-	 * calculate and return the confidence interval for an attempted responses
+	 * calculate and return the confidence interval for an attempted authentication
 	 */
 	private void compute_new_response_CI(List<Point> new_response) {
+
+		int valid_Confidence_Interval_contributions = 0;
 
 		if (!mu_sigma_computed) {
 			compute_mu_sigma();
 		}
 
-		int num_points = normalizedResponses.get(0).getNormalizedResponse().size();
+		int num_points = new_response.size();
 
 		// [1 - Sigma_{i=1}^N( |p_i - mu_i| / mu_i)] / N
 		for(int i = 0; i < num_points; i++) {
-			if(!Double.isNaN(pressure_muSigmaValues.getSigmaValues().get(i))) {
+			if(!Double.isNaN(pressure_muSigmaValues.getSigmaValues().get(i)) && !Double.isInfinite(new_response.get(i).getPressure())) {
 				auth_sd_pressure_contribution += (1 - (Math.abs(new_response.get(i).getPressure()
 						- (pressure_muSigmaValues.getMuValues().get(i))) / pressure_muSigmaValues.getMuValues().get(i)));
 			}
 
-			if(!Double.isNaN(time_muSigmaValues.getSigmaValues().get(i))) {
+			if(!Double.isNaN(time_muSigmaValues.getSigmaValues().get(i)) && !Double.isInfinite(new_response.get(i).getPressure())) {
 				auth_sd_time_contribution += (1 - (Math.abs(new_response.get(i).getTime()
 						- (time_muSigmaValues.getMuValues().get(i))) / time_muSigmaValues.getMuValues().get(i)));
 			}
 
-			if(!Double.isNaN(point_distance_muSigmaValues.getSigmaValues().get(i))) {
+			if(!Double.isNaN(point_distance_muSigmaValues.getSigmaValues().get(i)) && !Double.isInfinite(new_response.get(i).getPressure())) {
 				auth_sd_distance_contribution += (1 - (Math.abs(new_response.get(i).getDistance()
 						- (point_distance_muSigmaValues.getMuValues().get(i))) / point_distance_muSigmaValues.getMuValues().get(i)));
 			}
 		}
 
-		if(!Double.isNaN(auth_sd_pressure_contribution)) auth_sd_pressure_contribution = auth_sd_pressure_contribution / num_points;
+		if(!Double.isNaN(auth_sd_pressure_contribution) && auth_sd_pressure_contribution >= 0) {
+			auth_sd_pressure_contribution = auth_sd_pressure_contribution / num_points;
+			valid_Confidence_Interval_contributions ++;
+		}
 		else auth_sd_pressure_contribution = 0;
 
-		if(!Double.isNaN(auth_sd_time_contribution)) auth_sd_time_contribution = auth_sd_time_contribution / num_points;
+		if(!Double.isNaN(auth_sd_time_contribution) && auth_sd_time_contribution >= 0) {
+			auth_sd_time_contribution = auth_sd_time_contribution / num_points;
+			valid_Confidence_Interval_contributions ++;
+		}
 		else auth_sd_time_contribution = 0;
 
-		if(!Double.isNaN(auth_sd_distance_contribution)) auth_sd_distance_contribution = auth_sd_distance_contribution / num_points;
+		if(!Double.isNaN(auth_sd_distance_contribution) && auth_sd_distance_contribution >= 0) {
+			auth_sd_distance_contribution = auth_sd_distance_contribution / num_points;
+			valid_Confidence_Interval_contributions ++;
+		}
 		else auth_sd_distance_contribution = 0;
 
-		new_response_confidence_interval = (auth_sd_pressure_contribution + auth_sd_time_contribution + auth_sd_distance_contribution) / 3;
+		if(valid_Confidence_Interval_contributions > 0) new_response_confidence_interval = (auth_sd_pressure_contribution + auth_sd_time_contribution + auth_sd_distance_contribution) / valid_Confidence_Interval_contributions;
+		else new_response_confidence_interval = -1;
 	}
 
 	/**
