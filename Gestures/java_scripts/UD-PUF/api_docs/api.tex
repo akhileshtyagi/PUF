@@ -87,6 +87,20 @@
 This class is the most useful object in the UD-PUF library. It is used to represent a user device combination. This class implements the authentication component of the library.
 This class holds a list of challenges for a given user. For each challenge there are presumably multiple responses.
 Authentication entails comparing a new response for a given challenge to the existing profile built for that challenge.
+
+\subsubsection{Enumerated Types}
+\textbf{RatioType}
+This enumerated type can take values which correspond to distance, pressure, and time. 
+Several methods use the RatioType to select which of the respective values to set.
+For example, the method which sets the allowed number of standard deviations from the average for a given metric takes a RatioType and a double.
+This method uses the RatioType to determine which of distance, time, or pressure should have number of standard deviations set to the double value.
+
+\noindent
+\textbf{AuthenticationPredicate}
+This enumerated type can take on values which indicate how the failed point ratios of each of pressure, distance, and time will be taken into consideration.
+For example, if AuthenticationPredicate.PRESSURE is chosen the authenticate method will consider only whether the failed point ratio for pressure is below its respective threshold.
+AuthenticationPredicate(s) exist for many combinations of distance, pressure, and time.
+
 \subsubsection{Constructors}
 Below are listed the constructors for the UserDevicePair class. The final constructor on line 5 provides the ability to create a UserDevicePair object by specifying all of the parameters.
 The other constructors provide default parameters for the parameters which are not specified.
@@ -97,12 +111,26 @@ The other constructors provide default parameters for the parameters which are n
 \hline
 
 Type & Parameter & Meaning & Default Value \\ \hline
+
 int & userDeviceID & UserDeviceID can be used to keep track of the user & \\ \hline
+
 List\textless Challenge\textgreater & challenges & A list of Challenge objects corresponding to challenges already constructed for the user, device & empty ArrayList\textless Challenge\textgreater \\ \hline
-double & allowed\_deviations & This is a parameter used during authentication. When testing for points which don't match the profile this value determines the number of standard deviations a point in a response may be away from the corresponding average for that point in the profile. 
+
+double & time\_allowed\_deviations & This is a parameter used during authentication. When testing for points which don't match the profile this value determines the number of standard deviations a point in a response may be away from the corresponding average for that point in the profile. 
 Points which fall outside of this number of standard deviations will be considered not within the profile.
 We call these failed points. & 1.0 \\ \hline
-double & authentication\_threshold & The ratio of failed points to total points at which the user will be considered within the profile and pass authentication. & 0.75 \\ \hline
+
+double & distance\_allowed\_deviations & Same as time\_allowed\_deviations, but for distance& 1.0 \\ \hline
+
+double & pressure\_allowed\_deviations & Same as time\_allowed\_deviations, but for pressure& 1.0 \\ \hline
+
+double & time\_authentication\_threshold & The ratio of failed points to total points at which the user will be considered within the profile and pass authentication. & 0.4 \\ \hline
+
+double & distance\_authentication\_threshold & The ratio of failed points to total points at which the user will be considered within the profile and pass authentication. & 0.9 \\ \hline
+
+double & pressure\_authentication\_threshold & The ratio of failed points to total points at which the user will be considered within the profile and pass authentication. & 0.7 \\ \hline
+
+double & new\_response\_confidence\_interval & Contains the confidence interval for the response from the most resent authentication. & -1 \\ \hline
 
 \hline
 \end{tabular}
@@ -144,17 +172,81 @@ public double failedPointRatio(){}
 \end{lstlisting}
 
 \subsection{Profile}
+The profile class is meant to contain all information about a user's behavior which is relevant for authentication.
+In our case this means the average and standard deviation for each of the points in the user's response.
+profile also contains methods to return a confidence interval. This confidence interval represents how much trust we put in the accuracy of this profile.
+In other words, a high confidence interval implies higher probability that authentications are correct compared to a lower confidence interval.
+
 \subsubsection{Constructors}
-%TODO
+Here, listed, are the constructors for the Profile class.
+A user of this library will not need to worry about creating a profile as this is completed by the Challenge class.
+
 \begin{lstlisting}[numbers=left]
-%TODO
+public Profile(List<Response> normalizedResponses, List<Double> time_lengths, List<Double> motion_event_counts) {}
+
+public Profile() {}
 \end{lstlisting}
 
 \subsubsection{Public Methods}
-%TODO
+The public methods of the profile class are, for the most part, used internally.
+the methods getPressureMuSigmaValues(), getPointDistanceMuSigmaValues(), getTimeDistanceMuSigmaValues(), getTimeLengthSigma(), getTimeLengthMu(), getMotionEventCountSigma(), getMotionEventCountMu(), and getNormalizedResponses() are all used in authentication.
+%
+Other methods provided return the confidence interval for the profile.
+
 \begin{lstlisting}[numbers=left]
-%TODO
+public void addNormalizedResponses(List<Response> normalizedResponses) {}
+
+public MuSigma getPressureMuSigmaValues() {}
+
+public MuSigma getPointDistanceMuSigmaValues() {}
+
+public MuSigma getTimeDistanceMuSigmaValues() {}
+
+public double getTimeLengthSigma() {}
+
+public double getTimeLengthMu() {}
+
+public double getMotionEventCountSigma() {}
+
+public double getMotionEventCountMu() {}
+
+public ArrayList<Response> getNormalizedResponses() {}
+
+public double getConfidence_interval() {}
+
+public double get_sd_pressure_contribution() {}
+
+public double get_sd_time_contribution() {}
+
+public double get_sd_distance_contribution() {}
+
+public double get_num_motion_event_contribution() {}
+
+public double get_sd_motion_event_contribution() {}
 \end{lstlisting}
+%TODO
+\subsubsection{Confidence Intervals}
+Confidence interval is a ranking of how good a profile or authentication is. 
+A profile will have a high confidence interval if all of the responses contained in the profile are close to one-another.
+Confidence intervals for profile are computed according to the equation \ref{equation_1}.
+
+There is also a notion of confidence interval for an authentication which is separate from the profile confidence interval.
+Authentications will have a high confidence interval if the response being used to authenticate is close to the responses in the profile.
+Confidence intervals for authentications are computed according to the equation \ref{equation_2}.
+
+Grades for pressure, time, and distance are created independently in both profile confidence interval and authentication confidence interval.
+
+%for profile
+\begin{equation}
+\label{equation_1}
+1 - \Sigma_{i=1}^N(\sigma_i/\mu_i)
+\end{equation}
+
+%for authentication
+\begin{equation}
+\label{equation_2}
+1 - \Sigma_{i=1}^N(|p_i - \mu_i|/\mu_i)
+\end{equation}
 
 \subsection{Response}
 \subsubsection{Constructors}

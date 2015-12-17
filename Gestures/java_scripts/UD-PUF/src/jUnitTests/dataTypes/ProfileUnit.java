@@ -219,4 +219,42 @@ public class ProfileUnit {
 	    assertTrue(false);
 	}
     }
+
+    /**
+     * test that the confidence interval works as intended, and that it returns
+     * reasonable values. valid confidence intervals are between 0 and 1.
+     * 
+     * profile confidence interval.
+     */
+    @Test
+    public void test_compute_confidence_interval_valid() {
+	boolean valid = true;
+	double confidence_interval = 0;
+
+	confidence_interval = this.profile.getConfidence_interval();
+
+	// System.out.println(confidence_interval);
+
+	valid = valid && confidence_interval >= 0;
+	valid = valid && confidence_interval <= 1;
+
+	assertTrue(valid);
+    }
+
+    /**
+     * test that confidence interval is correct. This means computing it by hand
+     * for these values.
+     */
+    @Test
+    public void test_compute_confidence_interval_correct() {
+	boolean valid = true;
+	double confidence_interval = 0;
+
+	confidence_interval = this.profile.getConfidence_interval();
+
+	// System.out.println(confidence_interval);
+
+	valid = confidence_interval == 10;
+	assertTrue(valid);
+    }
 }

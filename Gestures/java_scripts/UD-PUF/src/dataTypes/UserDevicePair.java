@@ -9,11 +9,11 @@ import java.util.List;
  */
 public class UserDevicePair {
     public final static double PRESSURE_DEFAULT_ALLOWED_DEVIATIONS = .89;
-    public final static double DISTANCE_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
+    public final static double DISTANCE_DEFAULT_ALLOWED_DEVIATIONS = 1.11;
     public final static double TIME_DEFAULT_ALLOWED_DEVIATIONS = .415;
     public final static double TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
     public final static double PRESSURE_DEFAULT_AUTHENTICATION_THRESHOLD = 0.4;
-    public final static double DISTANCE_DEFAULT_AUTHENTICATION_THRESHOLD = 1.11;
+    public final static double DISTANCE_DEFAULT_AUTHENTICATION_THRESHOLD = 0.9;
     public final static double TIME_DEFAULT_AUTHENTICATION_THRESHOLD = 0.7;
 
     public enum RatioType {
