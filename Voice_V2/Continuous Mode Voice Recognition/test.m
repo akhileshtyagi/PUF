@@ -1,5 +1,5 @@
 warning off;
-inputfolder = '/Users/Guo/Documents/MATLAB/Continuous Mode Voice Recognition/data/Nexus_2/Nexus_2_liang_dog/';
+inputfolder = '/Users/Guo/Documents/MATLAB/Continuous Mode Voice Recognition/data/Nexus_2/Nexus_2_liang/';
 Fs = 11025;
 data = readin(inputfolder);
 num_of_segment = size(data,2);
@@ -17,7 +17,7 @@ EMIS = getEMIS(result);
 
 table = zeros(11*13);
 count =0;
-target = '/Users/Guo/Documents/MATLAB/Continuous Mode Voice Recognition/data/Nexus_2/Nexus_2_gao_zero/';
+target = '/Users/Guo/Documents/MATLAB/Continuous Mode Voice Recognition/data/Nexus_2/Nexus_2_gao/';
 accurate = 0;
 testfolder = readin(target);
 num_of_target = size(testfolder,2);
