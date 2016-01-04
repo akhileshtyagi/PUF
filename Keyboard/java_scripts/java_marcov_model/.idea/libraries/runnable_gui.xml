@@ -1,0 +1,33 @@
+<component name="libraryTable">
+  <library name="runnable_gui">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_0.8.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_1.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_1.2_extensive.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_1.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/varying_window_token_size_constant_2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_0.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_0.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/overview_of_parameters.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/base_auth_vary_token_window_constant_keycode_throwout.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/overview_for_authentication_accuracy.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_0.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/base_auth_vary_token_window_constant.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_1.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_0.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_0.9.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_1.7.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_0.6.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_0.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/extensive_best_parameters.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_1.2_non_extensive.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/varying_window_token_size_constant.jar!/" />
+      <root url="jar://$PROJECT_DIR$/runnable_gui/gui_0.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

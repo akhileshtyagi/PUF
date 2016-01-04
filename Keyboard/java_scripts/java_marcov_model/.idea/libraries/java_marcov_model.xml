@@ -1,0 +1,10 @@
+<component name="libraryTable">
+  <library name="java_marcov_model">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/gui_window_size_vs_auth_accuracy_non_extensive.jar!/" />
+      <root url="jar://$PROJECT_DIR$/gui_window_size_vs_auth_accuracy.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
