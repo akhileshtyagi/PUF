@@ -1,5 +1,6 @@
 package dataTypes;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,9 +10,9 @@ import java.util.List;
  * challenge, and that user's profile which will be correlated with this
  * challenge
  */
-public class Challenge {
+public class Challenge implements Serializable{
     // number of elements in normalized list default value.
-    final static int NORMALIZED_ELEMENTS_DEFAULT = 32;
+    final static int NORMALIZED_ELEMENTS_DEFAULT = 16;
 
     // threshold for determining if response has enough motion events
     final static int NORMALIZED_THRESHOLD = 20;
