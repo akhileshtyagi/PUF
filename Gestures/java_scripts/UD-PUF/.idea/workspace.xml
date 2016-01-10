@@ -31,24 +31,13 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="BestModelParameters.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/analysis/BestModelParameters.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="64" column="11" selection-start-line="64" selection-start-column="11" selection-end-line="64" selection-end-column="11" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="UserDevicePair_point_vector.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="UserDevicePair_point_vector.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/UserDevicePair_point_vector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.25245443">
-              <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#559#566#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -68,21 +57,8 @@
         <entry file="file://$PROJECT_DIR$/src/dataTypes/UserDevicePair.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="332" column="41" selection-start-line="332" selection-start-column="41" selection-end-line="332" selection-end-column="41" />
-              <folding>
-                <element signature="e#2382#2383#0" expanded="true" />
-                <element signature="e#2444#2445#0" expanded="true" />
-                <element signature="e#4738#4739#0" expanded="true" />
-                <element signature="e#4779#4780#0" expanded="true" />
-                <element signature="e#4874#4875#0" expanded="true" />
-                <element signature="e#4907#4908#0" expanded="true" />
-                <element signature="e#12574#12575#0" expanded="true" />
-                <element signature="e#12629#12630#0" expanded="true" />
-                <element signature="e#16270#16271#0" expanded="true" />
-                <element signature="e#16310#16311#0" expanded="true" />
-                <element signature="e#20291#20299#0" expanded="true" />
-                <element signature="e#22705#22713#0" expanded="true" />
-              </folding>
+              <caret line="347" column="110" selection-start-line="347" selection-start-column="110" selection-end-line="347" selection-end-column="110" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -91,13 +67,33 @@
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Profile.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="220" column="5" selection-start-line="220" selection-start-column="5" selection-end-line="220" selection-end-column="5" />
+              <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="TestUtil.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Response.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Challenge.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="14" column="53" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TestUtil.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/TestUtil.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
@@ -123,13 +119,13 @@
         <option value="$PROJECT_DIR$/src/dataTypes/Profile.java" />
         <option value="$PROJECT_DIR$/src/jUnitTests/dataTypes/ProfileUnit2.java" />
         <option value="$PROJECT_DIR$/src/jUnitTests/dataTypes/ResponseUnit.java" />
-        <option value="$PROJECT_DIR$/src/dataTypes/Challenge.java" />
         <option value="$PROJECT_DIR$/src/jUnitTests/dataTypes/ProfileUnit.java" />
         <option value="$PROJECT_DIR$/src/test/Main.java" />
         <option value="$PROJECT_DIR$/src/jUnitTests/dataTypes/TestUtil.java" />
         <option value="$PROJECT_DIR$/src/test/TestUtil.java" />
-        <option value="$PROJECT_DIR$/src/dataTypes/UserDevicePair.java" />
         <option value="$PROJECT_DIR$/src/test/UserDevicePair_point_vector.java" />
+        <option value="$PROJECT_DIR$/src/dataTypes/Challenge.java" />
+        <option value="$PROJECT_DIR$/src/dataTypes/UserDevicePair.java" />
       </list>
     </option>
   </component>
@@ -170,7 +166,9 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -299,9 +297,7 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -612,7 +608,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -620,9 +615,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -651,7 +643,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -659,9 +650,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -690,7 +678,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -698,9 +685,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -729,7 +713,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="9" column="21" selection-start-line="9" selection-start-column="21" selection-end-line="9" selection-end-column="21" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -737,9 +720,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -877,20 +857,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="52" column="4" selection-start-line="52" selection-start-column="4" selection-end-line="52" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/UD-PUF.iml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -923,7 +889,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -931,9 +896,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -942,45 +904,6 @@
         <state vertical-scroll-proportion="0.0">
           <caret line="64" column="11" selection-start-line="64" selection-start-column="11" selection-end-line="64" selection-end-column="11" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/TestUtil.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
-          <folding>
-            <element signature="e#713#720#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/Profile.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="220" column="5" selection-start-line="220" selection-start-column="5" selection-end-line="220" selection-end-column="5" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/UserDevicePair.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="332" column="41" selection-start-line="332" selection-start-column="41" selection-end-line="332" selection-end-column="41" />
-          <folding>
-            <element signature="e#2382#2383#0" expanded="true" />
-            <element signature="e#2444#2445#0" expanded="true" />
-            <element signature="e#4738#4739#0" expanded="true" />
-            <element signature="e#4779#4780#0" expanded="true" />
-            <element signature="e#4874#4875#0" expanded="true" />
-            <element signature="e#4907#4908#0" expanded="true" />
-            <element signature="e#12574#12575#0" expanded="true" />
-            <element signature="e#12629#12630#0" expanded="true" />
-            <element signature="e#16270#16271#0" expanded="true" />
-            <element signature="e#16310#16311#0" expanded="true" />
-            <element signature="e#20291#20299#0" expanded="true" />
-            <element signature="e#22705#22713#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -994,11 +917,52 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/UserDevicePair_point_vector.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.25245443">
-          <caret line="22" column="34" selection-start-line="22" selection-start-column="34" selection-end-line="22" selection-end-column="34" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="16" column="0" selection-start-line="16" selection-start-column="0" selection-end-line="16" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#559#566#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Profile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="42" column="0" selection-start-line="42" selection-start-column="0" selection-end-line="42" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="34" column="5" selection-start-line="34" selection-start-column="5" selection-end-line="34" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="14" column="53" selection-start-line="14" selection-start-column="53" selection-end-line="14" selection-end-column="53" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/UserDevicePair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="347" column="110" selection-start-line="347" selection-start-column="110" selection-end-line="347" selection-end-column="110" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/TestUtil.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="26" selection-start-line="9" selection-start-column="26" selection-end-line="9" selection-end-column="26" />
+          <folding>
+            <element signature="e#713#720#0" expanded="true" />
           </folding>
         </state>
       </provider>

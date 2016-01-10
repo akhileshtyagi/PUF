@@ -12,7 +12,7 @@ import java.util.List;
  */
 public class Challenge implements Serializable{
     // number of elements in normalized list default value.
-    final static int NORMALIZED_ELEMENTS_DEFAULT = 16;
+    final static int NORMALIZED_ELEMENTS_DEFAULT = 32;
 
     // threshold for determining if response has enough motion events
     final static int NORMALIZED_THRESHOLD = 20;

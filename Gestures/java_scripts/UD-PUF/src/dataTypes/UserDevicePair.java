@@ -177,7 +177,7 @@ public class UserDevicePair {
                 is_profile_horizontal);
 
         // compute the point vectors
-        compute_point_vector(new_response_data, profile);
+        compute_point_vector(response_object.getNormalizedResponse(), profile);
 
         // compute confidence interval with normalized points
         new_response_confidence_interval = profile.get_new_response_CI(response_object.getNormalizedResponse());
@@ -339,13 +339,14 @@ public class UserDevicePair {
     /**
      * compute the point vectors based on the new_response_data and the profile
      */
-    public void compute_point_vector(List<Point> new_response_data, Profile profile) {
+    private void compute_point_vector(List<Point> new_response_data, Profile profile) {
         pressure_point_vector = new ArrayList<Double>();
         distance_point_vector = new ArrayList<Double>();
         time_point_vector = new ArrayList<Double>();
 
         // error check
-        if (new_response_data.size() != profile.getNormalizedResponses().size()) {
+        if (new_response_data.size() != profile.getNormalizedResponses().get(0).getNormalizedResponse().size()) {
+            System.out.println("souldn't be here: " + new_response_data.size() + " | " + profile.getNormalizedResponses().size());
             return;
         }
 
