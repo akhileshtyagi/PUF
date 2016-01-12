@@ -32,20 +32,23 @@ public class UserDevicePair_point_vector {
         List<Double> time_point_vector = ud_pair.getNew_response_point_vector(UserDevicePair.RatioType.TIME);
 
         // TODO test the point vectors for correctness
-        for (int i = 0; i < pressure_point_vector.size(); i++) {
-            // check a single point in each vector
-            if (pressure_point_vector.get(i) == 0) {
-                System.out.println("Pressure[" + i + "] incorrect");
-            }
+//        for (int i = 0; i < pressure_point_vector.size(); i++) {
+//            // check a single point in each vector
+//            if (pressure_point_vector.get(i) == 0) {
+//                System.out.println("Pressure[" + i + "] incorrect");
+//            }
+//
+//            if (distance_point_vector.get(i) == 0) {
+//                System.out.println("Distance[" + i + "] incorrect");
+//            }
+//
+//            if (time_point_vector.get(i) == 0) {
+//                System.out.println("Time[" + i + "] incorrect");
+//            }
+//        }
 
-            if (distance_point_vector.get(i) == 0) {
-                System.out.println("Distance[" + i + "] incorrect");
-            }
+        // print out normalized respoonse and profile information
 
-            if (time_point_vector.get(i) == 0) {
-                System.out.println("Time[" + i + "] incorrect");
-            }
-        }
 
         // print out point vectors
         System.out.println("Pressure:\t" + pressure_point_vector);

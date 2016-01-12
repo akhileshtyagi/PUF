@@ -350,6 +350,27 @@ public class UserDevicePair {
             return;
         }
 
+        // TEST: print out response and profile data
+//        ArrayList<Double> response_pressure = new ArrayList<Double>();
+//        ArrayList<Double> response_distance = new ArrayList<Double>();
+//        ArrayList<Double> response_time = new ArrayList<Double>();
+//
+//        for (int i = 0; i < new_response_data.size(); i++) {
+//            response_pressure.add(new_response_data.get(i).getPressure());
+//            response_distance.add(new_response_data.get(i).getDistance());
+//            response_time.add(new_response_data.get(i).getTime());
+//        }
+//
+//        System.out.println("Response Pressure:\t" + response_pressure);
+//        System.out.println("Response Distance:\t" + response_distance);
+//        System.out.println("Response Time:\t" + response_time);
+//        System.out.println();
+//
+//        System.out.println("Profile Pressure:\t" + profile.getPressureMuSigmaValues().getMuValues());
+//        System.out.println("Profile Distance:\t" + profile.getPointDistanceMuSigmaValues().getMuValues());
+//        System.out.println("Profile Time:\t" + profile.getTimeDistanceMuSigmaValues().getMuValues());
+//        System.out.println();
+
         // for each point in new_response, take abs(profile[i] - response[i])
         for (int i = 0; i < new_response_data.size(); i++) {
             pressure_point_vector.add(Math.abs(new_response_data.get(i).getPressure() - profile.getPressureMuSigmaValues().getMuValues().get(i)));
