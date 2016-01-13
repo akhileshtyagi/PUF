@@ -4,6 +4,9 @@
     <root id="archive" name="UD-PUF.jar">
       <element id="module-output" name="UD-PUF" />
       <element id="library" level="module" name="junit4" module-name="UD-PUF" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
     </root>
   </artifact>
 </component>
