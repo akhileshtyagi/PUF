@@ -167,9 +167,37 @@ public class Challenge implements Serializable {
 
         // choose all the points in the middle (N-2) of them
         // TODO
+        // for each normalization point to find
+        // i is normalization points
+        // j is response points
+        int j = 1;
+        for (int i = 0; i < response_points.size() - 2; i++) {
+            // k keeps track of the number of indexs the next point is away from the current point
+            int k = 0;
+            double remaining_distance = distance;
+
+            while (computeEuclideanDistance(response_points.get(j - 1), response_points.get(j + k)) < distance) {
+                remaining_distance -= computeEuclideanDistance(response_points.get(j - 1), response_points.get(j + k));
+                k++;
+            }
+
+            // now we know the point closes to the left of the normalization point in the response.
+            j += k;
+
+            // now normalization point is between j and j-1
+            double theta = Math.atan((response_points.get(j).getY() - response_points.get(j - 1).getY()) /
+                    (response_points.get(j).getX() - response_points.get(j).getX()));
+
+            // compute the appropriate x,y coordinates for the point
+            int norm_point_x = (int)(response_points.get(j-1).getX() + remaining_distance*Math.cos(theta));
+            int norm_point_y = (int)(response_points.get(j-1).getX() + remaining_distance*Math.sin(theta));
+
+            // at the point to the normalization points list
+            norm_points.add(new Point(norm_point_x, norm_point_y, 0));
+        }
 
         // last point in the list is the last point in the response
-        norm_points.add(response_points.get(response_points.size()-1));
+        norm_points.add(response_points.get(response_points.size() - 1));
 
         return norm_points;
     }
@@ -181,11 +209,18 @@ public class Challenge implements Serializable {
         double length = 0.0;
 
         for (int i = 1; i < points.size(); i++) {
-            length += Math.sqrt(Math.pow((points.get(i).getX() - points.get(i - 1).getX()), 2) +
-                    Math.pow((points.get(i).getY() - points.get(i - 1).getY()), 2));
+            length += computeEuclideanDistance(points.get(i), points.get(i - 1));
         }
 
         return length;
+    }
+
+    /**
+     * compute the euclidean distance between two points
+     */
+    private double computeEuclideanDistance(Point p1, Point p2) {
+        return Math.sqrt(Math.pow((p1.getX() - p2.getX()), 2) +
+                Math.pow((p1.getY() - p2.getY()), 2));
     }
 
     /**

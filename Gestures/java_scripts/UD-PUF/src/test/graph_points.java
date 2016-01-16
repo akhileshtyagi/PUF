@@ -97,6 +97,9 @@ public class graph_points extends JFrame {
             // draw points to panel
             draw_points(g);
 
+            // draw point values
+            draw_point_values(g);
+
             // draw the name to the panel
             draw_name(g);
         }
@@ -146,6 +149,36 @@ public class graph_points extends JFrame {
 
                     // draw the point
                     g.fillOval(current_point_x, current_point_y, POINT_SIZE, POINT_SIZE);
+                }
+            }
+        }
+
+        /**
+         * draw the point values associated with each point.
+         *
+         * These point values include (x,y,pressure,distance,time)
+         */
+        private void draw_point_values(Graphics g) {
+            // first draw a key describing what the values are for each point
+            g.setColor(Color.black);
+            g.drawString("(x, y, pressure, distance, time)", GRID_X, GRID_Y - 10);
+
+            // for each list of points
+            for (int i = 0; i < point_list_list.size(); i++) {
+                // set the color for this index
+                g.setColor(this.colors.get(i % colors.size()));
+
+                // draw the list of points at this index
+                for (int j = 0; j < point_list_list.get(i).size(); j++) {
+                    // get the point
+                    Point p = point_list_list.get(i).get(j);
+
+                    // determine previous and this point x,y
+                    int current_point_x = GRID_X + (int) (p.getX() / SCALE);
+                    int current_point_y = GRID_Y + (int) (p.getY() / SCALE);
+
+                    // draw the point
+                    g.drawString(p.toString(), current_point_x + LEGEND_SEPARATION, current_point_y + i*15);
                 }
             }
         }
