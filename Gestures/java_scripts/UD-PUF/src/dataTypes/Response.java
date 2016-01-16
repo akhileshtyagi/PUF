@@ -275,7 +275,8 @@ public class Response implements Serializable {
             // if the closest left and right points are equal, simply add
             // the
             // pressure value of that point to the list
-            if (closestRightPoint.equals(closestLeftPoint)) {
+            if(closestRightIndex == closestLeftIndex){
+            //if (closestRightPoint.equals(closestLeftPoint)) {
                 pressure = closestRightPoint.getPressure();
 
                 // if the challenge is horizontal => we have points along
@@ -365,11 +366,9 @@ public class Response implements Serializable {
             // System.out.println(point_distance);
             // }
 
-            // TODO figure out why point_distance is not being computed
             // correctly
             // System.out.println(point_distance);
 
-            // TODO figure out why time is incorrect
             // System.out.println(time);
 
             // create normalized point to add to the list based on found
