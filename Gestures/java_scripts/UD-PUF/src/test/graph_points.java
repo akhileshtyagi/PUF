@@ -66,6 +66,8 @@ public class graph_points extends JFrame {
         public final int GRID_HEIGHT = 1920;
         public final int SCALE = 2;
 
+        public final int BORDER_THICKNESS = 20;
+
         public final int POINT_SIZE = 10;
         public final int LEGEND_SEPARATION = 20;
 
@@ -91,6 +93,9 @@ public class graph_points extends JFrame {
         public void paintComponent(Graphics g) {
             super.paintComponent(g);
 
+            // draw border around grid
+            draw_border(g);
+
             // draw the grid
             draw_grid(g);
 
@@ -102,6 +107,25 @@ public class graph_points extends JFrame {
 
             // draw the name to the panel
             draw_name(g);
+        }
+
+        /**
+         * draw a border around the grid
+         */
+        private void draw_border(Graphics g) {
+            g.setColor(Color.pink);
+
+            // draw left side
+            g.fillRect(GRID_X - BORDER_THICKNESS, GRID_Y, BORDER_THICKNESS, GRID_HEIGHT / SCALE);
+
+            // draw right side
+            g.fillRect(GRID_WIDTH / SCALE + GRID_X, GRID_Y, BORDER_THICKNESS, GRID_HEIGHT / SCALE);
+
+            // draw bottom
+            g.fillRect(GRID_X - BORDER_THICKNESS, GRID_Y + GRID_HEIGHT / SCALE, GRID_WIDTH / SCALE + 2*BORDER_THICKNESS, BORDER_THICKNESS);
+
+            // draw top
+            g.fillRect(GRID_X - BORDER_THICKNESS, GRID_Y - BORDER_THICKNESS, GRID_WIDTH / SCALE + 2*BORDER_THICKNESS, BORDER_THICKNESS);
         }
 
         /**
@@ -161,7 +185,7 @@ public class graph_points extends JFrame {
         private void draw_point_values(Graphics g) {
             // first draw a key describing what the values are for each point
             g.setColor(Color.black);
-            g.drawString("(x, y, pressure, distance, time)", GRID_X, GRID_Y - 10);
+            g.drawString("(x, y, pressure, distance, time)", LEGEND_X, LEGEND_Y + (point_name_list.size() + 1) * LEGEND_SEPARATION);
 
             // for each list of points
             for (int i = 0; i < point_list_list.size(); i++) {
@@ -194,7 +218,7 @@ public class graph_points extends JFrame {
 
                 // draw the point color and the corresponding name
                 g.fillOval(LEGEND_X, LEGEND_Y + i * LEGEND_SEPARATION, POINT_SIZE, POINT_SIZE);
-                g.drawString(point_name_list.get(i), LEGEND_X + LEGEND_SEPARATION, LEGEND_Y + i * LEGEND_SEPARATION);
+                g.drawString(point_name_list.get(i), LEGEND_X + LEGEND_SEPARATION, LEGEND_Y + g.getFont().getSize() + i * LEGEND_SEPARATION);
             }
         }
     }
