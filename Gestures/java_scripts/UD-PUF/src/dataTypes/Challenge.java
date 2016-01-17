@@ -159,8 +159,8 @@ public class Challenge implements Serializable {
         List<Point> norm_points = new ArrayList<Point>();
         List<Point> response_points = response.getOrigionalResponse();
 
-        // compute the distance between each normalizing point
-        double distance = computeResponseLength(response_points) / (response_points.size() - 2);
+        // compute the distance between each normalizing point ( N-1 segments to split d into)
+        double distance = computeResponseLength(response_points) / (response_points.size() - 1);
 
         // first point in the list is the first point in the response
         norm_points.add(response_points.get(0));
@@ -170,33 +170,33 @@ public class Challenge implements Serializable {
         // i is normalization points
         // j is response points
         int j = 1;
-        for (int i = 0; i < response_points.size() - 1; i++) {
+        for (int i = 0; i < response_points.size() - 2; i++) {
             // k keeps track of the number of indexs the next point is away from the current point
             int k = 0;
             double remaining_distance = distance;
 
             // determine the closest left neighbor (j + k - 1) and
             // the distance of the normalization point from this neighbor
-            while (computeEuclideanDistance(response_points.get(j - 1), response_points.get(j + k)) < remaining_distance) {
-                remaining_distance -= computeEuclideanDistance(response_points.get(j - 1), response_points.get(j + k));
+            while (computeEuclideanDistance(response_points.get(j - 1), response_points.get(j + k)) < distance) {
+                remaining_distance -= computeEuclideanDistance(response_points.get(j + k - 1), response_points.get(j + k));
                 k++;
             }
 
             // TODO this is incorrect
-            System.out.println(remaining_distance);
+            //System.out.println(remaining_distance);
 
             // now we know the point closes to the left of the normalization point in the response.
             j += k;
 
-            //System.out.println(j);
+             System.out.println(j);
 
             // now normalization point is between j and j-1
             double theta = Math.atan((response_points.get(j).getY() - response_points.get(j - 1).getY()) /
-                    (response_points.get(j).getX() - response_points.get(j).getX()));
+                    (response_points.get(j).getX() - response_points.get(j-1).getX()));
 
             // compute the appropriate x,y coordinates for the point
             int norm_point_x = (int) (response_points.get(j - 1).getX() + remaining_distance * Math.cos(theta));
-            int norm_point_y = (int) (response_points.get(j - 1).getX() + remaining_distance * Math.sin(theta));
+            int norm_point_y = (int) (response_points.get(j - 1).getY() + remaining_distance * Math.sin(theta));
 
             // at the point to the normalization points list
             norm_points.add(new Point(norm_point_x, norm_point_y, 0));

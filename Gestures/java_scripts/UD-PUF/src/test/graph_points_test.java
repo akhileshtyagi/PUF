@@ -16,6 +16,7 @@ public class graph_points_test {
     private enum ResponseNature {
         NEGATIVE_STAIRS,
         NEGATIVE_SLOPE_LINE,
+        POSITIVE_ARC,
         POSITIVE_SLOPE_LINE,
         CIRCLE
     }
@@ -74,6 +75,41 @@ public class graph_points_test {
                 points.add(new Point(850, 850, 0));
                 break;
             case POSITIVE_SLOPE_LINE:
+
+                break;
+            case POSITIVE_ARC:
+                points.add(new Point(850, 100, 0));
+                points.add(new Point(600, 150, 0));
+                points.add(new Point(400, 250, 0));
+                points.add(new Point(250, 400, 0));
+                points.add(new Point(150, 600, 0));
+                points.add(new Point(100, 850, 0));
+                break;
+            case CIRCLE:
+                int points_around_circle = 100;
+
+                // circle options
+                int radius = 200;
+                int center_x = 400;
+                int center_y = 400;
+
+                // (x−h)^2+(y−k)^2=r^2
+                // for radius = 200, r^2 = 40000
+                // centered at 400, 400 => h=400, k=400
+                // (x-400)^2 + (y-400)^2 = 200^2
+
+                // draw upper half
+                for(int i=0; i < points_around_circle/2; i++){
+                    // compute the circle point
+                    int circle_x_max = center_x + radius;
+                    int circle_x = circle_x_max - i * ((radius * 2) / (points_around_circle / 2));
+                    int circle_y = (int)(Math.sqrt(radius^2 - (circle_x - center_x)^2) - center_y);
+
+                    // add the point to the list
+                    points.add(new Point(circle_x, circle_y, 0));
+                }
+
+                // TODO draw lower half
 
                 break;
         }

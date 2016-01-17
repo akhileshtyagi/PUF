@@ -41,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Challenge.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Challenge.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.51184833">
-              <caret line="185" column="51" selection-start-line="185" selection-start-column="51" selection-end-line="185" selection-end-column="51" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="166" column="0" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
               <folding>
                 <element signature="docComment;class#Challenge#0" expanded="false" />
                 <element signature="docComment;method#Challenge#1;class#Challenge#0" expanded="false" />
@@ -57,8 +57,8 @@
                 <element signature="e#4955#4956#0" expanded="true" />
                 <element signature="e#4992#4993#0" expanded="true" />
                 <element signature="e#5036#5037#0" expanded="true" />
-                <element signature="e#9590#9653#0" expanded="false" />
-                <element signature="e#10777#10840#0" expanded="false" />
+                <element signature="e#9619#9682#0" expanded="false" />
+                <element signature="e#10806#10869#0" expanded="false" />
                 <element signature="method#computeChallengeYDistance#0;class#Challenge#0" expanded="false" />
                 <element signature="docComment;method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
                 <element signature="method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
@@ -87,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="graph_points_test.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="graph_points_test.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/graph_points_test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
+            <state vertical-scroll-proportion="0.4549763">
+              <caret line="27" column="88" selection-start-line="27" selection-start-column="88" selection-end-line="27" selection-end-column="88" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -130,8 +130,8 @@
         <option value="$PROJECT_DIR$/src/dataTypes/Response.java" />
         <option value="$PROJECT_DIR$/src/test/Response_Normalization_test.java" />
         <option value="$PROJECT_DIR$/src/test/graph_points.java" />
-        <option value="$PROJECT_DIR$/src/test/graph_points_test.java" />
         <option value="$PROJECT_DIR$/src/dataTypes/Challenge.java" />
+        <option value="$PROJECT_DIR$/src/test/graph_points_test.java" />
       </list>
     </option>
   </component>
@@ -606,7 +606,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2857143" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2857143" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -988,16 +988,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/graph_points_test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="19" column="14" selection-start-line="19" selection-start-column="14" selection-end-line="19" selection-end-column="14" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/graph_points.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1010,8 +1000,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.51184833">
-          <caret line="185" column="51" selection-start-line="185" selection-start-column="51" selection-end-line="185" selection-end-column="51" />
+        <state vertical-scroll-proportion="0.0">
+          <caret line="166" column="0" selection-start-line="166" selection-start-column="0" selection-end-line="166" selection-end-column="0" />
           <folding>
             <element signature="docComment;class#Challenge#0" expanded="false" />
             <element signature="docComment;method#Challenge#1;class#Challenge#0" expanded="false" />
@@ -1023,8 +1013,8 @@
             <element signature="e#4955#4956#0" expanded="true" />
             <element signature="e#4992#4993#0" expanded="true" />
             <element signature="e#5036#5037#0" expanded="true" />
-            <element signature="e#9590#9653#0" expanded="false" />
-            <element signature="e#10777#10840#0" expanded="false" />
+            <element signature="e#9619#9682#0" expanded="false" />
+            <element signature="e#10806#10869#0" expanded="false" />
             <element signature="method#computeChallengeYDistance#0;class#Challenge#0" expanded="false" />
             <element signature="docComment;method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
             <element signature="method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
@@ -1036,6 +1026,16 @@
             <element signature="method#max_challenge_point_y#0;class#Challenge#0" expanded="false" />
             <element signature="docComment;method#min_challenge_point_y#0;class#Challenge#0" expanded="false" />
             <element signature="method#min_challenge_point_y#0;class#Challenge#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/graph_points_test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4549763">
+          <caret line="27" column="88" selection-start-line="27" selection-start-column="88" selection-end-line="27" selection-end-column="88" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
