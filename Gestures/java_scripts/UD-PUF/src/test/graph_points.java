@@ -35,6 +35,15 @@ public class graph_points extends JFrame {
         this.panel = new GraphPanel();
         this.add(panel);
 
+        this.pack();
+
+        // wait
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+
         // set up frame properties
         this.setVisible(true);
         this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
