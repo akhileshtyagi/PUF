@@ -178,12 +178,18 @@ public class Challenge implements Serializable {
 
             // add prev_remaining_distance to distance to avoid having the distance from
             // left neighbor to the previous normalization point be double counted
-            double remaining_distance = distance + prev_remaining_distance;
+            double remaining_distance = distance; //+ prev_remaining_distance;
 
             // determine the closest left neighbor (j + k - 1) and
             // the distance of the normalization point from this neighbor
-            while (computeEuclideanDistance(response_points.get(j - 1), response_points.get(j + k)) < distance) {
-                remaining_distance -= computeEuclideanDistance(response_points.get(j + k - 1), response_points.get(j + k));
+
+//            while (computeEuclideanDistance(response_points.get(j - 1), response_points.get(j + k)) < distance) {
+//                remaining_distance -= computeEuclideanDistance(response_points.get(j + k - 1), response_points.get(j + k));
+//                k++;
+//            }
+
+            while (computeEuclideanDistance(norm_points.get(i), response_points.get(j + k)) < distance) {
+                remaining_distance -= computeEuclideanDistance(norm_points.get(i + k), response_points.get(j + k));
                 k++;
             }
 
@@ -195,8 +201,8 @@ public class Challenge implements Serializable {
 
             // TODO we are not finding the left neighbor correctly,
             // TODO we are double counting the distance between the left neighbor and the normalized point
-            System.out.print("left point:" + ( j-1 ) + "\trem_dist:");
-            System.out.println(remaining_distance);
+            //System.out.print("left point:" + ( j-1 ) + "\trem_dist:");
+            //System.out.println(remaining_distance);
 
             // now normalization point is between j and j-1
             double theta = Math.atan((response_points.get(j).getY() - response_points.get(j - 1).getY()) /
