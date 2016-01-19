@@ -25,7 +25,7 @@ public class graph_points_test {
         graph_points graph_frame = new graph_points();
 
         // create response point list
-        List<Point> response_points = create_response_point_list(ResponseNature.NEGATIVE_SLOPE_LINE);
+        List<Point> response_points = create_response_point_list(ResponseNature.NEGATIVE_STAIRS);
 
         // create challenge pattern
         List<Point> challenge_pattern = create_challenge_pattern();
@@ -86,7 +86,8 @@ public class graph_points_test {
                 points.add(new Point(100, 850, 0));
                 break;
             case CIRCLE:
-                int points_around_circle = 100;
+                // works with circles of size 6
+                int points_around_circle = 10;
 
                 // circle options
                 int radius = 200;
@@ -98,18 +99,21 @@ public class graph_points_test {
                 // centered at 400, 400 => h=400, k=400
                 // (x-400)^2 + (y-400)^2 = 200^2
 
-                // draw upper half
-                for(int i=0; i < points_around_circle/2; i++){
+                // circle
+                for (int i = 0; i < points_around_circle; i++) {
+                    // compute theta
+                    double theta = i * 2 * Math.PI / points_around_circle;
+
                     // compute the circle point
-                    int circle_x_max = center_x + radius;
-                    int circle_x = circle_x_max - i * ((radius * 2) / (points_around_circle / 2));
-                    int circle_y = (int)(Math.sqrt(radius^2 - (circle_x - center_x)^2) - center_y);
+                    int circle_x = (int)(center_x + radius * Math.cos(theta));
+                    int circle_y = (int)(center_y + radius * Math.sin(theta));
 
                     // add the point to the list
                     points.add(new Point(circle_x, circle_y, 0));
                 }
 
-                // TODO draw lower half
+                // repeat the first point
+                points.add(new Point((int)(center_x + radius), (int)(center_y), 0));
 
                 break;
         }

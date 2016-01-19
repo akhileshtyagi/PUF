@@ -170,7 +170,8 @@ public class Challenge implements Serializable {
         // normalization point to findc
         // i is normalization points
         // j is response points
-        double prev_remaining_distance = 0;
+        //double prev_remaining_distance = 0;
+        //double right_neighbor_distance = computeEuclideanDistance(norm_points.get(0), response_points.get(1));
         int j = 1;
         for (int i = 0; i < response_points.size() - 2; i++) {
             // k keeps track of the number of indexs the next point is away from the current point
@@ -178,7 +179,7 @@ public class Challenge implements Serializable {
 
             // add prev_remaining_distance to distance to avoid having the distance from
             // left neighbor to the previous normalization point be double counted
-            double remaining_distance = distance; //+ prev_remaining_distance;
+            double remaining_distance = distance; //- right_neighbor_distance; //+ prev_remaining_distance;
 
             // determine the closest left neighbor (j + k - 1) and
             // the distance of the normalization point from this neighbor
@@ -188,13 +189,20 @@ public class Challenge implements Serializable {
 //                k++;
 //            }
 
+            // TODO figure out a way to subtract the additional distance resulting from adding an additional point
             while (computeEuclideanDistance(norm_points.get(i), response_points.get(j + k)) < distance) {
-                remaining_distance -= computeEuclideanDistance(norm_points.get(i + k), response_points.get(j + k));
+                // if it is the first point, take the differance from the previous normalization point
+                if(k == 0) {
+                    remaining_distance -= computeEuclideanDistance(norm_points.get(i), response_points.get(j));
+                } else {
+                    remaining_distance -= computeEuclideanDistance(norm_points.get(j + k - 1), response_points.get(j + k));
+                }
+
                 k++;
             }
 
             // keep track of remaining distance
-            prev_remaining_distance = remaining_distance;
+            // prev_remaining_distance = remaining_distance;
 
             // now we know the point closes to the left of the normalization point in the response.
             j += k;
@@ -206,7 +214,7 @@ public class Challenge implements Serializable {
 
             // now normalization point is between j and j-1
             double theta = Math.atan((response_points.get(j).getY() - response_points.get(j - 1).getY()) /
-                    (response_points.get(j).getX() - response_points.get(j-1).getX()));
+                    (response_points.get(j).getX() - response_points.get(j - 1).getX()));
 
             // compute the appropriate x,y coordinates for the point
             int norm_point_x = (int) (response_points.get(j - 1).getX() + remaining_distance * Math.cos(theta));
@@ -214,6 +222,9 @@ public class Challenge implements Serializable {
 
             // at the point to the normalization points list
             norm_points.add(new Point(norm_point_x, norm_point_y, 0));
+
+            // keep track of remaining distance to right neighbor
+            //right_neighbor_distance = computeEuclideanDistance(norm_points.get(i + 1), response_points.get(j));
         }
 
         // last point in the list is the last point in the response
