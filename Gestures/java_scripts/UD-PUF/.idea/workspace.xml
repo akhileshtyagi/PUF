@@ -41,11 +41,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Challenge.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Challenge.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="196" column="24" selection-start-line="196" selection-start-column="24" selection-end-line="196" selection-end-column="24" />
+            <state vertical-scroll-proportion="0.9161491">
+              <caret line="226" column="7" selection-start-line="226" selection-start-column="7" selection-end-line="226" selection-end-column="7" />
               <folding>
                 <element signature="docComment;class#Challenge#0" expanded="false" />
                 <element signature="docComment;method#Challenge#1;class#Challenge#0" expanded="false" />
@@ -57,8 +57,8 @@
                 <element signature="e#4955#4956#0" expanded="true" />
                 <element signature="e#4992#4993#0" expanded="true" />
                 <element signature="e#5036#5037#0" expanded="true" />
-                <element signature="e#11262#11325#0" expanded="false" />
-                <element signature="e#12449#12512#0" expanded="false" />
+                <element signature="e#10465#10528#0" expanded="false" />
+                <element signature="e#11652#11715#0" expanded="false" />
                 <element signature="method#computeChallengeYDistance#0;class#Challenge#0" expanded="false" />
                 <element signature="docComment;method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
                 <element signature="method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
@@ -87,11 +87,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="graph_points_test.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="graph_points_test.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/graph_points_test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.36335403">
-              <caret line="27" column="95" selection-start-line="27" selection-start-column="95" selection-end-line="27" selection-end-column="95" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -130,8 +130,8 @@
         <option value="$PROJECT_DIR$/src/dataTypes/Response.java" />
         <option value="$PROJECT_DIR$/src/test/Response_Normalization_test.java" />
         <option value="$PROJECT_DIR$/src/test/graph_points.java" />
-        <option value="$PROJECT_DIR$/src/dataTypes/Challenge.java" />
         <option value="$PROJECT_DIR$/src/test/graph_points_test.java" />
+        <option value="$PROJECT_DIR$/src/dataTypes/Challenge.java" />
       </list>
     </option>
   </component>
@@ -606,7 +606,7 @@
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27380952" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.27380952" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -995,10 +995,20 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
+    <entry file="file://$PROJECT_DIR$/src/test/graph_points_test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="196" column="24" selection-start-line="196" selection-start-column="24" selection-end-line="196" selection-end-column="24" />
+          <caret line="31" column="0" selection-start-line="31" selection-start-column="0" selection-end-line="31" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.9161491">
+          <caret line="226" column="7" selection-start-line="226" selection-start-column="7" selection-end-line="226" selection-end-column="7" />
           <folding>
             <element signature="docComment;class#Challenge#0" expanded="false" />
             <element signature="docComment;method#Challenge#1;class#Challenge#0" expanded="false" />
@@ -1010,8 +1020,8 @@
             <element signature="e#4955#4956#0" expanded="true" />
             <element signature="e#4992#4993#0" expanded="true" />
             <element signature="e#5036#5037#0" expanded="true" />
-            <element signature="e#11262#11325#0" expanded="false" />
-            <element signature="e#12449#12512#0" expanded="false" />
+            <element signature="e#10465#10528#0" expanded="false" />
+            <element signature="e#11652#11715#0" expanded="false" />
             <element signature="method#computeChallengeYDistance#0;class#Challenge#0" expanded="false" />
             <element signature="docComment;method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
             <element signature="method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
@@ -1023,16 +1033,6 @@
             <element signature="method#max_challenge_point_y#0;class#Challenge#0" expanded="false" />
             <element signature="docComment;method#min_challenge_point_y#0;class#Challenge#0" expanded="false" />
             <element signature="method#min_challenge_point_y#0;class#Challenge#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/graph_points_test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.36335403">
-          <caret line="27" column="95" selection-start-line="27" selection-start-column="95" selection-end-line="27" selection-end-column="95" />
-          <folding>
-            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
