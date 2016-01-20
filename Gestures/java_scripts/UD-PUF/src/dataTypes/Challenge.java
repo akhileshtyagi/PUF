@@ -190,7 +190,7 @@ public class Challenge implements Serializable {
                 if(k == 0) {
                     remaining_distance -= computeEuclideanDistance(norm_points.get(i), response_points.get(j));
                 } else {
-                    remaining_distance -= computeEuclideanDistance(norm_points.get(j + k - 1), response_points.get(j + k));
+                    remaining_distance -= computeEuclideanDistance(response_points.get(j + k - 1), response_points.get(j + k));
                 }
 
                 k++;
