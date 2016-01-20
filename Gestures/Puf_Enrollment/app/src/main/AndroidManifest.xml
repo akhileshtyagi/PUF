@@ -43,6 +43,11 @@
             android:label="@string/title_activity_secret_acrivity"
             android:theme="@style/AppTheme.NoActionBar" >
         </activity>
+        <activity
+            android:name=".NormalizeTestActivity"
+            android:label="@string/title_normalize_test_activity"
+            android:theme="@style/AppTheme.NoActionBar" >
+        </activity>
     </application>
 
 </manifest>

@@ -57,4 +57,9 @@ public class MainActivity extends AppCompatActivity  {
         Intent intent = new Intent(this, SecretAcrivity.class);
         startActivity(intent);
     }
+
+    public void normalize_test_pressed(View v){
+        Intent intent = new Intent(this, NormalizeTestActivity.class);
+        startActivity(intent);
+    }
 }

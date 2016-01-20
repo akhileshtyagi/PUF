@@ -58,4 +58,14 @@
         android:layout_alignParentEnd="true"
         android:onClick="secret_pressed" />
 
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Normalize Test"
+        android:id="@+id/Normalize_test"
+        android:layout_alignParentBottom="true"
+        android:layout_toLeftOf="@id/secret"
+        android:onClick="normalize_test_pressed" />
+
 </RelativeLayout>
