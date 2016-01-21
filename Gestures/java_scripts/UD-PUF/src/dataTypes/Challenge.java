@@ -190,9 +190,13 @@ public class Challenge implements Serializable {
             // TODO left and right neighbor are found correctly in some instances, and incorrectly in others
             // TODO keep the cumuplate distance
             double covered_distance = computeEuclideanDistance(norm_points.get(i), response_points.get(j));
+<<<<<<< HEAD
 
-            //System.out.println("covered_distance:" + covered_distance);
+=======
 
+            System.out.println("covered_distance:" + covered_distance);
+
+>>>>>>> 8ec445b0d690a0ad0332d05bdc60f5bf18d5288e
             while (covered_distance < distance) {
                 k++;
 
@@ -216,8 +220,8 @@ public class Challenge implements Serializable {
             j += k;
 
             // TODO we are not finding the left neighbor correctly,
-            System.out.print("left point:" + ( j-1 ) + "\trem_dist:");
-            System.out.println(remaining_distance);
+            //System.out.print("left point:" + ( j-1 ) + "\trem_dist:");
+            //System.out.println(remaining_distance);
 
             // because tan returns a value between -pi/2 and pi/2, cos will never be negative
             // we need to presevere the x direction we are travling

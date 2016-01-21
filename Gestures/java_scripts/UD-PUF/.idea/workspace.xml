@@ -44,8 +44,8 @@
       <file leaf-file-name="Challenge.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.26384366">
-              <caret line="165" column="16" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="16" />
+            <state vertical-scroll-proportion="0.732899">
+              <caret line="192" column="12" selection-start-line="192" selection-start-column="12" selection-end-line="192" selection-end-column="12" />
               <folding>
                 <element signature="docComment;class#Challenge#0" expanded="false" />
                 <element signature="docComment;method#Challenge#1;class#Challenge#0" expanded="false" />
@@ -53,8 +53,8 @@
                 <element signature="e#2811#2848#0" expanded="false" />
                 <element signature="e#3520#3589#0" expanded="false" />
                 <element signature="e#3706#3767#0" expanded="false" />
-                <element signature="e#11725#11788#0" expanded="false" />
-                <element signature="e#12912#12975#0" expanded="false" />
+                <element signature="e#11798#11861#0" expanded="false" />
+                <element signature="e#12985#13048#0" expanded="false" />
                 <element signature="method#computeChallengeYDistance#0;class#Challenge#0" expanded="false" />
                 <element signature="docComment;method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
                 <element signature="method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
@@ -137,8 +137,8 @@
         <option value="$PROJECT_DIR$/src/test/Response_Normalization_test.java" />
         <option value="$PROJECT_DIR$/src/test/graph_points.java" />
         <option value="$PROJECT_DIR$/src/test/trig_test.java" />
-        <option value="$PROJECT_DIR$/src/dataTypes/Challenge.java" />
         <option value="$PROJECT_DIR$/src/test/graph_points_test.java" />
+        <option value="$PROJECT_DIR$/src/dataTypes/Challenge.java" />
       </list>
     </option>
   </component>
@@ -1015,8 +1015,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.26384366">
-          <caret line="165" column="16" selection-start-line="165" selection-start-column="16" selection-end-line="165" selection-end-column="16" />
+        <state vertical-scroll-proportion="0.732899">
+          <caret line="192" column="12" selection-start-line="192" selection-start-column="12" selection-end-line="192" selection-end-column="12" />
           <folding>
             <element signature="docComment;class#Challenge#0" expanded="false" />
             <element signature="docComment;method#Challenge#1;class#Challenge#0" expanded="false" />
@@ -1024,8 +1024,8 @@
             <element signature="e#2811#2848#0" expanded="false" />
             <element signature="e#3520#3589#0" expanded="false" />
             <element signature="e#3706#3767#0" expanded="false" />
-            <element signature="e#11725#11788#0" expanded="false" />
-            <element signature="e#12912#12975#0" expanded="false" />
+            <element signature="e#11798#11861#0" expanded="false" />
+            <element signature="e#12985#13048#0" expanded="false" />
             <element signature="method#computeChallengeYDistance#0;class#Challenge#0" expanded="false" />
             <element signature="docComment;method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
             <element signature="method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
