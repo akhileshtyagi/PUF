@@ -112,6 +112,51 @@ public class Challenge implements Serializable {
         this.profile = null;
     }
 
+    // Adds normalized response to the list or Responses
+    public void addResponse2(Response response) {
+        // add the time length of the response to the list
+        this.time_lengths.add(response.getTimeLength());
+
+        // If first response added, use it as baseline for number of
+        // normalization points,
+        // then calculated normalizing points with
+        if (responses.size() <= 0) {
+            this.normalized_elements = response.getOrigionalResponse().size() - 2;
+
+            // TODO move this back to constructor
+            // determine if the challenge is more horizontal or more vertical in
+            // orientation
+            double x_dist = computeChallengeXDistance();
+            double y_dist = computeChallengeYDistance();
+
+            // System.out.println("X:" + x_dist + " Y:" + y_dist);
+
+            isChallengeHorizontal = x_dist > y_dist;
+
+            // compute the list of points used to normalize the responses to
+            // this
+            // challenge
+            // normalizingPoints = computeNormalizingPoints(x_dist, y_dist);
+
+            // euclidean distance
+            this.normalizingPoints = computeNormalizingPoints(response);
+        }
+
+        else {
+            // normalize the response before it is added to the challenge
+            // System.out.println(isChallengeHorizontal);
+            response.normalize(normalizingPoints);
+        }
+        // before normalizing response, add length of the response to list of
+        // motion_event_counts
+        motion_event_counts.add(new Double(response.getMotionEvenCount()));
+
+        responses.add(response);
+
+        // profile is now invalid and needs to be re-computed
+        this.profile = null;
+    }
+
     // Creates a profile associate with this challenge with NORMALIZED responses
     public Profile getProfile() {
         // if the profile hasn't been created, create the profile
@@ -190,13 +235,7 @@ public class Challenge implements Serializable {
             // TODO left and right neighbor are found correctly in some instances, and incorrectly in others
             // TODO keep the cumuplate distance
             double covered_distance = computeEuclideanDistance(norm_points.get(i), response_points.get(j));
-<<<<<<< HEAD
 
-=======
-
-            System.out.println("covered_distance:" + covered_distance);
-
->>>>>>> 8ec445b0d690a0ad0332d05bdc60f5bf18d5288e
             while (covered_distance < distance) {
                 k++;
 

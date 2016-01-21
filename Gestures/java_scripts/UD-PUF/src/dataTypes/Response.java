@@ -59,7 +59,43 @@ public class Response implements Serializable {
         return responsePattern.get(responsePattern.size() - 1).getTime() - responsePattern.get(0).getTime();
     }
 
-    /*
+    public void normalize(List<Point> normalizingPoints) {
+        // For iterating over Response Points
+        int j = 0;
+
+        double closestDistance;
+
+        ArrayList<Point> normalizedResponse = new ArrayList<>();
+
+        for(Point normPoint : normalizingPoints) {
+
+            // Set closest distance to the distance from the first normalizing point to the first response point
+            closestDistance = computeEuclideanDistance(normPoint, responsePattern.get(j));
+
+            // Continually check if the next response points is closer to normalizing point than the previous
+            while(computeEuclideanDistance(normPoint, responsePattern.get(j + 1)) < closestDistance) {
+                closestDistance = computeEuclideanDistance(normPoint, responsePattern.get(j++));
+                if(responsePattern.size() - 1 < j+ 1) break;
+            }
+
+            // Current point is point closest to normalizing point
+            normalizedResponse.add(responsePattern.get(j));
+            j++;
+            if(responsePattern.size() - 1 < j+ 1) break;
+        }
+
+        this.normalizedResponsePattern = normalizedResponse;
+    }
+
+    /**
+     * compute the euclidean distance between two points
+     */
+    private double computeEuclideanDistance(Point p1, Point p2) {
+        return Math.sqrt(Math.pow((p1.getX() - p2.getX()), 2) +
+                Math.pow((p1.getY() - p2.getY()), 2));
+    }
+
+     /*
      * Normalizes points in response. The normalizingPoints are a list of points
      * to normalize the response to. In other words the response will then
      * contain exactly these point having some pressure determined by the
@@ -106,11 +142,8 @@ public class Response implements Serializable {
                 // if response Point is closer to the left then it becomes
                 // closestLeftPoint
                 if (((isChallengeHorizontal)
-                        ? ((normalizingPoint.getX() - responsePoint.getX()) < (normalizingPoint.getX()
-                        - closestLeftPoint.getX())) && ((normalizingPoint.getX() - responsePoint.getX()) >= 0)
-                        : ((normalizingPoint.getY() - responsePoint.getY()) < (normalizingPoint.getY()
-                        - closestLeftPoint.getY()))
-                        && ((normalizingPoint.getY() - responsePoint.getY() >= 0)))) {
+                        ? ((normalizingPoint.getX() - responsePoint.getX()) < (normalizingPoint.getX() - closestLeftPoint.getX())) && ((normalizingPoint.getX() - responsePoint.getX()) >= 0)
+                        : ((normalizingPoint.getY() - responsePoint.getY()) < (normalizingPoint.getY() - closestLeftPoint.getY())) && ((normalizingPoint.getY() - responsePoint.getY() >= 0)))) {
 
                     closestLeftPoint = responsePoint;
                     closestLeftIndex = i;
