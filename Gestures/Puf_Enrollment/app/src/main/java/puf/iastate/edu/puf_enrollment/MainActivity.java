@@ -62,4 +62,9 @@ public class MainActivity extends AppCompatActivity  {
         Intent intent = new Intent(this, NormalizeTestActivity.class);
         startActivity(intent);
     }
+
+    public void new_normalize_test_pressed(View v){
+        Intent intent = new Intent(this, NewNormalizeTestActivity.class);
+        startActivity(intent);
+    }
 }

@@ -1,44 +1,42 @@
 package puf.iastate.edu.puf_enrollment;
 
 import android.content.Context;
-import android.content.res.TypedArray;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
-import android.graphics.drawable.Drawable;
 import android.text.TextPaint;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 import java.util.ArrayList;
-import java.util.List;
 
-import dataTypes.*;
+import dataTypes.Challenge;
 import dataTypes.Point;
+import dataTypes.Response;
 
 /**
  * TODO: document your custom view class.
  */
-public class NormalizeTestView extends View {
+public class NewNormalizeTestView extends View {
     private Paint mPufPaint, mFirstPointPaint, mLastPointPaint, mNormPaint, mRespPathPaint, mNormRespPaint;
     private Path mPath, mRespPath;
     private TextPaint mTextPaint;
     private float mX, mY;
-    private dataTypes.Point firstPoint, lastPoint;
+    private Point firstPoint, lastPoint;
     private Challenge mChallenge;
     private Response mResponse, mNewResponse;
     private ArrayList<Point> mPoints;
     private ArrayList<Point> mChallengePoints;
     private boolean drawNormalizedPoints, drawNormalizedResponsePoints, drawnFirstTrace;
 
-    public NormalizeTestView(Context context) {
+    public NewNormalizeTestView(Context context) {
         super(context);
         init(null, 0);
     }
 
-    public NormalizeTestView(Context context, AttributeSet attrs) {
+    public NewNormalizeTestView(Context context, AttributeSet attrs) {
         super(context, attrs);
         init(attrs, 0);
     }
@@ -211,7 +209,7 @@ public class NormalizeTestView extends View {
 
             mChallenge = new Challenge(mChallengePoints, 0);
             mResponse = new Response(mPoints);
-            mChallenge.addResponse(mResponse);
+            mChallenge.addResponse2(mResponse);
             drawNormalizedPoints = true;
             drawnFirstTrace = true;
         }
@@ -220,7 +218,7 @@ public class NormalizeTestView extends View {
             lastPoint = new Point(mX, mY, 0);
 
             mNewResponse = new Response(mPoints);
-            mChallenge.addResponse(mNewResponse);
+            mChallenge.addResponse2(mNewResponse);
             drawNormalizedResponsePoints = true;
             drawnFirstTrace = false;
         }
