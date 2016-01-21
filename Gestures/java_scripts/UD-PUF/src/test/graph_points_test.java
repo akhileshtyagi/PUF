@@ -16,6 +16,7 @@ public class graph_points_test {
     private enum ResponseNature {
         NEGATIVE_STAIRS,
         NEGATIVE_SLOPE_LINE,
+        NEGATIVE_SLOPE_LINE_BACKAWARD,
         POSITIVE_ARC,
         POSITIVE_SLOPE_LINE,
         CIRCLE
@@ -25,7 +26,7 @@ public class graph_points_test {
         graph_points graph_frame = new graph_points();
 
         // create response point list
-        List<Point> response_points = create_response_point_list(ResponseNature.NEGATIVE_STAIRS);
+        List<Point> response_points = create_response_point_list(ResponseNature.POSITIVE_SLOPE_LINE);
 
         // create challenge pattern
         List<Point> challenge_pattern = create_challenge_pattern();
@@ -74,8 +75,21 @@ public class graph_points_test {
                 points.add(new Point(600, 600, 0));
                 points.add(new Point(850, 850, 0));
                 break;
+            case NEGATIVE_SLOPE_LINE_BACKAWARD:
+                points.add(new Point(850, 850, 0));
+                points.add(new Point(600, 600, 0));
+                points.add(new Point(400, 400, 0));
+                points.add(new Point(250, 250, 0));
+                points.add(new Point(150, 150, 0));
+                points.add(new Point(100, 100, 0));
+                break;
             case POSITIVE_SLOPE_LINE:
-
+                points.add(new Point(100, 800, 0));
+                points.add(new Point(150, 750, 0));
+                points.add(new Point(250, 650, 0));
+                points.add(new Point(400, 500, 0));
+                points.add(new Point(600, 300, 0));
+                points.add(new Point(850, 50, 0));
                 break;
             case POSITIVE_ARC:
                 points.add(new Point(850, 100, 0));
@@ -87,6 +101,7 @@ public class graph_points_test {
                 break;
             case CIRCLE:
                 // works with circles of size 6
+                // does not work on circle of size 10
                 int points_around_circle = 10;
 
                 // circle options
