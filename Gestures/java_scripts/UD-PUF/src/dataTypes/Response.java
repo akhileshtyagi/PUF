@@ -59,7 +59,93 @@ public class Response implements Serializable {
         return responsePattern.get(responsePattern.size() - 1).getTime() - responsePattern.get(0).getTime();
     }
 
+    protected void setNormalizingPoints(List<Point> normalizingPoints) {
+        this.normalizedResponsePattern = normalizedResponsePattern;
+    }
     public void normalize(List<Point> normalizingPoints) {
+
+        double x_dist, y_dist, extrapolatedPressure, nPressure;
+        Point curNormalizedPoint, prevNormalizedPoint, pointLeft, pointRight;
+        ArrayList<Point> newNormalizedList = new ArrayList<>();
+
+        // If no point is past the first normalizing point's radius, extrapolate it
+        // TODO instead of making a temp point, extrapolate all response points similarly
+        if(getRadius(responsePattern.get(0)) > getRadius(normalizingPoints.get(0))) {
+            double theta = Math.atan(responsePattern.get(0).getY() / responsePattern.get(0).getX());
+            double pRadius = getRadius(normalizingPoints.get(0));
+            Point temp_point = new Point(pRadius * Math.cos(theta), pRadius * Math.sin(theta), 0);
+        }
+
+        newNormalizedList.add(responsePattern.get(0));
+
+        // Index for counting responsePattern of trace: [j-1] is the point with radius less than R(normPoint[i]), [j] is
+        // point with radius larger than R(normPoint[i])
+        int j = 1;
+        for(int i = 1; i < normalizingPoints.size(); i++) {
+            curNormalizedPoint = normalizingPoints.get(i);
+            prevNormalizedPoint = normalizingPoints.get(i - 1);
+            int k = 0;
+
+            double direction = getRadius(curNormalizedPoint) - getRadius(prevNormalizedPoint);
+
+            // If radius is increasing, loop until find a radius larger than current normalized point
+            if(direction >= 0) {
+                while( getRadius(responsePattern.get(j - 1 + k)) < getRadius(curNormalizedPoint)) {
+                    if ((j + k) >= responsePattern.size()) {
+                        this.normalizedResponsePattern = newNormalizedList;
+                        return;
+                    }
+                    k++;
+                }
+            }
+
+            // If radius is decreasing, loop until find a radius smaller than current normalized point
+            if(direction < 0) {
+                while( getRadius(responsePattern.get(j - 1 + k)) > getRadius(curNormalizedPoint)) {
+                    if ((j + k) >= responsePattern.size()) {
+                        this.normalizedResponsePattern = newNormalizedList;
+                        return;
+                    }
+                    k++;
+                }
+            }
+
+            // Update trace index with new point to examine, immediately to the right of normalizePoints[i]
+            j = j + k;
+
+            if(j >= responsePattern.size()) break;
+            pointLeft = responsePattern.get(j-1);
+            pointRight = responsePattern.get(j);
+            // Interpolate
+            double theta = Math.atan((pointRight.getY() - pointLeft.getY()) /
+                    pointRight.getX() - pointLeft.getX());
+
+            // because tan returns a value between -pi/2 and pi/2, cos will never be negative
+            // we need to presevere the x direction we are travling
+            double x_differance = (pointRight.getX() - pointLeft.getX());
+            double x_sine = 1;
+
+            // check that the differance isn't equal to zero to ensure no divide by 0 error
+            if(!(x_differance==0)){
+                // this will make x_sine +1 or -1 depending on the sine
+                x_sine = x_differance / Math.abs(x_differance);
+            }
+            x_dist = pointLeft.getX() + ((getRadius(curNormalizedPoint) - getRadius(pointLeft)) * Math.cos(theta) * x_sine);
+            y_dist = pointLeft.getY() + ((getRadius(curNormalizedPoint)- getRadius(pointLeft)) * Math.sin(theta) * x_sine);
+            extrapolatedPressure = (getRadius(curNormalizedPoint) - getRadius(pointLeft)) / (getRadius(pointRight) - getRadius(pointLeft)) * (pointRight.getPressure() - pointLeft.getPressure());
+            nPressure = pointLeft.getPressure() + extrapolatedPressure;
+            newNormalizedList.add(new Point(x_dist, y_dist, nPressure));
+            j++;
+        }
+
+        this.normalizedResponsePattern = newNormalizedList;
+    }
+
+    private double getRadius(Point p) {
+        return Math.sqrt( Math.pow(p.getX(),2) + Math.pow(p.getY(), 2));
+    }
+
+    public void oldNormalize(List<Point> normalizingPoints) {
         // For iterating over Response Points
         int j = 0;
 
