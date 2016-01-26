@@ -28,7 +28,7 @@ public class Challenge implements Serializable {
     private List<Point> challengePattern;
 
     // pattern of points to normalize responses to
-    List<Point> normalizingPoints;
+    public List<Point> normalizingPoints;
 
     // Unique identifier to distinguish which challenge this is
     private long challengeID;
@@ -130,18 +130,18 @@ public class Challenge implements Serializable {
 
             // euclidean distance
             this.normalizingPoints = computeNormalizingPoints(response);
-            response.setNormalizingPoints(this.normalizingPoints);
         }
 
         else {
-            // normalize the response before it is added to the challenge
-            // System.out.println(isChallengeHorizontal);
-            response.normalize(normalizingPoints);
         }
 
         // before normalizing response, add length of the response to list of
         // motion_event_counts
         motion_event_counts.add(new Double(response.getMotionEvenCount()));
+
+        // normalize the response before it is added to the challenge
+        // System.out.println(isChallengeHorizontal);
+        response.normalize(normalizingPoints);
 
         responses.add(response);
 
