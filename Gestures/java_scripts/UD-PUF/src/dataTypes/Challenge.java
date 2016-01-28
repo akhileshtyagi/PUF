@@ -180,6 +180,8 @@ public class Challenge implements Serializable {
         return challengePattern;
     }
 
+    public List<Point> getNormalizingPoints() {return normalizingPoints; }
+
     public List<Response> getResponsePattern() {
         return responses;
     }
@@ -269,7 +271,7 @@ public class Challenge implements Serializable {
             double theta = Math.atan((response_points.get(j).getY() - response_points.get(j - 1).getY()) /
                     x_differance);
 
-            System.out.println("theta:"+theta);
+            //System.out.println("theta:"+theta);
 
             // compute the appropriate x,y coordinates for the point
             int norm_point_x = (int) (response_points.get(j - 1).getX() + remaining_distance * Math.cos(theta) * x_sine);

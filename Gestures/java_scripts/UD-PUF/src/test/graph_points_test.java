@@ -16,17 +16,19 @@ public class graph_points_test {
     private enum ResponseNature {
         NEGATIVE_STAIRS,
         NEGATIVE_SLOPE_LINE,
-        NEGATIVE_SLOPE_LINE_BACKAWARD,
+        NEGATIVE_SLOPE_LINE_BACK,
         POSITIVE_ARC,
         POSITIVE_SLOPE_LINE,
-        CIRCLE
+        POSITIVE_SLOPE_LINE_BACK,
+        CIRCLE,
+        RIGHT_TO_LEFT
     }
 
     public static void main(String[] args) {
         graph_points graph_frame = new graph_points();
 
         // create response point list
-        List<Point> response_points = create_response_point_list(ResponseNature.POSITIVE_SLOPE_LINE);
+        List<Point> response_points = create_response_point_list(ResponseNature.NEGATIVE_STAIRS);
 
         // create challenge pattern
         List<Point> challenge_pattern = create_challenge_pattern();
@@ -34,10 +36,10 @@ public class graph_points_test {
         // create a response and normalize it
         Challenge challenge = new Challenge(challenge_pattern, 0);
         Response response = new Response(response_points);
-        challenge.addResponse(response);
-
         graph_frame.addPointList(response_points, "origional_response_points");
-        graph_frame.addPointList(response.getNormalizedResponse(), "normalized_response_points");
+        challenge.addResponse2(response);
+
+        graph_frame.addPointList(challenge.getNormalizingPoints(), "normalized_response_points");
     }
 
     /**
@@ -50,22 +52,22 @@ public class graph_points_test {
 
         switch (nature) {
             case NEGATIVE_STAIRS:
-                points.add(new Point(100, 100, 0));
+                points.add(new Point(100, 100, .1));
 
-                points.add(new Point(100, 300, 0));
-                points.add(new Point(300, 300, 0));
-                points.add(new Point(300, 400, 0));
+                points.add(new Point(100, 300, .2));
+                points.add(new Point(300, 300, .3));
+                points.add(new Point(300, 400, .4));
 
-                points.add(new Point(300, 500, 0));
-                points.add(new Point(500, 500, 0));
-                points.add(new Point(500, 600, 0));
+                points.add(new Point(300, 500, .5));
+                points.add(new Point(500, 500, .6));
+                points.add(new Point(500, 600, .7));
 
-                points.add(new Point(500, 700, 0));
-                points.add(new Point(700, 700, 0));
-                points.add(new Point(700, 800, 0));
+                points.add(new Point(500, 700, .8));
+                points.add(new Point(700, 700, .9));
+                points.add(new Point(700, 800, 1));
 
-                points.add(new Point(700, 900, 0));
-                points.add(new Point(900, 900, 0));
+                points.add(new Point(700, 900, 1.1));
+                points.add(new Point(900, 900, 1.2));
                 break;
             case NEGATIVE_SLOPE_LINE:
                 points.add(new Point(100, 100, 0));
@@ -75,7 +77,7 @@ public class graph_points_test {
                 points.add(new Point(600, 600, 0));
                 points.add(new Point(850, 850, 0));
                 break;
-            case NEGATIVE_SLOPE_LINE_BACKAWARD:
+            case NEGATIVE_SLOPE_LINE_BACK:
                 points.add(new Point(850, 850, 0));
                 points.add(new Point(600, 600, 0));
                 points.add(new Point(400, 400, 0));
@@ -91,6 +93,14 @@ public class graph_points_test {
                 points.add(new Point(600, 300, 0));
                 points.add(new Point(850, 50, 0));
                 break;
+            case POSITIVE_SLOPE_LINE_BACK:
+                points.add(new Point(100, 800, 0));
+                points.add(new Point(150, 750, 0));
+                points.add(new Point(250, 650, 0));
+                points.add(new Point(400, 500, 0));
+                points.add(new Point(600, 300, 0));
+                points.add(new Point(850, 50, 0));
+                break;
             case POSITIVE_ARC:
                 points.add(new Point(850, 100, 0));
                 points.add(new Point(600, 150, 0));
@@ -98,6 +108,15 @@ public class graph_points_test {
                 points.add(new Point(250, 400, 0));
                 points.add(new Point(150, 600, 0));
                 points.add(new Point(100, 850, 0));
+                break;
+            case RIGHT_TO_LEFT:
+                points.add(new Point(800, 400, 0));
+                points.add(new Point(700, 400, 0));
+                points.add(new Point(550, 400, 0));
+                points.add(new Point(500, 400, 0));
+                points.add(new Point(470, 400, 0));
+                points.add(new Point(350, 400, 0));
+                points.add(new Point(200, 400, 0));
                 break;
             case CIRCLE:
                 // works with circles of size 6
