@@ -112,7 +112,7 @@ public class graph_points extends JFrame {
             draw_points(g);
 
             // draw point values
-            draw_point_values(g);
+            //draw_point_values(g);
 
             // draw the name to the panel
             draw_name(g);

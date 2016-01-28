@@ -77,50 +77,6 @@ public class Challenge implements Serializable {
         // normalization points,
         // then calculated normalizing points with
         if (responses.size() <= 0) {
-            this.normalized_elements = response.getOrigionalResponse().size();
-
-            // TODO move this back to constructor
-            // determine if the challenge is more horizontal or more vertical in
-            // orientation
-            double x_dist = computeChallengeXDistance();
-            double y_dist = computeChallengeYDistance();
-
-            // System.out.println("X:" + x_dist + " Y:" + y_dist);
-
-            isChallengeHorizontal = x_dist > y_dist;
-
-            // compute the list of points used to normalize the responses to
-            // this
-            // challenge
-            // normalizingPoints = computeNormalizingPoints(x_dist, y_dist);
-
-            // euclidean distance
-            this.normalizingPoints = computeNormalizingPoints(response);
-        }
-
-        // before normalizing response, add length of the response to list of
-        // motion_event_counts
-        motion_event_counts.add(new Double(response.getMotionEvenCount()));
-
-        // normalize the response before it is added to the challenge
-        // System.out.println(isChallengeHorizontal);
-        response.normalize(normalizingPoints, isChallengeHorizontal);
-
-        responses.add(response);
-
-        // profile is now invalid and needs to be re-computed
-        this.profile = null;
-    }
-
-    // Adds normalized response to the list or Responses
-    public void addResponse2(Response response) {
-        // add the time length of the response to the list
-        this.time_lengths.add(response.getTimeLength());
-
-        // If first response added, use it as baseline for number of
-        // normalization points,
-        // then calculated normalizing points with
-        if (responses.size() <= 0) {
             this.normalized_elements = response.getOrigionalResponse().size() - 2;
 
             // compute the list of points used to normalize the responses to
@@ -179,6 +135,8 @@ public class Challenge implements Serializable {
     public List<Point> getChallengePattern() {
         return challengePattern;
     }
+
+    public List<Point> getNormalizingPoints() {return normalizingPoints; }
 
     public List<Response> getResponsePattern() {
         return responses;
@@ -269,7 +227,7 @@ public class Challenge implements Serializable {
             double theta = Math.atan((response_points.get(j).getY() - response_points.get(j - 1).getY()) /
                     x_differance);
 
-            System.out.println("theta:"+theta);
+            //System.out.println("theta:"+theta);
 
             // compute the appropriate x,y coordinates for the point
             int norm_point_x = (int) (response_points.get(j - 1).getX() + remaining_distance * Math.cos(theta) * x_sine);

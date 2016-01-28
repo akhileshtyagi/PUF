@@ -64,9 +64,14 @@ public class Response implements Serializable {
     }
     public void normalize(List<Point> normalizingPoints) {
 
-        double x_dist, y_dist, extrapolatedPressure, nPressure, theta;
-        Point curNormalizedPoint, prevNormalizedPoint, pointLeft, pointRight;
+        double x_dist, y_dist, extrapolatedPressure, nPressure, theta, theta_r, theta_d, r_prime;
+        Point curNormalizedPoint, nextNormalizedPoint, pointLeft, pointRight, funnyPoint;
         ArrayList<Point> newNormalizedList = new ArrayList<>();
+
+        // Experimental flag to used to retry finding next point with differing direction
+        // badGuess = 0 -> First try
+        // badGuess = 1 -> Try opposite direction
+        boolean badGuess = false;
 
         // If no point is past the first normalizing point's radius, extrapolate it
         // TODO instead of making a temp point, extrapolate all response points similarly
@@ -87,7 +92,7 @@ public class Response implements Serializable {
         }
         */
 
-        double x_transform, y_transform;
+        double x_transform, y_transform, direction = 0;
 
         x_transform = normalizingPoints.get(0).getX() - responsePattern.get(0).getX();
         y_transform = normalizingPoints.get(0).getY() - responsePattern.get(0).getY();
@@ -105,15 +110,17 @@ public class Response implements Serializable {
         int j = 1;
         for(int i = 1; i < normalizingPoints.size(); i++) {
             curNormalizedPoint = normalizingPoints.get(i);
-            prevNormalizedPoint = normalizingPoints.get(i - 1);
-            int k = 0;
 
-            // Determines if the newer radius has increased or decreased from previous radius
-            double direction = getRadius(curNormalizedPoint) - getRadius(prevNormalizedPoint);
+            if( i < normalizingPoints.size() - 1) {
+                nextNormalizedPoint = normalizingPoints.get(i + 1);
+                direction = getRadius(nextNormalizedPoint) - getRadius(curNormalizedPoint);
+            }
+
+            int k = 0;
 
             // If radius is increasing, loop until find a radius larger than current normalized point
             if(direction >= 0) {
-                while( getRadius(responsePattern.get(j - 1 + k)) < getRadius(curNormalizedPoint)) {
+                while( getRadius(responsePattern.get(j - 1 + k)) <= getRadius(curNormalizedPoint)) {
                     if ((j + k) >= responsePattern.size()) {
                         this.normalizedResponsePattern = newNormalizedList;
                         return;
@@ -124,7 +131,7 @@ public class Response implements Serializable {
 
             // If radius is decreasing, loop until find a radius smaller than current normalized point
             else if(direction < 0) {
-                while( getRadius(responsePattern.get(j - 1 + k)) > getRadius(curNormalizedPoint)) {
+                while( getRadius(responsePattern.get(j - 1 + k)) >= getRadius(curNormalizedPoint)) {
                     if ((j + k) >= responsePattern.size()) {
                         this.normalizedResponsePattern = newNormalizedList;
                         return;
@@ -137,27 +144,41 @@ public class Response implements Serializable {
             j = j + k - 1;
             if(j >= responsePattern.size()) break;
 
+            if(j <= 0) j = 1;
+
             pointLeft = responsePattern.get(j-1);
             pointRight = responsePattern.get(j);
 
             // Interpolate
+            theta_r = Math.atan( (pointLeft.getY() / pointLeft.getX()) );
             theta = Math.atan((pointRight.getY() - pointLeft.getY()) /
                     (pointRight.getX() - pointLeft.getX()));
+
+            // r_prime = getRadius(pointLeft) - getRadius(curNormalizedPoint);
+
+            /*
+            funny_point_x = pointLeft.getX() + (r_prime * Math.cos(theta_r));
+            funny_point_y = pointLeft.getY() + (r_prime * Math.sin(theta_r));
+            theta_r  = Math.atan( (funny_point_x - pointLeft.getX()) / (funny_point_y - pointLeft.getY()));
+            */
+
+            theta_d = theta - theta_r;
 
             // because tan returns a value between -pi/2 and pi/2, cos will never be negative
             // we need to persevere the x direction we are traveling
             double x_difference = (pointRight.getX() - pointLeft.getX());
             double x_sine = 1;
-
             // check that the difference isn't equal to zero to ensure no divide by 0 error
             if(!(x_difference==0)){
                 // this will make x_sine +1 or -1 depending on the sine
                 x_sine = x_difference / Math.abs(x_difference);
             }
-            x_dist = pointLeft.getX() + ((getRadius(curNormalizedPoint) - getRadius(pointLeft)) * Math.cos(theta) * x_sine);
-            y_dist = pointLeft.getY() + ((getRadius(curNormalizedPoint)- getRadius(pointLeft)) * Math.sin(theta) * x_sine);
+
+            x_dist = pointLeft.getX() + ((getRadius(curNormalizedPoint) - getRadius(pointLeft)) * (Math.cos(theta) / Math.cos(theta_d)) * x_sine);
+            y_dist = pointLeft.getY() + ((getRadius(curNormalizedPoint)- getRadius(pointLeft)) * (Math.sin(theta) / Math.cos(theta_d))* x_sine);
             extrapolatedPressure = (getRadius(curNormalizedPoint) - getRadius(pointLeft)) / (getRadius(pointRight) - getRadius(pointLeft)) * (pointRight.getPressure() - pointLeft.getPressure());
             nPressure = pointLeft.getPressure() + extrapolatedPressure;
+            System.out.println("Pressure for point (" + x_dist + ", " + y_dist + " ): " + nPressure);
             newNormalizedList.add(new Point(x_dist, y_dist, nPressure));
             j++;
         }
