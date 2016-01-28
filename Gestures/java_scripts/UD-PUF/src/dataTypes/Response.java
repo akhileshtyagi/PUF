@@ -125,6 +125,17 @@ public class Response implements Serializable {
                         this.normalizedResponsePattern = newNormalizedList;
                         return;
                     }
+
+                    // If past 1/7 of all points are in the wrong direction, retry with different direction
+                    if(k > 5) {
+                        // If already have tried reversing direction, return
+                        if(badGuess) {
+                            this.normalizedResponsePattern = newNormalizedList;
+                            return;
+                        }
+                        badGuess = true;
+                    }
+
                     k++;
                 }
             }
@@ -136,6 +147,17 @@ public class Response implements Serializable {
                         this.normalizedResponsePattern = newNormalizedList;
                         return;
                     }
+
+                    // If past 1/7 of all points are in the wrong direction, retry with different direction
+                    if(k > 5) {
+                        // If already have tried reversing direction, return
+                        if(badGuess) {
+                            this.normalizedResponsePattern = newNormalizedList;
+                            return;
+                        }
+                        badGuess = true;
+                    }
+
                     k++;
                 }
             }
@@ -153,6 +175,7 @@ public class Response implements Serializable {
             theta_r = Math.atan( (pointLeft.getY() / pointLeft.getX()) );
             theta = Math.atan((pointRight.getY() - pointLeft.getY()) /
                     (pointRight.getX() - pointLeft.getX()));
+            theta_d = - (theta_r - theta);
 
             // r_prime = getRadius(pointLeft) - getRadius(curNormalizedPoint);
 

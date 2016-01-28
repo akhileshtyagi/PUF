@@ -23,7 +23,7 @@ public class NewNormalizeTestView extends View {
     private Paint mPufPaint, mFirstPointPaint, mLastPointPaint, mNormPaint, mRespPathPaint, mNormRespPaint;
     private Path mPath, mRespPath;
     private TextPaint mTextPaint;
-    private float mX, mY;
+    private float mX, mY, mPressure;
     private Point firstPoint, lastPoint;
     private Challenge mChallenge;
     private Response mResponse, mNewResponse;
@@ -125,6 +125,12 @@ public class NewNormalizeTestView extends View {
 
 
         if(drawNormalizedPoints) {
+            /*
+            for(int i = 0; i < mResponse.getNormalizedResponse().size(); i++) {
+                Point tempPoint = mResponse.getNormalizedResponse().get(i);
+                canvas.drawCircle((float) tempPoint.getX(), (float) tempPoint.getY(), 10, mNormPaint);
+            }*/
+
             for(int i = 0; i < mResponse.getNormalizedResponse().size(); i++) {
                 Point tempPoint = mResponse.getNormalizedResponse().get(i);
                 canvas.drawCircle((float) tempPoint.getX(), (float) tempPoint.getY(), 10, mNormPaint);
@@ -146,11 +152,11 @@ public class NewNormalizeTestView extends View {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                startTouch(x, y);
+                startTouch(x, y, event.getPressure());
                 invalidate();
                 break;
             case MotionEvent.ACTION_MOVE:
-                moveTouch(x, y);
+                moveTouch(x, y, event.getPressure());
                 invalidate();
                 break;
             case MotionEvent.ACTION_UP:
@@ -162,18 +168,18 @@ public class NewNormalizeTestView extends View {
     }
 
     // when ACTION_DOWN start touch according to the x,y values
-    private void startTouch(float x, float y) {
+    private void startTouch(float x, float y, float pressure) {
         if(!drawnFirstTrace) {
             clearCanvas();
             mPath.moveTo(x, y);
             mX = x;
             mY = y;
 
-            firstPoint = new Point(x, y, 0);
+            firstPoint = new Point(x, y, pressure);
 
             mPoints.clear();
 
-            mPoints.add(new Point(x, y, 0));
+            mPoints.add(new Point(x, y, pressure));
             drawNormalizedPoints = false;
             drawNormalizedResponsePoints = false;
         }
@@ -183,14 +189,14 @@ public class NewNormalizeTestView extends View {
             mX = x;
             mY = y;
 
-            firstPoint = new Point(x, y, 0);
+            firstPoint = new Point(x, y, pressure);
             mPoints.clear();
-            mPoints.add(new Point(x, y, 0));
+            mPoints.add(new Point(x, y, pressure));
         }
     }
 
     // when ACTION_MOVE move touch according to the x,y values
-    private void moveTouch(float x, float y) {
+    private void moveTouch(float x, float y, float pressure) {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
         if (dx >= 5|| dy >= 5) {
@@ -198,14 +204,15 @@ public class NewNormalizeTestView extends View {
             else mRespPath.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
             mX = x;
             mY = y;
+            mPressure = pressure;
         }
-        mPoints.add(new Point(x, y, 0));
+        mPoints.add(new Point(x, y, pressure));
     }
 
     private void upTouch() {
         if(!drawnFirstTrace) {
             mPath.lineTo(mX, mY);
-            lastPoint = new Point(mX, mY, 0);
+            lastPoint = new Point(mX, mY, mPressure);
 
             mChallenge = new Challenge(mChallengePoints, 0);
             mResponse = new Response(mPoints);
@@ -215,7 +222,7 @@ public class NewNormalizeTestView extends View {
         }
         else {
             mRespPath.lineTo(mX, mY);
-            lastPoint = new Point(mX, mY, 0);
+            lastPoint = new Point(mX, mY, mPressure);
 
             mNewResponse = new Response(mPoints);
             mChallenge.addResponse2(mNewResponse);
