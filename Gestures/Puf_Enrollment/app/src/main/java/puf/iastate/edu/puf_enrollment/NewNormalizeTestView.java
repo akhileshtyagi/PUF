@@ -216,7 +216,7 @@ public class NewNormalizeTestView extends View {
 
             mChallenge = new Challenge(mChallengePoints, 0);
             mResponse = new Response(mPoints);
-            mChallenge.addResponse2(mResponse);
+            mChallenge.addResponse(mResponse);
             drawNormalizedPoints = true;
             drawnFirstTrace = true;
         }
@@ -225,7 +225,7 @@ public class NewNormalizeTestView extends View {
             lastPoint = new Point(mX, mY, mPressure);
 
             mNewResponse = new Response(mPoints);
-            mChallenge.addResponse2(mNewResponse);
+            mChallenge.addResponse(mNewResponse);
             drawNormalizedResponsePoints = true;
             drawnFirstTrace = false;
         }

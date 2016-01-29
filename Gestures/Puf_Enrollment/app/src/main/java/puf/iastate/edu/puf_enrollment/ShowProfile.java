@@ -55,19 +55,19 @@ public class ShowProfile extends Activity {
 
             sb.append("\nNormalized Pressure Mu and Sigma Values\n");
 
-            for(int i = 0; i < mChallenge.getNormalizedElementsCount(); i++) {
+            for(int i = 0; i < mChallenge.getProfile().getPressureMuSigmaValues().getMuValues().size(); i++) {
                 sb.append("Mu: " + String.format("%.4f",mChallenge.getProfile().getPressureMuSigmaValues().getMuValues().get(i)) + ", Sigma: " + String.format("%.4f",mChallenge.getProfile().getPressureMuSigmaValues().getSigmaValues().get(i)) + "\n");
             }
 
             sb.append("\nNormalized Time Mu and Sigma Values\n");
 
-            for(int i = 0; i < mChallenge.getNormalizedElementsCount(); i++) {
+            for(int i = 0; i < mChallenge.getProfile().getTimeDistanceMuSigmaValues().getMuValues().size(); i++) {
                 sb.append("Mu: " + String.format("%.4f",mChallenge.getProfile().getTimeDistanceMuSigmaValues().getMuValues().get(i)) + ", Sigma: " + String.format("%.4f", mChallenge.getProfile().getTimeDistanceMuSigmaValues().getSigmaValues().get(i)) + "\n");
             }
 
             sb.append("\nNormalized Point Distance Mu and Sigma Values\n");
 
-            for(int i = 0; i < mChallenge.getNormalizedElementsCount(); i++) {
+            for(int i = 0; i <mChallenge.getProfile().getPointDistanceMuSigmaValues().getMuValues().size(); i++) {
                 sb.append("Mu: " + String.format("%.4f",mChallenge.getProfile().getPointDistanceMuSigmaValues().getMuValues().get(i)) + ", Sigma: " + String.format("%.4f",mChallenge.getProfile().getPointDistanceMuSigmaValues().getSigmaValues().get(i)) + "\n");
             }
 
