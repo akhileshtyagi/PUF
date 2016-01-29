@@ -447,6 +447,7 @@ public class Profile implements Serializable {
             // of point i in the response
             normalized_point_pressure_list = new ArrayList<Double>();
             for (Response response : this.normalizedResponses) {
+                if(response.getNormalizedResponse().size() <= i) continue;
                 normalized_point_pressure_list.add(response.getNormalizedResponse().get(i).getPressure());
             }
 
@@ -471,6 +472,7 @@ public class Profile implements Serializable {
             normalized_point_distance_list = new ArrayList<Double>();
             for (Response response : this.normalizedResponses) {
                 // distance values in the list correspond to point distance
+                if(response.getNormalizedResponse().size() <= i) continue;
                 normalized_point_distance_list.add(response.getNormalizedResponse().get(i).getDistance());
             }
 
@@ -495,6 +497,7 @@ public class Profile implements Serializable {
             normalized_time_list = new ArrayList<Double>();
             for (Response response : this.normalizedResponses) {
                 // grab the time values from ith point in the list of responses
+                if(response.getNormalizedResponse().size() <= i) continue;
                 normalized_time_list.add(response.getNormalizedResponse().get(i).getTime());
             }
 

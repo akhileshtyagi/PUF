@@ -201,7 +201,7 @@ public class Response implements Serializable {
             y_dist = pointLeft.getY() + ((getRadius(curNormalizedPoint)- getRadius(pointLeft)) * (Math.sin(theta) / Math.cos(theta_d))* x_sine);
             extrapolatedPressure = (getRadius(curNormalizedPoint) - getRadius(pointLeft)) / (getRadius(pointRight) - getRadius(pointLeft)) * (pointRight.getPressure() - pointLeft.getPressure());
             nPressure = pointLeft.getPressure() + extrapolatedPressure;
-            System.out.println("Pressure for point (" + x_dist + ", " + y_dist + " ): " + nPressure);
+            //System.out.println("Pressure for point (" + x_dist + ", " + y_dist + " ): " + nPressure);
             newNormalizedList.add(new Point(x_dist, y_dist, nPressure));
             j++;
         }
