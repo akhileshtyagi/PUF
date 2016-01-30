@@ -208,7 +208,6 @@ public class Challenge implements Serializable {
             // now we know the point closes to the left of the normalization point in the response.
             j += k;
 
-            // TODO we are not finding the left neighbor correctly,
             //System.out.print("left point:" + ( j-1 ) + "\trem_dist:");
             //System.out.println(remaining_distance);
 

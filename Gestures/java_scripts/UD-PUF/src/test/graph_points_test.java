@@ -21,14 +21,15 @@ public class graph_points_test {
         POSITIVE_SLOPE_LINE,
         POSITIVE_SLOPE_LINE_BACK,
         CIRCLE,
-        RIGHT_TO_LEFT
+        RIGHT_TO_LEFT,
+        TOWARD_ORIGIN_THEN_AWAY
     }
 
     public static void main(String[] args) {
         graph_points graph_frame = new graph_points();
 
         // create response point list
-        List<Point> response_points = create_response_point_list(ResponseNature.CIRCLE);
+        List<Point> response_points = create_response_point_list(ResponseNature.TOWARD_ORIGIN_THEN_AWAY);
 
         // create challenge pattern
         List<Point> challenge_pattern = create_challenge_pattern();
@@ -39,7 +40,13 @@ public class graph_points_test {
         graph_frame.addPointList(response_points, "origional_response_points");
         challenge.addResponse(response);
 
-        graph_frame.addPointList(challenge.getNormalizingPoints(), "normalized_response_points");
+        graph_frame.addPointList(challenge.getNormalizingPoints(), "normalizing_points");
+        graph_frame.addPointList(response.getNormalizedResponse(), "normalized_response_points");
+
+        // print out response and normalized response
+        System.out.println("origional_response:\t" + response.getOrigionalResponse());
+        System.out.println("normalizing_points:\t" + challenge.getNormalizingPoints());
+        System.out.println("normalized_response:\t" + response.getNormalizedResponse());
     }
 
     /**
@@ -117,6 +124,17 @@ public class graph_points_test {
                 points.add(new Point(470, 400, 0));
                 points.add(new Point(350, 400, 0));
                 points.add(new Point(200, 400, 0));
+                break;
+            case TOWARD_ORIGIN_THEN_AWAY:
+                points.add(new Point(400, 500, 0));
+                points.add(new Point(300, 350, 0));
+                points.add(new Point(200, 200, 0));
+
+                points.add(new Point(100, 100, 0));
+
+                points.add(new Point(250, 150, 0));
+                points.add(new Point(400, 200, 0));
+                points.add(new Point(450, 250, 0));
                 break;
             case CIRCLE:
                 // works with circles of size 6

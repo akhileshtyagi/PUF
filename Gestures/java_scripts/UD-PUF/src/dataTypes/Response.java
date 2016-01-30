@@ -62,7 +62,161 @@ public class Response implements Serializable {
     protected void setNormalizingPoints(List<Point> normalizingPoints) {
         this.normalizedResponsePattern = normalizedResponsePattern;
     }
+
     public void normalize(List<Point> normalizingPoints) {
+        Point pointLeft, pointRight;
+        ArrayList<Point> newNormalizedList = new ArrayList<>();
+
+        double x_transform, y_transform;
+
+        x_transform = normalizingPoints.get(0).getX() - responsePattern.get(0).getX();
+        y_transform = normalizingPoints.get(0).getY() - responsePattern.get(0).getY();
+
+        // preform the transformation
+        transform_response(responsePattern, x_transform, y_transform);
+
+        // For now, just add the first point as the normalizedPoint
+        newNormalizedList.add(responsePattern.get(0));
+
+        // Index for counting responsePattern of trace: [j-1] is the point "before" CurNormalizedPoint, [j] is
+        // point "after" CurNormalizedPoint
+        int j = 1;
+        for (int i = 1; i < normalizingPoints.size(); i++) {
+            j = locate_closest_after_point(responsePattern, j, normalizingPoints.get(i));
+
+            // check whether we have exceeded the bounds of the array
+            if (j >= responsePattern.size()) break;
+
+            // check if we could not find a before point
+            if (j == -1) {
+                System.out.println("j negative");
+                break;
+            }
+
+            pointLeft = responsePattern.get(j - 1);
+            pointRight = responsePattern.get(j);
+
+            /**
+             * at this point we need pointLeft and pointRight to contain the points on either side of our normalization point.
+             */
+            // TODO check that these points are correct.
+            // TODO incorrect left and right points are being chosen
+            System.out.println("left_point:" + (j - 1) + "\tright_point:" + j);
+
+            // TODO check that interpolation is done correctly.
+            // TODO interpolation seems to be done correctly whenever the correct left and right points are chosen.
+
+            // interpolate the then next normalized point based on the close and far neighbor
+            Point next_normalized_point;
+
+            // check that the left point is indeed the close point
+            if (getRadius(pointLeft) < getRadius(pointRight)) {
+                next_normalized_point = compute_normalized_point_value(normalizingPoints.get(i), pointLeft, pointRight);
+            } else {
+                next_normalized_point = compute_normalized_point_value(normalizingPoints.get(i), pointRight, pointLeft);
+            }
+
+            //System.out.println("Pressure for point (" + x_dist + ", " + y_dist + " ): " + nPressure);
+            newNormalizedList.add(next_normalized_point);
+
+            //j++;
+        } // end outer for loop
+
+        // record in the new normalized list
+        this.normalizedResponsePattern = newNormalizedList;
+    }
+
+    /**
+     * locate the closest point before the normalization point (the "left" point)
+     * <p>
+     * response_points, are is the list in which we want to find the index of the closest point before the
+     * normalizing point
+     * <p>
+     * start_index, index to begin looking for the normalized point before
+     * <p>
+     * normalizing_point, we want to find the closest point index before this
+     * <p>
+     * returns -1 when a closest before point cannot be found
+     */
+    private int locate_closest_after_point(List<Point> response_points, int start_index, Point normalizing_point) {
+        int k = -1;
+        int j = start_index;
+        boolean condition_a, condition_b;
+
+        // what I want to find is the first pair where 1 point is larger, one point is smaller in radius
+        do {
+            k++;
+
+            // check if we have gone beyond the bounds of the array without finding a point
+            if ((j + k) > (responsePattern.size() - 1)) {
+                return -1;
+            }
+
+            // compute the conditions
+            condition_a = (getRadius(responsePattern.get(j - 1 + k)) <= getRadius(normalizing_point)) &&
+                    getRadius(responsePattern.get(j + k)) >= getRadius(normalizing_point);
+
+            condition_b = (getRadius(responsePattern.get(j + k)) <= getRadius(normalizing_point)) &&
+                    (getRadius(responsePattern.get(j - 1 + k)) >= getRadius(normalizing_point));
+
+        } while (!(condition_a || condition_b));
+
+        // j+k is the point after the normalizing point
+        return j + k;
+    }
+
+    /**
+     * transform a response. Add x,y to every point.
+     */
+    private void transform_response(List<Point> response_points, double x_transform, double y_transform) {
+        // add x,y to every point
+        for (int i = 0; i < response_points.size(); i++) {
+            Point p = response_points.get(i);
+            response_points.set(i, new Point(p.getX() + x_transform, p.getY() + y_transform, p.getPressure()));
+        }
+    }
+
+    /**
+     * use neighbors of a normalizing point to figure out what its values should be.
+     * close_neighbor and far_neighbor defined in terms of their distance from the origin.
+     */
+    private Point compute_normalized_point_value(Point current_normalized_point, Point close_neighbor, Point far_neighbor) {
+        double x_dist, y_dist, extrapolatedPressure, nPressure, theta, theta_r, theta_d;
+        Point pointLeft, pointRight, curNormalizedPoint;
+
+        //TODO change
+        pointLeft = close_neighbor;
+        pointRight = far_neighbor;
+        curNormalizedPoint = current_normalized_point;
+
+        // Interpolate
+        theta_r = Math.atan((pointLeft.getY() / pointLeft.getX()));
+        theta = Math.atan((pointRight.getY() - pointLeft.getY()) /
+                (pointRight.getX() - pointLeft.getX()));
+        theta_d = -(theta_r - theta);
+
+        theta_d = theta - theta_r;
+
+        // because tan returns a value between -pi/2 and pi/2, cos will never be negative
+        // we need to persevere the x direction we are traveling
+        double x_difference = (pointRight.getX() - pointLeft.getX());
+        double x_sine = 1;
+        // check that the difference isn't equal to zero to ensure no divide by 0 error
+        if (!(x_difference == 0)) {
+            // this will make x_sine +1 or -1 depending on the sine
+            x_sine = x_difference / Math.abs(x_difference);
+        }
+
+        x_dist = pointLeft.getX() + ((getRadius(curNormalizedPoint) - getRadius(pointLeft)) * (Math.cos(theta) / Math.cos(theta_d)) * x_sine);
+        y_dist = pointLeft.getY() + ((getRadius(curNormalizedPoint) - getRadius(pointLeft)) * (Math.sin(theta) / Math.cos(theta_d)) * x_sine);
+        extrapolatedPressure = (getRadius(curNormalizedPoint) - getRadius(pointLeft)) / (getRadius(pointRight) - getRadius(pointLeft)) * (pointRight.getPressure() - pointLeft.getPressure());
+        nPressure = pointLeft.getPressure() + extrapolatedPressure;
+
+        return new Point(x_dist, y_dist, nPressure);
+    }
+
+    // TODO change name back to noralize( ... );
+    public void normalize_real_old(List<Point> normalizingPoints) {
 
         double x_dist, y_dist, extrapolatedPressure, nPressure, theta, theta_r, theta_d, r_prime;
         Point curNormalizedPoint, nextNormalizedPoint, pointLeft, pointRight, funnyPoint;
@@ -97,7 +251,7 @@ public class Response implements Serializable {
         x_transform = normalizingPoints.get(0).getX() - responsePattern.get(0).getX();
         y_transform = normalizingPoints.get(0).getY() - responsePattern.get(0).getY();
 
-        for(int i = 0; i < responsePattern.size(); i++) {
+        for (int i = 0; i < responsePattern.size(); i++) {
             Point p = responsePattern.get(i);
             responsePattern.set(i, new Point(p.getX() + x_transform, p.getY() + y_transform, p.getPressure()));
         }
@@ -108,10 +262,10 @@ public class Response implements Serializable {
         // Index for counting responsePattern of trace: [j-1] is the point "before" CurNormalizedPoint, [j] is
         // point "after" CurNormalizedPoint
         int j = 1;
-        for(int i = 1; i < normalizingPoints.size(); i++) {
+        for (int i = 1; i < normalizingPoints.size(); i++) {
             curNormalizedPoint = normalizingPoints.get(i);
 
-            if( i < normalizingPoints.size() - 1) {
+            if (i < normalizingPoints.size() - 1) {
                 nextNormalizedPoint = normalizingPoints.get(i + 1);
                 direction = getRadius(nextNormalizedPoint) - getRadius(curNormalizedPoint);
             }
@@ -119,17 +273,17 @@ public class Response implements Serializable {
             int k = 0;
 
             // If radius is increasing, loop until find a radius larger than current normalized point
-            if(direction >= 0) {
-                while( getRadius(responsePattern.get(j - 1 + k)) <= getRadius(curNormalizedPoint)) {
+            if (direction >= 0) {
+                while (getRadius(responsePattern.get(j - 1 + k)) <= getRadius(curNormalizedPoint)) {
                     if ((j + k) >= responsePattern.size()) {
                         this.normalizedResponsePattern = newNormalizedList;
                         return;
                     }
 
                     // If past 1/7 of all points are in the wrong direction, retry with different direction
-                    if(k > 5) {
+                    if (k > 5) {
                         // If already have tried reversing direction, return
-                        if(badGuess) {
+                        if (badGuess) {
                             this.normalizedResponsePattern = newNormalizedList;
                             return;
                         }
@@ -141,17 +295,17 @@ public class Response implements Serializable {
             }
 
             // If radius is decreasing, loop until find a radius smaller than current normalized point
-            else if(direction < 0) {
-                while( getRadius(responsePattern.get(j - 1 + k)) >= getRadius(curNormalizedPoint)) {
+            else if (direction < 0) {
+                while (getRadius(responsePattern.get(j - 1 + k)) >= getRadius(curNormalizedPoint)) {
                     if ((j + k) >= responsePattern.size()) {
                         this.normalizedResponsePattern = newNormalizedList;
                         return;
                     }
 
                     // If past 1/7 of all points are in the wrong direction, retry with different direction
-                    if(k > 5) {
+                    if (k > 5) {
                         // If already have tried reversing direction, return
-                        if(badGuess) {
+                        if (badGuess) {
                             this.normalizedResponsePattern = newNormalizedList;
                             return;
                         }
@@ -164,18 +318,18 @@ public class Response implements Serializable {
 
             // Update trace index with new point to examine, immediately to the right of normalizePoints[i]
             j = j + k - 1;
-            if(j >= responsePattern.size()) break;
+            if (j >= responsePattern.size()) break;
 
-            if(j <= 0) j = 1;
+            if (j <= 0) j = 1;
 
-            pointLeft = responsePattern.get(j-1);
+            pointLeft = responsePattern.get(j - 1);
             pointRight = responsePattern.get(j);
 
             // Interpolate
-            theta_r = Math.atan( (pointLeft.getY() / pointLeft.getX()) );
+            theta_r = Math.atan((pointLeft.getY() / pointLeft.getX()));
             theta = Math.atan((pointRight.getY() - pointLeft.getY()) /
                     (pointRight.getX() - pointLeft.getX()));
-            theta_d = - (theta_r - theta);
+            theta_d = -(theta_r - theta);
 
             // r_prime = getRadius(pointLeft) - getRadius(curNormalizedPoint);
 
@@ -192,13 +346,13 @@ public class Response implements Serializable {
             double x_difference = (pointRight.getX() - pointLeft.getX());
             double x_sine = 1;
             // check that the difference isn't equal to zero to ensure no divide by 0 error
-            if(!(x_difference==0)){
+            if (!(x_difference == 0)) {
                 // this will make x_sine +1 or -1 depending on the sine
                 x_sine = x_difference / Math.abs(x_difference);
             }
 
             x_dist = pointLeft.getX() + ((getRadius(curNormalizedPoint) - getRadius(pointLeft)) * (Math.cos(theta) / Math.cos(theta_d)) * x_sine);
-            y_dist = pointLeft.getY() + ((getRadius(curNormalizedPoint)- getRadius(pointLeft)) * (Math.sin(theta) / Math.cos(theta_d))* x_sine);
+            y_dist = pointLeft.getY() + ((getRadius(curNormalizedPoint) - getRadius(pointLeft)) * (Math.sin(theta) / Math.cos(theta_d)) * x_sine);
             extrapolatedPressure = (getRadius(curNormalizedPoint) - getRadius(pointLeft)) / (getRadius(pointRight) - getRadius(pointLeft)) * (pointRight.getPressure() - pointLeft.getPressure());
             nPressure = pointLeft.getPressure() + extrapolatedPressure;
             //System.out.println("Pressure for point (" + x_dist + ", " + y_dist + " ): " + nPressure);
@@ -210,7 +364,7 @@ public class Response implements Serializable {
     }
 
     private double getRadius(Point p) {
-        return Math.sqrt( Math.pow(p.getX(),2) + Math.pow(p.getY(), 2));
+        return Math.sqrt(Math.pow(p.getX(), 2) + Math.pow(p.getY(), 2));
     }
 
     public void oldNormalize(List<Point> normalizingPoints) {
@@ -221,21 +375,21 @@ public class Response implements Serializable {
 
         ArrayList<Point> normalizedResponse = new ArrayList<>();
 
-        for(Point normPoint : normalizingPoints) {
+        for (Point normPoint : normalizingPoints) {
 
             // Set closest distance to the distance from the first normalizing point to the first response point
             closestDistance = computeEuclideanDistance(normPoint, responsePattern.get(j));
 
             // Continually check if the next response points is closer to normalizing point than the previous
-            while(computeEuclideanDistance(normPoint, responsePattern.get(j + 1)) < closestDistance) {
+            while (computeEuclideanDistance(normPoint, responsePattern.get(j + 1)) < closestDistance) {
                 closestDistance = computeEuclideanDistance(normPoint, responsePattern.get(j++));
-                if(responsePattern.size() - 1 < j+ 1) break;
+                if (responsePattern.size() - 1 < j + 1) break;
             }
 
             // Current point is point closest to normalizing point
             normalizedResponse.add(responsePattern.get(j));
             j++;
-            if(responsePattern.size() - 1 < j+ 1) break;
+            if (responsePattern.size() - 1 < j + 1) break;
         }
 
         this.normalizedResponsePattern = normalizedResponse;
@@ -249,12 +403,14 @@ public class Response implements Serializable {
                 Math.pow((p1.getY() - p2.getY()), 2));
     }
 
-     /*
-     * Normalizes points in response. The normalizingPoints are a list of points
-     * to normalize the response to. In other words the response will then
-     * contain exactly these point having some pressure determined by the
-     * original response.
-     */
+    /*
+    * Normalizes points in response. The normalizingPoints are a list of points
+    * to normalize the response to. In other words the response will then
+    * contain exactly these point having some pressure determined by the
+    * original response.
+    *
+    * This method is depricated in favor of the two dimensional version
+    */
     public void normalize(List<Point> normalizingPoints, boolean isChallengeHorizontal) {
         // System.out.println("before:\t" + this.responsePattern);
 
@@ -462,8 +618,8 @@ public class Response implements Serializable {
             // if the closest left and right points are equal, simply add
             // the
             // pressure value of that point to the list
-            if(closestRightIndex == closestLeftIndex){
-            //if (closestRightPoint.equals(closestLeftPoint)) {
+            if (closestRightIndex == closestLeftIndex) {
+                //if (closestRightPoint.equals(closestLeftPoint)) {
                 pressure = closestRightPoint.getPressure();
 
                 // if the challenge is horizontal => we have points along
