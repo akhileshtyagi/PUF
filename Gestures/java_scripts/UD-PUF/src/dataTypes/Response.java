@@ -143,6 +143,10 @@ public class Response implements Serializable {
             remainingDistance = deltaD + computeEuclideanDistance(prevPoint, newNormalizedList.get(i));
         }
 
+        if(responsePattern.size() >= 1) {
+            this.normalizedResponsePattern = newNormalizedList;
+            return;
+        }
         // Now take care of remaining (NL - N) points which we need to interpolate
         prevPoint = responsePattern.get(M - 2);
         curPoint = responsePattern.get(M - 1);
