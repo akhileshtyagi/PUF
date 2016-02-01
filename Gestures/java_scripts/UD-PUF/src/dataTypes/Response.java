@@ -59,71 +59,132 @@ public class Response implements Serializable {
         return responsePattern.get(responsePattern.size() - 1).getTime() - responsePattern.get(0).getTime();
     }
 
-    protected void setNormalizingPoints(List<Point> normalizingPoints) {
-        this.normalizedResponsePattern = normalizedResponsePattern;
-    }
-
     public void normalize(List<Point> normalizingPoints) {
-        Point pointLeft, pointRight;
         ArrayList<Point> newNormalizedList = new ArrayList<>();
+        double xTransform, yTransform, theta, newX, newY, newPressure;
+        double traceDistance;
 
-        double x_transform, y_transform;
+        // Distance between each of the normalizing points
+        double deltaD;
 
-        x_transform = normalizingPoints.get(0).getX() - responsePattern.get(0).getX();
-        y_transform = normalizingPoints.get(0).getY() - responsePattern.get(0).getY();
+        // Number of new Normalizing Points the current trace covers
+        int NL;
 
-        // preform the transformation
-        transform_response(responsePattern, x_transform, y_transform);
+        int N = normalizingPoints.size();
+        int M = responsePattern.size();
 
-        // For now, just add the first point as the normalizedPoint
+        // Used to keep a running total of how far along the next point has gone
+        double remainingDistance;
+
+        // Used when needing to interpolate more points if the trace isn't as long as list of normalizingPoints
+        double d;
+
+        // Previous and current trace points when looping through response
+        Point prevPoint, curPoint;
+
+        // i counts indices of normalizingPoints
+        // j counts indices of responsePattern
+        int i = 0;
+        int j = 0;
+
+        xTransform = normalizingPoints.get(0).getX() - responsePattern.get(0).getX();
+        yTransform = normalizingPoints.get(0).getY() - responsePattern.get(0).getY();
+
+        // preform the transformation, add first point to new Normalized List
+        transform_response(responsePattern, xTransform, yTransform);
         newNormalizedList.add(responsePattern.get(0));
 
-        // Index for counting responsePattern of trace: [j-1] is the point "before" CurNormalizedPoint, [j] is
-        // point "after" CurNormalizedPoint
-        int j = 1;
-        for (int i = 1; i < normalizingPoints.size(); i++) {
-            j = locate_closest_after_point(responsePattern, j, normalizingPoints.get(i));
+        // Catch if normalizingTrace is only 1 point (hopefully never happens)
+        if(normalizingPoints.size() == 1) {
+            this.normalizedResponsePattern = newNormalizedList;
+            return;
+        }
 
-            // check whether we have exceeded the bounds of the array
-            if (j >= responsePattern.size()) break;
+        deltaD = computeEuclideanDistance(normalizingPoints.get(0), normalizingPoints.get(1));
 
-            // check if we could not find a before point
-            if (j == -1) {
-                System.out.println("j negative");
-                break;
+        traceDistance = computeTraceDistance();
+        NL = (int) Math.floor((traceDistance / deltaD) + 1);
+
+        remainingDistance = deltaD;
+        j = 1;
+        for(i = 1; i < NL; i++) {
+            prevPoint = responsePattern.get(j - 1);
+            curPoint = responsePattern.get(j);
+
+            while(computeEuclideanDistance(prevPoint, curPoint) < remainingDistance) {
+                if(j >= responsePattern.size()) {
+                    this.normalizedResponsePattern = newNormalizedList;
+                    return;
+                }
+                remainingDistance -= computeEuclideanDistance(prevPoint, curPoint);
+                j++;
+                prevPoint = responsePattern.get(j - 1);
+                curPoint = responsePattern.get(j);
             }
 
-            pointLeft = responsePattern.get(j - 1);
-            pointRight = responsePattern.get(j);
-
-            /**
-             * at this point we need pointLeft and pointRight to contain the points on either side of our normalization point.
-             */
-            // TODO check that these points are correct.
-            // TODO incorrect left and right points are being chosen
-            System.out.println("left_point:" + (j - 1) + "\tright_point:" + j);
-
-            // TODO check that interpolation is done correctly.
-            // TODO interpolation seems to be done correctly whenever the correct left and right points are chosen.
-
-            // interpolate the then next normalized point based on the close and far neighbor
-            Point next_normalized_point;
-
-            // check that the left point is indeed the close point
-            if (getRadius(pointLeft) < getRadius(pointRight)) {
-                next_normalized_point = compute_normalized_point_value(normalizingPoints.get(i), pointLeft, pointRight);
-            } else {
-                next_normalized_point = compute_normalized_point_value(normalizingPoints.get(i), pointRight, pointLeft);
+            double x_difference = (curPoint.getX() - prevPoint.getX());
+            double x_sine = 1;
+            // check that the difference isn't equal to zero to ensure no divide by 0 error
+            if (!(x_difference == 0)) {
+                // this will make x_sine +1 or -1 depending on the sine
+                x_sine = x_difference / Math.abs(x_difference);
             }
 
-            //System.out.println("Pressure for point (" + x_dist + ", " + y_dist + " ): " + nPressure);
-            newNormalizedList.add(next_normalized_point);
+            // Now the point we are looking for is between responsePattern[j - 1] and responsePattern[j]
+            theta = Math.atan((curPoint.getY() - prevPoint.getY()) / (curPoint.getX() - prevPoint.getX()));
+            newX = prevPoint.getX() + (remainingDistance * Math.cos(theta) * x_sine);
+            newY = prevPoint.getY() + (remainingDistance * Math.sin(theta) * x_sine);
 
-            //j++;
-        } // end outer for loop
+            //Interpolate pressure and other attributes
+            newPressure = prevPoint.getPressure() + ((remainingDistance/computeEuclideanDistance(prevPoint, curPoint)) * (curPoint.getPressure() - prevPoint.getPressure()));
 
-        // record in the new normalized list
+            newNormalizedList.add(new Point(newX, newY, newPressure));
+
+            remainingDistance = deltaD + computeEuclideanDistance(prevPoint, newNormalizedList.get(i));
+        }
+
+        // Now take care of remaining (NL - N) points which we need to interpolate
+        prevPoint = responsePattern.get(M - 2);
+        curPoint = responsePattern.get(M - 1);
+        double x_difference = (curPoint.getX() - prevPoint.getX());
+        double x_sine = 1;
+        // check that the difference isn't equal to zero to ensure no divide by 0 error
+        if (!(x_difference == 0)) {
+            // this will make x_sine +1 or -1 depending on the sine
+            x_sine = x_difference / Math.abs(x_difference);
+        }
+
+        theta = Math.atan((curPoint.getY() - prevPoint.getY()) / (curPoint.getX() - prevPoint.getX()));
+        d = (NL * deltaD) - traceDistance;
+
+        for(i = NL; i < N; i++) {
+            newX = prevPoint.getX() + (d * Math.cos(theta) * x_sine);
+            newY = prevPoint.getY() + (d * Math.sin(theta) * x_sine);
+
+            // Compute pressure and other attributes
+            newPressure = curPoint.getPressure() + (((curPoint.getPressure() - prevPoint.getPressure()) / (computeEuclideanDistance(curPoint, prevPoint))) * d);
+
+            newNormalizedList.add(new Point(newX, newY, newPressure));
+
+            d += deltaD;
+        }
+
         this.normalizedResponsePattern = newNormalizedList;
+    }
+
+    /**
+     * Computes total euclidean distance of response pattern
+     * @return distance of response pattern
+     */
+    double computeTraceDistance() {
+        double distance = 0;
+        Point firstPoint, secondPoint;
+        for(int i = 0; i < responsePattern.size() - 1; i++) {
+            firstPoint = responsePattern.get(i);
+            secondPoint = responsePattern.get(i + 1);
+            distance += computeEuclideanDistance(firstPoint, secondPoint);
+        }
+        return distance;
     }
 
     /**
