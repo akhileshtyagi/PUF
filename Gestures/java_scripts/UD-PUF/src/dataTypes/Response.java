@@ -68,6 +68,7 @@ public class Response implements Serializable {
         ArrayList<Point> newNormalizedList = new ArrayList<>();
 
         double x_transform, y_transform;
+        double radius_a, radius_b, radius_c;
 
         x_transform = normalizingPoints.get(0).getX() - responsePattern.get(0).getX();
         y_transform = normalizingPoints.get(0).getY() - responsePattern.get(0).getY();
@@ -82,6 +83,29 @@ public class Response implements Serializable {
         // point "after" CurNormalizedPoint
         int j = 1;
         for (int i = 1; i < normalizingPoints.size(); i++) {
+            // assume no direction change for the last point
+            if(i < normalizingPoints.size() -1) {
+                // increment j only when we change direction. This is to avoid the same pair being chosen when we go around a curve.
+                // in other words.
+                // IF we are about to change direction
+                // THAN we need to increment j
+                // we know we are about to change direction when:
+                // the relative radius of this point and the next point is the same
+                // as the point two down the line and the next point
+                // so if we have three points a, b, c than
+                // if radius(a) < radius(b) && radius(c) < radius(b) than direction change
+                // if radius(a) > radius(b) && radius(c) > radius(b) than direction change
+                radius_a = getRadius(responsePattern.get(j - 1));
+                radius_b = getRadius(responsePattern.get(j));
+                radius_c = getRadius(responsePattern.get(j + 1));
+
+                // determine if there will be a direction change and increment j accordingly
+                if( ( (radius_a < radius_b) && (radius_c < radius_b) ) ||
+                        ( (radius_a > radius_b) && (radius_c > radius_b) ) ){
+                    j++;
+                }
+            }
+
             j = locate_closest_after_point(responsePattern, j, normalizingPoints.get(i));
 
             // check whether we have exceeded the bounds of the array
@@ -118,8 +142,6 @@ public class Response implements Serializable {
 
             //System.out.println("Pressure for point (" + x_dist + ", " + y_dist + " ): " + nPressure);
             newNormalizedList.add(next_normalized_point);
-
-            //j++;
         } // end outer for loop
 
         // record in the new normalized list
@@ -144,7 +166,26 @@ public class Response implements Serializable {
         boolean condition_a, condition_b;
 
         // what I want to find is the first pair where 1 point is larger, one point is smaller in radius
-        do {
+//        do {
+//            k++;
+//
+//            // check if we have gone beyond the bounds of the array without finding a point
+//            if ((j + k) > (responsePattern.size() - 1)) {
+//                return -1;
+//            }
+//
+//            // compute the conditions
+//            condition_a = (getRadius(responsePattern.get(j - 1 + k)) <= getRadius(normalizing_point)) &&
+//                    getRadius(responsePattern.get(j + k)) >= getRadius(normalizing_point);
+//
+//            condition_b = (getRadius(responsePattern.get(j + k)) <= getRadius(normalizing_point)) &&
+//                    (getRadius(responsePattern.get(j - 1 + k)) >= getRadius(normalizing_point));
+//
+//        } while (!(condition_a || condition_b));
+
+        // find the first pair of points the normalizing point falls within
+        boolean within_bounds = false;
+        while(!within_bounds){
             k++;
 
             // check if we have gone beyond the bounds of the array without finding a point
@@ -152,17 +193,65 @@ public class Response implements Serializable {
                 return -1;
             }
 
-            // compute the conditions
-            condition_a = (getRadius(responsePattern.get(j - 1 + k)) <= getRadius(normalizing_point)) &&
-                    getRadius(responsePattern.get(j + k)) >= getRadius(normalizing_point);
-
-            condition_b = (getRadius(responsePattern.get(j + k)) <= getRadius(normalizing_point)) &&
-                    (getRadius(responsePattern.get(j - 1 + k)) >= getRadius(normalizing_point));
-
-        } while (!(condition_a || condition_b));
+            within_bounds = within_bounding_box(normalizing_point, responsePattern.get(j - 1 + k), responsePattern.get(j + k));
+        }
 
         // j+k is the point after the normalizing point
         return j + k;
+    }
+
+    /**
+     * takes in three points.
+     * returns true if the first point is within a box created by the second two
+     *
+     * in other words, the second two points represent opposite corners of a box.
+     */
+    private boolean within_bounding_box(Point point, Point corner_point_a, Point corner_point_b){
+        int width, height;
+        int top_left_x, top_left_y;
+
+        // need to determine top left corner, width, height of box
+        /* width */
+        width = Math.abs((int)(corner_point_a.getX() - corner_point_b.getX()));
+
+        /* height */
+        height = Math.abs((int)(corner_point_a.getY() - corner_point_b.getY()));
+
+        /* top left */
+        // whichever point is closer to the top, we want its y value
+        // if point a is smaller in y than b
+        if( (corner_point_a.getY() - corner_point_b.getY()) < 0) {
+            // we know point a is closest to top
+            top_left_y = (int)corner_point_a.getY();
+        } else {
+            // otherwise it must be the other point
+            top_left_y = (int)corner_point_b.getY();
+        }
+
+        // whichever point is closer to the left, we want its x value
+        // if point a is smaller in x than b
+        if( (corner_point_a.getX() - corner_point_b.getX()) < 0){
+            // point a is smaller and x, we want it's value
+            top_left_x = (int)corner_point_a.getX();
+        } else {
+            top_left_x = (int)corner_point_b.getX();
+        }
+
+        // TODO test that top left corner, width, height are correct.
+
+        /* is within box */
+        // based on the top left corner, width, height of the box, determine if point falls within
+        // we know the point is within the box if:
+        // its x value falls within width of top left point x and
+        // its y value falls within height of top left point y
+        boolean within_x, within_y;
+
+        within_x = (point.getX() >= top_left_x) && (point.getX() <= (top_left_x + width) );
+        within_y = (point.getY() >= top_left_y) && (point.getY() <= (top_left_y + height) );
+
+        // TODO check that within_x and within_y are correct
+
+        return within_x && within_y;
     }
 
     /**

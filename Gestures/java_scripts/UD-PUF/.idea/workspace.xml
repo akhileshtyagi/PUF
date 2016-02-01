@@ -35,7 +35,7 @@
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+              <caret line="235" column="16" selection-start-line="235" selection-start-column="16" selection-end-line="235" selection-end-column="16" />
               <folding>
                 <element signature="e#1267#1268#0" expanded="true" />
                 <element signature="e#1320#1321#0" expanded="true" />
@@ -87,7 +87,7 @@
       <file leaf-file-name="graph_points_test.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/graph_points_test.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8829268">
+            <state vertical-scroll-proportion="0.7902439">
               <caret line="31" column="103" selection-start-line="31" selection-start-column="103" selection-end-line="31" selection-end-column="103" />
               <folding>
                 <element signature="imports" expanded="true" />
@@ -170,10 +170,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scratches" />
-      <pane id="Scope" />
-      <pane id="PackagesPane" />
-      <pane id="AndroidView" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -302,6 +298,10 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -972,7 +972,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -1011,7 +1010,7 @@
     <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="117" column="0" selection-start-line="117" selection-start-column="0" selection-end-line="117" selection-end-column="0" />
+          <caret line="235" column="16" selection-start-line="235" selection-start-column="16" selection-end-line="235" selection-end-column="16" />
           <folding>
             <element signature="e#1267#1268#0" expanded="true" />
             <element signature="e#1320#1321#0" expanded="true" />
@@ -1025,7 +1024,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/graph_points_test.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8829268">
+        <state vertical-scroll-proportion="0.7902439">
           <caret line="31" column="103" selection-start-line="31" selection-start-column="103" selection-end-line="31" selection-end-column="103" />
           <folding>
             <element signature="imports" expanded="true" />

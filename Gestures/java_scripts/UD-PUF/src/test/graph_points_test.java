@@ -110,6 +110,7 @@ public class graph_points_test {
                 break;
             case POSITIVE_ARC:
                 points.add(new Point(850, 100, 0));
+                points.add(new Point(835, 105, 0));
                 points.add(new Point(600, 150, 0));
                 points.add(new Point(400, 250, 0));
                 points.add(new Point(250, 400, 0));
