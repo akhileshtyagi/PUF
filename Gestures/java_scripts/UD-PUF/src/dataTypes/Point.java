@@ -2,6 +2,8 @@ package dataTypes;
 
 import java.io.Serializable;
 
+import metrics.Point_metrics;
+
 /**
  * This class represents one point of x, y, and pressure values
  */
@@ -32,6 +34,11 @@ public class Point implements Serializable {
 	this.distance = -1;
 	this.time = 0;
     }
+
+    // TODO potentially use something like this
+    //    public Point(double x, double y, Point_metrics point_metrics){
+    //        // TODO
+    //    }
 
     public Point(Point p) {
 	this.x = p.x;
