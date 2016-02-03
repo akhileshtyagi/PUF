@@ -123,22 +123,22 @@ public class Response implements Serializable {
             /**
              * at this point we need pointLeft and pointRight to contain the points on either side of our normalization point.
              */
-            // TODO check that these points are correct.
-            // TODO incorrect left and right points are being chosen
             System.out.println("left_point:" + (j - 1) + "\tright_point:" + j);
 
             // TODO check that interpolation is done correctly.
-            // TODO interpolation seems to be done correctly whenever the correct left and right points are chosen.
+            // TODO figure out why pressure is always 0.
 
             // interpolate the then next normalized point based on the close and far neighbor
             Point next_normalized_point;
 
+            next_normalized_point = compute_normalized_point_value(normalizingPoints.get(i), pointLeft, pointRight);
+
             // check that the left point is indeed the close point
-            if (getRadius(pointLeft) < getRadius(pointRight)) {
-                next_normalized_point = compute_normalized_point_value(normalizingPoints.get(i), pointLeft, pointRight);
-            } else {
-                next_normalized_point = compute_normalized_point_value(normalizingPoints.get(i), pointRight, pointLeft);
-            }
+//            if (getRadius(pointLeft) <= getRadius(pointRight)) {
+//                next_normalized_point = compute_normalized_point_value(normalizingPoints.get(i), pointLeft, pointRight);
+//            } else {
+//                next_normalized_point = compute_normalized_point_value(normalizingPoints.get(i), pointRight, pointLeft);
+//            }
 
             //System.out.println("Pressure for point (" + x_dist + ", " + y_dist + " ): " + nPressure);
             newNormalizedList.add(next_normalized_point);
@@ -164,24 +164,6 @@ public class Response implements Serializable {
         int k = -1;
         int j = start_index;
         boolean condition_a, condition_b;
-
-        // what I want to find is the first pair where 1 point is larger, one point is smaller in radius
-//        do {
-//            k++;
-//
-//            // check if we have gone beyond the bounds of the array without finding a point
-//            if ((j + k) > (responsePattern.size() - 1)) {
-//                return -1;
-//            }
-//
-//            // compute the conditions
-//            condition_a = (getRadius(responsePattern.get(j - 1 + k)) <= getRadius(normalizing_point)) &&
-//                    getRadius(responsePattern.get(j + k)) >= getRadius(normalizing_point);
-//
-//            condition_b = (getRadius(responsePattern.get(j + k)) <= getRadius(normalizing_point)) &&
-//                    (getRadius(responsePattern.get(j - 1 + k)) >= getRadius(normalizing_point));
-//
-//        } while (!(condition_a || condition_b));
 
         // find the first pair of points the normalizing point falls within
         boolean within_bounds = false;
@@ -267,22 +249,17 @@ public class Response implements Serializable {
 
     /**
      * use neighbors of a normalizing point to figure out what its values should be.
-     * close_neighbor and far_neighbor defined in terms of their distance from the origin.
+     *
+     * Takes left and right points based on where they are in the response sequence.
+     * pointLeft is assumed to come before pointRight in the sequence.
      */
-    private Point compute_normalized_point_value(Point current_normalized_point, Point close_neighbor, Point far_neighbor) {
+    private Point compute_normalized_point_value(Point curNormalizedPoint, Point pointLeft, Point pointRight) {
         double x_dist, y_dist, extrapolatedPressure, nPressure, theta, theta_r, theta_d;
-        Point pointLeft, pointRight, curNormalizedPoint;
-
-        //TODO change
-        pointLeft = close_neighbor;
-        pointRight = far_neighbor;
-        curNormalizedPoint = current_normalized_point;
 
         // Interpolate
         theta_r = Math.atan((pointLeft.getY() / pointLeft.getX()));
         theta = Math.atan((pointRight.getY() - pointLeft.getY()) /
                 (pointRight.getX() - pointLeft.getX()));
-        theta_d = -(theta_r - theta);
 
         theta_d = theta - theta_r;
 
@@ -298,13 +275,14 @@ public class Response implements Serializable {
 
         x_dist = pointLeft.getX() + ((getRadius(curNormalizedPoint) - getRadius(pointLeft)) * (Math.cos(theta) / Math.cos(theta_d)) * x_sine);
         y_dist = pointLeft.getY() + ((getRadius(curNormalizedPoint) - getRadius(pointLeft)) * (Math.sin(theta) / Math.cos(theta_d)) * x_sine);
+
+        // TODO this is being computed incorrectly. Fix it.
         extrapolatedPressure = (getRadius(curNormalizedPoint) - getRadius(pointLeft)) / (getRadius(pointRight) - getRadius(pointLeft)) * (pointRight.getPressure() - pointLeft.getPressure());
         nPressure = pointLeft.getPressure() + extrapolatedPressure;
 
         return new Point(x_dist, y_dist, nPressure);
     }
 
-    // TODO change name back to noralize( ... );
     public void normalize_real_old(List<Point> normalizingPoints) {
 
         double x_dist, y_dist, extrapolatedPressure, nPressure, theta, theta_r, theta_d, r_prime;
