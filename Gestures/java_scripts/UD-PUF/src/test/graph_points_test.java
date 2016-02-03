@@ -29,7 +29,7 @@ public class graph_points_test {
         graph_points graph_frame = new graph_points();
 
         // create response point list
-        List<Point> response_points = create_response_point_list(ResponseNature.TOWARD_ORIGIN_THEN_AWAY);
+        List<Point> response_points = create_response_point_list(ResponseNature.NEGATIVE_STAIRS);
 
         // create challenge pattern
         List<Point> challenge_pattern = create_challenge_pattern();
