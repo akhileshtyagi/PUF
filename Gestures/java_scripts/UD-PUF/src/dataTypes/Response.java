@@ -61,7 +61,7 @@ public class Response implements Serializable {
 
     public void normalize(List<Point> normalizingPoints) {
         ArrayList<Point> newNormalizedList = new ArrayList<>();
-        double xTransform, yTransform, theta, newX, newY, newPressure;
+        double xTransform, yTransform, theta, newX, newY, newPressure, newDistance;
         double traceDistance;
 
         // Distance between each of the normalizing points
@@ -136,17 +136,23 @@ public class Response implements Serializable {
             newY = prevPoint.getY() + (remainingDistance * Math.sin(theta) * x_sine);
 
             //Interpolate pressure and other attributes
+            /* pressure */
             newPressure = prevPoint.getPressure() + ((remainingDistance/computeEuclideanDistance(prevPoint, curPoint)) * (curPoint.getPressure() - prevPoint.getPressure()));
+            /* distance */
+            newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
 
-            newNormalizedList.add(new Point(newX, newY, newPressure));
+            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance));
 
             remainingDistance = deltaD + computeEuclideanDistance(prevPoint, newNormalizedList.get(i));
         }
 
-        if(responsePattern.size() >= 1) {
+        // this breaks things because if we have any points left to do and we don't do them then our normalized response lists will be differant sizes.
+        // This means there will be an arrayIndexOoutOfBounds error when we get to the part of the code where we find mu. if >= 1
+        if(responsePattern.size() <= 1) {
             this.normalizedResponsePattern = newNormalizedList;
             return;
         }
+
         // Now take care of remaining (NL - N) points which we need to interpolate
         prevPoint = responsePattern.get(M - 2);
         curPoint = responsePattern.get(M - 1);
@@ -166,9 +172,12 @@ public class Response implements Serializable {
             newY = prevPoint.getY() + (d * Math.sin(theta) * x_sine);
 
             // Compute pressure and other attributes
+            /* pressure */
             newPressure = curPoint.getPressure() + (((curPoint.getPressure() - prevPoint.getPressure()) / (computeEuclideanDistance(curPoint, prevPoint))) * d);
+            /* distance */
+            newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
 
-            newNormalizedList.add(new Point(newX, newY, newPressure));
+            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance));
 
             d += deltaD;
         }

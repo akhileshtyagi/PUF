@@ -151,9 +151,8 @@ public class UserDevicePair {
      */
     public boolean authenticate(List<Point> new_response_data, long challenge_id) {
         Challenge challenge = get_challenge_index(challenge_id);
-        Profile profile = challenge.getProfile();
 
-        return authenticate(new_response_data, profile);
+        return authenticate(new_response_data, challenge);
     }
 
     /**
@@ -164,7 +163,9 @@ public class UserDevicePair {
      * @param profile
      * @return
      */
-    public boolean authenticate(List<Point> new_response_data, Profile profile) {
+    public boolean authenticate(List<Point> new_response_data, Challenge challenge) {
+        Profile profile = challenge.getProfile();
+
         // set a value which represents all points failing
         this.pressure_authentication_failed_point_ratio = 1.0;
         this.distance_authentication_failed_point_ratio = 1.0;
@@ -172,7 +173,9 @@ public class UserDevicePair {
 
         // normalize the response
         Response response_object = new Response(new_response_data);
-        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+        response_object.normalize(challenge.getNormalizingPoints());
+
+        System.out.println("normalized_response:\t" + response_object.getNormalizedResponse());
 
         // compute the point vectors
         compute_point_vector(response_object.getNormalizedResponse(), profile);
@@ -338,7 +341,7 @@ public class UserDevicePair {
 
         // error check
         if (new_response_data.size() != profile.getNormalizedResponses().get(0).getNormalizedResponse().size()) {
-            System.out.println("souldn't be here: " + new_response_data.size() + " | " + profile.getNormalizedResponses().size());
+            System.out.println("souldn't be here: " + new_response_data.size() + " | " + profile.getNormalizedResponses().get(0).getNormalizedResponse().size());
             return;
         }
 
@@ -614,7 +617,7 @@ public class UserDevicePair {
      */
     /**
      * This method returns a string with a lot of information
-     */
+
     public String information_dump_authenticate(List<Point> new_response_data, Profile profile) {
         String information = "";
 
@@ -673,4 +676,5 @@ public class UserDevicePair {
 
         return information;
     }
+     */
 }

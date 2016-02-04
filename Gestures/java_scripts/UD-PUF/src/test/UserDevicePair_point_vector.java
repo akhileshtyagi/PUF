@@ -16,7 +16,6 @@ public class UserDevicePair_point_vector {
         // set up user_device pair with a few challenges
         UserDevicePair ud_pair = create_generated_ud_pair();
 
-
         // authenticate a response against the profile
         ArrayList<Point> response_points = generate_response_points();
 
@@ -32,6 +31,17 @@ public class UserDevicePair_point_vector {
         System.out.println("Pressure:\t" + pressure_point_vector);
         System.out.println("Distance:\t" + distance_point_vector);
         System.out.println("Time:\t\t" + time_point_vector);
+
+        // Graph the point lists to see normalization is going correctly
+        graph_points graph_frame = new graph_points();
+
+        graph_frame.addPointList(response_points, "origional_response_points");
+        graph_frame.addPointList(ud_pair.getChallenges().get(0).getNormalizingPoints(), "normalizing_points");
+
+        // want the normalized response points to graph
+//        Response response = new Response(response_points);
+//        ud_pair.getChallenges().get(0).addResponse(response);
+//        graph_frame.addPointList(response.getNormalizedResponse(), "normalized_response_points");
     }
 
     /**
@@ -41,8 +51,9 @@ public class UserDevicePair_point_vector {
         ArrayList<Point> response_points  = new ArrayList<Point>();
 
         // create the response
-        for (int j = 0; j < 32; j++) {
-            response_points.add(new Point((300 / 32) * j + 100, 100, 1.5));
+        int num_points = 10;
+        for (int j = 0; j < num_points; j++) {
+            response_points.add(new Point((300 / num_points) * j + 100, 100, 1.5));
         }
 
         return response_points;

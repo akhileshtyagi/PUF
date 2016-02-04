@@ -90,6 +90,6 @@ public class Test {
 	// challenge.getProfile()));
 
 	// set authentication result based on the outcome
-	this.authentication_result = ud_pair.authenticate(response.getOrigionalResponse(), challenge.getProfile());
+	this.authentication_result = ud_pair.authenticate(response.getOrigionalResponse(), challenge);
     }
 }
