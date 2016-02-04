@@ -22,18 +22,14 @@ public class graph_points_test {
         POSITIVE_SLOPE_LINE_BACK,
         CIRCLE,
         RIGHT_TO_LEFT,
-        TOWARD_ORIGIN_THEN_AWAY,
-        TRIANGLE
+        TOWARD_ORIGIN_THEN_AWAY
     }
 
     public static void main(String[] args) {
         graph_points graph_frame = new graph_points();
 
         // create response point list
-<<<<<<< HEAD
-        List<Point> response_points = create_response_point_list(ResponseNature.POSITIVE_ARC);
         List<Point> response_points = create_response_point_list(ResponseNature.NEGATIVE_STAIRS);
->>>>>>> ED_Polar_Normalization_Testing
 
         // create challenge pattern
         List<Point> challenge_pattern = create_challenge_pattern();
@@ -114,7 +110,6 @@ public class graph_points_test {
                 break;
             case POSITIVE_ARC:
                 points.add(new Point(850, 100, 0));
-                points.add(new Point(835, 105, 0));
                 points.add(new Point(600, 150, 0));
                 points.add(new Point(400, 250, 0));
                 points.add(new Point(250, 400, 0));
@@ -140,27 +135,6 @@ public class graph_points_test {
                 points.add(new Point(250, 150, 0));
                 points.add(new Point(400, 200, 0));
                 points.add(new Point(450, 250, 0));
-                break;
-            case TRIANGLE:
-                // down left side
-                points.add(new Point(300, 300, 0));
-                points.add(new Point(300, 310, 0));
-                points.add(new Point(300, 400, 0));
-                points.add(new Point(300, 500, 0));
-                points.add(new Point(300, 600, 0));
-                points.add(new Point(300, 700, 0));
-
-                // 'back' of triangle
-                points.add(new Point(400, 600, 0));
-                points.add(new Point(500, 500, 0));
-                points.add(new Point(600, 400, 0));
-
-                // up top side
-                points.add(new Point(700, 300, 0));
-                points.add(new Point(600, 300, 0));
-                points.add(new Point(500, 300, 0));
-                points.add(new Point(400, 300, 0));
-                points.add(new Point(300, 300, 0));
                 break;
             case CIRCLE:
                 // works with circles of size 6
