@@ -175,7 +175,7 @@ public class UserDevicePair {
         Response response_object = new Response(new_response_data);
         response_object.normalize(challenge.getNormalizingPoints());
 
-        System.out.println("normalized_response:\t" + response_object.getNormalizedResponse());
+        // System.out.println("normalized_response:\t" + response_object.getNormalizedResponse());
 
         // compute the point vectors
         compute_point_vector(response_object.getNormalizedResponse(), profile);

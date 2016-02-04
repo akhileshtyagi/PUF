@@ -105,8 +105,13 @@ public class Response implements Serializable {
         traceDistance = computeTraceDistance();
         NL = (int) Math.floor((traceDistance / deltaD) + 1);
 
+        // added to handle the case where the response deltaD is longer than normalizingPoints
+        NL = (NL <= normalizingPoints.size()) ? NL : normalizingPoints.size();
+
         remainingDistance = deltaD;
         j = 1;
+
+        // this loop will run NL-1 times
         for(i = 1; i < NL; i++) {
             prevPoint = responsePattern.get(j - 1);
             curPoint = responsePattern.get(j);
