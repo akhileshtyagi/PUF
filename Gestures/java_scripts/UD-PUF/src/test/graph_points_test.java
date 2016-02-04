@@ -30,7 +30,10 @@ public class graph_points_test {
         graph_points graph_frame = new graph_points();
 
         // create response point list
+<<<<<<< HEAD
         List<Point> response_points = create_response_point_list(ResponseNature.POSITIVE_ARC);
+        List<Point> response_points = create_response_point_list(ResponseNature.NEGATIVE_STAIRS);
+>>>>>>> ED_Polar_Normalization_Testing
 
         // create challenge pattern
         List<Point> challenge_pattern = create_challenge_pattern();

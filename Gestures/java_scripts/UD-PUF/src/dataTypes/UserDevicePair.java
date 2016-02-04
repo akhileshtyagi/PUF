@@ -151,9 +151,8 @@ public class UserDevicePair {
      */
     public boolean authenticate(List<Point> new_response_data, long challenge_id) {
         Challenge challenge = get_challenge_index(challenge_id);
-        Profile profile = challenge.getProfile();
 
-        return authenticate(new_response_data, profile);
+        return authenticate(new_response_data, challenge);
     }
 
     /**
@@ -164,7 +163,9 @@ public class UserDevicePair {
      * @param profile
      * @return
      */
-    public boolean authenticate(List<Point> new_response_data, Profile profile) {
+    public boolean authenticate(List<Point> new_response_data, Challenge challenge) {
+        Profile profile = challenge.getProfile();
+
         // set a value which represents all points failing
         this.pressure_authentication_failed_point_ratio = 1.0;
         this.distance_authentication_failed_point_ratio = 1.0;
@@ -172,9 +173,9 @@ public class UserDevicePair {
 
         // normalize the response
         Response response_object = new Response(new_response_data);
-        boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
-        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-                is_profile_horizontal);
+        response_object.normalize(challenge.getNormalizingPoints());
+
+        // System.out.println("normalized_response:\t" + response_object.getNormalizedResponse());
 
         // compute the point vectors
         compute_point_vector(response_object.getNormalizedResponse(), profile);
@@ -285,9 +286,7 @@ public class UserDevicePair {
     public double getNew_response_pressure_CI(List<Point> new_response_data, Profile profile) {
         // normalize the response
         Response response_object = new Response(new_response_data);
-        boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
-        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-                is_profile_horizontal);
+        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
         // compute confidence interval with normalized points
         return profile.get_auth_pressure_contribution(response_object.getNormalizedResponse());
@@ -296,9 +295,7 @@ public class UserDevicePair {
     public double getNew_response_time_CI(List<Point> new_response_data, Profile profile) {
         // normalize the response
         Response response_object = new Response(new_response_data);
-        boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
-        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-                is_profile_horizontal);
+        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
         // compute confidence interval with normalized points
         return profile.get_auth_time_contribution(response_object.getNormalizedResponse());
@@ -307,9 +304,7 @@ public class UserDevicePair {
     public double getNew_response_distance_CI(List<Point> new_response_data, Profile profile) {
         // normalize the response
         Response response_object = new Response(new_response_data);
-        boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
-        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-                is_profile_horizontal);
+        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
         // compute confidence interval with normalized points
         return profile.get_auth_distance_contribution(response_object.getNormalizedResponse());
@@ -346,7 +341,7 @@ public class UserDevicePair {
 
         // error check
         if (new_response_data.size() != profile.getNormalizedResponses().get(0).getNormalizedResponse().size()) {
-            System.out.println("souldn't be here: " + new_response_data.size() + " | " + profile.getNormalizedResponses().size());
+            System.out.println("souldn't be here: " + new_response_data.size() + " | " + profile.getNormalizedResponses().get(0).getNormalizedResponse().size());
             return;
         }
 
@@ -515,10 +510,8 @@ public class UserDevicePair {
 
         // normalize the response
         Response response_object = new Response(new_response);
-        boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
-        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-                is_profile_horizontal);
+        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
         // create a list of point values for pressure
         for (Point response_point : response_object.getNormalizedResponse()) {
@@ -543,10 +536,8 @@ public class UserDevicePair {
 
         // normalize the response
         Response response_object = new Response(new_response);
-        boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
-        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-                is_profile_horizontal);
+        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
         // create a list of point values for distance
         for (Point response_point : response_object.getNormalizedResponse()) {
@@ -571,10 +562,8 @@ public class UserDevicePair {
 
         // normalize the response
         Response response_object = new Response(new_response);
-        boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
-        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-                is_profile_horizontal);
+        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
         // create a list of point values for time
         for (Point response_point : response_object.getNormalizedResponse()) {
@@ -594,11 +583,13 @@ public class UserDevicePair {
                               double allowed_deviations) {
         int points = 0;
 
+        int numPoints = (point_values.size() < mu_values.size()) ? point_values.size() : mu_values.size();
+
         // compare the response to the challenge_profile
         // For each point determine whether or not it falls with in
         // std_deviations
         // for PRESSURE
-        for (int i = 0; i < point_values.size(); i++) {
+        for (int i = 0; i < numPoints; i++) {
             // determine if this point fails
             if ((point_values.get(i) < (mu_values.get(i) - sigma_values.get(i) * allowed_deviations))
                     || (point_values.get(i) > (mu_values.get(i) + sigma_values.get(i) * allowed_deviations))) {
@@ -622,41 +613,11 @@ public class UserDevicePair {
     }
 
     /**
-     * determine if the list of points given is more horizontal or more vertical
-     *
-     * @return false if the list is more vertical
-     */
-    private boolean is_horizontal(List<Point> point_list) {
-        int x_dist = 0;
-        int y_dist = 0;
-
-        // calculate x_dist and y_dist covered by the list
-        Point prev_challenge_point = null;
-
-        for (Point challenge_point : point_list) {
-            if (prev_challenge_point == null) {
-                prev_challenge_point = challenge_point;
-                continue;
-            }
-
-            // compute the distance between the current point and the previous
-            // point
-            x_dist += Math.abs(challenge_point.getX() - prev_challenge_point.getX());
-            y_dist += Math.abs(challenge_point.getY() - prev_challenge_point.getY());
-
-            prev_challenge_point = challenge_point;
-        }
-
-        return x_dist > y_dist;
-    }
-
-
-    /**
      * TEST METHODS from here to the end. These will be REMOVED eventually.
      */
     /**
      * This method returns a string with a lot of information
-     */
+
     public String information_dump_authenticate(List<Point> new_response_data, Profile profile) {
         String information = "";
 
@@ -709,12 +670,11 @@ public class UserDevicePair {
 
         // normalize the response
         Response response_object = new Response(new_response_data);
-        boolean is_profile_horizontal = is_horizontal(profile.getNormalizedResponses().get(0).getNormalizedResponse());
-        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse(),
-                is_profile_horizontal);
+        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
         information += "normalized_response_points: " + response_object.getNormalizedResponse() + "\n";
 
         return information;
     }
+     */
 }

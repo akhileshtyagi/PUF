@@ -365,7 +365,8 @@ public class Profile implements Serializable {
             compute_mu_sigma();
         }
 
-        int num_points = new_response.size();
+        // TODO get normalized new_response to be the same size of muSigmaValues in the first place
+        int num_points = (new_response.size() < pressure_muSigmaValues.getMuValues().size()) ? new_response.size() : pressure_muSigmaValues.getMuValues().size();
 
         // [1 - Sigma_{i=1}^N( |p_i - mu_i| / mu_i)] / N
         for (int i = 0; i < num_points; i++) {

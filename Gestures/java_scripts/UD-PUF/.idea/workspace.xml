@@ -31,8 +31,28 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Response.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Response.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4390244">
+              <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="BestModelParameters.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/analysis/BestModelParameters.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="101" column="8" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="8" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Combination.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/analysis/Combination.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -41,6 +61,7 @@
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="Challenge.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -61,10 +82,19 @@
                 <element signature="docComment;method#min_challenge_point_y#0;class#Challenge#0" expanded="false" />
                 <element signature="method#min_challenge_point_y#0;class#Challenge#0" expanded="false" />
               </folding>
+=======
+      <file leaf-file-name="Effectiveness.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/analysis/Effectiveness.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
+              <folding />
+>>>>>>> ED_Polar_Normalization_Testing
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="Point.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Point.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -73,10 +103,19 @@
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
+=======
+      <file leaf-file-name="UserDevicePair.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/dataTypes/UserDevicePair.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="343" column="17" selection-start-line="343" selection-start-column="17" selection-end-line="343" selection-end-column="17" />
+              <folding />
+>>>>>>> ED_Polar_Normalization_Testing
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="Profile.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Profile.java">
           <provider selected="true" editor-type-id="text-editor">
@@ -102,6 +141,13 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+=======
+      <file leaf-file-name="Test.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/analysis/Test.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.0">
+              <caret line="88" column="25" selection-start-line="88" selection-start-column="7" selection-end-line="88" selection-end-column="25" />
+>>>>>>> ED_Polar_Normalization_Testing
               <folding />
             </state>
           </provider>
@@ -131,14 +177,12 @@
         <option value="$PROJECT_DIR$/src/test/Main.java" />
         <option value="$PROJECT_DIR$/src/jUnitTests/dataTypes/TestUtil.java" />
         <option value="$PROJECT_DIR$/src/test/TestUtil.java" />
-        <option value="$PROJECT_DIR$/src/test/UserDevicePair_point_vector.java" />
-        <option value="$PROJECT_DIR$/src/dataTypes/UserDevicePair.java" />
         <option value="$PROJECT_DIR$/src/dataTypes/Profile.java" />
         <option value="$PROJECT_DIR$/src/test/NaN_Infinity_test.java" />
-        <option value="$PROJECT_DIR$/src/test/Response_Normalization_test.java" />
         <option value="$PROJECT_DIR$/src/test/trig_test.java" />
         <option value="$PROJECT_DIR$/src/dataTypes/Challenge.java" />
         <option value="$PROJECT_DIR$/src/test/graph_points.java" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/src/test/graph_points_test.java" />
         <option value="$PROJECT_DIR$/src/dataTypes/Response.java" />
         <option value="$PROJECT_DIR$/src/dataTypes/Metrics.java" />
@@ -147,6 +191,14 @@
         <option value="$PROJECT_DIR$/src/metrics/Metric.java" />
         <option value="$PROJECT_DIR$/src/test/metrics_test.java" />
         <option value="$PROJECT_DIR$/src/dataTypes/Point.java" />
+        <option value="$PROJECT_DIR$/src/test/Response_Normalization_test.java" />
+        <option value="$PROJECT_DIR$/src/test/graph_points_test.java" />
+        <option value="$PROJECT_DIR$/src/analysis/Test.java" />
+        <option value="$PROJECT_DIR$/src/test/UserDevicePair_point_vector.java" />
+        <option value="$PROJECT_DIR$/src/dataTypes/UserDevicePair.java" />
+        <option value="$PROJECT_DIR$/src/dataTypes/Response.java" />
+        <option value="$PROJECT_DIR$/src/analysis/BestModelParameters.java" />
+>>>>>>> ED_Polar_Normalization_Testing
       </list>
     </option>
   </component>
@@ -187,6 +239,9 @@
       <sortByType />
     </navigator>
     <panes>
+<<<<<<< HEAD
+      <pane id="Scope" />
+>>>>>>> ED_Polar_Normalization_Testing
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -236,6 +291,7 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+<<<<<<< HEAD
             <PATH_ELEMENT>
               <option name="myItemId" value="metrics" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
@@ -254,6 +310,7 @@
               <option name="myItemId" value="src" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
+>>>>>>> ED_Polar_Normalization_Testing
           </PATH>
           <PATH>
             <PATH_ELEMENT>
@@ -293,10 +350,15 @@
           </PATH>
         </subPane>
       </pane>
+<<<<<<< HEAD
       <pane id="Scratches" />
       <pane id="Scope" />
       <pane id="PackagesPane" />
       <pane id="AndroidView" />
+      <pane id="AndroidView" />
+      <pane id="PackagesPane" />
+      <pane id="Scratches" />
+>>>>>>> ED_Polar_Normalization_Testing
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -316,8 +378,12 @@
       <recent name="$PROJECT_DIR$/src/test" />
     </key>
   </component>
+<<<<<<< HEAD
   <component name="RunManager" selected="Application.metrics_test">
     <configuration default="false" name="NaN_Infinity_test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Application.BestModelParameters">
+    <configuration default="false" name="UserDevicePair_point_vector" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+>>>>>>> ED_Polar_Normalization_Testing
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
           <option name="PATTERN" value="test.*" />
@@ -397,14 +463,20 @@
       <envs />
       <method />
     </configuration>
+<<<<<<< HEAD
     <configuration default="false" name="metrics_test" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+    <configuration default="false" name="BestModelParameters" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+>>>>>>> ED_Polar_Normalization_Testing
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
-          <option name="PATTERN" value="test.*" />
+          <option name="PATTERN" value="analysis.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
+<<<<<<< HEAD
       <option name="MAIN_CLASS_NAME" value="test.metrics_test" />
+      <option name="MAIN_CLASS_NAME" value="analysis.BestModelParameters" />
+>>>>>>> ED_Polar_Normalization_Testing
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -553,6 +625,7 @@
       <method />
     </configuration>
     <list size="5">
+<<<<<<< HEAD
       <item index="0" class="java.lang.String" itemvalue="Application.NaN_Infinity_test" />
       <item index="1" class="java.lang.String" itemvalue="Application.Response_Normalization_test" />
       <item index="2" class="java.lang.String" itemvalue="Application.graph_points_test" />
@@ -566,6 +639,20 @@
         <item index="2" class="java.lang.String" itemvalue="Application.trig_test" />
         <item index="3" class="java.lang.String" itemvalue="Application.Response_Normalization_test" />
         <item index="4" class="java.lang.String" itemvalue="Application.NaN_Infinity_test" />
+      <item index="0" class="java.lang.String" itemvalue="Application.UserDevicePair_point_vector" />
+      <item index="1" class="java.lang.String" itemvalue="Application.Response_Normalization_test" />
+      <item index="2" class="java.lang.String" itemvalue="Application.graph_points_test" />
+      <item index="3" class="java.lang.String" itemvalue="Application.trig_test" />
+      <item index="4" class="java.lang.String" itemvalue="Application.BestModelParameters" />
+    </list>
+    <recent_temporary>
+      <list size="5">
+        <item index="0" class="java.lang.String" itemvalue="Application.BestModelParameters" />
+        <item index="1" class="java.lang.String" itemvalue="Application.UserDevicePair_point_vector" />
+        <item index="2" class="java.lang.String" itemvalue="Application.Response_Normalization_test" />
+        <item index="3" class="java.lang.String" itemvalue="Application.graph_points_test" />
+        <item index="4" class="java.lang.String" itemvalue="Application.trig_test" />
+>>>>>>> ED_Polar_Normalization_Testing
       </list>
     </recent_temporary>
   </component>
@@ -647,6 +734,35 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Profile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="165" column="5" selection-start-line="165" selection-start-column="5" selection-end-line="165" selection-end-column="5" />
+          <folding>
+            <element signature="e#5867#5868#0" expanded="true" />
+            <element signature="e#5909#5910#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/UserDevicePair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="662" column="0" selection-start-line="662" selection-start-column="0" selection-end-line="662" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/MuSigma.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+>>>>>>> ED_Polar_Normalization_Testing
     <entry file="file://$PROJECT_DIR$/src/jUnitTests/dataTypes/ProfileUnit.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -851,27 +967,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/analysis/Combination.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="0" selection-start-line="7" selection-start-column="0" selection-end-line="7" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/analysis/Effectiveness.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/analysis/BestModelParameters.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="64" column="11" selection-start-line="64" selection-start-column="11" selection-end-line="64" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/jUnitTests/dataTypes/UserDevicePairUnit.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -883,13 +978,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.04107425">
           <caret line="2" column="20" selection-start-line="2" selection-start-column="20" selection-end-line="2" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/UserDevicePair_point_vector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="18" column="8" selection-start-line="18" selection-start-column="8" selection-end-line="23" selection-end-column="9" />
         </state>
       </provider>
     </entry>
@@ -907,21 +995,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/Response_Normalization_test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8293839">
-          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/test/trig_test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
+    <entry file="file://$PROJECT_DIR$/src/test/graph_points.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -929,6 +1003,104 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/src/jUnitTests/dataTypes/ProfileUnit.java">
+    <entry file="file://$PROJECT_DIR$/src/test/Response_Normalization_test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="45" column="15" selection-start-line="45" selection-start-column="15" selection-end-line="45" selection-end-column="15" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/graph_points_test.java">
+>>>>>>> ED_Polar_Normalization_Testing
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.3219512">
+          <caret line="43" column="97" selection-start-line="39" selection-start-column="8" selection-end-line="43" selection-end-column="97" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
+    <entry file="file://$PROJECT_DIR$/src/test/UserDevicePair_point_vector.java">
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="242" column="29" selection-start-line="242" selection-start-column="10" selection-end-line="242" selection-end-column="29" />
+          <folding>
+            <element signature="docComment;class#Challenge#0" expanded="false" />
+            <element signature="docComment;method#Challenge#1;class#Challenge#0" expanded="false" />
+            <element signature="method#computeChallengeYDistance#0;class#Challenge#0" expanded="false" />
+            <element signature="docComment;method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
+            <element signature="method#computeChallengeXDistance#0;class#Challenge#0" expanded="false" />
+            <element signature="docComment;method#max_challenge_point_x#0;class#Challenge#0" expanded="false" />
+            <element signature="method#max_challenge_point_x#0;class#Challenge#0" expanded="false" />
+            <element signature="docComment;method#min_challenge_point_x#0;class#Challenge#0" expanded="false" />
+            <element signature="method#min_challenge_point_x#0;class#Challenge#0" expanded="false" />
+            <element signature="docComment;method#max_challenge_point_y#0;class#Challenge#0" expanded="false" />
+            <element signature="method#max_challenge_point_y#0;class#Challenge#0" expanded="false" />
+            <element signature="docComment;method#min_challenge_point_y#0;class#Challenge#0" expanded="false" />
+            <element signature="method#min_challenge_point_y#0;class#Challenge#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Point.java">
+>>>>>>> ED_Polar_Normalization_Testing
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Profile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="188" column="31" selection-start-line="188" selection-start-column="31" selection-end-line="188" selection-end-column="31" />
+          <folding>
+            <element signature="e#5867#5868#0" expanded="true" />
+            <element signature="e#5909#5910#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/test/UserDevicePair_point_vector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/MuSigma.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="9" column="13" selection-start-line="9" selection-start-column="13" selection-end-line="9" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/analysis/Combination.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+<<<<<<< HEAD
+          <caret line="29" column="28" selection-start-line="29" selection-start-column="28" selection-end-line="29" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+>>>>>>> ED_Polar_Normalization_Testing
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/test/graph_points.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -989,10 +1161,40 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="7" column="13" selection-start-line="7" selection-start-column="13" selection-end-line="7" selection-end-column="13" />
+    <entry file="file://$PROJECT_DIR$/src/analysis/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="88" column="25" selection-start-line="88" selection-start-column="7" selection-end-line="88" selection-end-column="25" />
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/UserDevicePair.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="343" column="17" selection-start-line="343" selection-start-column="17" selection-end-line="343" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/analysis/BestModelParameters.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="101" column="8" selection-start-line="101" selection-start-column="8" selection-end-line="101" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/analysis/Effectiveness.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="20" column="2" selection-start-line="20" selection-start-column="2" selection-end-line="20" selection-end-column="2" />
+>>>>>>> ED_Polar_Normalization_Testing
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/src/dataTypes/Point.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1000,6 +1202,12 @@
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4390244">
+          <caret line="64" column="16" selection-start-line="64" selection-start-column="16" selection-end-line="64" selection-end-column="16" />
+          <folding />
+>>>>>>> ED_Polar_Normalization_Testing
         </state>
       </provider>
     </entry>

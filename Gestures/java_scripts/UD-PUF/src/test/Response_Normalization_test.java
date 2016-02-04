@@ -48,7 +48,7 @@ public class Response_Normalization_test {
 
         // normalize response
         Response response = new Response(response_points);
-        response.normalize(normalization_points, is_challenge_horizontal);
+        response.normalize(normalization_points);
 
         // print response
         System.out.println(response.getNormalizedResponse());
