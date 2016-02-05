@@ -20,8 +20,9 @@ public class PufDrawView extends View
     private Paint bluePaint;
     private TextView mUpdateView;
     private Point[] challenge;
-    private ArrayList<Point> response;
+    private ArrayList<dataTypes.Point> response;
     private RegisterGesturesActivity mRGA;
+    private long lastMotionEventTime;
 
     public PufDrawView(Context context, AttributeSet attr)
     {
@@ -55,7 +56,8 @@ public class PufDrawView extends View
         greenPaint.setColor(Color.GREEN);
         greenPaint.setStrokeWidth(5);
 
-        response = new ArrayList<Point>();
+        response = new ArrayList<>();
+        lastMotionEventTime = 0;
     }
 
     @Override
@@ -109,17 +111,24 @@ public class PufDrawView extends View
         switch( me.getAction() )
         {
             case MotionEvent.ACTION_DOWN:
-                mUpdateView.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") - Pressure = " + me.getPressure() );
+                mUpdateView.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") - Pressure = " + me.getPressure() + " Time = " + (me.getEventTime()-me.getDownTime()));
                 response.clear();
-                response.add(new Point(me.getX(), me.getY(), me.getPressure()));
+                response.add(new dataTypes.Point(me.getX(), me.getY(), me.getPressure(), -1, (double) me.getEventTime()-me.getDownTime()));
                 break;
             case MotionEvent.ACTION_UP:
                 mUpdateView.setText( "No touch detected." );
                 mRGA.onResponseAttempt(response);
                 break;
             case MotionEvent.ACTION_MOVE:
-                mUpdateView.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") Pressure = " + me.getPressure() );
-                response.add(new Point(me.getX(), me.getY(), me.getPressure()));
+
+                if(this.lastMotionEventTime == 0) {
+                    this.lastMotionEventTime = me.getEventTime();
+                }
+
+                mUpdateView.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") - Pressure = " + me.getPressure() + " Time = " + (me.getEventTime()-this.lastMotionEventTime));
+                response.add(new dataTypes.Point(me.getX(), me.getY(), me.getPressure(), -1, (double) me.getEventTime()-this.lastMotionEventTime));
+                this.lastMotionEventTime = me.getEventTime();
+
                 break;
             default:
                 break;
@@ -129,6 +138,6 @@ public class PufDrawView extends View
     }
 
     public interface ResponseListener{
-        void onResponseAttempt(ArrayList<Point> response);
+        void onResponseAttempt(ArrayList<dataTypes.Point> response);
     }
 }

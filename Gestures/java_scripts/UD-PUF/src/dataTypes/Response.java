@@ -61,7 +61,7 @@ public class Response implements Serializable {
 
     public void normalize(List<Point> normalizingPoints) {
         ArrayList<Point> newNormalizedList = new ArrayList<>();
-        double xTransform, yTransform, theta, newX, newY, newPressure, newDistance;
+        double xTransform, yTransform, theta, newX, newY, newPressure, newDistance, newTime;
         double traceDistance;
 
         // Distance between each of the normalizing points
@@ -145,8 +145,10 @@ public class Response implements Serializable {
             newPressure = prevPoint.getPressure() + ((remainingDistance/computeEuclideanDistance(prevPoint, curPoint)) * (curPoint.getPressure() - prevPoint.getPressure()));
             /* distance */
             newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
+            /* time */
+            newTime = prevPoint.getTime() + ((remainingDistance/computeEuclideanDistance(prevPoint, curPoint)) * (curPoint.getTime() - prevPoint.getTime()));
 
-            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance));
+            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance, newTime));
 
             remainingDistance = deltaD + computeEuclideanDistance(prevPoint, newNormalizedList.get(i));
         }
@@ -181,8 +183,10 @@ public class Response implements Serializable {
             newPressure = curPoint.getPressure() + (((curPoint.getPressure() - prevPoint.getPressure()) / (computeEuclideanDistance(curPoint, prevPoint))) * d);
             /* distance */
             newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
+            /* time */
+            newTime = curPoint.getTime() + (((curPoint.getTime() - prevPoint.getTime()) / (computeEuclideanDistance(curPoint, prevPoint))) * d);
 
-            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance));
+            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance, newTime));
 
             d += deltaD;
         }
@@ -212,7 +216,7 @@ public class Response implements Serializable {
         // add x,y to every point
         for (int i = 0; i < response_points.size(); i++) {
             Point p = response_points.get(i);
-            response_points.set(i, new Point(p.getX() + x_transform, p.getY() + y_transform, p.getPressure()));
+            response_points.set(i, new Point(p.getX() + x_transform, p.getY() + y_transform, p.getPressure(), p.getDistance(), p.getPressure()));
         }
     }
 

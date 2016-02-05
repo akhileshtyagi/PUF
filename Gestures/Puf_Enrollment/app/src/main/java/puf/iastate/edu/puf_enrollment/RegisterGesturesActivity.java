@@ -8,14 +8,11 @@ import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.opencsv.CSVWriter;
 
 import java.io.File;
-import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -95,7 +92,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
      * @param response
      */
     @Override
-    public void onResponseAttempt(ArrayList<Point> response) {
+    public void onResponseAttempt(ArrayList<dataTypes.Point> response) {
         if (mode.equals("enroll")) {
             if (mRemainingSwipes-- == 0) {
                 DataReader reader = new DataReader(new File(Environment.getExternalStorageDirectory() + "/PUFProfile"));
@@ -112,13 +109,12 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
                 editor.commit();
                 finish();
             }
-            writeResponseCsv(response, "DeviceName", "UserName");
+            AddResponseToChallenge(response);
             mCurChallenge = mCg.generateChallenge();
-            //mPdv.giveChallenge(mCurChallenge.toArray(new Point[mCurChallenge.size()]));
             mRemainingView.setText(mRemainingSwipes + " Left");
         }
         else if (mode.equals("authenticate")) {
-            writeResponseCsv(response, "DeviceName", "UserName");
+            AddResponseToChallenge(response);
             Gson gson = new Gson();
             String json = gson.toJson(mResponses.get(0), mResponses.get(0).getClass());
             SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.response", Context.MODE_PRIVATE);
@@ -133,71 +129,30 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
      * Writes the response to a given challenge to a CSV file
      * @param response
      */
-    public void writeResponseCsv(ArrayList<Point> response, String deviceName, String testerName)
+    public void AddResponseToChallenge(ArrayList<dataTypes.Point> response)
     {
         ArrayList<dataTypes.Point> points = new ArrayList<>();
-        File baseDir;
 
-        //File baseDir = new File(getFilesDir(), "PUFProfile");
-        if(mode.equals("enroll")) baseDir = new File(Environment.getExternalStorageDirectory(), "PUFProfile");
-        else baseDir = new File(Environment.getExternalStorageDirectory(), "PUFAuthenticate");
-
-        if (!baseDir.exists())
+        for( int i = 0; i < mCurChallenge.size(); i++)
         {
-            baseDir.mkdirs();
+            Point point = mCurChallenge.get(i);
+            if(!mChallengePointsAssigned) mChallengePoints.add(new dataTypes.Point(point.x,point.y,0));
         }
 
-        String fileName = mSeed + ": " + getCurrentLocalTime() + ".csv";
-
-        File f = new File(baseDir, fileName);
-
-        try
-        {
-            f.createNewFile();
-            CSVWriter csvWrite = new CSVWriter(new FileWriter(f));
-            String[] challengeHeaders = {"ChallengeX", "ChallengeY", "Tester Name", "Device Name"};
-            csvWrite.writeNext(challengeHeaders);
-            for( int i = 0; i < mCurChallenge.size(); i++)
-            {
-                Point point = mCurChallenge.get(i);
-                String[] row = { Float.toString(point.x),
-                        Float.toString(point.y),
-                        testerName,
-                        deviceName };
-                csvWrite.writeNext(row);
-
-                if(!mChallengePointsAssigned) mChallengePoints.add(new dataTypes.Point(point.x,point.y,0));
-            }
-
-            if(!mChallengePointsAssigned) {
-                mChallenge = new Challenge(mChallengePoints, (int)mSeed);
-                mChallengePointsAssigned = true;
-            }
-
-            String[] headers = { "X", "Y", "PRESSURE" };
-
-            csvWrite.writeNext(headers);
-
-            for( int i = 0; i < response.size(); i++)
-            {
-                Point point = response.get(i);
-                String[] row = { Float.toString(point.x),
-                        Float.toString(point.y),
-                        Float.toString(point.pressure) };
-                csvWrite.writeNext(row);
-                points.add(new dataTypes.Point(point.x, point.y, point.pressure));
-            }
-            Response tempResponse = new Response(points);
-            mResponses.add(new Response(tempResponse.getNormalizedResponse()));
-            mChallenge.addResponse(tempResponse);
-            csvWrite.close();
-
-            Toast.makeText(this, "Challenge response written to CSV.", Toast.LENGTH_SHORT).show();
+        if(!mChallengePointsAssigned) {
+            mChallenge = new Challenge(mChallengePoints, (int)mSeed);
+            mChallengePointsAssigned = true;
         }
-        catch( Exception e)
+
+        for( int i = 0; i < response.size(); i++)
         {
-            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+            dataTypes.Point point = response.get(i);
+            points.add(new dataTypes.Point(point.getX(), point.getY(), point.getPressure(), point.getTime()));
         }
+        Response tempResponse = new Response(points);
+        mResponses.add(new Response(tempResponse.getNormalizedResponse()));
+        mChallenge.addResponse(new Response(response));
+
     }
 
     public String getCurrentLocalTime()
