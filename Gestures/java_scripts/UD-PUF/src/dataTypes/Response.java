@@ -105,6 +105,9 @@ public class Response implements Serializable {
         traceDistance = computeTraceDistance();
         NL = (int) Math.floor((traceDistance / deltaD) + 1);
 
+        // computation for d moved here so that true value of NL is used
+        d = (NL * deltaD) - traceDistance;
+
         // added to handle the case where the response deltaD is longer than normalizingPoints
         NL = (NL <= normalizingPoints.size()) ? NL : normalizingPoints.size();
 
@@ -170,7 +173,6 @@ public class Response implements Serializable {
         }
 
         theta = Math.atan((curPoint.getY() - prevPoint.getY()) / (curPoint.getX() - prevPoint.getX()));
-        d = (NL * deltaD) - traceDistance;
 
         for(i = NL; i < N; i++) {
             newX = prevPoint.getX() + (d * Math.cos(theta) * x_sine);

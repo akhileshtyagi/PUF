@@ -33,10 +33,10 @@ public class UserDevicePair_point_vector {
         System.out.println("Time:\t\t" + time_point_vector);
 
         // Graph the point lists to see normalization is going correctly
-        graph_points graph_frame = new graph_points();
-
-        graph_frame.addPointList(response_points, "origional_response_points");
-        graph_frame.addPointList(ud_pair.getChallenges().get(0).getNormalizingPoints(), "normalizing_points");
+//        graph_points graph_frame = new graph_points();
+//
+//        graph_frame.addPointList(response_points, "origional_response_points");
+//        graph_frame.addPointList(ud_pair.getChallenges().get(0).getNormalizingPoints(), "normalizing_points");
 
         // want the normalized response points to graph
 //        Response response = new Response(response_points);
