@@ -341,7 +341,7 @@ public class UserDevicePair {
 
         // error check
         if (new_response_data.size() != profile.getNormalizedResponses().get(0).getNormalizedResponse().size()) {
-            System.out.println("souldn't be here: " + new_response_data.size() + " | " + profile.getNormalizedResponses().get(0).getNormalizedResponse().size());
+            System.out.println("shouldn't be here: " + new_response_data.size() + " | " + profile.getNormalizedResponses().get(0).getNormalizedResponse().size());
             return;
         }
 

@@ -59,38 +59,34 @@ public class Response implements Serializable {
         return responsePattern.get(responsePattern.size() - 1).getTime() - responsePattern.get(0).getTime();
     }
 
+    /**
+     * Normalizes current Response Pattern to points within normalizingPoints; Interpolates values for
+     * pressure, distance, time, etc.
+     * @param normalizingPoints List of points for the response to normalize to
+     */
     public void normalize(List<Point> normalizingPoints) {
         ArrayList<Point> newNormalizedList = new ArrayList<>();
-        double xTransform, yTransform, theta, newX, newY, newPressure, newDistance, newTime;
-        double traceDistance;
 
-        // Distance between each of the normalizing points
-        double deltaD;
+        double xTransform, yTransform; // For moving response points to align with normalizingPoints
+        double theta, newX, newY, newPressure, newDistance, newTime; // Values to use in creating normalizedResponsePattern
+        double traceDistance; // Euclidean distance from entire current responsePattern
+        double deltaD; // Distance between each of the normalizing points
+        double remainingDistance; // Used to keep a running total of how far along the next point has gone
+        double d; // Used when needing to interpolate more points if the trace isn't as long as list of normalizingPoints
+        double cumulativeTime = 0; // Total time between normalized points
+        double prevCumulativeTime = 0; // Time used to calculated normalized time; is subtracted from total time
+        double interpolated_time; // Total Time / number of points, to be used to add points' time values when interpolating
 
-        // Number of new Normalizing Points the current trace covers
-        int NL;
+        int numExtraNormalizingPoints; // Number of new Normalizing Points the current trace covers
+        int normalizingPointsLength = normalizingPoints.size();
+        int responseLength = responsePattern.size();
+        int i, j; // i counts indices of normalizingPoints, j counts indices of responsePattern
 
-        int N = normalizingPoints.size();
-        int M = responsePattern.size();
-
-        // Used to keep a running total of how far along the next point has gone
-        double remainingDistance;
-
-        // Used when needing to interpolate more points if the trace isn't as long as list of normalizingPoints
-        double d;
-
-        // Previous and current trace points when looping through response
-        Point prevPoint, curPoint;
-
-        // i counts indices of normalizingPoints
-        // j counts indices of responsePattern
-        int i = 0;
-        int j = 0;
-
-        xTransform = normalizingPoints.get(0).getX() - responsePattern.get(0).getX();
-        yTransform = normalizingPoints.get(0).getY() - responsePattern.get(0).getY();
+        Point prevPoint, curPoint; // Previous and current trace points when looping through response
 
         // preform the transformation, add first point to new Normalized List
+        xTransform = normalizingPoints.get(0).getX() - responsePattern.get(0).getX();
+        yTransform = normalizingPoints.get(0).getY() - responsePattern.get(0).getY();
         transform_response(responsePattern, xTransform, yTransform);
         newNormalizedList.add(responsePattern.get(0));
 
@@ -100,19 +96,19 @@ public class Response implements Serializable {
             return;
         }
 
+        // Distance to walk each point to normalized point
         deltaD = computeEuclideanDistance(normalizingPoints.get(0), normalizingPoints.get(1));
-
         traceDistance = computeTraceDistance();
-        NL = (int) Math.floor((traceDistance / deltaD) + 1);
+        numExtraNormalizingPoints = (int) Math.floor((traceDistance / deltaD) + 1);
 
         // added to handle the case where the response deltaD is longer than normalizingPoints
-        NL = (NL <= normalizingPoints.size()) ? NL : normalizingPoints.size();
+        numExtraNormalizingPoints = (numExtraNormalizingPoints <= normalizingPoints.size()) ? numExtraNormalizingPoints : normalizingPoints.size();
 
         remainingDistance = deltaD;
         j = 1;
 
         // this loop will run NL-1 times
-        for(i = 1; i < NL; i++) {
+        for(i = 1; i < numExtraNormalizingPoints; i++) {
             prevPoint = responsePattern.get(j - 1);
             curPoint = responsePattern.get(j);
 
@@ -122,10 +118,14 @@ public class Response implements Serializable {
                     return;
                 }
                 remainingDistance -= computeEuclideanDistance(prevPoint, curPoint);
+                cumulativeTime += curPoint.getTime();
                 j++;
                 prevPoint = responsePattern.get(j - 1);
                 curPoint = responsePattern.get(j);
             }
+
+            // Subtract off the last time added
+            cumulativeTime -= curPoint.getTime();
 
             double x_difference = (curPoint.getX() - prevPoint.getX());
             double x_sine = 1;
@@ -146,11 +146,13 @@ public class Response implements Serializable {
             /* distance */
             newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
             /* time */
-            newTime = prevPoint.getTime() + ((remainingDistance/computeEuclideanDistance(prevPoint, curPoint)) * (curPoint.getTime() - prevPoint.getTime()));
+            newTime = cumulativeTime + (curPoint.getTime() * (remainingDistance/computeEuclideanDistance(prevPoint, curPoint))) - prevCumulativeTime;
 
             newNormalizedList.add(new Point(newX, newY, newPressure, newDistance, newTime));
 
             remainingDistance = deltaD + computeEuclideanDistance(prevPoint, newNormalizedList.get(i));
+
+            prevCumulativeTime = cumulativeTime;
         }
 
         // this breaks things because if we have any points left to do and we don't do them then our normalized response lists will be differant sizes.
@@ -161,8 +163,8 @@ public class Response implements Serializable {
         }
 
         // Now take care of remaining (NL - N) points which we need to interpolate
-        prevPoint = responsePattern.get(M - 2);
-        curPoint = responsePattern.get(M - 1);
+        prevPoint = responsePattern.get(responseLength - 2);
+        curPoint = responsePattern.get(responseLength - 1);
         double x_difference = (curPoint.getX() - prevPoint.getX());
         double x_sine = 1;
         // check that the difference isn't equal to zero to ensure no divide by 0 error
@@ -172,9 +174,12 @@ public class Response implements Serializable {
         }
 
         theta = Math.atan((curPoint.getY() - prevPoint.getY()) / (curPoint.getX() - prevPoint.getX()));
-        d = (NL * deltaD) - traceDistance;
+        d = (numExtraNormalizingPoints * deltaD) - traceDistance;
 
-        for(i = NL; i < N; i++) {
+        cumulativeTime+= cumulativeTime + curPoint.getTime();
+        interpolated_time = cumulativeTime / normalizingPointsLength ;
+
+        for(i = numExtraNormalizingPoints; i < normalizingPointsLength ; i++) {
             newX = prevPoint.getX() + (d * Math.cos(theta) * x_sine);
             newY = prevPoint.getY() + (d * Math.sin(theta) * x_sine);
 
@@ -183,10 +188,8 @@ public class Response implements Serializable {
             newPressure = curPoint.getPressure() + (((curPoint.getPressure() - prevPoint.getPressure()) / (computeEuclideanDistance(curPoint, prevPoint))) * d);
             /* distance */
             newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
-            /* time */
-            newTime = curPoint.getTime() + (((curPoint.getTime() - prevPoint.getTime()) / (computeEuclideanDistance(curPoint, prevPoint))) * d);
 
-            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance, newTime));
+            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance, interpolated_time));
 
             d += deltaD;
         }
@@ -216,7 +219,7 @@ public class Response implements Serializable {
         // add x,y to every point
         for (int i = 0; i < response_points.size(); i++) {
             Point p = response_points.get(i);
-            response_points.set(i, new Point(p.getX() + x_transform, p.getY() + y_transform, p.getPressure(), p.getDistance(), p.getPressure()));
+            response_points.set(i, new Point(p.getX() + x_transform, p.getY() + y_transform, p.getPressure(), p.getDistance(), p.getTime()));
         }
     }
 

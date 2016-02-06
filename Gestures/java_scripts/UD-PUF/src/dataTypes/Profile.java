@@ -438,19 +438,19 @@ public class Profile implements Serializable {
     }
 
     private void compute_pressure_mu_sigma() {
-        // compute mu sigma for pressure
-        List<Double> normalized_point_pressure_list = null;
-        this.pressure_muSigmaValues = new MuSigma();
+                // compute mu sigma for pressure
+                List<Double> normalized_point_pressure_list = null;
+                this.pressure_muSigmaValues = new MuSigma();
 
-        // for each point in the distribution, compute mu an sigma
-        for (int i = 0; i < this.normalizedResponses.get(0).getNormalizedResponse().size(); i++) {
-            // go though each of the responses collecting value
-            // of point i in the response
-            normalized_point_pressure_list = new ArrayList<Double>();
-            for (Response response : this.normalizedResponses) {
-                if(response.getNormalizedResponse().size() <= i) continue;
-                normalized_point_pressure_list.add(response.getNormalizedResponse().get(i).getPressure());
-            }
+                // for each point in the distribution, compute mu an sigma
+                for (int i = 0; i < this.normalizedResponses.get(0).getNormalizedResponse().size(); i++) {
+                    // go though each of the responses collecting value
+                    // of point i in the response
+                    normalized_point_pressure_list = new ArrayList<Double>();
+                    for (Response response : this.normalizedResponses) {
+                        if(response.getNormalizedResponse().size() <= i) continue;
+                        normalized_point_pressure_list.add(response.getNormalizedResponse().get(i).getPressure());
+                    }
 
             // compute the average (mu)
             // compute std deviation
