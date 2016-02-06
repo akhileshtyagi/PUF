@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.app.Activity;
+import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
@@ -12,7 +13,9 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import dataTypes.Challenge;
 import dataTypes.Profile;
@@ -23,6 +26,7 @@ public class Authenticate extends Activity {
 
     private static final String TAG = "AuthenticateActivity";
     private ArrayList<Challenge> mChallenges;
+    private List<Double> pressure_vector, distance_vector, time_vector;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,7 +65,8 @@ public class Authenticate extends Activity {
         TextView pressure_CI_tv = (TextView) findViewById(R.id.auth_pressure_ci);
         TextView distance_CI_tv = (TextView) findViewById(R.id.auth_distance_ci);
         TextView time_CI_tv = (TextView) findViewById(R.id.auth_time_ci);
-
+        TextView vector_info_tv = (TextView) findViewById(R.id.vector_info_ci);
+        vector_info_tv.setMovementMethod(new ScrollingMovementMethod());
         Gson gson = new Gson();
 
         SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.response", Context.MODE_PRIVATE);
@@ -79,6 +84,30 @@ public class Authenticate extends Activity {
         distance_CI_tv.setText("Distance CI: " +  udPair.getNew_response_distance_CI(mResponse.getNormalizedResponse(), mProfile));
         time_CI_tv.setText("Time CI: " + udPair.getNew_response_time_CI(mResponse.getNormalizedResponse(), mProfile));
         CI_tv.setText("Authentication CI: " + udPair.getNew_response_confidence_interval());
+
+        String default_value = getResources().getString(R.string.profile_default_string);
+        StringBuilder sb = new StringBuilder();
+
+        pressure_vector = udPair.getNew_response_point_vector(UserDevicePair.RatioType.PRESSURE);
+        time_vector = udPair.getNew_response_point_vector(UserDevicePair.RatioType.TIME);
+        distance_vector = udPair.getNew_response_point_vector(UserDevicePair.RatioType.DISTANCE);
+
+        sb.append("Pressure Vectors\n");
+        for(int i = 0; i < pressure_vector.size(); i++) {
+            sb.append( "Pressure[" + i + "]: " + pressure_vector.get(i) + "\n");
+        }
+
+        sb.append("\nTime Vectors\n");
+        for(int i = 0; i < time_vector.size(); i++) {
+            sb.append( "Time[" + i + "]: " + time_vector.get(i) + "\n");
+        }
+
+        sb.append("\nDistance Vectors\n");
+        for(int i = 0; i < distance_vector.size(); i++) {
+            sb.append( "Distance[" + i + "]: " + distance_vector.get(i) + "\n");
+        }
+
+        vector_info_tv.setText(sb.toString());
 
     }
 

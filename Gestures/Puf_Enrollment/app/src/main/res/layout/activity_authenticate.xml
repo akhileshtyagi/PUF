@@ -11,7 +11,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:text="@string/authenticating_status"
         android:textSize="40sp"
         android:id="@+id/authenticating_status"/>
@@ -66,5 +65,15 @@
         android:text=""
         android:textSize="20sp"
         android:id="@+id/auth_time_ci"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/auth_time_ci"
+        android:scrollbars="vertical"
+        android:maxLines="200"
+        android:text=""
+        android:textSize="15sp"
+        android:id="@+id/vector_info_ci"/>
 
 </RelativeLayout>
