@@ -13,6 +13,10 @@ import java.util.ArrayList;
  * for example, pressure, distance, time are all differant metrics.
  */
 public class Point_metrics {
+    public enum METRIC_TYPE{
+
+    }
+
     private ArrayList<Metric> point_metrics;
 
     public Point_metrics(){
