@@ -73,6 +73,14 @@ public class Challenge implements Serializable {
         // add the time length of the response to the list
         this.time_lengths.add(response.getTimeLength());
 
+        // cause any duplicate points in the origional response to be filtered out'
+        int removed_count = response.remove_duplicates();
+
+        // checking to see if any points were removed. This is included for testing purposes
+        if( removed_count > 0){
+            System.out.println("Duplicate points removed:\t" + removed_count);
+        }
+
         // If first response added, use it as baseline for number of
         // normalization points,
         // then calculated normalizing points with

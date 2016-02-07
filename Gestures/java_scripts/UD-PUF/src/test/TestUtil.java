@@ -22,18 +22,7 @@ public class TestUtil {
         // create a userDeficePair
         UserDevicePair ud_pair = new UserDevicePair(0);
 
-        // create a list of challenge points
-        List<Point> challenge_points = new ArrayList<Point>();
-
-        // sample points for testing
-        challenge_points.add(new Point(100, 100, 0));
-        challenge_points.add(new Point(200, 100, 0));
-        challenge_points.add(new Point(300, 100, 0));
-        challenge_points.add(new Point(400, 100, 0));
-
-        // add the challenge to it which I want to authenticate against
-        // create 3 responses to add to this challenge
-        challenge = new Challenge(challenge_points, 0);
+        challenge = generate_challenge();
 
         for (int i = 0; i < 3; i++) {
             response_points = new ArrayList<Point>();
@@ -53,6 +42,24 @@ public class TestUtil {
         ud_pair.addChallenge(challenge);
 
         return ud_pair;
+    }
+
+    /**
+     * generates a challenge
+     */
+    public static Challenge generate_challenge(){
+        // create a list of challenge points
+        List<Point> challenge_points = new ArrayList<Point>();
+
+        // sample points for testing
+        challenge_points.add(new Point(100, 100, 0));
+        challenge_points.add(new Point(200, 100, 0));
+        challenge_points.add(new Point(300, 100, 0));
+        challenge_points.add(new Point(400, 100, 0));
+
+        // add the challenge to it which I want to authenticate against
+        // create 3 responses to add to this challenge
+        return new Challenge(challenge_points, 0);
     }
 
     /**

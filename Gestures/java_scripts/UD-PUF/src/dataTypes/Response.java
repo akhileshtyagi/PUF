@@ -60,8 +60,51 @@ public class Response implements Serializable {
     }
 
     /**
+     * remove all duplicate points from the response pattern.
+     * Points will only be compared in terms of x and y.
+     * <p>
+     * return the number of duplicates removed
+     */
+    public int remove_duplicates() {
+        int removed_count = 0;
+
+        // filter response_points
+        if (this.responsePattern.size() > 1) {
+            Point prev_point;
+            Point current_point;
+            int i = 1;
+
+            // go though list of points checking that neighbors are equal
+            while (i < responsePattern.size()) {
+                prev_point = responsePattern.get(i - 1);
+                current_point = responsePattern.get(i);
+
+                // check equality
+                if (locations_equal(current_point, prev_point)) {
+                    // points are equal, throw current point out
+                    responsePattern.remove(i);
+                    removed_count++;
+                } else {
+                    i++;
+                }
+            }
+        }
+
+        return removed_count;
+    }
+
+    /**
+     * determines if x1 == x2 and y1 == y2
+     */
+    private boolean locations_equal(Point p1, Point p2) {
+        double episilon = .001;
+        return (Math.abs(p2.getX() - p1.getX()) < episilon) && (Math.abs(p2.getY() - p1.getY()) < episilon);
+    }
+
+    /**
      * Normalizes current Response Pattern to points within normalizingPoints; Interpolates values for
      * pressure, distance, time, etc.
+     *
      * @param normalizingPoints List of points for the response to normalize to
      */
     public void normalize(List<Point> normalizingPoints) {
@@ -91,7 +134,7 @@ public class Response implements Serializable {
         newNormalizedList.add(responsePattern.get(0));
 
         // Catch if normalizingTrace is only 1 point (hopefully never happens)
-        if(normalizingPoints.size() == 1) {
+        if (normalizingPoints.size() == 1) {
             this.normalizedResponsePattern = newNormalizedList;
             return;
         }
@@ -108,12 +151,12 @@ public class Response implements Serializable {
         j = 1;
 
         // this loop will run NL-1 times
-        for(i = 1; i < numExtraNormalizingPoints; i++) {
+        for (i = 1; i < numExtraNormalizingPoints; i++) {
             prevPoint = responsePattern.get(j - 1);
             curPoint = responsePattern.get(j);
 
-            while(computeEuclideanDistance(prevPoint, curPoint) < remainingDistance) {
-                if(j >= responsePattern.size()) {
+            while (computeEuclideanDistance(prevPoint, curPoint) < remainingDistance) {
+                if (j >= responsePattern.size()) {
                     this.normalizedResponsePattern = newNormalizedList;
                     return;
                 }
@@ -142,11 +185,11 @@ public class Response implements Serializable {
 
             //Interpolate pressure and other attributes
             /* pressure */
-            newPressure = prevPoint.getPressure() + ((remainingDistance/computeEuclideanDistance(prevPoint, curPoint)) * (curPoint.getPressure() - prevPoint.getPressure()));
+            newPressure = prevPoint.getPressure() + ((remainingDistance / computeEuclideanDistance(prevPoint, curPoint)) * (curPoint.getPressure() - prevPoint.getPressure()));
             /* distance */
             newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
             /* time */
-            newTime = cumulativeTime + (curPoint.getTime() * (remainingDistance/computeEuclideanDistance(prevPoint, curPoint))) - prevCumulativeTime;
+            newTime = cumulativeTime + (curPoint.getTime() * (remainingDistance / computeEuclideanDistance(prevPoint, curPoint))) - prevCumulativeTime;
 
             newNormalizedList.add(new Point(newX, newY, newPressure, newDistance, newTime));
 
@@ -157,7 +200,7 @@ public class Response implements Serializable {
 
         // this breaks things because if we have any points left to do and we don't do them then our normalized response lists will be differant sizes.
         // This means there will be an arrayIndexOoutOfBounds error when we get to the part of the code where we find mu. if >= 1
-        if(responsePattern.size() <= 1) {
+        if (responsePattern.size() <= 1) {
             this.normalizedResponsePattern = newNormalizedList;
             return;
         }
@@ -176,10 +219,10 @@ public class Response implements Serializable {
         theta = Math.atan((curPoint.getY() - prevPoint.getY()) / (curPoint.getX() - prevPoint.getX()));
         d = (numExtraNormalizingPoints * deltaD) - traceDistance;
 
-        cumulativeTime+= cumulativeTime + curPoint.getTime();
-        interpolated_time = cumulativeTime / normalizingPointsLength ;
+        cumulativeTime += cumulativeTime + curPoint.getTime();
+        interpolated_time = cumulativeTime / normalizingPointsLength;
 
-        for(i = numExtraNormalizingPoints; i < normalizingPointsLength ; i++) {
+        for (i = numExtraNormalizingPoints; i < normalizingPointsLength; i++) {
             newX = prevPoint.getX() + (d * Math.cos(theta) * x_sine);
             newY = prevPoint.getY() + (d * Math.sin(theta) * x_sine);
 
@@ -199,12 +242,13 @@ public class Response implements Serializable {
 
     /**
      * Computes total euclidean distance of response pattern
+     *
      * @return distance of response pattern
      */
     double computeTraceDistance() {
         double distance = 0;
         Point firstPoint, secondPoint;
-        for(int i = 0; i < responsePattern.size() - 1; i++) {
+        for (int i = 0; i < responsePattern.size() - 1; i++) {
             firstPoint = responsePattern.get(i);
             secondPoint = responsePattern.get(i + 1);
             distance += computeEuclideanDistance(firstPoint, secondPoint);
