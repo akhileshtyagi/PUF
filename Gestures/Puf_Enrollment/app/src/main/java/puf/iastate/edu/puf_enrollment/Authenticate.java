@@ -109,6 +109,9 @@ public class Authenticate extends Activity {
 
         vector_info_tv.setText(sb.toString());
 
+        Challenge mChallenge = mChallenges.get(0);
+        udPair.dumpUserDevicePairData(mChallenge);
+
     }
 
 }
