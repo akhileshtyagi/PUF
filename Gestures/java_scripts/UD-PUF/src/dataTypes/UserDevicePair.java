@@ -1,5 +1,7 @@
 package dataTypes;
 
+import javafx.beans.binding.StringBinding;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -160,7 +162,6 @@ public class UserDevicePair {
      * authentication against a challenge
      *
      * @param new_response_data
-     * @param profile
      * @return
      */
     public boolean authenticate(List<Point> new_response_data, Challenge challenge) {
@@ -329,6 +330,88 @@ public class UserDevicePair {
         }
 
         return new ArrayList<Double>();
+    }
+
+    /**
+     * Prints a dump of all UserDevicePair info:
+     *  UD-Pair: Authentication Vectors
+     *  Profile: Mu Sigmas (pressure, distance, etc.)
+     *  Challenge: Normalizing Points, Responses
+     *
+     *  @param challenge challenge associated with this UserDivePair
+     *  @return String represntation of the info "dump"
+     */
+    public String dumpUserDevicePairData(Challenge challenge) {
+        StringBuilder sb = new StringBuilder();
+        Profile profile = challenge.getProfile();
+
+
+        // Print all vectors for profile
+        // Pressure Vector
+        sb.append("Profile Vectors\n\n");
+        sb.append("Pressure: \n");
+        for(int i = 0; i < pressure_point_vector.size(); i++) {
+            sb.append("PressureVector[").append(i).append("]: ").append(pressure_point_vector.get(i)).append("\n");
+        }
+        // Distance Vector
+        sb.append("\nDistance: \n");
+        for(int i = 0; i < distance_point_vector.size(); i++) {
+            sb.append("DistanceVector[").append(i).append("]: ").append(distance_point_vector.get(i)).append("\n");
+        }
+        // Time Vector
+        sb.append("\nTime: \n");
+        for(int i = 0; i < time_point_vector.size(); i++) {
+            sb.append("TimeVector[").append(i).append("]: ").append(time_point_vector.get(i)).append("\n");
+        }
+
+        // Print all MuSigmas from profile
+        sb.append("\n\nMu Sigma Values: \n\n");
+        //Pressure MuSigma
+        sb.append("\nPressure: \n");
+        for(int i = 0; i < profile.getPressureMuSigmaValues().getMuValues().size(); i++) {
+            sb.append("PressureMu[").append(i).append("]: ").append(profile.getPressureMuSigmaValues().getMuValues().get(i))
+                    .append(", PressureSigma[").append(i).append("]: ")
+                    .append(profile.getPressureMuSigmaValues().getSigmaValues().get(i)).append("\n");
+        }
+        //Distance MuSigma
+        sb.append("\nDistance: \n");
+        for(int i = 0; i < profile.getPointDistanceMuSigmaValues().getMuValues().size(); i++) {
+            sb.append("DistanceMu[").append(i).append("]: ").append(profile.getPointDistanceMuSigmaValues().getMuValues().get(i))
+                    .append(", DistanceSigma[").append(i).append("]: ")
+                    .append(profile.getPointDistanceMuSigmaValues().getSigmaValues().get(i)).append("\n");
+        }
+        //Time MuSigma
+        sb.append("\nTime: \n");
+        for(int i = 0; i < profile.getTimeDistanceMuSigmaValues().getMuValues().size(); i++) {
+            sb.append("TimeMu[").append(i).append("]: ").append(profile.getTimeDistanceMuSigmaValues().getMuValues().get(i))
+                    .append(", TimeSigma[").append(i).append("]: ")
+                    .append(profile.getTimeDistanceMuSigmaValues().getSigmaValues().get(i)).append("\n");
+        }
+
+        // Print Normalizing Points from challenge
+        sb.append("\n\nNormalizing Points: \n\n");
+        for(int i = 0; i < challenge.getNormalizingPoints().size(); i++) {
+            sb.append("NormalizingPoint[").append(i).append("]: ")
+                    .append(challenge.getNormalizingPoints().get(i).toString()).append("\n");
+        }
+
+        // Print All Responses that make up profile
+        sb.append("\n\n\nResponses:");
+
+        // Iterate over all responses
+        for(int i = 0; i < challenge.getResponsePattern().size(); i++) {
+            sb.append("Response ").append(i).append(":\n");
+            Response tempResponse = challenge.getResponsePattern().get(i);
+            for(int j = 0; j < tempResponse.getNormalizedResponse().size(); j++) {
+                sb.append("Point[").append(j).append("]: ")
+                        .append(tempResponse.getNormalizedResponse().get(j).toString()).append("\n");
+            }
+            sb.append("\n\n");
+        }
+
+        String dump = sb.toString();
+        System.out.println(dump);
+        return dump;
     }
 
     /**

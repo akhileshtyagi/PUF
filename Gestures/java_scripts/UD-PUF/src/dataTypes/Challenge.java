@@ -150,10 +150,6 @@ public class Challenge implements Serializable {
         return responses;
     }
 
-    public boolean isHorizontal() {
-        return isChallengeHorizontal;
-    }
-
     /**
      * compute list of normalizing points using euclidean distance.
      * this is based on the first response points.
