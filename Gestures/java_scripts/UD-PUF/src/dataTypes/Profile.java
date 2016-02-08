@@ -476,7 +476,12 @@ public class Profile implements Serializable {
             for (Response response : this.normalizedResponses) {
                 // distance values in the list correspond to point distance
                 if (response.getNormalizedResponse().size() <= i) continue;
-                normalized_point_distance_list.add((double)response.getNormalizedResponse().get(i).getPointMetric(Metric.METRIC_TYPE.DISTANCE).get_value());
+
+                if(response.getNormalizedResponse().get(i).getPointMetric(Metric.METRIC_TYPE.DISTANCE) == null){
+                    System.out.println("DISTANCE IS NULL");
+                } else {
+                    normalized_point_distance_list.add((double) response.getNormalizedResponse().get(i).getPointMetric(Metric.METRIC_TYPE.DISTANCE).get_value());
+                }
             }
 
             // compute the average (mu)
