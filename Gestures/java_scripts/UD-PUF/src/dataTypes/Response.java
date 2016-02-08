@@ -1,5 +1,7 @@
 package dataTypes;
 
+import metrics.*;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -56,7 +58,8 @@ public class Response implements Serializable {
      * being normalized.
      */
     public double getTimeLength() {
-        return responsePattern.get(responsePattern.size() - 1).getTime() - responsePattern.get(0).getTime();
+        // TODO make sure this doesn't break
+        return (Double)responsePattern.get(responsePattern.size() - 1).getPointMetric(Metric.METRIC_TYPE.TIME).get_value() - (Double)responsePattern.get(0).getPointMetric(Metric.METRIC_TYPE.TIME).get_value();
     }
 
     /**
@@ -66,6 +69,8 @@ public class Response implements Serializable {
      */
     public void normalize(List<Point> normalizingPoints) {
         ArrayList<Point> newNormalizedList = new ArrayList<>();
+
+        PointMetrics new_point_metrics;
 
         double xTransform, yTransform; // For moving response points to align with normalizingPoints
         double theta, newX, newY, newPressure, newDistance, newTime; // Values to use in creating normalizedResponsePattern
@@ -118,14 +123,14 @@ public class Response implements Serializable {
                     return;
                 }
                 remainingDistance -= computeEuclideanDistance(prevPoint, curPoint);
-                cumulativeTime += curPoint.getTime();
+                cumulativeTime += (double)curPoint.getPointMetric(Metric.METRIC_TYPE.TIME).get_value();
                 j++;
                 prevPoint = responsePattern.get(j - 1);
                 curPoint = responsePattern.get(j);
             }
 
             // Subtract off the last time added
-            cumulativeTime -= curPoint.getTime();
+            cumulativeTime -= (double)curPoint.getPointMetric(Metric.METRIC_TYPE.TIME).get_value();
 
             double x_difference = (curPoint.getX() - prevPoint.getX());
             double x_sine = 1;
@@ -142,13 +147,19 @@ public class Response implements Serializable {
 
             //Interpolate pressure and other attributes
             /* pressure */
-            newPressure = prevPoint.getPressure() + ((remainingDistance/computeEuclideanDistance(prevPoint, curPoint)) * (curPoint.getPressure() - prevPoint.getPressure()));
+            newPressure = ((double)prevPoint.getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value()) + ((remainingDistance/computeEuclideanDistance(prevPoint, curPoint)) * ((double)curPoint.getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value() - (double)prevPoint.getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value()));
             /* distance */
-            newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
+            newDistance = computeEuclideanDistance(new Point(newX, newY), curPoint);
             /* time */
-            newTime = cumulativeTime + (curPoint.getTime() * (remainingDistance/computeEuclideanDistance(prevPoint, curPoint))) - prevCumulativeTime;
+            newTime = cumulativeTime + (((double)curPoint.getPointMetric(Metric.METRIC_TYPE.TIME).get_value()) * (remainingDistance/computeEuclideanDistance(prevPoint, curPoint))) - prevCumulativeTime;
 
-            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance, newTime));
+            // add the point to the normalized list
+            new_point_metrics = new PointMetrics();
+            new_point_metrics.add_metric(new PressureMetric(newPressure));
+            new_point_metrics.add_metric(new DistanceMetric(newDistance));
+            new_point_metrics.add_metric(new TimeMetric(newTime));
+
+            newNormalizedList.add(new Point(newX, newY, new_point_metrics));
 
             remainingDistance = deltaD + computeEuclideanDistance(prevPoint, newNormalizedList.get(i));
 
@@ -176,7 +187,7 @@ public class Response implements Serializable {
         theta = Math.atan((curPoint.getY() - prevPoint.getY()) / (curPoint.getX() - prevPoint.getX()));
         d = (numExtraNormalizingPoints * deltaD) - traceDistance;
 
-        cumulativeTime+= cumulativeTime + curPoint.getTime();
+        cumulativeTime+= cumulativeTime + (double)curPoint.getPointMetric(Metric.METRIC_TYPE.TIME).get_value();
         interpolated_time = cumulativeTime / normalizingPointsLength ;
 
         for(i = numExtraNormalizingPoints; i < normalizingPointsLength ; i++) {
@@ -185,11 +196,17 @@ public class Response implements Serializable {
 
             // Compute pressure and other attributes
             /* pressure */
-            newPressure = curPoint.getPressure() + (((curPoint.getPressure() - prevPoint.getPressure()) / (computeEuclideanDistance(curPoint, prevPoint))) * d);
+            newPressure = (double)curPoint.getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value() + ((((double)curPoint.getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value() - (double)prevPoint.getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value()) / (computeEuclideanDistance(curPoint, prevPoint))) * d);
             /* distance */
-            newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
+            newDistance = computeEuclideanDistance(new Point(newX, newY), curPoint);
 
-            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance, interpolated_time));
+            // add the point to the normalized list
+            new_point_metrics = new PointMetrics();
+            new_point_metrics.add_metric(new PressureMetric(newPressure));
+            new_point_metrics.add_metric(new DistanceMetric(newDistance));
+            new_point_metrics.add_metric(new TimeMetric(interpolated_time));
+
+            newNormalizedList.add(new Point(newX, newY, new_point_metrics));
 
             d += deltaD;
         }
@@ -219,7 +236,8 @@ public class Response implements Serializable {
         // add x,y to every point
         for (int i = 0; i < response_points.size(); i++) {
             Point p = response_points.get(i);
-            response_points.set(i, new Point(p.getX() + x_transform, p.getY() + y_transform, p.getPressure(), p.getDistance(), p.getTime()));
+
+            response_points.set(i, new Point(p.getX() + x_transform, p.getY() + y_transform, p.getPointMetrics()));
         }
     }
 

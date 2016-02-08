@@ -1,8 +1,9 @@
 package dataTypes;
 
-import java.io.Serializable;
+import metrics.Metric;
+import metrics.PointMetrics;
 
-import metrics.Point_metrics;
+import java.io.Serializable;
 
 /**
  * This class represents one point of x, y, and pressure values
@@ -10,70 +11,51 @@ import metrics.Point_metrics;
 public class Point implements Serializable {
     private static final long serialVersionUID = -6396773155505367546L;
 
-    // Coordinates and pressure value for given point
-    private double x;
-    private double y;
-    private double pressure;
-    private double distance;
-    private double time;
+    // point_metrics contain the metrics we will use to evaluate the trace.
+    // examples are pressure, distance, time, velocity, acceleration
+    private PointMetrics point_metrics;
+    double x;
+    double y;
 
-    public Point(double x, double y, double pressure, double distance, double timestamp) {
-	this(x, y, pressure, distance);
-	this.time = timestamp;
+    public Point(double x, double y) {
+        this(x, y, new PointMetrics());
     }
 
-    public Point(double x, double y, double pressure, double distance) {
-	this(x, y, pressure);
-	this.distance = distance;
+    public Point(double x, double y, PointMetrics point_metrics) {
+        this.point_metrics = point_metrics;
+        this.x = x;
+        this.y = y;
     }
-
-    public Point(double x, double y, double pressure) {
-	this.x = x;
-	this.y = y;
-	this.pressure = pressure;
-	this.distance = -1;
-	this.time = 0;
-    }
-
-    // TODO potentially use something like this
-    //    public Point(double x, double y, Point_metrics point_metrics){
-    //        // TODO
-    //    }
 
     public Point(Point p) {
-	this.x = p.x;
-	this.y = p.y;
-	this.pressure = p.pressure;
-	this.distance = p.distance;
-	this.time = p.time;
+        this.point_metrics = new PointMetrics(p.point_metrics);
+        this.x = p.x;
+        this.y = p.y;
     }
 
     public double getX() {
-	return x;
+        return x;
     }
 
     public double getY() {
-	return y;
+        return y;
     }
 
-    public double getPressure() {
-	return pressure;
+    public Metric getPointMetric(Metric.METRIC_TYPE type) {
+        return point_metrics.get_metric(type);
     }
 
-    public double getDistance() {
-	return this.distance;
+    /**
+     * returns the point metrics object.
+     *
+     * This is useful for making another point with the same point metrics
+     */
+    public PointMetrics getPointMetrics(){
+        return this.point_metrics;
     }
 
-    public double getTime() {
-	return this.time;
-    }
-
-    public void setDistance(double distance) {
-	this.distance = distance;
-    }
-
-    public void setTime(double timestamp) {
-	this.time = timestamp;
+    public void setPointMetric(Metric<? extends Metric> value){
+        point_metrics.add_metric(value);
     }
 
     /**
@@ -89,27 +71,28 @@ public class Point implements Serializable {
      */
     @Override
     public boolean equals(Object p) {
-	Point other = (Point) p;
-	boolean same = true;
+        Point other = (Point) p;
+        boolean same = true;
 
-	same = same && this.x == other.x;
-	same = same && this.y == other.y;
-	same = same && this.pressure == other.pressure;
+        // check x,y values
+        same = same && this.x == other.x;
+        same = same && this.y == other.y;
 
-	return same;
+        // check PointMetrics
+        same = same && this.point_metrics.equals(other.point_metrics);
+
+        return same;
     }
-    
+
     @Override
-    public String toString(){
-	String string = "";
-	
-	string += "[";
-	string += this.x + ", ";
-	string += this.y + ", ";
-	string += String.format("%.3f", this.pressure) + ", ";
-	string += this.distance + ", ";
-	string += this.time + "]";
-	
-	return string;
+    public String toString() {
+        String string = "";
+
+        string += "[";
+        string += this.x + ", ";
+        string += this.y + ", ";
+        string += this.point_metrics.toString();
+
+        return string;
     }
 }

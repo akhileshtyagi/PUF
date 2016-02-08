@@ -9,6 +9,9 @@ import dataTypes.Challenge;
 import dataTypes.Point;
 import dataTypes.Response;
 import dataTypes.UserDevicePair;
+import metrics.PointMetrics;
+import metrics.PressureMetric;
+import metrics.TimeMetric;
 
 public class TestUtil {
     /**
@@ -18,6 +21,7 @@ public class TestUtil {
         Challenge challenge;
         Response response;
         List<Point> response_points;
+        PointMetrics point_metrics;
 
         // create a userDeficePair
         UserDevicePair ud_pair = new UserDevicePair(0);
@@ -26,10 +30,10 @@ public class TestUtil {
         List<Point> challenge_points = new ArrayList<Point>();
 
         // sample points for testing
-        challenge_points.add(new Point(100, 100, 0));
-        challenge_points.add(new Point(200, 100, 0));
-        challenge_points.add(new Point(300, 100, 0));
-        challenge_points.add(new Point(400, 100, 0));
+        challenge_points.add(new Point(100, 100));
+        challenge_points.add(new Point(200, 100));
+        challenge_points.add(new Point(300, 100));
+        challenge_points.add(new Point(400, 100));
 
         // add the challenge to it which I want to authenticate against
         // create 3 responses to add to this challenge
@@ -40,7 +44,11 @@ public class TestUtil {
 
             // create the response
             for (int j = 0; j < 32; j++) {
-                response_points.add(new Point((300 / 31) * j + 100, 100, i, 100, j));
+                point_metrics = new PointMetrics();
+                point_metrics.add_metric(new PressureMetric(1.0 * i));
+                point_metrics.add_metric(new TimeMetric(1.0 * j));
+
+                response_points.add(new Point((300 / 31) * j + 100, 100, point_metrics));
             }
 
             response = new Response(response_points);

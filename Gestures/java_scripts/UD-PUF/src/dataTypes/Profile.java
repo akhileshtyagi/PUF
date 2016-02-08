@@ -1,5 +1,7 @@
 package dataTypes;
 
+import metrics.Metric;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -371,23 +373,23 @@ public class Profile implements Serializable {
         // [1 - Sigma_{i=1}^N( |p_i - mu_i| / mu_i)] / N
         for (int i = 0; i < num_points; i++) {
             if (!Double.isNaN(pressure_muSigmaValues.getSigmaValues().get(i))
-                    && !Double.isInfinite(new_response.get(i).getPressure())) {
+                    && !Double.isInfinite((double) new_response.get(i).getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value())) {
                 auth_sd_pressure_contribution += (1
-                        - (Math.abs(new_response.get(i).getPressure() - (pressure_muSigmaValues.getMuValues().get(i)))
+                        - (Math.abs((double)new_response.get(i).getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value() - (pressure_muSigmaValues.getMuValues().get(i)))
                         / pressure_muSigmaValues.getMuValues().get(i)));
             }
 
             if (!Double.isNaN(time_muSigmaValues.getSigmaValues().get(i))
-                    && !Double.isInfinite(new_response.get(i).getPressure())) {
+                    && !Double.isInfinite((double) new_response.get(i).getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value())) {
                 auth_sd_time_contribution += (1
-                        - (Math.abs(new_response.get(i).getTime() - (time_muSigmaValues.getMuValues().get(i)))
+                        - (Math.abs((double)new_response.get(i).getPointMetric(Metric.METRIC_TYPE.TIME).get_value() - (time_muSigmaValues.getMuValues().get(i)))
                         / time_muSigmaValues.getMuValues().get(i)));
             }
 
             if (!Double.isNaN(point_distance_muSigmaValues.getSigmaValues().get(i))
-                    && !Double.isInfinite(new_response.get(i).getPressure())) {
+                    && !Double.isInfinite((double) new_response.get(i).getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value())) {
                 auth_sd_distance_contribution += (1 - (Math
-                        .abs(new_response.get(i).getDistance() - (point_distance_muSigmaValues.getMuValues().get(i)))
+                        .abs((double) new_response.get(i).getPointMetric(Metric.METRIC_TYPE.DISTANCE).get_value() - (point_distance_muSigmaValues.getMuValues().get(i)))
                         / point_distance_muSigmaValues.getMuValues().get(i)));
             }
         }
@@ -438,19 +440,19 @@ public class Profile implements Serializable {
     }
 
     private void compute_pressure_mu_sigma() {
-                // compute mu sigma for pressure
-                List<Double> normalized_point_pressure_list = null;
-                this.pressure_muSigmaValues = new MuSigma();
+        // compute mu sigma for pressure
+        List<Double> normalized_point_pressure_list = null;
+        this.pressure_muSigmaValues = new MuSigma();
 
-                // for each point in the distribution, compute mu an sigma
-                for (int i = 0; i < this.normalizedResponses.get(0).getNormalizedResponse().size(); i++) {
-                    // go though each of the responses collecting value
-                    // of point i in the response
-                    normalized_point_pressure_list = new ArrayList<Double>();
-                    for (Response response : this.normalizedResponses) {
-                        if(response.getNormalizedResponse().size() <= i) continue;
-                        normalized_point_pressure_list.add(response.getNormalizedResponse().get(i).getPressure());
-                    }
+        // for each point in the distribution, compute mu an sigma
+        for (int i = 0; i < this.normalizedResponses.get(0).getNormalizedResponse().size(); i++) {
+            // go though each of the responses collecting value
+            // of point i in the response
+            normalized_point_pressure_list = new ArrayList<Double>();
+            for (Response response : this.normalizedResponses) {
+                if (response.getNormalizedResponse().size() <= i) continue;
+                normalized_point_pressure_list.add((double)response.getNormalizedResponse().get(i).getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value());
+            }
 
             // compute the average (mu)
             // compute std deviation
@@ -473,8 +475,8 @@ public class Profile implements Serializable {
             normalized_point_distance_list = new ArrayList<Double>();
             for (Response response : this.normalizedResponses) {
                 // distance values in the list correspond to point distance
-                if(response.getNormalizedResponse().size() <= i) continue;
-                normalized_point_distance_list.add(response.getNormalizedResponse().get(i).getDistance());
+                if (response.getNormalizedResponse().size() <= i) continue;
+                normalized_point_distance_list.add((double)response.getNormalizedResponse().get(i).getPointMetric(Metric.METRIC_TYPE.DISTANCE).get_value());
             }
 
             // compute the average (mu)
@@ -498,8 +500,8 @@ public class Profile implements Serializable {
             normalized_time_list = new ArrayList<Double>();
             for (Response response : this.normalizedResponses) {
                 // grab the time values from ith point in the list of responses
-                if(response.getNormalizedResponse().size() <= i) continue;
-                normalized_time_list.add(response.getNormalizedResponse().get(i).getTime());
+                if (response.getNormalizedResponse().size() <= i) continue;
+                normalized_time_list.add((double)response.getNormalizedResponse().get(i).getPointMetric(Metric.METRIC_TYPE.TIME).get_value());
             }
 
             // compute the average (mu)

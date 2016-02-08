@@ -94,21 +94,21 @@ public class Effectiveness {
 	switch (CHALLENGE_TYPE) {
 	case BOX:
 	    // on nesus 7 ( ross, tim )
-	    challenge_points.add(new Point(88, 150, 0));
-	    challenge_points.add(new Point(648, 150, 0));
+	    challenge_points.add(new Point(88, 150));
+	    challenge_points.add(new Point(648, 150));
 	    break;
 	case BIG_SQUIGGLE:
 	    // on nexus 7 ( carlos, tim )
-	    challenge_points.add(new Point(88, 75, 0));
-	    challenge_points.add(new Point(274, 752, 0));
-	    challenge_points.add(new Point(461, 300, 0));
-	    challenge_points.add(new Point(648, 978, 0));
+	    challenge_points.add(new Point(88, 75));
+	    challenge_points.add(new Point(274, 752));
+	    challenge_points.add(new Point(461, 300));
+	    challenge_points.add(new Point(648, 978));
 	    break;
 	case CHECK:
 	    // on nexus 7 ( josh, tim )
-	    challenge_points.add(new Point(88, 75, 0));
-	    challenge_points.add(new Point(188, 376, 0));
-	    challenge_points.add(new Point(288, 275, 0));
+	    challenge_points.add(new Point(88, 75));
+	    challenge_points.add(new Point(188, 376));
+	    challenge_points.add(new Point(288, 275));
 	    break;
 	}
 

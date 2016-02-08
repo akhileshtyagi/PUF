@@ -25,7 +25,6 @@ public class Response_Normalization_test {
     public static void main(String[] args) {
         ArrayList<Point> response_points = new ArrayList<Point>();
         ArrayList<Point> normalization_points = new ArrayList<Point>();
-        boolean is_challenge_horizontal = true;
 
         // create the response with enormous slope
 //        for (int j = 0; j < 2; j++) {
@@ -39,11 +38,11 @@ public class Response_Normalization_test {
 
         // (x,y,pressure,distance,time)
         // create response points
-        response_points.add(new Point(0, 1158, 0.825, 0, 0));
-        response_points.add(new Point(0, 1165, .825, 0, 0));
+        response_points.add(new Point(0, 1158));
+        response_points.add(new Point(0, 1165));
 
         // create normalization points
-        normalization_points.add(new Point(841, 1161, 0));
+        normalization_points.add(new Point(841, 1161));
         //normalization_points.add(new Point(1* j + 100, 100, 1.5));
 
         // normalize response

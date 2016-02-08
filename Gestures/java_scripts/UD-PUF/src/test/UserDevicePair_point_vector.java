@@ -7,6 +7,10 @@ import dataTypes.Challenge;
 import dataTypes.Point;
 import dataTypes.Response;
 import dataTypes.UserDevicePair;
+import metrics.Metric;
+import metrics.PointMetrics;
+import metrics.PressureMetric;
+import metrics.TimeMetric;
 
 /**
  * this class tests that UserDevicePair returns point_vector correctly.
@@ -47,13 +51,18 @@ public class UserDevicePair_point_vector {
     /**
      * generates some response points
      */
-    public static ArrayList<Point> generate_response_points(){
-        ArrayList<Point> response_points  = new ArrayList<Point>();
+    public static ArrayList<Point> generate_response_points() {
+        ArrayList<Point> response_points = new ArrayList<Point>();
+        PointMetrics point_metrics = new PointMetrics();
 
         // create the response
         int num_points = 10;
         for (int j = 0; j < num_points; j++) {
-            response_points.add(new Point((300 / num_points) * j + 100, 100, 1.5));
+            point_metrics = new PointMetrics();
+            point_metrics.add_metric(new PressureMetric(1.5));
+            point_metrics.add_metric(new TimeMetric(17.0));
+
+            response_points.add(new Point((300 / num_points) * j + 100, 100, point_metrics));
         }
 
         return response_points;
@@ -66,6 +75,7 @@ public class UserDevicePair_point_vector {
         Challenge challenge;
         Response response;
         List<Point> response_points;
+        PointMetrics point_metrics = new PointMetrics();
 
         // create a userDeficePair
         UserDevicePair ud_pair = new UserDevicePair(0);
@@ -74,10 +84,10 @@ public class UserDevicePair_point_vector {
         List<Point> challenge_points = new ArrayList<Point>();
 
         // sample points for testing
-        challenge_points.add(new Point(100, 100, 0));
-        challenge_points.add(new Point(200, 100, 0));
-        challenge_points.add(new Point(300, 100, 0));
-        challenge_points.add(new Point(400, 100, 0));
+        challenge_points.add(new Point(100, 100));
+        challenge_points.add(new Point(200, 100));
+        challenge_points.add(new Point(300, 100));
+        challenge_points.add(new Point(400, 100));
 
         // add the challenge to it which I want to authenticate against
         // create 3 responses to add to this challenge
@@ -88,7 +98,11 @@ public class UserDevicePair_point_vector {
 
             // create the response
             for (int j = 0; j < 32; j++) {
-                response_points.add(new Point((300 / 31) * j + 100, 100, i, 100, j));
+                point_metrics = new PointMetrics();
+                point_metrics.add_metric(new PressureMetric(1.0 * i));
+                point_metrics.add_metric(new TimeMetric(1.0 * j));
+
+                response_points.add(new Point((300 / 31) * j + 100, 100, point_metrics));
             }
 
             response = new Response(response_points);

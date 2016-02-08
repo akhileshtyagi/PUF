@@ -1,5 +1,7 @@
 package dataTypes;
 
+import metrics.Metric;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -158,10 +160,6 @@ public class UserDevicePair {
     /**
      * provides for authentication against a profile. This is as opposed to
      * authentication against a challenge
-     *
-     * @param new_response_data
-     * @param profile
-     * @return
      */
     public boolean authenticate(List<Point> new_response_data, Challenge challenge) {
         Profile profile = challenge.getProfile();
@@ -215,8 +213,8 @@ public class UserDevicePair {
         this.distance_authentication_failed_point_ratio = ((double) failed_distance_points) / list_size;
         this.time_authentication_failed_point_ratio = ((double) failed_time_points) / list_size;
 
-        double response_time_length = new_response_data.get(new_response_data.size() - 1).getTime()
-                - new_response_data.get(0).getTime();
+        double response_time_length = (double)new_response_data.get(new_response_data.size() - 1).getPointMetric(Metric.METRIC_TYPE.TIME).get_value()
+                - (double)new_response_data.get(0).getPointMetric(Metric.METRIC_TYPE.TIME).get_value();
         boolean time_length_within_sigma = (Math.abs(profile.getTimeLengthMu()
                 - response_time_length) <= (profile.getTimeLengthSigma() * this.time_length_allowed_deviations));
 
@@ -368,9 +366,9 @@ public class UserDevicePair {
 
         // for each point in new_response, take abs(profile[i] - response[i])
         for (int i = 0; i < new_response_data.size(); i++) {
-            pressure_point_vector.add(Math.abs(new_response_data.get(i).getPressure() - profile.getPressureMuSigmaValues().getMuValues().get(i)));
-            distance_point_vector.add(Math.abs(new_response_data.get(i).getDistance() - profile.getPointDistanceMuSigmaValues().getMuValues().get(i)));
-            time_point_vector.add(Math.abs(new_response_data.get(i).getTime() - profile.getTimeDistanceMuSigmaValues().getMuValues().get(i)));
+            pressure_point_vector.add(Math.abs((double)new_response_data.get(i).getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value() - profile.getPressureMuSigmaValues().getMuValues().get(i)));
+            distance_point_vector.add(Math.abs((double)new_response_data.get(i).getPointMetric(Metric.METRIC_TYPE.DISTANCE).get_value() - profile.getPointDistanceMuSigmaValues().getMuValues().get(i)));
+            time_point_vector.add(Math.abs((double)new_response_data.get(i).getPointMetric(Metric.METRIC_TYPE.TIME).get_value() - profile.getTimeDistanceMuSigmaValues().getMuValues().get(i)));
         }
 
         return;
@@ -515,7 +513,7 @@ public class UserDevicePair {
 
         // create a list of point values for pressure
         for (Point response_point : response_object.getNormalizedResponse()) {
-            point_values.add(response_point.getPressure());
+            point_values.add((double)response_point.getPointMetric(Metric.METRIC_TYPE.PRESSURE).get_value());
         }
 
         points = failed_points(mu_values, sigma_values, point_values, allowed_deviations);
@@ -541,7 +539,7 @@ public class UserDevicePair {
 
         // create a list of point values for distance
         for (Point response_point : response_object.getNormalizedResponse()) {
-            point_values.add(response_point.getDistance());
+            point_values.add((double)response_point.getPointMetric(Metric.METRIC_TYPE.DISTANCE).get_value());
         }
 
         points = failed_points(mu_values, sigma_values, point_values, allowed_deviations);
@@ -567,7 +565,7 @@ public class UserDevicePair {
 
         // create a list of point values for time
         for (Point response_point : response_object.getNormalizedResponse()) {
-            point_values.add(response_point.getTime());
+            point_values.add((double)response_point.getPointMetric(Metric.METRIC_TYPE.TIME).get_value());
         }
 
         points = failed_points(mu_values, sigma_values, point_values, allowed_deviations);
@@ -602,79 +600,4 @@ public class UserDevicePair {
 
         return points;
     }
-
-    /**
-     * takes two doubles to see if they are roughly equivilent
-     * <p>
-     * true if a and b are within a percent differance of one another
-     */
-    private boolean within_episilon(double a, double b) {
-        return (a - b) < Math.ulp(a);
-    }
-
-    /**
-     * TEST METHODS from here to the end. These will be REMOVED eventually.
-     */
-    /**
-     * This method returns a string with a lot of information
-
-    public String information_dump_authenticate(List<Point> new_response_data, Profile profile) {
-        String information = "";
-
-        // gather information about the authentication in general
-        information += "pressure_allowed_deviations: " + this.pressure_allowed_deviations + "\n";
-        information += "distance_allowed_deviations: " + this.distance_allowed_deviations + "\n";
-        information += "time_allowed_deviations: " + this.time_allowed_deviations + "\n";
-        information += "pressure_authentication_threshold: " + this.pressure_authentication_threshold + "\n";
-
-        // gather information about this specific authentication
-        // how does authentication behave as a whole
-        information += "authenticated: " + new Boolean(this.authenticate(new_response_data, profile)).toString() + "\n";
-
-        // how do specific aspects of authentication behave
-        int pressure_failed_points = this.failed_pressure_points(new_response_data, profile,
-                this.pressure_allowed_deviations);
-        int distance_failed_points = this.failed_distance_points(new_response_data, profile,
-                this.distance_allowed_deviations);
-        int time_failed_points = this.failed_time_points(new_response_data, profile, this.time_allowed_deviations);
-        int list_size = profile.getNormalizedResponses().get(0).getNormalizedResponse().size();
-
-        information += "pressure_failed_points: " + pressure_failed_points + "\n";
-        information += "distance_failed_points: " + distance_failed_points + "\n";
-        information += "time_failed_points: " + time_failed_points + "\n";
-
-        // derived metrics
-        information += "pressure_failed_points_ratio: " + ((double) pressure_failed_points) / list_size + "\n";
-        information += "distance_failed_points_ratio: " + ((double) distance_failed_points) / list_size + "\n";
-        information += "time_failed_points_ratio: " + ((double) time_failed_points) / list_size + "\n";
-
-        // put a vertical space before the next segment which prints out lists
-        information += "\n";
-
-        // print lists used in authetnication
-        MuSigma pressure_mu_sigma = profile.getPressureMuSigmaValues();
-        MuSigma distance_mu_sigma = profile.getPointDistanceMuSigmaValues();
-        MuSigma time_mu_sigma = profile.getTimeDistanceMuSigmaValues();
-
-        information += "Profile pressure_mu_values: " + pressure_mu_sigma.getMuValues() + "\n";
-        information += "Profile pressure_sigma_values: " + pressure_mu_sigma.getSigmaValues() + "\n";
-
-        information += "Profile distance_mu_values: " + distance_mu_sigma.getMuValues() + "\n";
-        information += "Profile distance_sigma_values: " + distance_mu_sigma.getSigmaValues() + "\n";
-
-        information += "Profile time_mu_values: " + time_mu_sigma.getMuValues() + "\n";
-        information += "Profile time_sigma_values: " + time_mu_sigma.getSigmaValues() + "\n";
-
-        // print the pre/post normalized response data
-        information += "respones_points: " + new_response_data + "\n";
-
-        // normalize the response
-        Response response_object = new Response(new_response_data);
-        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
-
-        information += "normalized_response_points: " + response_object.getNormalizedResponse() + "\n";
-
-        return information;
-    }
-     */
 }

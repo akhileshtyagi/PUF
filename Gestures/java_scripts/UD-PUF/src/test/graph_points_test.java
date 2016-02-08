@@ -59,82 +59,82 @@ public class graph_points_test {
 
         switch (nature) {
             case NEGATIVE_STAIRS:
-                points.add(new Point(100, 100, .1));
+                points.add(new Point(100, 100));
 
-                points.add(new Point(100, 300, .2));
-                points.add(new Point(300, 300, .3));
-                points.add(new Point(300, 400, .4));
+                points.add(new Point(100, 300));
+                points.add(new Point(300, 300));
+                points.add(new Point(300, 400));
 
-                points.add(new Point(300, 500, .5));
-                points.add(new Point(500, 500, .6));
-                points.add(new Point(500, 600, .7));
+                points.add(new Point(300, 500));
+                points.add(new Point(500, 500));
+                points.add(new Point(500, 600));
 
-                points.add(new Point(500, 700, .8));
-                points.add(new Point(700, 700, .9));
-                points.add(new Point(700, 800, 1));
+                points.add(new Point(500, 700));
+                points.add(new Point(700, 700));
+                points.add(new Point(700, 800));
 
-                points.add(new Point(700, 900, 1.1));
-                points.add(new Point(900, 900, 1.2));
+                points.add(new Point(700, 900));
+                points.add(new Point(900, 900));
                 break;
             case NEGATIVE_SLOPE_LINE:
-                points.add(new Point(100, 100, 0));
-                points.add(new Point(150, 150, 0));
-                points.add(new Point(250, 250, 0));
-                points.add(new Point(400, 400, 0));
-                points.add(new Point(600, 600, 0));
-                points.add(new Point(850, 850, 0));
+                points.add(new Point(100, 100));
+                points.add(new Point(150, 150));
+                points.add(new Point(250, 250));
+                points.add(new Point(400, 400));
+                points.add(new Point(600, 600));
+                points.add(new Point(850, 850));
                 break;
             case NEGATIVE_SLOPE_LINE_BACK:
-                points.add(new Point(850, 850, 0));
-                points.add(new Point(600, 600, 0));
-                points.add(new Point(400, 400, 0));
-                points.add(new Point(250, 250, 0));
-                points.add(new Point(150, 150, 0));
-                points.add(new Point(100, 100, 0));
+                points.add(new Point(850, 850));
+                points.add(new Point(600, 600));
+                points.add(new Point(400, 400));
+                points.add(new Point(250, 250));
+                points.add(new Point(150, 150));
+                points.add(new Point(100, 100));
                 break;
             case POSITIVE_SLOPE_LINE:
-                points.add(new Point(100, 800, 0));
-                points.add(new Point(150, 750, 0));
-                points.add(new Point(250, 650, 0));
-                points.add(new Point(400, 500, 0));
-                points.add(new Point(600, 300, 0));
-                points.add(new Point(850, 50, 0));
+                points.add(new Point(100, 800));
+                points.add(new Point(150, 750));
+                points.add(new Point(250, 650));
+                points.add(new Point(400, 500));
+                points.add(new Point(600, 300));
+                points.add(new Point(850, 50));
                 break;
             case POSITIVE_SLOPE_LINE_BACK:
-                points.add(new Point(100, 800, 0));
-                points.add(new Point(150, 750, 0));
-                points.add(new Point(250, 650, 0));
-                points.add(new Point(400, 500, 0));
-                points.add(new Point(600, 300, 0));
-                points.add(new Point(850, 50, 0));
+                points.add(new Point(100, 800));
+                points.add(new Point(150, 750));
+                points.add(new Point(250, 650));
+                points.add(new Point(400, 500));
+                points.add(new Point(600, 300));
+                points.add(new Point(850, 50));
                 break;
             case POSITIVE_ARC:
-                points.add(new Point(850, 100, 0));
-                points.add(new Point(600, 150, 0));
-                points.add(new Point(400, 250, 0));
-                points.add(new Point(250, 400, 0));
-                points.add(new Point(150, 600, 0));
-                points.add(new Point(100, 850, 0));
+                points.add(new Point(850, 100));
+                points.add(new Point(600, 150));
+                points.add(new Point(400, 250));
+                points.add(new Point(250, 400));
+                points.add(new Point(150, 600));
+                points.add(new Point(100, 850));
                 break;
             case RIGHT_TO_LEFT:
-                points.add(new Point(800, 400, 0));
-                points.add(new Point(700, 400, 0));
-                points.add(new Point(550, 400, 0));
-                points.add(new Point(500, 400, 0));
-                points.add(new Point(470, 400, 0));
-                points.add(new Point(350, 400, 0));
-                points.add(new Point(200, 400, 0));
+                points.add(new Point(800, 400));
+                points.add(new Point(700, 400));
+                points.add(new Point(550, 400));
+                points.add(new Point(500, 400));
+                points.add(new Point(470, 400));
+                points.add(new Point(350, 400));
+                points.add(new Point(200, 400));
                 break;
             case TOWARD_ORIGIN_THEN_AWAY:
-                points.add(new Point(400, 500, 0));
-                points.add(new Point(300, 350, 0));
-                points.add(new Point(200, 200, 0));
+                points.add(new Point(400, 500));
+                points.add(new Point(300, 350));
+                points.add(new Point(200, 200));
 
-                points.add(new Point(100, 100, 0));
+                points.add(new Point(100, 100));
 
-                points.add(new Point(250, 150, 0));
-                points.add(new Point(400, 200, 0));
-                points.add(new Point(450, 250, 0));
+                points.add(new Point(250, 150));
+                points.add(new Point(400, 200));
+                points.add(new Point(450, 250));
                 break;
             case CIRCLE:
                 // works with circles of size 6
@@ -161,11 +161,11 @@ public class graph_points_test {
                     int circle_y = (int)(center_y + radius * Math.sin(theta));
 
                     // add the point to the list
-                    points.add(new Point(circle_x, circle_y, 0));
+                    points.add(new Point(circle_x, circle_y));
                 }
 
                 // repeat the first point
-                points.add(new Point((int)(center_x + radius), (int)(center_y), 0));
+                points.add(new Point((int)(center_x + radius), (int)(center_y)));
 
                 break;
         }
@@ -181,21 +181,21 @@ public class graph_points_test {
     private static List<Point> create_challenge_pattern() {
         List<Point> points = new ArrayList<Point>();
 
-        points.add(new Point(50, 50, 0));
+        points.add(new Point(50, 50));
 
-        points.add(new Point(50, 250, 0));
-        points.add(new Point(250, 250, 0));
-        points.add(new Point(200, 250, 0));
+        points.add(new Point(50, 250));
+        points.add(new Point(250, 250));
+        points.add(new Point(200, 250));
 
-        points.add(new Point(50, 450, 0));
-        points.add(new Point(450, 500, 0));
-        points.add(new Point(500, 500, 0));
+        points.add(new Point(50, 450));
+        points.add(new Point(450, 500));
+        points.add(new Point(500, 500));
 
-        points.add(new Point(100, 700, 0));
-        points.add(new Point(700, 700, 0));
+        points.add(new Point(100, 700));
+        points.add(new Point(700, 700));
 
-        points.add(new Point(100, 900, 0));
-        points.add(new Point(900, 900, 0));
+        points.add(new Point(100, 900));
+        points.add(new Point(900, 900));
 
         return points;
     }
