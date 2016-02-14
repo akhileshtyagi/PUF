@@ -30,5 +30,6 @@
     <orderEntry type="library" name="gson-2.4" level="project" />
     <orderEntry type="library" name="junit-4.0" level="project" />
     <orderEntry type="library" name="gson-2.5 (5)" level="project" />
+    <orderEntry type="library" name="gson-2.4" level="project" />
   </component>
 </module>

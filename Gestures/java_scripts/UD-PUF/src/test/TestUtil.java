@@ -45,6 +45,29 @@ public class TestUtil {
     }
 
     /**
+     * generates some response points
+     */
+    public static ArrayList<Point> generate_response_points(double metrics_value){
+        ArrayList<Point> response_points  = new ArrayList<Point>();
+
+        // create the response
+        int num_points = 10;
+        for (int j = 0; j < num_points; j++) {
+            Point p = new Point((300 / num_points) * j + 100, 100);
+
+            Point.Metrics[] metrics = Point.Metrics.values();
+
+            for(int i=0; i<metrics.length; i++) {
+                p.set_metric(metrics[i], metrics_value);
+            }
+
+            response_points.add(p);
+        }
+
+        return response_points;
+    }
+
+    /**
      * generates a challenge
      */
     public static Challenge generate_challenge(){

@@ -1,6 +1,6 @@
 package dataTypes;
 
-import javafx.beans.binding.StringBinding;
+//import javafx.beans.binding.StringBinding;
 
 import java.util.ArrayList;
 import java.util.List;
