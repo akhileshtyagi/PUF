@@ -13,13 +13,18 @@ public class UserDevicePair {
     public final static double PRESSURE_DEFAULT_ALLOWED_DEVIATIONS = .89;
     public final static double DISTANCE_DEFAULT_ALLOWED_DEVIATIONS = 1.11;
     public final static double TIME_DEFAULT_ALLOWED_DEVIATIONS = .415;
-    public final static double TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
+    public final static double TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS = .415;
+    public final static double ACCELERATION_DEFAULT_ALLOWED_DEVIATIONS = .415;
+    public final static double VELOCITY_LENGTH_DEFAULT_ALLOWED_DEVIATIONS = 2.0;
+
     public final static double PRESSURE_DEFAULT_AUTHENTICATION_THRESHOLD = 0.4;
     public final static double DISTANCE_DEFAULT_AUTHENTICATION_THRESHOLD = 0.9;
     public final static double TIME_DEFAULT_AUTHENTICATION_THRESHOLD = 0.7;
+    public final static double VELOCITY_DEFAULT_AUTHENTICATION_THRESHOLD = 0.7;
+    public final static double ACCELERATION_DEFAULT_AUTHENTICATION_THRESHOLD = 0.7;
 
     public enum RatioType {
-        PRESSURE, DISTANCE, TIME, TIME_LENGTH
+        PRESSURE, DISTANCE, TIME, VELOCiTY, ACCELERATION, TIME_LENGTH
     }
 
     public enum AuthenticationPredicate {
@@ -55,6 +60,8 @@ public class UserDevicePair {
     private List<Double> pressure_point_vector;
     private List<Double> distance_point_vector;
     private List<Double> time_point_vector;
+    private List<Double> veloctiy_point_vector;
+    private List<Double> acceleration_point_vector;
 
     public UserDevicePair(int userDeviceID) {
         this(userDeviceID, new ArrayList<Challenge>());
@@ -100,6 +107,8 @@ public class UserDevicePair {
         this.pressure_point_vector = new ArrayList<Double>();
         this.distance_point_vector = new ArrayList<Double>();
         this.time_point_vector = new ArrayList<Double>();
+        this.veloctiy_point_vector = new ArrayList<Double>();
+        this.acceleration_point_vector = new ArrayList<Double>();
     }
 
     // Adds challenge to list of challenges correlating to this user/device pair
@@ -327,6 +336,12 @@ public class UserDevicePair {
 
             case TIME:
                 return time_point_vector;
+
+            case VELOCiTY:
+                return veloctiy_point_vector;
+
+            case ACCELERATION:
+                return acceleration_point_vector;
         }
 
         return new ArrayList<Double>();
@@ -334,12 +349,12 @@ public class UserDevicePair {
 
     /**
      * Prints a dump of all UserDevicePair info:
-     *  UD-Pair: Authentication Vectors
-     *  Profile: Mu Sigmas (pressure, distance, etc.)
-     *  Challenge: Normalizing Points, Responses
+     * UD-Pair: Authentication Vectors
+     * Profile: Mu Sigmas (pressure, distance, etc.)
+     * Challenge: Normalizing Points, Responses
      *
-     *  @param challenge challenge associated with this UserDivePair
-     *  @return String represntation of the info "dump"
+     * @param challenge challenge associated with this UserDivePair
+     * @return String represntation of the info "dump"
      */
     public String dumpUserDevicePairData(Challenge challenge) {
         StringBuilder sb = new StringBuilder();
@@ -350,17 +365,17 @@ public class UserDevicePair {
         // Pressure Vector
         sb.append("Profile Vectors\n\n");
         sb.append("Pressure: \n");
-        for(int i = 0; i < pressure_point_vector.size(); i++) {
+        for (int i = 0; i < pressure_point_vector.size(); i++) {
             sb.append("PressureVector[").append(i).append("]: ").append(pressure_point_vector.get(i)).append("\n");
         }
         // Distance Vector
         sb.append("\nDistance: \n");
-        for(int i = 0; i < distance_point_vector.size(); i++) {
+        for (int i = 0; i < distance_point_vector.size(); i++) {
             sb.append("DistanceVector[").append(i).append("]: ").append(distance_point_vector.get(i)).append("\n");
         }
         // Time Vector
         sb.append("\nTime: \n");
-        for(int i = 0; i < time_point_vector.size(); i++) {
+        for (int i = 0; i < time_point_vector.size(); i++) {
             sb.append("TimeVector[").append(i).append("]: ").append(time_point_vector.get(i)).append("\n");
         }
 
@@ -368,21 +383,21 @@ public class UserDevicePair {
         sb.append("\n\nMu Sigma Values: \n\n");
         //Pressure MuSigma
         sb.append("\nPressure: \n");
-        for(int i = 0; i < profile.getPressureMuSigmaValues().getMuValues().size(); i++) {
+        for (int i = 0; i < profile.getPressureMuSigmaValues().getMuValues().size(); i++) {
             sb.append("PressureMu[").append(i).append("]: ").append(profile.getPressureMuSigmaValues().getMuValues().get(i))
                     .append(", PressureSigma[").append(i).append("]: ")
                     .append(profile.getPressureMuSigmaValues().getSigmaValues().get(i)).append("\n");
         }
         //Distance MuSigma
         sb.append("\nDistance: \n");
-        for(int i = 0; i < profile.getPointDistanceMuSigmaValues().getMuValues().size(); i++) {
+        for (int i = 0; i < profile.getPointDistanceMuSigmaValues().getMuValues().size(); i++) {
             sb.append("DistanceMu[").append(i).append("]: ").append(profile.getPointDistanceMuSigmaValues().getMuValues().get(i))
                     .append(", DistanceSigma[").append(i).append("]: ")
                     .append(profile.getPointDistanceMuSigmaValues().getSigmaValues().get(i)).append("\n");
         }
         //Time MuSigma
         sb.append("\nTime: \n");
-        for(int i = 0; i < profile.getTimeDistanceMuSigmaValues().getMuValues().size(); i++) {
+        for (int i = 0; i < profile.getTimeDistanceMuSigmaValues().getMuValues().size(); i++) {
             sb.append("TimeMu[").append(i).append("]: ").append(profile.getTimeDistanceMuSigmaValues().getMuValues().get(i))
                     .append(", TimeSigma[").append(i).append("]: ")
                     .append(profile.getTimeDistanceMuSigmaValues().getSigmaValues().get(i)).append("\n");
@@ -390,7 +405,7 @@ public class UserDevicePair {
 
         // Print Normalizing Points from challenge
         sb.append("\n\nNormalizing Points: \n\n");
-        for(int i = 0; i < challenge.getNormalizingPoints().size(); i++) {
+        for (int i = 0; i < challenge.getNormalizingPoints().size(); i++) {
             sb.append("NormalizingPoint[").append(i).append("]: ")
                     .append(challenge.getNormalizingPoints().get(i).toString()).append("\n");
         }
@@ -399,10 +414,10 @@ public class UserDevicePair {
         sb.append("\n\n\nResponses:");
 
         // Iterate over all responses
-        for(int i = 0; i < challenge.getResponsePattern().size(); i++) {
+        for (int i = 0; i < challenge.getResponsePattern().size(); i++) {
             sb.append("Response ").append(i).append(":\n");
             Response tempResponse = challenge.getResponsePattern().get(i);
-            for(int j = 0; j < tempResponse.getNormalizedResponse().size(); j++) {
+            for (int j = 0; j < tempResponse.getNormalizedResponse().size(); j++) {
                 sb.append("Point[").append(j).append("]: ")
                         .append(tempResponse.getNormalizedResponse().get(j).toString()).append("\n");
             }
@@ -415,12 +430,21 @@ public class UserDevicePair {
     }
 
     /**
+     * point vector computation
+     */
+    interface VectorComputation {
+        double compute(double new_response_metric, double profile_metric_mu);
+    }
+
+    /**
      * compute the point vectors based on the new_response_data and the profile
      */
     private void compute_point_vector(List<Point> new_response_data, Profile profile) {
         pressure_point_vector = new ArrayList<Double>();
         distance_point_vector = new ArrayList<Double>();
         time_point_vector = new ArrayList<Double>();
+        veloctiy_point_vector = new ArrayList<Double>();
+        acceleration_point_vector = new ArrayList<Double>();
 
         // error check
         if (new_response_data.size() != profile.getNormalizedResponses().get(0).getNormalizedResponse().size()) {
@@ -456,7 +480,43 @@ public class UserDevicePair {
             time_point_vector.add(Math.abs(new_response_data.get(i).getTime() - profile.getTimeDistanceMuSigmaValues().getMuValues().get(i)));
         }
 
-        return;
+        // define the vector computation
+        VectorComputation vector_computation = (new_response_metric, profile_metric_mu) -> Math.abs(new_response_metric - profile_metric_mu);
+
+        // we want to compute vectors for all the metrics
+        Point.Metrics[] metrics = Point.Metrics.values();
+
+        for (int i=0; i<metrics.length; i++){
+            // for each point in response data
+            for (int j = 0; j < new_response_data.size(); j++) {
+                switch (metrics[i]) {
+                    case PRESSURE:
+                        this.pressure_point_vector.add(
+                                vector_computation.compute(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
+                        break;
+
+                    case DISTANCE:
+                        this.distance_point_vector.add(
+                                vector_computation.compute(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
+                        break;
+
+                    case TIME:
+                        this.time_point_vector.add(
+                                vector_computation.compute(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
+                        break;
+
+                    case VELOCITY:
+                        this.veloctiy_point_vector.add(
+                                vector_computation.compute(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
+                        break;
+
+                    case ACCELERATION:
+                        this.acceleration_point_vector.add(
+                                vector_computation.compute(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
+                        break;
+                }
+            }
+        }
     }
 
     /**
@@ -701,63 +761,63 @@ public class UserDevicePair {
     /**
      * This method returns a string with a lot of information
 
-    public String information_dump_authenticate(List<Point> new_response_data, Profile profile) {
-        String information = "";
+     public String information_dump_authenticate(List<Point> new_response_data, Profile profile) {
+     String information = "";
 
-        // gather information about the authentication in general
-        information += "pressure_allowed_deviations: " + this.pressure_allowed_deviations + "\n";
-        information += "distance_allowed_deviations: " + this.distance_allowed_deviations + "\n";
-        information += "time_allowed_deviations: " + this.time_allowed_deviations + "\n";
-        information += "pressure_authentication_threshold: " + this.pressure_authentication_threshold + "\n";
+     // gather information about the authentication in general
+     information += "pressure_allowed_deviations: " + this.pressure_allowed_deviations + "\n";
+     information += "distance_allowed_deviations: " + this.distance_allowed_deviations + "\n";
+     information += "time_allowed_deviations: " + this.time_allowed_deviations + "\n";
+     information += "pressure_authentication_threshold: " + this.pressure_authentication_threshold + "\n";
 
-        // gather information about this specific authentication
-        // how does authentication behave as a whole
-        information += "authenticated: " + new Boolean(this.authenticate(new_response_data, profile)).toString() + "\n";
+     // gather information about this specific authentication
+     // how does authentication behave as a whole
+     information += "authenticated: " + new Boolean(this.authenticate(new_response_data, profile)).toString() + "\n";
 
-        // how do specific aspects of authentication behave
-        int pressure_failed_points = this.failed_pressure_points(new_response_data, profile,
-                this.pressure_allowed_deviations);
-        int distance_failed_points = this.failed_distance_points(new_response_data, profile,
-                this.distance_allowed_deviations);
-        int time_failed_points = this.failed_time_points(new_response_data, profile, this.time_allowed_deviations);
-        int list_size = profile.getNormalizedResponses().get(0).getNormalizedResponse().size();
+     // how do specific aspects of authentication behave
+     int pressure_failed_points = this.failed_pressure_points(new_response_data, profile,
+     this.pressure_allowed_deviations);
+     int distance_failed_points = this.failed_distance_points(new_response_data, profile,
+     this.distance_allowed_deviations);
+     int time_failed_points = this.failed_time_points(new_response_data, profile, this.time_allowed_deviations);
+     int list_size = profile.getNormalizedResponses().get(0).getNormalizedResponse().size();
 
-        information += "pressure_failed_points: " + pressure_failed_points + "\n";
-        information += "distance_failed_points: " + distance_failed_points + "\n";
-        information += "time_failed_points: " + time_failed_points + "\n";
+     information += "pressure_failed_points: " + pressure_failed_points + "\n";
+     information += "distance_failed_points: " + distance_failed_points + "\n";
+     information += "time_failed_points: " + time_failed_points + "\n";
 
-        // derived metrics
-        information += "pressure_failed_points_ratio: " + ((double) pressure_failed_points) / list_size + "\n";
-        information += "distance_failed_points_ratio: " + ((double) distance_failed_points) / list_size + "\n";
-        information += "time_failed_points_ratio: " + ((double) time_failed_points) / list_size + "\n";
+     // derived metrics
+     information += "pressure_failed_points_ratio: " + ((double) pressure_failed_points) / list_size + "\n";
+     information += "distance_failed_points_ratio: " + ((double) distance_failed_points) / list_size + "\n";
+     information += "time_failed_points_ratio: " + ((double) time_failed_points) / list_size + "\n";
 
-        // put a vertical space before the next segment which prints out lists
-        information += "\n";
+     // put a vertical space before the next segment which prints out lists
+     information += "\n";
 
-        // print lists used in authetnication
-        MuSigma pressure_mu_sigma = profile.getPressureMuSigmaValues();
-        MuSigma distance_mu_sigma = profile.getPointDistanceMuSigmaValues();
-        MuSigma time_mu_sigma = profile.getTimeDistanceMuSigmaValues();
+     // print lists used in authetnication
+     MuSigma pressure_mu_sigma = profile.getPressureMuSigmaValues();
+     MuSigma distance_mu_sigma = profile.getPointDistanceMuSigmaValues();
+     MuSigma time_mu_sigma = profile.getTimeDistanceMuSigmaValues();
 
-        information += "Profile pressure_mu_values: " + pressure_mu_sigma.getMuValues() + "\n";
-        information += "Profile pressure_sigma_values: " + pressure_mu_sigma.getSigmaValues() + "\n";
+     information += "Profile pressure_mu_values: " + pressure_mu_sigma.getMuValues() + "\n";
+     information += "Profile pressure_sigma_values: " + pressure_mu_sigma.getSigmaValues() + "\n";
 
-        information += "Profile distance_mu_values: " + distance_mu_sigma.getMuValues() + "\n";
-        information += "Profile distance_sigma_values: " + distance_mu_sigma.getSigmaValues() + "\n";
+     information += "Profile distance_mu_values: " + distance_mu_sigma.getMuValues() + "\n";
+     information += "Profile distance_sigma_values: " + distance_mu_sigma.getSigmaValues() + "\n";
 
-        information += "Profile time_mu_values: " + time_mu_sigma.getMuValues() + "\n";
-        information += "Profile time_sigma_values: " + time_mu_sigma.getSigmaValues() + "\n";
+     information += "Profile time_mu_values: " + time_mu_sigma.getMuValues() + "\n";
+     information += "Profile time_sigma_values: " + time_mu_sigma.getSigmaValues() + "\n";
 
-        // print the pre/post normalized response data
-        information += "respones_points: " + new_response_data + "\n";
+     // print the pre/post normalized response data
+     information += "respones_points: " + new_response_data + "\n";
 
-        // normalize the response
-        Response response_object = new Response(new_response_data);
-        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+     // normalize the response
+     Response response_object = new Response(new_response_data);
+     response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
 
-        information += "normalized_response_points: " + response_object.getNormalizedResponse() + "\n";
+     information += "normalized_response_points: " + response_object.getNormalizedResponse() + "\n";
 
-        return information;
-    }
+     return information;
+     }
      */
 }

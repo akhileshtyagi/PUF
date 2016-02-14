@@ -26,17 +26,21 @@ public class UserDevicePair_point_vector {
         List<Double> pressure_point_vector = ud_pair.getNew_response_point_vector(UserDevicePair.RatioType.PRESSURE);
         List<Double> distance_point_vector = ud_pair.getNew_response_point_vector(UserDevicePair.RatioType.DISTANCE);
         List<Double> time_point_vector = ud_pair.getNew_response_point_vector(UserDevicePair.RatioType.TIME);
+        List<Double> velocity_point_vector = ud_pair.getNew_response_point_vector(UserDevicePair.RatioType.VELOCiTY);
+        List<Double> acceleration_point_vector = ud_pair.getNew_response_point_vector(UserDevicePair.RatioType.ACCELERATION);
 
         // print out point vectors
         System.out.println("Pressure:\t" + pressure_point_vector);
         System.out.println("Distance:\t" + distance_point_vector);
         System.out.println("Time:\t\t" + time_point_vector);
+        System.out.println("Veloctiy:\t\t" + velocity_point_vector);
+        System.out.println("Acceleration:\t\t" + acceleration_point_vector);
 
         // Graph the point lists to see normalization is going correctly
-        graph_points graph_frame = new graph_points();
+        //graph_points graph_frame = new graph_points();
 
-        graph_frame.addPointList(response_points, "origional_response_points");
-        graph_frame.addPointList(ud_pair.getChallenges().get(0).getNormalizingPoints(), "normalizing_points");
+        //graph_frame.addPointList(response_points, "origional_response_points");
+        //graph_frame.addPointList(ud_pair.getChallenges().get(0).getNormalizingPoints(), "normalizing_points");
 
         // want the normalized response points to graph
 //        Response response = new Response(response_points);
@@ -49,11 +53,20 @@ public class UserDevicePair_point_vector {
      */
     public static ArrayList<Point> generate_response_points(){
         ArrayList<Point> response_points  = new ArrayList<Point>();
+        double metrics_value = 1.0;
 
         // create the response
         int num_points = 10;
         for (int j = 0; j < num_points; j++) {
-            response_points.add(new Point((300 / num_points) * j + 100, 100, 1.5));
+            Point p = new Point((300 / num_points) * j + 100, 100);
+
+            Point.Metrics[] metrics = Point.Metrics.values();
+
+            for(int i=0; i<metrics.length; i++) {
+                p.set_metric(metrics[i], metrics_value);
+            }
+
+            response_points.add(p);
         }
 
         return response_points;

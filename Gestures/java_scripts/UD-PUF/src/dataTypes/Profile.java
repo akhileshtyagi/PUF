@@ -558,6 +558,30 @@ public class Profile implements Serializable {
     }
 
     /**
+     * get the mu sigma values based on metrics enum type
+     */
+    public MuSigma getMuSigmaValues(Point.Metrics type){
+        switch (type) {
+            case PRESSURE:
+                return this.pressure_muSigmaValues;
+
+            case DISTANCE:
+                return this.point_distance_muSigmaValues;
+
+            case TIME:
+                return this.time_muSigmaValues;
+
+            case VELOCITY:
+                return this.velocity_muSigmaValues;
+
+            case ACCELERATION:
+                return this.acceleration_muSigmaValues;
+        }
+
+        return null;
+    }
+
+    /**
      * computes the time_length mu sigma values and stores them in the
      * appropriate instance variables.
      */
