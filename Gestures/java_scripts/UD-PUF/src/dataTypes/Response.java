@@ -111,7 +111,7 @@ public class Response implements Serializable {
         ArrayList<Point> newNormalizedList = new ArrayList<>();
 
         double xTransform, yTransform; // For moving response points to align with normalizingPoints
-        double theta, newX, newY, newPressure, newDistance, newTime; // Values to use in creating normalizedResponsePattern
+        double theta, newX, newY, newPressure, newDistance, newTime, newVelocity, newAcceleration; // Values to use in creating normalizedResponsePattern
         double traceDistance; // Euclidean distance from entire current responsePattern
         double deltaD; // Distance between each of the normalizing points
         double remainingDistance; // Used to keep a running total of how far along the next point has gone
@@ -190,8 +190,19 @@ public class Response implements Serializable {
             newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
             /* time */
             newTime = cumulativeTime + (curPoint.getTime() * (remainingDistance / computeEuclideanDistance(prevPoint, curPoint))) - prevCumulativeTime;
+            /* velocity */
+            newVelocity = 1.0;
+            /* acceleration */
+            newAcceleration = 1.0;
 
-            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance, newTime));
+            Point p = new Point(newX, newY);
+            p.set_metric(Point.Metrics.PRESSURE, newPressure);
+            p.set_metric(Point.Metrics.DISTANCE, newDistance);
+            p.set_metric(Point.Metrics.TIME, newTime);
+            p.set_metric(Point.Metrics.VELOCITY, newVelocity);
+            p.set_metric(Point.Metrics.ACCELERATION, newAcceleration);
+
+            newNormalizedList.add(p);
 
             remainingDistance = deltaD + computeEuclideanDistance(prevPoint, newNormalizedList.get(i));
 
@@ -231,8 +242,19 @@ public class Response implements Serializable {
             newPressure = curPoint.getPressure() + (((curPoint.getPressure() - prevPoint.getPressure()) / (computeEuclideanDistance(curPoint, prevPoint))) * d);
             /* distance */
             newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
+            /* velocity */
+            newVelocity = 1.0;
+            /* acceleration */
+            newAcceleration = 1.0;
+            // TODO velocity and acceleration
+            Point p = new Point(newX, newY);
+            p.set_metric(Point.Metrics.PRESSURE, newPressure);
+            p.set_metric(Point.Metrics.DISTANCE, newDistance);
+            p.set_metric(Point.Metrics.TIME, interpolated_time);
+            p.set_metric(Point.Metrics.VELOCITY, newVelocity);
+            p.set_metric(Point.Metrics.ACCELERATION, newAcceleration);
 
-            newNormalizedList.add(new Point(newX, newY, newPressure, newDistance, interpolated_time));
+            newNormalizedList.add(p);
 
             d += deltaD;
         }
