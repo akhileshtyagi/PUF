@@ -131,7 +131,16 @@ public class Response implements Serializable {
         xTransform = normalizingPoints.get(0).getX() - responsePattern.get(0).getX();
         yTransform = normalizingPoints.get(0).getY() - responsePattern.get(0).getY();
         transform_response(responsePattern, xTransform, yTransform);
-        newNormalizedList.add(responsePattern.get(0));
+
+        // add the first point to the normalized list, define velocity and acceleration to be zero for this point
+        Point first_point = new Point(responsePattern.get(0).getX(), responsePattern.get(0).getY());
+
+        Point.Metrics[] metrics = Point.Metrics.values();
+        for(int m=0; m<metrics.length; m++){
+            first_point.set_metric(metrics[m], responsePattern.get(0).get_metric(metrics[m]));
+        }
+
+        newNormalizedList.add(first_point);
 
         // Catch if normalizingTrace is only 1 point (hopefully never happens)
         if (normalizingPoints.size() == 1) {
@@ -190,10 +199,21 @@ public class Response implements Serializable {
             newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
             /* time */
             newTime = cumulativeTime + (curPoint.getTime() * (remainingDistance / computeEuclideanDistance(prevPoint, curPoint))) - prevCumulativeTime;
-            /* velocity */
-            newVelocity = 1.0;
-            /* acceleration */
-            newAcceleration = 1.0;
+
+            // time less than equal 0 makes no sense, set equal to a small number
+            if(newTime <= 0) {
+                // TODO find a basis for this, .1 is arbitrary
+                newTime = .1;
+            }
+
+            /* velocity
+            * want to use normalized values for time from previous point (i.e. new time)
+            * distance is euclidian distance from the previous point to the current normalized point*/
+            newVelocity = (computeEuclideanDistance(new Point(newX, newY), newNormalizedList.get(newNormalizedList.size()-1))) / newTime;
+            /* acceleration
+            * want to use normalized velocity (ie newVelocity)
+            * also ant to use normalized velocity from the previous points*/
+            newAcceleration = (newVelocity - newNormalizedList.get(newNormalizedList.size()-1).get_metric(Point.Metrics.VELOCITY)) / newTime;
 
             Point p = new Point(newX, newY);
             p.set_metric(Point.Metrics.PRESSURE, newPressure);
@@ -242,11 +262,15 @@ public class Response implements Serializable {
             newPressure = curPoint.getPressure() + (((curPoint.getPressure() - prevPoint.getPressure()) / (computeEuclideanDistance(curPoint, prevPoint))) * d);
             /* distance */
             newDistance = computeEuclideanDistance(new Point(newX, newY, 0), curPoint);
-            /* velocity */
-            newVelocity = 1.0;
-            /* acceleration */
-            newAcceleration = 1.0;
-            // TODO velocity and acceleration
+            /* velocity
+            * want to use normalized values for time from previous point (i.e. new time)
+            * distance is euclidian distance from the previous point to the current normalized point*/
+            newVelocity = (computeEuclideanDistance(new Point(newX, newY), newNormalizedList.get(newNormalizedList.size()-1))) / interpolated_time;
+            /* acceleration
+            * want to use normalized velocity (ie newVelocity)
+            * also ant to use normalized velocity from the previous points*/
+            newAcceleration = (newVelocity - newNormalizedList.get(newNormalizedList.size()-1).get_metric(Point.Metrics.VELOCITY)) / interpolated_time;
+
             Point p = new Point(newX, newY);
             p.set_metric(Point.Metrics.PRESSURE, newPressure);
             p.set_metric(Point.Metrics.DISTANCE, newDistance);

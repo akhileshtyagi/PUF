@@ -480,7 +480,6 @@ public class UserDevicePair {
             time_point_vector.add(Math.abs(new_response_data.get(i).getTime() - profile.getTimeDistanceMuSigmaValues().getMuValues().get(i)));
         }
 
-        // TODO figure out what is going on here
         // define the vector computation
         VectorComputation vector_computation = (new_response_metric, profile_metric_mu) -> Math.abs(new_response_metric - profile_metric_mu);
 

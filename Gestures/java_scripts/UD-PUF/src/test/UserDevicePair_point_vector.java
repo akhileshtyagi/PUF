@@ -2,6 +2,7 @@ package test;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import dataTypes.Challenge;
 import dataTypes.Point;
@@ -29,6 +30,8 @@ public class UserDevicePair_point_vector {
         List<Double> velocity_point_vector = ud_pair.getNew_response_point_vector(UserDevicePair.RatioType.VELOCiTY);
         List<Double> acceleration_point_vector = ud_pair.getNew_response_point_vector(UserDevicePair.RatioType.ACCELERATION);
 
+        // System.out.println(ud_pair.getChallenges().get(0).getProfile().);
+
         // print out point vectors
         System.out.println("Pressure:\t" + pressure_point_vector);
         System.out.println("Distance:\t" + distance_point_vector);
@@ -54,6 +57,7 @@ public class UserDevicePair_point_vector {
     public static ArrayList<Point> generate_response_points(){
         ArrayList<Point> response_points  = new ArrayList<Point>();
         double metrics_value = 1.0;
+        Random random = new Random();
 
         // create the response
         int num_points = 10;
@@ -63,7 +67,7 @@ public class UserDevicePair_point_vector {
             Point.Metrics[] metrics = Point.Metrics.values();
 
             for(int i=0; i<metrics.length; i++) {
-                p.set_metric(metrics[i], metrics_value);
+                p.set_metric(metrics[i], (random.nextInt()%5+ 3) / 10.0);
             }
 
             response_points.add(p);
@@ -79,6 +83,7 @@ public class UserDevicePair_point_vector {
         Challenge challenge;
         Response response;
         List<Point> response_points;
+        Random random = new Random();
 
         // create a userDeficePair
         UserDevicePair ud_pair = new UserDevicePair(0);
@@ -101,7 +106,15 @@ public class UserDevicePair_point_vector {
 
             // create the response
             for (int j = 0; j < 32; j++) {
-                response_points.add(new Point((300 / 31) * j + 100, 100, i, 100, j));
+                //Point p = new Point((300 / 31) * j + 100, 100);
+                Point p = new Point((300 / 31) * j + 100, 100);
+                p.set_metric(Point.Metrics.PRESSURE, .5);
+                p.set_metric(Point.Metrics.DISTANCE, .5);
+                p.set_metric(Point.Metrics.TIME, .5);
+                p.set_metric(Point.Metrics.VELOCITY, .5);
+                p.set_metric(Point.Metrics.ACCELERATION, .5);
+
+                response_points.add(p);
             }
 
             response = new Response(response_points);
