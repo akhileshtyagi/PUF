@@ -430,13 +430,6 @@ public class UserDevicePair {
     }
 
     /**
-     * point vector computation
-     */
-    interface VectorComputation {
-        double compute(double new_response_metric, double profile_metric_mu);
-    }
-
-    /**
      * compute the point vectors based on the new_response_data and the profile
      */
     private void compute_point_vector(List<Point> new_response_data, Profile profile) {
@@ -480,9 +473,6 @@ public class UserDevicePair {
             time_point_vector.add(Math.abs(new_response_data.get(i).getTime() - profile.getTimeDistanceMuSigmaValues().getMuValues().get(i)));
         }
 
-        // define the vector computation
-        VectorComputation vector_computation = (new_response_metric, profile_metric_mu) -> Math.abs(new_response_metric - profile_metric_mu);
-
         // we want to compute vectors for all the metrics
         Point.Metrics[] metrics = Point.Metrics.values();
 
@@ -492,32 +482,37 @@ public class UserDevicePair {
                 switch (metrics[i]) {
                     case PRESSURE:
                         this.pressure_point_vector.add(
-                                vector_computation.compute(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
+                                vector_computation(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
                         break;
 
                     case DISTANCE:
                         this.distance_point_vector.add(
-                                vector_computation.compute(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
+                                vector_computation(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
                         break;
 
                     case TIME:
                         this.time_point_vector.add(
-                                vector_computation.compute(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
+                                vector_computation(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
                         break;
 
                     case VELOCITY:
                         this.veloctiy_point_vector.add(
-                                vector_computation.compute(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
+                                vector_computation(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
                         break;
 
                     case ACCELERATION:
                         this.acceleration_point_vector.add(
-                                vector_computation.compute(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
+                                vector_computation(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
                         break;
                 }
             }
         }
     }
+
+    private double vector_computation(double new_response_metric, double profile_metric_mu){
+        return Math.abs(new_response_metric - profile_metric_mu);
+    }
+
 
     /**
      * return the userDeviceId
