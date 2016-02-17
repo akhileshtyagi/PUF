@@ -57,7 +57,7 @@ public class UserDevicePair_point_vector {
     public static ArrayList<Point> generate_response_points(){
         ArrayList<Point> response_points  = new ArrayList<Point>();
         double metrics_value = 1.0;
-        Random random = new Random();
+        Random random = new Random(System.nanoTime());
 
         // create the response
         int num_points = 10;

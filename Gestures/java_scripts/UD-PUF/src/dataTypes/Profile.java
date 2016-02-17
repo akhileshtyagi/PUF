@@ -426,8 +426,11 @@ public class Profile implements Serializable {
     /**
      * used to compute mu and sigma values and store
      */
-    interface MuSigmaComputation {
-        void compute_and_store(List<Double> list, Point.Metrics type);
+    private void compute_and_store(List<Double> list, Point.Metrics type){
+        double mu = computeMu(list);
+        double sigma = computeSigma(list, mu);
+
+        store_mu_sigma(mu, sigma, type);
     }
 
     /**
@@ -435,11 +438,31 @@ public class Profile implements Serializable {
      * <p>
      * this functionality extracted out purely
      * to make this easier to program.
-     *
+     * <p>
      * stores a single MuSigma Point in the respective list
      */
-    interface StoreMuSigma {
-        void store(double mu, double sigma, Point.Metrics type);
+    private void store_mu_sigma(double mu, double sigma, Point.Metrics type) {
+        switch (type) {
+            case PRESSURE:
+                this.pressure_muSigmaValues.addMuSigma(mu, sigma);
+                break;
+
+            case DISTANCE:
+                this.point_distance_muSigmaValues.addMuSigma(mu, sigma);
+                break;
+
+            case TIME:
+                this.time_muSigmaValues.addMuSigma(mu, sigma);
+                break;
+
+            case VELOCITY:
+                this.velocity_muSigmaValues.addMuSigma(mu, sigma);
+                break;
+
+            case ACCELERATION:
+                this.acceleration_muSigmaValues.addMuSigma(mu, sigma);
+                break;
+        }
     }
 
     /**
@@ -447,8 +470,18 @@ public class Profile implements Serializable {
      * <p>
      * these points are stored in parallell in the normalized responses at index, index
      */
-    interface Extractor {
-        List<Double> extract_parallel_points(List<Response> normalized_response_list, int index, Point.Metrics type);
+    private List<Double> extract_parallel_points(List<Response> normalized_response_list, int index, Point.Metrics type) {
+        // go though each of the responses collecting value
+        // of point index in the response
+        List<Double> normalized_point_list = new ArrayList<Double>();
+
+        for (Response response : normalized_response_list) {
+            if (response.getNormalizedResponse().size() <= index) continue;
+
+            normalized_point_list.add(response.getNormalizedResponse().get(index).get_metric(type));
+        }
+
+        return normalized_point_list;
     }
 
     /**
@@ -468,51 +501,6 @@ public class Profile implements Serializable {
         this.velocity_muSigmaValues = new MuSigma();
         this.acceleration_muSigmaValues = new MuSigma();
 
-        StoreMuSigma store_mu_sigma = (mu, sigma, type) -> {
-            switch (type) {
-                case PRESSURE:
-                    this.pressure_muSigmaValues.addMuSigma(mu, sigma);
-                    break;
-
-                case DISTANCE:
-                    this.point_distance_muSigmaValues.addMuSigma(mu, sigma);
-                    break;
-
-                case TIME:
-                    this.time_muSigmaValues.addMuSigma(mu, sigma);
-                    break;
-
-                case VELOCITY:
-                    this.velocity_muSigmaValues.addMuSigma(mu, sigma);
-                    break;
-
-                case ACCELERATION:
-                    this.acceleration_muSigmaValues.addMuSigma(mu, sigma);
-                    break;
-            }
-        };
-
-        MuSigmaComputation mu_sigma_computation = (list, type) -> {
-            double mu = computeMu(list);
-            double sigma = computeSigma(list, mu);
-
-            store_mu_sigma.store(mu, sigma, type);
-        };
-
-        Extractor list_extractor = (normalized_response_list, index, type) -> {
-            // go though each of the responses collecting value
-            // of point index in the response
-            List<Double> normalized_point_list = new ArrayList<Double>();
-
-            for (Response response : normalized_response_list) {
-                if (response.getNormalizedResponse().size() <= index) continue;
-
-                normalized_point_list.add(response.getNormalizedResponse().get(index).get_metric(type));
-            }
-
-            return normalized_point_list;
-        };
-
         // extract, compute, store for each Point.Metrics
         // this uses the functions we just made
         Point.Metrics[] metrics = Point.Metrics.values();
@@ -520,8 +508,8 @@ public class Profile implements Serializable {
         for (int i = 0; i < metrics.length; i++) {
             // want to add mu sigma for each point in each metric
             for (int j = 0; j < this.normalizedResponses.get(0).getNormalizedResponse().size(); j++) {
-                List<Double> list = list_extractor.extract_parallel_points(this.normalizedResponses, j, metrics[i]);
-                mu_sigma_computation.compute_and_store(list, metrics[i]);
+                List<Double> list = extract_parallel_points(this.normalizedResponses, j, metrics[i]);
+                compute_and_store(list, metrics[i]);
             }
         }
 
@@ -533,34 +521,10 @@ public class Profile implements Serializable {
         this.mu_sigma_computed = true;
     }
 
-    private void compute_pressure_mu_sigma() {
-        // compute mu sigma for pressure
-        List<Double> normalized_point_pressure_list = null;
-        this.pressure_muSigmaValues = new MuSigma();
-
-        // for each point in the distribution, compute mu an sigma
-        for (int i = 0; i < this.normalizedResponses.get(0).getNormalizedResponse().size(); i++) {
-            // go though each of the responses collecting value
-            // of point i in the response
-            normalized_point_pressure_list = new ArrayList<Double>();
-            for (Response response : this.normalizedResponses) {
-                if (response.getNormalizedResponse().size() <= i) continue;
-                normalized_point_pressure_list.add(response.getNormalizedResponse().get(i).getPressure());
-            }
-
-            // compute the average (mu)
-            // compute std deviation
-            double mu = this.computeMu(normalized_point_pressure_list);
-            double sigma = this.computeSigma(normalized_point_pressure_list, mu);
-
-            this.pressure_muSigmaValues.addMuSigma(mu, sigma);
-        }
-    }
-
     /**
      * get the mu sigma values based on metrics enum type
      */
-    public MuSigma getMuSigmaValues(Point.Metrics type){
+    public MuSigma getMuSigmaValues(Point.Metrics type) {
         switch (type) {
             case PRESSURE:
                 return this.pressure_muSigmaValues;
