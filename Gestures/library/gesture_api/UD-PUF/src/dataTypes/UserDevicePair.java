@@ -63,6 +63,8 @@ public class UserDevicePair {
     private List<Double> veloctiy_point_vector;
     private List<Double> acceleration_point_vector;
 
+    private Response previous_authentication_response;
+
     public UserDevicePair(int userDeviceID) {
         this(userDeviceID, new ArrayList<Challenge>());
     }
@@ -109,6 +111,8 @@ public class UserDevicePair {
         this.time_point_vector = new ArrayList<Double>();
         this.veloctiy_point_vector = new ArrayList<Double>();
         this.acceleration_point_vector = new ArrayList<Double>();
+
+        this.previous_authentication_response = null;
     }
 
     // Adds challenge to list of challenges correlating to this user/device pair
@@ -230,6 +234,9 @@ public class UserDevicePair {
         boolean time_length_within_sigma = (Math.abs(profile.getTimeLengthMu()
                 - response_time_length) <= (profile.getTimeLengthSigma() * this.time_length_allowed_deviations));
 
+        // make the response from this authentication available
+        this.previous_authentication_response = response_object;
+
         // if the fraction of points that pass is greater than the
         // authentication threshold, then we pass this person
         return authenticatePreticate(this.pressure_authentication_failed_point_ratio,
@@ -284,6 +291,15 @@ public class UserDevicePair {
         }
 
         return pass;
+    }
+
+    /**
+     * returns the response from the previous authentication.
+     *
+     * returns null if there has been no previous authetnication.
+     */
+    public Response getPrevious_authentication_response(){
+        return this.previous_authentication_response;
     }
 
     /**
