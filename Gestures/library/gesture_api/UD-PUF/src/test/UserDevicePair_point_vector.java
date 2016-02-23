@@ -49,6 +49,10 @@ public class UserDevicePair_point_vector {
 //        Response response = new Response(response_points);
 //        ud_pair.getChallenges().get(0).addResponse(response);
 //        graph_frame.addPointList(response.getNormalizedResponse(), "normalized_response_points");
+
+        // print authentication response
+        System.out.println(ud_pair.getPreviousAuthenticationResponse());
+        System.out.println(ud_pair.getPreviousAuthenticationResponse().getNormalizedResponse());
     }
 
     /**

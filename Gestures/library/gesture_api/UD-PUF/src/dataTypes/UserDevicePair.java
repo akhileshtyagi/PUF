@@ -189,7 +189,10 @@ public class UserDevicePair {
         Response response_object = new Response(new_response_data);
         response_object.normalize(challenge.getNormalizingPoints());
 
-        // System.out.println("normalized_response:\t" + response_object.getNormalizedResponse());
+        // make the response from this authentication available
+        this.previous_authentication_response = response_object;
+
+        System.out.println("normalized_response:\t" + response_object.getNormalizedResponse());
 
         // compute the point vectors
         compute_point_vector(response_object.getNormalizedResponse(), profile);
@@ -233,9 +236,6 @@ public class UserDevicePair {
                 - new_response_data.get(0).getTime();
         boolean time_length_within_sigma = (Math.abs(profile.getTimeLengthMu()
                 - response_time_length) <= (profile.getTimeLengthSigma() * this.time_length_allowed_deviations));
-
-        // make the response from this authentication available
-        this.previous_authentication_response = response_object;
 
         // if the fraction of points that pass is greater than the
         // authentication threshold, then we pass this person
@@ -296,9 +296,9 @@ public class UserDevicePair {
     /**
      * returns the response from the previous authentication.
      *
-     * returns null if there has been no previous authetnication.
+     * returns null if there has been no previous authentication.
      */
-    public Response getPrevious_authentication_response(){
+    public Response getPreviousAuthenticationResponse(){
         return this.previous_authentication_response;
     }
 
