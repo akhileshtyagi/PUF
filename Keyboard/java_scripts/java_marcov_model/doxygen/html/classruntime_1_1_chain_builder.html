@@ -65,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -98,6 +98,17 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">runtime.ChainBuilder Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Wrapper around Chain used to make using the model easier in a real application.  
+ <a href="classruntime_1_1_chain_builder.html#details">More...</a></p>
+<div class="dynheader">
+Collaboration diagram for runtime.ChainBuilder:</div>
+<div class="dyncontent">
+<div class="center"><img src="classruntime_1_1_chain_builder__coll__graph.png" border="0" usemap="#runtime_8_chain_builder_coll__map" alt="Collaboration graph"/></div>
+<map name="runtime_8_chain_builder_coll__map" id="runtime_8_chain_builder_coll__map">
+<area shape="rect" id="node2" href="enumruntime_1_1_chain_builder_1_1_compare_method.html" title="runtime.ChainBuilder.Compare\lMethod" alt="" coords="5,5,205,47"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -111,17 +122,22 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:af43032940c67edb1efd6539d1e560881"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_chain_builder.html#af43032940c67edb1efd6539d1e560881">ChainBuilder</a> ()</td></tr>
 <tr class="separator:af43032940c67edb1efd6539d1e560881"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a99fd0c70e205e8117d1dc1cf07fed8a7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_chain_builder.html#a99fd0c70e205e8117d1dc1cf07fed8a7">ChainBuilder</a> (int window, int token, int threshold, int user_model_size, int auth_model_size)</td></tr>
+<tr class="memdesc:a99fd0c70e205e8117d1dc1cf07fed8a7"><td class="mdescLeft">&#160;</td><td class="mdescRight">allow model size, window, token values to be specified.  <a href="#a99fd0c70e205e8117d1dc1cf07fed8a7">More...</a><br /></td></tr>
 <tr class="separator:a99fd0c70e205e8117d1dc1cf07fed8a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4f42e44cba506f6ad523acb85c68701e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_chain_builder.html#a4f42e44cba506f6ad523acb85c68701e">handle_touch</a> (<a class="el" href="classcomponents_1_1_touch.html">Touch</a> touch)</td></tr>
+<tr class="memdesc:a4f42e44cba506f6ad523acb85c68701e"><td class="mdescLeft">&#160;</td><td class="mdescRight">this method should be called in some way whenever there is a touch event in android.  <a href="#a4f42e44cba506f6ad523acb85c68701e">More...</a><br /></td></tr>
 <tr class="separator:a4f42e44cba506f6ad523acb85c68701e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa483e6832f09092ec52fdf715e6f4b5e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_chain_builder.html#aa483e6832f09092ec52fdf715e6f4b5e">authenticate</a> ()</td></tr>
+<tr class="memdesc:aa483e6832f09092ec52fdf715e6f4b5e"><td class="mdescLeft">&#160;</td><td class="mdescRight">allow forced authentication from outside of <a class="el" href="classruntime_1_1_chain_builder.html" title="Wrapper around Chain used to make using the model easier in a real application. ">ChainBuilder</a>.  <a href="#aa483e6832f09092ec52fdf715e6f4b5e">More...</a><br /></td></tr>
 <tr class="separator:aa483e6832f09092ec52fdf715e6f4b5e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:afec27831c01ad10069232680b82b3298"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classruntime_1_1_compare_chains.html">CompareChains</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_chain_builder.html#afec27831c01ad10069232680b82b3298">get_authenticate_thread</a> ()</td></tr>
+<tr class="memdesc:afec27831c01ad10069232680b82b3298"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the thread which is preforming the authentication.  <a href="#afec27831c01ad10069232680b82b3298">More...</a><br /></td></tr>
 <tr class="separator:afec27831c01ad10069232680b82b3298"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab01b027d8ad763c58fef515f6bdfe03d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="enumruntime_1_1_chain_builder_1_1_state.html">State</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_chain_builder.html#ab01b027d8ad763c58fef515f6bdfe03d">get_authenticate_state</a> ()</td></tr>
 <tr class="memdesc:ab01b027d8ad763c58fef515f6bdfe03d"><td class="mdescLeft">&#160;</td><td class="mdescRight">handle requests for the current state of the authentication  <a href="#ab01b027d8ad763c58fef515f6bdfe03d">More...</a><br /></td></tr>
 <tr class="separator:ab01b027d8ad763c58fef515f6bdfe03d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aac13171465eedc1e37a39f740d44b3af"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_chain_builder.html#aac13171465eedc1e37a39f740d44b3af">build_chain_from_csv</a> (File file)</td></tr>
+<tr class="memdesc:aac13171465eedc1e37a39f740d44b3af"><td class="mdescLeft">&#160;</td><td class="mdescRight">this code will NOT BE USEFULL ON ANDROID.  <a href="#aac13171465eedc1e37a39f740d44b3af">More...</a><br /></td></tr>
 <tr class="separator:aac13171465eedc1e37a39f740d44b3af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
@@ -131,7 +147,8 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a8a63d82919a41779bd179be83dd02715"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>TODO write a HashList class (most likely extends HashMap and implemetns list to store the hash of everything. Replace ArrayList with this class whereever arraylist is used. The other option is to use LinkedHashList. handles building of the model based on input events. This may not be necessary in android framework, but it will allow a consistant way of building the model across platforms to allow for easier migration to android device. whenever I add a touch, I take </p>
+<div class="textblock"><p>Wrapper around Chain used to make using the model easier in a real application. </p>
+<p>This class will construct a model with the given parameters. Calling authenticate will cause the newest [user_model_size] touches to be compared against [auth_model_size] touches which immediatly precede the touches used in the user_model. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="af43032940c67edb1efd6539d1e560881"></a>
 <div class="memitem">
@@ -189,7 +206,9 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>allow model size, window, token values to be specified. This is mainly for testing purposes </p>
+
+<p>allow model size, window, token values to be specified. </p>
+<p>This is mainly for testing purposes </p>
 
 </div>
 </div>
@@ -206,7 +225,33 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>allow forced authentication from outside of <a class="el" href="classruntime_1_1_chain_builder.html">ChainBuilder</a>. this involves starting the <a class="el" href="classruntime_1_1_compare_chains.html" title="This thread will call the compare method of chain class. The goal is to compare user chain and auth c...">CompareChains</a>. this method starts the authentication </p>
+
+<p>allow forced authentication from outside of <a class="el" href="classruntime_1_1_chain_builder.html" title="Wrapper around Chain used to make using the model easier in a real application. ">ChainBuilder</a>. </p>
+<p>this involves starting the <a class="el" href="classruntime_1_1_compare_chains.html" title="Use the compare method of the Chain class to determine an authetnication probability between 0 and 1...">CompareChains</a>. this method starts the authentication </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classruntime_1_1_chain_builder_aa483e6832f09092ec52fdf715e6f4b5e_cgraph.png" border="0" usemap="#classruntime_1_1_chain_builder_aa483e6832f09092ec52fdf715e6f4b5e_cgraph" alt=""/></div>
+<map name="classruntime_1_1_chain_builder_aa483e6832f09092ec52fdf715e6f4b5e_cgraph" id="classruntime_1_1_chain_builder_aa483e6832f09092ec52fdf715e6f4b5e_cgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_chain.html#a9a8aa7996f3f4b65a0f0dbbddd84f14b" title="components.Chain.add\l_touch" alt="" coords="272,5,428,47"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classruntime_1_1_chain_builder_aa483e6832f09092ec52fdf715e6f4b5e_icgraph.png" border="0" usemap="#classruntime_1_1_chain_builder_aa483e6832f09092ec52fdf715e6f4b5e_icgraph" alt=""/></div>
+<map name="classruntime_1_1_chain_builder_aa483e6832f09092ec52fdf715e6f4b5e_icgraph" id="classruntime_1_1_chain_builder_aa483e6832f09092ec52fdf715e6f4b5e_icgraph">
+<area shape="rect" id="node2" href="classruntime_1_1_chain_builder.html#a4f42e44cba506f6ad523acb85c68701e" title="this method should be called in some way whenever there is a touch event in android. " alt="" coords="272,64,457,105"/>
+<area shape="rect" id="node4" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="540,13,648,39"/>
+<area shape="rect" id="node6" href="classtest_1_1_unit_rank_compare.html#ae0b3fb1356fcac8e9cf4d9bf7f4f323a" title="test.UnitRankCompare.init" alt="" coords="505,130,683,157"/>
+<area shape="rect" id="node3" href="classruntime_1_1_chain_builder.html#aac13171465eedc1e37a39f740d44b3af" title="this code will NOT BE USEFULL ON ANDROID. " alt="" coords="507,64,681,105"/>
+<area shape="rect" id="node5" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="731,5,925,47"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -223,7 +268,22 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>this code will NOT BE USEFULL ON ANDROID. It will build the model from a csv file in the current working directory. It will however utilize the <a class="el" href="classruntime_1_1_chain_builder.html#a4f42e44cba506f6ad523acb85c68701e">handle_touch()</a> method to add new touches to the chain. It is simply a matter of where the touches are coming from. TODO move this method to another place. it is only by convience that it exists here now. </p>
+
+<p>this code will NOT BE USEFULL ON ANDROID. </p>
+<p>It will build the model from a csv file in the current working directory. It will however utilize the <a class="el" href="classruntime_1_1_chain_builder.html#a4f42e44cba506f6ad523acb85c68701e" title="this method should be called in some way whenever there is a touch event in android. ">handle_touch()</a> method to add new touches to the chain. It is simply a matter of where the touches are coming from. TODO move this method to another place. it is only by convience that it exists here now. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classruntime_1_1_chain_builder_aac13171465eedc1e37a39f740d44b3af_cgraph.png" border="0" usemap="#classruntime_1_1_chain_builder_aac13171465eedc1e37a39f740d44b3af_cgraph" alt=""/></div>
+<map name="classruntime_1_1_chain_builder_aac13171465eedc1e37a39f740d44b3af_cgraph" id="classruntime_1_1_chain_builder_aac13171465eedc1e37a39f740d44b3af_cgraph">
+<area shape="rect" id="node2" href="classruntime_1_1_chain_builder.html#a8a63d82919a41779bd179be83dd02715" title="parse the csv file NOT USEFULL ON ANDROID " alt="" coords="228,5,435,32"/>
+<area shape="rect" id="node3" href="classruntime_1_1_chain_builder.html#a4f42e44cba506f6ad523acb85c68701e" title="this method should be called in some way whenever there is a touch event in android. " alt="" coords="239,57,424,98"/>
+<area shape="rect" id="node4" href="classruntime_1_1_chain_builder.html#aa483e6832f09092ec52fdf715e6f4b5e" title="allow forced authentication from outside of ChainBuilder. " alt="" coords="483,64,701,91"/>
+<area shape="rect" id="node5" href="classcomponents_1_1_chain.html#a9a8aa7996f3f4b65a0f0dbbddd84f14b" title="components.Chain.add\l_touch" alt="" coords="749,57,905,98"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -242,6 +302,30 @@ Static Public Member Functions</h2></td></tr>
 
 <p>handle requests for the current state of the authentication </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classruntime_1_1_chain_builder_ab01b027d8ad763c58fef515f6bdfe03d_cgraph.png" border="0" usemap="#classruntime_1_1_chain_builder_ab01b027d8ad763c58fef515f6bdfe03d_cgraph" alt=""/></div>
+<map name="classruntime_1_1_chain_builder_ab01b027d8ad763c58fef515f6bdfe03d_cgraph" id="classruntime_1_1_chain_builder_ab01b027d8ad763c58fef515f6bdfe03d_cgraph">
+<area shape="rect" id="node2" href="classruntime_1_1_compare_chains.html#a3e4a09371bcb8d006d646f9c58b5596c" title="runtime.CompareChains.get\l_auth_complete" alt="" coords="219,5,404,47"/>
+<area shape="rect" id="node3" href="classruntime_1_1_compare_chains.html#af5dd0a0034121d92bbfac68adecec1c7" title="returns the result of the authentication. " alt="" coords="219,71,404,112"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classruntime_1_1_chain_builder_ab01b027d8ad763c58fef515f6bdfe03d_icgraph.png" border="0" usemap="#classruntime_1_1_chain_builder_ab01b027d8ad763c58fef515f6bdfe03d_icgraph" alt=""/></div>
+<map name="classruntime_1_1_chain_builder_ab01b027d8ad763c58fef515f6bdfe03d_icgraph" id="classruntime_1_1_chain_builder_ab01b027d8ad763c58fef515f6bdfe03d_icgraph">
+<area shape="rect" id="node2" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="256,13,364,39"/>
+<area shape="rect" id="node4" href="classtest_1_1_unit_rank_compare.html#ae0b3fb1356fcac8e9cf4d9bf7f4f323a" title="test.UnitRankCompare.init" alt="" coords="221,63,399,90"/>
+<area shape="rect" id="node5" href="classtest_1_1_unit_rank_compare.html#ac8fdeb295d6451a69577d1ebe8ce458c" title="checks that the probabilities are correct " alt="" coords="219,115,401,156"/>
+<area shape="rect" id="node3" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="449,5,644,47"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="afec27831c01ad10069232680b82b3298"></a>
@@ -256,7 +340,21 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>return the thread which is preforming the authentication. This method provides no guarentees about the state of the thread. It may even be null! </p>
+
+<p>return the thread which is preforming the authentication. </p>
+<p>This method provides no guarentees about the state of the thread. It may even be null! </p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classruntime_1_1_chain_builder_afec27831c01ad10069232680b82b3298_icgraph.png" border="0" usemap="#classruntime_1_1_chain_builder_afec27831c01ad10069232680b82b3298_icgraph" alt=""/></div>
+<map name="classruntime_1_1_chain_builder_afec27831c01ad10069232680b82b3298_icgraph" id="classruntime_1_1_chain_builder_afec27831c01ad10069232680b82b3298_icgraph">
+<area shape="rect" id="node2" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="256,13,364,39"/>
+<area shape="rect" id="node4" href="classtest_1_1_unit_rank_compare.html#ae488cafc0902af68a01e2d670350ccee" title="check the test that the compare vectors are correct " alt="" coords="219,64,401,105"/>
+<area shape="rect" id="node3" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="449,5,644,47"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -273,7 +371,33 @@ Static Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>this method should be called in some way whenever there is a touch event in android. There should be minimal amounts of processing done here so the input to the device doesn't lag. I don't know by what method percicely this will need to be called in the android souce. It could be another class which simply handles touch events, or from the pre-existing android archetecture. </p>
+
+<p>this method should be called in some way whenever there is a touch event in android. </p>
+<p>There should be minimal amounts of processing done here so the input to the device doesn't lag. I don't know by what method percicely this will need to be called in the android souce. It could be another class which simply handles touch events, or from the pre-existing android archetecture. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e_cgraph.png" border="0" usemap="#classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e_cgraph" alt=""/></div>
+<map name="classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e_cgraph" id="classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e_cgraph">
+<area shape="rect" id="node2" href="classruntime_1_1_chain_builder.html#aa483e6832f09092ec52fdf715e6f4b5e" title="allow forced authentication from outside of ChainBuilder. " alt="" coords="239,13,457,39"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_chain.html#a9a8aa7996f3f4b65a0f0dbbddd84f14b" title="components.Chain.add\l_touch" alt="" coords="505,5,661,47"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e_icgraph.png" border="0" usemap="#classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e_icgraph" alt=""/></div>
+<map name="classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e_icgraph" id="classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e_icgraph">
+<area shape="rect" id="node2" href="classruntime_1_1_chain_builder.html#aac13171465eedc1e37a39f740d44b3af" title="this code will NOT BE USEFULL ON ANDROID. " alt="" coords="240,5,415,47"/>
+<area shape="rect" id="node3" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="273,71,381,98"/>
+<area shape="rect" id="node5" href="classtest_1_1_unit_rank_compare.html#ae0b3fb1356fcac8e9cf4d9bf7f4f323a" title="test.UnitRankCompare.init" alt="" coords="239,122,416,149"/>
+<area shape="rect" id="node4" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="464,64,659,105"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -300,6 +424,19 @@ Static Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>parse the csv file NOT USEFULL ON ANDROID </p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classruntime_1_1_chain_builder_a8a63d82919a41779bd179be83dd02715_icgraph.png" border="0" usemap="#classruntime_1_1_chain_builder_a8a63d82919a41779bd179be83dd02715_icgraph" alt=""/></div>
+<map name="classruntime_1_1_chain_builder_a8a63d82919a41779bd179be83dd02715_icgraph" id="classruntime_1_1_chain_builder_a8a63d82919a41779bd179be83dd02715_icgraph">
+<area shape="rect" id="node2" href="classdata__analysis_1_1_model__compare__thread.html#ad75761fec2f2e5e2dd2679b6a120f2a4" title="data_analysis.Model\l_compare_thread.run" alt="" coords="275,5,419,47"/>
+<area shape="rect" id="node3" href="classruntime_1_1_chain_builder.html#aac13171465eedc1e37a39f740d44b3af" title="this code will NOT BE USEFULL ON ANDROID. " alt="" coords="260,71,435,112"/>
+<area shape="rect" id="node4" href="classtest_1_1_print__model.html#a00a222f0a0350d0d6001a5b722485c1f" title="test.Print_model.main" alt="" coords="273,137,422,163"/>
+<area shape="rect" id="node5" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="483,129,677,171"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>

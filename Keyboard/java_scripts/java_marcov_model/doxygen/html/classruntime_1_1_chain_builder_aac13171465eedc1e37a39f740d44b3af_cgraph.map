@@ -1,0 +1,6 @@
+<map id="runtime.ChainBuilder.build_chain_from_csv" name="runtime.ChainBuilder.build_chain_from_csv">
+<area shape="rect" id="node2" href="$classruntime_1_1_chain_builder.html#a8a63d82919a41779bd179be83dd02715" title="parse the csv file NOT USEFULL ON ANDROID " alt="" coords="228,5,435,32"/>
+<area shape="rect" id="node3" href="$classruntime_1_1_chain_builder.html#a4f42e44cba506f6ad523acb85c68701e" title="this method should be called in some way whenever there is a touch event in android. " alt="" coords="239,57,424,98"/>
+<area shape="rect" id="node4" href="$classruntime_1_1_chain_builder.html#aa483e6832f09092ec52fdf715e6f4b5e" title="allow forced authentication from outside of ChainBuilder. " alt="" coords="483,64,701,91"/>
+<area shape="rect" id="node5" href="$classcomponents_1_1_chain.html#a9a8aa7996f3f4b65a0f0dbbddd84f14b" title="components.Chain.add\l_touch" alt="" coords="749,57,905,98"/>
+</map>

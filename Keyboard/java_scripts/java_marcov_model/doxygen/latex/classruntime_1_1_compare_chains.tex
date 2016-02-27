@@ -2,26 +2,39 @@
 \label{classruntime_1_1_compare_chains}\index{runtime.\+Compare\+Chains@{runtime.\+Compare\+Chains}}
 
 
-This thread will call the compare method of chain class. The goal is to compare user chain and auth chain and make the result, pass/fail known. Or do something based on pass/fail such as cause the phone to lock.  
+Use the compare method of the Chain class to determine an authetnication probability between 0 and 1.  
 
 
-Inheritance diagram for runtime.\+Compare\+Chains\+:\begin{figure}[H]
+
+
+Inheritance diagram for runtime.\+Compare\+Chains\+:
+\nopagebreak
+\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=3.000000cm]{classruntime_1_1_compare_chains}
+\includegraphics[width=212pt]{classruntime_1_1_compare_chains__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for runtime.\+Compare\+Chains\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=254pt]{classruntime_1_1_compare_chains__coll__graph}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{classruntime_1_1_compare_chains_ae471eeb5d3db8b8e48784d86d5a14a44}{Compare\+Chains} (\hyperlink{classcomponents_1_1_chain}{Chain} \hyperlink{classruntime_1_1_compare_chains_ab222c09ed48638554987292979ede005}{user\+\_\+chain}, \hyperlink{classcomponents_1_1_chain}{Chain} \hyperlink{classruntime_1_1_compare_chains_ac78b36bc65a64fd14906685e6d9410a9}{auth\+\_\+chain})
-\item 
+\begin{DoxyCompactList}\small\item\em will need to make copies of the chains passed in so they do not get updated by something else during the comparason \end{DoxyCompactList}\item 
 void \hyperlink{classruntime_1_1_compare_chains_aafa4a766a30bbbb6e205114a699d8158}{run} ()
 \begin{DoxyCompactList}\small\item\em compare user\+\_\+chain and auth\+\_\+chain and choose what to do with the result \end{DoxyCompactList}\item 
 double \hyperlink{classruntime_1_1_compare_chains_a684e7b6b0ea4f599a190866647acd144}{get\+\_\+auth\+\_\+probability} ()
 \begin{DoxyCompactList}\small\item\em returns the probability with which the \end{DoxyCompactList}\item 
 boolean \hyperlink{classruntime_1_1_compare_chains_af5dd0a0034121d92bbfac68adecec1c7}{get\+\_\+auth\+\_\+result} ()
-\item 
+\begin{DoxyCompactList}\small\item\em returns the result of the authentication. \end{DoxyCompactList}\item 
 boolean \hyperlink{classruntime_1_1_compare_chains_a3e4a09371bcb8d006d646f9c58b5596c}{get\+\_\+auth\+\_\+complete} ()
 \end{DoxyCompactItemize}
 \subsection*{Protected Attributes}
@@ -40,7 +53,9 @@ volatile double \hyperlink{classruntime_1_1_compare_chains_a834721ac98cd7f051734
 
 
 \subsection{Detailed Description}
-This thread will call the compare method of chain class. The goal is to compare user chain and auth chain and make the result, pass/fail known. Or do something based on pass/fail such as cause the phone to lock. 
+Use the compare method of the Chain class to determine an authetnication probability between 0 and 1. 
+
+This class was designed to allow for comparing chains to happen on a different thread. 
 
 \subsection{Constructor \& Destructor Documentation}
 \index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!Compare\+Chains@{Compare\+Chains}}
@@ -51,7 +66,11 @@ This thread will call the compare method of chain class. The goal is to compare 
 \item[{{\bf Chain}}]{auth\+\_\+chain}
 \end{DoxyParamCaption}
 )}\hypertarget{classruntime_1_1_compare_chains_ae471eeb5d3db8b8e48784d86d5a14a44}{}\label{classruntime_1_1_compare_chains_ae471eeb5d3db8b8e48784d86d5a14a44}
+
+
 will need to make copies of the chains passed in so they do not get updated by something else during the comparason 
+
+
 
 \subsection{Member Function Documentation}
 \index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!get\+\_\+auth\+\_\+complete@{get\+\_\+auth\+\_\+complete}}
@@ -61,6 +80,17 @@ will need to make copies of the chains passed in so they do not get updated by s
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{classruntime_1_1_compare_chains_a3e4a09371bcb8d006d646f9c58b5596c}{}\label{classruntime_1_1_compare_chains_a3e4a09371bcb8d006d646f9c58b5596c}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classruntime_1_1_compare_chains_a3e4a09371bcb8d006d646f9c58b5596c_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!get\+\_\+auth\+\_\+probability@{get\+\_\+auth\+\_\+probability}}
 \index{get\+\_\+auth\+\_\+probability@{get\+\_\+auth\+\_\+probability}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
 \subsubsection[{\texorpdfstring{get\+\_\+auth\+\_\+probability()}{get_auth_probability()}}]{\setlength{\rightskip}{0pt plus 5cm}double runtime.\+Compare\+Chains.\+get\+\_\+auth\+\_\+probability (
@@ -72,6 +102,17 @@ will need to make copies of the chains passed in so they do not get updated by s
 
 returns the probability with which the 
 
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classruntime_1_1_compare_chains_a684e7b6b0ea4f599a190866647acd144_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!get\+\_\+auth\+\_\+result@{get\+\_\+auth\+\_\+result}}
 \index{get\+\_\+auth\+\_\+result@{get\+\_\+auth\+\_\+result}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
 \subsubsection[{\texorpdfstring{get\+\_\+auth\+\_\+result()}{get_auth_result()}}]{\setlength{\rightskip}{0pt plus 5cm}boolean runtime.\+Compare\+Chains.\+get\+\_\+auth\+\_\+result (
@@ -79,7 +120,22 @@ returns the probability with which the
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{classruntime_1_1_compare_chains_af5dd0a0034121d92bbfac68adecec1c7}{}\label{classruntime_1_1_compare_chains_af5dd0a0034121d92bbfac68adecec1c7}
-returns the result of the authentication. This method does not provide any guarentees that the compairason has finsihed yet. If the compairason has not yet finished it will return false; \index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!run@{run}}
+
+
+returns the result of the authentication. 
+
+This method does not provide any guarentees that the compairason has finsihed yet. If the compairason has not yet finished it will return false; 
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classruntime_1_1_compare_chains_af5dd0a0034121d92bbfac68adecec1c7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!run@{run}}
 \index{run@{run}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
 \subsubsection[{\texorpdfstring{run()}{run()}}]{\setlength{\rightskip}{0pt plus 5cm}void runtime.\+Compare\+Chains.\+run (
 \begin{DoxyParamCaption}
@@ -91,6 +147,17 @@ returns the result of the authentication. This method does not provide any guare
 compare user\+\_\+chain and auth\+\_\+chain and choose what to do with the result 
 
 perform the comparison now that the values are cached in the Chain\textquotesingle{}s 
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classruntime_1_1_compare_chains_aafa4a766a30bbbb6e205114a699d8158_cgraph}
+\end{center}
+\end{figure}
+
+
+
 
 \subsection{Member Data Documentation}
 \index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!auth\+\_\+chain@{auth\+\_\+chain}}

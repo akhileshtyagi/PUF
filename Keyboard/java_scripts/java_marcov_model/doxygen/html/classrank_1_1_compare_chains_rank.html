@@ -65,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -96,24 +96,37 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">rank.CompareChainsRank Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Use PageRank algorithm (library) to compare chains.  
+ <a href="classrank_1_1_compare_chains_rank.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for rank.CompareChainsRank:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classrank_1_1_compare_chains_rank.png" usemap="#rank.CompareChainsRank_map" alt=""/>
-  <map id="rank.CompareChainsRank_map" name="rank.CompareChainsRank_map">
-<area href="classruntime_1_1_compare_chains.html" title="This thread will call the compare method of chain class. The goal is to compare user chain and auth c..." alt="runtime.CompareChains" shape="rect" coords="0,56,159,80"/>
+<div class="center"><img src="classrank_1_1_compare_chains_rank__inherit__graph.png" border="0" usemap="#rank_8_compare_chains_rank_inherit__map" alt="Inheritance graph"/></div>
+<map name="rank_8_compare_chains_rank_inherit__map" id="rank_8_compare_chains_rank_inherit__map">
+<area shape="rect" id="node2" href="classruntime_1_1_compare_chains.html" title="Use the compare method of the Chain class to determine an authetnication probability between 0 and 1..." alt="" coords="12,80,175,107"/>
 </map>
- </div></div>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for rank.CompareChainsRank:</div>
+<div class="dyncontent">
+<div class="center"><img src="classrank_1_1_compare_chains_rank__coll__graph.png" border="0" usemap="#rank_8_compare_chains_rank_coll__map" alt="Collaboration graph"/></div>
+<map name="rank_8_compare_chains_rank_coll__map" id="rank_8_compare_chains_rank_coll__map">
+<area shape="rect" id="node2" href="classruntime_1_1_compare_chains.html" title="Use the compare method of the Chain class to determine an authetnication probability between 0 and 1..." alt="" coords="27,109,189,136"/>
+<area shape="rect" id="node4" href="classcomponents_1_1_chain.html" title="Markov Chain built using keyboard tokens. " alt="" coords="107,5,237,32"/>
+</map>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ac03c8c50833f034c8d0e1f8de219559e"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrank_1_1_compare_chains_rank.html#ac03c8c50833f034c8d0e1f8de219559e">CompareChainsRank</a> (<a class="el" href="classcomponents_1_1_chain.html">Chain</a> <a class="el" href="classruntime_1_1_compare_chains.html#ab222c09ed48638554987292979ede005">user_chain</a>, <a class="el" href="classcomponents_1_1_chain.html">Chain</a> <a class="el" href="classruntime_1_1_compare_chains.html#ac78b36bc65a64fd14906685e6d9410a9">auth_chain</a>)</td></tr>
 <tr class="separator:ac03c8c50833f034c8d0e1f8de219559e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a72680cae41f481bfe37011051c2e9419"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrank_1_1_compare_chains_rank.html#a72680cae41f481bfe37011051c2e9419">run</a> ()</td></tr>
+<tr class="memdesc:a72680cae41f481bfe37011051c2e9419"><td class="mdescLeft">&#160;</td><td class="mdescRight">overrides the run method to implement the authentication with a page-rank style algorithm.  <a href="#a72680cae41f481bfe37011051c2e9419">More...</a><br /></td></tr>
 <tr class="separator:a72680cae41f481bfe37011051c2e9419"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="inherit_header pub_methods_classruntime_1_1_compare_chains"><td colspan="2" onclick="javascript:toggleInherit('pub_methods_classruntime_1_1_compare_chains')"><img src="closed.png" alt="-"/>&#160;Public Member Functions inherited from <a class="el" href="classruntime_1_1_compare_chains.html">runtime.CompareChains</a></td></tr>
 <tr class="memitem:ae471eeb5d3db8b8e48784d86d5a14a44 inherit pub_methods_classruntime_1_1_compare_chains"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_compare_chains.html#ae471eeb5d3db8b8e48784d86d5a14a44">CompareChains</a> (<a class="el" href="classcomponents_1_1_chain.html">Chain</a> <a class="el" href="classruntime_1_1_compare_chains.html#ab222c09ed48638554987292979ede005">user_chain</a>, <a class="el" href="classcomponents_1_1_chain.html">Chain</a> <a class="el" href="classruntime_1_1_compare_chains.html#ac78b36bc65a64fd14906685e6d9410a9">auth_chain</a>)</td></tr>
+<tr class="memdesc:ae471eeb5d3db8b8e48784d86d5a14a44 inherit pub_methods_classruntime_1_1_compare_chains"><td class="mdescLeft">&#160;</td><td class="mdescRight">will need to make copies of the chains passed in so they do not get updated by something else during the comparason  <a href="#ae471eeb5d3db8b8e48784d86d5a14a44">More...</a><br /></td></tr>
 <tr class="separator:ae471eeb5d3db8b8e48784d86d5a14a44 inherit pub_methods_classruntime_1_1_compare_chains"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aafa4a766a30bbbb6e205114a699d8158 inherit pub_methods_classruntime_1_1_compare_chains"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_compare_chains.html#aafa4a766a30bbbb6e205114a699d8158">run</a> ()</td></tr>
 <tr class="memdesc:aafa4a766a30bbbb6e205114a699d8158 inherit pub_methods_classruntime_1_1_compare_chains"><td class="mdescLeft">&#160;</td><td class="mdescRight">compare user_chain and auth_chain and choose what to do with the result  <a href="#aafa4a766a30bbbb6e205114a699d8158">More...</a><br /></td></tr>
@@ -122,6 +135,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a684e7b6b0ea4f599a190866647acd144 inherit pub_methods_classruntime_1_1_compare_chains"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the probability with which the  <a href="#a684e7b6b0ea4f599a190866647acd144">More...</a><br /></td></tr>
 <tr class="separator:a684e7b6b0ea4f599a190866647acd144 inherit pub_methods_classruntime_1_1_compare_chains"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af5dd0a0034121d92bbfac68adecec1c7 inherit pub_methods_classruntime_1_1_compare_chains"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_compare_chains.html#af5dd0a0034121d92bbfac68adecec1c7">get_auth_result</a> ()</td></tr>
+<tr class="memdesc:af5dd0a0034121d92bbfac68adecec1c7 inherit pub_methods_classruntime_1_1_compare_chains"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the result of the authentication.  <a href="#af5dd0a0034121d92bbfac68adecec1c7">More...</a><br /></td></tr>
 <tr class="separator:af5dd0a0034121d92bbfac68adecec1c7 inherit pub_methods_classruntime_1_1_compare_chains"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e4a09371bcb8d006d646f9c58b5596c inherit pub_methods_classruntime_1_1_compare_chains"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_compare_chains.html#a3e4a09371bcb8d006d646f9c58b5596c">get_auth_complete</a> ()</td></tr>
 <tr class="separator:a3e4a09371bcb8d006d646f9c58b5596c inherit pub_methods_classruntime_1_1_compare_chains"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -140,7 +154,11 @@ Additional Inherited Members</h2></td></tr>
 <tr class="memitem:a834721ac98cd7f0517344ab0c1afdf5c inherit pro_attribs_classruntime_1_1_compare_chains"><td class="memItemLeft" align="right" valign="top">volatile double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classruntime_1_1_compare_chains.html#a834721ac98cd7f0517344ab0c1afdf5c">authentication_probability</a></td></tr>
 <tr class="separator:a834721ac98cd7f0517344ab0c1afdf5c inherit pro_attribs_classruntime_1_1_compare_chains"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
-<h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
+<div class="textblock"><p>Use PageRank algorithm (library) to compare chains. </p>
+<p>Provides an implementation of CompareChains which can be used in place of the chain compairason implemented in the Chain class.</p>
+<p>NOTE: this is still a work in progress and does not have very good results yet. </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="ac03c8c50833f034c8d0e1f8de219559e"></a>
 <div class="memitem">
 <div class="memproto">
@@ -180,7 +198,26 @@ Additional Inherited Members</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
 <p>overrides the run method to implement the authentication with a page-rank style algorithm. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classrank_1_1_compare_chains_rank_a72680cae41f481bfe37011051c2e9419_cgraph.png" border="0" usemap="#classrank_1_1_compare_chains_rank_a72680cae41f481bfe37011051c2e9419_cgraph" alt=""/></div>
+<map name="classrank_1_1_compare_chains_rank_a72680cae41f481bfe37011051c2e9419_cgraph" id="classrank_1_1_compare_chains_rank_a72680cae41f481bfe37011051c2e9419_cgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_chain.html#affd01133384c5cb222448c76ab0a82fb" title="get a list of all touches in the chain " alt="" coords="267,5,420,47"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_chain.html#aed8e3b1ca179438db491b35a2eee822b" title="handle requests for tokens " alt="" coords="483,93,637,135"/>
+<area shape="rect" id="node4" href="classcomponents_1_1_chain.html#ac6aca5adf04bb1500c1d8735cd7d5881" title="components.Chain.get\l_token" alt="" coords="267,123,420,164"/>
+<area shape="rect" id="node5" href="classcomponents_1_1_chain.html#a654c25d3edab107ad77710428f11280c" title="returns a list of distributions for each key " alt="" coords="483,272,637,313"/>
+<area shape="rect" id="node6" href="classcomponents_1_1_chain.html#a96cec1762b6f69856f54aad9e37b04a7" title="returns the probability of a given touch (at the i&#39;th index) based on the model. This will depend on ..." alt="" coords="267,188,420,229"/>
+<area shape="rect" id="node8" href="classcomponents_1_1_touch.html#a7c61094e11f0dfeaf37e72a67fd04121" title="components.Touch.get_key" alt="" coords="252,305,435,331"/>
+<area shape="rect" id="node9" href="classcomponents_1_1_chain.html#a48f2e0718eb4a400c6ceb23afb0ea162" title="handle requests for windows " alt="" coords="267,356,420,397"/>
+<area shape="rect" id="node7" href="classcomponents_1_1_touch.html#aa7eaadaf00950e7e7076136be30d00bd" title="returns the probability of the touch occurring after a given window w. If the window does not exist r..." alt="" coords="483,188,637,229"/>
+<area shape="rect" id="node10" href="classcomponents_1_1_chain.html#ae3cf3859627624dd155cf1507514cf20" title="returns the distribution of the data as a whole " alt="" coords="483,356,637,397"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>

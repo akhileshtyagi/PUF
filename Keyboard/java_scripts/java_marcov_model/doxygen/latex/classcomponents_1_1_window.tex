@@ -5,10 +5,22 @@
 This class will store and provide functions for a single window within the model.  
 
 
-Inheritance diagram for components.\+Window\+:\begin{figure}[H]
+
+
+Inheritance diagram for components.\+Window\+:\nopagebreak
+\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classcomponents_1_1_window}
+\includegraphics[width=202pt]{classcomponents_1_1_window__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for components.\+Window\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=202pt]{classcomponents_1_1_window__coll__graph}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
@@ -19,7 +31,7 @@ Inheritance diagram for components.\+Window\+:\begin{figure}[H]
 \hyperlink{classcomponents_1_1_window_a5869fe4e3c5d711af934ff83114e55aa}{Window} (\hyperlink{classcomponents_1_1_window}{Window} w)
 \begin{DoxyCompactList}\small\item\em copy constructor \end{DoxyCompactList}\item 
 boolean \hyperlink{classcomponents_1_1_window_a3453a892128b5b4bded8bb7d18bbf35f}{compare\+\_\+with\+\_\+token} (List$<$ \hyperlink{classcomponents_1_1_token}{Token} $>$ tokens, \hyperlink{classcomponents_1_1_window}{Window} other\+\_\+window)
-\item 
+\begin{DoxyCompactList}\small\item\em used for compairason of windows with a given token set. \end{DoxyCompactList}\item 
 int \hyperlink{classcomponents_1_1_window_ab553fd43fb0240c0ef8a2218bdd5092c}{size} ()
 \begin{DoxyCompactList}\small\item\em returns the number of touches in the window \end{DoxyCompactList}\item 
 List$<$ \hyperlink{classcomponents_1_1_touch}{Touch} $>$ \hyperlink{classcomponents_1_1_window_abde5cba55b899aca32dd46750aeb4c32}{get\+\_\+touch\+\_\+list} ()
@@ -34,6 +46,8 @@ String \hyperlink{classcomponents_1_1_window_ab46581a7a83d26f3f7cbb8ef16cc68fc}{
 
 \subsection{Detailed Description}
 This class will store and provide functions for a single window within the model. 
+
+Windows are a list of n touches for a window of size n. When this class is used, The token which comes after the window is stored. It is this token which comes after the window which we compute the probability for. 
 
 \subsection{Constructor \& Destructor Documentation}
 \index{components\+::\+Window@{components\+::\+Window}!Window@{Window}}
@@ -65,7 +79,22 @@ copy constructor
 \item[{{\bf Window}}]{other\+\_\+window}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_window_a3453a892128b5b4bded8bb7d18bbf35f}{}\label{classcomponents_1_1_window_a3453a892128b5b4bded8bb7d18bbf35f}
-used for compairason of windows with a given token set. return true if this window is equal to auth window. \index{components\+::\+Window@{components\+::\+Window}!compare\+To@{compare\+To}}
+
+
+used for compairason of windows with a given token set. 
+
+return true if this window is equal to auth window. 
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_window_a3453a892128b5b4bded8bb7d18bbf35f_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{components\+::\+Window@{components\+::\+Window}!compare\+To@{compare\+To}}
 \index{compare\+To@{compare\+To}!components\+::\+Window@{components\+::\+Window}}
 \subsubsection[{\texorpdfstring{compare\+To(\+Window other\+\_\+window)}{compareTo(Window other_window)}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Window.\+compare\+To (
 \begin{DoxyParamCaption}
@@ -75,6 +104,28 @@ used for compairason of windows with a given token set. return true if this wind
 
 
 compare this window to another window. Return negative if this window is less than the other window. Comparason is based on touches\textquotesingle{} pressure. Returns 0 if they are equal. 
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_window_acf98290f4314388936c14de8b259339a_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_window_acf98290f4314388936c14de8b259339a_icgraph}
+\end{center}
+\end{figure}
+
 
 \index{components\+::\+Window@{components\+::\+Window}!get\+\_\+touch\+\_\+list@{get\+\_\+touch\+\_\+list}}
 \index{get\+\_\+touch\+\_\+list@{get\+\_\+touch\+\_\+list}!components\+::\+Window@{components\+::\+Window}}
@@ -86,6 +137,17 @@ compare this window to another window. Return negative if this window is less th
 
 
 returns the window in the form of a touch list 
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_window_abde5cba55b899aca32dd46750aeb4c32_icgraph}
+\end{center}
+\end{figure}
+
 
 \index{components\+::\+Window@{components\+::\+Window}!hash\+Code@{hash\+Code}}
 \index{hash\+Code@{hash\+Code}!components\+::\+Window@{components\+::\+Window}}

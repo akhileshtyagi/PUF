@@ -9,8 +9,11 @@ import runtime.ChainBuilder;
 import components.Chain;
 import components.Touch;
 
-///this thread allows the preforming of a test compairason.
-///when the compairason is finished, an instance variable will be set indicating different results.
+/** Compare Markov Chains on their own thread.
+ * This class was used to help speed up testing primarily.
+this thread allows the preforming of a test compairason.
+when the compairason is finished, an instance variable will be set indicating different results.
+ */
 public class Model_compare_thread implements Runnable{
 	//TODO adjust this to determine how many portions of the data in each model will be compared
 	final int COMPARE_LIMIT = 20;

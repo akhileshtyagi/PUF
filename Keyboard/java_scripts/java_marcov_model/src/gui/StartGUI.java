@@ -9,6 +9,10 @@ package gui;
 //  c) model compare tests
 // 3) allows printing of model
 // 4) allows browsing of test output files
+
+/** GUI useful for testing.
+ * Contains functionality to run test code and view results.
+ */
 public class StartGUI {
 	static Marcov_frame frame;
 	

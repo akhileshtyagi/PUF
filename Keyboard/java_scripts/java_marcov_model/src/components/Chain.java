@@ -8,14 +8,21 @@ import java.util.concurrent.Executors;
 
 import trie.TrieList;
 
-///TODO make the chain's compare_to method be able to update incrementally
-///TODO make sure to use get_XXXXXX() instead of the instance variables
-///TODO put windows into a Trie data structure for building model faster
-///TODO anywhere where I need to compare windows, or Touches I need the option to do this with tokens
-///there needs to be a way to set the distribution used for a chain. This is because the authentication chain is evaluated with the distribution of the base chain.
-///compute the windows somewhere. This will be based on the threshold, window, token sizes. This may change distributions? if a touch is thrown out?
-///this class represents the marcov chain. It contains a sequence of touches and a distribution. I avoid doing any processing on touch being added because eventually this will be called on key press in android. Setting it up this way is more flexible to in the sense that processing may be done at any time.
-///caches the result of each computation so it does not have to be repeated.
+//TODO make the chain's compare_to method be able to update incrementally
+//TODO make sure to use get_XXXXXX() instead of the instance variables
+//TODO put windows into a Trie data structure for building model faster
+//TODO anywhere where I need to compare windows, or Touches I need the option to do this with tokens
+//there needs to be a way to set the distribution used for a chain. This is because the authentication chain is evaluated with the distribution of the base chain.
+//compute the windows somewhere. This will be based on the threshold, window, token sizes. This may change distributions? if a touch is thrown out?
+//this class represents the marcov chain. It contains a sequence of touches and a distribution. I avoid doing any processing on touch being added because eventually this will be called on key press in android. Setting it up this way is more flexible to in the sense that processing may be done at any time.
+//caches the result of each computation so it does not have to be repeated.
+
+/** Markov Chain built using keyboard tokens.
+ * This class was designed to be used with the keyboard
+ * of a mobile phone. The soft keyboard of this device
+ * produces (key, pressure) values. These (key, pressure)
+ * values become the tokens in our Marcov Chain.
+ */
 public class Chain{
 	private final Token.Type TOKEN_TYPE = Token.Type.linear;
 	

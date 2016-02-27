@@ -5,10 +5,22 @@
 This class represents a touch event.  
 
 
-Inheritance diagram for components.\+Touch\+:\begin{figure}[H]
+
+
+Inheritance diagram for components.\+Touch\+:\nopagebreak
+\begin{figure}[H]
 \begin{center}
 \leavevmode
-\includegraphics[height=2.000000cm]{classcomponents_1_1_touch}
+\includegraphics[width=194pt]{classcomponents_1_1_touch__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for components.\+Touch\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=194pt]{classcomponents_1_1_touch__coll__graph}
 \end{center}
 \end{figure}
 \subsection*{Public Member Functions}
@@ -29,7 +41,7 @@ int \hyperlink{classcomponents_1_1_touch_a7c61094e11f0dfeaf37e72a67fd04121}{get\
 long \hyperlink{classcomponents_1_1_touch_aab5b8034bd2970c1d7a2169adfcf53e6}{get\+\_\+timestamp} ()
 \item 
 boolean \hyperlink{classcomponents_1_1_touch_a7cb910d6f460cc8ba5f101786131e07d}{compare\+\_\+with\+\_\+token} (List$<$ \hyperlink{classcomponents_1_1_token}{Token} $>$ tokens, \hyperlink{classcomponents_1_1_touch}{Touch} other\+\_\+touch)
-\item 
+\begin{DoxyCompactList}\small\item\em compares the touches with the given token list. \end{DoxyCompactList}\item 
 int \hyperlink{classcomponents_1_1_touch_ad38a5ddb406184988bcbcef0cfdad373}{hash\+Code} ()
 \begin{DoxyCompactList}\small\item\em implement hash function for the touch class \end{DoxyCompactList}\item 
 int \hyperlink{classcomponents_1_1_touch_a2dccbff3f4d150931886920d98354a17}{compare\+To} (\hyperlink{classcomponents_1_1_touch}{Touch} other\+\_\+touch)
@@ -40,6 +52,8 @@ String \hyperlink{classcomponents_1_1_touch_a6057203674219c31ed9c8c61e65a5686}{t
 
 \subsection{Detailed Description}
 This class represents a touch event. 
+
+\hyperlink{classcomponents_1_1_touch}{Touch} evens have an associated key, pressure, and time from the raw data. From the Markov \hyperlink{classcomponents_1_1_chain}{Chain} we derive the probability and predecessor\+\_\+window attributes. The probability is a value between 0 and 1 representing the percent change this token follows the predecessor window. 
 
 \subsection{Constructor \& Destructor Documentation}
 \index{components\+::\+Touch@{components\+::\+Touch}!Touch@{Touch}}
@@ -73,7 +87,33 @@ copy constructor
 \item[{{\bf Touch}}]{other\+\_\+touch}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_touch_a7cb910d6f460cc8ba5f101786131e07d}{}\label{classcomponents_1_1_touch_a7cb910d6f460cc8ba5f101786131e07d}
-compares the touches with the given token list. this function will return true if the touches are contained within the smae token \index{components\+::\+Touch@{components\+::\+Touch}!compare\+To@{compare\+To}}
+
+
+compares the touches with the given token list. 
+
+this function will return true if the touches are contained within the smae token 
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_touch_a7cb910d6f460cc8ba5f101786131e07d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_touch_a7cb910d6f460cc8ba5f101786131e07d_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{components\+::\+Touch@{components\+::\+Touch}!compare\+To@{compare\+To}}
 \index{compare\+To@{compare\+To}!components\+::\+Touch@{components\+::\+Touch}}
 \subsubsection[{\texorpdfstring{compare\+To(\+Touch other\+\_\+touch)}{compareTo(Touch other_touch)}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Touch.\+compare\+To (
 \begin{DoxyParamCaption}
@@ -84,6 +124,17 @@ compares the touches with the given token list. this function will return true i
 
 compare touches to one another. return negative if this touch is less than other\+\_\+touch 
 
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_touch_a2dccbff3f4d150931886920d98354a17_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Touch@{components\+::\+Touch}!get\+\_\+key@{get\+\_\+key}}
 \index{get\+\_\+key@{get\+\_\+key}!components\+::\+Touch@{components\+::\+Touch}}
 \subsubsection[{\texorpdfstring{get\+\_\+key()}{get_key()}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Touch.\+get\+\_\+key (
@@ -91,6 +142,17 @@ compare touches to one another. return negative if this touch is less than other
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_touch_a7c61094e11f0dfeaf37e72a67fd04121}{}\label{classcomponents_1_1_touch_a7c61094e11f0dfeaf37e72a67fd04121}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_touch_a7c61094e11f0dfeaf37e72a67fd04121_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Touch@{components\+::\+Touch}!get\+\_\+pressure@{get\+\_\+pressure}}
 \index{get\+\_\+pressure@{get\+\_\+pressure}!components\+::\+Touch@{components\+::\+Touch}}
 \subsubsection[{\texorpdfstring{get\+\_\+pressure()}{get_pressure()}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Touch.\+get\+\_\+pressure (
@@ -98,6 +160,17 @@ compare touches to one another. return negative if this touch is less than other
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_touch_aa47273ddf1ef9ed00285bcee6cfd4eba}{}\label{classcomponents_1_1_touch_aa47273ddf1ef9ed00285bcee6cfd4eba}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_touch_aa47273ddf1ef9ed00285bcee6cfd4eba_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Touch@{components\+::\+Touch}!get\+\_\+probability@{get\+\_\+probability}}
 \index{get\+\_\+probability@{get\+\_\+probability}!components\+::\+Touch@{components\+::\+Touch}}
 \subsubsection[{\texorpdfstring{get\+\_\+probability(\+Window preceeding\+\_\+window)}{get_probability(Window preceeding_window)}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Touch.\+get\+\_\+probability (
@@ -108,6 +181,17 @@ compare touches to one another. return negative if this touch is less than other
 
 
 returns the probability of the touch occurring after a given window w. If the window does not exist return (T\+O\+DO) currently returning 0 
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_touch_aa7eaadaf00950e7e7076136be30d00bd_icgraph}
+\end{center}
+\end{figure}
+
 
 \index{components\+::\+Touch@{components\+::\+Touch}!get\+\_\+timestamp@{get\+\_\+timestamp}}
 \index{get\+\_\+timestamp@{get\+\_\+timestamp}!components\+::\+Touch@{components\+::\+Touch}}
@@ -127,6 +211,17 @@ returns the probability of the touch occurring after a given window w. If the wi
 
 implement hash function for the touch class 
 
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_touch_ad38a5ddb406184988bcbcef0cfdad373_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Touch@{components\+::\+Touch}!set\+\_\+probability@{set\+\_\+probability}}
 \index{set\+\_\+probability@{set\+\_\+probability}!components\+::\+Touch@{components\+::\+Touch}}
 \subsubsection[{\texorpdfstring{set\+\_\+probability(\+Window preceeding\+\_\+window, double p)}{set_probability(Window preceeding_window, double p)}}]{\setlength{\rightskip}{0pt plus 5cm}void components.\+Touch.\+set\+\_\+probability (
@@ -138,6 +233,17 @@ implement hash function for the touch class
 
 
 sets the probability that this touch succeeds a given sequence. Reccord the sequence and the probability 
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_touch_a407c6a87b0109d73ac0c84c32a38caf4_icgraph}
+\end{center}
+\end{figure}
+
 
 \index{components\+::\+Touch@{components\+::\+Touch}!to\+String@{to\+String}}
 \index{to\+String@{to\+String}!components\+::\+Touch@{components\+::\+Touch}}

@@ -12,6 +12,12 @@ import data.ProbabilityVector;
 import graph.StateGraph;
 import runtime.CompareChains;
 
+/** Use PageRank algorithm (library) to compare chains.
+ * Provides an implementation of CompareChains which can be used in place of the
+ * chain compairason implemented in the Chain class.
+ *
+ * NOTE: this is still a work in progress and does not have very good results yet.
+ */
 public class CompareChainsRank extends CompareChains {
 	private Chain user_replica;
 	private Chain auth_replica;

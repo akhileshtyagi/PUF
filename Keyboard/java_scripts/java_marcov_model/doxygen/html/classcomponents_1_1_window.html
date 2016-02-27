@@ -65,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -102,11 +102,13 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="dynheader">
 Inheritance diagram for components.Window:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classcomponents_1_1_window.png" usemap="#components.Window_map" alt=""/>
-  <map id="components.Window_map" name="components.Window_map">
-</map>
- </div></div>
+<div class="center"><img src="classcomponents_1_1_window__inherit__graph.png" border="0" usemap="#components_8_window_inherit__map" alt="Inheritance graph"/></div>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for components.Window:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_window__coll__graph.png" border="0" usemap="#components_8_window_coll__map" alt="Collaboration graph"/></div>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -116,6 +118,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a5869fe4e3c5d711af934ff83114e55aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy constructor  <a href="#a5869fe4e3c5d711af934ff83114e55aa">More...</a><br /></td></tr>
 <tr class="separator:a5869fe4e3c5d711af934ff83114e55aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3453a892128b5b4bded8bb7d18bbf35f"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomponents_1_1_window.html#a3453a892128b5b4bded8bb7d18bbf35f">compare_with_token</a> (List&lt; <a class="el" href="classcomponents_1_1_token.html">Token</a> &gt; tokens, <a class="el" href="classcomponents_1_1_window.html">Window</a> other_window)</td></tr>
+<tr class="memdesc:a3453a892128b5b4bded8bb7d18bbf35f"><td class="mdescLeft">&#160;</td><td class="mdescRight">used for compairason of windows with a given token set.  <a href="#a3453a892128b5b4bded8bb7d18bbf35f">More...</a><br /></td></tr>
 <tr class="separator:a3453a892128b5b4bded8bb7d18bbf35f"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab553fd43fb0240c0ef8a2218bdd5092c"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomponents_1_1_window.html#ab553fd43fb0240c0ef8a2218bdd5092c">size</a> ()</td></tr>
 <tr class="memdesc:ab553fd43fb0240c0ef8a2218bdd5092c"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the number of touches in the window  <a href="#ab553fd43fb0240c0ef8a2218bdd5092c">More...</a><br /></td></tr>
@@ -134,6 +137,7 @@ Public Member Functions</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>This class will store and provide functions for a single window within the model. </p>
+<p>Windows are a list of n touches for a window of size n. When this class is used, The token which comes after the window is stored. It is this token which comes after the window which we compute the probability for. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a7ca5acd9fe649949cb0adccc837cf9d2"></a>
 <div class="memitem">
@@ -193,7 +197,20 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>used for compairason of windows with a given token set. return true if this window is equal to auth window. </p>
+
+<p>used for compairason of windows with a given token set. </p>
+<p>return true if this window is equal to auth window. </p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_window_a3453a892128b5b4bded8bb7d18bbf35f_icgraph.png" border="0" usemap="#classcomponents_1_1_window_a3453a892128b5b4bded8bb7d18bbf35f_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_window_a3453a892128b5b4bded8bb7d18bbf35f_icgraph" id="classcomponents_1_1_window_a3453a892128b5b4bded8bb7d18bbf35f_icgraph">
+<area shape="rect" id="node2" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="252,13,360,39"/>
+<area shape="rect" id="node3" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="408,5,603,47"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -213,6 +230,27 @@ Public Member Functions</h2></td></tr>
 
 <p>compare this window to another window. Return negative if this window is less than the other window. Comparason is based on touches' pressure. Returns 0 if they are equal. </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_window_acf98290f4314388936c14de8b259339a_cgraph.png" border="0" usemap="#classcomponents_1_1_window_acf98290f4314388936c14de8b259339a_cgraph" alt=""/></div>
+<map name="classcomponents_1_1_window_acf98290f4314388936c14de8b259339a_cgraph" id="classcomponents_1_1_window_acf98290f4314388936c14de8b259339a_cgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_touch.html#a2dccbff3f4d150931886920d98354a17" title="compare touches to one another. return negative if this touch is less than other_touch ..." alt="" coords="267,5,469,32"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_window_acf98290f4314388936c14de8b259339a_icgraph.png" border="0" usemap="#classcomponents_1_1_window_acf98290f4314388936c14de8b259339a_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_window_acf98290f4314388936c14de8b259339a_icgraph" id="classcomponents_1_1_window_acf98290f4314388936c14de8b259339a_icgraph">
+<area shape="rect" id="node2" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="267,13,375,39"/>
+<area shape="rect" id="node3" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="423,5,617,47"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="abde5cba55b899aca32dd46750aeb4c32"></a>
@@ -229,6 +267,16 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>returns the window in the form of a touch list </p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_window_abde5cba55b899aca32dd46750aeb4c32_icgraph.png" border="0" usemap="#classcomponents_1_1_window_abde5cba55b899aca32dd46750aeb4c32_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_window_abde5cba55b899aca32dd46750aeb4c32_icgraph" id="classcomponents_1_1_window_abde5cba55b899aca32dd46750aeb4c32_icgraph">
+<area shape="rect" id="node2" href="classtrie_1_1_trie_list.html#a5e339d095e6b1d843f34ec3091612c4e" title="sets the tokens that will be used when encoding the window " alt="" coords="220,13,375,39"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>

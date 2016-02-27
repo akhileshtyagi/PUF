@@ -1,0 +1,12 @@
+<map id="rank.CompleteProbability.compute_probability" name="rank.CompleteProbability.compute_probability">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#ac6aca5adf04bb1500c1d8735cd7d5881" title="components.Chain.get\l_token" alt="" coords="292,5,445,47"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_chain.html#a128ee372728530d787a9512350dad405" title="components.Chain.get\l_threshold" alt="" coords="292,71,445,112"/>
+<area shape="rect" id="node4" href="$classcomponents_1_1_chain.html#a545c320b4e5cc5e150ec6b07f8870fa1" title="components.Chain.get\l_model_size" alt="" coords="292,136,445,177"/>
+<area shape="rect" id="node5" href="$classcomponents_1_1_chain.html#a401a39b68da4ae8ba64e02af94e68f15" title="computes all uncomputed aspects of the chain " alt="" coords="276,201,461,243"/>
+<area shape="rect" id="node6" href="$classcomponents_1_1_chain.html#ae3cf3859627624dd155cf1507514cf20" title="returns the distribution of the data as a whole " alt="" coords="711,93,865,135"/>
+<area shape="rect" id="node7" href="$classcomponents_1_1_chain.html#a654c25d3edab107ad77710428f11280c" title="returns a list of distributions for each key " alt="" coords="711,168,865,209"/>
+<area shape="rect" id="node8" href="$classcomponents_1_1_chain.html#aed8e3b1ca179438db491b35a2eee822b" title="handle requests for tokens " alt="" coords="711,252,865,293"/>
+<area shape="rect" id="node9" href="$classcomponents_1_1_chain.html#a48f2e0718eb4a400c6ceb23afb0ea162" title="handle requests for windows " alt="" coords="509,143,663,184"/>
+<area shape="rect" id="node10" href="$classcomponents_1_1_chain.html#a96cec1762b6f69856f54aad9e37b04a7" title="returns the probability of a given touch (at the i&#39;th index) based on the model. This will depend on ..." alt="" coords="509,311,663,352"/>
+<area shape="rect" id="node11" href="$classcomponents_1_1_touch.html#aa7eaadaf00950e7e7076136be30d00bd" title="returns the probability of the touch occurring after a given window w. If the window does not exist r..." alt="" coords="711,317,865,359"/>
+</map>

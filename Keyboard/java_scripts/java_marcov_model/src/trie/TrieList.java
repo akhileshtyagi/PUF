@@ -10,11 +10,18 @@ import components.Token;
 import components.Touch;
 import components.Window;
 
-///TODO Eventually this will be implemented as a prefix tree. This will greatly speed up many of the operations causing the calculation of the probabilities to be slow.
-/// right now it is fine to have the backing be an arraylist
-/// overrided methods are any that remove, modify, or add to the arraylist.
-/// these methods will also change the prefix tree
+//TODO Eventually this will be implemented as a prefix tree. This will greatly speed up many of the operations causing the calculation of the probabilities to be slow.
+// right now it is fine to have the backing be an arraylist
+// overrided methods are any that remove, modify, or add to the arraylist.
+// these methods will also change the prefix tree
 //TODO eventaully I want this class to only implement the List<Window> interface. The fact that it must rely on an arraylist backing means it is taking up more memory than need be because all of the information can be gotten from the prefix tree.
+
+/** Wrapper around Trie used to maintain an ordering among the stored elements.
+ * This class uses some additional space to store elements in both an ArrayList
+ * and the prefix tree.
+ * NOTE: This was done for speed of implementation.
+ * It would be good if in the future only a prefix tree was used.
+ */
 public class TrieList extends ArrayList<Window>{
 	private Trie trie;
 	private List<Token> tokens;	

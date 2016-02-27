@@ -1,0 +1,7 @@
+<map id="runtime.CompareChains.get_auth_result" name="runtime.CompareChains.get_auth_result">
+<area shape="rect" id="node2" href="$classruntime_1_1_chain_builder.html#ab01b027d8ad763c58fef515f6bdfe03d" title="handle requests for the current state of the authentication " alt="" coords="239,56,404,97"/>
+<area shape="rect" id="node3" href="$classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="489,13,597,39"/>
+<area shape="rect" id="node5" href="$classtest_1_1_unit_rank_compare.html#ae0b3fb1356fcac8e9cf4d9bf7f4f323a" title="test.UnitRankCompare.init" alt="" coords="455,63,632,90"/>
+<area shape="rect" id="node6" href="$classtest_1_1_unit_rank_compare.html#ac8fdeb295d6451a69577d1ebe8ce458c" title="checks that the probabilities are correct " alt="" coords="452,115,635,156"/>
+<area shape="rect" id="node4" href="$classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="683,5,877,47"/>
+</map>

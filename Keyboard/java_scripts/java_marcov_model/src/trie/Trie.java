@@ -5,8 +5,10 @@ import java.util.List;
 
 import components.Window;
 
-///Credit for portions of this implementation to:
-///https://sites.google.com/site/indy256/algo/trie
+/** Implementation of Prefix Tree.
+ * This benefits the efficiency of the program.
+ * This class is used primarily to figure out information about windows needed in the probability computation.
+ */
 public class Trie {
    class TrieNode {
 	   TrieNode[] children;

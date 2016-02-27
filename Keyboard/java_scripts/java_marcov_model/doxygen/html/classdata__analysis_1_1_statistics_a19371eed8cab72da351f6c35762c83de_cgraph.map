@@ -1,0 +1,8 @@
+<map id="data_analysis.Statistics.main" name="data_analysis.Statistics.main">
+<area shape="rect" id="node2" href="$classdata__analysis_1_1_statistics.html#afb383973976b2531318be692c4894f5e" title="data_analysis.Statistics.best\l_authentication_percentage" alt="" coords="278,124,469,166"/>
+<area shape="rect" id="node3" href="$classdata__analysis_1_1_statistics.html#a0c7f157e53361c33276290383acff9b6" title="data_analysis.Statistics.false\l_positive_percentage" alt="" coords="548,88,741,130"/>
+<area shape="rect" id="node4" href="$classdata__analysis_1_1_statistics.html#abcd420f8186babaf12e030180e4c458d" title="data_analysis.Statistics.false\l_negative_percentage" alt="" coords="548,196,741,238"/>
+<area shape="rect" id="node5" href="$classdata__analysis_1_1_statistics.html#a4fff292245c5c2435386e12b129c2b40" title="data_analysis.Statistics.minimize\l_false_positive_authentication\l_percentage" alt="" coords="265,45,482,101"/>
+<area shape="rect" id="node6" href="$classdata__analysis_1_1_statistics.html#a7702c206ace91fa095d5b68a24820db2" title="data_analysis.Statistics.equal\l_false_positive_negative_authentication\l_percentage" alt="" coords="247,189,500,245"/>
+<area shape="rect" id="node7" href="$classdata__analysis_1_1_statistics.html#a8ca0530f61c30cf41f0500e56b6fc11a" title="data_analysis.Statistics.authentication\l_accuracy" alt="" coords="250,320,497,362"/>
+</map>

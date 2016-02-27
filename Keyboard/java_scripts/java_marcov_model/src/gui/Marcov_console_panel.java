@@ -10,6 +10,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
 
 //TODO this class will display all message going to std_out
+/** Displays messages printed to stdout. */
 public class Marcov_console_panel extends JPanel {
 	private static final long serialVersionUID = 8300665647341796612L;
 

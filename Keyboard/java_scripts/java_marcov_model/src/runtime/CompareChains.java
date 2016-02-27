@@ -3,8 +3,11 @@ package runtime;
 import components.Chain;
 
 //TODO cause something that makes sence to happen when the user fails the authentication
-///This thread will call the compare method of chain class. The goal is to compare user chain and auth chain and make the result, pass/fail known. Or do something based on pass/fail such as cause the phone to lock.
+//This thread will call the compare method of chain class. The goal is to compare user chain and auth chain and make the result, pass/fail known. Or do something based on pass/fail such as cause the phone to lock.
 
+/** Use the compare method of the Chain class to determine an authetnication probability between 0 and 1.
+ * This class was designed to allow for comparing chains to happen on a different thread.
+ */
 public class CompareChains implements Runnable {
 	final double AUTHENTICATION_THRESHOLD = .7; // TODO find a reasonable /
 												// justifiable value for the

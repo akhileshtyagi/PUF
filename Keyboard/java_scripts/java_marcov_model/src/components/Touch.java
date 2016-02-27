@@ -3,7 +3,12 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-///This class represents a touch event.
+/** This class represents a touch event.
+ * Touch evens have an associated key, pressure, and time from the raw data.
+ * From the Markov Chain we derive the probability and predecessor_window attributes.
+ * The probability is a value between 0 and 1 representing the percent change this
+ * token follows the predecessor window.
+ */
 public class Touch implements Comparable<Touch>{
 	private int key;
 	private double pressure;

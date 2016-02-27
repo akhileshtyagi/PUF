@@ -5,11 +5,12 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.List;
 
-
-///The purpose of this class is to test out the model compare process on data that has been collected
-///The data to used will be contained in the data_sets folder
-/// input: 	data_sets folder
-/// output: model_compare_output.txt
+/** Analysis class used to compare and analyze data gathered from users.
+The purpose of this class is to test out the model compare process on data that has been collected
+The data to used will be contained in the data_sets folder
+ input: 	data_sets folder
+ output: model_compare_output.txt
+ */
 public class Model_compare {
 	//setting this to true will print out the probability of each test instead of the min,max,average
 	final static boolean PRINT_ALL_PROBABILITY = true;

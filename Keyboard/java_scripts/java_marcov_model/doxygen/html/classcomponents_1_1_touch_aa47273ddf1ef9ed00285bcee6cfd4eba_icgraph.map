@@ -1,0 +1,12 @@
+<map id="components.Touch.get_pressure" name="components.Touch.get_pressure">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#a8bb0e379e0102b0443c38ef174fe83cc" title="returns true if a touch is within 2 sigma for it&#39;s key distribution " alt="" coords="223,64,399,105"/>
+<area shape="rect" id="node8" href="$classcomponents_1_1_distribution.html#a1a29a26cfd0b9c6e0b7c2b2639c47880" title="updates the distribution using a list of touches. This update has nothing to do with the old values i..." alt="" coords="208,130,415,157"/>
+<area shape="rect" id="node9" href="$classcomponents_1_1_token.html#af023f6e27fd68da7705603161ccffe36" title="determines if a touch is within this token based on its pressure value this will return true if a tou..." alt="" coords="218,181,405,207"/>
+<area shape="rect" id="node10" href="$classcomponents_1_1_token.html#a3e7b6d12602ff4da363a96701e2a365f" title="determine if a touch is a high_wildcard " alt="" coords="238,232,385,273"/>
+<area shape="rect" id="node11" href="$classcomponents_1_1_token.html#a5e1eeb68449d6a940302f6b2561c6cec" title="determine if a touch is a low wildcard " alt="" coords="238,297,385,339"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_chain.html#ab23f30bde8f169d73c3a3e5588bf75c6" title="returns the percent difference between this chain and auth_chain. " alt="" coords="463,71,665,98"/>
+<area shape="rect" id="node4" href="$classdata__analysis_1_1_model__compare__thread.html#ad75761fec2f2e5e2dd2679b6a120f2a4" title="data_analysis.Model\l_compare_thread.run" alt="" coords="734,5,878,47"/>
+<area shape="rect" id="node5" href="$classruntime_1_1_compare_chains.html#aafa4a766a30bbbb6e205114a699d8158" title="compare user_chain and auth_chain and choose what to do with the result " alt="" coords="713,71,899,98"/>
+<area shape="rect" id="node6" href="$classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="752,122,860,149"/>
+<area shape="rect" id="node7" href="$classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="947,115,1141,156"/>
+</map>

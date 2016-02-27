@@ -65,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -96,6 +96,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">components.Distribution Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Used to compute and store max, min, std_deviation, and average for a list of <a class="el" href="classcomponents_1_1_touch.html" title="This class represents a touch event. ">Touch</a>.  
+ <a href="classcomponents_1_1_distribution.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -108,7 +111,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:ab388f6790c565f71f29dc00cfdbd14fb"><td class="mdescLeft">&#160;</td><td class="mdescRight">copy constructor. This exists because computations are done in the constructor. Copying in this way avoids recomputation.  <a href="#ab388f6790c565f71f29dc00cfdbd14fb">More...</a><br /></td></tr>
 <tr class="separator:ab388f6790c565f71f29dc00cfdbd14fb"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1a29a26cfd0b9c6e0b7c2b2639c47880"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomponents_1_1_distribution.html#a1a29a26cfd0b9c6e0b7c2b2639c47880">update</a> (List&lt; <a class="el" href="classcomponents_1_1_touch.html">Touch</a> &gt; touches)</td></tr>
-<tr class="memdesc:a1a29a26cfd0b9c6e0b7c2b2639c47880"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the distribution using a list of touches. This update has nothing to do with the old values in the distribution. It is synonomous to creating a new <a class="el" href="classcomponents_1_1_distribution.html">Distribution</a> object with this list of touches.  <a href="#a1a29a26cfd0b9c6e0b7c2b2639c47880">More...</a><br /></td></tr>
+<tr class="memdesc:a1a29a26cfd0b9c6e0b7c2b2639c47880"><td class="mdescLeft">&#160;</td><td class="mdescRight">updates the distribution using a list of touches. This update has nothing to do with the old values in the distribution. It is synonomous to creating a new <a class="el" href="classcomponents_1_1_distribution.html" title="Used to compute and store max, min, std_deviation, and average for a list of Touch. ">Distribution</a> object with this list of touches.  <a href="#a1a29a26cfd0b9c6e0b7c2b2639c47880">More...</a><br /></td></tr>
 <tr class="separator:a1a29a26cfd0b9c6e0b7c2b2639c47880"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a56b607338da9d4353f74316af57eec"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomponents_1_1_distribution.html#a4a56b607338da9d4353f74316af57eec">get_min</a> ()</td></tr>
 <tr class="separator:a4a56b607338da9d4353f74316af57eec"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -126,7 +129,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a1b4f8a098ddc5f1fef43d6ecd95b6832"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>TODO make the computations happen at request time, and cache the result so it does not need to be recomputed. Or leave it as is.... as distribution objects are only created as needed in the rest of the code. this class knows how to calculate the distribution of a list of touches </p>
+<div class="textblock"><p>Used to compute and store max, min, std_deviation, and average for a list of <a class="el" href="classcomponents_1_1_touch.html" title="This class represents a touch event. ">Touch</a>. </p>
+<p>In addition to computing these metrics, <a class="el" href="classcomponents_1_1_distribution.html" title="Used to compute and store max, min, std_deviation, and average for a list of Touch. ">Distribution</a> allows a keycode to be associated with the list of touches. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a0aef5c1c0f3732a9acc45001a251f345"></a>
 <div class="memitem">
@@ -141,6 +145,16 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_distribution_a0aef5c1c0f3732a9acc45001a251f345_icgraph.png" border="0" usemap="#classcomponents_1_1_distribution_a0aef5c1c0f3732a9acc45001a251f345_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_distribution_a0aef5c1c0f3732a9acc45001a251f345_icgraph" id="classcomponents_1_1_distribution_a0aef5c1c0f3732a9acc45001a251f345_icgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_distribution.html#a1b4f8a098ddc5f1fef43d6ecd95b6832" title="determine if this distribution is exactly equal to another distribution " alt="" coords="220,13,425,39"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -207,6 +221,21 @@ Public Member Functions</h2></td></tr>
 
 <p>determine if this distribution is exactly equal to another distribution </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_distribution_a1b4f8a098ddc5f1fef43d6ecd95b6832_cgraph.png" border="0" usemap="#classcomponents_1_1_distribution_a1b4f8a098ddc5f1fef43d6ecd95b6832_cgraph" alt=""/></div>
+<map name="classcomponents_1_1_distribution_a1b4f8a098ddc5f1fef43d6ecd95b6832_cgraph" id="classcomponents_1_1_distribution_a1b4f8a098ddc5f1fef43d6ecd95b6832_cgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_distribution.html#a0aef5c1c0f3732a9acc45001a251f345" title="components.Distribution.\lDistribution" alt="" coords="284,5,451,47"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_distribution.html#a76e537de3db4d30554be0a88b8f21519" title="components.Distribution.get_max" alt="" coords="259,71,476,98"/>
+<area shape="rect" id="node4" href="classcomponents_1_1_distribution.html#a4a56b607338da9d4353f74316af57eec" title="components.Distribution.get_min" alt="" coords="261,122,474,149"/>
+<area shape="rect" id="node5" href="classcomponents_1_1_distribution.html#a1a160ca9f065f761a9fa3ed614e8f9b2" title="components.Distribution.get\l_average" alt="" coords="275,173,460,215"/>
+<area shape="rect" id="node6" href="classcomponents_1_1_distribution.html#ae4c6122fba189f4ae493f22fbbabc394" title="returns the keycode associated with this distribution. If the distribution does not have an associate..." alt="" coords="275,239,460,280"/>
+<area shape="rect" id="node7" href="classcomponents_1_1_distribution.html#aa1c9330c8c9119bb304cab5d4d31fba1" title="components.Distribution.get\l_standard_deviation" alt="" coords="275,304,460,345"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a1a160ca9f065f761a9fa3ed614e8f9b2"></a>
@@ -221,6 +250,26 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_distribution_a1a160ca9f065f761a9fa3ed614e8f9b2_icgraph.png" border="0" usemap="#classcomponents_1_1_distribution_a1a160ca9f065f761a9fa3ed614e8f9b2_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_distribution_a1a160ca9f065f761a9fa3ed614e8f9b2_icgraph" id="classcomponents_1_1_distribution_a1a160ca9f065f761a9fa3ed614e8f9b2_icgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_chain.html#a8bb0e379e0102b0443c38ef174fe83cc" title="returns true if a touch is within 2 sigma for it&#39;s key distribution " alt="" coords="263,64,439,105"/>
+<area shape="rect" id="node8" href="classcomponents_1_1_distribution.html#a1b4f8a098ddc5f1fef43d6ecd95b6832" title="determine if this distribution is exactly equal to another distribution " alt="" coords="248,130,453,157"/>
+<area shape="rect" id="node9" href="classcomponents_1_1_token.html#a73f5eb6dda64ee3049237ca34f28a73c" title="allow tokens to be created making each touch mu for its keycode, or in a linear fashion over the dist..." alt="" coords="264,181,437,207"/>
+<area shape="rect" id="node12" href="classjunit_1_1_unit___complete_probability.html#aebf3c4155ae93be00b46e5cff5f98715" title="test different properties of replica chain to see if this works as expected. " alt="" coords="239,232,463,273"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_chain.html#ab23f30bde8f169d73c3a3e5588bf75c6" title="returns the percent difference between this chain and auth_chain. " alt="" coords="511,71,713,98"/>
+<area shape="rect" id="node4" href="classdata__analysis_1_1_model__compare__thread.html#ad75761fec2f2e5e2dd2679b6a120f2a4" title="data_analysis.Model\l_compare_thread.run" alt="" coords="783,5,927,47"/>
+<area shape="rect" id="node5" href="classruntime_1_1_compare_chains.html#aafa4a766a30bbbb6e205114a699d8158" title="compare user_chain and auth_chain and choose what to do with the result " alt="" coords="762,71,947,98"/>
+<area shape="rect" id="node6" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="996,173,1104,199"/>
+<area shape="rect" id="node7" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="1152,165,1347,207"/>
+<area shape="rect" id="node10" href="classcomponents_1_1_token.html#a9d029725d9c98ef58017aee36be0989d" title="compares This token to another to determine if they are the same " alt="" coords="525,181,699,207"/>
+<area shape="rect" id="node11" href="classcomponents_1_1_touch.html#a7cb910d6f460cc8ba5f101786131e07d" title="compares the touches with the given token list. " alt="" coords="761,224,948,265"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -239,6 +288,16 @@ Public Member Functions</h2></td></tr>
 
 <p>returns the keycode associated with this distribution. If the distribution does not have an associated keycode, this method will return -1. </p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_distribution_ae4c6122fba189f4ae493f22fbbabc394_icgraph.png" border="0" usemap="#classcomponents_1_1_distribution_ae4c6122fba189f4ae493f22fbbabc394_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_distribution_ae4c6122fba189f4ae493f22fbbabc394_icgraph" id="classcomponents_1_1_distribution_ae4c6122fba189f4ae493f22fbbabc394_icgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_distribution.html#a1b4f8a098ddc5f1fef43d6ecd95b6832" title="determine if this distribution is exactly equal to another distribution " alt="" coords="239,13,444,39"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a76e537de3db4d30554be0a88b8f21519"></a>
@@ -253,6 +312,20 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_distribution_a76e537de3db4d30554be0a88b8f21519_icgraph.png" border="0" usemap="#classcomponents_1_1_distribution_a76e537de3db4d30554be0a88b8f21519_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_distribution_a76e537de3db4d30554be0a88b8f21519_icgraph" id="classcomponents_1_1_distribution_a76e537de3db4d30554be0a88b8f21519_icgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_distribution.html#a1b4f8a098ddc5f1fef43d6ecd95b6832" title="determine if this distribution is exactly equal to another distribution " alt="" coords="280,5,485,32"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_token.html#aaecd79f21bdfa6dd838719b4cf736df0" title="allow for creation of tokens over a distribution " alt="" coords="296,56,469,83"/>
+<area shape="rect" id="node4" href="classjunit_1_1_unit___complete_probability.html#aebf3c4155ae93be00b46e5cff5f98715" title="test different properties of replica chain to see if this works as expected. " alt="" coords="271,107,495,149"/>
+<area shape="rect" id="node5" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="329,173,437,200"/>
+<area shape="rect" id="node6" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="543,166,737,207"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -269,6 +342,20 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_distribution_a4a56b607338da9d4353f74316af57eec_icgraph.png" border="0" usemap="#classcomponents_1_1_distribution_a4a56b607338da9d4353f74316af57eec_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_distribution_a4a56b607338da9d4353f74316af57eec_icgraph" id="classcomponents_1_1_distribution_a4a56b607338da9d4353f74316af57eec_icgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_distribution.html#a1b4f8a098ddc5f1fef43d6ecd95b6832" title="determine if this distribution is exactly equal to another distribution " alt="" coords="276,5,481,32"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_token.html#aaecd79f21bdfa6dd838719b4cf736df0" title="allow for creation of tokens over a distribution " alt="" coords="292,56,465,83"/>
+<area shape="rect" id="node4" href="classjunit_1_1_unit___complete_probability.html#aebf3c4155ae93be00b46e5cff5f98715" title="test different properties of replica chain to see if this works as expected. " alt="" coords="267,107,491,149"/>
+<area shape="rect" id="node5" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="325,173,433,200"/>
+<area shape="rect" id="node6" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="539,166,733,207"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="aa1c9330c8c9119bb304cab5d4d31fba1"></a>
@@ -283,6 +370,25 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_distribution_aa1c9330c8c9119bb304cab5d4d31fba1_icgraph.png" border="0" usemap="#classcomponents_1_1_distribution_aa1c9330c8c9119bb304cab5d4d31fba1_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_distribution_aa1c9330c8c9119bb304cab5d4d31fba1_icgraph" id="classcomponents_1_1_distribution_aa1c9330c8c9119bb304cab5d4d31fba1_icgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_chain.html#a8bb0e379e0102b0443c38ef174fe83cc" title="returns true if a touch is within 2 sigma for it&#39;s key distribution " alt="" coords="253,64,429,105"/>
+<area shape="rect" id="node8" href="classcomponents_1_1_distribution.html#a1b4f8a098ddc5f1fef43d6ecd95b6832" title="determine if this distribution is exactly equal to another distribution " alt="" coords="239,130,444,157"/>
+<area shape="rect" id="node9" href="classcomponents_1_1_token.html#a73f5eb6dda64ee3049237ca34f28a73c" title="allow tokens to be created making each touch mu for its keycode, or in a linear fashion over the dist..." alt="" coords="255,181,428,207"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_chain.html#ab23f30bde8f169d73c3a3e5588bf75c6" title="returns the percent difference between this chain and auth_chain. " alt="" coords="492,71,695,98"/>
+<area shape="rect" id="node4" href="classdata__analysis_1_1_model__compare__thread.html#ad75761fec2f2e5e2dd2679b6a120f2a4" title="data_analysis.Model\l_compare_thread.run" alt="" coords="764,5,908,47"/>
+<area shape="rect" id="node5" href="classruntime_1_1_compare_chains.html#aafa4a766a30bbbb6e205114a699d8158" title="compare user_chain and auth_chain and choose what to do with the result " alt="" coords="743,71,929,98"/>
+<area shape="rect" id="node6" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="977,173,1085,199"/>
+<area shape="rect" id="node7" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="1133,165,1328,207"/>
+<area shape="rect" id="node10" href="classcomponents_1_1_token.html#a9d029725d9c98ef58017aee36be0989d" title="compares This token to another to determine if they are the same " alt="" coords="506,181,681,207"/>
+<area shape="rect" id="node11" href="classcomponents_1_1_touch.html#a7cb910d6f460cc8ba5f101786131e07d" title="compares the touches with the given token list. " alt="" coords="743,224,929,265"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -300,7 +406,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p>updates the distribution using a list of touches. This update has nothing to do with the old values in the distribution. It is synonomous to creating a new <a class="el" href="classcomponents_1_1_distribution.html">Distribution</a> object with this list of touches. </p>
+<p>updates the distribution using a list of touches. This update has nothing to do with the old values in the distribution. It is synonomous to creating a new <a class="el" href="classcomponents_1_1_distribution.html" title="Used to compute and store max, min, std_deviation, and average for a list of Touch. ">Distribution</a> object with this list of touches. </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_distribution_a1a29a26cfd0b9c6e0b7c2b2639c47880_cgraph.png" border="0" usemap="#classcomponents_1_1_distribution_a1a29a26cfd0b9c6e0b7c2b2639c47880_cgraph" alt=""/></div>
+<map name="classcomponents_1_1_distribution_a1a29a26cfd0b9c6e0b7c2b2639c47880_cgraph" id="classcomponents_1_1_distribution_a1a29a26cfd0b9c6e0b7c2b2639c47880_cgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_touch.html#aa47273ddf1ef9ed00285bcee6cfd4eba" title="components.Touch.get\l_pressure" alt="" coords="260,5,415,47"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>

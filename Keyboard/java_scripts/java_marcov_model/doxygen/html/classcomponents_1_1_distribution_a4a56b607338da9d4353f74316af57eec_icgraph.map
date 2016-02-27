@@ -1,0 +1,7 @@
+<map id="components.Distribution.get_min" name="components.Distribution.get_min">
+<area shape="rect" id="node2" href="$classcomponents_1_1_distribution.html#a1b4f8a098ddc5f1fef43d6ecd95b6832" title="determine if this distribution is exactly equal to another distribution " alt="" coords="276,5,481,32"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_token.html#aaecd79f21bdfa6dd838719b4cf736df0" title="allow for creation of tokens over a distribution " alt="" coords="292,56,465,83"/>
+<area shape="rect" id="node4" href="$classjunit_1_1_unit___complete_probability.html#aebf3c4155ae93be00b46e5cff5f98715" title="test different properties of replica chain to see if this works as expected. " alt="" coords="267,107,491,149"/>
+<area shape="rect" id="node5" href="$classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="325,173,433,200"/>
+<area shape="rect" id="node6" href="$classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="539,166,733,207"/>
+</map>

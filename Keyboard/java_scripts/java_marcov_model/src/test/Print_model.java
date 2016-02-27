@@ -8,7 +8,7 @@ import runtime.ChainBuilder;
 import components.Chain;
 import components.Touch;
 
-//This class will print out the model constructed form the designated file
+/** This class will print out the model constructed form the designated file */
 public class Print_model {
 	//TODO define parameters
 	final static String data_path = "data_sets/3-30-15_timdee_07924e50.csv";

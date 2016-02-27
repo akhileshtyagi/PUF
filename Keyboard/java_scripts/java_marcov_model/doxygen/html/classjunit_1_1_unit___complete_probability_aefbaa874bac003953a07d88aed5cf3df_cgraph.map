@@ -1,0 +1,14 @@
+<map id="junit.Unit_CompleteProbability.init" name="junit.Unit_CompleteProbability.init">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#a9a8aa7996f3f4b65a0f0dbbddd84f14b" title="components.Chain.add\l_touch" alt="" coords="305,39,461,80"/>
+<area shape="rect" id="node3" href="$classrank_1_1_complete_probability.html#a1507b6695918da300c0130ccdc218900" title="make a replica of the chain with a window size of 1 and compute the probability. " alt="" coords="272,104,495,145"/>
+<area shape="rect" id="node4" href="$classcomponents_1_1_chain.html#ac6aca5adf04bb1500c1d8735cd7d5881" title="components.Chain.get\l_token" alt="" coords="559,5,712,47"/>
+<area shape="rect" id="node5" href="$classcomponents_1_1_chain.html#a128ee372728530d787a9512350dad405" title="components.Chain.get\l_threshold" alt="" coords="559,71,712,112"/>
+<area shape="rect" id="node6" href="$classcomponents_1_1_chain.html#a545c320b4e5cc5e150ec6b07f8870fa1" title="components.Chain.get\l_model_size" alt="" coords="559,136,712,177"/>
+<area shape="rect" id="node7" href="$classcomponents_1_1_chain.html#a401a39b68da4ae8ba64e02af94e68f15" title="computes all uncomputed aspects of the chain " alt="" coords="543,201,728,243"/>
+<area shape="rect" id="node8" href="$classcomponents_1_1_chain.html#ae3cf3859627624dd155cf1507514cf20" title="returns the distribution of the data as a whole " alt="" coords="978,93,1131,135"/>
+<area shape="rect" id="node9" href="$classcomponents_1_1_chain.html#a654c25d3edab107ad77710428f11280c" title="returns a list of distributions for each key " alt="" coords="978,168,1131,209"/>
+<area shape="rect" id="node10" href="$classcomponents_1_1_chain.html#aed8e3b1ca179438db491b35a2eee822b" title="handle requests for tokens " alt="" coords="978,252,1131,293"/>
+<area shape="rect" id="node11" href="$classcomponents_1_1_chain.html#a48f2e0718eb4a400c6ceb23afb0ea162" title="handle requests for windows " alt="" coords="776,143,929,184"/>
+<area shape="rect" id="node12" href="$classcomponents_1_1_chain.html#a96cec1762b6f69856f54aad9e37b04a7" title="returns the probability of a given touch (at the i&#39;th index) based on the model. This will depend on ..." alt="" coords="776,311,929,352"/>
+<area shape="rect" id="node13" href="$classcomponents_1_1_touch.html#aa7eaadaf00950e7e7076136be30d00bd" title="returns the probability of the touch occurring after a given window w. If the window does not exist r..." alt="" coords="977,317,1132,359"/>
+</map>

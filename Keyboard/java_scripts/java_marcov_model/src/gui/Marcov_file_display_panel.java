@@ -14,6 +14,7 @@ import javax.swing.event.ChangeListener;
 
 //This class knows how to display files
 //TODO this class will display the readme, and test output files in a readable format
+/** Displays files relavant to test code. */
 public class Marcov_file_display_panel extends JPanel{
 	private static final long serialVersionUID = 1L;
 

@@ -1,0 +1,8 @@
+<map id="test.UnitRankCompare.init" name="test.UnitRankCompare.init">
+<area shape="rect" id="node2" href="$classruntime_1_1_chain_builder.html#a4f42e44cba506f6ad523acb85c68701e" title="this method should be called in some way whenever there is a touch event in android. " alt="" coords="231,5,416,47"/>
+<area shape="rect" id="node3" href="$classruntime_1_1_chain_builder.html#aa483e6832f09092ec52fdf715e6f4b5e" title="allow forced authentication from outside of ChainBuilder. " alt="" coords="464,42,683,69"/>
+<area shape="rect" id="node5" href="$classruntime_1_1_chain_builder.html#ab01b027d8ad763c58fef515f6bdfe03d" title="handle requests for the current state of the authentication " alt="" coords="241,123,406,164"/>
+<area shape="rect" id="node4" href="$classcomponents_1_1_chain.html#a9a8aa7996f3f4b65a0f0dbbddd84f14b" title="components.Chain.add\l_touch" alt="" coords="731,35,887,76"/>
+<area shape="rect" id="node6" href="$classruntime_1_1_compare_chains.html#a3e4a09371bcb8d006d646f9c58b5596c" title="runtime.CompareChains.get\l_auth_complete" alt="" coords="481,108,666,149"/>
+<area shape="rect" id="node7" href="$classruntime_1_1_compare_chains.html#af5dd0a0034121d92bbfac68adecec1c7" title="returns the result of the authentication. " alt="" coords="481,173,666,215"/>
+</map>

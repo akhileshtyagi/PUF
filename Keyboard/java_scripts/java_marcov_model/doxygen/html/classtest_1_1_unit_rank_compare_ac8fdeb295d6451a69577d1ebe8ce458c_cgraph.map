@@ -1,0 +1,5 @@
+<map id="test.UnitRankCompare.test_compare_correct" name="test.UnitRankCompare.test_compare_correct">
+<area shape="rect" id="node2" href="$classruntime_1_1_chain_builder.html#ab01b027d8ad763c58fef515f6bdfe03d" title="handle requests for the current state of the authentication " alt="" coords="236,39,401,80"/>
+<area shape="rect" id="node3" href="$classruntime_1_1_compare_chains.html#a3e4a09371bcb8d006d646f9c58b5596c" title="runtime.CompareChains.get\l_auth_complete" alt="" coords="449,5,635,47"/>
+<area shape="rect" id="node4" href="$classruntime_1_1_compare_chains.html#af5dd0a0034121d92bbfac68adecec1c7" title="returns the result of the authentication. " alt="" coords="449,71,635,112"/>
+</map>

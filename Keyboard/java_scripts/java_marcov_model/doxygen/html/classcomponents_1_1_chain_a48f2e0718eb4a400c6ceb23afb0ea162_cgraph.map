@@ -1,0 +1,4 @@
+<map id="components.Chain.get_windows" name="components.Chain.get_windows">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#ae3cf3859627624dd155cf1507514cf20" title="returns the distribution of the data as a whole " alt="" coords="207,5,360,47"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_chain.html#a654c25d3edab107ad77710428f11280c" title="returns a list of distributions for each key " alt="" coords="207,71,360,112"/>
+</map>

@@ -1,0 +1,8 @@
+<map id="components.Chain.compute_uncomputed" name="components.Chain.compute_uncomputed">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#ae3cf3859627624dd155cf1507514cf20" title="returns the distribution of the data as a whole " alt="" coords="441,5,594,47"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_chain.html#a654c25d3edab107ad77710428f11280c" title="returns a list of distributions for each key " alt="" coords="441,80,594,121"/>
+<area shape="rect" id="node4" href="$classcomponents_1_1_chain.html#aed8e3b1ca179438db491b35a2eee822b" title="handle requests for tokens " alt="" coords="441,164,594,205"/>
+<area shape="rect" id="node5" href="$classcomponents_1_1_chain.html#a48f2e0718eb4a400c6ceb23afb0ea162" title="handle requests for windows " alt="" coords="239,55,392,96"/>
+<area shape="rect" id="node6" href="$classcomponents_1_1_chain.html#a96cec1762b6f69856f54aad9e37b04a7" title="returns the probability of a given touch (at the i&#39;th index) based on the model. This will depend on ..." alt="" coords="239,223,392,264"/>
+<area shape="rect" id="node7" href="$classcomponents_1_1_touch.html#aa7eaadaf00950e7e7076136be30d00bd" title="returns the probability of the touch occurring after a given window w. If the window does not exist r..." alt="" coords="440,229,595,271"/>
+</map>

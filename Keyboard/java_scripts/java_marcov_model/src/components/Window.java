@@ -3,8 +3,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-///This class will store and provide functions for a single window within the model
-
+/** This class will store and provide functions for a single window within the model.
+ * Windows are a list of n touches for a window of size n.
+ * When this class is used, The token which comes after the window is stored.
+ * It is this token which comes after the window which we compute the probability for.
+ */
 public class Window implements Comparable<Window>{
 	private List<Touch> window;
 	private int window_size;

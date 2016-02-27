@@ -1,16 +1,23 @@
 \hypertarget{classrank_1_1_complete_probability}{}\section{rank.\+Complete\+Probability Class Reference}
 \label{classrank_1_1_complete_probability}\index{rank.\+Complete\+Probability@{rank.\+Complete\+Probability}}
+
+
+This class computes probability in a different way from what is contained in the Chain class.  
+
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
 \hyperlink{classrank_1_1_complete_probability_a0c57b2805fa39cdc190edbba9ea5a86c}{Complete\+Probability} (\hyperlink{classcomponents_1_1_chain}{Chain} chain)
 \item 
 \hyperlink{classcomponents_1_1_chain}{Chain} \hyperlink{classrank_1_1_complete_probability_a1507b6695918da300c0130ccdc218900}{compute\+\_\+probability} ()
-\end{DoxyCompactItemize}
+\begin{DoxyCompactList}\small\item\em make a replica of the chain with a window size of 1 and compute the probability. \end{DoxyCompactList}\end{DoxyCompactItemize}
 
 
 \subsection{Detailed Description}
-This class computes probability in a different way from what is contained in the Chain class. This class looks at all of the touches to try to determine the probability that from any given touch, it transitions to another.
+This class computes probability in a different way from what is contained in the Chain class. 
+
+This class looks at all of the touches to try to determine the probability that from any given touch, it transitions to another.
 
 this is similar to having a window size of 1?
 
@@ -37,11 +44,35 @@ element
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{classrank_1_1_complete_probability_a1507b6695918da300c0130ccdc218900}{}\label{classrank_1_1_complete_probability_a1507b6695918da300c0130ccdc218900}
-make a replica of the chain with a window size of 1 and compute the probability.
+
+
+make a replica of the chain with a window size of 1 and compute the probability. 
 
 \begin{DoxyReturn}{Returns}
 replica chain 
 \end{DoxyReturn}
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classrank_1_1_complete_probability_a1507b6695918da300c0130ccdc218900_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classrank_1_1_complete_probability_a1507b6695918da300c0130ccdc218900_icgraph}
+\end{center}
+\end{figure}
+
+
 
 
 The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}

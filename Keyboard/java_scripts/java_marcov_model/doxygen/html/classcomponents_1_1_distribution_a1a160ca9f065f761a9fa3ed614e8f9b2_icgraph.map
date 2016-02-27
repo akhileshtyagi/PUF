@@ -1,0 +1,13 @@
+<map id="components.Distribution.get_average" name="components.Distribution.get_average">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#a8bb0e379e0102b0443c38ef174fe83cc" title="returns true if a touch is within 2 sigma for it&#39;s key distribution " alt="" coords="263,64,439,105"/>
+<area shape="rect" id="node8" href="$classcomponents_1_1_distribution.html#a1b4f8a098ddc5f1fef43d6ecd95b6832" title="determine if this distribution is exactly equal to another distribution " alt="" coords="248,130,453,157"/>
+<area shape="rect" id="node9" href="$classcomponents_1_1_token.html#a73f5eb6dda64ee3049237ca34f28a73c" title="allow tokens to be created making each touch mu for its keycode, or in a linear fashion over the dist..." alt="" coords="264,181,437,207"/>
+<area shape="rect" id="node12" href="$classjunit_1_1_unit___complete_probability.html#aebf3c4155ae93be00b46e5cff5f98715" title="test different properties of replica chain to see if this works as expected. " alt="" coords="239,232,463,273"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_chain.html#ab23f30bde8f169d73c3a3e5588bf75c6" title="returns the percent difference between this chain and auth_chain. " alt="" coords="511,71,713,98"/>
+<area shape="rect" id="node4" href="$classdata__analysis_1_1_model__compare__thread.html#ad75761fec2f2e5e2dd2679b6a120f2a4" title="data_analysis.Model\l_compare_thread.run" alt="" coords="783,5,927,47"/>
+<area shape="rect" id="node5" href="$classruntime_1_1_compare_chains.html#aafa4a766a30bbbb6e205114a699d8158" title="compare user_chain and auth_chain and choose what to do with the result " alt="" coords="762,71,947,98"/>
+<area shape="rect" id="node6" href="$classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="996,173,1104,199"/>
+<area shape="rect" id="node7" href="$classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="1152,165,1347,207"/>
+<area shape="rect" id="node10" href="$classcomponents_1_1_token.html#a9d029725d9c98ef58017aee36be0989d" title="compares This token to another to determine if they are the same " alt="" coords="525,181,699,207"/>
+<area shape="rect" id="node11" href="$classcomponents_1_1_touch.html#a7cb910d6f460cc8ba5f101786131e07d" title="compares the touches with the given token list. " alt="" coords="761,224,948,265"/>
+</map>

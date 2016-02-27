@@ -65,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -97,6 +97,9 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">components.Token Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>This class represents a token within the model.  
+ <a href="classcomponents_1_1_token.html#details">More...</a></p>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="nested-classes"></a>
 Classes</h2></td></tr>
@@ -113,8 +116,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:aaecd79f21bdfa6dd838719b4cf736df0"><td class="mdescLeft">&#160;</td><td class="mdescRight">allow for creation of tokens over a distribution  <a href="#aaecd79f21bdfa6dd838719b4cf736df0">More...</a><br /></td></tr>
 <tr class="separator:aaecd79f21bdfa6dd838719b4cf736df0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aec989a1d1fd6f860a84839091bf0586a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomponents_1_1_token.html#aec989a1d1fd6f860a84839091bf0586a">Token</a> (double range_min, double range_max, int total_tokens, int token_index, <a class="el" href="enumcomponents_1_1_token_1_1_type.html">Type</a> type)</td></tr>
+<tr class="memdesc:aec989a1d1fd6f860a84839091bf0586a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Implemented in the constructor is the clustering algorithm.  <a href="#aec989a1d1fd6f860a84839091bf0586a">More...</a><br /></td></tr>
 <tr class="separator:aec989a1d1fd6f860a84839091bf0586a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af023f6e27fd68da7705603161ccffe36"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomponents_1_1_token.html#af023f6e27fd68da7705603161ccffe36">contains</a> (<a class="el" href="classcomponents_1_1_touch.html">Touch</a> touch)</td></tr>
+<tr class="memdesc:af023f6e27fd68da7705603161ccffe36"><td class="mdescLeft">&#160;</td><td class="mdescRight">determines if a touch is within this token based on its pressure value this will return true if a touches pressure equals max or min, so if max of one token is min of another token, both will return true  <a href="#af023f6e27fd68da7705603161ccffe36">More...</a><br /></td></tr>
 <tr class="separator:af023f6e27fd68da7705603161ccffe36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3e7b6d12602ff4da363a96701e2a365f"><td class="memItemLeft" align="right" valign="top">boolean&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomponents_1_1_token.html#a3e7b6d12602ff4da363a96701e2a365f">is_high_wildcard</a> (<a class="el" href="classcomponents_1_1_touch.html">Touch</a> touch)</td></tr>
 <tr class="memdesc:a3e7b6d12602ff4da363a96701e2a365f"><td class="mdescLeft">&#160;</td><td class="mdescRight">determine if a touch is a high_wildcard  <a href="#a3e7b6d12602ff4da363a96701e2a365f">More...</a><br /></td></tr>
@@ -132,6 +137,7 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a08348f7ec1a53d80f8886cca07e70e97"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the total number of wildcards  <a href="#a08348f7ec1a53d80f8886cca07e70e97">More...</a><br /></td></tr>
 <tr class="separator:a08348f7ec1a53d80f8886cca07e70e97"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1f4fc1f480c23dcd8bc00a43b34ed613"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomponents_1_1_token.html#a1f4fc1f480c23dcd8bc00a43b34ed613">get_acceptable_wildcards</a> (int total_items)</td></tr>
+<tr class="memdesc:a1f4fc1f480c23dcd8bc00a43b34ed613"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns the acceptable number of wildcards  <a href="#a1f4fc1f480c23dcd8bc00a43b34ed613">More...</a><br /></td></tr>
 <tr class="separator:a1f4fc1f480c23dcd8bc00a43b34ed613"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7139374ae5d36699d9d0b2e80d9afde7"><td class="memItemLeft" align="right" valign="top">double&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classcomponents_1_1_token.html#a7139374ae5d36699d9d0b2e80d9afde7">get_min</a> ()</td></tr>
 <tr class="memdesc:a7139374ae5d36699d9d0b2e80d9afde7"><td class="mdescLeft">&#160;</td><td class="mdescRight">returns true if there are more than an acceptable number of wildcards  <a href="#a7139374ae5d36699d9d0b2e80d9afde7">More...</a><br /></td></tr>
@@ -144,7 +150,8 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a9d029725d9c98ef58017aee36be0989d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>This class represents a token within the model. Essentially this is a range of values. A touch is defined to be within a token if the pressure value of the touch falls within this range. This class is designed to abstract away the clustering algorithm. This makes the rest of the code far simpler to think about Something to look at in the future may be a clustering algorithm that is not equally distributed </p>
+<div class="textblock"><p>This class represents a token within the model. </p>
+<p>Essentially this is a range of values. A touch is defined to be within a token if the pressure value of the touch falls within this range. This class is designed to abstract away the clustering algorithm. This makes the rest of the code far simpler to think about Something to look at in the future may be a clustering algorithm that is not equally distributed </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a73f5eb6dda64ee3049237ca34f28a73c"></a>
 <div class="memitem">
@@ -191,6 +198,30 @@ Public Member Functions</h2></td></tr>
 <p>allow tokens to be created making each touch mu for its keycode, or in a linear fashion over the distribution for the keycode </p>
 <p>allow for creation of tokens with-in some number of standard deviations of a distribution </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_token_a73f5eb6dda64ee3049237ca34f28a73c_cgraph.png" border="0" usemap="#classcomponents_1_1_token_a73f5eb6dda64ee3049237ca34f28a73c_cgraph" alt=""/></div>
+<map name="classcomponents_1_1_token_a73f5eb6dda64ee3049237ca34f28a73c_cgraph" id="classcomponents_1_1_token_a73f5eb6dda64ee3049237ca34f28a73c_cgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_distribution.html#a1a160ca9f065f761a9fa3ed614e8f9b2" title="components.Distribution.get\l_average" alt="" coords="227,5,412,47"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_distribution.html#aa1c9330c8c9119bb304cab5d4d31fba1" title="components.Distribution.get\l_standard_deviation" alt="" coords="227,71,412,112"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_token_a73f5eb6dda64ee3049237ca34f28a73c_icgraph.png" border="0" usemap="#classcomponents_1_1_token_a73f5eb6dda64ee3049237ca34f28a73c_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_token_a73f5eb6dda64ee3049237ca34f28a73c_icgraph" id="classcomponents_1_1_token_a73f5eb6dda64ee3049237ca34f28a73c_icgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_token.html#a9d029725d9c98ef58017aee36be0989d" title="compares This token to another to determine if they are the same " alt="" coords="227,42,401,69"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_touch.html#a7cb910d6f460cc8ba5f101786131e07d" title="compares the touches with the given token list. " alt="" coords="449,5,636,47"/>
+<area shape="rect" id="node4" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="684,42,792,69"/>
+<area shape="rect" id="node5" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="840,35,1035,76"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="aaecd79f21bdfa6dd838719b4cf736df0"></a>
@@ -230,6 +261,17 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>allow for creation of tokens over a distribution </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_token_aaecd79f21bdfa6dd838719b4cf736df0_cgraph.png" border="0" usemap="#classcomponents_1_1_token_aaecd79f21bdfa6dd838719b4cf736df0_cgraph" alt=""/></div>
+<map name="classcomponents_1_1_token_aaecd79f21bdfa6dd838719b4cf736df0_cgraph" id="classcomponents_1_1_token_aaecd79f21bdfa6dd838719b4cf736df0_cgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_distribution.html#a4a56b607338da9d4353f74316af57eec" title="components.Distribution.get_min" alt="" coords="229,5,442,32"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_distribution.html#a76e537de3db4d30554be0a88b8f21519" title="components.Distribution.get_max" alt="" coords="227,56,444,83"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -274,7 +316,9 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>Implemented in the constructor is the clustering algorithm. This determines how to split up the range into a number of tokens.</p>
+
+<p>Implemented in the constructor is the clustering algorithm. </p>
+<p>This determines how to split up the range into a number of tokens.</p>
 <p>range_min, minimum of the token range range_max, maximum of the token range total_tokens total number of tokens to split range into token_index, integer between 0 and total_tokens-1 indicating into which range this token falls </p>
 
 </div>
@@ -293,7 +337,18 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
 <p>determines if a touch is within this token based on its pressure value this will return true if a touches pressure equals max or min, so if max of one token is min of another token, both will return true </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_token_af023f6e27fd68da7705603161ccffe36_cgraph.png" border="0" usemap="#classcomponents_1_1_token_af023f6e27fd68da7705603161ccffe36_cgraph" alt=""/></div>
+<map name="classcomponents_1_1_token_af023f6e27fd68da7705603161ccffe36_cgraph" id="classcomponents_1_1_token_af023f6e27fd68da7705603161ccffe36_cgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_touch.html#aa47273ddf1ef9ed00285bcee6cfd4eba" title="components.Touch.get\l_pressure" alt="" coords="240,5,395,47"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -313,6 +368,30 @@ Public Member Functions</h2></td></tr>
 
 <p>compares This token to another to determine if they are the same </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_token_a9d029725d9c98ef58017aee36be0989d_cgraph.png" border="0" usemap="#classcomponents_1_1_token_a9d029725d9c98ef58017aee36be0989d_cgraph" alt=""/></div>
+<map name="classcomponents_1_1_token_a9d029725d9c98ef58017aee36be0989d_cgraph" id="classcomponents_1_1_token_a9d029725d9c98ef58017aee36be0989d_cgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_token.html#a73f5eb6dda64ee3049237ca34f28a73c" title="allow tokens to be created making each touch mu for its keycode, or in a linear fashion over the dist..." alt="" coords="228,46,401,73"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_distribution.html#a1a160ca9f065f761a9fa3ed614e8f9b2" title="components.Distribution.get\l_average" alt="" coords="449,5,635,47"/>
+<area shape="rect" id="node4" href="classcomponents_1_1_distribution.html#aa1c9330c8c9119bb304cab5d4d31fba1" title="components.Distribution.get\l_standard_deviation" alt="" coords="449,71,635,112"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_token_a9d029725d9c98ef58017aee36be0989d_icgraph.png" border="0" usemap="#classcomponents_1_1_token_a9d029725d9c98ef58017aee36be0989d_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_token_a9d029725d9c98ef58017aee36be0989d_icgraph" id="classcomponents_1_1_token_a9d029725d9c98ef58017aee36be0989d_icgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_touch.html#a7cb910d6f460cc8ba5f101786131e07d" title="compares the touches with the given token list. " alt="" coords="228,5,415,47"/>
+<area shape="rect" id="node3" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="463,42,571,69"/>
+<area shape="rect" id="node4" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="619,35,813,76"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a1f4fc1f480c23dcd8bc00a43b34ed613"></a>
@@ -328,7 +407,9 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>returns the acceptable number of wildcards </p><dl class="params"><dt>Parameters</dt><dd>
+
+<p>returns the acceptable number of wildcards </p>
+<dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">total_items</td><td>is the total number of items in the distribution </td></tr>
   </table>
@@ -352,6 +433,17 @@ Public Member Functions</h2></td></tr>
 
 <p>return the maximum </p>
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_token_a200e957fcc13ec21353edc5e4510cf67_icgraph.png" border="0" usemap="#classcomponents_1_1_token_a200e957fcc13ec21353edc5e4510cf67_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_token_a200e957fcc13ec21353edc5e4510cf67_icgraph" id="classcomponents_1_1_token_a200e957fcc13ec21353edc5e4510cf67_icgraph">
+<area shape="rect" id="node2" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="240,13,348,39"/>
+<area shape="rect" id="node3" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="396,5,591,47"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a7139374ae5d36699d9d0b2e80d9afde7"></a>
@@ -369,6 +461,17 @@ Public Member Functions</h2></td></tr>
 
 <p>returns true if there are more than an acceptable number of wildcards </p>
 <p>return minimum </p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_token_a7139374ae5d36699d9d0b2e80d9afde7_icgraph.png" border="0" usemap="#classcomponents_1_1_token_a7139374ae5d36699d9d0b2e80d9afde7_icgraph" alt=""/></div>
+<map name="classcomponents_1_1_token_a7139374ae5d36699d9d0b2e80d9afde7_icgraph" id="classcomponents_1_1_token_a7139374ae5d36699d9d0b2e80d9afde7_icgraph">
+<area shape="rect" id="node2" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="236,13,344,39"/>
+<area shape="rect" id="node3" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="392,5,587,47"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -439,6 +542,16 @@ Public Member Functions</h2></td></tr>
 
 <p>determine if a touch is a high_wildcard </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_token_a3e7b6d12602ff4da363a96701e2a365f_cgraph.png" border="0" usemap="#classcomponents_1_1_token_a3e7b6d12602ff4da363a96701e2a365f_cgraph" alt=""/></div>
+<map name="classcomponents_1_1_token_a3e7b6d12602ff4da363a96701e2a365f_cgraph" id="classcomponents_1_1_token_a3e7b6d12602ff4da363a96701e2a365f_cgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_touch.html#aa47273ddf1ef9ed00285bcee6cfd4eba" title="components.Touch.get\l_pressure" alt="" coords="200,5,355,47"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a5e1eeb68449d6a940302f6b2561c6cec"></a>
@@ -456,6 +569,16 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>determine if a touch is a low wildcard </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classcomponents_1_1_token_a5e1eeb68449d6a940302f6b2561c6cec_cgraph.png" border="0" usemap="#classcomponents_1_1_token_a5e1eeb68449d6a940302f6b2561c6cec_cgraph" alt=""/></div>
+<map name="classcomponents_1_1_token_a5e1eeb68449d6a940302f6b2561c6cec_cgraph" id="classcomponents_1_1_token_a5e1eeb68449d6a940302f6b2561c6cec_cgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_touch.html#aa47273ddf1ef9ed00285bcee6cfd4eba" title="components.Touch.get\l_pressure" alt="" coords="200,5,355,47"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>

@@ -2,9 +2,15 @@ package components;
 import java.util.Iterator;
 import java.util.List;
 
-///TODO make the computations happen at request time, and cache the result so it does not need to be recomputed. Or leave it as is.... as distribution objects are only created as needed in the rest of the code.
-///this class knows how to calculate the distribution of a list of touches
-public class Distribution{	
+//TODO make the computations happen at request time, and cache the result so it does not need to be recomputed. Or leave it as is.... as distribution objects are only created as needed in the rest of the code.
+//this class knows how to calculate the distribution of a list of touches
+
+
+/** Used to compute and store max, min, std_deviation, and average for a list of Touch.
+ * In addition to computing these metrics, Distribution allows a keycode to be associated
+ * with the list of touches.
+ */
+public class Distribution{
 	private double min;
 	private double max;
 	private double average;

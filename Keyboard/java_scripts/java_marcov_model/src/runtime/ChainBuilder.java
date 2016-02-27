@@ -11,10 +11,16 @@ import components.Chain;
 import components.Touch;
 import rank.CompareChainsRank;
 
-///TODO write a HashList class (most likely extends HashMap and implemetns list to store the hash of everything. Replace ArrayList with this class whereever arraylist is used. The other option is to use LinkedHashList.
-/// handles building of the model based on input events. This may not be necessary in android framework, but it will allow a consistant way of building the model across platforms to allow for easier migration to android device.
-/// whenever I add a touch, I take
+//TODO write a HashList class (most likely extends HashMap and implemetns list to store the hash of everything. Replace ArrayList with this class whereever arraylist is used. The other option is to use LinkedHashList.
+// handles building of the model based on input events. This may not be necessary in android framework, but it will allow a consistant way of building the model across platforms to allow for easier migration to android device.
+// whenever I add a touch, I take
 
+/** Wrapper around Chain used to make using the model easier in a real application.
+ * This class will construct a model with the given parameters.
+ * Calling authenticate will cause the newest [user_model_size] touches
+ * to be compared against [auth_model_size] touches which
+ * immediatly precede the touches used in the user_model.
+  */
 public class ChainBuilder {
 	private int user_model_size;
 	private int auth_model_size;

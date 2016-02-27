@@ -11,6 +11,7 @@ import components.Distribution;
 import components.Touch;
 import rank.CompleteProbability;
 
+/** unit test demonstrating how to compute probility */
 public class Unit_CompleteProbability {
 	private Chain replica_chain;
 

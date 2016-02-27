@@ -1,8 +1,10 @@
 package components;
-///This class represents a token within the model. Essentially this is a range of values. A touch is defined to be within a token if the pressure value of the touch falls within this range.
-///This class is designed to abstract away the clustering algorithm. This makes the rest of the code far simpler to think about
-///Something to look at in the future may be a clustering algorithm that is not equally distributed
 
+/** This class represents a token within the model.
+ * Essentially this is a range of values. A touch is defined to be within a token if the pressure value of the touch falls within this range.
+ * This class is designed to abstract away the clustering algorithm. This makes the rest of the code far simpler to think about
+ * Something to look at in the future may be a clustering algorithm that is not equally distributed
+ */
 public class Token{
 	private double min;
 	private double max;

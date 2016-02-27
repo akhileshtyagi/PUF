@@ -13,6 +13,9 @@ import components.Touch;
 import graph.StateGraph;
 import rank.CompareChainsRank;
 
+/** JUnit test for testing PageRank version of compairason
+ * Not that the PageRank implementation is not currently functional.
+ */
 public class UnitCompareChainsRank {
 	private CompareChainsRank compare_chains_rank;
 	Chain user_chain;

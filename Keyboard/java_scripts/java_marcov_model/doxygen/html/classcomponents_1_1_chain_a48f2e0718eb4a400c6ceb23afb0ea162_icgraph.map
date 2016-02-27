@@ -1,0 +1,12 @@
+<map id="components.Chain.get_windows" name="components.Chain.get_windows">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#a401a39b68da4ae8ba64e02af94e68f15" title="computes all uncomputed aspects of the chain " alt="" coords="213,123,399,164"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_chain.html#ab23f30bde8f169d73c3a3e5588bf75c6" title="returns the percent difference between this chain and auth_chain. " alt="" coords="463,71,666,98"/>
+<area shape="rect" id="node6" href="$classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="779,122,887,149"/>
+<area shape="rect" id="node10" href="$classrank_1_1_compare_chains_rank.html#a72680cae41f481bfe37011051c2e9419" title="overrides the run method to implement the authentication with a page&#45;rank style algorithm. " alt="" coords="207,239,405,266"/>
+<area shape="rect" id="node11" href="$classruntime_1_1_operation__thread.html#aaee976f90605c4147a8c22bb8f9eee25" title="runtime.Operation_thread.run" alt="" coords="211,290,401,317"/>
+<area shape="rect" id="node8" href="$classrank_1_1_complete_probability.html#a1507b6695918da300c0130ccdc218900" title="make a replica of the chain with a window size of 1 and compute the probability. " alt="" coords="453,123,676,164"/>
+<area shape="rect" id="node4" href="$classdata__analysis_1_1_model__compare__thread.html#ad75761fec2f2e5e2dd2679b6a120f2a4" title="data_analysis.Model\l_compare_thread.run" alt="" coords="761,5,905,47"/>
+<area shape="rect" id="node5" href="$classruntime_1_1_compare_chains.html#aafa4a766a30bbbb6e205114a699d8158" title="compare user_chain and auth_chain and choose what to do with the result " alt="" coords="741,71,926,98"/>
+<area shape="rect" id="node7" href="$classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="991,115,1185,156"/>
+<area shape="rect" id="node9" href="$classjunit_1_1_unit___complete_probability.html#aefbaa874bac003953a07d88aed5cf3df" title="junit.Unit_CompleteProbability.init" alt="" coords="724,173,943,199"/>
+</map>

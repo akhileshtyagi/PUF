@@ -1,0 +1,41 @@
+<map id="test.Main.main" name="test.Main.main">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#a9a8aa7996f3f4b65a0f0dbbddd84f14b" title="components.Chain.add\l_touch" alt="" coords="703,170,859,211"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_chain.html#ae3cf3859627624dd155cf1507514cf20" title="returns the distribution of the data as a whole " alt="" coords="933,1032,1087,1074"/>
+<area shape="rect" id="node4" href="$classcomponents_1_1_distribution.html#a76e537de3db4d30554be0a88b8f21519" title="components.Distribution.get_max" alt="" coords="161,169,379,196"/>
+<area shape="rect" id="node5" href="$classcomponents_1_1_distribution.html#a4a56b607338da9d4353f74316af57eec" title="components.Distribution.get_min" alt="" coords="163,220,377,246"/>
+<area shape="rect" id="node6" href="$classcomponents_1_1_chain.html#a96cec1762b6f69856f54aad9e37b04a7" title="returns the probability of a given touch (at the i&#39;th index) based on the model. This will depend on ..." alt="" coords="705,338,858,379"/>
+<area shape="rect" id="node7" href="$classcomponents_1_1_chain.html#aed8e3b1ca179438db491b35a2eee822b" title="handle requests for tokens " alt="" coords="933,535,1087,576"/>
+<area shape="rect" id="node8" href="$classcomponents_1_1_touch.html#aa7eaadaf00950e7e7076136be30d00bd" title="returns the probability of the touch occurring after a given window w. If the window does not exist r..." alt="" coords="933,279,1087,320"/>
+<area shape="rect" id="node9" href="$classcomponents_1_1_chain.html#a654c25d3edab107ad77710428f11280c" title="returns a list of distributions for each key " alt="" coords="933,848,1087,890"/>
+<area shape="rect" id="node10" href="$classcomponents_1_1_chain.html#ab23f30bde8f169d73c3a3e5588bf75c6" title="returns the percent difference between this chain and auth_chain. " alt="" coords="169,524,371,550"/>
+<area shape="rect" id="node12" href="$classcomponents_1_1_chain.html#a48f2e0718eb4a400c6ceb23afb0ea162" title="handle requests for windows " alt="" coords="705,994,858,1035"/>
+<area shape="rect" id="node23" href="$classcomponents_1_1_chain.html#acf107be5a3d4e0dc151f07e0c519f698" title="NOT USEFUL IN ANDROID. This is used for debugging purposes. Outputs the model to a csv file in a read..." alt="" coords="185,626,355,667"/>
+<area shape="rect" id="node24" href="$classcomponents_1_1_token.html#a200e957fcc13ec21353edc5e4510cf67" title="return the maximum " alt="" coords="177,692,363,718"/>
+<area shape="rect" id="node25" href="$classcomponents_1_1_token.html#a7139374ae5d36699d9d0b2e80d9afde7" title="returns true if there are more than an acceptable number of wildcards " alt="" coords="179,742,361,769"/>
+<area shape="rect" id="node26" href="$classcomponents_1_1_token.html#a9d029725d9c98ef58017aee36be0989d" title="compares This token to another to determine if they are the same " alt="" coords="449,973,623,1000"/>
+<area shape="rect" id="node28" href="$classcomponents_1_1_touch.html#a407c6a87b0109d73ac0c84c32a38caf4" title="sets the probability that this touch succeeds a given sequence. Reccord the sequence and the probabil..." alt="" coords="193,844,347,886"/>
+<area shape="rect" id="node29" href="$classcomponents_1_1_touch.html#ad38a5ddb406184988bcbcef0cfdad373" title="implement hash function for the touch class " alt="" coords="172,910,368,937"/>
+<area shape="rect" id="node30" href="$classcomponents_1_1_touch.html#a2dccbff3f4d150931886920d98354a17" title="compare touches to one another. return negative if this touch is less than other_touch ..." alt="" coords="435,1208,637,1234"/>
+<area shape="rect" id="node31" href="$classcomponents_1_1_touch.html#a7cb910d6f460cc8ba5f101786131e07d" title="compares the touches with the given token list. " alt="" coords="177,962,363,1003"/>
+<area shape="rect" id="node32" href="$classcomponents_1_1_window.html#a3453a892128b5b4bded8bb7d18bbf35f" title="used for compairason of windows with a given token set. " alt="" coords="171,1079,369,1120"/>
+<area shape="rect" id="node33" href="$classcomponents_1_1_window.html#acf98290f4314388936c14de8b259339a" title="compare this window to another window. Return negative if this window is less than the other window..." alt="" coords="163,1246,377,1273"/>
+<area shape="rect" id="node34" href="$classruntime_1_1_chain_builder.html#a4f42e44cba506f6ad523acb85c68701e" title="this method should be called in some way whenever there is a touch event in android. " alt="" coords="177,322,363,363"/>
+<area shape="rect" id="node35" href="$classruntime_1_1_chain_builder.html#aa483e6832f09092ec52fdf715e6f4b5e" title="allow forced authentication from outside of ChainBuilder. " alt="" coords="427,236,645,262"/>
+<area shape="rect" id="node36" href="$classruntime_1_1_chain_builder.html#ab01b027d8ad763c58fef515f6bdfe03d" title="handle requests for the current state of the authentication " alt="" coords="187,1298,353,1339"/>
+<area shape="rect" id="node39" href="$classruntime_1_1_chain_builder.html#afec27831c01ad10069232680b82b3298" title="return the thread which is preforming the authentication. " alt="" coords="187,1363,353,1404"/>
+<area shape="rect" id="node40" href="$classruntime_1_1_compare_chains.html#a684e7b6b0ea4f599a190866647acd144" title="returns the probability with which the " alt="" coords="177,1428,363,1470"/>
+<area shape="rect" id="node11" href="$classcomponents_1_1_chain.html#a401a39b68da4ae8ba64e02af94e68f15" title="computes all uncomputed aspects of the chain " alt="" coords="443,856,629,898"/>
+<area shape="rect" id="node13" href="$classcomponents_1_1_chain.html#a4184b4a5a7bd8b2412e7543c2db91af1" title="allows distribution to be set. " alt="" coords="459,739,613,780"/>
+<area shape="rect" id="node14" href="$classtrie_1_1_trie_list.html#a3748bb1aaf4f32d26b74091eb3b3706d" title="return the number of occurrences of w in window_list TODO I think this method needs to be faster..." alt="" coords="459,455,613,496"/>
+<area shape="rect" id="node16" href="$classtrie_1_1_trie_list.html#a42644a837b91c05c2db9a106bd02e30d" title="counts the number of times a given touch comes after a given window. in the given window..." alt="" coords="461,520,611,562"/>
+<area shape="rect" id="node18" href="$classcomponents_1_1_chain.html#a8bb0e379e0102b0443c38ef174fe83cc" title="returns true if a touch is within 2 sigma for it&#39;s key distribution " alt="" coords="693,674,869,715"/>
+<area shape="rect" id="node15" href="$classtrie_1_1_trie.html#a061c92ea6abc9e1d9e6e6ac5c0c0b4b2" title="retrieves the number of occurrences of a given string in the tree " alt="" coords="714,455,849,496"/>
+<area shape="rect" id="node17" href="$classtrie_1_1_trie.html#a0755a2fdc3ebc07406db5a5ff1310f38" title="returns a list of indexes containing the given window " alt="" coords="706,521,857,548"/>
+<area shape="rect" id="node19" href="$classcomponents_1_1_touch.html#a7c61094e11f0dfeaf37e72a67fd04121" title="components.Touch.get_key" alt="" coords="919,601,1101,628"/>
+<area shape="rect" id="node20" href="$classcomponents_1_1_touch.html#aa47273ddf1ef9ed00285bcee6cfd4eba" title="components.Touch.get\l_pressure" alt="" coords="933,652,1087,694"/>
+<area shape="rect" id="node21" href="$classcomponents_1_1_distribution.html#a1a160ca9f065f761a9fa3ed614e8f9b2" title="components.Distribution.get\l_average" alt="" coords="917,783,1103,824"/>
+<area shape="rect" id="node22" href="$classcomponents_1_1_distribution.html#aa1c9330c8c9119bb304cab5d4d31fba1" title="components.Distribution.get\l_standard_deviation" alt="" coords="917,718,1103,759"/>
+<area shape="rect" id="node27" href="$classcomponents_1_1_token.html#a73f5eb6dda64ee3049237ca34f28a73c" title="allow tokens to be created making each touch mu for its keycode, or in a linear fashion over the dist..." alt="" coords="695,740,868,766"/>
+<area shape="rect" id="node37" href="$classruntime_1_1_compare_chains.html#a3e4a09371bcb8d006d646f9c58b5596c" title="runtime.CompareChains.get\l_auth_complete" alt="" coords="443,1284,629,1326"/>
+<area shape="rect" id="node38" href="$classruntime_1_1_compare_chains.html#af5dd0a0034121d92bbfac68adecec1c7" title="returns the result of the authentication. " alt="" coords="443,1350,629,1391"/>
+</map>

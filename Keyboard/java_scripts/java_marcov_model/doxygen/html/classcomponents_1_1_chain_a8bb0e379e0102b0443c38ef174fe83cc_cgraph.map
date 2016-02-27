@@ -1,0 +1,8 @@
+<map id="components.Chain.is_touch_in_key_distribution" name="components.Chain.is_touch_in_key_distribution">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#a654c25d3edab107ad77710428f11280c" title="returns a list of distributions for each key " alt="" coords="245,5,399,47"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_touch.html#a7c61094e11f0dfeaf37e72a67fd04121" title="components.Touch.get_key" alt="" coords="231,71,413,98"/>
+<area shape="rect" id="node4" href="$classcomponents_1_1_touch.html#aa47273ddf1ef9ed00285bcee6cfd4eba" title="components.Touch.get\l_pressure" alt="" coords="245,123,399,164"/>
+<area shape="rect" id="node5" href="$classcomponents_1_1_distribution.html#a1a160ca9f065f761a9fa3ed614e8f9b2" title="components.Distribution.get\l_average" alt="" coords="229,188,415,229"/>
+<area shape="rect" id="node6" href="$classcomponents_1_1_distribution.html#aa1c9330c8c9119bb304cab5d4d31fba1" title="components.Distribution.get\l_standard_deviation" alt="" coords="229,253,415,295"/>
+<area shape="rect" id="node7" href="$classcomponents_1_1_chain.html#aed8e3b1ca179438db491b35a2eee822b" title="handle requests for tokens " alt="" coords="245,319,399,360"/>
+</map>

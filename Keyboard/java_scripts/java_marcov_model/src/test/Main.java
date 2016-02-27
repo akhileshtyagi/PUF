@@ -14,9 +14,16 @@ import components.Window;
 import runtime.ChainBuilder;
 import runtime.CompareChains;
 
-///TODO generate a csv file for testing
-///This class is used to test that the model is being built correctly. Also tested is the model compairason. and various classes used in model creating. The idea is to print out the tests which fail.
-///This class should have to do no actual work if the program is designed well.
+//TODO generate a csv file for testing
+
+/** This class is used to test that the model is being built correctly.
+ * Also tested is the model compairason. and various classes used in model creating.
+ * The idea is to print out the tests which fail.
+ * This class should have to do no actual work if the program is designed well.
+ *
+ * NOTE: A few tests fail. This is not an issue as This is expected.
+ * The reason for this is that this test code is somewhat out of date.
+ */
 public class Main {
 	final static String TOUCH_TEST_FILE_NAME = "test_touch.csv";
 	final static int TOUCH_TEST_FILE_LENGTH = 1000;

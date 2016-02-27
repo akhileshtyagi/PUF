@@ -1,5 +1,10 @@
 \hypertarget{classcomponents_1_1_token}{}\section{components.\+Token Class Reference}
 \label{classcomponents_1_1_token}\index{components.\+Token@{components.\+Token}}
+
+
+This class represents a token within the model.  
+
+
 \subsection*{Classes}
 \begin{DoxyCompactItemize}
 \item 
@@ -13,9 +18,9 @@ enum \hyperlink{enumcomponents_1_1_token_1_1_type}{Type}
 \hyperlink{classcomponents_1_1_token_aaecd79f21bdfa6dd838719b4cf736df0}{Token} (\hyperlink{classcomponents_1_1_distribution}{Distribution} distribution, int total\+\_\+tokens, int token\+\_\+index, \hyperlink{enumcomponents_1_1_token_1_1_type}{Type} type)
 \begin{DoxyCompactList}\small\item\em allow for creation of tokens over a distribution \end{DoxyCompactList}\item 
 \hyperlink{classcomponents_1_1_token_aec989a1d1fd6f860a84839091bf0586a}{Token} (double range\+\_\+min, double range\+\_\+max, int total\+\_\+tokens, int token\+\_\+index, \hyperlink{enumcomponents_1_1_token_1_1_type}{Type} type)
-\item 
+\begin{DoxyCompactList}\small\item\em Implemented in the constructor is the clustering algorithm. \end{DoxyCompactList}\item 
 boolean \hyperlink{classcomponents_1_1_token_af023f6e27fd68da7705603161ccffe36}{contains} (\hyperlink{classcomponents_1_1_touch}{Touch} touch)
-\item 
+\begin{DoxyCompactList}\small\item\em determines if a touch is within this token based on its pressure value this will return true if a touches pressure equals max or min, so if max of one token is min of another token, both will return true \end{DoxyCompactList}\item 
 boolean \hyperlink{classcomponents_1_1_token_a3e7b6d12602ff4da363a96701e2a365f}{is\+\_\+high\+\_\+wildcard} (\hyperlink{classcomponents_1_1_touch}{Touch} touch)
 \begin{DoxyCompactList}\small\item\em determine if a touch is a high\+\_\+wildcard \end{DoxyCompactList}\item 
 boolean \hyperlink{classcomponents_1_1_token_a5e1eeb68449d6a940302f6b2561c6cec}{is\+\_\+low\+\_\+wildcard} (\hyperlink{classcomponents_1_1_touch}{Touch} touch)
@@ -27,7 +32,7 @@ void \hyperlink{classcomponents_1_1_token_aedf81a3bafbf9843754192a5f287a06d}{inc
 int \hyperlink{classcomponents_1_1_token_a08348f7ec1a53d80f8886cca07e70e97}{get\+\_\+total\+\_\+wildcards} ()
 \begin{DoxyCompactList}\small\item\em returns the total number of wildcards \end{DoxyCompactList}\item 
 int \hyperlink{classcomponents_1_1_token_a1f4fc1f480c23dcd8bc00a43b34ed613}{get\+\_\+acceptable\+\_\+wildcards} (int total\+\_\+items)
-\item 
+\begin{DoxyCompactList}\small\item\em returns the acceptable number of wildcards \end{DoxyCompactList}\item 
 double \hyperlink{classcomponents_1_1_token_a7139374ae5d36699d9d0b2e80d9afde7}{get\+\_\+min} ()
 \begin{DoxyCompactList}\small\item\em returns true if there are more than an acceptable number of wildcards \end{DoxyCompactList}\item 
 double \hyperlink{classcomponents_1_1_token_a200e957fcc13ec21353edc5e4510cf67}{get\+\_\+max} ()
@@ -37,7 +42,9 @@ boolean \hyperlink{classcomponents_1_1_token_a9d029725d9c98ef58017aee36be0989d}{
 
 
 \subsection{Detailed Description}
-This class represents a token within the model. Essentially this is a range of values. A touch is defined to be within a token if the pressure value of the touch falls within this range. This class is designed to abstract away the clustering algorithm. This makes the rest of the code far simpler to think about Something to look at in the future may be a clustering algorithm that is not equally distributed 
+This class represents a token within the model. 
+
+Essentially this is a range of values. A touch is defined to be within a token if the pressure value of the touch falls within this range. This class is designed to abstract away the clustering algorithm. This makes the rest of the code far simpler to think about Something to look at in the future may be a clustering algorithm that is not equally distributed 
 
 \subsection{Constructor \& Destructor Documentation}
 \index{components\+::\+Token@{components\+::\+Token}!Token@{Token}}
@@ -55,7 +62,29 @@ This class represents a token within the model. Essentially this is a range of v
 
 allow tokens to be created making each touch mu for its keycode, or in a linear fashion over the distribution for the keycode 
 
-allow for creation of tokens with-\/in some number of standard deviations of a distribution \index{components\+::\+Token@{components\+::\+Token}!Token@{Token}}
+allow for creation of tokens with-\/in some number of standard deviations of a distribution 
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_token_a73f5eb6dda64ee3049237ca34f28a73c_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_token_a73f5eb6dda64ee3049237ca34f28a73c_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{components\+::\+Token@{components\+::\+Token}!Token@{Token}}
 \index{Token@{Token}!components\+::\+Token@{components\+::\+Token}}
 \subsubsection[{\texorpdfstring{Token(\+Distribution distribution, int total\+\_\+tokens, int token\+\_\+index, Type type)}{Token(Distribution distribution, int total_tokens, int token_index, Type type)}}]{\setlength{\rightskip}{0pt plus 5cm}components.\+Token.\+Token (
 \begin{DoxyParamCaption}
@@ -69,6 +98,17 @@ allow for creation of tokens with-\/in some number of standard deviations of a d
 
 allow for creation of tokens over a distribution 
 
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_token_aaecd79f21bdfa6dd838719b4cf736df0_cgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Token@{components\+::\+Token}!Token@{Token}}
 \index{Token@{Token}!components\+::\+Token@{components\+::\+Token}}
 \subsubsection[{\texorpdfstring{Token(double range\+\_\+min, double range\+\_\+max, int total\+\_\+tokens, int token\+\_\+index, Type type)}{Token(double range_min, double range_max, int total_tokens, int token_index, Type type)}}]{\setlength{\rightskip}{0pt plus 5cm}components.\+Token.\+Token (
@@ -80,7 +120,11 @@ allow for creation of tokens over a distribution
 \item[{{\bf Type}}]{type}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_token_aec989a1d1fd6f860a84839091bf0586a}{}\label{classcomponents_1_1_token_aec989a1d1fd6f860a84839091bf0586a}
-Implemented in the constructor is the clustering algorithm. This determines how to split up the range into a number of tokens.
+
+
+Implemented in the constructor is the clustering algorithm. 
+
+This determines how to split up the range into a number of tokens.
 
 range\+\_\+min, minimum of the token range range\+\_\+max, maximum of the token range total\+\_\+tokens total number of tokens to split range into token\+\_\+index, integer between 0 and total\+\_\+tokens-\/1 indicating into which range this token falls 
 
@@ -92,7 +136,22 @@ range\+\_\+min, minimum of the token range range\+\_\+max, maximum of the token 
 \item[{{\bf Touch}}]{touch}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_token_af023f6e27fd68da7705603161ccffe36}{}\label{classcomponents_1_1_token_af023f6e27fd68da7705603161ccffe36}
-determines if a touch is within this token based on its pressure value this will return true if a touches pressure equals max or min, so if max of one token is min of another token, both will return true \index{components\+::\+Token@{components\+::\+Token}!equals@{equals}}
+
+
+determines if a touch is within this token based on its pressure value this will return true if a touches pressure equals max or min, so if max of one token is min of another token, both will return true 
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_token_af023f6e27fd68da7705603161ccffe36_cgraph}
+\end{center}
+\end{figure}
+
+
+\index{components\+::\+Token@{components\+::\+Token}!equals@{equals}}
 \index{equals@{equals}!components\+::\+Token@{components\+::\+Token}}
 \subsubsection[{\texorpdfstring{equals(\+Object o\+\_\+t)}{equals(Object o_t)}}]{\setlength{\rightskip}{0pt plus 5cm}boolean components.\+Token.\+equals (
 \begin{DoxyParamCaption}
@@ -103,6 +162,28 @@ determines if a touch is within this token based on its pressure value this will
 
 compares This token to another to determine if they are the same 
 
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_token_a9d029725d9c98ef58017aee36be0989d_cgraph}
+\end{center}
+\end{figure}
+
+
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_token_a9d029725d9c98ef58017aee36be0989d_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Token@{components\+::\+Token}!get\+\_\+acceptable\+\_\+wildcards@{get\+\_\+acceptable\+\_\+wildcards}}
 \index{get\+\_\+acceptable\+\_\+wildcards@{get\+\_\+acceptable\+\_\+wildcards}!components\+::\+Token@{components\+::\+Token}}
 \subsubsection[{\texorpdfstring{get\+\_\+acceptable\+\_\+wildcards(int total\+\_\+items)}{get_acceptable_wildcards(int total_items)}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Token.\+get\+\_\+acceptable\+\_\+wildcards (
@@ -110,7 +191,11 @@ compares This token to another to determine if they are the same
 \item[{int}]{total\+\_\+items}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_token_a1f4fc1f480c23dcd8bc00a43b34ed613}{}\label{classcomponents_1_1_token_a1f4fc1f480c23dcd8bc00a43b34ed613}
+
+
 returns the acceptable number of wildcards 
+
+
 \begin{DoxyParams}{Parameters}
 {\em total\+\_\+items} & is the total number of items in the distribution \\
 \hline
@@ -126,6 +211,17 @@ returns the acceptable number of wildcards
 
 return the maximum 
 
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_token_a200e957fcc13ec21353edc5e4510cf67_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Token@{components\+::\+Token}!get\+\_\+min@{get\+\_\+min}}
 \index{get\+\_\+min@{get\+\_\+min}!components\+::\+Token@{components\+::\+Token}}
 \subsubsection[{\texorpdfstring{get\+\_\+min()}{get_min()}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Token.\+get\+\_\+min (
@@ -137,7 +233,18 @@ return the maximum
 
 returns true if there are more than an acceptable number of wildcards 
 
-return minimum \index{components\+::\+Token@{components\+::\+Token}!get\+\_\+total\+\_\+wildcards@{get\+\_\+total\+\_\+wildcards}}
+return minimum 
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_token_a7139374ae5d36699d9d0b2e80d9afde7_icgraph}
+\end{center}
+\end{figure}
+
+
+\index{components\+::\+Token@{components\+::\+Token}!get\+\_\+total\+\_\+wildcards@{get\+\_\+total\+\_\+wildcards}}
 \index{get\+\_\+total\+\_\+wildcards@{get\+\_\+total\+\_\+wildcards}!components\+::\+Token@{components\+::\+Token}}
 \subsubsection[{\texorpdfstring{get\+\_\+total\+\_\+wildcards()}{get_total_wildcards()}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Token.\+get\+\_\+total\+\_\+wildcards (
 \begin{DoxyParamCaption}
@@ -181,6 +288,17 @@ adds the the number of high wildcards
 
 determine if a touch is a high\+\_\+wildcard 
 
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{classcomponents_1_1_token_a3e7b6d12602ff4da363a96701e2a365f_cgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Token@{components\+::\+Token}!is\+\_\+low\+\_\+wildcard@{is\+\_\+low\+\_\+wildcard}}
 \index{is\+\_\+low\+\_\+wildcard@{is\+\_\+low\+\_\+wildcard}!components\+::\+Token@{components\+::\+Token}}
 \subsubsection[{\texorpdfstring{is\+\_\+low\+\_\+wildcard(\+Touch touch)}{is_low_wildcard(Touch touch)}}]{\setlength{\rightskip}{0pt plus 5cm}boolean components.\+Token.\+is\+\_\+low\+\_\+wildcard (
@@ -191,6 +309,17 @@ determine if a touch is a high\+\_\+wildcard
 
 
 determine if a touch is a low wildcard 
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=342pt]{classcomponents_1_1_token_a5e1eeb68449d6a940302f6b2561c6cec_cgraph}
+\end{center}
+\end{figure}
+
 
 
 

@@ -1,0 +1,11 @@
+<map id="rank.CompareChainsRank.run" name="rank.CompareChainsRank.run">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#affd01133384c5cb222448c76ab0a82fb" title="get a list of all touches in the chain " alt="" coords="267,5,420,47"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_chain.html#aed8e3b1ca179438db491b35a2eee822b" title="handle requests for tokens " alt="" coords="483,93,637,135"/>
+<area shape="rect" id="node4" href="$classcomponents_1_1_chain.html#ac6aca5adf04bb1500c1d8735cd7d5881" title="components.Chain.get\l_token" alt="" coords="267,123,420,164"/>
+<area shape="rect" id="node5" href="$classcomponents_1_1_chain.html#a654c25d3edab107ad77710428f11280c" title="returns a list of distributions for each key " alt="" coords="483,272,637,313"/>
+<area shape="rect" id="node6" href="$classcomponents_1_1_chain.html#a96cec1762b6f69856f54aad9e37b04a7" title="returns the probability of a given touch (at the i&#39;th index) based on the model. This will depend on ..." alt="" coords="267,188,420,229"/>
+<area shape="rect" id="node8" href="$classcomponents_1_1_touch.html#a7c61094e11f0dfeaf37e72a67fd04121" title="components.Touch.get_key" alt="" coords="252,305,435,331"/>
+<area shape="rect" id="node9" href="$classcomponents_1_1_chain.html#a48f2e0718eb4a400c6ceb23afb0ea162" title="handle requests for windows " alt="" coords="267,356,420,397"/>
+<area shape="rect" id="node7" href="$classcomponents_1_1_touch.html#aa7eaadaf00950e7e7076136be30d00bd" title="returns the probability of the touch occurring after a given window w. If the window does not exist r..." alt="" coords="483,188,637,229"/>
+<area shape="rect" id="node10" href="$classcomponents_1_1_chain.html#ae3cf3859627624dd155cf1507514cf20" title="returns the distribution of the data as a whole " alt="" coords="483,356,637,397"/>
+</map>

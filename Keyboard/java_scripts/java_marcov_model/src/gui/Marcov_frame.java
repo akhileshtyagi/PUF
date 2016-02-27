@@ -6,6 +6,7 @@ import java.awt.Insets;
 
 import javax.swing.JFrame;
 
+/** Display frame to contain buttons for running test code and panels to view results. */
 public class Marcov_frame extends JFrame{
 	private static final long serialVersionUID = 4877822104578473298L;
 

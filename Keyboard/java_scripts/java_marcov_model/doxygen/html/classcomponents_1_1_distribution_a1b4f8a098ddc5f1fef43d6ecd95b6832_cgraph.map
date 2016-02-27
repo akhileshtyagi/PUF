@@ -1,0 +1,8 @@
+<map id="components.Distribution.equals" name="components.Distribution.equals">
+<area shape="rect" id="node2" href="$classcomponents_1_1_distribution.html#a0aef5c1c0f3732a9acc45001a251f345" title="components.Distribution.\lDistribution" alt="" coords="284,5,451,47"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_distribution.html#a76e537de3db4d30554be0a88b8f21519" title="components.Distribution.get_max" alt="" coords="259,71,476,98"/>
+<area shape="rect" id="node4" href="$classcomponents_1_1_distribution.html#a4a56b607338da9d4353f74316af57eec" title="components.Distribution.get_min" alt="" coords="261,122,474,149"/>
+<area shape="rect" id="node5" href="$classcomponents_1_1_distribution.html#a1a160ca9f065f761a9fa3ed614e8f9b2" title="components.Distribution.get\l_average" alt="" coords="275,173,460,215"/>
+<area shape="rect" id="node6" href="$classcomponents_1_1_distribution.html#ae4c6122fba189f4ae493f22fbbabc394" title="returns the keycode associated with this distribution. If the distribution does not have an associate..." alt="" coords="275,239,460,280"/>
+<area shape="rect" id="node7" href="$classcomponents_1_1_distribution.html#aa1c9330c8c9119bb304cab5d4d31fba1" title="components.Distribution.get\l_standard_deviation" alt="" coords="275,304,460,345"/>
+</map>

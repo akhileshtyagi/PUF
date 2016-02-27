@@ -1,0 +1,11 @@
+<map id="test.Print_model.main" name="test.Print_model.main">
+<area shape="rect" id="node2" href="$classruntime_1_1_chain_builder.html#a8a63d82919a41779bd179be83dd02715" title="parse the csv file NOT USEFULL ON ANDROID " alt="" coords="203,5,409,32"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_chain.html#a2eb35304ee80f15c741a986a214e663b" title="components.Chain.add\l_touch_list" alt="" coords="228,57,384,98"/>
+<area shape="rect" id="node5" href="$classcomponents_1_1_chain.html#ae3cf3859627624dd155cf1507514cf20" title="returns the distribution of the data as a whole " alt="" coords="229,122,383,163"/>
+<area shape="rect" id="node6" href="$classcomponents_1_1_chain.html#a654c25d3edab107ad77710428f11280c" title="returns a list of distributions for each key " alt="" coords="229,187,383,229"/>
+<area shape="rect" id="node7" href="$classcomponents_1_1_chain.html#a96cec1762b6f69856f54aad9e37b04a7" title="returns the probability of a given touch (at the i&#39;th index) based on the model. This will depend on ..." alt="" coords="229,253,383,294"/>
+<area shape="rect" id="node10" href="$classcomponents_1_1_chain.html#acf107be5a3d4e0dc151f07e0c519f698" title="NOT USEFUL IN ANDROID. This is used for debugging purposes. Outputs the model to a csv file in a read..." alt="" coords="221,318,391,359"/>
+<area shape="rect" id="node4" href="$classcomponents_1_1_chain.html#a9a8aa7996f3f4b65a0f0dbbddd84f14b" title="components.Chain.add\l_touch" alt="" coords="457,57,613,98"/>
+<area shape="rect" id="node8" href="$classcomponents_1_1_chain.html#aed8e3b1ca179438db491b35a2eee822b" title="handle requests for tokens " alt="" coords="459,219,612,261"/>
+<area shape="rect" id="node9" href="$classcomponents_1_1_touch.html#aa7eaadaf00950e7e7076136be30d00bd" title="returns the probability of the touch occurring after a given window w. If the window does not exist r..." alt="" coords="458,285,613,326"/>
+</map>

@@ -65,7 +65,7 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
     <ul class="tablist">
       <li><a href="annotated.html"><span>Class&#160;List</span></a></li>
       <li><a href="classes.html"><span>Class&#160;Index</span></a></li>
-      <li><a href="hierarchy.html"><span>Class&#160;Hierarchy</span></a></li>
+      <li><a href="inherits.html"><span>Class&#160;Hierarchy</span></a></li>
       <li><a href="functions.html"><span>Class&#160;Members</span></a></li>
     </ul>
   </div>
@@ -96,14 +96,19 @@ var searchBox = new SearchBox("searchBox", "search",false,'Search');
 <div class="title">trie.TrieList Class Reference</div>  </div>
 </div><!--header-->
 <div class="contents">
+
+<p>Wrapper around <a class="el" href="classtrie_1_1_trie.html" title="Implementation of Prefix Tree. ">Trie</a> used to maintain an ordering among the stored elements.  
+ <a href="classtrie_1_1_trie_list.html#details">More...</a></p>
 <div class="dynheader">
 Inheritance diagram for trie.TrieList:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classtrie_1_1_trie_list.png" usemap="#trie.TrieList_map" alt=""/>
-  <map id="trie.TrieList_map" name="trie.TrieList_map">
-</map>
- </div></div>
+<div class="center"><img src="classtrie_1_1_trie_list__inherit__graph.png" border="0" usemap="#trie_8_trie_list_inherit__map" alt="Inheritance graph"/></div>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
+<div class="dynheader">
+Collaboration diagram for trie.TrieList:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list__coll__graph.png" border="0" usemap="#trie_8_trie_list_coll__map" alt="Collaboration graph"/></div>
+<center><span class="legend">[<a href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -135,13 +140,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memdesc:a42644a837b91c05c2db9a106bd02e30d"><td class="mdescLeft">&#160;</td><td class="mdescRight">counts the number of times a given touch comes after a given window. in the given window, succesors list  <a href="#a42644a837b91c05c2db9a106bd02e30d">More...</a><br /></td></tr>
 <tr class="separator:a42644a837b91c05c2db9a106bd02e30d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3748bb1aaf4f32d26b74091eb3b3706d"><td class="memItemLeft" align="right" valign="top">int&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtrie_1_1_trie_list.html#a3748bb1aaf4f32d26b74091eb3b3706d">occurrence_count</a> (<a class="el" href="classcomponents_1_1_window.html">Window</a> w)</td></tr>
+<tr class="memdesc:a3748bb1aaf4f32d26b74091eb3b3706d"><td class="mdescLeft">&#160;</td><td class="mdescRight">return the number of occurrences of w in window_list TODO I think this method needs to be faster.  <a href="#a3748bb1aaf4f32d26b74091eb3b3706d">More...</a><br /></td></tr>
 <tr class="separator:a3748bb1aaf4f32d26b74091eb3b3706d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e339d095e6b1d843f34ec3091612c4e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classtrie_1_1_trie_list.html#a5e339d095e6b1d843f34ec3091612c4e">set_tokens</a> (List&lt; <a class="el" href="classcomponents_1_1_token.html">Token</a> &gt; tokens)</td></tr>
 <tr class="memdesc:a5e339d095e6b1d843f34ec3091612c4e"><td class="mdescLeft">&#160;</td><td class="mdescRight">sets the tokens that will be used when encoding the window  <a href="#a5e339d095e6b1d843f34ec3091612c4e">More...</a><br /></td></tr>
 <tr class="separator:a5e339d095e6b1d843f34ec3091612c4e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>TODO Eventually this will be implemented as a prefix tree. This will greatly speed up many of the operations causing the calculation of the probabilities to be slow. right now it is fine to have the backing be an arraylist overrided methods are any that remove, modify, or add to the arraylist. these methods will also change the prefix tree </p>
+<div class="textblock"><p>Wrapper around <a class="el" href="classtrie_1_1_trie.html" title="Implementation of Prefix Tree. ">Trie</a> used to maintain an ordering among the stored elements. </p>
+<p>This class uses some additional space to store elements in both an ArrayList and the prefix tree. NOTE: This was done for speed of implementation. It would be good if in the future only a prefix tree was used. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a class="anchor" id="a080afd57ffa7220ba51a4f8e8f16c7b4"></a>
 <div class="memitem">
@@ -189,6 +196,17 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list_a4b3c20b9e91337a4bbf3604fe2c66b3b_icgraph.png" border="0" usemap="#classtrie_1_1_trie_list_a4b3c20b9e91337a4bbf3604fe2c66b3b_icgraph" alt=""/></div>
+<map name="classtrie_1_1_trie_list_a4b3c20b9e91337a4bbf3604fe2c66b3b_icgraph" id="classtrie_1_1_trie_list_a4b3c20b9e91337a4bbf3604fe2c66b3b_icgraph">
+<area shape="rect" id="node2" href="classtrie_1_1_trie_list.html#a51ba821144816982deb88f4c25ab4966" title="trie.TrieList.addAll" alt="" coords="171,5,298,32"/>
+<area shape="rect" id="node3" href="classtrie_1_1_trie_list.html#a49157c8085a17723c493b3cf1fe112e6" title="trie.TrieList.retainAll" alt="" coords="165,56,304,83"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a857adbaf3b3c81d7bacf6b8258920a0c"></a>
@@ -231,6 +249,16 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list_a51ba821144816982deb88f4c25ab4966_cgraph.png" border="0" usemap="#classtrie_1_1_trie_list_a51ba821144816982deb88f4c25ab4966_cgraph" alt=""/></div>
+<map name="classtrie_1_1_trie_list_a51ba821144816982deb88f4c25ab4966_cgraph" id="classtrie_1_1_trie_list_a51ba821144816982deb88f4c25ab4966_cgraph">
+<area shape="rect" id="node2" href="classtrie_1_1_trie_list.html#a4b3c20b9e91337a4bbf3604fe2c66b3b" title="trie.TrieList.add" alt="" coords="180,5,292,32"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a522999ec5023a861fa914af49bcde0d2"></a>
@@ -257,6 +285,16 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list_a522999ec5023a861fa914af49bcde0d2_cgraph.png" border="0" usemap="#classtrie_1_1_trie_list_a522999ec5023a861fa914af49bcde0d2_cgraph" alt=""/></div>
+<map name="classtrie_1_1_trie_list_a522999ec5023a861fa914af49bcde0d2_cgraph" id="classtrie_1_1_trie_list_a522999ec5023a861fa914af49bcde0d2_cgraph">
+<area shape="rect" id="node2" href="classtrie_1_1_trie_list.html#a4b3c20b9e91337a4bbf3604fe2c66b3b" title="trie.TrieList.add" alt="" coords="180,5,292,32"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a6bfa2ade95d246ea95a3071993f1600f"></a>
@@ -271,6 +309,26 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list_a6bfa2ade95d246ea95a3071993f1600f_cgraph.png" border="0" usemap="#classtrie_1_1_trie_list_a6bfa2ade95d246ea95a3071993f1600f_cgraph" alt=""/></div>
+<map name="classtrie_1_1_trie_list_a6bfa2ade95d246ea95a3071993f1600f_cgraph" id="classtrie_1_1_trie_list_a6bfa2ade95d246ea95a3071993f1600f_cgraph">
+<area shape="rect" id="node2" href="classtrie_1_1_trie.html#aeca1e283716cb4db6e52907049d08acb" title="removes all elements from the trie " alt="" coords="172,5,271,32"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list_a6bfa2ade95d246ea95a3071993f1600f_icgraph.png" border="0" usemap="#classtrie_1_1_trie_list_a6bfa2ade95d246ea95a3071993f1600f_icgraph" alt=""/></div>
+<map name="classtrie_1_1_trie_list_a6bfa2ade95d246ea95a3071993f1600f_icgraph" id="classtrie_1_1_trie_list_a6bfa2ade95d246ea95a3071993f1600f_icgraph">
+<area shape="rect" id="node2" href="classtrie_1_1_trie_list.html#a49157c8085a17723c493b3cf1fe112e6" title="trie.TrieList.retainAll" alt="" coords="172,5,311,32"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -287,7 +345,33 @@ Public Member Functions</h2></td></tr>
         </tr>
       </table>
 </div><div class="memdoc">
-<p>return the number of occurrences of w in window_list TODO I think this method needs to be faster. Storing windows in a prefix tree would allow for this </p>
+
+<p>return the number of occurrences of w in window_list TODO I think this method needs to be faster. </p>
+<p>Storing windows in a prefix tree would allow for this </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list_a3748bb1aaf4f32d26b74091eb3b3706d_cgraph.png" border="0" usemap="#classtrie_1_1_trie_list_a3748bb1aaf4f32d26b74091eb3b3706d_cgraph" alt=""/></div>
+<map name="classtrie_1_1_trie_list_a3748bb1aaf4f32d26b74091eb3b3706d_cgraph" id="classtrie_1_1_trie_list_a3748bb1aaf4f32d26b74091eb3b3706d_cgraph">
+<area shape="rect" id="node2" href="classtrie_1_1_trie.html#a061c92ea6abc9e1d9e6e6ac5c0c0b4b2" title="retrieves the number of occurrences of a given string in the tree " alt="" coords="208,5,343,47"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list_a3748bb1aaf4f32d26b74091eb3b3706d_icgraph.png" border="0" usemap="#classtrie_1_1_trie_list_a3748bb1aaf4f32d26b74091eb3b3706d_icgraph" alt=""/></div>
+<map name="classtrie_1_1_trie_list_a3748bb1aaf4f32d26b74091eb3b3706d_icgraph" id="classtrie_1_1_trie_list_a3748bb1aaf4f32d26b74091eb3b3706d_icgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_chain.html#ab23f30bde8f169d73c3a3e5588bf75c6" title="returns the percent difference between this chain and auth_chain. " alt="" coords="208,71,411,98"/>
+<area shape="rect" id="node3" href="classdata__analysis_1_1_model__compare__thread.html#ad75761fec2f2e5e2dd2679b6a120f2a4" title="data_analysis.Model\l_compare_thread.run" alt="" coords="479,5,623,47"/>
+<area shape="rect" id="node4" href="classruntime_1_1_compare_chains.html#aafa4a766a30bbbb6e205114a699d8158" title="compare user_chain and auth_chain and choose what to do with the result " alt="" coords="459,71,644,98"/>
+<area shape="rect" id="node5" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="497,122,605,149"/>
+<area shape="rect" id="node6" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="692,115,887,156"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>
@@ -353,6 +437,18 @@ Public Member Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list_a49157c8085a17723c493b3cf1fe112e6_cgraph.png" border="0" usemap="#classtrie_1_1_trie_list_a49157c8085a17723c493b3cf1fe112e6_cgraph" alt=""/></div>
+<map name="classtrie_1_1_trie_list_a49157c8085a17723c493b3cf1fe112e6_cgraph" id="classtrie_1_1_trie_list_a49157c8085a17723c493b3cf1fe112e6_cgraph">
+<area shape="rect" id="node2" href="classtrie_1_1_trie_list.html#a6bfa2ade95d246ea95a3071993f1600f" title="trie.TrieList.clear" alt="" coords="192,5,311,32"/>
+<area shape="rect" id="node4" href="classtrie_1_1_trie_list.html#a4b3c20b9e91337a4bbf3604fe2c66b3b" title="trie.TrieList.add" alt="" coords="195,56,307,83"/>
+<area shape="rect" id="node3" href="classtrie_1_1_trie.html#aeca1e283716cb4db6e52907049d08acb" title="removes all elements from the trie " alt="" coords="359,5,457,32"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="aa23a0325d6d9ccd4fda580073cf40954"></a>
@@ -397,6 +493,17 @@ Public Member Functions</h2></td></tr>
 
 <p>sets the tokens that will be used when encoding the window </p>
 
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list_a5e339d095e6b1d843f34ec3091612c4e_cgraph.png" border="0" usemap="#classtrie_1_1_trie_list_a5e339d095e6b1d843f34ec3091612c4e_cgraph" alt=""/></div>
+<map name="classtrie_1_1_trie_list_a5e339d095e6b1d843f34ec3091612c4e_cgraph" id="classtrie_1_1_trie_list_a5e339d095e6b1d843f34ec3091612c4e_cgraph">
+<area shape="rect" id="node2" href="classtrie_1_1_trie.html#afc2ab785d2546e95b2698c46f76d9c77" title="trie.Trie.insertString" alt="" coords="223,5,359,32"/>
+<area shape="rect" id="node3" href="classcomponents_1_1_window.html#abde5cba55b899aca32dd46750aeb4c32" title="returns the window in the form of a touch list " alt="" coords="208,57,375,98"/>
+</map>
+</div>
+</p>
+
 </div>
 </div>
 <a class="anchor" id="a42644a837b91c05c2db9a106bd02e30d"></a>
@@ -430,6 +537,30 @@ Public Member Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p>counts the number of times a given touch comes after a given window. in the given window, succesors list </p>
+
+<p><div class="dynheader">
+Here is the call graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list_a42644a837b91c05c2db9a106bd02e30d_cgraph.png" border="0" usemap="#classtrie_1_1_trie_list_a42644a837b91c05c2db9a106bd02e30d_cgraph" alt=""/></div>
+<map name="classtrie_1_1_trie_list_a42644a837b91c05c2db9a106bd02e30d_cgraph" id="classtrie_1_1_trie_list_a42644a837b91c05c2db9a106bd02e30d_cgraph">
+<area shape="rect" id="node2" href="classtrie_1_1_trie.html#a0755a2fdc3ebc07406db5a5ff1310f38" title="returns a list of indexes containing the given window " alt="" coords="204,13,355,39"/>
+</map>
+</div>
+</p>
+
+<p><div class="dynheader">
+Here is the caller graph for this function:</div>
+<div class="dyncontent">
+<div class="center"><img src="classtrie_1_1_trie_list_a42644a837b91c05c2db9a106bd02e30d_icgraph.png" border="0" usemap="#classtrie_1_1_trie_list_a42644a837b91c05c2db9a106bd02e30d_icgraph" alt=""/></div>
+<map name="classtrie_1_1_trie_list_a42644a837b91c05c2db9a106bd02e30d_icgraph" id="classtrie_1_1_trie_list_a42644a837b91c05c2db9a106bd02e30d_icgraph">
+<area shape="rect" id="node2" href="classcomponents_1_1_chain.html#ab23f30bde8f169d73c3a3e5588bf75c6" title="returns the percent difference between this chain and auth_chain. " alt="" coords="204,71,407,98"/>
+<area shape="rect" id="node3" href="classdata__analysis_1_1_model__compare__thread.html#ad75761fec2f2e5e2dd2679b6a120f2a4" title="data_analysis.Model\l_compare_thread.run" alt="" coords="475,5,619,47"/>
+<area shape="rect" id="node4" href="classruntime_1_1_compare_chains.html#aafa4a766a30bbbb6e205114a699d8158" title="compare user_chain and auth_chain and choose what to do with the result " alt="" coords="455,71,640,98"/>
+<area shape="rect" id="node5" href="classtest_1_1_main.html#a7204edbad3d2a9d9784c3fa9786326cc" title="test.Main.main" alt="" coords="493,122,601,149"/>
+<area shape="rect" id="node6" href="classgui_1_1_marcov__options__panel.html#a00bf246da4a188f42d43c60a243f26ad" title="gui.Marcov_options\l_panel.Marcov_options_panel" alt="" coords="688,115,883,156"/>
+</map>
+</div>
+</p>
 
 </div>
 </div>

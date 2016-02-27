@@ -1,0 +1,4 @@
+<map id="components.Chain.get_touch_probability" name="components.Chain.get_touch_probability">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#aed8e3b1ca179438db491b35a2eee822b" title="handle requests for tokens " alt="" coords="207,5,361,47"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_touch.html#aa7eaadaf00950e7e7076136be30d00bd" title="returns the probability of the touch occurring after a given window w. If the window does not exist r..." alt="" coords="207,71,361,112"/>
+</map>

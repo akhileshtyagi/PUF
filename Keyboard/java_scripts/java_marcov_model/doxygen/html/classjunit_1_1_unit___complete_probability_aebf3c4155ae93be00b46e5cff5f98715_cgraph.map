@@ -1,0 +1,6 @@
+<map id="junit.Unit_CompleteProbability.test_replica_distribution" name="junit.Unit_CompleteProbability.test_replica_distribution">
+<area shape="rect" id="node2" href="$classcomponents_1_1_chain.html#ae3cf3859627624dd155cf1507514cf20" title="returns the distribution of the data as a whole " alt="" coords="309,5,463,47"/>
+<area shape="rect" id="node3" href="$classcomponents_1_1_distribution.html#a1a160ca9f065f761a9fa3ed614e8f9b2" title="components.Distribution.get\l_average" alt="" coords="293,71,479,112"/>
+<area shape="rect" id="node4" href="$classcomponents_1_1_distribution.html#a4a56b607338da9d4353f74316af57eec" title="components.Distribution.get_min" alt="" coords="279,137,493,163"/>
+<area shape="rect" id="node5" href="$classcomponents_1_1_distribution.html#a76e537de3db4d30554be0a88b8f21519" title="components.Distribution.get_max" alt="" coords="277,187,495,214"/>
+</map>

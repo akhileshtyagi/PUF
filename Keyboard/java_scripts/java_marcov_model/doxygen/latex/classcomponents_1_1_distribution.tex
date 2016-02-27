@@ -1,5 +1,10 @@
 \hypertarget{classcomponents_1_1_distribution}{}\section{components.\+Distribution Class Reference}
 \label{classcomponents_1_1_distribution}\index{components.\+Distribution@{components.\+Distribution}}
+
+
+Used to compute and store max, min, std\+\_\+deviation, and average for a list of \hyperlink{classcomponents_1_1_touch}{Touch}.  
+
+
 \subsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -26,7 +31,9 @@ boolean \hyperlink{classcomponents_1_1_distribution_a1b4f8a098ddc5f1fef43d6ecd95
 
 
 \subsection{Detailed Description}
-T\+O\+DO make the computations happen at request time, and cache the result so it does not need to be recomputed. Or leave it as is.... as distribution objects are only created as needed in the rest of the code. this class knows how to calculate the distribution of a list of touches 
+Used to compute and store max, min, std\+\_\+deviation, and average for a list of \hyperlink{classcomponents_1_1_touch}{Touch}. 
+
+In addition to computing these metrics, \hyperlink{classcomponents_1_1_distribution}{Distribution} allows a keycode to be associated with the list of touches. 
 
 \subsection{Constructor \& Destructor Documentation}
 \index{components\+::\+Distribution@{components\+::\+Distribution}!Distribution@{Distribution}}
@@ -36,6 +43,17 @@ T\+O\+DO make the computations happen at request time, and cache the result so i
 \item[{List$<$ {\bf Touch} $>$}]{touches}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_distribution_a0aef5c1c0f3732a9acc45001a251f345}{}\label{classcomponents_1_1_distribution_a0aef5c1c0f3732a9acc45001a251f345}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_distribution_a0aef5c1c0f3732a9acc45001a251f345_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Distribution@{components\+::\+Distribution}!Distribution@{Distribution}}
 \index{Distribution@{Distribution}!components\+::\+Distribution@{components\+::\+Distribution}}
 \subsubsection[{\texorpdfstring{Distribution(\+List$<$ Touch $>$ touches, int keycode)}{Distribution(List< Touch > touches, int keycode)}}]{\setlength{\rightskip}{0pt plus 5cm}components.\+Distribution.\+Distribution (
@@ -73,6 +91,17 @@ copy constructor. This exists because computations are done in the constructor. 
 
 determine if this distribution is exactly equal to another distribution 
 
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_distribution_a1b4f8a098ddc5f1fef43d6ecd95b6832_cgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Distribution@{components\+::\+Distribution}!get\+\_\+average@{get\+\_\+average}}
 \index{get\+\_\+average@{get\+\_\+average}!components\+::\+Distribution@{components\+::\+Distribution}}
 \subsubsection[{\texorpdfstring{get\+\_\+average()}{get_average()}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Distribution.\+get\+\_\+average (
@@ -80,6 +109,17 @@ determine if this distribution is exactly equal to another distribution
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_distribution_a1a160ca9f065f761a9fa3ed614e8f9b2}{}\label{classcomponents_1_1_distribution_a1a160ca9f065f761a9fa3ed614e8f9b2}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_distribution_a1a160ca9f065f761a9fa3ed614e8f9b2_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Distribution@{components\+::\+Distribution}!get\+\_\+keycode@{get\+\_\+keycode}}
 \index{get\+\_\+keycode@{get\+\_\+keycode}!components\+::\+Distribution@{components\+::\+Distribution}}
 \subsubsection[{\texorpdfstring{get\+\_\+keycode()}{get_keycode()}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Distribution.\+get\+\_\+keycode (
@@ -91,6 +131,17 @@ determine if this distribution is exactly equal to another distribution
 
 returns the keycode associated with this distribution. If the distribution does not have an associated keycode, this method will return -\/1. 
 
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_distribution_ae4c6122fba189f4ae493f22fbbabc394_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Distribution@{components\+::\+Distribution}!get\+\_\+max@{get\+\_\+max}}
 \index{get\+\_\+max@{get\+\_\+max}!components\+::\+Distribution@{components\+::\+Distribution}}
 \subsubsection[{\texorpdfstring{get\+\_\+max()}{get_max()}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Distribution.\+get\+\_\+max (
@@ -98,6 +149,17 @@ returns the keycode associated with this distribution. If the distribution does 
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_distribution_a76e537de3db4d30554be0a88b8f21519}{}\label{classcomponents_1_1_distribution_a76e537de3db4d30554be0a88b8f21519}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_distribution_a76e537de3db4d30554be0a88b8f21519_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Distribution@{components\+::\+Distribution}!get\+\_\+min@{get\+\_\+min}}
 \index{get\+\_\+min@{get\+\_\+min}!components\+::\+Distribution@{components\+::\+Distribution}}
 \subsubsection[{\texorpdfstring{get\+\_\+min()}{get_min()}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Distribution.\+get\+\_\+min (
@@ -105,6 +167,17 @@ returns the keycode associated with this distribution. If the distribution does 
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_distribution_a4a56b607338da9d4353f74316af57eec}{}\label{classcomponents_1_1_distribution_a4a56b607338da9d4353f74316af57eec}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_distribution_a4a56b607338da9d4353f74316af57eec_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Distribution@{components\+::\+Distribution}!get\+\_\+standard\+\_\+deviation@{get\+\_\+standard\+\_\+deviation}}
 \index{get\+\_\+standard\+\_\+deviation@{get\+\_\+standard\+\_\+deviation}!components\+::\+Distribution@{components\+::\+Distribution}}
 \subsubsection[{\texorpdfstring{get\+\_\+standard\+\_\+deviation()}{get_standard_deviation()}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Distribution.\+get\+\_\+standard\+\_\+deviation (
@@ -112,6 +185,17 @@ returns the keycode associated with this distribution. If the distribution does 
 {}
 \end{DoxyParamCaption}
 )}\hypertarget{classcomponents_1_1_distribution_aa1c9330c8c9119bb304cab5d4d31fba1}{}\label{classcomponents_1_1_distribution_aa1c9330c8c9119bb304cab5d4d31fba1}
+
+
+Here is the caller graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_distribution_aa1c9330c8c9119bb304cab5d4d31fba1_icgraph}
+\end{center}
+\end{figure}
+
+
 \index{components\+::\+Distribution@{components\+::\+Distribution}!update@{update}}
 \index{update@{update}!components\+::\+Distribution@{components\+::\+Distribution}}
 \subsubsection[{\texorpdfstring{update(\+List$<$ Touch $>$ touches)}{update(List< Touch > touches)}}]{\setlength{\rightskip}{0pt plus 5cm}void components.\+Distribution.\+update (
@@ -122,6 +206,17 @@ returns the keycode associated with this distribution. If the distribution does 
 
 
 updates the distribution using a list of touches. This update has nothing to do with the old values in the distribution. It is synonomous to creating a new \hyperlink{classcomponents_1_1_distribution}{Distribution} object with this list of touches. 
+
+
+
+Here is the call graph for this function\+:\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classcomponents_1_1_distribution_a1a29a26cfd0b9c6e0b7c2b2639c47880_cgraph}
+\end{center}
+\end{figure}
+
 
 
 
