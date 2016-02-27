@@ -1,0 +1,51 @@
+################
+# Weka Results #
+################
+1. Data Sets Used
+2. algorithms
+3. tests conducted
+4. results
+
+##################
+# Data Sets Used #
+##################
+
+###############
+# Run Results #
+###############
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMOreg -C 1.0 -N 0 -I "weka.classifiers.functions.supportVector.RegSMOImproved -T 0.001 -V -P 1.0E-12 -L 0.001 -W 1" -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007"
+Relation:     tester_ian_device_ian
+Instances:    19067
+Attributes:   3
+              1009034
+              5
+              0.1296
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+SMOreg
+
+weights (not support vectors):
+ -       0.0297 * (normalized) 1009034
+ -       0.138  * (normalized) 5
+ +       0.2003
+
+
+
+Number of kernel evaluations: -1251089398
+
+Time taken to build model: 391.78 seconds
+
+=== Cross-validation ===
+=== Summary ===
+
+Correlation coefficient                  0.1758
+Mean absolute error                      0.0344
+Root mean squared error                  0.0474
+Relative absolute error                 97.1715 %
+Root relative squared error             98.9211 %
+Total Number of Instances            19067     
+

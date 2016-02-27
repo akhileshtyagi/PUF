@@ -1,0 +1,729 @@
+\begin{theindex}
+
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/components/\+Chain.\+java}, 
+		\hyperpage{45}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/components/\+Distribution.\+java}, 
+		\hyperpage{45}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/components/\+Token.\+java}, 
+		\hyperpage{45}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/components/\+Touch.\+java}, 
+		\hyperpage{46}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/components/\+Window.\+java}, 
+		\hyperpage{46}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/data\+\_\+analysis/\+Model\+\_\+compare.\+java}, 
+		\hyperpage{46}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/data\+\_\+analysis/\+Model\+\_\+compare\+\_\+thread.\+java}, 
+		\hyperpage{47}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/data\+\_\+analysis/\+Statistics.\+java}, 
+		\hyperpage{47}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/gui/\+Marcov\+\_\+console\+\_\+panel.\+java}, 
+		\hyperpage{47}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/gui/\+Marcov\+\_\+file\+\_\+display\+\_\+panel.\+java}, 
+		\hyperpage{47}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/gui/\+Marcov\+\_\+frame.\+java}, 
+		\hyperpage{48}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/gui/\+Marcov\+\_\+options\+\_\+panel.\+java}, 
+		\hyperpage{48}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/gui/\+Start\+G\+U\+I.\+java}, 
+		\hyperpage{48}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/junit/\+Unit\+\_\+\+Compare\+Chains\+Rank.\+java}, 
+		\hyperpage{48}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/junit/\+Unit\+\_\+\+Complete\+Probability.\+java}, 
+		\hyperpage{49}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/rank/\+Compare\+Chains\+Rank.\+java}, 
+		\hyperpage{49}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/rank/\+Complete\+Probability.\+java}, 
+		\hyperpage{49}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/runtime/\+Chain\+Builder.\+java}, 
+		\hyperpage{49}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/runtime/\+Compare\+Chains.\+java}, 
+		\hyperpage{50}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/runtime/\+Operation\+\_\+thread.\+java}, 
+		\hyperpage{50}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/test/\+Main.\+java}, 
+		\hyperpage{50}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/test/\+Print\+\_\+model.\+java}, 
+		\hyperpage{51}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/test/\+Unit\+Compare\+Chains\+Rank.\+java}, 
+		\hyperpage{51}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/test/\+Unit\+Rank\+Compare.\+java}, 
+		\hyperpage{51}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/test/\+Utilities.\+java}, 
+		\hyperpage{51}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/trie/\+Trie.\+java}, 
+		\hyperpage{51}
+  \item {/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/trie/\+Trie\+List.\+java}, 
+		\hyperpage{52}
+
+  \indexspace
+
+  \item {A\+B\+N\+O\+R\+M\+AL}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Distribution}, 
+		\hyperpage{21}
+  \item {add}
+    \subitem {trie\+::\+Trie\+List}, \hyperpage{38}
+  \item {add\+\_\+touch}
+    \subitem {components\+::\+Chain}, \hyperpage{12}
+  \item {add\+\_\+touch\+\_\+list}
+    \subitem {components\+::\+Chain}, \hyperpage{12}
+  \item {add\+All}
+    \subitem {trie\+::\+Trie\+List}, \hyperpage{38, 39}
+  \item {auth\+\_\+chain}
+    \subitem {runtime\+::\+Compare\+Chains}, \hyperpage{17}
+  \item {authenticate}
+    \subitem {runtime\+::\+Chain\+Builder}, \hyperpage{15}
+  \item {authentication\+\_\+accuracy}
+    \subitem {data\+\_\+analysis\+::\+Statistics}, \hyperpage{31}
+  \item {authentication\+\_\+probability}
+    \subitem {runtime\+::\+Compare\+Chains}, \hyperpage{17}
+  \item {average\+\_\+authentication\+\_\+probability}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{28}
+
+  \indexspace
+
+  \item {best\+\_\+authentication\+\_\+percentage}
+    \subitem {data\+\_\+analysis\+::\+Statistics}, \hyperpage{31}
+  \item {build\+\_\+chain\+\_\+from\+\_\+csv}
+    \subitem {runtime\+::\+Chain\+Builder}, \hyperpage{15}
+
+  \indexspace
+
+  \item {Chain}
+    \subitem {components\+::\+Chain}, \hyperpage{12}
+  \item {Chain\+Builder}
+    \subitem {runtime\+::\+Chain\+Builder}, \hyperpage{14}
+  \item {clear}
+    \subitem {trie\+::\+Trie}, \hyperpage{37}
+    \subitem {trie\+::\+Trie\+List}, \hyperpage{39}
+  \item {close}
+    \subitem {gui\+::\+Marcov\+\_\+frame}, \hyperpage{25}
+  \item {combined}
+    \subitem {components\+::\+Token\+::\+Type}, \hyperpage{40}
+  \item {compare\+\_\+to}
+    \subitem {components\+::\+Chain}, \hyperpage{12}
+  \item {compare\+\_\+with\+\_\+token}
+    \subitem {components\+::\+Touch}, \hyperpage{35}
+    \subitem {components\+::\+Window}, \hyperpage{43}
+  \item {Compare\+Chains}
+    \subitem {runtime\+::\+Compare\+Chains}, \hyperpage{16}
+  \item {Compare\+Chains\+Rank}
+    \subitem {rank\+::\+Compare\+Chains\+Rank}, \hyperpage{18}
+  \item {compare\+To}
+    \subitem {components\+::\+Touch}, \hyperpage{35}
+    \subitem {components\+::\+Window}, \hyperpage{43}
+  \item {complete}
+    \subitem {runtime\+::\+Compare\+Chains}, \hyperpage{17}
+  \item {Complete\+Probability}
+    \subitem {rank\+::\+Complete\+Probability}, \hyperpage{19}
+  \item {components}, \hyperpage{9}
+  \item {components.\+Chain}, \hyperpage{11}
+  \item {components.\+Distribution}, \hyperpage{22}
+  \item {components.\+Token}, \hyperpage{32}
+  \item {components.\+Token.\+Type}, \hyperpage{39}
+  \item {components.\+Touch}, \hyperpage{34}
+  \item {components.\+Window}, \hyperpage{42}
+  \item {components\+::\+Chain}
+    \subitem {add\+\_\+touch}, \hyperpage{12}
+    \subitem {add\+\_\+touch\+\_\+list}, \hyperpage{12}
+    \subitem {Chain}, \hyperpage{12}
+    \subitem {compare\+\_\+to}, \hyperpage{12}
+    \subitem {compute\+\_\+uncomputed}, \hyperpage{12}
+    \subitem {get\+\_\+distribution}, \hyperpage{12}
+    \subitem {get\+\_\+key\+\_\+distribution}, \hyperpage{12}
+    \subitem {get\+\_\+model\+\_\+size}, \hyperpage{12}
+    \subitem {get\+\_\+threshold}, \hyperpage{13}
+    \subitem {get\+\_\+token}, \hyperpage{13}
+    \subitem {get\+\_\+tokens}, \hyperpage{13}
+    \subitem {get\+\_\+touch\+\_\+probability}, \hyperpage{13}
+    \subitem {get\+\_\+touches}, \hyperpage{13}
+    \subitem {get\+\_\+window}, \hyperpage{13}
+    \subitem {get\+\_\+windows}, \hyperpage{13}
+    \subitem {is\+\_\+touch\+\_\+in\+\_\+key\+\_\+distribution}, 
+		\hyperpage{13}
+    \subitem {output\+\_\+to\+\_\+csv}, \hyperpage{13}
+    \subitem {reset}, \hyperpage{13}
+    \subitem {set\+\_\+distribution}, \hyperpage{13}
+    \subitem {to\+String}, \hyperpage{13}
+  \item {components\+::\+Distribution}
+    \subitem {Distribution}, \hyperpage{22}
+    \subitem {equals}, \hyperpage{22}
+    \subitem {get\+\_\+average}, \hyperpage{22}
+    \subitem {get\+\_\+keycode}, \hyperpage{23}
+    \subitem {get\+\_\+max}, \hyperpage{23}
+    \subitem {get\+\_\+min}, \hyperpage{23}
+    \subitem {get\+\_\+standard\+\_\+deviation}, \hyperpage{23}
+    \subitem {update}, \hyperpage{23}
+  \item {components\+::\+Token}
+    \subitem {contains}, \hyperpage{33}
+    \subitem {equals}, \hyperpage{33}
+    \subitem {get\+\_\+acceptable\+\_\+wildcards}, \hyperpage{33}
+    \subitem {get\+\_\+max}, \hyperpage{33}
+    \subitem {get\+\_\+min}, \hyperpage{33}
+    \subitem {get\+\_\+total\+\_\+wildcards}, \hyperpage{33}
+    \subitem {increment\+\_\+high\+\_\+wildcards}, \hyperpage{34}
+    \subitem {increment\+\_\+low\+\_\+wildcards}, \hyperpage{34}
+    \subitem {is\+\_\+high\+\_\+wildcard}, \hyperpage{34}
+    \subitem {is\+\_\+low\+\_\+wildcard}, \hyperpage{34}
+    \subitem {Token}, \hyperpage{32, 33}
+  \item {components\+::\+Token\+::\+Type}
+    \subitem {combined}, \hyperpage{40}
+    \subitem {keycode\+\_\+mu}, \hyperpage{40}
+    \subitem {linear}, \hyperpage{40}
+  \item {components\+::\+Touch}
+    \subitem {compare\+\_\+with\+\_\+token}, \hyperpage{35}
+    \subitem {compare\+To}, \hyperpage{35}
+    \subitem {get\+\_\+key}, \hyperpage{35}
+    \subitem {get\+\_\+pressure}, \hyperpage{36}
+    \subitem {get\+\_\+probability}, \hyperpage{36}
+    \subitem {get\+\_\+timestamp}, \hyperpage{36}
+    \subitem {hash\+Code}, \hyperpage{36}
+    \subitem {set\+\_\+probability}, \hyperpage{36}
+    \subitem {to\+String}, \hyperpage{36}
+    \subitem {Touch}, \hyperpage{35}
+  \item {components\+::\+Window}
+    \subitem {compare\+\_\+with\+\_\+token}, \hyperpage{43}
+    \subitem {compare\+To}, \hyperpage{43}
+    \subitem {get\+\_\+touch\+\_\+list}, \hyperpage{43}
+    \subitem {hash\+Code}, \hyperpage{43}
+    \subitem {size}, \hyperpage{44}
+    \subitem {to\+String}, \hyperpage{44}
+    \subitem {Window}, \hyperpage{43}
+  \item {compute\+\_\+probability}
+    \subitem {rank\+::\+Complete\+Probability}, \hyperpage{19}
+  \item {compute\+\_\+uncomputed}
+    \subitem {components\+::\+Chain}, \hyperpage{12}
+  \item {Concentration}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Concentration}, 
+		\hyperpage{20}
+  \item {contains}
+    \subitem {components\+::\+Token}, \hyperpage{33}
+
+  \indexspace
+
+  \item {D\+I\+S\+T\+R\+I\+B\+U\+T\+I\+ON}
+    \subitem {runtime\+::\+Operation\+\_\+thread\+::\+Computation}, 
+		\hyperpage{19}
+  \item {data\+\_\+analysis}, \hyperpage{9}
+  \item {data\+\_\+analysis.\+Model\+\_\+compare}, \hyperpage{26}
+  \item {data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{26}
+  \item {data\+\_\+analysis.\+Statistics}, \hyperpage{31}
+  \item {data\+\_\+analysis\+::\+Model\+\_\+compare}
+    \subitem {main}, \hyperpage{26}
+  \item {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}
+    \subitem {average\+\_\+authentication\+\_\+probability}, 
+		\hyperpage{28}
+    \subitem {get\+\_\+auth\+\_\+data\+\_\+path}, \hyperpage{27}
+    \subitem {get\+\_\+auth\+\_\+model\+\_\+size}, \hyperpage{27}
+    \subitem {get\+\_\+auth\+\_\+probability\+\_\+list}, \hyperpage{27}
+    \subitem {get\+\_\+base\+\_\+data\+\_\+path}, \hyperpage{27}
+    \subitem {get\+\_\+base\+\_\+model\+\_\+size}, \hyperpage{27}
+    \subitem {get\+\_\+threshold}, \hyperpage{27}
+    \subitem {get\+\_\+token\+\_\+size}, \hyperpage{27}
+    \subitem {get\+\_\+window\+\_\+size}, \hyperpage{28}
+    \subitem {max\+\_\+authentication\+\_\+probability}, \hyperpage{28}
+    \subitem {min\+\_\+authentication\+\_\+probability}, \hyperpage{28}
+    \subitem {Model\+\_\+compare\+\_\+thread}, \hyperpage{27}
+    \subitem {run}, \hyperpage{28}
+  \item {data\+\_\+analysis\+::\+Statistics}
+    \subitem {authentication\+\_\+accuracy}, \hyperpage{31}
+    \subitem {best\+\_\+authentication\+\_\+percentage}, \hyperpage{31}
+    \subitem {equal\+\_\+false\+\_\+positive\+\_\+negative\+\_\+authentication\+\_\+percentage}, 
+		\hyperpage{31}
+    \subitem {false\+\_\+negative\+\_\+percentage}, \hyperpage{31}
+    \subitem {false\+\_\+positive\+\_\+percentage}, \hyperpage{31}
+    \subitem {main}, \hyperpage{31}
+    \subitem {minimize\+\_\+false\+\_\+positive\+\_\+authentication\+\_\+percentage}, 
+		\hyperpage{31}
+  \item {Distribution}
+    \subitem {components\+::\+Distribution}, \hyperpage{22}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Distribution}, 
+		\hyperpage{21}
+
+  \indexspace
+
+  \item {equal\+\_\+false\+\_\+positive\+\_\+negative\+\_\+authentication\+\_\+percentage}
+    \subitem {data\+\_\+analysis\+::\+Statistics}, \hyperpage{31}
+  \item {equals}
+    \subitem {components\+::\+Distribution}, \hyperpage{22}
+    \subitem {components\+::\+Token}, \hyperpage{33}
+  \item {exit}
+    \subitem {gui\+::\+Start\+G\+UI}, \hyperpage{30}
+
+  \indexspace
+
+  \item {false\+\_\+negative\+\_\+percentage}
+    \subitem {data\+\_\+analysis\+::\+Statistics}, \hyperpage{31}
+  \item {false\+\_\+positive\+\_\+percentage}
+    \subitem {data\+\_\+analysis\+::\+Statistics}, \hyperpage{31}
+
+  \indexspace
+
+  \item {get\+\_\+acceptable\+\_\+wildcards}
+    \subitem {components\+::\+Token}, \hyperpage{33}
+  \item {get\+\_\+auth\+\_\+complete}
+    \subitem {runtime\+::\+Compare\+Chains}, \hyperpage{16}
+  \item {get\+\_\+auth\+\_\+data\+\_\+path}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{27}
+  \item {get\+\_\+auth\+\_\+model\+\_\+size}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{27}
+  \item {get\+\_\+auth\+\_\+probability}
+    \subitem {runtime\+::\+Compare\+Chains}, \hyperpage{16}
+  \item {get\+\_\+auth\+\_\+probability\+\_\+list}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{27}
+  \item {get\+\_\+auth\+\_\+result}
+    \subitem {runtime\+::\+Compare\+Chains}, \hyperpage{16}
+  \item {get\+\_\+authenticate\+\_\+state}
+    \subitem {runtime\+::\+Chain\+Builder}, \hyperpage{15}
+  \item {get\+\_\+authenticate\+\_\+thread}
+    \subitem {runtime\+::\+Chain\+Builder}, \hyperpage{15}
+  \item {get\+\_\+average}
+    \subitem {components\+::\+Distribution}, \hyperpage{22}
+  \item {get\+\_\+base\+\_\+data\+\_\+path}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{27}
+  \item {get\+\_\+base\+\_\+model\+\_\+size}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{27}
+  \item {get\+\_\+distribution}
+    \subitem {components\+::\+Chain}, \hyperpage{12}
+  \item {get\+\_\+identifier}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Concentration}, 
+		\hyperpage{20}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Distribution}, 
+		\hyperpage{21}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Pressure\+Amount}, 
+		\hyperpage{29}
+  \item {get\+\_\+index\+\_\+list}
+    \subitem {trie\+::\+Trie}, \hyperpage{37}
+  \item {get\+\_\+key}
+    \subitem {components\+::\+Touch}, \hyperpage{35}
+  \item {get\+\_\+key\+\_\+distribution}
+    \subitem {components\+::\+Chain}, \hyperpage{12}
+  \item {get\+\_\+keycode}
+    \subitem {components\+::\+Distribution}, \hyperpage{23}
+  \item {get\+\_\+max}
+    \subitem {components\+::\+Distribution}, \hyperpage{23}
+    \subitem {components\+::\+Token}, \hyperpage{33}
+  \item {get\+\_\+min}
+    \subitem {components\+::\+Distribution}, \hyperpage{23}
+    \subitem {components\+::\+Token}, \hyperpage{33}
+  \item {get\+\_\+model\+\_\+size}
+    \subitem {components\+::\+Chain}, \hyperpage{12}
+  \item {get\+\_\+pressure}
+    \subitem {components\+::\+Touch}, \hyperpage{36}
+  \item {get\+\_\+probability}
+    \subitem {components\+::\+Touch}, \hyperpage{36}
+  \item {get\+\_\+standard\+\_\+deviation}
+    \subitem {components\+::\+Distribution}, \hyperpage{23}
+  \item {get\+\_\+threshold}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{27}
+  \item {get\+\_\+timestamp}
+    \subitem {components\+::\+Touch}, \hyperpage{36}
+  \item {get\+\_\+token}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+  \item {get\+\_\+token\+\_\+size}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{27}
+  \item {get\+\_\+tokens}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+  \item {get\+\_\+total\+\_\+wildcards}
+    \subitem {components\+::\+Token}, \hyperpage{33}
+  \item {get\+\_\+touch\+\_\+list}
+    \subitem {components\+::\+Window}, \hyperpage{43}
+  \item {get\+\_\+touch\+\_\+probability}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+  \item {get\+\_\+touches}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+  \item {get\+\_\+value}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Concentration}, 
+		\hyperpage{20}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Distribution}, 
+		\hyperpage{21}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Pressure\+Amount}, 
+		\hyperpage{29}
+  \item {get\+\_\+window}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+  \item {get\+\_\+window\+\_\+size}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{28}
+  \item {get\+\_\+windows}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+  \item {gui}, \hyperpage{9}
+  \item {gui.\+Marcov\+\_\+console\+\_\+panel}, \hyperpage{24}
+  \item {gui.\+Marcov\+\_\+file\+\_\+display\+\_\+panel}, 
+		\hyperpage{24}
+  \item {gui.\+Marcov\+\_\+frame}, \hyperpage{25}
+  \item {gui.\+Marcov\+\_\+options\+\_\+panel}, \hyperpage{25}
+  \item {gui.\+Start\+G\+UI}, \hyperpage{30}
+  \item {gui\+::\+Marcov\+\_\+console\+\_\+panel}
+    \subitem {Marcov\+\_\+console\+\_\+panel}, \hyperpage{24}
+  \item {gui\+::\+Marcov\+\_\+file\+\_\+display\+\_\+panel}
+    \subitem {Marcov\+\_\+file\+\_\+display\+\_\+panel}, \hyperpage{24}
+  \item {gui\+::\+Marcov\+\_\+frame}
+    \subitem {close}, \hyperpage{25}
+    \subitem {Marcov\+\_\+frame}, \hyperpage{25}
+  \item {gui\+::\+Marcov\+\_\+options\+\_\+panel}
+    \subitem {Marcov\+\_\+options\+\_\+panel}, \hyperpage{26}
+  \item {gui\+::\+Start\+G\+UI}
+    \subitem {exit}, \hyperpage{30}
+    \subitem {main}, \hyperpage{30}
+
+  \indexspace
+
+  \item {H\+I\+GH}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Concentration}, 
+		\hyperpage{20}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Pressure\+Amount}, 
+		\hyperpage{29}
+  \item {handle\+\_\+touch}
+    \subitem {runtime\+::\+Chain\+Builder}, \hyperpage{15}
+  \item {hash\+Code}
+    \subitem {components\+::\+Touch}, \hyperpage{36}
+    \subitem {components\+::\+Window}, \hyperpage{43}
+
+  \indexspace
+
+  \item {I\+N\+\_\+\+P\+R\+O\+G\+R\+E\+SS}
+    \subitem {runtime\+::\+Chain\+Builder\+::\+State}, \hyperpage{31}
+  \item {increment\+\_\+high\+\_\+wildcards}
+    \subitem {components\+::\+Token}, \hyperpage{34}
+  \item {increment\+\_\+low\+\_\+wildcards}
+    \subitem {components\+::\+Token}, \hyperpage{34}
+  \item {init}
+    \subitem {junit\+::\+Unit\+\_\+\+Compare\+Chains\+Rank}, 
+		\hyperpage{40}
+    \subitem {junit\+::\+Unit\+\_\+\+Complete\+Probability}, 
+		\hyperpage{41}
+    \subitem {test\+::\+Unit\+Compare\+Chains\+Rank}, \hyperpage{41}
+    \subitem {test\+::\+Unit\+Rank\+Compare}, \hyperpage{42}
+  \item {insert\+String}
+    \subitem {trie\+::\+Trie}, \hyperpage{37}
+  \item {is\+\_\+authentic}
+    \subitem {runtime\+::\+Compare\+Chains}, \hyperpage{17}
+  \item {is\+\_\+high\+\_\+wildcard}
+    \subitem {components\+::\+Token}, \hyperpage{34}
+  \item {is\+\_\+low\+\_\+wildcard}
+    \subitem {components\+::\+Token}, \hyperpage{34}
+  \item {is\+\_\+touch\+\_\+in\+\_\+key\+\_\+distribution}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+
+  \indexspace
+
+  \item {junit}, \hyperpage{10}
+  \item {junit.\+Unit\+\_\+\+Compare\+Chains\+Rank}, \hyperpage{40}
+  \item {junit.\+Unit\+\_\+\+Complete\+Probability}, \hyperpage{40}
+  \item {junit\+::\+Unit\+\_\+\+Compare\+Chains\+Rank}
+    \subitem {init}, \hyperpage{40}
+    \subitem {test\+\_\+authentication\+\_\+probability}, 
+		\hyperpage{40}
+  \item {junit\+::\+Unit\+\_\+\+Complete\+Probability}
+    \subitem {init}, \hyperpage{41}
+    \subitem {test\+\_\+replica\+\_\+distribution}, \hyperpage{41}
+
+  \indexspace
+
+  \item {K\+E\+Y\+\_\+\+D\+I\+S\+T\+R\+I\+B\+U\+T\+I\+ON}
+    \subitem {runtime\+::\+Operation\+\_\+thread\+::\+Computation}, 
+		\hyperpage{19}
+  \item {keycode\+\_\+mu}
+    \subitem {components\+::\+Token\+::\+Type}, \hyperpage{40}
+
+  \indexspace
+
+  \item {L\+OW}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Concentration}, 
+		\hyperpage{20}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Pressure\+Amount}, 
+		\hyperpage{29}
+  \item {linear}
+    \subitem {components\+::\+Token\+::\+Type}, \hyperpage{40}
+
+  \indexspace
+
+  \item {M\+E\+D\+I\+UM}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Concentration}, 
+		\hyperpage{20}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Pressure\+Amount}, 
+		\hyperpage{29}
+  \item {main}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare}, 
+		\hyperpage{26}
+    \subitem {data\+\_\+analysis\+::\+Statistics}, \hyperpage{31}
+    \subitem {gui\+::\+Start\+G\+UI}, \hyperpage{30}
+    \subitem {test\+::\+Main}, \hyperpage{23}
+    \subitem {test\+::\+Print\+\_\+model}, \hyperpage{30}
+  \item {Marcov\+\_\+console\+\_\+panel}
+    \subitem {gui\+::\+Marcov\+\_\+console\+\_\+panel}, \hyperpage{24}
+  \item {Marcov\+\_\+file\+\_\+display\+\_\+panel}
+    \subitem {gui\+::\+Marcov\+\_\+file\+\_\+display\+\_\+panel}, 
+		\hyperpage{24}
+  \item {Marcov\+\_\+frame}
+    \subitem {gui\+::\+Marcov\+\_\+frame}, \hyperpage{25}
+  \item {Marcov\+\_\+options\+\_\+panel}
+    \subitem {gui\+::\+Marcov\+\_\+options\+\_\+panel}, \hyperpage{26}
+  \item {max\+\_\+authentication\+\_\+probability}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{28}
+  \item {min\+\_\+authentication\+\_\+probability}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{28}
+  \item {minimize\+\_\+false\+\_\+positive\+\_\+authentication\+\_\+percentage}
+    \subitem {data\+\_\+analysis\+::\+Statistics}, \hyperpage{31}
+  \item {Model\+\_\+compare\+\_\+thread}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{27}
+
+  \indexspace
+
+  \item {N\+O\+R\+M\+AL}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Distribution}, 
+		\hyperpage{21}
+
+  \indexspace
+
+  \item {occurrence\+\_\+count}
+    \subitem {trie\+::\+Trie}, \hyperpage{37}
+    \subitem {trie\+::\+Trie\+List}, \hyperpage{39}
+  \item {Operation\+\_\+thread}
+    \subitem {runtime\+::\+Operation\+\_\+thread}, \hyperpage{28}
+  \item {output\+\_\+to\+\_\+csv}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+
+  \indexspace
+
+  \item {P\+R\+O\+B\+A\+B\+I\+L\+I\+T\+Y\+\_\+\+V\+E\+C\+T\+O\+R\+\_\+\+D\+I\+F\+F\+E\+R\+A\+N\+CE}
+    \subitem {runtime\+::\+Chain\+Builder\+::\+Compare\+Method}, 
+		\hyperpage{18}
+  \item {P\+R\+O\+B\+A\+B\+I\+L\+I\+TY}
+    \subitem {runtime\+::\+Operation\+\_\+thread\+::\+Computation}, 
+		\hyperpage{19}
+  \item {parse\+\_\+csv}
+    \subitem {runtime\+::\+Chain\+Builder}, \hyperpage{15}
+  \item {Pressure\+Amount}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Pressure\+Amount}, 
+		\hyperpage{29}
+  \item {print\+Sorted}
+    \subitem {trie\+::\+Trie}, \hyperpage{37}
+
+  \indexspace
+
+  \item {R\+A\+N\+D\+OM}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Distribution}, 
+		\hyperpage{21}
+  \item {rank}, \hyperpage{10}
+  \item {rank.\+Compare\+Chains\+Rank}, \hyperpage{17}
+  \item {rank.\+Complete\+Probability}, \hyperpage{18}
+  \item {rank\+::\+Compare\+Chains\+Rank}
+    \subitem {Compare\+Chains\+Rank}, \hyperpage{18}
+    \subitem {run}, \hyperpage{18}
+  \item {rank\+::\+Complete\+Probability}
+    \subitem {Complete\+Probability}, \hyperpage{19}
+    \subitem {compute\+\_\+probability}, \hyperpage{19}
+  \item {remove}
+    \subitem {trie\+::\+Trie\+List}, \hyperpage{39}
+  \item {remove\+All}
+    \subitem {trie\+::\+Trie\+List}, \hyperpage{39}
+  \item {reset}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+  \item {retain\+All}
+    \subitem {trie\+::\+Trie\+List}, \hyperpage{39}
+  \item {run}
+    \subitem {data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}, 
+		\hyperpage{28}
+    \subitem {rank\+::\+Compare\+Chains\+Rank}, \hyperpage{18}
+    \subitem {runtime\+::\+Compare\+Chains}, \hyperpage{16}
+    \subitem {runtime\+::\+Operation\+\_\+thread}, \hyperpage{28}
+  \item {runtime}, \hyperpage{10}
+  \item {runtime.\+Chain\+Builder}, \hyperpage{14}
+  \item {runtime.\+Chain\+Builder.\+Compare\+Method}, \hyperpage{18}
+  \item {runtime.\+Chain\+Builder.\+State}, \hyperpage{30}
+  \item {runtime.\+Compare\+Chains}, \hyperpage{15}
+  \item {runtime.\+Operation\+\_\+thread}, \hyperpage{28}
+  \item {runtime.\+Operation\+\_\+thread.\+Computation}, \hyperpage{19}
+  \item {runtime\+::\+Chain\+Builder}
+    \subitem {authenticate}, \hyperpage{15}
+    \subitem {build\+\_\+chain\+\_\+from\+\_\+csv}, \hyperpage{15}
+    \subitem {Chain\+Builder}, \hyperpage{14}
+    \subitem {get\+\_\+authenticate\+\_\+state}, \hyperpage{15}
+    \subitem {get\+\_\+authenticate\+\_\+thread}, \hyperpage{15}
+    \subitem {handle\+\_\+touch}, \hyperpage{15}
+    \subitem {parse\+\_\+csv}, \hyperpage{15}
+  \item {runtime\+::\+Chain\+Builder\+::\+Compare\+Method}
+    \subitem {P\+R\+O\+B\+A\+B\+I\+L\+I\+T\+Y\+\_\+\+V\+E\+C\+T\+O\+R\+\_\+\+D\+I\+F\+F\+E\+R\+A\+N\+CE}, 
+		\hyperpage{18}
+  \item {runtime\+::\+Chain\+Builder\+::\+State}
+    \subitem {I\+N\+\_\+\+P\+R\+O\+G\+R\+E\+SS}, \hyperpage{31}
+    \subitem {S\+U\+C\+C\+E\+SS}, \hyperpage{31}
+  \item {runtime\+::\+Compare\+Chains}
+    \subitem {auth\+\_\+chain}, \hyperpage{17}
+    \subitem {authentication\+\_\+probability}, \hyperpage{17}
+    \subitem {Compare\+Chains}, \hyperpage{16}
+    \subitem {complete}, \hyperpage{17}
+    \subitem {get\+\_\+auth\+\_\+complete}, \hyperpage{16}
+    \subitem {get\+\_\+auth\+\_\+probability}, \hyperpage{16}
+    \subitem {get\+\_\+auth\+\_\+result}, \hyperpage{16}
+    \subitem {is\+\_\+authentic}, \hyperpage{17}
+    \subitem {run}, \hyperpage{16}
+    \subitem {user\+\_\+chain}, \hyperpage{17}
+  \item {runtime\+::\+Operation\+\_\+thread}
+    \subitem {Operation\+\_\+thread}, \hyperpage{28}
+    \subitem {run}, \hyperpage{28}
+  \item {runtime\+::\+Operation\+\_\+thread\+::\+Computation}
+    \subitem {D\+I\+S\+T\+R\+I\+B\+U\+T\+I\+ON}, \hyperpage{19}
+    \subitem {K\+E\+Y\+\_\+\+D\+I\+S\+T\+R\+I\+B\+U\+T\+I\+ON}, 
+		\hyperpage{19}
+    \subitem {P\+R\+O\+B\+A\+B\+I\+L\+I\+TY}, \hyperpage{19}
+    \subitem {T\+O\+K\+EN}, \hyperpage{19}
+    \subitem {W\+I\+N\+D\+OW}, \hyperpage{19}
+
+  \indexspace
+
+  \item {S\+U\+C\+C\+E\+SS}
+    \subitem {runtime\+::\+Chain\+Builder\+::\+State}, \hyperpage{31}
+  \item {set}
+    \subitem {trie\+::\+Trie\+List}, \hyperpage{39}
+  \item {set\+\_\+distribution}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+  \item {set\+\_\+probability}
+    \subitem {components\+::\+Touch}, \hyperpage{36}
+  \item {set\+\_\+tokens}
+    \subitem {trie\+::\+Trie\+List}, \hyperpage{39}
+  \item {size}
+    \subitem {components\+::\+Window}, \hyperpage{44}
+  \item {successor\+\_\+count}
+    \subitem {trie\+::\+Trie\+List}, \hyperpage{39}
+
+  \indexspace
+
+  \item {T\+O\+K\+EN}
+    \subitem {runtime\+::\+Operation\+\_\+thread\+::\+Computation}, 
+		\hyperpage{19}
+  \item {test}, \hyperpage{10}
+    \subitem {test\+::\+Unit\+Compare\+Chains\+Rank}, \hyperpage{41}
+    \subitem {test\+::\+Unit\+Rank\+Compare}, \hyperpage{42}
+  \item {test.\+Main}, \hyperpage{23}
+  \item {test.\+Main.\+Test\+Files.\+Concentration}, \hyperpage{20}
+  \item {test.\+Main.\+Test\+Files.\+Distribution}, \hyperpage{21}
+  \item {test.\+Main.\+Test\+Files.\+Pressure\+Amount}, \hyperpage{29}
+  \item {test.\+Print\+\_\+model}, \hyperpage{30}
+  \item {test.\+Unit\+Compare\+Chains\+Rank}, \hyperpage{41}
+  \item {test.\+Unit\+Rank\+Compare}, \hyperpage{42}
+  \item {test\+::\+Main}
+    \subitem {main}, \hyperpage{23}
+  \item {test\+::\+Main\+::\+Test\+Files\+::\+Concentration}
+    \subitem {Concentration}, \hyperpage{20}
+    \subitem {get\+\_\+identifier}, \hyperpage{20}
+    \subitem {get\+\_\+value}, \hyperpage{20}
+    \subitem {H\+I\+GH}, \hyperpage{20}
+    \subitem {L\+OW}, \hyperpage{20}
+    \subitem {M\+E\+D\+I\+UM}, \hyperpage{20}
+    \subitem {to\+String}, \hyperpage{20}
+  \item {test\+::\+Main\+::\+Test\+Files\+::\+Distribution}
+    \subitem {A\+B\+N\+O\+R\+M\+AL}, \hyperpage{21}
+    \subitem {Distribution}, \hyperpage{21}
+    \subitem {get\+\_\+identifier}, \hyperpage{21}
+    \subitem {get\+\_\+value}, \hyperpage{21}
+    \subitem {N\+O\+R\+M\+AL}, \hyperpage{21}
+    \subitem {R\+A\+N\+D\+OM}, \hyperpage{21}
+    \subitem {to\+String}, \hyperpage{21}
+  \item {test\+::\+Main\+::\+Test\+Files\+::\+Pressure\+Amount}
+    \subitem {get\+\_\+identifier}, \hyperpage{29}
+    \subitem {get\+\_\+value}, \hyperpage{29}
+    \subitem {H\+I\+GH}, \hyperpage{29}
+    \subitem {L\+OW}, \hyperpage{29}
+    \subitem {M\+E\+D\+I\+UM}, \hyperpage{29}
+    \subitem {Pressure\+Amount}, \hyperpage{29}
+    \subitem {to\+String}, \hyperpage{29}
+  \item {test\+::\+Print\+\_\+model}
+    \subitem {main}, \hyperpage{30}
+  \item {test\+::\+Unit\+Compare\+Chains\+Rank}
+    \subitem {init}, \hyperpage{41}
+    \subitem {test}, \hyperpage{41}
+    \subitem {test\+\_\+chain\+\_\+to\+\_\+graph}, \hyperpage{41}
+    \subitem {test\+\_\+touch\+\_\+index}, \hyperpage{41}
+    \subitem {test\+\_\+touch\+\_\+window}, \hyperpage{41}
+  \item {test\+::\+Unit\+Rank\+Compare}
+    \subitem {init}, \hyperpage{42}
+    \subitem {test}, \hyperpage{42}
+    \subitem {test\+\_\+auth\+\_\+probability}, \hyperpage{42}
+    \subitem {test\+\_\+compare\+\_\+correct}, \hyperpage{42}
+  \item {test\+\_\+auth\+\_\+probability}
+    \subitem {test\+::\+Unit\+Rank\+Compare}, \hyperpage{42}
+  \item {test\+\_\+authentication\+\_\+probability}
+    \subitem {junit\+::\+Unit\+\_\+\+Compare\+Chains\+Rank}, 
+		\hyperpage{40}
+  \item {test\+\_\+chain\+\_\+to\+\_\+graph}
+    \subitem {test\+::\+Unit\+Compare\+Chains\+Rank}, \hyperpage{41}
+  \item {test\+\_\+compare\+\_\+correct}
+    \subitem {test\+::\+Unit\+Rank\+Compare}, \hyperpage{42}
+  \item {test\+\_\+replica\+\_\+distribution}
+    \subitem {junit\+::\+Unit\+\_\+\+Complete\+Probability}, 
+		\hyperpage{41}
+  \item {test\+\_\+touch\+\_\+index}
+    \subitem {test\+::\+Unit\+Compare\+Chains\+Rank}, \hyperpage{41}
+  \item {test\+\_\+touch\+\_\+window}
+    \subitem {test\+::\+Unit\+Compare\+Chains\+Rank}, \hyperpage{41}
+  \item {to\+String}
+    \subitem {components\+::\+Chain}, \hyperpage{13}
+    \subitem {components\+::\+Touch}, \hyperpage{36}
+    \subitem {components\+::\+Window}, \hyperpage{44}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Concentration}, 
+		\hyperpage{20}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Distribution}, 
+		\hyperpage{21}
+    \subitem {test\+::\+Main\+::\+Test\+Files\+::\+Pressure\+Amount}, 
+		\hyperpage{29}
+  \item {Token}
+    \subitem {components\+::\+Token}, \hyperpage{32, 33}
+  \item {Touch}
+    \subitem {components\+::\+Touch}, \hyperpage{35}
+  \item {Trie}
+    \subitem {trie\+::\+Trie}, \hyperpage{37}
+  \item {trie}, \hyperpage{10}
+  \item {trie.\+Trie}, \hyperpage{36}
+  \item {trie.\+Trie\+List}, \hyperpage{38}
+  \item {trie\+::\+Trie}
+    \subitem {clear}, \hyperpage{37}
+    \subitem {get\+\_\+index\+\_\+list}, \hyperpage{37}
+    \subitem {insert\+String}, \hyperpage{37}
+    \subitem {occurrence\+\_\+count}, \hyperpage{37}
+    \subitem {print\+Sorted}, \hyperpage{37}
+    \subitem {Trie}, \hyperpage{37}
+  \item {trie\+::\+Trie\+List}
+    \subitem {add}, \hyperpage{38}
+    \subitem {add\+All}, \hyperpage{38, 39}
+    \subitem {clear}, \hyperpage{39}
+    \subitem {occurrence\+\_\+count}, \hyperpage{39}
+    \subitem {remove}, \hyperpage{39}
+    \subitem {remove\+All}, \hyperpage{39}
+    \subitem {retain\+All}, \hyperpage{39}
+    \subitem {set}, \hyperpage{39}
+    \subitem {set\+\_\+tokens}, \hyperpage{39}
+    \subitem {successor\+\_\+count}, \hyperpage{39}
+    \subitem {Trie\+List}, \hyperpage{38}
+  \item {Trie\+List}
+    \subitem {trie\+::\+Trie\+List}, \hyperpage{38}
+
+  \indexspace
+
+  \item {update}
+    \subitem {components\+::\+Distribution}, \hyperpage{23}
+  \item {user\+\_\+chain}
+    \subitem {runtime\+::\+Compare\+Chains}, \hyperpage{17}
+
+  \indexspace
+
+  \item {W\+I\+N\+D\+OW}
+    \subitem {runtime\+::\+Operation\+\_\+thread\+::\+Computation}, 
+		\hyperpage{19}
+  \item {Window}
+    \subitem {components\+::\+Window}, \hyperpage{43}
+
+\end{theindex}

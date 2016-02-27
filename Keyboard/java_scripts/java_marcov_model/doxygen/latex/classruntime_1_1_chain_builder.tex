@@ -1,0 +1,113 @@
+\hypertarget{classruntime_1_1_chain_builder}{}\section{runtime.\+Chain\+Builder Class Reference}
+\label{classruntime_1_1_chain_builder}\index{runtime.\+Chain\+Builder@{runtime.\+Chain\+Builder}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+enum \hyperlink{enumruntime_1_1_chain_builder_1_1_compare_method}{Compare\+Method}
+\item 
+enum \hyperlink{enumruntime_1_1_chain_builder_1_1_state}{State}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classruntime_1_1_chain_builder_af43032940c67edb1efd6539d1e560881}{Chain\+Builder} ()
+\item 
+\hyperlink{classruntime_1_1_chain_builder_a99fd0c70e205e8117d1dc1cf07fed8a7}{Chain\+Builder} (int window, int token, int threshold, int user\+\_\+model\+\_\+size, int auth\+\_\+model\+\_\+size)
+\item 
+void \hyperlink{classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e}{handle\+\_\+touch} (\hyperlink{classcomponents_1_1_touch}{Touch} touch)
+\item 
+void \hyperlink{classruntime_1_1_chain_builder_aa483e6832f09092ec52fdf715e6f4b5e}{authenticate} ()
+\item 
+\hyperlink{classruntime_1_1_compare_chains}{Compare\+Chains} \hyperlink{classruntime_1_1_chain_builder_afec27831c01ad10069232680b82b3298}{get\+\_\+authenticate\+\_\+thread} ()
+\item 
+\hyperlink{enumruntime_1_1_chain_builder_1_1_state}{State} \hyperlink{classruntime_1_1_chain_builder_ab01b027d8ad763c58fef515f6bdfe03d}{get\+\_\+authenticate\+\_\+state} ()
+\begin{DoxyCompactList}\small\item\em handle requests for the current state of the authentication \end{DoxyCompactList}\item 
+void \hyperlink{classruntime_1_1_chain_builder_aac13171465eedc1e37a39f740d44b3af}{build\+\_\+chain\+\_\+from\+\_\+csv} (File file)
+\end{DoxyCompactItemize}
+\subsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static List$<$ \hyperlink{classcomponents_1_1_touch}{Touch} $>$ \hyperlink{classruntime_1_1_chain_builder_a8a63d82919a41779bd179be83dd02715}{parse\+\_\+csv} (File file)
+\begin{DoxyCompactList}\small\item\em parse the csv file N\+OT U\+S\+E\+F\+U\+LL ON A\+N\+D\+R\+O\+ID \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+T\+O\+DO write a Hash\+List class (most likely extends Hash\+Map and implemetns list to store the hash of everything. Replace Array\+List with this class whereever arraylist is used. The other option is to use Linked\+Hash\+List. handles building of the model based on input events. This may not be necessary in android framework, but it will allow a consistant way of building the model across platforms to allow for easier migration to android device. whenever I add a touch, I take 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}!Chain\+Builder@{Chain\+Builder}}
+\index{Chain\+Builder@{Chain\+Builder}!runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}}
+\subsubsection[{\texorpdfstring{Chain\+Builder()}{ChainBuilder()}}]{\setlength{\rightskip}{0pt plus 5cm}runtime.\+Chain\+Builder.\+Chain\+Builder (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_chain_builder_af43032940c67edb1efd6539d1e560881}{}\label{classruntime_1_1_chain_builder_af43032940c67edb1efd6539d1e560881}
+\index{runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}!Chain\+Builder@{Chain\+Builder}}
+\index{Chain\+Builder@{Chain\+Builder}!runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}}
+\subsubsection[{\texorpdfstring{Chain\+Builder(int window, int token, int threshold, int user\+\_\+model\+\_\+size, int auth\+\_\+model\+\_\+size)}{ChainBuilder(int window, int token, int threshold, int user_model_size, int auth_model_size)}}]{\setlength{\rightskip}{0pt plus 5cm}runtime.\+Chain\+Builder.\+Chain\+Builder (
+\begin{DoxyParamCaption}
+\item[{int}]{window, }
+\item[{int}]{token, }
+\item[{int}]{threshold, }
+\item[{int}]{user\+\_\+model\+\_\+size, }
+\item[{int}]{auth\+\_\+model\+\_\+size}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_chain_builder_a99fd0c70e205e8117d1dc1cf07fed8a7}{}\label{classruntime_1_1_chain_builder_a99fd0c70e205e8117d1dc1cf07fed8a7}
+allow model size, window, token values to be specified. This is mainly for testing purposes 
+
+\subsection{Member Function Documentation}
+\index{runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}!authenticate@{authenticate}}
+\index{authenticate@{authenticate}!runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}}
+\subsubsection[{\texorpdfstring{authenticate()}{authenticate()}}]{\setlength{\rightskip}{0pt plus 5cm}void runtime.\+Chain\+Builder.\+authenticate (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_chain_builder_aa483e6832f09092ec52fdf715e6f4b5e}{}\label{classruntime_1_1_chain_builder_aa483e6832f09092ec52fdf715e6f4b5e}
+allow forced authentication from outside of \hyperlink{classruntime_1_1_chain_builder}{Chain\+Builder}. this involves starting the \hyperlink{classruntime_1_1_compare_chains}{Compare\+Chains}. this method starts the authentication \index{runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}!build\+\_\+chain\+\_\+from\+\_\+csv@{build\+\_\+chain\+\_\+from\+\_\+csv}}
+\index{build\+\_\+chain\+\_\+from\+\_\+csv@{build\+\_\+chain\+\_\+from\+\_\+csv}!runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}}
+\subsubsection[{\texorpdfstring{build\+\_\+chain\+\_\+from\+\_\+csv(\+File file)}{build_chain_from_csv(File file)}}]{\setlength{\rightskip}{0pt plus 5cm}void runtime.\+Chain\+Builder.\+build\+\_\+chain\+\_\+from\+\_\+csv (
+\begin{DoxyParamCaption}
+\item[{File}]{file}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_chain_builder_aac13171465eedc1e37a39f740d44b3af}{}\label{classruntime_1_1_chain_builder_aac13171465eedc1e37a39f740d44b3af}
+this code will N\+OT BE U\+S\+E\+F\+U\+LL ON A\+N\+D\+R\+O\+ID. It will build the model from a csv file in the current working directory. It will however utilize the \hyperlink{classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e}{handle\+\_\+touch()} method to add new touches to the chain. It is simply a matter of where the touches are coming from. T\+O\+DO move this method to another place. it is only by convience that it exists here now. \index{runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}!get\+\_\+authenticate\+\_\+state@{get\+\_\+authenticate\+\_\+state}}
+\index{get\+\_\+authenticate\+\_\+state@{get\+\_\+authenticate\+\_\+state}!runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}}
+\subsubsection[{\texorpdfstring{get\+\_\+authenticate\+\_\+state()}{get_authenticate_state()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf State} runtime.\+Chain\+Builder.\+get\+\_\+authenticate\+\_\+state (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_chain_builder_ab01b027d8ad763c58fef515f6bdfe03d}{}\label{classruntime_1_1_chain_builder_ab01b027d8ad763c58fef515f6bdfe03d}
+
+
+handle requests for the current state of the authentication 
+
+\index{runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}!get\+\_\+authenticate\+\_\+thread@{get\+\_\+authenticate\+\_\+thread}}
+\index{get\+\_\+authenticate\+\_\+thread@{get\+\_\+authenticate\+\_\+thread}!runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}}
+\subsubsection[{\texorpdfstring{get\+\_\+authenticate\+\_\+thread()}{get_authenticate_thread()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Compare\+Chains} runtime.\+Chain\+Builder.\+get\+\_\+authenticate\+\_\+thread (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_chain_builder_afec27831c01ad10069232680b82b3298}{}\label{classruntime_1_1_chain_builder_afec27831c01ad10069232680b82b3298}
+return the thread which is preforming the authentication. This method provides no guarentees about the state of the thread. It may even be null! \index{runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}!handle\+\_\+touch@{handle\+\_\+touch}}
+\index{handle\+\_\+touch@{handle\+\_\+touch}!runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}}
+\subsubsection[{\texorpdfstring{handle\+\_\+touch(\+Touch touch)}{handle_touch(Touch touch)}}]{\setlength{\rightskip}{0pt plus 5cm}void runtime.\+Chain\+Builder.\+handle\+\_\+touch (
+\begin{DoxyParamCaption}
+\item[{{\bf Touch}}]{touch}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e}{}\label{classruntime_1_1_chain_builder_a4f42e44cba506f6ad523acb85c68701e}
+this method should be called in some way whenever there is a touch event in android. There should be minimal amounts of processing done here so the input to the device doesn\textquotesingle{}t lag. I don\textquotesingle{}t know by what method percicely this will need to be called in the android souce. It could be another class which simply handles touch events, or from the pre-\/existing android archetecture. \index{runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}!parse\+\_\+csv@{parse\+\_\+csv}}
+\index{parse\+\_\+csv@{parse\+\_\+csv}!runtime\+::\+Chain\+Builder@{runtime\+::\+Chain\+Builder}}
+\subsubsection[{\texorpdfstring{parse\+\_\+csv(\+File file)}{parse_csv(File file)}}]{\setlength{\rightskip}{0pt plus 5cm}static List$<${\bf Touch}$>$ runtime.\+Chain\+Builder.\+parse\+\_\+csv (
+\begin{DoxyParamCaption}
+\item[{File}]{file}
+\end{DoxyParamCaption}
+)\hspace{0.3cm}{\ttfamily [static]}}\hypertarget{classruntime_1_1_chain_builder_a8a63d82919a41779bd179be83dd02715}{}\label{classruntime_1_1_chain_builder_a8a63d82919a41779bd179be83dd02715}
+
+
+parse the csv file N\+OT U\+S\+E\+F\+U\+LL ON A\+N\+D\+R\+O\+ID 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/runtime/\hyperlink{_chain_builder_8java}{Chain\+Builder.\+java}\end{DoxyCompactItemize}

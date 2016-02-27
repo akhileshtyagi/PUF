@@ -1,0 +1,113 @@
+\hypertarget{classtrie_1_1_trie}{}\section{trie.\+Trie Class Reference}
+\label{classtrie_1_1_trie}\index{trie.\+Trie@{trie.\+Trie}}
+\subsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class {\bfseries Trie\+Node}
+\end{DoxyCompactItemize}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtrie_1_1_trie_a73835e6c18e8a44616d8995fd8f8a359}{Trie} ()
+\begin{DoxyCompactList}\small\item\em sets up the tree so that everything will be added to trienode root? \end{DoxyCompactList}\item 
+\hyperlink{classtrie_1_1_trie_abcb888636eae05bbb59fb418fcf46732}{Trie} (\hyperlink{classtrie_1_1_trie}{Trie} t)
+\begin{DoxyCompactList}\small\item\em creates a copy trie \end{DoxyCompactList}\item 
+void \hyperlink{classtrie_1_1_trie_aeca1e283716cb4db6e52907049d08acb}{clear} ()
+\begin{DoxyCompactList}\small\item\em removes all elements from the trie \end{DoxyCompactList}\item 
+void \hyperlink{classtrie_1_1_trie_afc2ab785d2546e95b2698c46f76d9c77}{insert\+String} (String s, int index)
+\item 
+int \hyperlink{classtrie_1_1_trie_a061c92ea6abc9e1d9e6e6ac5c0c0b4b2}{occurrence\+\_\+count} (String s)
+\begin{DoxyCompactList}\small\item\em retrieves the number of occurrences of a given string in the tree \end{DoxyCompactList}\item 
+List$<$ Integer $>$ \hyperlink{classtrie_1_1_trie_a0755a2fdc3ebc07406db5a5ff1310f38}{get\+\_\+index\+\_\+list} (String s)
+\begin{DoxyCompactList}\small\item\em returns a list of indexes containing the given window \end{DoxyCompactList}\item 
+void \hyperlink{classtrie_1_1_trie_a3faeec11a80f63081cde7973fe32be50}{print\+Sorted} (Trie\+Node node, String s)
+\begin{DoxyCompactList}\small\item\em prints the elements in a sorted order \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+Credit for portions of this implementation to\+: \href{https://sites.google.com/site/indy256/algo/trie}{\tt https\+://sites.\+google.\+com/site/indy256/algo/trie} 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{trie\+::\+Trie@{trie\+::\+Trie}!Trie@{Trie}}
+\index{Trie@{Trie}!trie\+::\+Trie@{trie\+::\+Trie}}
+\subsubsection[{\texorpdfstring{Trie()}{Trie()}}]{\setlength{\rightskip}{0pt plus 5cm}trie.\+Trie.\+Trie (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_a73835e6c18e8a44616d8995fd8f8a359}{}\label{classtrie_1_1_trie_a73835e6c18e8a44616d8995fd8f8a359}
+
+
+sets up the tree so that everything will be added to trienode root? 
+
+\index{trie\+::\+Trie@{trie\+::\+Trie}!Trie@{Trie}}
+\index{Trie@{Trie}!trie\+::\+Trie@{trie\+::\+Trie}}
+\subsubsection[{\texorpdfstring{Trie(\+Trie t)}{Trie(Trie t)}}]{\setlength{\rightskip}{0pt plus 5cm}trie.\+Trie.\+Trie (
+\begin{DoxyParamCaption}
+\item[{{\bf Trie}}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_abcb888636eae05bbb59fb418fcf46732}{}\label{classtrie_1_1_trie_abcb888636eae05bbb59fb418fcf46732}
+
+
+creates a copy trie 
+
+
+
+\subsection{Member Function Documentation}
+\index{trie\+::\+Trie@{trie\+::\+Trie}!clear@{clear}}
+\index{clear@{clear}!trie\+::\+Trie@{trie\+::\+Trie}}
+\subsubsection[{\texorpdfstring{clear()}{clear()}}]{\setlength{\rightskip}{0pt plus 5cm}void trie.\+Trie.\+clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_aeca1e283716cb4db6e52907049d08acb}{}\label{classtrie_1_1_trie_aeca1e283716cb4db6e52907049d08acb}
+
+
+removes all elements from the trie 
+
+\index{trie\+::\+Trie@{trie\+::\+Trie}!get\+\_\+index\+\_\+list@{get\+\_\+index\+\_\+list}}
+\index{get\+\_\+index\+\_\+list@{get\+\_\+index\+\_\+list}!trie\+::\+Trie@{trie\+::\+Trie}}
+\subsubsection[{\texorpdfstring{get\+\_\+index\+\_\+list(\+String s)}{get_index_list(String s)}}]{\setlength{\rightskip}{0pt plus 5cm}List$<$Integer$>$ trie.\+Trie.\+get\+\_\+index\+\_\+list (
+\begin{DoxyParamCaption}
+\item[{String}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_a0755a2fdc3ebc07406db5a5ff1310f38}{}\label{classtrie_1_1_trie_a0755a2fdc3ebc07406db5a5ff1310f38}
+
+
+returns a list of indexes containing the given window 
+
+\index{trie\+::\+Trie@{trie\+::\+Trie}!insert\+String@{insert\+String}}
+\index{insert\+String@{insert\+String}!trie\+::\+Trie@{trie\+::\+Trie}}
+\subsubsection[{\texorpdfstring{insert\+String(\+String s, int index)}{insertString(String s, int index)}}]{\setlength{\rightskip}{0pt plus 5cm}void trie.\+Trie.\+insert\+String (
+\begin{DoxyParamCaption}
+\item[{String}]{s, }
+\item[{int}]{index}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_afc2ab785d2546e95b2698c46f76d9c77}{}\label{classtrie_1_1_trie_afc2ab785d2546e95b2698c46f76d9c77}
+\index{trie\+::\+Trie@{trie\+::\+Trie}!occurrence\+\_\+count@{occurrence\+\_\+count}}
+\index{occurrence\+\_\+count@{occurrence\+\_\+count}!trie\+::\+Trie@{trie\+::\+Trie}}
+\subsubsection[{\texorpdfstring{occurrence\+\_\+count(\+String s)}{occurrence_count(String s)}}]{\setlength{\rightskip}{0pt plus 5cm}int trie.\+Trie.\+occurrence\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{String}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_a061c92ea6abc9e1d9e6e6ac5c0c0b4b2}{}\label{classtrie_1_1_trie_a061c92ea6abc9e1d9e6e6ac5c0c0b4b2}
+
+
+retrieves the number of occurrences of a given string in the tree 
+
+\index{trie\+::\+Trie@{trie\+::\+Trie}!print\+Sorted@{print\+Sorted}}
+\index{print\+Sorted@{print\+Sorted}!trie\+::\+Trie@{trie\+::\+Trie}}
+\subsubsection[{\texorpdfstring{print\+Sorted(\+Trie\+Node node, String s)}{printSorted(TrieNode node, String s)}}]{\setlength{\rightskip}{0pt plus 5cm}void trie.\+Trie.\+print\+Sorted (
+\begin{DoxyParamCaption}
+\item[{Trie\+Node}]{node, }
+\item[{String}]{s}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_a3faeec11a80f63081cde7973fe32be50}{}\label{classtrie_1_1_trie_a3faeec11a80f63081cde7973fe32be50}
+
+
+prints the elements in a sorted order 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/trie/\hyperlink{_trie_8java}{Trie.\+java}\end{DoxyCompactItemize}

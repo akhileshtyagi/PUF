@@ -1,0 +1,261 @@
+\hypertarget{classcomponents_1_1_chain}{}\section{components.\+Chain Class Reference}
+\label{classcomponents_1_1_chain}\index{components.\+Chain@{components.\+Chain}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcomponents_1_1_chain_afd25b8fbf65a81889a812eeb63b9520e}{Chain} (int window, int token, int threshold, int model\+\_\+size)
+\item 
+\hyperlink{classcomponents_1_1_chain_ac35b83e35e0bd5295eb873e2a5a2f989}{Chain} (\hyperlink{classcomponents_1_1_chain}{Chain} c)
+\begin{DoxyCompactList}\small\item\em copy constructor. New chain object should have the same state as the old with differant object references. \end{DoxyCompactList}\item 
+void \hyperlink{classcomponents_1_1_chain_a9a8aa7996f3f4b65a0f0dbbddd84f14b}{add\+\_\+touch} (\hyperlink{classcomponents_1_1_touch}{Touch} touch)
+\item 
+void \hyperlink{classcomponents_1_1_chain_a2eb35304ee80f15c741a986a214e663b}{add\+\_\+touch\+\_\+list} (List$<$ \hyperlink{classcomponents_1_1_touch}{Touch} $>$ t)
+\item 
+void \hyperlink{classcomponents_1_1_chain_a4184b4a5a7bd8b2412e7543c2db91af1}{set\+\_\+distribution} (\hyperlink{classcomponents_1_1_distribution}{Distribution} distribution, List$<$ \hyperlink{classcomponents_1_1_distribution}{Distribution} $>$ key\+\_\+distribution)
+\item 
+double \hyperlink{classcomponents_1_1_chain_a96cec1762b6f69856f54aad9e37b04a7}{get\+\_\+touch\+\_\+probability} (\hyperlink{classcomponents_1_1_window}{Window} w, \hyperlink{classcomponents_1_1_touch}{Touch} t)
+\begin{DoxyCompactList}\small\item\em returns the probability of a given touch (at the i\textquotesingle{}th index) based on the model. This will depend on the preceeding touches, in \hyperlink{classcomponents_1_1_window}{Window}. A request for one probability will necessarily result in all of the probabilities being computed. \end{DoxyCompactList}\item 
+\hyperlink{classcomponents_1_1_distribution}{Distribution} \hyperlink{classcomponents_1_1_chain_ae3cf3859627624dd155cf1507514cf20}{get\+\_\+distribution} ()
+\begin{DoxyCompactList}\small\item\em returns the distribution of the data as a whole \end{DoxyCompactList}\item 
+List$<$ \hyperlink{classcomponents_1_1_distribution}{Distribution} $>$ \hyperlink{classcomponents_1_1_chain_a654c25d3edab107ad77710428f11280c}{get\+\_\+key\+\_\+distribution} ()
+\begin{DoxyCompactList}\small\item\em returns a list of distributions for each key \end{DoxyCompactList}\item 
+int \hyperlink{classcomponents_1_1_chain_a1eb6b4a7d6cb462910932e29b3ab732e}{get\+\_\+window} ()
+\item 
+int \hyperlink{classcomponents_1_1_chain_ac6aca5adf04bb1500c1d8735cd7d5881}{get\+\_\+token} ()
+\item 
+int \hyperlink{classcomponents_1_1_chain_a545c320b4e5cc5e150ec6b07f8870fa1}{get\+\_\+model\+\_\+size} ()
+\item 
+int \hyperlink{classcomponents_1_1_chain_a128ee372728530d787a9512350dad405}{get\+\_\+threshold} ()
+\item 
+void \hyperlink{classcomponents_1_1_chain_a620eea641b4a673af78000c2ef5af576}{reset} ()
+\begin{DoxyCompactList}\small\item\em resets the object.. this is the same as constructing a new chain, but faster \end{DoxyCompactList}\item 
+void \hyperlink{classcomponents_1_1_chain_a401a39b68da4ae8ba64e02af94e68f15}{compute\+\_\+uncomputed} ()
+\begin{DoxyCompactList}\small\item\em computes all uncomputed aspects of the chain \end{DoxyCompactList}\item 
+double \hyperlink{classcomponents_1_1_chain_ab23f30bde8f169d73c3a3e5588bf75c6}{compare\+\_\+to} (\hyperlink{classcomponents_1_1_chain}{Chain} auth\+\_\+chain)
+\item 
+boolean \hyperlink{classcomponents_1_1_chain_a8bb0e379e0102b0443c38ef174fe83cc}{is\+\_\+touch\+\_\+in\+\_\+key\+\_\+distribution} (\hyperlink{classcomponents_1_1_touch}{Touch} touch)
+\begin{DoxyCompactList}\small\item\em returns true if a touch is within 2 sigma for it\textquotesingle{}s key distribution \end{DoxyCompactList}\item 
+List$<$ \hyperlink{classcomponents_1_1_window}{Window} $>$ \hyperlink{classcomponents_1_1_chain_a48f2e0718eb4a400c6ceb23afb0ea162}{get\+\_\+windows} ()
+\begin{DoxyCompactList}\small\item\em handle requests for windows \end{DoxyCompactList}\item 
+List$<$ \hyperlink{classcomponents_1_1_token}{Token} $>$ \hyperlink{classcomponents_1_1_chain_aed8e3b1ca179438db491b35a2eee822b}{get\+\_\+tokens} ()
+\begin{DoxyCompactList}\small\item\em handle requests for tokens \end{DoxyCompactList}\item 
+List$<$ \hyperlink{classcomponents_1_1_touch}{Touch} $>$ \hyperlink{classcomponents_1_1_chain_affd01133384c5cb222448c76ab0a82fb}{get\+\_\+touches} ()
+\begin{DoxyCompactList}\small\item\em get a list of all touches in the chain \end{DoxyCompactList}\item 
+String \hyperlink{classcomponents_1_1_chain_ac5496e565687d95b78cbc2d34bbb2ba2}{to\+String} ()
+\begin{DoxyCompactList}\small\item\em prints out all of the touches in order \end{DoxyCompactList}\item 
+void \hyperlink{classcomponents_1_1_chain_acf107be5a3d4e0dc151f07e0c519f698}{output\+\_\+to\+\_\+csv} (String file\+\_\+name)
+\begin{DoxyCompactList}\small\item\em N\+OT U\+S\+E\+F\+UL IN A\+N\+D\+R\+O\+ID. This is used for debugging purposes. Outputs the model to a csv file in a readable format. \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+T\+O\+DO make the chain\textquotesingle{}s compare\+\_\+to method be able to update incrementally T\+O\+DO make sure to use get\+\_\+\+X\+X\+X\+X\+X\+X() instead of the instance variables T\+O\+DO put windows into a Trie data structure for building model faster T\+O\+DO anywhere where I need to compare windows, or Touches I need the option to do this with tokens there needs to be a way to set the distribution used for a chain. This is because the authentication chain is evaluated with the distribution of the base chain. compute the windows somewhere. This will be based on the threshold, window, token sizes. This may change distributions? if a touch is thrown out? this class represents the marcov chain. It contains a sequence of touches and a distribution. I avoid doing any processing on touch being added because eventually this will be called on key press in android. Setting it up this way is more flexible to in the sense that processing may be done at any time. caches the result of each computation so it does not have to be repeated. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{components\+::\+Chain@{components\+::\+Chain}!Chain@{Chain}}
+\index{Chain@{Chain}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{Chain(int window, int token, int threshold, int model\+\_\+size)}{Chain(int window, int token, int threshold, int model_size)}}]{\setlength{\rightskip}{0pt plus 5cm}components.\+Chain.\+Chain (
+\begin{DoxyParamCaption}
+\item[{int}]{window, }
+\item[{int}]{token, }
+\item[{int}]{threshold, }
+\item[{int}]{model\+\_\+size}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_afd25b8fbf65a81889a812eeb63b9520e}{}\label{classcomponents_1_1_chain_afd25b8fbf65a81889a812eeb63b9520e}
+\index{components\+::\+Chain@{components\+::\+Chain}!Chain@{Chain}}
+\index{Chain@{Chain}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{Chain(\+Chain c)}{Chain(Chain c)}}]{\setlength{\rightskip}{0pt plus 5cm}components.\+Chain.\+Chain (
+\begin{DoxyParamCaption}
+\item[{{\bf Chain}}]{c}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_ac35b83e35e0bd5295eb873e2a5a2f989}{}\label{classcomponents_1_1_chain_ac35b83e35e0bd5295eb873e2a5a2f989}
+
+
+copy constructor. New chain object should have the same state as the old with differant object references. 
+
+
+
+\subsection{Member Function Documentation}
+\index{components\+::\+Chain@{components\+::\+Chain}!add\+\_\+touch@{add\+\_\+touch}}
+\index{add\+\_\+touch@{add\+\_\+touch}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{add\+\_\+touch(\+Touch touch)}{add_touch(Touch touch)}}]{\setlength{\rightskip}{0pt plus 5cm}void components.\+Chain.\+add\+\_\+touch (
+\begin{DoxyParamCaption}
+\item[{{\bf Touch}}]{touch}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a9a8aa7996f3f4b65a0f0dbbddd84f14b}{}\label{classcomponents_1_1_chain_a9a8aa7996f3f4b65a0f0dbbddd84f14b}
+\index{components\+::\+Chain@{components\+::\+Chain}!add\+\_\+touch\+\_\+list@{add\+\_\+touch\+\_\+list}}
+\index{add\+\_\+touch\+\_\+list@{add\+\_\+touch\+\_\+list}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{add\+\_\+touch\+\_\+list(\+List$<$ Touch $>$ t)}{add_touch_list(List< Touch > t)}}]{\setlength{\rightskip}{0pt plus 5cm}void components.\+Chain.\+add\+\_\+touch\+\_\+list (
+\begin{DoxyParamCaption}
+\item[{List$<$ {\bf Touch} $>$}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a2eb35304ee80f15c741a986a214e663b}{}\label{classcomponents_1_1_chain_a2eb35304ee80f15c741a986a214e663b}
+\index{components\+::\+Chain@{components\+::\+Chain}!compare\+\_\+to@{compare\+\_\+to}}
+\index{compare\+\_\+to@{compare\+\_\+to}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{compare\+\_\+to(\+Chain auth\+\_\+chain)}{compare_to(Chain auth_chain)}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Chain.\+compare\+\_\+to (
+\begin{DoxyParamCaption}
+\item[{{\bf Chain}}]{auth\+\_\+chain}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_ab23f30bde8f169d73c3a3e5588bf75c6}{}\label{classcomponents_1_1_chain_ab23f30bde8f169d73c3a3e5588bf75c6}
+returns the percent difference between this chain and auth\+\_\+chain. the value returned will be between 0 and 1 0 indicates there is no difference 1 indicates there is a large difference \index{components\+::\+Chain@{components\+::\+Chain}!compute\+\_\+uncomputed@{compute\+\_\+uncomputed}}
+\index{compute\+\_\+uncomputed@{compute\+\_\+uncomputed}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{compute\+\_\+uncomputed()}{compute_uncomputed()}}]{\setlength{\rightskip}{0pt plus 5cm}void components.\+Chain.\+compute\+\_\+uncomputed (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a401a39b68da4ae8ba64e02af94e68f15}{}\label{classcomponents_1_1_chain_a401a39b68da4ae8ba64e02af94e68f15}
+
+
+computes all uncomputed aspects of the chain 
+
+\index{components\+::\+Chain@{components\+::\+Chain}!get\+\_\+distribution@{get\+\_\+distribution}}
+\index{get\+\_\+distribution@{get\+\_\+distribution}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{get\+\_\+distribution()}{get_distribution()}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Distribution} components.\+Chain.\+get\+\_\+distribution (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_ae3cf3859627624dd155cf1507514cf20}{}\label{classcomponents_1_1_chain_ae3cf3859627624dd155cf1507514cf20}
+
+
+returns the distribution of the data as a whole 
+
+\index{components\+::\+Chain@{components\+::\+Chain}!get\+\_\+key\+\_\+distribution@{get\+\_\+key\+\_\+distribution}}
+\index{get\+\_\+key\+\_\+distribution@{get\+\_\+key\+\_\+distribution}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{get\+\_\+key\+\_\+distribution()}{get_key_distribution()}}]{\setlength{\rightskip}{0pt plus 5cm}List$<${\bf Distribution}$>$ components.\+Chain.\+get\+\_\+key\+\_\+distribution (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a654c25d3edab107ad77710428f11280c}{}\label{classcomponents_1_1_chain_a654c25d3edab107ad77710428f11280c}
+
+
+returns a list of distributions for each key 
+
+\index{components\+::\+Chain@{components\+::\+Chain}!get\+\_\+model\+\_\+size@{get\+\_\+model\+\_\+size}}
+\index{get\+\_\+model\+\_\+size@{get\+\_\+model\+\_\+size}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{get\+\_\+model\+\_\+size()}{get_model_size()}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Chain.\+get\+\_\+model\+\_\+size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a545c320b4e5cc5e150ec6b07f8870fa1}{}\label{classcomponents_1_1_chain_a545c320b4e5cc5e150ec6b07f8870fa1}
+\index{components\+::\+Chain@{components\+::\+Chain}!get\+\_\+threshold@{get\+\_\+threshold}}
+\index{get\+\_\+threshold@{get\+\_\+threshold}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{get\+\_\+threshold()}{get_threshold()}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Chain.\+get\+\_\+threshold (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a128ee372728530d787a9512350dad405}{}\label{classcomponents_1_1_chain_a128ee372728530d787a9512350dad405}
+\index{components\+::\+Chain@{components\+::\+Chain}!get\+\_\+token@{get\+\_\+token}}
+\index{get\+\_\+token@{get\+\_\+token}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{get\+\_\+token()}{get_token()}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Chain.\+get\+\_\+token (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_ac6aca5adf04bb1500c1d8735cd7d5881}{}\label{classcomponents_1_1_chain_ac6aca5adf04bb1500c1d8735cd7d5881}
+\index{components\+::\+Chain@{components\+::\+Chain}!get\+\_\+tokens@{get\+\_\+tokens}}
+\index{get\+\_\+tokens@{get\+\_\+tokens}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{get\+\_\+tokens()}{get_tokens()}}]{\setlength{\rightskip}{0pt plus 5cm}List$<${\bf Token}$>$ components.\+Chain.\+get\+\_\+tokens (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_aed8e3b1ca179438db491b35a2eee822b}{}\label{classcomponents_1_1_chain_aed8e3b1ca179438db491b35a2eee822b}
+
+
+handle requests for tokens 
+
+\index{components\+::\+Chain@{components\+::\+Chain}!get\+\_\+touch\+\_\+probability@{get\+\_\+touch\+\_\+probability}}
+\index{get\+\_\+touch\+\_\+probability@{get\+\_\+touch\+\_\+probability}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{get\+\_\+touch\+\_\+probability(\+Window w, Touch t)}{get_touch_probability(Window w, Touch t)}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Chain.\+get\+\_\+touch\+\_\+probability (
+\begin{DoxyParamCaption}
+\item[{{\bf Window}}]{w, }
+\item[{{\bf Touch}}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a96cec1762b6f69856f54aad9e37b04a7}{}\label{classcomponents_1_1_chain_a96cec1762b6f69856f54aad9e37b04a7}
+
+
+returns the probability of a given touch (at the i\textquotesingle{}th index) based on the model. This will depend on the preceeding touches, in \hyperlink{classcomponents_1_1_window}{Window}. A request for one probability will necessarily result in all of the probabilities being computed. 
+
+\index{components\+::\+Chain@{components\+::\+Chain}!get\+\_\+touches@{get\+\_\+touches}}
+\index{get\+\_\+touches@{get\+\_\+touches}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{get\+\_\+touches()}{get_touches()}}]{\setlength{\rightskip}{0pt plus 5cm}List$<${\bf Touch}$>$ components.\+Chain.\+get\+\_\+touches (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_affd01133384c5cb222448c76ab0a82fb}{}\label{classcomponents_1_1_chain_affd01133384c5cb222448c76ab0a82fb}
+
+
+get a list of all touches in the chain 
+
+\index{components\+::\+Chain@{components\+::\+Chain}!get\+\_\+window@{get\+\_\+window}}
+\index{get\+\_\+window@{get\+\_\+window}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{get\+\_\+window()}{get_window()}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Chain.\+get\+\_\+window (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a1eb6b4a7d6cb462910932e29b3ab732e}{}\label{classcomponents_1_1_chain_a1eb6b4a7d6cb462910932e29b3ab732e}
+\index{components\+::\+Chain@{components\+::\+Chain}!get\+\_\+windows@{get\+\_\+windows}}
+\index{get\+\_\+windows@{get\+\_\+windows}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{get\+\_\+windows()}{get_windows()}}]{\setlength{\rightskip}{0pt plus 5cm}List$<${\bf Window}$>$ components.\+Chain.\+get\+\_\+windows (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a48f2e0718eb4a400c6ceb23afb0ea162}{}\label{classcomponents_1_1_chain_a48f2e0718eb4a400c6ceb23afb0ea162}
+
+
+handle requests for windows 
+
+\index{components\+::\+Chain@{components\+::\+Chain}!is\+\_\+touch\+\_\+in\+\_\+key\+\_\+distribution@{is\+\_\+touch\+\_\+in\+\_\+key\+\_\+distribution}}
+\index{is\+\_\+touch\+\_\+in\+\_\+key\+\_\+distribution@{is\+\_\+touch\+\_\+in\+\_\+key\+\_\+distribution}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{is\+\_\+touch\+\_\+in\+\_\+key\+\_\+distribution(\+Touch touch)}{is_touch_in_key_distribution(Touch touch)}}]{\setlength{\rightskip}{0pt plus 5cm}boolean components.\+Chain.\+is\+\_\+touch\+\_\+in\+\_\+key\+\_\+distribution (
+\begin{DoxyParamCaption}
+\item[{{\bf Touch}}]{touch}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a8bb0e379e0102b0443c38ef174fe83cc}{}\label{classcomponents_1_1_chain_a8bb0e379e0102b0443c38ef174fe83cc}
+
+
+returns true if a touch is within 2 sigma for it\textquotesingle{}s key distribution 
+
+\index{components\+::\+Chain@{components\+::\+Chain}!output\+\_\+to\+\_\+csv@{output\+\_\+to\+\_\+csv}}
+\index{output\+\_\+to\+\_\+csv@{output\+\_\+to\+\_\+csv}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{output\+\_\+to\+\_\+csv(\+String file\+\_\+name)}{output_to_csv(String file_name)}}]{\setlength{\rightskip}{0pt plus 5cm}void components.\+Chain.\+output\+\_\+to\+\_\+csv (
+\begin{DoxyParamCaption}
+\item[{String}]{file\+\_\+name}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_acf107be5a3d4e0dc151f07e0c519f698}{}\label{classcomponents_1_1_chain_acf107be5a3d4e0dc151f07e0c519f698}
+
+
+N\+OT U\+S\+E\+F\+UL IN A\+N\+D\+R\+O\+ID. This is used for debugging purposes. Outputs the model to a csv file in a readable format. 
+
+\index{components\+::\+Chain@{components\+::\+Chain}!reset@{reset}}
+\index{reset@{reset}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{reset()}{reset()}}]{\setlength{\rightskip}{0pt plus 5cm}void components.\+Chain.\+reset (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a620eea641b4a673af78000c2ef5af576}{}\label{classcomponents_1_1_chain_a620eea641b4a673af78000c2ef5af576}
+
+
+resets the object.. this is the same as constructing a new chain, but faster 
+
+\index{components\+::\+Chain@{components\+::\+Chain}!set\+\_\+distribution@{set\+\_\+distribution}}
+\index{set\+\_\+distribution@{set\+\_\+distribution}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{set\+\_\+distribution(\+Distribution distribution, List$<$ Distribution $>$ key\+\_\+distribution)}{set_distribution(Distribution distribution, List< Distribution > key_distribution)}}]{\setlength{\rightskip}{0pt plus 5cm}void components.\+Chain.\+set\+\_\+distribution (
+\begin{DoxyParamCaption}
+\item[{{\bf Distribution}}]{distribution, }
+\item[{List$<$ {\bf Distribution} $>$}]{key\+\_\+distribution}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_a4184b4a5a7bd8b2412e7543c2db91af1}{}\label{classcomponents_1_1_chain_a4184b4a5a7bd8b2412e7543c2db91af1}
+allows distribution to be set. If no distribution is set, the distribution for this chain of touches is computed. N\+O\+TE the distribution is not maintained when new touches are added. \index{components\+::\+Chain@{components\+::\+Chain}!to\+String@{to\+String}}
+\index{to\+String@{to\+String}!components\+::\+Chain@{components\+::\+Chain}}
+\subsubsection[{\texorpdfstring{to\+String()}{toString()}}]{\setlength{\rightskip}{0pt plus 5cm}String components.\+Chain.\+to\+String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_chain_ac5496e565687d95b78cbc2d34bbb2ba2}{}\label{classcomponents_1_1_chain_ac5496e565687d95b78cbc2d34bbb2ba2}
+
+
+prints out all of the touches in order 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/components/\hyperlink{_chain_8java}{Chain.\+java}\end{DoxyCompactItemize}

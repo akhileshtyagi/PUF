@@ -1,0 +1,115 @@
+\hypertarget{classruntime_1_1_compare_chains}{}\section{runtime.\+Compare\+Chains Class Reference}
+\label{classruntime_1_1_compare_chains}\index{runtime.\+Compare\+Chains@{runtime.\+Compare\+Chains}}
+
+
+This thread will call the compare method of chain class. The goal is to compare user chain and auth chain and make the result, pass/fail known. Or do something based on pass/fail such as cause the phone to lock.  
+
+
+Inheritance diagram for runtime.\+Compare\+Chains\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=3.000000cm]{classruntime_1_1_compare_chains}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classruntime_1_1_compare_chains_ae471eeb5d3db8b8e48784d86d5a14a44}{Compare\+Chains} (\hyperlink{classcomponents_1_1_chain}{Chain} \hyperlink{classruntime_1_1_compare_chains_ab222c09ed48638554987292979ede005}{user\+\_\+chain}, \hyperlink{classcomponents_1_1_chain}{Chain} \hyperlink{classruntime_1_1_compare_chains_ac78b36bc65a64fd14906685e6d9410a9}{auth\+\_\+chain})
+\item 
+void \hyperlink{classruntime_1_1_compare_chains_aafa4a766a30bbbb6e205114a699d8158}{run} ()
+\begin{DoxyCompactList}\small\item\em compare user\+\_\+chain and auth\+\_\+chain and choose what to do with the result \end{DoxyCompactList}\item 
+double \hyperlink{classruntime_1_1_compare_chains_a684e7b6b0ea4f599a190866647acd144}{get\+\_\+auth\+\_\+probability} ()
+\begin{DoxyCompactList}\small\item\em returns the probability with which the \end{DoxyCompactList}\item 
+boolean \hyperlink{classruntime_1_1_compare_chains_af5dd0a0034121d92bbfac68adecec1c7}{get\+\_\+auth\+\_\+result} ()
+\item 
+boolean \hyperlink{classruntime_1_1_compare_chains_a3e4a09371bcb8d006d646f9c58b5596c}{get\+\_\+auth\+\_\+complete} ()
+\end{DoxyCompactItemize}
+\subsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+volatile boolean \hyperlink{classruntime_1_1_compare_chains_a55fec8bf930fcd0c7ab835f14b85ac6d}{is\+\_\+authentic}
+\item 
+volatile boolean \hyperlink{classruntime_1_1_compare_chains_a506b689f300e16b70789ea87eef80387}{complete}
+\item 
+\hyperlink{classcomponents_1_1_chain}{Chain} \hyperlink{classruntime_1_1_compare_chains_ab222c09ed48638554987292979ede005}{user\+\_\+chain}
+\item 
+\hyperlink{classcomponents_1_1_chain}{Chain} \hyperlink{classruntime_1_1_compare_chains_ac78b36bc65a64fd14906685e6d9410a9}{auth\+\_\+chain}
+\item 
+volatile double \hyperlink{classruntime_1_1_compare_chains_a834721ac98cd7f0517344ab0c1afdf5c}{authentication\+\_\+probability}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This thread will call the compare method of chain class. The goal is to compare user chain and auth chain and make the result, pass/fail known. Or do something based on pass/fail such as cause the phone to lock. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!Compare\+Chains@{Compare\+Chains}}
+\index{Compare\+Chains@{Compare\+Chains}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
+\subsubsection[{\texorpdfstring{Compare\+Chains(\+Chain user\+\_\+chain, Chain auth\+\_\+chain)}{CompareChains(Chain user_chain, Chain auth_chain)}}]{\setlength{\rightskip}{0pt plus 5cm}runtime.\+Compare\+Chains.\+Compare\+Chains (
+\begin{DoxyParamCaption}
+\item[{{\bf Chain}}]{user\+\_\+chain, }
+\item[{{\bf Chain}}]{auth\+\_\+chain}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_compare_chains_ae471eeb5d3db8b8e48784d86d5a14a44}{}\label{classruntime_1_1_compare_chains_ae471eeb5d3db8b8e48784d86d5a14a44}
+will need to make copies of the chains passed in so they do not get updated by something else during the comparason 
+
+\subsection{Member Function Documentation}
+\index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!get\+\_\+auth\+\_\+complete@{get\+\_\+auth\+\_\+complete}}
+\index{get\+\_\+auth\+\_\+complete@{get\+\_\+auth\+\_\+complete}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
+\subsubsection[{\texorpdfstring{get\+\_\+auth\+\_\+complete()}{get_auth_complete()}}]{\setlength{\rightskip}{0pt plus 5cm}boolean runtime.\+Compare\+Chains.\+get\+\_\+auth\+\_\+complete (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_compare_chains_a3e4a09371bcb8d006d646f9c58b5596c}{}\label{classruntime_1_1_compare_chains_a3e4a09371bcb8d006d646f9c58b5596c}
+\index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!get\+\_\+auth\+\_\+probability@{get\+\_\+auth\+\_\+probability}}
+\index{get\+\_\+auth\+\_\+probability@{get\+\_\+auth\+\_\+probability}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
+\subsubsection[{\texorpdfstring{get\+\_\+auth\+\_\+probability()}{get_auth_probability()}}]{\setlength{\rightskip}{0pt plus 5cm}double runtime.\+Compare\+Chains.\+get\+\_\+auth\+\_\+probability (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_compare_chains_a684e7b6b0ea4f599a190866647acd144}{}\label{classruntime_1_1_compare_chains_a684e7b6b0ea4f599a190866647acd144}
+
+
+returns the probability with which the 
+
+\index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!get\+\_\+auth\+\_\+result@{get\+\_\+auth\+\_\+result}}
+\index{get\+\_\+auth\+\_\+result@{get\+\_\+auth\+\_\+result}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
+\subsubsection[{\texorpdfstring{get\+\_\+auth\+\_\+result()}{get_auth_result()}}]{\setlength{\rightskip}{0pt plus 5cm}boolean runtime.\+Compare\+Chains.\+get\+\_\+auth\+\_\+result (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_compare_chains_af5dd0a0034121d92bbfac68adecec1c7}{}\label{classruntime_1_1_compare_chains_af5dd0a0034121d92bbfac68adecec1c7}
+returns the result of the authentication. This method does not provide any guarentees that the compairason has finsihed yet. If the compairason has not yet finished it will return false; \index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!run@{run}}
+\index{run@{run}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
+\subsubsection[{\texorpdfstring{run()}{run()}}]{\setlength{\rightskip}{0pt plus 5cm}void runtime.\+Compare\+Chains.\+run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classruntime_1_1_compare_chains_aafa4a766a30bbbb6e205114a699d8158}{}\label{classruntime_1_1_compare_chains_aafa4a766a30bbbb6e205114a699d8158}
+
+
+compare user\+\_\+chain and auth\+\_\+chain and choose what to do with the result 
+
+perform the comparison now that the values are cached in the Chain\textquotesingle{}s 
+
+\subsection{Member Data Documentation}
+\index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!auth\+\_\+chain@{auth\+\_\+chain}}
+\index{auth\+\_\+chain@{auth\+\_\+chain}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
+\subsubsection[{\texorpdfstring{auth\+\_\+chain}{auth_chain}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Chain} runtime.\+Compare\+Chains.\+auth\+\_\+chain\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classruntime_1_1_compare_chains_ac78b36bc65a64fd14906685e6d9410a9}{}\label{classruntime_1_1_compare_chains_ac78b36bc65a64fd14906685e6d9410a9}
+\index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!authentication\+\_\+probability@{authentication\+\_\+probability}}
+\index{authentication\+\_\+probability@{authentication\+\_\+probability}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
+\subsubsection[{\texorpdfstring{authentication\+\_\+probability}{authentication_probability}}]{\setlength{\rightskip}{0pt plus 5cm}volatile double runtime.\+Compare\+Chains.\+authentication\+\_\+probability\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classruntime_1_1_compare_chains_a834721ac98cd7f0517344ab0c1afdf5c}{}\label{classruntime_1_1_compare_chains_a834721ac98cd7f0517344ab0c1afdf5c}
+\index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!complete@{complete}}
+\index{complete@{complete}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
+\subsubsection[{\texorpdfstring{complete}{complete}}]{\setlength{\rightskip}{0pt plus 5cm}volatile boolean runtime.\+Compare\+Chains.\+complete\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classruntime_1_1_compare_chains_a506b689f300e16b70789ea87eef80387}{}\label{classruntime_1_1_compare_chains_a506b689f300e16b70789ea87eef80387}
+\index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!is\+\_\+authentic@{is\+\_\+authentic}}
+\index{is\+\_\+authentic@{is\+\_\+authentic}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
+\subsubsection[{\texorpdfstring{is\+\_\+authentic}{is_authentic}}]{\setlength{\rightskip}{0pt plus 5cm}volatile boolean runtime.\+Compare\+Chains.\+is\+\_\+authentic\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classruntime_1_1_compare_chains_a55fec8bf930fcd0c7ab835f14b85ac6d}{}\label{classruntime_1_1_compare_chains_a55fec8bf930fcd0c7ab835f14b85ac6d}
+\index{runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}!user\+\_\+chain@{user\+\_\+chain}}
+\index{user\+\_\+chain@{user\+\_\+chain}!runtime\+::\+Compare\+Chains@{runtime\+::\+Compare\+Chains}}
+\subsubsection[{\texorpdfstring{user\+\_\+chain}{user_chain}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Chain} runtime.\+Compare\+Chains.\+user\+\_\+chain\hspace{0.3cm}{\ttfamily [protected]}}\hypertarget{classruntime_1_1_compare_chains_ab222c09ed48638554987292979ede005}{}\label{classruntime_1_1_compare_chains_ab222c09ed48638554987292979ede005}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/runtime/\hyperlink{_compare_chains_8java}{Compare\+Chains.\+java}\end{DoxyCompactItemize}

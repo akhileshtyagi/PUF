@@ -1,0 +1,130 @@
+\hypertarget{classcomponents_1_1_distribution}{}\section{components.\+Distribution Class Reference}
+\label{classcomponents_1_1_distribution}\index{components.\+Distribution@{components.\+Distribution}}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcomponents_1_1_distribution_a0aef5c1c0f3732a9acc45001a251f345}{Distribution} (List$<$ \hyperlink{classcomponents_1_1_touch}{Touch} $>$ touches)
+\item 
+\hyperlink{classcomponents_1_1_distribution_a5c1988b4cf235e87955df659df3e15b0}{Distribution} (List$<$ \hyperlink{classcomponents_1_1_touch}{Touch} $>$ touches, int keycode)
+\begin{DoxyCompactList}\small\item\em this constructor allows a keycode to be associated with the distribution \end{DoxyCompactList}\item 
+\hyperlink{classcomponents_1_1_distribution_ab388f6790c565f71f29dc00cfdbd14fb}{Distribution} (\hyperlink{classcomponents_1_1_distribution}{Distribution} d)
+\begin{DoxyCompactList}\small\item\em copy constructor. This exists because computations are done in the constructor. Copying in this way avoids recomputation. \end{DoxyCompactList}\item 
+void \hyperlink{classcomponents_1_1_distribution_a1a29a26cfd0b9c6e0b7c2b2639c47880}{update} (List$<$ \hyperlink{classcomponents_1_1_touch}{Touch} $>$ touches)
+\begin{DoxyCompactList}\small\item\em updates the distribution using a list of touches. This update has nothing to do with the old values in the distribution. It is synonomous to creating a new \hyperlink{classcomponents_1_1_distribution}{Distribution} object with this list of touches. \end{DoxyCompactList}\item 
+double \hyperlink{classcomponents_1_1_distribution_a4a56b607338da9d4353f74316af57eec}{get\+\_\+min} ()
+\item 
+double \hyperlink{classcomponents_1_1_distribution_a76e537de3db4d30554be0a88b8f21519}{get\+\_\+max} ()
+\item 
+double \hyperlink{classcomponents_1_1_distribution_a1a160ca9f065f761a9fa3ed614e8f9b2}{get\+\_\+average} ()
+\item 
+double \hyperlink{classcomponents_1_1_distribution_aa1c9330c8c9119bb304cab5d4d31fba1}{get\+\_\+standard\+\_\+deviation} ()
+\item 
+int \hyperlink{classcomponents_1_1_distribution_ae4c6122fba189f4ae493f22fbbabc394}{get\+\_\+keycode} ()
+\begin{DoxyCompactList}\small\item\em returns the keycode associated with this distribution. If the distribution does not have an associated keycode, this method will return -\/1. \end{DoxyCompactList}\item 
+boolean \hyperlink{classcomponents_1_1_distribution_a1b4f8a098ddc5f1fef43d6ecd95b6832}{equals} (Object o)
+\begin{DoxyCompactList}\small\item\em determine if this distribution is exactly equal to another distribution \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+T\+O\+DO make the computations happen at request time, and cache the result so it does not need to be recomputed. Or leave it as is.... as distribution objects are only created as needed in the rest of the code. this class knows how to calculate the distribution of a list of touches 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{components\+::\+Distribution@{components\+::\+Distribution}!Distribution@{Distribution}}
+\index{Distribution@{Distribution}!components\+::\+Distribution@{components\+::\+Distribution}}
+\subsubsection[{\texorpdfstring{Distribution(\+List$<$ Touch $>$ touches)}{Distribution(List< Touch > touches)}}]{\setlength{\rightskip}{0pt plus 5cm}components.\+Distribution.\+Distribution (
+\begin{DoxyParamCaption}
+\item[{List$<$ {\bf Touch} $>$}]{touches}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_distribution_a0aef5c1c0f3732a9acc45001a251f345}{}\label{classcomponents_1_1_distribution_a0aef5c1c0f3732a9acc45001a251f345}
+\index{components\+::\+Distribution@{components\+::\+Distribution}!Distribution@{Distribution}}
+\index{Distribution@{Distribution}!components\+::\+Distribution@{components\+::\+Distribution}}
+\subsubsection[{\texorpdfstring{Distribution(\+List$<$ Touch $>$ touches, int keycode)}{Distribution(List< Touch > touches, int keycode)}}]{\setlength{\rightskip}{0pt plus 5cm}components.\+Distribution.\+Distribution (
+\begin{DoxyParamCaption}
+\item[{List$<$ {\bf Touch} $>$}]{touches, }
+\item[{int}]{keycode}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_distribution_a5c1988b4cf235e87955df659df3e15b0}{}\label{classcomponents_1_1_distribution_a5c1988b4cf235e87955df659df3e15b0}
+
+
+this constructor allows a keycode to be associated with the distribution 
+
+\index{components\+::\+Distribution@{components\+::\+Distribution}!Distribution@{Distribution}}
+\index{Distribution@{Distribution}!components\+::\+Distribution@{components\+::\+Distribution}}
+\subsubsection[{\texorpdfstring{Distribution(\+Distribution d)}{Distribution(Distribution d)}}]{\setlength{\rightskip}{0pt plus 5cm}components.\+Distribution.\+Distribution (
+\begin{DoxyParamCaption}
+\item[{{\bf Distribution}}]{d}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_distribution_ab388f6790c565f71f29dc00cfdbd14fb}{}\label{classcomponents_1_1_distribution_ab388f6790c565f71f29dc00cfdbd14fb}
+
+
+copy constructor. This exists because computations are done in the constructor. Copying in this way avoids recomputation. 
+
+
+
+\subsection{Member Function Documentation}
+\index{components\+::\+Distribution@{components\+::\+Distribution}!equals@{equals}}
+\index{equals@{equals}!components\+::\+Distribution@{components\+::\+Distribution}}
+\subsubsection[{\texorpdfstring{equals(\+Object o)}{equals(Object o)}}]{\setlength{\rightskip}{0pt plus 5cm}boolean components.\+Distribution.\+equals (
+\begin{DoxyParamCaption}
+\item[{Object}]{o}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_distribution_a1b4f8a098ddc5f1fef43d6ecd95b6832}{}\label{classcomponents_1_1_distribution_a1b4f8a098ddc5f1fef43d6ecd95b6832}
+
+
+determine if this distribution is exactly equal to another distribution 
+
+\index{components\+::\+Distribution@{components\+::\+Distribution}!get\+\_\+average@{get\+\_\+average}}
+\index{get\+\_\+average@{get\+\_\+average}!components\+::\+Distribution@{components\+::\+Distribution}}
+\subsubsection[{\texorpdfstring{get\+\_\+average()}{get_average()}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Distribution.\+get\+\_\+average (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_distribution_a1a160ca9f065f761a9fa3ed614e8f9b2}{}\label{classcomponents_1_1_distribution_a1a160ca9f065f761a9fa3ed614e8f9b2}
+\index{components\+::\+Distribution@{components\+::\+Distribution}!get\+\_\+keycode@{get\+\_\+keycode}}
+\index{get\+\_\+keycode@{get\+\_\+keycode}!components\+::\+Distribution@{components\+::\+Distribution}}
+\subsubsection[{\texorpdfstring{get\+\_\+keycode()}{get_keycode()}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Distribution.\+get\+\_\+keycode (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_distribution_ae4c6122fba189f4ae493f22fbbabc394}{}\label{classcomponents_1_1_distribution_ae4c6122fba189f4ae493f22fbbabc394}
+
+
+returns the keycode associated with this distribution. If the distribution does not have an associated keycode, this method will return -\/1. 
+
+\index{components\+::\+Distribution@{components\+::\+Distribution}!get\+\_\+max@{get\+\_\+max}}
+\index{get\+\_\+max@{get\+\_\+max}!components\+::\+Distribution@{components\+::\+Distribution}}
+\subsubsection[{\texorpdfstring{get\+\_\+max()}{get_max()}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Distribution.\+get\+\_\+max (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_distribution_a76e537de3db4d30554be0a88b8f21519}{}\label{classcomponents_1_1_distribution_a76e537de3db4d30554be0a88b8f21519}
+\index{components\+::\+Distribution@{components\+::\+Distribution}!get\+\_\+min@{get\+\_\+min}}
+\index{get\+\_\+min@{get\+\_\+min}!components\+::\+Distribution@{components\+::\+Distribution}}
+\subsubsection[{\texorpdfstring{get\+\_\+min()}{get_min()}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Distribution.\+get\+\_\+min (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_distribution_a4a56b607338da9d4353f74316af57eec}{}\label{classcomponents_1_1_distribution_a4a56b607338da9d4353f74316af57eec}
+\index{components\+::\+Distribution@{components\+::\+Distribution}!get\+\_\+standard\+\_\+deviation@{get\+\_\+standard\+\_\+deviation}}
+\index{get\+\_\+standard\+\_\+deviation@{get\+\_\+standard\+\_\+deviation}!components\+::\+Distribution@{components\+::\+Distribution}}
+\subsubsection[{\texorpdfstring{get\+\_\+standard\+\_\+deviation()}{get_standard_deviation()}}]{\setlength{\rightskip}{0pt plus 5cm}double components.\+Distribution.\+get\+\_\+standard\+\_\+deviation (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_distribution_aa1c9330c8c9119bb304cab5d4d31fba1}{}\label{classcomponents_1_1_distribution_aa1c9330c8c9119bb304cab5d4d31fba1}
+\index{components\+::\+Distribution@{components\+::\+Distribution}!update@{update}}
+\index{update@{update}!components\+::\+Distribution@{components\+::\+Distribution}}
+\subsubsection[{\texorpdfstring{update(\+List$<$ Touch $>$ touches)}{update(List< Touch > touches)}}]{\setlength{\rightskip}{0pt plus 5cm}void components.\+Distribution.\+update (
+\begin{DoxyParamCaption}
+\item[{List$<$ {\bf Touch} $>$}]{touches}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_distribution_a1a29a26cfd0b9c6e0b7c2b2639c47880}{}\label{classcomponents_1_1_distribution_a1a29a26cfd0b9c6e0b7c2b2639c47880}
+
+
+updates the distribution using a list of touches. This update has nothing to do with the old values in the distribution. It is synonomous to creating a new \hyperlink{classcomponents_1_1_distribution}{Distribution} object with this list of touches. 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/components/\hyperlink{_distribution_8java}{Distribution.\+java}\end{DoxyCompactItemize}

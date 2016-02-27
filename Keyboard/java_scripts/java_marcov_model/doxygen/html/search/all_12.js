@@ -1,0 +1,25 @@
+var searchData=
+[
+  ['test',['test',['../namespacetest.html',1,'test'],['../classtest_1_1_unit_compare_chains_rank.html#a5a67766addc36792cf35a251dd0b6aee',1,'test.UnitCompareChainsRank.test()'],['../classtest_1_1_unit_rank_compare.html#aa02abba5193ffdbbb3fa8ed9d0cbcfe6',1,'test.UnitRankCompare.test()']]],
+  ['test_5fauth_5fprobability',['test_auth_probability',['../classtest_1_1_unit_rank_compare.html#ae488cafc0902af68a01e2d670350ccee',1,'test::UnitRankCompare']]],
+  ['test_5fauthentication_5fprobability',['test_authentication_probability',['../classjunit_1_1_unit___compare_chains_rank.html#adecfca92c2f0fb546dc44d77285d37d6',1,'junit::Unit_CompareChainsRank']]],
+  ['test_5fchain_5fto_5fgraph',['test_chain_to_graph',['../classtest_1_1_unit_compare_chains_rank.html#a8232052f40f79380b50564cdb2606421',1,'test::UnitCompareChainsRank']]],
+  ['test_5fcompare_5fcorrect',['test_compare_correct',['../classtest_1_1_unit_rank_compare.html#ac8fdeb295d6451a69577d1ebe8ce458c',1,'test::UnitRankCompare']]],
+  ['test_5freplica_5fdistribution',['test_replica_distribution',['../classjunit_1_1_unit___complete_probability.html#aebf3c4155ae93be00b46e5cff5f98715',1,'junit::Unit_CompleteProbability']]],
+  ['test_5ftouch_5findex',['test_touch_index',['../classtest_1_1_unit_compare_chains_rank.html#a523ac7aa11a1b7632cd74ee00bea158b',1,'test::UnitCompareChainsRank']]],
+  ['test_5ftouch_5fwindow',['test_touch_window',['../classtest_1_1_unit_compare_chains_rank.html#afe149cf20ab27d623f421175b92c3d88',1,'test::UnitCompareChainsRank']]],
+  ['token',['TOKEN',['../enumruntime_1_1_operation__thread_1_1_computation.html#a67a1e69588a63abbde225f5a249623c5',1,'runtime.Operation_thread.Computation.TOKEN()'],['../classcomponents_1_1_token.html#a73f5eb6dda64ee3049237ca34f28a73c',1,'components.Token.Token(Distribution distribution, int total_tokens, int token_index, double standard_deviations, Type type)'],['../classcomponents_1_1_token.html#aaecd79f21bdfa6dd838719b4cf736df0',1,'components.Token.Token(Distribution distribution, int total_tokens, int token_index, Type type)'],['../classcomponents_1_1_token.html#aec989a1d1fd6f860a84839091bf0586a',1,'components.Token.Token(double range_min, double range_max, int total_tokens, int token_index, Type type)']]],
+  ['token',['Token',['../classcomponents_1_1_token.html',1,'components']]],
+  ['token_2ejava',['Token.java',['../_token_8java.html',1,'']]],
+  ['tostring',['toString',['../classcomponents_1_1_chain.html#ac5496e565687d95b78cbc2d34bbb2ba2',1,'components.Chain.toString()'],['../classcomponents_1_1_touch.html#a6057203674219c31ed9c8c61e65a5686',1,'components.Touch.toString()'],['../classcomponents_1_1_window.html#ab46581a7a83d26f3f7cbb8ef16cc68fc',1,'components.Window.toString()'],['../enumtest_1_1_main_1_1_test_files_1_1_pressure_amount.html#aea6994ed3f8f7494b72b595a928dd648',1,'test.Main.TestFiles.PressureAmount.toString()'],['../enumtest_1_1_main_1_1_test_files_1_1_distribution.html#a1f4c59fe2473c50123d0dd80e790f053',1,'test.Main.TestFiles.Distribution.toString()'],['../enumtest_1_1_main_1_1_test_files_1_1_concentration.html#a0669104e51effe316491287b5ce9366f',1,'test.Main.TestFiles.Concentration.toString()']]],
+  ['touch',['Touch',['../classcomponents_1_1_touch.html',1,'components']]],
+  ['touch',['Touch',['../classcomponents_1_1_touch.html#abb291d0bd5aa18b2fbec3bf1d0d3f3fa',1,'components.Touch.Touch(int keycode, double pressure, long timestamp)'],['../classcomponents_1_1_touch.html#a371ee9fd78523d19ee3b3ab9b57f5aff',1,'components.Touch.Touch(Touch t)']]],
+  ['touch_2ejava',['Touch.java',['../_touch_8java.html',1,'']]],
+  ['trie',['Trie',['../classtrie_1_1_trie.html',1,'trie']]],
+  ['trie',['trie',['../namespacetrie.html',1,'trie'],['../classtrie_1_1_trie.html#a73835e6c18e8a44616d8995fd8f8a359',1,'trie.Trie.Trie()'],['../classtrie_1_1_trie.html#abcb888636eae05bbb59fb418fcf46732',1,'trie.Trie.Trie(Trie t)']]],
+  ['trie_2ejava',['Trie.java',['../_trie_8java.html',1,'']]],
+  ['trielist',['TrieList',['../classtrie_1_1_trie_list.html#a080afd57ffa7220ba51a4f8e8f16c7b4',1,'trie.TrieList.TrieList()'],['../classtrie_1_1_trie_list.html#a4edc08953617846d3d13050951a319e5',1,'trie.TrieList.TrieList(TrieList t)']]],
+  ['trielist',['TrieList',['../classtrie_1_1_trie_list.html',1,'trie']]],
+  ['trielist_2ejava',['TrieList.java',['../_trie_list_8java.html',1,'']]],
+  ['type',['Type',['../enumcomponents_1_1_token_1_1_type.html',1,'components::Token']]]
+];

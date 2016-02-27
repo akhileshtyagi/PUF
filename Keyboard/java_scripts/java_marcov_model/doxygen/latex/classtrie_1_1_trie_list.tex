@@ -1,0 +1,173 @@
+\hypertarget{classtrie_1_1_trie_list}{}\section{trie.\+Trie\+List Class Reference}
+\label{classtrie_1_1_trie_list}\index{trie.\+Trie\+List@{trie.\+Trie\+List}}
+Inheritance diagram for trie.\+Trie\+List\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classtrie_1_1_trie_list}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classtrie_1_1_trie_list_a080afd57ffa7220ba51a4f8e8f16c7b4}{Trie\+List} ()
+\item 
+\hyperlink{classtrie_1_1_trie_list_a4edc08953617846d3d13050951a319e5}{Trie\+List} (\hyperlink{classtrie_1_1_trie_list}{Trie\+List} t)
+\item 
+boolean \hyperlink{classtrie_1_1_trie_list_a4b3c20b9e91337a4bbf3604fe2c66b3b}{add} (\hyperlink{classcomponents_1_1_window}{Window} arg0)
+\item 
+void \hyperlink{classtrie_1_1_trie_list_a857adbaf3b3c81d7bacf6b8258920a0c}{add} (int arg0, \hyperlink{classcomponents_1_1_window}{Window} arg1)
+\item 
+boolean \hyperlink{classtrie_1_1_trie_list_a51ba821144816982deb88f4c25ab4966}{add\+All} (Collection$<$?extends \hyperlink{classcomponents_1_1_window}{Window} $>$ arg0)
+\item 
+boolean \hyperlink{classtrie_1_1_trie_list_a522999ec5023a861fa914af49bcde0d2}{add\+All} (int arg0, Collection$<$?extends \hyperlink{classcomponents_1_1_window}{Window} $>$ arg1)
+\item 
+void \hyperlink{classtrie_1_1_trie_list_a6bfa2ade95d246ea95a3071993f1600f}{clear} ()
+\item 
+boolean \hyperlink{classtrie_1_1_trie_list_a5b290c36befb18333f000caf4c0080e1}{remove} (Object arg0)
+\item 
+\hyperlink{classcomponents_1_1_window}{Window} \hyperlink{classtrie_1_1_trie_list_ac4e6c299679bd53f8f38f87dac12bdb0}{remove} (int arg0)
+\item 
+boolean \hyperlink{classtrie_1_1_trie_list_ae0298e14b450853968bc61a88fb41dfe}{remove\+All} (Collection$<$?$>$ arg0)
+\item 
+boolean \hyperlink{classtrie_1_1_trie_list_a49157c8085a17723c493b3cf1fe112e6}{retain\+All} (Collection$<$?$>$ arg0)
+\item 
+\hyperlink{classcomponents_1_1_window}{Window} \hyperlink{classtrie_1_1_trie_list_aa23a0325d6d9ccd4fda580073cf40954}{set} (int arg0, \hyperlink{classcomponents_1_1_window}{Window} arg1)
+\item 
+int \hyperlink{classtrie_1_1_trie_list_a42644a837b91c05c2db9a106bd02e30d}{successor\+\_\+count} (List$<$ \hyperlink{classcomponents_1_1_touch}{Touch} $>$ successor\+\_\+list, \hyperlink{classcomponents_1_1_window}{Window} window, \hyperlink{classcomponents_1_1_touch}{Touch} touch)
+\begin{DoxyCompactList}\small\item\em counts the number of times a given touch comes after a given window. in the given window, succesors list \end{DoxyCompactList}\item 
+int \hyperlink{classtrie_1_1_trie_list_a3748bb1aaf4f32d26b74091eb3b3706d}{occurrence\+\_\+count} (\hyperlink{classcomponents_1_1_window}{Window} w)
+\item 
+void \hyperlink{classtrie_1_1_trie_list_a5e339d095e6b1d843f34ec3091612c4e}{set\+\_\+tokens} (List$<$ \hyperlink{classcomponents_1_1_token}{Token} $>$ tokens)
+\begin{DoxyCompactList}\small\item\em sets the tokens that will be used when encoding the window \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+T\+O\+DO Eventually this will be implemented as a prefix tree. This will greatly speed up many of the operations causing the calculation of the probabilities to be slow. right now it is fine to have the backing be an arraylist overrided methods are any that remove, modify, or add to the arraylist. these methods will also change the prefix tree 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!Trie\+List@{Trie\+List}}
+\index{Trie\+List@{Trie\+List}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{Trie\+List()}{TrieList()}}]{\setlength{\rightskip}{0pt plus 5cm}trie.\+Trie\+List.\+Trie\+List (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a080afd57ffa7220ba51a4f8e8f16c7b4}{}\label{classtrie_1_1_trie_list_a080afd57ffa7220ba51a4f8e8f16c7b4}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!Trie\+List@{Trie\+List}}
+\index{Trie\+List@{Trie\+List}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{Trie\+List(\+Trie\+List t)}{TrieList(TrieList t)}}]{\setlength{\rightskip}{0pt plus 5cm}trie.\+Trie\+List.\+Trie\+List (
+\begin{DoxyParamCaption}
+\item[{{\bf Trie\+List}}]{t}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a4edc08953617846d3d13050951a319e5}{}\label{classtrie_1_1_trie_list_a4edc08953617846d3d13050951a319e5}
+
+
+\subsection{Member Function Documentation}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!add@{add}}
+\index{add@{add}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{add(\+Window arg0)}{add(Window arg0)}}]{\setlength{\rightskip}{0pt plus 5cm}boolean trie.\+Trie\+List.\+add (
+\begin{DoxyParamCaption}
+\item[{{\bf Window}}]{arg0}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a4b3c20b9e91337a4bbf3604fe2c66b3b}{}\label{classtrie_1_1_trie_list_a4b3c20b9e91337a4bbf3604fe2c66b3b}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!add@{add}}
+\index{add@{add}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{add(int arg0, Window arg1)}{add(int arg0, Window arg1)}}]{\setlength{\rightskip}{0pt plus 5cm}void trie.\+Trie\+List.\+add (
+\begin{DoxyParamCaption}
+\item[{int}]{arg0, }
+\item[{{\bf Window}}]{arg1}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a857adbaf3b3c81d7bacf6b8258920a0c}{}\label{classtrie_1_1_trie_list_a857adbaf3b3c81d7bacf6b8258920a0c}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!add\+All@{add\+All}}
+\index{add\+All@{add\+All}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{add\+All(\+Collection$<$?extends Window $>$ arg0)}{addAll(Collection<?extends Window > arg0)}}]{\setlength{\rightskip}{0pt plus 5cm}boolean trie.\+Trie\+List.\+add\+All (
+\begin{DoxyParamCaption}
+\item[{Collection$<$?extends {\bf Window} $>$}]{arg0}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a51ba821144816982deb88f4c25ab4966}{}\label{classtrie_1_1_trie_list_a51ba821144816982deb88f4c25ab4966}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!add\+All@{add\+All}}
+\index{add\+All@{add\+All}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{add\+All(int arg0, Collection$<$?extends Window $>$ arg1)}{addAll(int arg0, Collection<?extends Window > arg1)}}]{\setlength{\rightskip}{0pt plus 5cm}boolean trie.\+Trie\+List.\+add\+All (
+\begin{DoxyParamCaption}
+\item[{int}]{arg0, }
+\item[{Collection$<$?extends {\bf Window} $>$}]{arg1}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a522999ec5023a861fa914af49bcde0d2}{}\label{classtrie_1_1_trie_list_a522999ec5023a861fa914af49bcde0d2}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!clear@{clear}}
+\index{clear@{clear}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{clear()}{clear()}}]{\setlength{\rightskip}{0pt plus 5cm}void trie.\+Trie\+List.\+clear (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a6bfa2ade95d246ea95a3071993f1600f}{}\label{classtrie_1_1_trie_list_a6bfa2ade95d246ea95a3071993f1600f}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!occurrence\+\_\+count@{occurrence\+\_\+count}}
+\index{occurrence\+\_\+count@{occurrence\+\_\+count}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{occurrence\+\_\+count(\+Window w)}{occurrence_count(Window w)}}]{\setlength{\rightskip}{0pt plus 5cm}int trie.\+Trie\+List.\+occurrence\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{{\bf Window}}]{w}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a3748bb1aaf4f32d26b74091eb3b3706d}{}\label{classtrie_1_1_trie_list_a3748bb1aaf4f32d26b74091eb3b3706d}
+return the number of occurrences of w in window\+\_\+list T\+O\+DO I think this method needs to be faster. Storing windows in a prefix tree would allow for this \index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!remove@{remove}}
+\index{remove@{remove}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{remove(\+Object arg0)}{remove(Object arg0)}}]{\setlength{\rightskip}{0pt plus 5cm}boolean trie.\+Trie\+List.\+remove (
+\begin{DoxyParamCaption}
+\item[{Object}]{arg0}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a5b290c36befb18333f000caf4c0080e1}{}\label{classtrie_1_1_trie_list_a5b290c36befb18333f000caf4c0080e1}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!remove@{remove}}
+\index{remove@{remove}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{remove(int arg0)}{remove(int arg0)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Window} trie.\+Trie\+List.\+remove (
+\begin{DoxyParamCaption}
+\item[{int}]{arg0}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_ac4e6c299679bd53f8f38f87dac12bdb0}{}\label{classtrie_1_1_trie_list_ac4e6c299679bd53f8f38f87dac12bdb0}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!remove\+All@{remove\+All}}
+\index{remove\+All@{remove\+All}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{remove\+All(\+Collection$<$?$>$ arg0)}{removeAll(Collection<?> arg0)}}]{\setlength{\rightskip}{0pt plus 5cm}boolean trie.\+Trie\+List.\+remove\+All (
+\begin{DoxyParamCaption}
+\item[{Collection$<$?$>$}]{arg0}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_ae0298e14b450853968bc61a88fb41dfe}{}\label{classtrie_1_1_trie_list_ae0298e14b450853968bc61a88fb41dfe}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!retain\+All@{retain\+All}}
+\index{retain\+All@{retain\+All}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{retain\+All(\+Collection$<$?$>$ arg0)}{retainAll(Collection<?> arg0)}}]{\setlength{\rightskip}{0pt plus 5cm}boolean trie.\+Trie\+List.\+retain\+All (
+\begin{DoxyParamCaption}
+\item[{Collection$<$?$>$}]{arg0}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a49157c8085a17723c493b3cf1fe112e6}{}\label{classtrie_1_1_trie_list_a49157c8085a17723c493b3cf1fe112e6}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!set@{set}}
+\index{set@{set}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{set(int arg0, Window arg1)}{set(int arg0, Window arg1)}}]{\setlength{\rightskip}{0pt plus 5cm}{\bf Window} trie.\+Trie\+List.\+set (
+\begin{DoxyParamCaption}
+\item[{int}]{arg0, }
+\item[{{\bf Window}}]{arg1}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_aa23a0325d6d9ccd4fda580073cf40954}{}\label{classtrie_1_1_trie_list_aa23a0325d6d9ccd4fda580073cf40954}
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!set\+\_\+tokens@{set\+\_\+tokens}}
+\index{set\+\_\+tokens@{set\+\_\+tokens}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{set\+\_\+tokens(\+List$<$ Token $>$ tokens)}{set_tokens(List< Token > tokens)}}]{\setlength{\rightskip}{0pt plus 5cm}void trie.\+Trie\+List.\+set\+\_\+tokens (
+\begin{DoxyParamCaption}
+\item[{List$<$ {\bf Token} $>$}]{tokens}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a5e339d095e6b1d843f34ec3091612c4e}{}\label{classtrie_1_1_trie_list_a5e339d095e6b1d843f34ec3091612c4e}
+
+
+sets the tokens that will be used when encoding the window 
+
+\index{trie\+::\+Trie\+List@{trie\+::\+Trie\+List}!successor\+\_\+count@{successor\+\_\+count}}
+\index{successor\+\_\+count@{successor\+\_\+count}!trie\+::\+Trie\+List@{trie\+::\+Trie\+List}}
+\subsubsection[{\texorpdfstring{successor\+\_\+count(\+List$<$ Touch $>$ successor\+\_\+list, Window window, Touch touch)}{successor_count(List< Touch > successor_list, Window window, Touch touch)}}]{\setlength{\rightskip}{0pt plus 5cm}int trie.\+Trie\+List.\+successor\+\_\+count (
+\begin{DoxyParamCaption}
+\item[{List$<$ {\bf Touch} $>$}]{successor\+\_\+list, }
+\item[{{\bf Window}}]{window, }
+\item[{{\bf Touch}}]{touch}
+\end{DoxyParamCaption}
+)}\hypertarget{classtrie_1_1_trie_list_a42644a837b91c05c2db9a106bd02e30d}{}\label{classtrie_1_1_trie_list_a42644a837b91c05c2db9a106bd02e30d}
+
+
+counts the number of times a given touch comes after a given window. in the given window, succesors list 
+
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/trie/\hyperlink{_trie_list_8java}{Trie\+List.\+java}\end{DoxyCompactItemize}

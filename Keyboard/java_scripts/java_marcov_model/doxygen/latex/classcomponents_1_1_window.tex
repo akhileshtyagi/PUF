@@ -1,0 +1,123 @@
+\hypertarget{classcomponents_1_1_window}{}\section{components.\+Window Class Reference}
+\label{classcomponents_1_1_window}\index{components.\+Window@{components.\+Window}}
+
+
+This class will store and provide functions for a single window within the model.  
+
+
+Inheritance diagram for components.\+Window\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classcomponents_1_1_window}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classcomponents_1_1_window_a7ca5acd9fe649949cb0adccc837cf9d2}{Window} (List$<$ \hyperlink{classcomponents_1_1_touch}{Touch} $>$ touches)
+\item 
+\hyperlink{classcomponents_1_1_window_a5869fe4e3c5d711af934ff83114e55aa}{Window} (\hyperlink{classcomponents_1_1_window}{Window} w)
+\begin{DoxyCompactList}\small\item\em copy constructor \end{DoxyCompactList}\item 
+boolean \hyperlink{classcomponents_1_1_window_a3453a892128b5b4bded8bb7d18bbf35f}{compare\+\_\+with\+\_\+token} (List$<$ \hyperlink{classcomponents_1_1_token}{Token} $>$ tokens, \hyperlink{classcomponents_1_1_window}{Window} other\+\_\+window)
+\item 
+int \hyperlink{classcomponents_1_1_window_ab553fd43fb0240c0ef8a2218bdd5092c}{size} ()
+\begin{DoxyCompactList}\small\item\em returns the number of touches in the window \end{DoxyCompactList}\item 
+List$<$ \hyperlink{classcomponents_1_1_touch}{Touch} $>$ \hyperlink{classcomponents_1_1_window_abde5cba55b899aca32dd46750aeb4c32}{get\+\_\+touch\+\_\+list} ()
+\begin{DoxyCompactList}\small\item\em returns the window in the form of a touch list \end{DoxyCompactList}\item 
+int \hyperlink{classcomponents_1_1_window_aa733aef8f3ca04b19cd9fac71096a6ff}{hash\+Code} ()
+\begin{DoxyCompactList}\small\item\em implement a hash function which returns the hash of the current window \end{DoxyCompactList}\item 
+int \hyperlink{classcomponents_1_1_window_acf98290f4314388936c14de8b259339a}{compare\+To} (\hyperlink{classcomponents_1_1_window}{Window} other\+\_\+window)
+\begin{DoxyCompactList}\small\item\em compare this window to another window. Return negative if this window is less than the other window. Comparason is based on touches\textquotesingle{} pressure. Returns 0 if they are equal. \end{DoxyCompactList}\item 
+String \hyperlink{classcomponents_1_1_window_ab46581a7a83d26f3f7cbb8ef16cc68fc}{to\+String} ()
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+This class will store and provide functions for a single window within the model. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{components\+::\+Window@{components\+::\+Window}!Window@{Window}}
+\index{Window@{Window}!components\+::\+Window@{components\+::\+Window}}
+\subsubsection[{\texorpdfstring{Window(\+List$<$ Touch $>$ touches)}{Window(List< Touch > touches)}}]{\setlength{\rightskip}{0pt plus 5cm}components.\+Window.\+Window (
+\begin{DoxyParamCaption}
+\item[{List$<$ {\bf Touch} $>$}]{touches}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_window_a7ca5acd9fe649949cb0adccc837cf9d2}{}\label{classcomponents_1_1_window_a7ca5acd9fe649949cb0adccc837cf9d2}
+\index{components\+::\+Window@{components\+::\+Window}!Window@{Window}}
+\index{Window@{Window}!components\+::\+Window@{components\+::\+Window}}
+\subsubsection[{\texorpdfstring{Window(\+Window w)}{Window(Window w)}}]{\setlength{\rightskip}{0pt plus 5cm}components.\+Window.\+Window (
+\begin{DoxyParamCaption}
+\item[{{\bf Window}}]{w}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_window_a5869fe4e3c5d711af934ff83114e55aa}{}\label{classcomponents_1_1_window_a5869fe4e3c5d711af934ff83114e55aa}
+
+
+copy constructor 
+
+
+
+\subsection{Member Function Documentation}
+\index{components\+::\+Window@{components\+::\+Window}!compare\+\_\+with\+\_\+token@{compare\+\_\+with\+\_\+token}}
+\index{compare\+\_\+with\+\_\+token@{compare\+\_\+with\+\_\+token}!components\+::\+Window@{components\+::\+Window}}
+\subsubsection[{\texorpdfstring{compare\+\_\+with\+\_\+token(\+List$<$ Token $>$ tokens, Window other\+\_\+window)}{compare_with_token(List< Token > tokens, Window other_window)}}]{\setlength{\rightskip}{0pt plus 5cm}boolean components.\+Window.\+compare\+\_\+with\+\_\+token (
+\begin{DoxyParamCaption}
+\item[{List$<$ {\bf Token} $>$}]{tokens, }
+\item[{{\bf Window}}]{other\+\_\+window}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_window_a3453a892128b5b4bded8bb7d18bbf35f}{}\label{classcomponents_1_1_window_a3453a892128b5b4bded8bb7d18bbf35f}
+used for compairason of windows with a given token set. return true if this window is equal to auth window. \index{components\+::\+Window@{components\+::\+Window}!compare\+To@{compare\+To}}
+\index{compare\+To@{compare\+To}!components\+::\+Window@{components\+::\+Window}}
+\subsubsection[{\texorpdfstring{compare\+To(\+Window other\+\_\+window)}{compareTo(Window other_window)}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Window.\+compare\+To (
+\begin{DoxyParamCaption}
+\item[{{\bf Window}}]{other\+\_\+window}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_window_acf98290f4314388936c14de8b259339a}{}\label{classcomponents_1_1_window_acf98290f4314388936c14de8b259339a}
+
+
+compare this window to another window. Return negative if this window is less than the other window. Comparason is based on touches\textquotesingle{} pressure. Returns 0 if they are equal. 
+
+\index{components\+::\+Window@{components\+::\+Window}!get\+\_\+touch\+\_\+list@{get\+\_\+touch\+\_\+list}}
+\index{get\+\_\+touch\+\_\+list@{get\+\_\+touch\+\_\+list}!components\+::\+Window@{components\+::\+Window}}
+\subsubsection[{\texorpdfstring{get\+\_\+touch\+\_\+list()}{get_touch_list()}}]{\setlength{\rightskip}{0pt plus 5cm}List$<${\bf Touch}$>$ components.\+Window.\+get\+\_\+touch\+\_\+list (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_window_abde5cba55b899aca32dd46750aeb4c32}{}\label{classcomponents_1_1_window_abde5cba55b899aca32dd46750aeb4c32}
+
+
+returns the window in the form of a touch list 
+
+\index{components\+::\+Window@{components\+::\+Window}!hash\+Code@{hash\+Code}}
+\index{hash\+Code@{hash\+Code}!components\+::\+Window@{components\+::\+Window}}
+\subsubsection[{\texorpdfstring{hash\+Code()}{hashCode()}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Window.\+hash\+Code (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_window_aa733aef8f3ca04b19cd9fac71096a6ff}{}\label{classcomponents_1_1_window_aa733aef8f3ca04b19cd9fac71096a6ff}
+
+
+implement a hash function which returns the hash of the current window 
+
+\index{components\+::\+Window@{components\+::\+Window}!size@{size}}
+\index{size@{size}!components\+::\+Window@{components\+::\+Window}}
+\subsubsection[{\texorpdfstring{size()}{size()}}]{\setlength{\rightskip}{0pt plus 5cm}int components.\+Window.\+size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_window_ab553fd43fb0240c0ef8a2218bdd5092c}{}\label{classcomponents_1_1_window_ab553fd43fb0240c0ef8a2218bdd5092c}
+
+
+returns the number of touches in the window 
+
+\index{components\+::\+Window@{components\+::\+Window}!to\+String@{to\+String}}
+\index{to\+String@{to\+String}!components\+::\+Window@{components\+::\+Window}}
+\subsubsection[{\texorpdfstring{to\+String()}{toString()}}]{\setlength{\rightskip}{0pt plus 5cm}String components.\+Window.\+to\+String (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classcomponents_1_1_window_ab46581a7a83d26f3f7cbb8ef16cc68fc}{}\label{classcomponents_1_1_window_ab46581a7a83d26f3f7cbb8ef16cc68fc}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/components/\hyperlink{_window_8java}{Window.\+java}\end{DoxyCompactItemize}

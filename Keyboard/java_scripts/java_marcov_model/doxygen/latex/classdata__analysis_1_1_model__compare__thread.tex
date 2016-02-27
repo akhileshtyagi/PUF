@@ -1,0 +1,146 @@
+\hypertarget{classdata__analysis_1_1_model__compare__thread}{}\section{data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread Class Reference}
+\label{classdata__analysis_1_1_model__compare__thread}\index{data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread}}
+Inheritance diagram for data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread\+:\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[height=2.000000cm]{classdata__analysis_1_1_model__compare__thread}
+\end{center}
+\end{figure}
+\subsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\hyperlink{classdata__analysis_1_1_model__compare__thread_a0ee9d1dece56959345e6c0e369b06e38}{Model\+\_\+compare\+\_\+thread} (String base\+\_\+data\+\_\+path, String auth\+\_\+data\+\_\+path, int base\+\_\+model\+\_\+size, int auth\+\_\+model\+\_\+size, int window\+\_\+size, int token\+\_\+size, int threshold)
+\begin{DoxyCompactList}\small\item\em constructor, allowing user to set different probperties of the model compairason for testing \end{DoxyCompactList}\item 
+void \hyperlink{classdata__analysis_1_1_model__compare__thread_ad75761fec2f2e5e2dd2679b6a120f2a4}{run} ()
+\item 
+String \hyperlink{classdata__analysis_1_1_model__compare__thread_af3bfecb6b0ad04d38fcfa2d4a0c69866}{get\+\_\+base\+\_\+data\+\_\+path} ()
+\item 
+String \hyperlink{classdata__analysis_1_1_model__compare__thread_a2b890e51f20cbea9ee865d5baae689a7}{get\+\_\+auth\+\_\+data\+\_\+path} ()
+\item 
+int \hyperlink{classdata__analysis_1_1_model__compare__thread_a268439415f6bd1f912cbcff8af77b636}{get\+\_\+window\+\_\+size} ()
+\item 
+int \hyperlink{classdata__analysis_1_1_model__compare__thread_a7d81e3cf81f4222d4da104d9429b578e}{get\+\_\+token\+\_\+size} ()
+\item 
+int \hyperlink{classdata__analysis_1_1_model__compare__thread_a59482784f581ddbaf509bf81cc0c249b}{get\+\_\+threshold} ()
+\item 
+int \hyperlink{classdata__analysis_1_1_model__compare__thread_a963240b77cca8d407e93fc733f0aed7c}{get\+\_\+base\+\_\+model\+\_\+size} ()
+\item 
+int \hyperlink{classdata__analysis_1_1_model__compare__thread_a22c1e624e263f61b4d9dee5fb60dd1b8}{get\+\_\+auth\+\_\+model\+\_\+size} ()
+\item 
+List$<$ Double $>$ \hyperlink{classdata__analysis_1_1_model__compare__thread_af0dbf695248868d7bb401be50f45b386}{get\+\_\+auth\+\_\+probability\+\_\+list} ()
+\end{DoxyCompactItemize}
+\subsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+double \hyperlink{classdata__analysis_1_1_model__compare__thread_a6213d96c54d70f9e8a2d01010414ecd3}{max\+\_\+authentication\+\_\+probability}
+\item 
+double \hyperlink{classdata__analysis_1_1_model__compare__thread_a8a9c58abe260de662f846876d4f7fed2}{min\+\_\+authentication\+\_\+probability}
+\item 
+double \hyperlink{classdata__analysis_1_1_model__compare__thread_a9a8a983509cfefb0d73b813f45fd2ef1}{average\+\_\+authentication\+\_\+probability}
+\end{DoxyCompactItemize}
+
+
+\subsection{Detailed Description}
+this thread allows the preforming of a test compairason. when the compairason is finished, an instance variable will be set indicating different results. 
+
+\subsection{Constructor \& Destructor Documentation}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!Model\+\_\+compare\+\_\+thread@{Model\+\_\+compare\+\_\+thread}}
+\index{Model\+\_\+compare\+\_\+thread@{Model\+\_\+compare\+\_\+thread}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{Model\+\_\+compare\+\_\+thread(\+String base\+\_\+data\+\_\+path, String auth\+\_\+data\+\_\+path, int base\+\_\+model\+\_\+size, int auth\+\_\+model\+\_\+size, int window\+\_\+size, int token\+\_\+size, int threshold)}{Model_compare_thread(String base_data_path, String auth_data_path, int base_model_size, int auth_model_size, int window_size, int token_size, int threshold)}}]{\setlength{\rightskip}{0pt plus 5cm}data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+Model\+\_\+compare\+\_\+thread (
+\begin{DoxyParamCaption}
+\item[{String}]{base\+\_\+data\+\_\+path, }
+\item[{String}]{auth\+\_\+data\+\_\+path, }
+\item[{int}]{base\+\_\+model\+\_\+size, }
+\item[{int}]{auth\+\_\+model\+\_\+size, }
+\item[{int}]{window\+\_\+size, }
+\item[{int}]{token\+\_\+size, }
+\item[{int}]{threshold}
+\end{DoxyParamCaption}
+)}\hypertarget{classdata__analysis_1_1_model__compare__thread_a0ee9d1dece56959345e6c0e369b06e38}{}\label{classdata__analysis_1_1_model__compare__thread_a0ee9d1dece56959345e6c0e369b06e38}
+
+
+constructor, allowing user to set different probperties of the model compairason for testing 
+
+
+
+\subsection{Member Function Documentation}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!get\+\_\+auth\+\_\+data\+\_\+path@{get\+\_\+auth\+\_\+data\+\_\+path}}
+\index{get\+\_\+auth\+\_\+data\+\_\+path@{get\+\_\+auth\+\_\+data\+\_\+path}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{get\+\_\+auth\+\_\+data\+\_\+path()}{get_auth_data_path()}}]{\setlength{\rightskip}{0pt plus 5cm}String data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+get\+\_\+auth\+\_\+data\+\_\+path (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classdata__analysis_1_1_model__compare__thread_a2b890e51f20cbea9ee865d5baae689a7}{}\label{classdata__analysis_1_1_model__compare__thread_a2b890e51f20cbea9ee865d5baae689a7}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!get\+\_\+auth\+\_\+model\+\_\+size@{get\+\_\+auth\+\_\+model\+\_\+size}}
+\index{get\+\_\+auth\+\_\+model\+\_\+size@{get\+\_\+auth\+\_\+model\+\_\+size}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{get\+\_\+auth\+\_\+model\+\_\+size()}{get_auth_model_size()}}]{\setlength{\rightskip}{0pt plus 5cm}int data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+get\+\_\+auth\+\_\+model\+\_\+size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classdata__analysis_1_1_model__compare__thread_a22c1e624e263f61b4d9dee5fb60dd1b8}{}\label{classdata__analysis_1_1_model__compare__thread_a22c1e624e263f61b4d9dee5fb60dd1b8}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!get\+\_\+auth\+\_\+probability\+\_\+list@{get\+\_\+auth\+\_\+probability\+\_\+list}}
+\index{get\+\_\+auth\+\_\+probability\+\_\+list@{get\+\_\+auth\+\_\+probability\+\_\+list}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{get\+\_\+auth\+\_\+probability\+\_\+list()}{get_auth_probability_list()}}]{\setlength{\rightskip}{0pt plus 5cm}List$<$Double$>$ data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+get\+\_\+auth\+\_\+probability\+\_\+list (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classdata__analysis_1_1_model__compare__thread_af0dbf695248868d7bb401be50f45b386}{}\label{classdata__analysis_1_1_model__compare__thread_af0dbf695248868d7bb401be50f45b386}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!get\+\_\+base\+\_\+data\+\_\+path@{get\+\_\+base\+\_\+data\+\_\+path}}
+\index{get\+\_\+base\+\_\+data\+\_\+path@{get\+\_\+base\+\_\+data\+\_\+path}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{get\+\_\+base\+\_\+data\+\_\+path()}{get_base_data_path()}}]{\setlength{\rightskip}{0pt plus 5cm}String data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+get\+\_\+base\+\_\+data\+\_\+path (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classdata__analysis_1_1_model__compare__thread_af3bfecb6b0ad04d38fcfa2d4a0c69866}{}\label{classdata__analysis_1_1_model__compare__thread_af3bfecb6b0ad04d38fcfa2d4a0c69866}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!get\+\_\+base\+\_\+model\+\_\+size@{get\+\_\+base\+\_\+model\+\_\+size}}
+\index{get\+\_\+base\+\_\+model\+\_\+size@{get\+\_\+base\+\_\+model\+\_\+size}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{get\+\_\+base\+\_\+model\+\_\+size()}{get_base_model_size()}}]{\setlength{\rightskip}{0pt plus 5cm}int data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+get\+\_\+base\+\_\+model\+\_\+size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classdata__analysis_1_1_model__compare__thread_a963240b77cca8d407e93fc733f0aed7c}{}\label{classdata__analysis_1_1_model__compare__thread_a963240b77cca8d407e93fc733f0aed7c}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!get\+\_\+threshold@{get\+\_\+threshold}}
+\index{get\+\_\+threshold@{get\+\_\+threshold}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{get\+\_\+threshold()}{get_threshold()}}]{\setlength{\rightskip}{0pt plus 5cm}int data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+get\+\_\+threshold (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classdata__analysis_1_1_model__compare__thread_a59482784f581ddbaf509bf81cc0c249b}{}\label{classdata__analysis_1_1_model__compare__thread_a59482784f581ddbaf509bf81cc0c249b}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!get\+\_\+token\+\_\+size@{get\+\_\+token\+\_\+size}}
+\index{get\+\_\+token\+\_\+size@{get\+\_\+token\+\_\+size}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{get\+\_\+token\+\_\+size()}{get_token_size()}}]{\setlength{\rightskip}{0pt plus 5cm}int data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+get\+\_\+token\+\_\+size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classdata__analysis_1_1_model__compare__thread_a7d81e3cf81f4222d4da104d9429b578e}{}\label{classdata__analysis_1_1_model__compare__thread_a7d81e3cf81f4222d4da104d9429b578e}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!get\+\_\+window\+\_\+size@{get\+\_\+window\+\_\+size}}
+\index{get\+\_\+window\+\_\+size@{get\+\_\+window\+\_\+size}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{get\+\_\+window\+\_\+size()}{get_window_size()}}]{\setlength{\rightskip}{0pt plus 5cm}int data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+get\+\_\+window\+\_\+size (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classdata__analysis_1_1_model__compare__thread_a268439415f6bd1f912cbcff8af77b636}{}\label{classdata__analysis_1_1_model__compare__thread_a268439415f6bd1f912cbcff8af77b636}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!run@{run}}
+\index{run@{run}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{run()}{run()}}]{\setlength{\rightskip}{0pt plus 5cm}void data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+run (
+\begin{DoxyParamCaption}
+{}
+\end{DoxyParamCaption}
+)}\hypertarget{classdata__analysis_1_1_model__compare__thread_ad75761fec2f2e5e2dd2679b6a120f2a4}{}\label{classdata__analysis_1_1_model__compare__thread_ad75761fec2f2e5e2dd2679b6a120f2a4}
+
+
+\subsection{Member Data Documentation}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!average\+\_\+authentication\+\_\+probability@{average\+\_\+authentication\+\_\+probability}}
+\index{average\+\_\+authentication\+\_\+probability@{average\+\_\+authentication\+\_\+probability}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{average\+\_\+authentication\+\_\+probability}{average_authentication_probability}}]{\setlength{\rightskip}{0pt plus 5cm}double data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+average\+\_\+authentication\+\_\+probability}\hypertarget{classdata__analysis_1_1_model__compare__thread_a9a8a983509cfefb0d73b813f45fd2ef1}{}\label{classdata__analysis_1_1_model__compare__thread_a9a8a983509cfefb0d73b813f45fd2ef1}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!max\+\_\+authentication\+\_\+probability@{max\+\_\+authentication\+\_\+probability}}
+\index{max\+\_\+authentication\+\_\+probability@{max\+\_\+authentication\+\_\+probability}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{max\+\_\+authentication\+\_\+probability}{max_authentication_probability}}]{\setlength{\rightskip}{0pt plus 5cm}double data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+max\+\_\+authentication\+\_\+probability}\hypertarget{classdata__analysis_1_1_model__compare__thread_a6213d96c54d70f9e8a2d01010414ecd3}{}\label{classdata__analysis_1_1_model__compare__thread_a6213d96c54d70f9e8a2d01010414ecd3}
+\index{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}!min\+\_\+authentication\+\_\+probability@{min\+\_\+authentication\+\_\+probability}}
+\index{min\+\_\+authentication\+\_\+probability@{min\+\_\+authentication\+\_\+probability}!data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread@{data\+\_\+analysis\+::\+Model\+\_\+compare\+\_\+thread}}
+\subsubsection[{\texorpdfstring{min\+\_\+authentication\+\_\+probability}{min_authentication_probability}}]{\setlength{\rightskip}{0pt plus 5cm}double data\+\_\+analysis.\+Model\+\_\+compare\+\_\+thread.\+min\+\_\+authentication\+\_\+probability}\hypertarget{classdata__analysis_1_1_model__compare__thread_a8a9c58abe260de662f846876d4f7fed2}{}\label{classdata__analysis_1_1_model__compare__thread_a8a9c58abe260de662f846876d4f7fed2}
+
+
+The documentation for this class was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+/home/element/\+P\+U\+F/\+Keyboard/java\+\_\+scripts/java\+\_\+marcov\+\_\+model/src/data\+\_\+analysis/\hyperlink{_model__compare__thread_8java}{Model\+\_\+compare\+\_\+thread.\+java}\end{DoxyCompactItemize}
