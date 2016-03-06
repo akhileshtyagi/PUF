@@ -10,9 +10,20 @@
 # Data Sets Used #
 ##################
 
-###############
-# Run Results #
-###############
+#####################
+# Run Configuration #
+#####################
+SMOreg algorithm
+
+Weka follows the conventional k-fold cross validation you mentioned here. You have the full data set, then divide it into k nos of equal sets (k1, k2, ... , k10 for example for 10 fold CV) without overlaps. Then at the first run, take k1 to k9 as training set and develop a model. Use that model on k10 to get the performance. Next comes k1 to k8 and k10 as training set. Develop a model from them and apply it to k9 to get the performance. In this way, use all the folds where each fold at most 1 time is used as test set.
+
+Then Weka averages the performances and presents that on the output pane.
+
+#############################################
+# Run Results - comparing a model to itself #
+#############################################
+#########################
+# tester_ian device_tim #
 === Run information ===
 
 Scheme:       weka.classifiers.functions.SMOreg -C 1.0 -N 0 -I "weka.classifiers.functions.supportVector.RegSMOImproved -T 0.001 -V -P 1.0E-12 -L 0.001 -W 1" -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007"
@@ -49,3 +60,78 @@ Relative absolute error                 97.1715 %
 Root relative squared error             98.9211 %
 Total Number of Instances            19067     
 
+########################
+# testr_ian device_tim #
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMOreg -C 1.0 -N 0 -I "weka.classifiers.functions.supportVector.RegSMOImproved -T 0.001 -V -P 1.0E-12 -L 0.001 -W 1" -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007"
+Relation:     tester_ian_device_tim
+Instances:    4511
+Attributes:   3
+              2240335
+              115
+              0.124800004
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+SMOreg
+
+weights (not support vectors):
+ -       0.0064 * (normalized) 2240335
+ +       0.0371 * (normalized) 115
+ +       0.219 
+
+
+
+Number of kernel evaluations: 161935273 (7.941% cached)
+
+Time taken to build model: 17.06 seconds
+
+=== Cross-validation ===
+=== Summary ===
+
+Correlation coefficient                  0.0125
+Mean absolute error                      0.0506
+Root mean squared error                  0.0633
+Relative absolute error                 98.7275 %
+Root relative squared error            101.5809 %
+Total Number of Instances             4511     
+
+########################
+# testr_tim device_ian #
+=== Run information ===
+
+Scheme:       weka.classifiers.functions.SMOreg -C 1.0 -N 0 -I "weka.classifiers.functions.supportVector.RegSMOImproved -T 0.001 -V -P 1.0E-12 -L 0.001 -W 1" -K "weka.classifiers.functions.supportVector.PolyKernel -E 1.0 -C 250007"
+Relation:     tester_tim_device_ian
+Instances:    29619
+Attributes:   3
+              211897
+              102
+              0.10560001
+Test mode:    10-fold cross-validation
+
+=== Classifier model (full training set) ===
+
+SMOreg
+
+weights (not support vectors):
+ +       0.0041 * (normalized) 211897
+ +       0.0117 * (normalized) 102
+ +       0.2325
+
+
+
+Number of kernel evaluations: -418696118
+
+Time taken to build model: 1019.83 seconds
+
+=== Cross-validation ===
+=== Summary ===
+
+Correlation coefficient                  0.0383
+Mean absolute error                      0.0288
+Root mean squared error                  0.0381
+Relative absolute error                 99.4845 %
+Root relative squared error            100.3281 %
+Total Number of Instances            29619     

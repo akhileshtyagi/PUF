@@ -33,6 +33,7 @@
 \renewcommand{\baselinestretch}{.92} 
 
 \begin{document}
+
 % set the path for graphics
 \graphicspath{{figures/}}
 
@@ -580,19 +581,6 @@ factor $k$ in the size of auth model seems to increase the total amount of time 
 Figure \ref{fig:nexus_total_size_time} illustrates how the execution time depends on the total number of touches used in creating the models. The trend suggests that the total  time  increases 
 nonlinearly as the number of touches used to generate the model increases.
 This figure also supports the conclusion that the total size of the model in number of touches has a larger influence on the execution time then the sizes of either the base or auth models individually.
-
-\textbf{
-With increasing numbers of touches in the system, 
-the execution time will continue to increase.
-This presents a problem if the execution time becomes
-excessive before enough touches are provided to achieve the required level of accuracy.
-In our tests preformed on the Nexus 7 tablet depicted in Figure \ref{fig:nexus_total_size_time},
-The time taken measured under 6 seconds
-with a total number of touches of 18000.
-Whether or not this amount of computation time is excessive
-will depend on the application which utilizes this system.
-}
-
 %TODO discuss why each figure is important
 %figure x establishes that x model size has a greater influence on the speed and that overall performance seems to be in some way a function of the total number of touches used.
 %figure x2 establishes that there is an exponential trend in the runtime of this system. As 
@@ -600,7 +588,7 @@ will depend on the application which utilizes this system.
 %tie it all together, discuss the importance of this section as a whole
 Figures \ref{fig:authentication_accuracy}  \& \ref{fig:total_touches_vs_authentication_accuracy} establish that in general a greater number of touches used in the authentication will result in a greater accuracy. This manifests in the charts as the peaks of highest authentication accuracy  
 corresponding to the largest numbers of touches. Figures \ref{fig:nexus_speed_test} and \ref{fig:nexus_total_size_time} demonstrate the performance tradeoff associated with increased numbers of touches. 
-As expected there exists an inverse relationship between performance in terms of speed and accuracy of authentication. That is, increased authentication accuracy comes at the expense of execution time. 
+As expected there exists an inverse relationship between performance in terms of speed and accuracy of authentication. That is, increased authentication accuracy comes at the expense of execution time.
 
 \section{Distributed User-Device (UD-) PUF}
 \label{sec:PUF}
@@ -630,12 +618,6 @@ below 12\%.
 
 %TODO possible, describe applications  in terms of continuous authentication
 
-%\bibliographystyle{abbrv}
-\bibliographystyle{unsrt}
-\bibliography{bibliography/markov_chains,bibliography/pufs,bibliography/other,pufs}
-
-% Ignore incorrect citation numbering
-%\ignorecitefornumbering
-%\bibliographystyle{unsrtnat}
-
+\bibliographystyle{abbrv}
+\bibliography{bibliography/Markov_chains,bibliography/pufs,bibliography/other,pufs}
 \end{document}

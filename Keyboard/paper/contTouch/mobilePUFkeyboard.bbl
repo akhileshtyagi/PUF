@@ -1,96 +1,5 @@
 \begin{thebibliography}{10}
 
-\bibitem{Aysu:2013:DFL}
-A.~Aysu, N.~F. Ghalaty, Z.~Franklin, M.~P. Yali, and P.~Schaumont.
-\newblock Digital fingerprints for low-cost platforms using mems sensors.
-\newblock In {\em Proceedings of the Workshop on Embedded Systems Security},
-  WESS '13, pages 2:1--2:6, New York, NY, USA, 2013. ACM.
-
-\bibitem{Brown:ngram}
-P.~F. Brown, P.~V. deSouza, R.~L. Mercer, V.~J.~D. Pietra, and J.~C. Lai.
-\newblock Class-based n-gram models of natural language.
-\newblock {\em Comput. Linguist.}, 18(4):467--479, Dec. 1992.
-
-\bibitem{Gait}
-S.~Choi, I.-H. Youn, R.~LeMay, S.~Burns, and J.-H. Youn.
-\newblock Biometric gait recognition based on wireless acceleration sensor
-  using k-nearest neighbor classification.
-\newblock In {\em Computing, Networking and Communications (ICNC), 2014
-  International Conference on}, pages 1091--1095, Feb 2014.
-
-\bibitem{FCC14}
-F.~C. Commission.
-\newblock Report of technological advisory council (tac) subcommittee on mobile
-  device theft prevention (mdtp), December 2014.
-\newblock FCC,
-  http://transition.fcc.gov/bureaus/oet/tac/tacdocs/\\meeting12414/TAC-MDTP-Re%
-port-v1.0-FINAL-TAC-version.pdf.
-
-\bibitem{Devadas:2009:PUF}
-S.~Devadas.
-\newblock Physical unclonable functions and secure processors.
-\newblock In {\em Proceedings of the 11th International Workshop on
-  Cryptographic Hardware and Embedded Systems}, CHES '09, pages 65--65, Berlin,
-  Heidelberg, 2009. Springer-Verlag.
-
-\bibitem{Dey:2013:AHP}
-S.~Dey, N.~Roy, W.~Xu, and S.~Nelakuditi.
-\newblock Acm hotmobile 2013 poster: Leveraging imperfections of sensors for
-  fingerprinting smartphones.
-\newblock {\em SIGMOBILE Mob. Comput. Commun. Rev.}, 17(3):21--22, Nov. 2013.
-
-\bibitem{touchscreengestures}
-T.~Feng, Z.~Liu, K.-A. Kwon, W.~Shi, B.~Carbunar, Y.~Jiang, and N.~Nguyen.
-\newblock Continuous mobile authentication using touchscreen gestures.
-\newblock In {\em Homeland Security (HST), 2012 IEEE Conference on Technologies
-  for}, pages 451--456, Nov 2012.
-
-\bibitem{Gassend:2002:SPR}
-B.~Gassend, D.~Clarke, M.~van Dijk, and S.~Devadas.
-\newblock Silicon physical random functions.
-\newblock In {\em Proceedings of the 9th ACM Conference on Computer and
-  Communications Security}, CCS '02, pages 148--160, New York, NY, USA, 2002.
-  ACM.
-
-\bibitem{Liu:2009:UAP}
-J.~Liu, L.~Zhong, J.~Wickramasuriya, and V.~Vasudevan.
-\newblock uwave: Accelerometer-based personalized gesture recognition and its
-  applications.
-\newblock {\em Pervasive Mob. Comput.}, 5(6):657--675, Dec. 2009.
-
-\bibitem{PUFIntro}
-D.~Merli, G.~Sigl, and C.~Eckert.
-\newblock Identities for embedded systems enabled by physical unclonable
-  functions.
-\newblock In M.~Fischlin and S.~Katzenbeisser, editors, {\em Number Theory and
-  Cryptography}, volume 8260 of {\em Lecture Notes in Computer Science}, pages
-  125--138. Springer Berlin Heidelberg, 2013.
-
-\bibitem{threesigmarule}
-F.~Pukelsheim.
-\newblock {The Three Sigma Rule}.
-\newblock {\em The American Statistician}, 48(2):88--91, May 1994.
-
-\bibitem{Ratha:2001}
-N.~K. Ratha, J.~H. Connell, and R.~M. Bolle.
-\newblock Enhancing security and privacy in biometrics-based authentication
-  systems.
-\newblock {\em IBM Syst. J.}, 40(3):614--634, Mar. 2001.
-
-\bibitem{CR14}
-C.~Reports.
-\newblock Smart phone thefts rose to 3.1 million in 2013 industry solution
-  falls short, while legislative efforts to curb theft continue, May 2014.
-\newblock Consumer Reports,
-  http://www.consumerreports.org/cro/news/2014/04/smart-phone-thefts-rose-to-3%
--1-million-last-year/index.htm.
-
-\bibitem{Gesture14}
-N.~Sae-Bae, N.~Memon, K.~Isbister, and K.~Ahmed.
-\newblock Multitouch gesture-based authentication.
-\newblock {\em Information Forensics and Security, IEEE Transactions on},
-  9(4):568--582, April 2014.
-
 \bibitem{ScheelTyagi15}
 R.~Scheel and A.~Tyagi.
 \newblock Characterizing composite user-device touchscreen physical unclonable
@@ -98,25 +7,118 @@ R.~Scheel and A.~Tyagi.
 \newblock In {\em ACM International Workshop in Trusted Embedded Devices,
   TRUSTED 2015}. ACM, October 2015.
 
+\bibitem{CR14}
+Consumer Reports.
+\newblock Smart phone thefts rose to 3.1 million in 2013 industry solution
+  falls short, while legislative efforts to curb theft continue, May 2014.
+\newblock Consumer Reports,
+  http://www.consumerreports.org/cro/news/2014/04/smart-phone-thefts-rose-to-3-1-million-last-year/index.htm.
+
+\bibitem{FCC14}
+Federal~Communications Commission.
+\newblock Report of technological advisory council (tac) subcommittee on mobile
+  device theft prevention (mdtp), December 2014.
+\newblock FCC,
+  http://transition.fcc.gov/bureaus/oet/tac/tacdocs/\\meeting12414/TAC-MDTP-Report-v1.0-FINAL-TAC-version.pdf.
+
+\bibitem{Devadas:2009:PUF}
+Srini Devadas.
+\newblock Physical unclonable functions and secure processors.
+\newblock In {\em Proceedings of the 11th International Workshop on
+  Cryptographic Hardware and Embedded Systems}, CHES '09, pages 65--65, Berlin,
+  Heidelberg, 2009. Springer-Verlag.
+
+\bibitem{PUFIntro}
+Dominik Merli, Georg Sigl, and Claudia Eckert.
+\newblock Identities for embedded systems enabled by physical unclonable
+  functions.
+\newblock In Marc Fischlin and Stefan Katzenbeisser, editors, {\em Number
+  Theory and Cryptography}, volume 8260 of {\em Lecture Notes in Computer
+  Science}, pages 125--138. Springer Berlin Heidelberg, 2013.
+
+\bibitem{Gassend:2002:SPR}
+Blaise Gassend, Dwaine Clarke, Marten van Dijk, and Srinivas Devadas.
+\newblock Silicon physical random functions.
+\newblock In {\em Proceedings of the 9th ACM Conference on Computer and
+  Communications Security}, CCS '02, pages 148--160, New York, NY, USA, 2002.
+  ACM.
+
+\bibitem{Ratha:2001}
+N.~K. Ratha, J.~H. Connell, and R.~M. Bolle.
+\newblock Enhancing security and privacy in biometrics-based authentication
+  systems.
+\newblock {\em IBM Syst. J.}, 40(3):614--634, March 2001.
+
+\bibitem{zhu2013sensec}
+Jiang Zhu, Pang Wu, Xiao Wang, and Joy Zhang.
+\newblock Sensec: Mobile security through passive sensing.
+\newblock In {\em Computing, Networking and Communications (ICNC), 2013
+  International Conference on}, pages 1128--1133. IEEE, 2013.
+
+\bibitem{KeystrokeHASE14}
+Zahid Syed, Sean Banerjee, and Bojan Cukic.
+\newblock Leveraging variations in event sequences in keystroke-dynamics
+  authentication systems.
+\newblock {\em Ninth IEEE International Symposium on High-Assurance Systems
+  Engineering (HASE'05)}, 0:9--16, 2014.
+
+\bibitem{Liu:2009:UAP}
+Jiayang Liu, Lin Zhong, Jehan Wickramasuriya, and Venu Vasudevan.
+\newblock uwave: Accelerometer-based personalized gesture recognition and its
+  applications.
+\newblock {\em Pervasive Mob. Comput.}, 5(6):657--675, December 2009.
+
+\bibitem{Aysu:2013:DFL}
+Aydin Aysu, Nahid~Farhady Ghalaty, Zane Franklin, Moein~Pahlavan Yali, and
+  Patrick Schaumont.
+\newblock Digital fingerprints for low-cost platforms using mems sensors.
+\newblock In {\em Proceedings of the Workshop on Embedded Systems Security},
+  WESS '13, pages 2:1--2:6, New York, NY, USA, 2013. ACM.
+
+\bibitem{Gait}
+Sangil Choi, Ik-Hyun Youn, R.~LeMay, S.~Burns, and Jong-Hoon Youn.
+\newblock Biometric gait recognition based on wireless acceleration sensor
+  using k-nearest neighbor classification.
+\newblock In {\em Computing, Networking and Communications (ICNC), 2014
+  International Conference on}, pages 1091--1095, Feb 2014.
+
+\bibitem{touchscreengestures}
+Tao Feng, Ziyi Liu, Kyeong-An Kwon, Weidong Shi, B.~Carbunar, Yifei Jiang, and
+  N.~Nguyen.
+\newblock Continuous mobile authentication using touchscreen gestures.
+\newblock In {\em Homeland Security (HST), 2012 IEEE Conference on Technologies
+  for}, pages 451--456, Nov 2012.
+
+\bibitem{Gesture14}
+Napa Sae-Bae, N.~Memon, K.~Isbister, and K.~Ahmed.
+\newblock Multitouch gesture-based authentication.
+\newblock {\em Information Forensics and Security, IEEE Transactions on},
+  9(4):568--582, April 2014.
+
+\bibitem{Dey:2013:AHP}
+Sanorita Dey, Nirupam Roy, Wenyuan Xu, and Srihari Nelakuditi.
+\newblock Acm hotmobile 2013 poster: Leveraging imperfections of sensors for
+  fingerprinting smartphones.
+\newblock {\em SIGMOBILE Mob. Comput. Commun. Rev.}, 17(3):21--22, November
+  2013.
+
 \bibitem{shi2011senguard}
-W.~Shi, F.~Yang, Y.~Jiang, F.~Yang, and Y.~Xiong.
+Weidong Shi, Feng Yang, Yifei Jiang, Feng Yang, and Yingen Xiong.
 \newblock Senguard: Passive user identification on smartphones using multiple
   sensors.
 \newblock In {\em Wireless and Mobile Computing, Networking and Communications
   (WiMob), 2011 IEEE 7th International Conference on}, pages 141--148. IEEE,
   2011.
 
-\bibitem{KeystrokeHASE14}
-Z.~Syed, S.~Banerjee, and B.~Cukic.
-\newblock Leveraging variations in event sequences in keystroke-dynamics
-  authentication systems.
-\newblock {\em Ninth IEEE International Symposium on High-Assurance Systems
-  Engineering (HASE'05)}, 0:9--16, 2014.
+\bibitem{Brown:ngram}
+Peter~F. Brown, Peter~V. deSouza, Robert~L. Mercer, Vincent J.~Della Pietra,
+  and Jenifer~C. Lai.
+\newblock Class-based n-gram models of natural language.
+\newblock {\em Comput. Linguist.}, 18(4):467--479, December 1992.
 
-\bibitem{zhu2013sensec}
-J.~Zhu, P.~Wu, X.~Wang, and J.~Zhang.
-\newblock Sensec: Mobile security through passive sensing.
-\newblock In {\em Computing, Networking and Communications (ICNC), 2013
-  International Conference on}, pages 1128--1133. IEEE, 2013.
+\bibitem{threesigmarule}
+Friedrich Pukelsheim.
+\newblock {The Three Sigma Rule}.
+\newblock {\em The American Statistician}, 48(2):88--91, May 1994.
 
 \end{thebibliography}

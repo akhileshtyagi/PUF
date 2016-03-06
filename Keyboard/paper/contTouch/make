@@ -1,6 +1,0 @@
-#! /bin/bash
-# The purpose of this file is to make the latex document in the correct order such that all of the references, figures, ect are included correctly
-pdflatex mobilePUFkeyboard.tex
-bibtex mobilePUFkeyboard.aux
-pdflatex mobilePUFkeyboard.tex
-pdflatex mobilePUFkeyboard.tex

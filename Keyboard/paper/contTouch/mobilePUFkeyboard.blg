@@ -1,6 +1,49 @@
-This is BibTeX, Version 0.99cThe top-level auxiliary file: mobilePUFkeyboard.aux
-The style file: abbrv.bst
-Database file #1: bibliography/Markov_chains.bib
+This is BibTeX, Version 0.99d (TeX Live 2015/Arch Linux)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: mobilePUFkeyboard.aux
+The style file: unsrt.bst
+Database file #1: bibliography/markov_chains.bib
 Database file #2: bibliography/pufs.bib
 Database file #3: bibliography/other.bib
 Database file #4: pufs.bib
+You've used 18 entries,
+            1791 wiz_defined-function locations,
+            591 strings with 7976 characters,
+and the built_in function-call counts, 5463 in all, are:
+= -- 512
+> -- 226
+< -- 9
++ -- 82
+- -- 64
+* -- 382
+:= -- 793
+add.period$ -- 61
+call.type$ -- 18
+change.case$ -- 18
+chr.to.int$ -- 0
+cite$ -- 18
+duplicate$ -- 257
+empty$ -- 525
+format.name$ -- 64
+if$ -- 1280
+int.to.chr$ -- 0
+int.to.str$ -- 18
+missing$ -- 16
+newline$ -- 93
+num.names$ -- 20
+pop$ -- 65
+preamble$ -- 1
+purify$ -- 0
+quote$ -- 0
+skip$ -- 152
+stack$ -- 0
+substring$ -- 398
+swap$ -- 99
+text.length$ -- 9
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 0
+warning$ -- 0
+while$ -- 52
+width$ -- 20
+write$ -- 211
