@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  6 MAR 2016 03:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  6 MAR 2016 23:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -298,10 +298,10 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: figures/token_creation.png Graphic file (type png)
 
 <use figures/token_creation.png>
-Package pdftex.def Info: figures/token_creation.png used on input line 253.
+Package pdftex.def Info: figures/token_creation.png used on input line 256.
 (pdftex.def)             Requested size: 260.17244pt x 97.56717pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 253--254
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 256--257
  [][] 
  []
 
@@ -309,11 +309,11 @@ Overfull \hbox (20.17244pt too wide) in paragraph at lines 253--254
 File: figures/normal_distribution.png Graphic file (type png)
 
 <use figures/normal_distribution.png>
-Package pdftex.def Info: figures/normal_distribution.png used on input line 282
+Package pdftex.def Info: figures/normal_distribution.png used on input line 285
 .
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 282--283
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 285--286
  [][] 
  []
 
@@ -323,10 +323,10 @@ File: figures/markov_model_building.png Graphic file (type png)
 
 <use figures/markov_model_building.png>
 Package pdftex.def Info: figures/markov_model_building.png used on input line 3
-49.
+51.
 (pdftex.def)             Requested size: 245.71754pt x 105.44522pt.
 
-Overfull \hbox (5.71754pt too wide) in paragraph at lines 349--350
+Overfull \hbox (5.71754pt too wide) in paragraph at lines 351--352
  [][] 
  []
 
@@ -335,15 +335,18 @@ File: figures/final_markov_model_state.png Graphic file (type png)
 
 <use figures/final_markov_model_state.png>
 Package pdftex.def Info: figures/final_markov_model_state.png used on input lin
-e 380.
+e 382.
 (pdftex.def)             Requested size: 245.71754pt x 112.35326pt.
 
-Overfull \hbox (5.71754pt too wide) in paragraph at lines 380--384
+Overfull \hbox (5.71754pt too wide) in paragraph at lines 382--386
  [][] 
  []
 
 
-Overfull \hbox (15.5365pt too wide) in paragraph at lines 421--421
+Underfull \vbox (badness 7963) has occurred while \output is active []
+
+
+Overfull \hbox (15.5365pt too wide) in paragraph at lines 423--423
 []\secfnt DIFFERENTIATING USER-DEVICE PAIRS 
  []
 
@@ -352,30 +355,27 @@ File: figures/threshold_vs_percentages.png Graphic file (type png)
 
 <use figures/threshold_vs_percentages.png>
 Package pdftex.def Info: figures/threshold_vs_percentages.png used on input lin
-e 430.
+e 432.
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 430--431
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 432--433
  [][] 
  []
 
 [3 <./figures/markov_model_building.png> <./figures/final_markov_model_state.pn
-g>]
+g> <./figures/threshold_vs_percentages.png>]
 <figures/window_size_vs_authentication_accuracy.png, id=37, 602.25pt x 372.3912
 5pt>
 File: figures/window_size_vs_authentication_accuracy.png Graphic file (type png
 )
  <use figures/window_size_vs_authentication_accuracy.png>
 Package pdftex.def Info: figures/window_size_vs_authentication_accuracy.png use
-d on input line 483.
+d on input line 485.
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 483--484
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 485--486
  [][] 
  []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 <figures/authentication_accuracy_vs_model_size.png, id=38, 602.25pt x 372.39125
@@ -384,15 +384,15 @@ File: figures/authentication_accuracy_vs_model_size.png Graphic file (type png)
 
  <use figures/authentication_accuracy_vs_model_size.png>
 Package pdftex.def Info: figures/authentication_accuracy_vs_model_size.png used
- on input line 521.
+ on input line 523.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 521--524
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 523--526
  [][] 
  []
 
-[4 <./figures/threshold_vs_percentages.png> <./figures/window_size_vs_authentic
-ation_accuracy.png> <./figures/authentication_accuracy_vs_model_size.png>]
+[4 <./figures/window_size_vs_authentication_accuracy.png> <./figures/authentica
+tion_accuracy_vs_model_size.png>]
 <figures/total_touches_vs_authentication_accuracy.png, id=45, 602.25pt x 372.39
 125pt>
 File: figures/total_touches_vs_authentication_accuracy.png Graphic file (type p
@@ -410,10 +410,10 @@ Overfull \hbox (12.94499pt too wide) in paragraph at lines 567--568
 File: figures/nexus_speed_test.png Graphic file (type png)
 
 <use figures/nexus_speed_test.png>
-Package pdftex.def Info: figures/nexus_speed_test.png used on input line 595.
+Package pdftex.def Info: figures/nexus_speed_test.png used on input line 609.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 595--596
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 609--610
  [][] 
  []
 
@@ -422,30 +422,27 @@ File: figures/nexus_total_size_time.png Graphic file (type png)
 
 <use figures/nexus_total_size_time.png>
 Package pdftex.def Info: figures/nexus_total_size_time.png used on input line 6
-16.
+26.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 616--619
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 626--629
  [][] 
  []
 
-
-Underfull \vbox (badness 2626) has occurred while \output is active []
-
- [5 <./figures/total_touches_vs_authentication_accuracy.png> <./figures/nexus_s
-peed_test.png>]
-Overfull \hbox (1.30322pt too wide) in paragraph at lines 652--655
+[5 <./figures/total_touches_vs_authentication_accuracy.png> <./figures/nexus_sp
+eed_test.png> <./figures/nexus_total_size_time.png>]
+Overfull \hbox (1.30322pt too wide) in paragraph at lines 651--654
 \T1/aer/m/n/9 mance trade-off as-so-ci-ated with in-creased num-bers of touches
 .
  []
 
 
-Overfull \hbox (5.70876pt too wide) in paragraph at lines 656--656
+Overfull \hbox (5.70876pt too wide) in paragraph at lines 655--655
 []\secfnt DISTRIBUTED USER-DEVICE (UD-) PUF 
  []
 
 
-Overfull \hbox (4.88376pt too wide) in paragraph at lines 671--673
+Overfull \hbox (4.88376pt too wide) in paragraph at lines 670--672
 \T1/aer/m/n/9 user-device com-bi-na-tions. A con-tin-u-ous au-then-ti-ca-tion m
 odel
  []
@@ -455,35 +452,33 @@ Overfull \hbox (21.45428pt too wide) in paragraph at lines 11--16
 \T1/aer/m/n/9 http://www.consumerreports.org/cro/news/2014/04/smart- 
  []
 
-[6 <./figures/nexus_total_size_time.png>]) [7
-
-] (./mobilePUFkeyboard.aux) ) 
+) [6] (./mobilePUFkeyboard.aux) ) 
 Here is how much of TeX's memory you used:
- 2879 strings out of 493054
- 37372 string characters out of 6140586
- 105336 words of memory out of 5000000
- 6322 multiletter control sequences out of 15000+600000
+ 2880 strings out of 493054
+ 37393 string characters out of 6140586
+ 103340 words of memory out of 5000000
+ 6323 multiletter control sequences out of 15000+600000
  45495 words of font info for 64 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,8n,28p,737b,237s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc
-}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/te
-xmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/
-share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></us
-r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1
-/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pf
-b>
-Output written on mobilePUFkeyboard.pdf (7 pages, 426126 bytes).
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r
+.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/shar
+e/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/
+public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts
+/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-
+dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
+</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/tex
+mf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/t
+ype1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8
+a.pfb>
+Output written on mobilePUFkeyboard.pdf (6 pages, 473479 bytes).
 PDF statistics:
- 110 PDF objects out of 1000 (max. 8388607)
- 65 compressed objects within 1 object stream
+ 105 PDF objects out of 1000 (max. 8388607)
+ 61 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

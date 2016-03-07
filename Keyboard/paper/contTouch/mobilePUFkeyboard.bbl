@@ -49,6 +49,12 @@ N.~K. Ratha, J.~H. Connell, and R.~M. Bolle.
   systems.
 \newblock {\em IBM Syst. J.}, 40(3):614--634, March 2001.
 
+\bibitem{rosenfeld2010sensor}
+Kurt Rosenfeld, Efstratios Gavas, and Ramesh Karri.
+\newblock Sensor physical unclonable functions.
+\newblock In {\em Hardware-Oriented Security and Trust (HOST), 2010 IEEE
+  International Symposium on}, pages 112--117. IEEE, 2010.
+
 \bibitem{zhu2013sensec}
 Jiang Zhu, Pang Wu, Xiao Wang, and Joy Zhang.
 \newblock Sensec: Mobile security through passive sensing.

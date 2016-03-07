@@ -30,7 +30,7 @@
 \documentclass{acm_proc_article-sp}
 %\documentclass[conference]{IEEEtran}
 
-\renewcommand{\baselinestretch}{.85} 
+\renewcommand{\baselinestretch}{.90} 
 
 \begin{document}
 % set the path for graphics
@@ -210,7 +210,9 @@ The structure of the paper is as follows. Section \ref{sec:related_work} discuss
 %Section \ref{touch_pressure_modeling} provides some implementation details with respect to how touchscreen pressure is used in the modeling scheme. 
 Data collection methods are discussed in Section \ref{sec:data_collection}. The authentication scheme is presented in Section \ref{sec:differentiation}. The results including final numbers and 
 their interpretation are given in Section \ref{sec:results}.
+\textbf{
 Section \ref{sec:PUF} discusses the variability and reproducibility properties of our system.
+}
 Conclusions are presented in Section \ref{sec:conclusions}. 
 
 \section{Related Work}
@@ -218,8 +220,10 @@ Conclusions are presented in Section \ref{sec:conclusions}.
 %detail what was done in the sensec paper
 There is significant amount of work on PUFs \cite{Devadas:2009:PUF}, \cite{PUFIntro}, \cite{Gassend:2002:SPR}
 Ratha et al. \cite{Ratha:2001} proposed use of sensor biometrics for authentication.
+\textbf{
 Other works \cite{rosenfeld2010sensor} have proposed entangling physical measurements with sensor data
 to produce PUFs.
+}
 In the continuous authentication world, a composite sensor vector \cite{zhu2013sensec} has been used
 to establish a user identity. Sensec builds a user profile from accelerometers, gyroscopes and magnetometers. Other user biometrics such as inter key stroke timing 
 \cite{KeystrokeHASE14},  accelerometer based signature \cite{Liu:2009:UAP}, MEMS sensors
@@ -338,6 +342,7 @@ Tokens are compared both for the key (keyboard button) location and the tokenize
 Our goal in modeling user touch screen interactions with a Markov model is to classify the system in terms of its transitions between states. 
 Each touch token contains information about the pressure and location of the interaction with the touchscreen.
 These token fire off transitions.
+\textbf{
 In Figures \ref{fig:markov_model_building} and \ref{fig:final_markov_model_state}, 
 Touch\_$n$ is a token and therefore comprised of a location and pressure range.
 For instance, two user interactions with the same location
@@ -345,6 +350,7 @@ could be considered to be different touches in the model if
 the they fall within a different range of pressure values.
 In addition, two user interactions with different locations but with pressure
 values within the same pressure range will be considered to be different touches.
+}
 
 \begin{figure}
 \centering
@@ -537,10 +543,12 @@ and {\it auth\_model\_size}. We define {\it authentication\_accuracy} to be the 
 false negatives count against the accuracy).
 In other words, an authentic user is authenticated and a non-authentic user is not authenticated.
 The size of base model and user model which result in a given authentication accuracy are aligned with that authentication accuracy on the horizontal axis in the chart.
+\textbf{
 An example data point
 might be read as follows: base\_model\_size of
 6000 touches and auth\_model\_size of 6000 touches
 results in 85\% authentication accuracy.
+}
 
 %explain why more touches does not always equal more accuracy
 Both the base model and the authentication model sizes were varied between 2000-10,000 touches.
@@ -615,11 +623,13 @@ factor $k$ in the size of auth model seems to increase the total amount of time 
 Figure \ref{fig:nexus_total_size_time} illustrates how the execution time depends on the total number of touches used in creating the models. The trend suggests that the total  time  increases 
 nonlinearly as the number of touches used to generate the model increases.
 This figure also supports the conclusion that the total size of the model in number of touches has a larger influence on the execution time then the sizes of either the base or auth models individually.
+\textbf{
 This graph is aligned on
 the horizontal x-axis. As an example, a data point
 might be read as follows: base\_size of 6000
 touches and auth\_size of 10000 touches results in
 4000 millisecond run time on a Nexus 7 tablet.
+}
 
 \begin{figure}
 \centering
@@ -630,6 +640,7 @@ This graph is aligned on the horizontal axis.}
 \label{fig:nexus_total_size_time}
 \end{figure}
 
+\textbf{
 The execution time  increases
 with the number of touches used in the Markov model.
 For a targeted accuracy, as Figure \ref{fig:total_touches_vs_authentication_accuracy} observes, a certain minimum
@@ -642,6 +653,7 @@ stays below 6 seconds
 with the  total number of touches in the model bounded by 18000.
 Figure \ref{fig:nexus_total_size_time} shows this trade-off between number of touches
 in the model and the corresponding execution time.
+}
 
 %TODO discuss why each figure is important
 %figure x establishes that x model size has a greater influence on the speed and that overall performance seems to be in some way a function of the total number of touches used.

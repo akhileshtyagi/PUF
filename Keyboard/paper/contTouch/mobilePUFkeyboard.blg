@@ -6,44 +6,44 @@ Database file #1: bibliography/markov_chains.bib
 Database file #2: bibliography/pufs.bib
 Database file #3: bibliography/other.bib
 Database file #4: pufs.bib
-You've used 18 entries,
+You've used 19 entries,
             1791 wiz_defined-function locations,
-            591 strings with 7976 characters,
-and the built_in function-call counts, 5463 in all, are:
-= -- 512
-> -- 226
-< -- 9
-+ -- 82
-- -- 64
-* -- 382
-:= -- 793
-add.period$ -- 61
-call.type$ -- 18
-change.case$ -- 18
+            597 strings with 8179 characters,
+and the built_in function-call counts, 5848 in all, are:
+= -- 553
+> -- 237
+< -- 10
++ -- 86
+- -- 67
+* -- 403
+:= -- 842
+add.period$ -- 65
+call.type$ -- 19
+change.case$ -- 19
 chr.to.int$ -- 0
-cite$ -- 18
-duplicate$ -- 257
-empty$ -- 525
-format.name$ -- 64
-if$ -- 1280
+cite$ -- 19
+duplicate$ -- 278
+empty$ -- 563
+format.name$ -- 67
+if$ -- 1377
 int.to.chr$ -- 0
-int.to.str$ -- 18
-missing$ -- 16
-newline$ -- 93
-num.names$ -- 20
-pop$ -- 65
+int.to.str$ -- 19
+missing$ -- 17
+newline$ -- 98
+num.names$ -- 21
+pop$ -- 71
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 152
+skip$ -- 166
 stack$ -- 0
-substring$ -- 398
-swap$ -- 99
-text.length$ -- 9
+substring$ -- 430
+swap$ -- 110
+text.length$ -- 10
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 0
-while$ -- 52
-width$ -- 20
-write$ -- 211
+while$ -- 56
+width$ -- 21
+write$ -- 223
