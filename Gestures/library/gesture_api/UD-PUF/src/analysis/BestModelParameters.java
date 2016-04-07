@@ -36,7 +36,7 @@ public class BestModelParameters {
 
         // generate a set of parameters to try for each deviation
         // for pressure
-        int p_steps = 100;
+        int p_steps = 10;
         for (int i = 0; i < p_steps; i++) {
             double deviations = (i * (1.0 / p_steps)) + 0.0;
             pressure_deviations_list.add(deviations);
@@ -50,7 +50,7 @@ public class BestModelParameters {
         }
 
         // for authentication threshold
-        int pa_steps = 20;
+        int pa_steps = 10;
         for (int i = 0; i < pa_steps; i++) {
             pressure_authentication_threshold_list.add(((i * (1.0 / pa_steps)) + 0.0));
         }

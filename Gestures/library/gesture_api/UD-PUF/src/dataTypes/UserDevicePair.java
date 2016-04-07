@@ -91,6 +91,9 @@ public class UserDevicePair {
                           double distance_allowed_deviations, double time_allowed_deviations, double authentication_threshold) {
         this.userDeviceID = userDeviceID;
         this.challenges = challenges;
+
+        //TODO group all these things together in one data structure
+        //TODO things including: allowed_deviations, authentication_threshold, authentication failed point ratio, point_vector
         this.pressure_allowed_deviations = pressure_allowed_deviations;
         this.distance_allowed_deviations = distance_allowed_deviations;
         this.time_allowed_deviations = time_allowed_deviations;
@@ -192,7 +195,7 @@ public class UserDevicePair {
         // make the response from this authentication available
         this.previous_authentication_response = response_object;
 
-        System.out.println("normalized_response:\t" + response_object.getNormalizedResponse());
+        //System.out.println("normalized_response:\t" + response_object.getNormalizedResponse());
 
         // compute the point vectors
         compute_point_vector(response_object.getNormalizedResponse(), profile);
@@ -217,6 +220,8 @@ public class UserDevicePair {
             // profile.getMotionEventCountSigma());
             return false;
         }
+
+        //TODO make this happen for each of POINT_METRICS
         // determine the number of failed points
         int failed_pressure_points = failed_pressure_points(new_response_data, profile,
                 this.pressure_allowed_deviations);
@@ -227,6 +232,7 @@ public class UserDevicePair {
         // determine the size of the list
         int list_size = profile.getNormalizedResponses().get(0).getNormalizedResponse().size();
 
+        //TODO make this happen for each of POINT_METRICS
         // set the failed point ratio for pressure time and distance
         this.pressure_authentication_failed_point_ratio = ((double) failed_pressure_points) / list_size;
         this.distance_authentication_failed_point_ratio = ((double) failed_distance_points) / list_size;
@@ -548,6 +554,9 @@ public class UserDevicePair {
     public double failedPointRatio(RatioType type) {
         double failed_ratio = -1;
 
+        //TODO change this to loop though Point_metrics types
+        /* for(all pointmetrics){ if(type matches metric) return failed_ratio; */
+
         // return a failed point ratio dependtant on the ratio type
         switch (type) {
             case PRESSURE:
@@ -637,6 +646,8 @@ public class UserDevicePair {
 
         return null;
     }
+
+    //TODO consolidate all failed point ratio methods into one method which uses point_metrics
 
     /*
      * calculate the number of points in the new response which fall outside of
