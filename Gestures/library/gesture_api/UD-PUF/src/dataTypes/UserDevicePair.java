@@ -2,6 +2,8 @@ package dataTypes;
 
 //import javafx.beans.binding.StringBinding;
 
+import metrics.Point_metrics;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +12,17 @@ import java.util.List;
  * all challenges correlating to that user
  */
 public class UserDevicePair {
+    // group things including:
+    // allowed_deviations, authentication_threshold, authentication failed point ratio, point_vector
+    private class AuthValues<T> {
+        public Point.Metrics metrics_type;
+
+        public T allowed_deviations;
+        public T authentication_threshold;
+        public T authentication_failed_point_ratio;
+        public List<T> point_vector;
+    }
+
     public final static double PRESSURE_DEFAULT_ALLOWED_DEVIATIONS = .89;
     public final static double DISTANCE_DEFAULT_ALLOWED_DEVIATIONS = 1.11;
     public final static double TIME_DEFAULT_ALLOWED_DEVIATIONS = .415;
@@ -23,6 +36,7 @@ public class UserDevicePair {
     public final static double VELOCITY_DEFAULT_AUTHENTICATION_THRESHOLD = 0.7;
     public final static double ACCELERATION_DEFAULT_AUTHENTICATION_THRESHOLD = 0.7;
 
+    //TODO get rid of this... replace usage with Point.Metrics
     public enum RatioType {
         PRESSURE, DISTANCE, TIME, VELOCiTY, ACCELERATION, TIME_LENGTH
     }
@@ -32,36 +46,21 @@ public class UserDevicePair {
     }
 
     // determine what type of predicate to authenticate with
-    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.PRESSURE_OR_DISTANCE;
+    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.PRESSURE;
 
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
 
     // Unique identifier given to each user/device pair
     private int userDeviceID;
-    private double pressure_allowed_deviations;
-    private double distance_allowed_deviations;
-    private double time_allowed_deviations;
+
+    ArrayList<AuthValues<Double>> auth_values_list;
+
+    //TODO remove these in favor of grouping
     private double time_length_allowed_deviations;
-
-    private double pressure_authentication_threshold;
-    private double distance_authentication_threshold;
-    private double time_authentication_threshold;
-
-    // stores the failed points from the previous authentication
-    private double pressure_authentication_failed_point_ratio;
-    private double distance_authentication_failed_point_ratio;
-    private double time_authentication_failed_point_ratio;
 
     // Confidence Interval for the most recent authenticating response
     private double new_response_confidence_interval;
-
-    // Point vectors for most resent authentication
-    private List<Double> pressure_point_vector;
-    private List<Double> distance_point_vector;
-    private List<Double> time_point_vector;
-    private List<Double> veloctiy_point_vector;
-    private List<Double> acceleration_point_vector;
 
     private Response previous_authentication_response;
 
@@ -92,28 +91,21 @@ public class UserDevicePair {
         this.userDeviceID = userDeviceID;
         this.challenges = challenges;
 
-        //TODO group all these things together in one data structure
-        //TODO things including: allowed_deviations, authentication_threshold, authentication failed point ratio, point_vector
-        this.pressure_allowed_deviations = pressure_allowed_deviations;
-        this.distance_allowed_deviations = distance_allowed_deviations;
-        this.time_allowed_deviations = time_allowed_deviations;
+        this.auth_values_list = new ArrayList<>();
 
-        this.pressure_authentication_threshold = authentication_threshold;
-        this.distance_authentication_threshold = authentication_threshold;
-        this.time_authentication_threshold = authentication_threshold;
-
-        this.pressure_authentication_failed_point_ratio = 1;
-        this.distance_authentication_failed_point_ratio = 1;
-        this.time_authentication_failed_point_ratio = 1;
+        // for each point metric, create a new AuthValues construct.
+        //TODO set based on allowed deviations
+        for(Point.Metrics metric : Point.Metrics.values()) {
+            this.auth_values_list.add(new AuthValues<Double>());
+            this.auth_values_list.get(this.auth_values_list.size() - 1).metrics_type = metric;
+            this.auth_values_list.get(this.auth_values_list.size() - 1).allowed_deviations = 0.0;
+            this.auth_values_list.get(this.auth_values_list.size() - 1).authentication_threshold = 0.0;
+            this.auth_values_list.get(this.auth_values_list.size() - 1).authentication_failed_point_ratio = 0.0;
+            this.auth_values_list.get(this.auth_values_list.size() - 1).point_vector = new ArrayList<>();
+        }
 
         this.time_length_allowed_deviations = TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS;
         this.new_response_confidence_interval = -1;
-
-        this.pressure_point_vector = new ArrayList<Double>();
-        this.distance_point_vector = new ArrayList<Double>();
-        this.time_point_vector = new ArrayList<Double>();
-        this.veloctiy_point_vector = new ArrayList<Double>();
-        this.acceleration_point_vector = new ArrayList<Double>();
 
         this.previous_authentication_response = null;
     }
@@ -184,9 +176,9 @@ public class UserDevicePair {
         Profile profile = challenge.getProfile();
 
         // set a value which represents all points failing
-        this.pressure_authentication_failed_point_ratio = 1.0;
-        this.distance_authentication_failed_point_ratio = 1.0;
-        this.time_authentication_failed_point_ratio = 1.0;
+        for(int i=0; i<auth_values_list.size(); i++){
+            this.auth_values_list.get(i).authentication_failed_point_ratio = 1.0;
+        }
 
         // normalize the response
         Response response_object = new Response(new_response_data);
@@ -221,22 +213,18 @@ public class UserDevicePair {
             return false;
         }
 
-        //TODO make this happen for each of POINT_METRICS
-        // determine the number of failed points
-        int failed_pressure_points = failed_pressure_points(new_response_data, profile,
-                this.pressure_allowed_deviations);
-        int failed_distance_points = failed_distance_points(new_response_data, profile,
-                this.distance_allowed_deviations);
-        int failed_time_points = failed_time_points(new_response_data, profile, this.time_allowed_deviations);
-
         // determine the size of the list
         int list_size = profile.getNormalizedResponses().get(0).getNormalizedResponse().size();
 
-        //TODO make this happen for each of POINT_METRICS
-        // set the failed point ratio for pressure time and distance
-        this.pressure_authentication_failed_point_ratio = ((double) failed_pressure_points) / list_size;
-        this.distance_authentication_failed_point_ratio = ((double) failed_distance_points) / list_size;
-        this.time_authentication_failed_point_ratio = ((double) failed_time_points) / list_size;
+        // for each point metric
+        for(int i=0; i<auth_values_list.size(); i++){
+            // compute number of failed points
+            int failed_points = failed_points(new_response_data, profile,
+                    auth_values_list.get(i).allowed_deviations, auth_values_list.get(i).metrics_type);
+
+            // compute failed points ratio
+            auth_values_list.get(i).authentication_failed_point_ratio = ((double) failed_points) / list_size;
+        }
 
         double response_time_length = new_response_data.get(new_response_data.size() - 1).getTime()
                 - new_response_data.get(0).getTime();
@@ -245,8 +233,7 @@ public class UserDevicePair {
 
         // if the fraction of points that pass is greater than the
         // authentication threshold, then we pass this person
-        return authenticatePreticate(this.pressure_authentication_failed_point_ratio,
-                this.distance_authentication_failed_point_ratio, this.time_authentication_failed_point_ratio,
+        return authenticatePredicate(this.auth_values_list,
                 time_length_within_sigma);
     }
 
@@ -254,45 +241,125 @@ public class UserDevicePair {
      * preticate used to combine the failed point ratios. Returns true if the
      * device passes. preticate: (pressure) or (distance and time)
      */
-    private boolean authenticatePreticate(double pressure_failed_point_ratio, double distance_failed_point_ratio,
-                                          double time_failed_point_ratio, boolean time_length_within_sigma) {
+    //TODO extend this to include velocity and acceleration
+    private boolean authenticatePredicate(ArrayList<AuthValues<Double>> auth_list, boolean time_length_within_sigma) {
         boolean pass = false;
 
-        boolean pressure_pass = (1 - pressure_failed_point_ratio) > this.pressure_authentication_threshold;
-        boolean distance_pass = (1 - distance_failed_point_ratio) > this.distance_authentication_threshold;
-        boolean time_pass = (1 - time_failed_point_ratio) > this.time_authentication_threshold;
+        ArrayList<Boolean> pass_list = new ArrayList<>();
+        ArrayList<Point.Metrics> metric_list = new ArrayList<>();
+
+        // determine whether or not each metric passed
+        for(int i=0; i<auth_values_list.size(); i++){
+            // keep track of pass / not pass and metrics type
+            pass_list.add((1 - auth_values_list.get(i).authentication_failed_point_ratio) >
+                    auth_values_list.get(i).authentication_threshold);
+
+            metric_list.add(auth_values_list.get(i).metrics_type);
+        }
+
         boolean time_length_pass = time_length_within_sigma;
 
         switch (AUTHENTICATION_PREDICATE) {
             case TIME_OR_DISTANCE:
-                pass = time_pass || distance_pass;
+                pass = false;
+
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.DISTANCE ||
+                            metric_list.get(i) == Point.Metrics.TIME){
+                        pass = pass || pass_list.get(i);
+                    }
+                }
+
                 break;
             case TIME_LENGTH:
                 pass = time_length_pass;
+
                 break;
             case DISTANCE:
-                pass = distance_pass;
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.DISTANCE){
+                        pass = pass_list.get(i);
+                        break;
+                    }
+                }
+
                 break;
             case PRESSURE:
-                pass = pressure_pass;
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.PRESSURE){
+                        pass = pass_list.get(i);
+                        break;
+                    }
+                }
+
                 break;
             case NO_PRESSURE:
-                pass = distance_pass && time_pass;
+                pass = true;
+                //TODO reconsider this
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.DISTANCE ||
+                            metric_list.get(i) == Point.Metrics.TIME){
+                        pass = pass && pass_list.get(i);
+                    }
+                }
+
                 break;
             case TIME:
-                pass = time_pass;
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.TIME){
+                        pass = pass_list.get(i);
+                    }
+                }
+
                 break;
             case PRESSURE_OR_TIME:
-                pass = pressure_pass || time_pass;
+                pass = false;
+
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.PRESSURE ||
+                            metric_list.get(i) == Point.Metrics.TIME){
+                        pass = pass || pass_list.get(i);
+                    }
+                }
+
                 break;
             case PRESSURE_OR_DISTANCE_AND_TIME:
-                pass = pressure_pass || (distance_pass && time_pass);
+                pass = true;
+
+                // distance and time
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.DISTANCE ||
+                            metric_list.get(i) == Point.Metrics.TIME){
+                        pass = pass && pass_list.get(i);
+                    }
+                }
+
+                // or pressure
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.PRESSURE){
+                        pass = pass || pass_list.get(i);
+                    }
+                }
+
                 break;
             case PRESSURE_OR_DISTANCE:
-                pass = pressure_pass || distance_pass;
+                pass = false;
+
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.DISTANCE ||
+                            metric_list.get(i) == Point.Metrics.PRESSURE){
+                        pass = pass || pass_list.get(i);
+                    }
+                }
+
                 break;
             default:
-                pass = pressure_pass || (distance_pass && time_pass);
+                // default to pressure pass
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.PRESSURE){
+                        pass = pass_list.get(i);
+                    }
+                }
                 break;
         }
 
@@ -467,27 +534,6 @@ public class UserDevicePair {
             return;
         }
 
-        // TEST: print out response and profile data
-//        ArrayList<Double> response_pressure = new ArrayList<Double>();
-//        ArrayList<Double> response_distance = new ArrayList<Double>();
-//        ArrayList<Double> response_time = new ArrayList<Double>();
-//
-//        for (int i = 0; i < new_response_data.size(); i++) {
-//            response_pressure.add(new_response_data.get(i).getPressure());
-//            response_distance.add(new_response_data.get(i).getDistance());
-//            response_time.add(new_response_data.get(i).getTime());
-//        }
-//
-//        System.out.println("Response Pressure:\t" + response_pressure);
-//        System.out.println("Response Distance:\t" + response_distance);
-//        System.out.println("Response Time:\t" + response_time);
-//        System.out.println();
-//
-//        System.out.println("Profile Pressure:\t" + profile.getPressureMuSigmaValues().getMuValues());
-//        System.out.println("Profile Distance:\t" + profile.getPointDistanceMuSigmaValues().getMuValues());
-//        System.out.println("Profile Time:\t" + profile.getTimeDistanceMuSigmaValues().getMuValues());
-//        System.out.println();
-
         // for each point in new_response, take abs(profile[i] - response[i])
         for (int i = 0; i < new_response_data.size(); i++) {
             pressure_point_vector.add(Math.abs(new_response_data.get(i).getPressure() - profile.getPressureMuSigmaValues().getMuValues().get(i)));
@@ -551,10 +597,32 @@ public class UserDevicePair {
      *
      * @return
      */
+    public double failedPointRatio(Point.Metrics type) {
+        double failed_ratio = -1;
+
+        // for(all pointmetrics){ if(type matches metric) return failed_ratio
+        for(int i=0; i<this.auth_values_list.size(); i++){
+            if(this.auth_values_list.get(i).metrics_type == type){
+                failed_ratio = this.auth_values_list.get(i).authentication_failed_point_ratio;
+            }
+        }
+
+        return failed_ratio;
+    }
+
+    /**
+     * return the number of failed points from the previous authentication.
+     * Return -1 if there is not previous authentication.
+     * <p>
+     * failed ratio is [failed points / total points] in the authentication
+     *
+     * @return
+     */
     public double failedPointRatio(RatioType type) {
         double failed_ratio = -1;
 
         //TODO change this to loop though Point_metrics types
+        //TODO modify to use point_metrics.METRICS
         /* for(all pointmetrics){ if(type matches metric) return failed_ratio; */
 
         // return a failed point ratio dependtant on the ratio type
@@ -594,6 +662,8 @@ public class UserDevicePair {
                 this.time_allowed_deviations = standard_deviations;
                 break;
 
+            //TODO modify to use point_metrics.METRICS
+
             case TIME_LENGTH:
                 this.time_length_allowed_deviations = standard_deviations;
                 break;
@@ -625,7 +695,7 @@ public class UserDevicePair {
             case TIME:
                 this.time_authentication_threshold = new_threshold;
                 break;
-
+        //TODO modify to use point_metrics.METRICS
             case TIME_LENGTH:
                 // do nothing
                 break;
@@ -647,13 +717,12 @@ public class UserDevicePair {
         return null;
     }
 
-    //TODO consolidate all failed point ratio methods into one method which uses point_metrics
-
     /*
      * calculate the number of points in the new response which fall outside of
      * number_standard_deviations of mean
      */
-    private int failed_points(List<Point> new_response, Profile profile, double allowed_deviations) {
+    //TODO consolidate all failed point ratio methods into this method which uses point_metrics
+    private int failed_points(List<Point> new_response, Profile profile, double allowed_deviations, Point.Metrics metrics_type) {
         int points = 0;
 
         // get the number of failed pressure points
@@ -842,4 +911,26 @@ public class UserDevicePair {
      return information;
      }
      */
+/*
+    // TEST: print out response and profile data
+//        ArrayList<Double> response_pressure = new ArrayList<Double>();
+//        ArrayList<Double> response_distance = new ArrayList<Double>();
+//        ArrayList<Double> response_time = new ArrayList<Double>();
+//
+//        for (int i = 0; i < new_response_data.size(); i++) {
+//            response_pressure.add(new_response_data.get(i).getPressure());
+//            response_distance.add(new_response_data.get(i).getDistance());
+//            response_time.add(new_response_data.get(i).getTime());
+//        }
+//
+//        System.out.println("Response Pressure:\t" + response_pressure);
+//        System.out.println("Response Distance:\t" + response_distance);
+//        System.out.println("Response Time:\t" + response_time);
+//        System.out.println();
+//
+//        System.out.println("Profile Pressure:\t" + profile.getPressureMuSigmaValues().getMuValues());
+//        System.out.println("Profile Distance:\t" + profile.getPointDistanceMuSigmaValues().getMuValues());
+//        System.out.println("Profile Time:\t" + profile.getTimeDistanceMuSigmaValues().getMuValues());
+//        System.out.println();
+    */
 }
