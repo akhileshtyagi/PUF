@@ -525,6 +525,9 @@ public class Profile implements Serializable {
      * get the mu sigma values based on metrics enum type
      */
     public MuSigma getMuSigmaValues(Point.Metrics type) {
+        // compute mu_sizma's as necessary
+        if(!this.mu_sigma_computed) compute_mu_sigma();
+
         switch (type) {
             case PRESSURE:
                 return this.pressure_muSigmaValues;

@@ -410,30 +410,55 @@ public class UserDevicePair {
     }
 
     /**
+     * return AuthValues index given Point_metrics
+     * return -1 if no match
+     */
+    private int auth_value_of(Point.Metrics metrics){
+        for(int i=0; i<auth_values_list.size(); i++){
+            if(auth_values_list.get(i).metrics_type == metrics){
+                return i;
+            }
+        }
+
+        // not found
+        return -1;
+    }
+
+    /**
+     * map RatioType to Point.Metrics
+     */
+    private Point.Metrics point_metrics_of(RatioType type){
+        //TODO this is stupid
+        switch (type) {
+            case PRESSURE:
+            return Point.Metrics.PRESSURE;
+
+            case DISTANCE:
+                return Point.Metrics.DISTANCE;
+
+            case TIME:
+                return Point.Metrics.TIME;
+
+            case VELOCiTY:
+                return Point.Metrics.VELOCITY;
+
+            case ACCELERATION:
+                return Point.Metrics.ACCELERATION;
+        }
+
+        //TODO fix this, not technically correct
+        System.out.println("shouldn't be here !!!!! UserDevicePair 450");
+        return Point.Metrics.PRESSURE;
+    }
+
+    /**
      * return the an array of size N.
      * N = number of points in response
      * each element in the array is abs(profile[i] - response[i])
      */
     public List<Double> getNew_response_point_vector(RatioType type) {
         // return a failed point ratio dependtant on the ratio type
-        switch (type) {
-            case PRESSURE:
-                return pressure_point_vector;
-
-            case DISTANCE:
-                return distance_point_vector;
-
-            case TIME:
-                return time_point_vector;
-
-            case VELOCiTY:
-                return veloctiy_point_vector;
-
-            case ACCELERATION:
-                return acceleration_point_vector;
-        }
-
-        return new ArrayList<Double>();
+        return this.auth_values_list.get(auth_value_of(point_metrics_of(type))).point_vector;
     }
 
     /**
@@ -451,22 +476,16 @@ public class UserDevicePair {
 
 
         // Print all vectors for profile
-        // Pressure Vector
-        sb.append("Profile Vectors\n\n");
-        sb.append("Pressure: \n");
-        for (int i = 0; i < pressure_point_vector.size(); i++) {
-            sb.append("PressureVector[").append(i).append("]: ").append(pressure_point_vector.get(i)).append("\n");
+        sb.append("Profile Vectors\n");
+        for(int i=0; i<this.auth_values_list.size(); i++){
+            sb.append(this.auth_values_list.get(i).metrics_type + ": \n");
+
+            for (int j = 0; j < this.auth_values_list.get(i).point_vector.size(); j++) {
+                sb.append("PressureVector[").append(j).append("]: ").append(this.auth_values_list.get(i).point_vector.get(j)).append("\n");
+            }
         }
-        // Distance Vector
-        sb.append("\nDistance: \n");
-        for (int i = 0; i < distance_point_vector.size(); i++) {
-            sb.append("DistanceVector[").append(i).append("]: ").append(distance_point_vector.get(i)).append("\n");
-        }
-        // Time Vector
-        sb.append("\nTime: \n");
-        for (int i = 0; i < time_point_vector.size(); i++) {
-            sb.append("TimeVector[").append(i).append("]: ").append(time_point_vector.get(i)).append("\n");
-        }
+
+        //TODO modularize this
 
         // Print all MuSigmas from profile
         sb.append("\n\nMu Sigma Values: \n\n");
@@ -522,11 +541,9 @@ public class UserDevicePair {
      * compute the point vectors based on the new_response_data and the profile
      */
     private void compute_point_vector(List<Point> new_response_data, Profile profile) {
-        pressure_point_vector = new ArrayList<Double>();
-        distance_point_vector = new ArrayList<Double>();
-        time_point_vector = new ArrayList<Double>();
-        veloctiy_point_vector = new ArrayList<Double>();
-        acceleration_point_vector = new ArrayList<Double>();
+        for(int i=0; i<this.auth_values_list.size(); i++){
+            this.auth_values_list.get(i).point_vector = new ArrayList<>();
+        }
 
         // error check
         if (new_response_data.size() != profile.getNormalizedResponses().get(0).getNormalizedResponse().size()) {
@@ -535,44 +552,25 @@ public class UserDevicePair {
         }
 
         // for each point in new_response, take abs(profile[i] - response[i])
+        //TODO check that this is correct, possibly the wrong index usage
         for (int i = 0; i < new_response_data.size(); i++) {
-            pressure_point_vector.add(Math.abs(new_response_data.get(i).getPressure() - profile.getPressureMuSigmaValues().getMuValues().get(i)));
-            distance_point_vector.add(Math.abs(new_response_data.get(i).getDistance() - profile.getPointDistanceMuSigmaValues().getMuValues().get(i)));
-            time_point_vector.add(Math.abs(new_response_data.get(i).getTime() - profile.getTimeDistanceMuSigmaValues().getMuValues().get(i)));
+            // for each metric
+            for(int j=0; j<this.auth_values_list.size(); j++){
+                Double distance = Math.abs(new_response_data.get(i).get_metric(this.auth_values_list.get(j).metrics_type) -
+                                    profile.getMuSigmaValues(this.auth_values_list.get(j).metrics_type).getMuValues().
+                                            get(i));
+                this.auth_values_list.get(j).point_vector.add(distance);
+            }
         }
 
         // we want to compute vectors for all the metrics
-        Point.Metrics[] metrics = Point.Metrics.values();
+        for(int i=0; i<this.auth_values_list.size(); i++){
+            Point.Metrics metrics = this.auth_values_list.get(i).metrics_type;
 
-        for (int i=0; i<metrics.length; i++){
-            // for each point in response data
             for (int j = 0; j < new_response_data.size(); j++) {
-                switch (metrics[i]) {
-                    case PRESSURE:
-                        this.pressure_point_vector.add(
-                                vector_computation(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
-                        break;
-
-                    case DISTANCE:
-                        this.distance_point_vector.add(
-                                vector_computation(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
-                        break;
-
-                    case TIME:
-                        this.time_point_vector.add(
-                                vector_computation(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
-                        break;
-
-                    case VELOCITY:
-                        this.veloctiy_point_vector.add(
-                                vector_computation(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
-                        break;
-
-                    case ACCELERATION:
-                        this.acceleration_point_vector.add(
-                                vector_computation(new_response_data.get(j).get_metric(metrics[i]), profile.getMuSigmaValues(metrics[i]).getMuValues().get(j)));
-                        break;
-                }
+                this.auth_values_list.get(i).point_vector.add(
+                        vector_computation(new_response_data.get(j).get_metric(metrics), profile.getMuSigmaValues(metrics).getMuValues().get(j))
+                );
             }
         }
     }
@@ -619,55 +617,16 @@ public class UserDevicePair {
      * @return
      */
     public double failedPointRatio(RatioType type) {
-        double failed_ratio = -1;
-
-        //TODO change this to loop though Point_metrics types
-        //TODO modify to use point_metrics.METRICS
-        /* for(all pointmetrics){ if(type matches metric) return failed_ratio; */
-
-        // return a failed point ratio dependtant on the ratio type
-        switch (type) {
-            case PRESSURE:
-                failed_ratio = this.pressure_authentication_failed_point_ratio;
-                break;
-
-            case DISTANCE:
-                failed_ratio = this.distance_authentication_failed_point_ratio;
-                break;
-
-            case TIME:
-                failed_ratio = this.time_authentication_failed_point_ratio;
-                break;
-        }
-
-        return failed_ratio;
+        return this.auth_values_list.get(auth_value_of(point_metrics_of(type))).authentication_failed_point_ratio;
     }
 
     /**
      * allow the number of std deviations from the mean allowed in the
      * authentication to be set.
      */
+    //TODO handle time length
     public void setStandardDeviations(RatioType type, double standard_deviations) {
-        // set dependtant on type
-        switch (type) {
-            case PRESSURE:
-                this.pressure_allowed_deviations = standard_deviations;
-                break;
-
-            case DISTANCE:
-                this.distance_allowed_deviations = standard_deviations;
-                break;
-
-            case TIME:
-                this.time_allowed_deviations = standard_deviations;
-                break;
-
-            //TODO modify to use point_metrics.METRICS
-
-            case TIME_LENGTH:
-                this.time_length_allowed_deviations = standard_deviations;
-                break;
-        }
+        this.auth_values_list.get(auth_value_of(point_metrics_of(type))).allowed_deviations = standard_deviations;
     }
 
     /**
@@ -676,30 +635,14 @@ public class UserDevicePair {
      * IF the threshold provide is greater than 1 or less than 0. THAN threshold
      * will be set to the closest of these values.
      */
+    //TODO handle time length
     public void setAuthenticationThreshold(RatioType type, double threshold) {
         // if the threshold is greater than 1 or less than 0, change it to the
         // closest of these values.
         double new_threshold = (threshold > 1) ? (1.0) : (threshold);
         new_threshold = (threshold < 0) ? (0.0) : (threshold);
 
-        // set dependtant on type
-        switch (type) {
-            case PRESSURE:
-                this.pressure_authentication_threshold = new_threshold;
-                break;
-
-            case DISTANCE:
-                this.distance_authentication_threshold = new_threshold;
-                break;
-
-            case TIME:
-                this.time_authentication_threshold = new_threshold;
-                break;
-        //TODO modify to use point_metrics.METRICS
-            case TIME_LENGTH:
-                // do nothing
-                break;
-        }
+        this.auth_values_list.get(auth_value_of(point_metrics_of(type))).authentication_threshold = new_threshold;
     }
 
     /**
@@ -721,12 +664,29 @@ public class UserDevicePair {
      * calculate the number of points in the new response which fall outside of
      * number_standard_deviations of mean
      */
-    //TODO consolidate all failed point ratio methods into this method which uses point_metrics
     private int failed_points(List<Point> new_response, Profile profile, double allowed_deviations, Point.Metrics metrics_type) {
         int points = 0;
 
-        // get the number of failed pressure points
-        points += failed_pressure_points(new_response, profile, allowed_deviations);
+        // get the mu, sigma values from the profile,
+        // use metrics_type to determine which should be gotten
+
+        List<Double> mu_values = profile.getMuSigmaValues(metrics_type).getMuValues();
+        List<Double> sigma_values = profile.getMuSigmaValues(metrics_type).getSigmaValues();
+
+        //TODO handle time length case
+
+        // normalize the response
+        Response response_object = new Response(new_response);
+
+        response_object.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+
+        // create a list of point values for distance
+        List<Double> point_values = new ArrayList<Double>();
+        for (Point response_point : response_object.getNormalizedResponse()) {
+            point_values.add(response_point.getDistance());
+        }
+
+        points = failed_points(mu_values, sigma_values, point_values, allowed_deviations);
 
         return points;
     }
