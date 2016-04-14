@@ -55,14 +55,13 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         //Grab pin from PinPatternGen Activity
         Intent i = getIntent();
 
-
-
         //Get mode of operation (enroll or authenticate)
         mode = i.getStringExtra("mode");
         if(mode.equals("authenticate")) {
             mRemainingView.setText("Authenticating");
             mSeed = seed.curseed;
             System.out.println("CurrentSeed = "+ mSeed);
+            mRemainingSwipes = 20;
         }
         //Set the seed for referential purposes
         else {
@@ -70,10 +69,12 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
             mSeed = seed.curseed;
             seed.curseed= mSeed;
             System.out.println("CurrentSeed = "+ mSeed);
+            mRemainingSwipes = i.getIntExtra("seek", 20);
         }
 
         mCg = new ChallengeGenerator(mSeed);
         mSeedView.setText("Seed: " + mSeed);
+        mRemainingView.setText(mRemainingSwipes + " Left");
 
         //Setup an initial challenge and give the challenge
         mCurChallenge = mCg.generateChallenge();
@@ -81,8 +82,6 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         mResponses = new ArrayList<>();
         mChallengePoints = new ArrayList<>();
 
-        //Initialize remaining swipes
-        mRemainingSwipes = 20;
         mChallengePointsAssigned = false;
     }
 
@@ -94,7 +93,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     @Override
     public void onResponseAttempt(ArrayList<dataTypes.Point> response) {
         if (mode.equals("enroll")) {
-            if (mRemainingSwipes-- == 0) {
+            if (--mRemainingSwipes == 0) {
                 DataReader reader = new DataReader(new File(Environment.getExternalStorageDirectory() + "/PUFProfile"));
                 Gson gson = new GsonBuilder()
                         .serializeNulls().serializeSpecialFloatingPointValues().create();
@@ -107,6 +106,8 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
                 SharedPreferences.Editor editor = sharedPref.edit();
                 editor.putString(getString(R.string.profile_string), json);
                 editor.commit();
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
                 finish();
             }
             AddResponseToChallenge(response);
@@ -121,6 +122,8 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
             SharedPreferences.Editor editor = sharedPref.edit();
             editor.putString(getString(R.string.profile_string), json);
             editor.commit();
+            Intent intent = new Intent(this, MainActivity.class);
+            startActivity(intent);
             finish();
         }
     }

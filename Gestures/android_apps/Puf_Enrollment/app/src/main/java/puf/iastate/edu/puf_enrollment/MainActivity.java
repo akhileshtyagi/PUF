@@ -1,25 +1,29 @@
 package puf.iastate.edu.puf_enrollment;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
-import java.io.File;
-
 public class MainActivity extends AppCompatActivity  {
-
-    private File mPath = new File("/sdcard/PUFProfile/");
-    private String mChosenFile;
-    private static final String FTYPE = ".csv";
-    private static final int DIALOG_LOAD_FILE = 1000;
-    private String[] mFileList;
+    public static final String nameKey = "nameKey";
+    public static final String pufPrefs = "pufPrefs" ;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Get name
+        SharedPreferences prefs = getSharedPreferences(pufPrefs, MODE_PRIVATE);
+        String name = prefs.getString(nameKey, null);
+        if (name != null) {
+            TextView nameView = (TextView) findViewById(R.id.currentProfile);
+            nameView.setText(name);
+        }
     }
 
     /**
@@ -39,6 +43,7 @@ public class MainActivity extends AppCompatActivity  {
         Toast.makeText(this, "Launching Authentication", Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(this, Authenticate.class);
         startActivity(intent);
+        finish();
     }
 
     /**

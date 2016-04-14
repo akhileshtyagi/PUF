@@ -7,75 +7,69 @@
     android:orientation="vertical"
     android:id="@+id/main_view">
 
-    <Button
-        android:layout_centerInParent="true"
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
-        android:text="@string/authenticate_text"
-        android:textSize="30sp"
-        android:id="@+id/authenticate_button"
-        android:onClick="authenticate_pressed"/>
+        android:layout_height="wrap_content"
+        android:id="@+id/title"
+        android:text="Gesture PUF"
+        android:textSize="50sp"
+        android:layout_margin="30dp"
+        android:layout_centerHorizontal="true"/>
 
-    <Button
+    <TextView
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/currentProfileTitle"
+        android:layout_below="@id/title"
         android:layout_centerHorizontal="true"
-        android:layout_above="@id/authenticate_button"
-        android:layout_marginBottom="30dp"
-        android:text="@string/enrollment_button_text"
-        android:textSize="30sp"
-        android:id="@+id/enroll_button"
-        android:onClick="enroll_pressed"/>
+        android:text="Current Profile:"
+        android:textSize="20sp"/>
 
-    <!--<TextView-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginBottom="20dp"-->
-        <!--android:layout_above="@id/enroll_button"-->
-        <!--android:layout_centerInParent="true"-->
-        <!--android:id="@+id/profile_info"-->
-        <!--android:textSize="20sp"-->
-        <!--android:text="@string/profile_info_text"/>-->
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/currentProfile"
+        android:layout_below="@id/currentProfileTitle"
+        android:layout_centerHorizontal="true"
+        android:text="No Profile"
+        android:layout_margin="10dp"
+        android:textSize="38sp"/>
+
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_below="@id/authenticate_button"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:text="@string/choose_profile_text"
-        android:textSize="30sp"
+        android:textSize="10sp"
         android:id="@+id/grab_profile_button"
         android:onClick="grab_profile"/>
 
     <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Secret"
-        android:id="@+id/secret"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="secret_pressed" />
+        android:layout_width="wrap_content"
+        android:layout_above="@id/grab_profile_button"
+        android:layout_centerInParent="true"
+        android:id="@+id/authenticate_button"
+        android:text="@string/authenticate_text"
+        android:padding="40dp"
+        android:textSize="31sp"
+        android:onClick="authenticate_pressed"/>
 
     <Button
-        style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Old Normalize Test"
-        android:id="@+id/Normalize_test"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/secret"
-        android:onClick="normalize_test_pressed" />
+        android:layout_centerHorizontal="true"
+        android:layout_above="@id/authenticate_button"
+        android:layout_marginTop="80dp"
+        android:layout_marginBottom="10dp"
+        android:padding="40dp"
+        android:text="@string/enrollment_button_text"
+        android:textSize="31sp"
+        android:id="@+id/enroll_button"
+        android:onClick="enroll_pressed"/>
 
-    <Button
-        style="?android:attr/buttonStyleSmall"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="New Normalize Test"
-        android:id="@+id/New_Normalize_test"
-        android:layout_alignParentBottom="true"
-        android:layout_toLeftOf="@id/Normalize_test"
-        android:onClick="new_normalize_test_pressed" />
 
 </RelativeLayout>

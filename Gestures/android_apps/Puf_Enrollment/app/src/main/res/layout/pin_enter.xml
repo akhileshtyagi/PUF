@@ -3,24 +3,64 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
+        android:id="@+id/name_label"
+        android:layout_marginTop="10dp"
+        android:text="Enter Name"
+        android:gravity="center"
+        android:textSize="40sp"/>
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/name_edit_text"
+        android:inputType="textCapWords"
+        android:textAlignment="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="40dp"
+        android:textSize="30sp"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         android:text="@string/pin_label"
         android:gravity="center"
-        android:textSize="50sp"
+        android:textSize="40sp"
         android:id="@+id/pin_enter_layout"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="number"
-        android:textSize="60sp"
-        android:layout_marginBottom="50dp"
         android:id="@+id/pin_edit_text"
+        android:inputType="number"
+        android:textSize="40sp"
+        android:layout_marginBottom="50dp"
         android:textAlignment="center"
         android:maxLength="4"/>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Strength"
+        android:gravity="center"
+        android:textSize="40sp"
+        android:layout_marginBottom="20dp"
+        android:id="@+id/strength_label"/>
+
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seek_bar"
+        android:indeterminate="false"
+        android:max="20"
+        android:padding="20dp"
+        android:progressBackgroundTint="#41ffffff"
+        android:outlineProvider="bounds"
+        android:backgroundTint="#5cffffff"
+        android:progress="10" />
 
     <Button
         android:layout_width="match_parent"
