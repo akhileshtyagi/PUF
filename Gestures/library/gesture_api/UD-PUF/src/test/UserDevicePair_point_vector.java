@@ -56,7 +56,10 @@ public class UserDevicePair_point_vector {
     }
 
     /**
-     * generates some response points
+     * generates some response points.
+     *
+     * The values in the points are random.
+     * The points at ( x=[100 to 400], y=[100] )
      */
     public static ArrayList<Point> generate_response_points(){
         ArrayList<Point> response_points  = new ArrayList<Point>();

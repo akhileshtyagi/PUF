@@ -42,7 +42,17 @@ public class UserDevicePair {
     }
 
     public enum AuthenticationPredicate {
-        PRESSURE, NO_PRESSURE, TIME, DISTANCE, TIME_LENGTH, TIME_OR_DISTANCE, PRESSURE_OR_TIME, PRESSURE_OR_DISTANCE_AND_TIME, PRESSURE_OR_DISTANCE;
+        PRESSURE,
+        NO_PRESSURE,
+        TIME,
+        DISTANCE,
+        VELOCITY,
+        ACCELERATION,
+        TIME_LENGTH,
+        TIME_OR_DISTANCE,
+        PRESSURE_OR_TIME,
+        PRESSURE_OR_DISTANCE_AND_TIME,
+        PRESSURE_OR_DISTANCE
     }
 
     // determine what type of predicate to authenticate with
@@ -98,8 +108,18 @@ public class UserDevicePair {
         for(Point.Metrics metric : Point.Metrics.values()) {
             this.auth_values_list.add(new AuthValues<Double>());
             this.auth_values_list.get(this.auth_values_list.size() - 1).metrics_type = metric;
-            this.auth_values_list.get(this.auth_values_list.size() - 1).allowed_deviations = 0.0;
-            this.auth_values_list.get(this.auth_values_list.size() - 1).authentication_threshold = 0.0;
+
+            if(metric == Point.Metrics.PRESSURE) {
+                this.auth_values_list.get(this.auth_values_list.size() - 1).allowed_deviations = pressure_allowed_deviations;
+            }else
+            if(metric == Point.Metrics.DISTANCE) {
+                this.auth_values_list.get(this.auth_values_list.size() - 1).allowed_deviations = distance_allowed_deviations;
+            }else
+            if(metric == Point.Metrics.TIME) {
+                this.auth_values_list.get(this.auth_values_list.size() - 1).allowed_deviations = time_allowed_deviations;
+            }
+
+            this.auth_values_list.get(this.auth_values_list.size() - 1).authentication_threshold = authentication_threshold;
             this.auth_values_list.get(this.auth_values_list.size() - 1).authentication_failed_point_ratio = 0.0;
             this.auth_values_list.get(this.auth_values_list.size() - 1).point_vector = new ArrayList<>();
         }
@@ -293,6 +313,24 @@ public class UserDevicePair {
                 }
 
                 break;
+            case VELOCITY:
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.VELOCITY){
+                        pass = pass_list.get(i);
+                        break;
+                    }
+                }
+
+                break;
+            case ACCELERATION:
+                for(int i=0; i<metric_list.size(); i++){
+                    if(metric_list.get(i) == Point.Metrics.ACCELERATION){
+                        pass = pass_list.get(i);
+                        break;
+                    }
+                }
+
+                break;
             case NO_PRESSURE:
                 pass = true;
                 //TODO reconsider this
@@ -444,6 +482,9 @@ public class UserDevicePair {
 
             case ACCELERATION:
                 return Point.Metrics.ACCELERATION;
+            //TODO fix this, time length should not be computing pressure
+            case TIME_LENGTH:
+                return Point.Metrics.PRESSURE;
         }
 
         //TODO fix this, not technically correct
@@ -552,7 +593,6 @@ public class UserDevicePair {
         }
 
         // for each point in new_response, take abs(profile[i] - response[i])
-        //TODO check that this is correct, possibly the wrong index usage
         for (int i = 0; i < new_response_data.size(); i++) {
             // for each metric
             for(int j=0; j<this.auth_values_list.size(); j++){

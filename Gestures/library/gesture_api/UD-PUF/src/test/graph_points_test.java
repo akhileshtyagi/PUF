@@ -13,6 +13,8 @@ import dataTypes.Response;
  * tests the graph points class
  */
 public class graph_points_test {
+    final static ResponseNature NATURE = ResponseNature.CHECK;
+
     private enum ResponseNature {
         NEGATIVE_STAIRS,
         NEGATIVE_SLOPE_LINE,
@@ -22,14 +24,15 @@ public class graph_points_test {
         POSITIVE_SLOPE_LINE_BACK,
         CIRCLE,
         RIGHT_TO_LEFT,
-        TOWARD_ORIGIN_THEN_AWAY
+        TOWARD_ORIGIN_THEN_AWAY,
+        CHECK
     }
 
     public static void main(String[] args) {
         graph_points graph_frame = new graph_points();
 
         // create response point list
-        List<Point> response_points = create_response_point_list(ResponseNature.NEGATIVE_STAIRS);
+        List<Point> response_points = create_response_point_list(NATURE);
 
         // create challenge pattern
         List<Point> challenge_pattern = create_challenge_pattern();
@@ -135,6 +138,12 @@ public class graph_points_test {
                 points.add(new Point(250, 150, 0));
                 points.add(new Point(400, 200, 0));
                 points.add(new Point(450, 250, 0));
+                break;
+            case CHECK:
+                // on nexus 7 ( josh, tim )
+                points.add(new Point(88, 75, 0));
+                points.add(new Point(188, 376, 0));
+                points.add(new Point(288, 275, 0));
                 break;
             case CIRCLE:
                 // works with circles of size 6

@@ -24,10 +24,15 @@ public class Test {
     public double pressure_allowed_deviations;
     public double distance_allowed_deviations;
     public double time_allowed_deviations;
+	public double velocity_allowed_deviations;
+	public double acceleration_allowed_deviations;
+	public double time_length_allowed_deviations;
+
     public double pressure_authentication_threshold;
     public double distance_authentication_threshold;
     public double time_authentication_threshold;
-    public double time_length_allowed_deviations;
+	public double velocity_authentication_threshold;
+	public double acceleration_authentication_threshold;
 
     /**
      * this class will authenticate response against response_set
@@ -54,42 +59,71 @@ public class Test {
     /**
      * final constructor which will cause the test to actually be run.
      */
-    public Test(Response response, List<Response> response_set, boolean expected_result, List<Point> challenge_points,
-	    double pressure_allowed_deviations, double distance_allowed_deviations, double time_allowed_deviations,
-	    double time_length_allowed_deviations, double pressure_authentication_threshold,
-	    double distance_authentication_threshold, double time_authentication_threshold) {
-	this.expected_authentication_result = expected_result;
-	this.pressure_allowed_deviations = pressure_allowed_deviations;
-	this.distance_allowed_deviations = distance_allowed_deviations;
-	this.time_allowed_deviations = time_allowed_deviations;
-	this.pressure_authentication_threshold = pressure_authentication_threshold;
-	this.distance_authentication_threshold = distance_authentication_threshold;
-	this.time_authentication_threshold = time_authentication_threshold;
-	this.time_length_allowed_deviations = time_length_allowed_deviations;
+	//TODO update to include velocity and acceleration
+    public Test(Response response,
+				List<Response> response_set,
+				boolean expected_result,
+				List<Point> challenge_points,
+	    		double pressure_allowed_deviations,
+				double distance_allowed_deviations,
+				double time_allowed_deviations,
+	    		double time_length_allowed_deviations,
+				double pressure_authentication_threshold,
+	    		double distance_authentication_threshold,
+				double time_authentication_threshold) {
 
-	// run the test
-	Challenge challenge = new Challenge(challenge_points, 0);
+		this.expected_authentication_result = expected_result;
+		this.pressure_allowed_deviations = pressure_allowed_deviations;
+		this.distance_allowed_deviations = distance_allowed_deviations;
+		this.time_allowed_deviations = time_allowed_deviations;
+		this.pressure_authentication_threshold = pressure_authentication_threshold;
+		this.distance_authentication_threshold = distance_authentication_threshold;
+		this.time_authentication_threshold = time_authentication_threshold;
 
-	// add all responses to the challenge
-	for (Response r : response_set) {
-	    challenge.addResponse(r);
-	}
+		//TODO make these actually settable
+		this.velocity_authentication_threshold = 0;
+		this.acceleration_authentication_threshold = 0;
+		this.velocity_allowed_deviations = 1;
+		this.acceleration_allowed_deviations = 1;
 
-	// preform the authentication
-	UserDevicePair ud_pair = new UserDevicePair(0, this.pressure_allowed_deviations,
-		this.distance_allowed_deviations, this.time_allowed_deviations, this.pressure_authentication_threshold);
+		this.time_length_allowed_deviations = time_length_allowed_deviations;
 
-	ud_pair.setAuthenticationThreshold(UserDevicePair.RatioType.PRESSURE, this.pressure_authentication_threshold);
-	ud_pair.setAuthenticationThreshold(UserDevicePair.RatioType.DISTANCE, this.distance_authentication_threshold);
-	ud_pair.setAuthenticationThreshold(UserDevicePair.RatioType.TIME, this.time_authentication_threshold);
+		// run the test
+		Challenge challenge = new Challenge(challenge_points, 0);
 
-	ud_pair.setStandardDeviations(UserDevicePair.RatioType.TIME_LENGTH, this.time_length_allowed_deviations);
-	ud_pair.addChallenge(challenge);
+		// add all responses to the challenge
+		for (Response r : response_set) {
+			challenge.addResponse(r);
+		}
 
-	// System.out.println(ud_pair.information_dump_authenticate(response.getResponse(),
-	// challenge.getProfile()));
+		// preform the authentication
+		UserDevicePair ud_pair = new UserDevicePair(0, this.pressure_allowed_deviations,
+			this.distance_allowed_deviations, this.time_allowed_deviations, this.pressure_authentication_threshold);
 
-	// set authentication result based on the outcome
-	this.authentication_result = ud_pair.authenticate(response.getOrigionalResponse(), challenge);
+		// set authentication thresholds
+		ud_pair.setAuthenticationThreshold(UserDevicePair.RatioType.PRESSURE, this.pressure_authentication_threshold);
+		ud_pair.setAuthenticationThreshold(UserDevicePair.RatioType.DISTANCE, this.distance_authentication_threshold);
+		ud_pair.setAuthenticationThreshold(UserDevicePair.RatioType.TIME, this.time_authentication_threshold);
+		ud_pair.setAuthenticationThreshold(UserDevicePair.RatioType.VELOCiTY, this.velocity_authentication_threshold);
+		ud_pair.setAuthenticationThreshold(UserDevicePair.RatioType.ACCELERATION, this.acceleration_authentication_threshold);
+		//TODO make time_length allowed deviations settable, this work in UserDevicePair
+
+		// set the number of allowed deviations
+		ud_pair.setStandardDeviations(UserDevicePair.RatioType.PRESSURE, this.pressure_allowed_deviations);
+		ud_pair.setStandardDeviations(UserDevicePair.RatioType.DISTANCE, this.distance_allowed_deviations);
+		ud_pair.setStandardDeviations(UserDevicePair.RatioType.TIME, this.time_allowed_deviations);
+		ud_pair.setStandardDeviations(UserDevicePair.RatioType.VELOCiTY, this.velocity_allowed_deviations);
+		ud_pair.setStandardDeviations(UserDevicePair.RatioType.ACCELERATION, this.acceleration_allowed_deviations);
+		ud_pair.setStandardDeviations(UserDevicePair.RatioType.TIME_LENGTH, this.time_length_allowed_deviations);
+
+		ud_pair.addChallenge(challenge);
+
+		//System.out.println(ud_pair.dumpUserDevicePairData(ud_pair.getChallenges().get(0)));
+
+		 //System.out.println(ud_pair.information_dump_authenticate(response.getResponse(),
+		 //challenge.getProfile()));
+
+		// set authentication result based on the outcome
+		this.authentication_result = ud_pair.authenticate(response.getOrigionalResponse(), challenge);
     }
 }
