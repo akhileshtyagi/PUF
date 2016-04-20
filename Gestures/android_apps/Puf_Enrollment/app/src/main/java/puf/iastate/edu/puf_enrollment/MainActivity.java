@@ -2,28 +2,49 @@ package puf.iastate.edu.puf_enrollment;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+
 public class MainActivity extends AppCompatActivity  {
-    public static final String nameKey = "nameKey";
-    public static final String pufPrefs = "pufPrefs" ;
+    public static final String nameKeyA = "nameKeyA";
+    public static final String nameKeyB = "nameKeyB";
+    public static final String pufPrefs = "pufPrefs";
+
+    public LinearLayout boxA;
+    public LinearLayout boxB;
+
+    public char loadedProfile;
+    private String nameA;
+    private String nameB;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        // Get name
+        // Get profile names
         SharedPreferences prefs = getSharedPreferences(pufPrefs, MODE_PRIVATE);
-        String name = prefs.getString(nameKey, null);
-        if (name != null) {
-            TextView nameView = (TextView) findViewById(R.id.currentProfile);
-            nameView.setText(name);
+        nameA = prefs.getString(nameKeyA, null);
+        if (nameA != null) {
+            TextView nameView = (TextView) findViewById(R.id.currentProfileA);
+            nameView.setText(nameA);
         }
+
+        nameB = prefs.getString(nameKeyB, null);
+        if (nameB != null) {
+            TextView nameView = (TextView) findViewById(R.id.currentProfileB);
+            nameView.setText(nameB);
+        }
+
+        boxA = (LinearLayout) findViewById(R.id.profileBoxA);
+        boxB = (LinearLayout) findViewById(R.id.profileBoxB);
+        loadedProfile = '0';
     }
 
     /**
@@ -31,8 +52,15 @@ public class MainActivity extends AppCompatActivity  {
      * @param v The enrollment start button
      */
     public void enroll_pressed(View v) {
-        Intent intent = new Intent(this, PinPatternGen.class);
-        startActivity(intent);
+
+        if(loadedProfile == '0') {
+            Toast toast = Toast.makeText(getApplicationContext(), "please select profile", Toast.LENGTH_LONG);
+            toast.show();
+        } else {
+            Intent enroll = new Intent(this, PinPatternGen.class);
+            enroll.putExtra("profile", loadedProfile);
+            startActivity(enroll);
+        }
     }
 
     /**
@@ -40,10 +68,19 @@ public class MainActivity extends AppCompatActivity  {
      * @param v authentication start button
      */
     public void authenticate_pressed(View v) {
-        Toast.makeText(this, "Launching Authentication", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, Authenticate.class);
-        startActivity(intent);
-        finish();
+        if(loadedProfile == '0') {
+            Toast toast = Toast.makeText(getApplicationContext(), "please select profile", Toast.LENGTH_LONG);
+            toast.show();
+        } else {
+            Intent authenticate = new Intent(this, Authenticate.class);
+            authenticate.putExtra("profile", loadedProfile);
+            if(loadedProfile == 'A') {
+                authenticate.putExtra("name", nameA);
+            } else {
+                authenticate.putExtra("name", nameB);
+            }
+            startActivity(authenticate);
+        }
     }
 
     /**
@@ -55,6 +92,17 @@ public class MainActivity extends AppCompatActivity  {
         startActivity(intent);
     }
 
+    public void change_backgroundA(View v) {
+        boxA.setBackgroundColor(Color.parseColor("#ADACAE"));
+        boxB.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        loadedProfile = 'A';
+    }
+
+    public void change_backgroundB(View v) {
+        boxB.setBackgroundColor(Color.parseColor("#ADACAE"));
+        boxA.setBackgroundColor(Color.parseColor("#FFFFFF"));
+        loadedProfile = 'B';
+    }
     /**
      * start the super secret activity
      */

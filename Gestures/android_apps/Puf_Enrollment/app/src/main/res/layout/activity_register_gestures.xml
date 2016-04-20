@@ -9,6 +9,21 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text=", Please Trace the Pattern"
+            android:textSize="20sp"
+            android:gravity="center"
+            android:id="@+id/prompt"
+            android:layout_marginBottom="10dp"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
         <TextView
@@ -31,6 +46,14 @@
         android:layout_height="0dp"
         android:layout_weight="1"
         android:id="@+id/pufDrawView" />
+
+    <ProgressBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        style="@android:style/Widget.Material.ProgressBar.Horizontal"
+        android:layout_margin="10dp"
+        android:id="@+id/progress_bar"
+        android:max="100"/>
     
     <TextView
         android:layout_width="wrap_content"
