@@ -16,25 +16,6 @@
         android:layout_margin="30dp"
         android:layout_centerHorizontal="true"/>
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/currentProfileTitle"
-        android:layout_below="@id/title"
-        android:layout_centerHorizontal="true"
-        android:text="Current Profile:"
-        android:textSize="20sp"/>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/currentProfile"
-        android:layout_below="@id/currentProfileTitle"
-        android:layout_centerHorizontal="true"
-        android:text="No Profile"
-        android:layout_margin="10dp"
-        android:textSize="38sp"/>
-
 
     <Button
         android:layout_width="wrap_content"
@@ -72,4 +53,72 @@
         android:onClick="enroll_pressed"/>
 
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@id/title"
+        android:layout_above="@id/enroll_button"
+        android:weightSum="2">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:onClick="change_backgroundA"
+            android:id="@+id/profileBoxA"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/currentProfileTitleA"
+                android:text="Profile A"
+                android:textSize="20sp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/currentProfileA"
+                android:text="No Profile"
+                android:layout_margin="10dp"
+                android:textSize="38sp"
+                android:layout_gravity="center"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_weight="1"
+            android:onClick="change_backgroundB"
+            android:id="@+id/profileBoxB"
+            android:layout_margin="5dp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/currentProfileTitleB"
+                android:text="Profile B"
+                android:textSize="20sp"
+                android:layout_gravity="center"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/currentProfileB"
+                android:text="No Profile"
+                android:layout_margin="10dp"
+                android:textSize="38sp"
+                android:layout_gravity="center"/>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
 </RelativeLayout>

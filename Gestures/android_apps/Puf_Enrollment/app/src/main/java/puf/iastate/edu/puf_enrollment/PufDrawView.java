@@ -111,7 +111,8 @@ public class PufDrawView extends View
         switch( me.getAction() )
         {
             case MotionEvent.ACTION_DOWN:
-                mUpdateView.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") - Pressure = " + me.getPressure() + " Time = " + (me.getEventTime()-me.getDownTime()));
+                //mUpdateView.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") - Pressure = " + me.getPressure() + " Time = " + (me.getEventTime()-me.getDownTime()));
+                mUpdateView.setText( "Pressure = " + me.getPressure());
                 response.clear();
                 response.add(new dataTypes.Point(me.getX(), me.getY(), me.getPressure(), -1, (double) me.getEventTime()-me.getDownTime()));
                 break;
@@ -125,7 +126,8 @@ public class PufDrawView extends View
                     this.lastMotionEventTime = me.getEventTime();
                 }
 
-                mUpdateView.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") - Pressure = " + me.getPressure() + " Time = " + (me.getEventTime()-this.lastMotionEventTime));
+                //mUpdateView.setText( "(x,y) = (" + Math.round(me.getX()) + ", " + Math.round(me.getY()) + ") - Pressure = " + me.getPressure() + " Time = " + (me.getEventTime()-this.lastMotionEventTime));
+                mUpdateView.setText( "Pressure = " + me.getPressure());
                 response.add(new dataTypes.Point(me.getX(), me.getY(), me.getPressure(), -1, (double) me.getEventTime()-this.lastMotionEventTime));
                 this.lastMotionEventTime = me.getEventTime();
 

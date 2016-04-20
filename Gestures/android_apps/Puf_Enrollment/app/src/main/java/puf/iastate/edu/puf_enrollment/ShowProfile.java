@@ -31,7 +31,7 @@ public class ShowProfile extends Activity {
 
         try {
             String default_value = getResources().getString(R.string.profile_default_string);
-            String json = sharedPref.getString(getString(R.string.profile_string), default_value);
+            String json = sharedPref.getString(getString(R.string.profile_string_a), default_value);
             Challenge mChallenge = gson.fromJson(json, Challenge.class);
 
             StringBuilder sb = new StringBuilder();

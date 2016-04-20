@@ -6,7 +6,7 @@ android {
 
     defaultConfig {
         applicationId "puf.iastate.edu.puf_enrollment"
-        minSdkVersion 19
+        minSdkVersion 21
         targetSdkVersion 22
         versionCode 1
         versionName "1.0"

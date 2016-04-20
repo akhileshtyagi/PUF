@@ -19,12 +19,13 @@ import org.w3c.dom.Text;
 public class PinPatternGen  extends AppCompatActivity {
     public static final String nameKey = "nameKey";
     public static final String pufPrefs = "pufPrefs" ;
-    private TextView mPinView, mNameView;
+    private TextView mPinView, mNameView, mProfileLabel;
     private SeekBar mSeekBar;
     private int pin;
     private int seek;
     private String name;
     SharedPreferences sharedpreferences;
+    private char loadedProfile;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,8 +34,14 @@ public class PinPatternGen  extends AppCompatActivity {
 
         mPinView = (TextView) findViewById(R.id.pin_edit_text);
         mNameView = (TextView) findViewById(R.id.name_edit_text);
+        mProfileLabel = (TextView) findViewById(R.id.profile_label);
         mSeekBar = (SeekBar) findViewById(R.id.seek_bar);
         sharedpreferences = getSharedPreferences(pufPrefs, Context.MODE_PRIVATE);
+
+        Intent i = getIntent();
+        loadedProfile = i.getCharExtra("profile", 'A');
+        mProfileLabel.setText("Profile " + loadedProfile);
+
     }
 
     /**
@@ -51,7 +58,9 @@ public class PinPatternGen  extends AppCompatActivity {
 
             //Save name
             SharedPreferences.Editor editor = sharedpreferences.edit();
-            editor.putString(nameKey, name);
+
+            // Shared Preference is "nameKeyA" or "nameKeyB"
+            editor.putString(nameKey + loadedProfile, name);
             editor.apply();
 
             //Pass pin to gesture training activity
@@ -59,6 +68,8 @@ public class PinPatternGen  extends AppCompatActivity {
             authenticate.putExtra("pin", pin);
             authenticate.putExtra("mode", "enroll");
             authenticate.putExtra("seek", seek);
+            authenticate.putExtra("profile", loadedProfile);
+            authenticate.putExtra("name", name);
             startActivity(authenticate);
             finish();
 

@@ -37,19 +37,24 @@ public class Authenticate extends Activity {
         Gson gson = new Gson();
         SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.profile", Context.MODE_PRIVATE);
 
+        Intent i = getIntent();
+        String name = i.getStringExtra("name");
+        char loadedProfile = i.getCharExtra("profile", 'A');
+
         try {
             String default_value = getResources().getString(R.string.profile_default_string);
-            String json = sharedPref.getString(getString(R.string.profile_string), default_value);
+            String json = sharedPref.getString(getString(R.string.profile_string_a), default_value);
             mChallenges.add(gson.fromJson(json, Challenge.class));
             long pin = mChallenges.get(0).getChallengeID();
 
             //Pass pin to gesture training activity
 
-
             Intent authenticate = new Intent(this, RegisterGesturesActivity.class);
             authenticate.putExtra("pin", pin);
             authenticate.putExtra("mode", "authenticate");
             authenticate.putExtra("seed", mChallenges.get(0).getChallengeID());
+            authenticate.putExtra("name", name);
+            authenticate.putExtra("loadedProfile", loadedProfile);
             startActivity(authenticate);
 
         } catch (JsonParseException e) {
@@ -70,7 +75,7 @@ public class Authenticate extends Activity {
         Gson gson = new Gson();
 
         SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.response", Context.MODE_PRIVATE);
-        String json = sharedPref.getString(getString(R.string.profile_string), "");
+        String json = sharedPref.getString(getString(R.string.profile_string_a), "");
         Response mResponse = gson.fromJson(json, Response.class);
 
         UserDevicePair udPair = new UserDevicePair(0,mChallenges);

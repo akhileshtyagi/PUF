@@ -7,6 +7,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -27,12 +29,16 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     private ArrayList<Point> mCurChallenge; //Current challenge
     private int mRemainingSwipes; //Remaining swipes until enrolled
     private String mode; //Either "enroll" or "authenticate"
+    private char loadedProfile; //Either A or B
+    private int strength; // How strong to make the profile
     private ChallengeGenerator mCg;
 
     private TextView mUpdateView;
     private TextView mSeedView;
     private TextView mRemainingView;
+    private TextView mPromptView;
     private PufDrawView mPdv;
+    private ProgressBar mProgressBar;
 
     private Challenge mChallenge;
     private ArrayList<Response> mResponses;
@@ -49,19 +55,27 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         mUpdateView = (TextView) findViewById(R.id.updateView);
         mSeedView = (TextView) findViewById(R.id.seedView);
         mRemainingView = (TextView) findViewById(R.id.entriesRemainingView);
+        mPromptView = (TextView) findViewById(R.id.prompt);
+        mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
 
         mPdv.setUpdateView(mUpdateView);
+
+        String name;
 
         //Grab pin from PinPatternGen Activity
         Intent i = getIntent();
 
-        //Get mode of operation (enroll or authenticate)
+        //Get mode of operation (enroll or authenticate) and profile working with
         mode = i.getStringExtra("mode");
+        name = i.getStringExtra("name");
+        loadedProfile = i.getCharExtra("profile", 'A');
+        mPromptView.setText(name + mPromptView.getText());
+
         if(mode.equals("authenticate")) {
             mRemainingView.setText("Authenticating");
             mSeed = seed.curseed;
             System.out.println("CurrentSeed = "+ mSeed);
-            mRemainingSwipes = 20;
+            mProgressBar.setVisibility(View.INVISIBLE);
         }
         //Set the seed for referential purposes
         else {
@@ -69,12 +83,13 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
             mSeed = seed.curseed;
             seed.curseed= mSeed;
             System.out.println("CurrentSeed = "+ mSeed);
-            mRemainingSwipes = i.getIntExtra("seek", 20);
+            strength = i.getIntExtra("seek", 20);
+            mRemainingSwipes = strength;
+            mRemainingView.setText(mRemainingSwipes + " Left");
         }
 
         mCg = new ChallengeGenerator(mSeed);
         mSeedView.setText("Seed: " + mSeed);
-        mRemainingView.setText(mRemainingSwipes + " Left");
 
         //Setup an initial challenge and give the challenge
         mCurChallenge = mCg.generateChallenge();
@@ -104,7 +119,11 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
 
                 SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.profile", Context.MODE_PRIVATE);
                 SharedPreferences.Editor editor = sharedPref.edit();
-                editor.putString(getString(R.string.profile_string), json);
+                if(loadedProfile == 'A') {
+                    editor.putString(getString(R.string.profile_string_a), json);
+                } else {
+                    editor.putString(getString(R.string.profile_string_b), json);
+                }
                 editor.commit();
                 Intent intent = new Intent(this, MainActivity.class);
                 startActivity(intent);
@@ -113,6 +132,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
             AddResponseToChallenge(response);
             mCurChallenge = mCg.generateChallenge();
             mRemainingView.setText(mRemainingSwipes + " Left");
+            mProgressBar.setProgress(mProgressBar.getProgress() + (mProgressBar.getMax() / strength));
         }
         else if (mode.equals("authenticate")) {
             AddResponseToChallenge(response);
@@ -120,10 +140,12 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
             String json = gson.toJson(mResponses.get(0), mResponses.get(0).getClass());
             SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.response", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            editor.putString(getString(R.string.profile_string), json);
+            if(loadedProfile == 'A') {
+                editor.putString(getString(R.string.profile_string_a), json);
+            } else {
+                editor.putString(getString(R.string.profile_string_b), json);
+            }
             editor.commit();
-            Intent intent = new Intent(this, MainActivity.class);
-            startActivity(intent);
             finish();
         }
     }
