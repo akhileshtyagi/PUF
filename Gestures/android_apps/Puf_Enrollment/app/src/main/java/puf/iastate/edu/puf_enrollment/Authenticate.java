@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.View;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -24,46 +25,14 @@ import dataTypes.UserDevicePair;
 
 public class Authenticate extends Activity {
 
-    private static final String TAG = "AuthenticateActivity";
-    private ArrayList<Challenge> mChallenges;
     private List<Double> pressure_vector, distance_vector, time_vector;
+    private ArrayList<Challenge> mChallenges;
+    private static final String TAG = "AuthenticateActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_authenticate);
-
-        mChallenges = new ArrayList<>();
-        Gson gson = new Gson();
-        SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.profile", Context.MODE_PRIVATE);
-
-        Intent i = getIntent();
-        String name = i.getStringExtra("name");
-        char loadedProfile = i.getCharExtra("profile", 'A');
-
-        try {
-            String default_value = getResources().getString(R.string.profile_default_string);
-            String json = sharedPref.getString(getString(R.string.profile_string_a), default_value);
-            mChallenges.add(gson.fromJson(json, Challenge.class));
-            long pin = mChallenges.get(0).getChallengeID();
-
-            //Pass pin to gesture training activity
-
-            Intent authenticate = new Intent(this, RegisterGesturesActivity.class);
-            authenticate.putExtra("pin", pin);
-            authenticate.putExtra("mode", "authenticate");
-            authenticate.putExtra("seed", mChallenges.get(0).getChallengeID());
-            authenticate.putExtra("name", name);
-            authenticate.putExtra("loadedProfile", loadedProfile);
-            startActivity(authenticate);
-
-        } catch (JsonParseException e) {
-            Log.e(TAG, "Error in Parsing JSON: " + e.toString());
-        }
-
-    }
-
-    public void check_authentication(View v) {
         TextView mTV = (TextView) findViewById(R.id.authenticating_status);
 
         TextView CI_tv = (TextView) findViewById(R.id.auth_confidence_interval);
@@ -73,9 +42,29 @@ public class Authenticate extends Activity {
         TextView vector_info_tv = (TextView) findViewById(R.id.vector_info_ci);
         vector_info_tv.setMovementMethod(new ScrollingMovementMethod());
         Gson gson = new Gson();
+        String json;
 
-        SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.response", Context.MODE_PRIVATE);
-        String json = sharedPref.getString(getString(R.string.profile_string_a), "");
+        mChallenges = new ArrayList<>();
+        SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.profile", Context.MODE_PRIVATE);
+        Intent intent = getIntent();
+        char loadedProfile = intent.getCharExtra("profile", 'A');
+
+        try {
+            String default_value = getResources().getString(R.string.profile_default_string);
+            if (loadedProfile == 'A') {
+                json = sharedPref.getString(getString(R.string.profile_string_a), default_value);
+            } else {
+                json = sharedPref.getString(getString(R.string.profile_string_b), default_value);
+            }
+            mChallenges.add(gson.fromJson(json, Challenge.class));
+
+        } catch (JsonParseException e) {
+            Log.e(TAG, "Error in Parsing JSON: " + e.toString());
+        }
+
+        sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.response", Context.MODE_PRIVATE);
+        json = sharedPref.getString(getString(R.string.authenticate_response), "");
+
         Response mResponse = gson.fromJson(json, Response.class);
 
         UserDevicePair udPair = new UserDevicePair(0,mChallenges);
@@ -116,7 +105,6 @@ public class Authenticate extends Activity {
 
         Challenge mChallenge = mChallenges.get(0);
         udPair.dumpUserDevicePairData(mChallenge);
-
     }
 
 }

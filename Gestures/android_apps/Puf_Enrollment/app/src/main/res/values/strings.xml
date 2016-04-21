@@ -15,6 +15,7 @@
     <string name="title_activity_profile_setter">ProfileSetter</string>
     <string name="profile_string_a">profile_a</string>
     <string name="profile_string_b">profile_b</string>
+    <string name="authenticate_response">authenticate_response</string>
     <string name="profile_default_string">NONE</string>
     <string name="title_activity_show_profile">ShowProfile</string>
     <string name="profile_temp_text">Profile Data Here</string>

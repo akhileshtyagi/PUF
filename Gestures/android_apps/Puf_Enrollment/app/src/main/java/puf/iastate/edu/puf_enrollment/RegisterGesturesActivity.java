@@ -14,6 +14,8 @@ import android.widget.TextView;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
+import org.apache.http.auth.AUTH;
+
 import java.io.File;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -34,7 +36,6 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     private ChallengeGenerator mCg;
 
     private TextView mUpdateView;
-    private TextView mSeedView;
     private TextView mRemainingView;
     private TextView mPromptView;
     private PufDrawView mPdv;
@@ -53,7 +54,6 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         //Setup views
         mPdv = (PufDrawView) findViewById(R.id.pufDrawView);
         mUpdateView = (TextView) findViewById(R.id.updateView);
-        mSeedView = (TextView) findViewById(R.id.seedView);
         mRemainingView = (TextView) findViewById(R.id.entriesRemainingView);
         mPromptView = (TextView) findViewById(R.id.prompt);
         mProgressBar = (ProgressBar) findViewById(R.id.progress_bar);
@@ -69,16 +69,18 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         mode = i.getStringExtra("mode");
         name = i.getStringExtra("name");
         loadedProfile = i.getCharExtra("profile", 'A');
-        mPromptView.setText(name + mPromptView.getText());
 
         if(mode.equals("authenticate")) {
-            mRemainingView.setText("Authenticating");
+            seed.curseed = i.getLongExtra("pin", 11); //Default value is nada
             mSeed = seed.curseed;
             System.out.println("CurrentSeed = "+ mSeed);
+            mRemainingView.setVisibility(View.INVISIBLE);
             mProgressBar.setVisibility(View.INVISIBLE);
+            mPromptView.setText("Authenticating " + name);
         }
         //Set the seed for referential purposes
         else {
+            mPromptView.setText(name + mPromptView.getText());
             seed.curseed = i.getIntExtra("pin", 0); //Default value is nada
             mSeed = seed.curseed;
             seed.curseed= mSeed;
@@ -89,7 +91,6 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         }
 
         mCg = new ChallengeGenerator(mSeed);
-        mSeedView.setText("Seed: " + mSeed);
 
         //Setup an initial challenge and give the challenge
         mCurChallenge = mCg.generateChallenge();
@@ -109,7 +110,6 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     public void onResponseAttempt(ArrayList<dataTypes.Point> response) {
         if (mode.equals("enroll")) {
             if (--mRemainingSwipes == 0) {
-                DataReader reader = new DataReader(new File(Environment.getExternalStorageDirectory() + "/PUFProfile"));
                 Gson gson = new GsonBuilder()
                         .serializeNulls().serializeSpecialFloatingPointValues().create();
                 String json = gson.toJson(mChallenge, mChallenge.getClass());
@@ -140,12 +140,12 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
             String json = gson.toJson(mResponses.get(0), mResponses.get(0).getClass());
             SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.response", Context.MODE_PRIVATE);
             SharedPreferences.Editor editor = sharedPref.edit();
-            if(loadedProfile == 'A') {
-                editor.putString(getString(R.string.profile_string_a), json);
-            } else {
-                editor.putString(getString(R.string.profile_string_b), json);
-            }
+            editor.putString(getString(R.string.authenticate_response), json);
             editor.commit();
+
+            Intent authenticate = new Intent(this, Authenticate.class);
+            authenticate.putExtra("profile", loadedProfile);
+            startActivity(authenticate);
             finish();
         }
     }
