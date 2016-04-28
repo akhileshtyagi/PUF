@@ -38,13 +38,12 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:id="@+id/pufDrawView" />
+        android:id="@+id/pufDrawView"/>
 
     <ProgressBar
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         style="@android:style/Widget.Material.ProgressBar.Horizontal"
-        android:layout_margin="10dp"
         android:id="@+id/progress_bar"
         android:max="100"/>
     
@@ -52,7 +51,7 @@
         android:layout_width="wrap_content"
         android:layout_height="40dp"
         android:text="@string/remaining_swipes"
-        android:textSize="30sp"
+        android:textSize="20sp"
         android:layout_gravity="center"
         android:id="@+id/entriesRemainingView"/>
 

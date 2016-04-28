@@ -35,8 +35,8 @@
         android:layout_centerInParent="true"
         android:id="@+id/authenticate_button"
         android:text="@string/authenticate_text"
-        android:padding="40dp"
-        android:textSize="31sp"
+        android:padding="20dp"
+        android:textSize="20sp"
         android:onClick="authenticate_pressed"/>
 
     <Button
@@ -46,9 +46,9 @@
         android:layout_above="@id/authenticate_button"
         android:layout_marginTop="80dp"
         android:layout_marginBottom="10dp"
-        android:padding="40dp"
+        android:padding="20dp"
         android:text="@string/enrollment_button_text"
-        android:textSize="31sp"
+        android:textSize="20sp"
         android:id="@+id/enroll_button"
         android:onClick="enroll_pressed"/>
 
@@ -84,7 +84,7 @@
                 android:id="@+id/currentProfileA"
                 android:text="No Profile"
                 android:layout_margin="10dp"
-                android:textSize="38sp"
+                android:textSize="25sp"
                 android:layout_gravity="center"/>
 
         </LinearLayout>
@@ -112,7 +112,7 @@
                 android:id="@+id/currentProfileB"
                 android:text="No Profile"
                 android:layout_margin="10dp"
-                android:textSize="38sp"
+                android:textSize="25sp"
                 android:layout_gravity="center"/>
 
 

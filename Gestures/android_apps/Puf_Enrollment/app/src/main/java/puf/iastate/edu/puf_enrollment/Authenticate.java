@@ -15,6 +15,8 @@ import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
 import java.lang.reflect.Array;
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,7 +31,7 @@ public class Authenticate extends Activity {
     private ArrayList<Challenge> mChallenges;
     private static final String TAG = "AuthenticateActivity";
 
-    private double PRESSURE_THRESHOLD = .3;
+    private double PRESSURE_THRESHOLD = .2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,10 @@ public class Authenticate extends Activity {
         vector_info_tv.setMovementMethod(new ScrollingMovementMethod());
         Gson gson = new Gson();
         String json;
+
+        Double p_vector, d_vector, t_vector;    // Pressure, distance, and time temp vectors
+
+        NumberFormat formatter = new DecimalFormat("#0.00");
 
         mChallenges = new ArrayList<>();
         SharedPreferences sharedPref = this.getSharedPreferences("puf.iastate.edu.puf_enrollment.profile", Context.MODE_PRIVATE);
@@ -81,21 +87,42 @@ public class Authenticate extends Activity {
 
         double total_pressure_vector = 0;
         double avg_pressure_vector = 0;
-        int size = pressure_vector.size();
-        for(Double vector : pressure_vector){
-            if(vector < 1.5) total_pressure_vector += vector;
-            else size --;
+        int pressure_size = pressure_vector.size();
+
+        double total_distance_vector = 0;
+        double avg_distance_vector = 0;
+        int distance_size = pressure_vector.size();
+
+        double total_time_vector = 0;
+        double avg_time_vector = 0;
+        int time_size= pressure_vector.size();
+
+        for(int i = 0; i < pressure_vector.size(); i++){
+            p_vector = pressure_vector.get(i);
+            d_vector = distance_vector.get(i);
+            t_vector = time_vector.get(i);
+
+            if(p_vector < 1.5) total_pressure_vector += p_vector;
+            else pressure_size--;
+
+            total_distance_vector += d_vector;
+            total_time_vector += t_vector;
         }
 
-        avg_pressure_vector = total_pressure_vector / size;
+        avg_pressure_vector = total_pressure_vector / pressure_size;
+        avg_distance_vector = total_distance_vector / distance_size;
+        avg_time_vector = total_time_vector / time_size;
 
-        if(avg_pressure_vector < PRESSURE_THRESHOLD) mTV.setText("Valid Authentication! number of points = " + mResponse.getNormalizedResponse().size());
-        else mTV.setText("Denied, number of points = " + mResponse.getNormalizedResponse().size());
+        if(avg_pressure_vector < PRESSURE_THRESHOLD) mTV.setText("Valid!");
+        else mTV.setText("Denied!");
 
-        pressure_CI_tv.setText("Pressure CI: " + udPair.getNew_response_pressure_CI(mResponse.getNormalizedResponse(), mProfile));
-        distance_CI_tv.setText("Distance CI: " +  udPair.getNew_response_distance_CI(mResponse.getNormalizedResponse(), mProfile));
-        time_CI_tv.setText("Time CI: " + udPair.getNew_response_time_CI(mResponse.getNormalizedResponse(), mProfile));
-        CI_tv.setText("Authentication CI: " + udPair.getNew_response_confidence_interval());
+        pressure_CI_tv.setText("Average Pressure Mu: " + formatter.format(avg_pressure_vector));
+        distance_CI_tv.setText("Average Distance Mu: " +  formatter.format(avg_distance_vector));
+        time_CI_tv.setText("Average Time Mu: " + formatter.format(avg_time_vector));
+//        pressure_CI_tv.setText("Pressure CI: " + udPair.getNew_response_pressure_CI(mResponse.getNormalizedResponse(), mProfile));
+//        distance_CI_tv.setText("Distance CI: " +  udPair.getNew_response_distance_CI(mResponse.getNormalizedResponse(), mProfile));
+//        time_CI_tv.setText("Time CI: " + udPair.getNew_response_time_CI(mResponse.getNormalizedResponse(), mProfile));
+//        CI_tv.setText("Authentication CI: " + udPair.getNew_response_confidence_interval());
 
         String default_value = getResources().getString(R.string.profile_default_string);
         StringBuilder sb = new StringBuilder();
