@@ -29,6 +29,8 @@ public class Authenticate extends Activity {
     private ArrayList<Challenge> mChallenges;
     private static final String TAG = "AuthenticateActivity";
 
+    private double PRESSURE_THRESHOLD = .3;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,8 +72,24 @@ public class Authenticate extends Activity {
         UserDevicePair udPair = new UserDevicePair(0,mChallenges);
         Profile mProfile = udPair.getChallenges().get(0).getProfile();
 
-        boolean validUser = udPair.authenticate(mResponse.getNormalizedResponse(), mChallenges.get(0).getChallengeID());
-        if(validUser) mTV.setText("Valid Authentication! number of points = " + mResponse.getNormalizedResponse().size());
+
+        udPair.authenticate(mResponse.getNormalizedResponse(), mChallenges.get(0).getChallengeID());
+
+        pressure_vector = udPair.getNew_response_point_vector(UserDevicePair.RatioType.PRESSURE);
+        time_vector = udPair.getNew_response_point_vector(UserDevicePair.RatioType.TIME);
+        distance_vector = udPair.getNew_response_point_vector(UserDevicePair.RatioType.DISTANCE);
+
+        double total_pressure_vector = 0;
+        double avg_pressure_vector = 0;
+        int size = pressure_vector.size();
+        for(Double vector : pressure_vector){
+            if(vector < 1.5) total_pressure_vector += vector;
+            else size --;
+        }
+
+        avg_pressure_vector = total_pressure_vector / size;
+
+        if(avg_pressure_vector < PRESSURE_THRESHOLD) mTV.setText("Valid Authentication! number of points = " + mResponse.getNormalizedResponse().size());
         else mTV.setText("Denied, number of points = " + mResponse.getNormalizedResponse().size());
 
         pressure_CI_tv.setText("Pressure CI: " + udPair.getNew_response_pressure_CI(mResponse.getNormalizedResponse(), mProfile));
@@ -82,9 +100,6 @@ public class Authenticate extends Activity {
         String default_value = getResources().getString(R.string.profile_default_string);
         StringBuilder sb = new StringBuilder();
 
-        pressure_vector = udPair.getNew_response_point_vector(UserDevicePair.RatioType.PRESSURE);
-        time_vector = udPair.getNew_response_point_vector(UserDevicePair.RatioType.TIME);
-        distance_vector = udPair.getNew_response_point_vector(UserDevicePair.RatioType.DISTANCE);
 
         sb.append("Pressure Vectors\n");
         for(int i = 0; i < pressure_vector.size(); i++) {
