@@ -8,6 +8,7 @@
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
+    <string name="action_emailcsvs">Email Profiles</string>
     <string name="remaining_swipes">20 Left</string>
     <string name="profile_info_text">Using Profile: NONE</string>
     <string name="authenticate_text">Authenticate</string>
@@ -24,4 +25,5 @@
     <string name="title_activity_secret_acrivity">SecretAcrivity</string>
     <string name="title_normalize_test_activity">Normalize_Test_Activity</string>
     <string name="title_new_normalize_test_activity">New_Normalize_Test_Activity</string>
+    <string name="SettingsActivity">Settings_Activity</string>
 </resources>

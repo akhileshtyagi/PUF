@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<PreferenceCategory android:title="Challenge Generation">
+	    <EditTextPreference
+	        android:title="Tester Name"
+	        android:summary="Name of the person generating the challenges (you)"
+ 	        android:defaultValue=""
+ 	        android:key="TesterName" />
+	    <EditTextPreference
+	        android:title="Device Name"
+	        android:summary="Name of the device testing"
+ 	        android:defaultValue=""
+ 	        android:key="DeviceName" />
+	</PreferenceCategory>
+
+</PreferenceScreen>

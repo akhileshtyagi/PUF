@@ -4,9 +4,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -15,7 +19,9 @@ import android.widget.Toast;
 import com.google.gson.Gson;
 import com.google.gson.JsonParseException;
 
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 import dataTypes.Challenge;
 
@@ -24,6 +30,7 @@ public class MainActivity extends AppCompatActivity  {
     public static final String nameKeyA = "nameKeyA";
     public static final String nameKeyB = "nameKeyB";
     public static final String pufPrefs = "pufPrefs";
+    private static final String EMAIL = "isunexus7@gmail.com";
 
     public LinearLayout boxA;
     public LinearLayout boxB;
@@ -136,6 +143,97 @@ public class MainActivity extends AppCompatActivity  {
         boxA.setBackgroundColor(Color.parseColor("#FFFFFF"));
         loadedProfile = 'B';
     }
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu)
+    {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.main, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item)
+    {
+        int itemId = item.getItemId();
+        if (itemId == R.id.action_settings)
+        {
+            // Display Settings page
+            Intent preferenceIntent = new Intent(this, SettingsActivity.class);
+            startActivity(preferenceIntent);
+            return true;
+        }
+        else if (itemId == R.id.action_emailcsvs)
+        {
+            // Send emails
+            sendCSVEmail();
+            return true;
+        }
+        else
+        {
+            return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void sendCSVEmail()
+    {
+        String to = EMAIL;
+        String subject = "Gesture PUF Profiles";
+        String message = "";
+
+        Intent i = new Intent(Intent.ACTION_SEND_MULTIPLE);
+        i.setType("plain/text");
+        i.putExtra(Intent.EXTRA_EMAIL, new String[] { to });
+        i.putExtra(Intent.EXTRA_SUBJECT, subject);
+        i.putExtra(Intent.EXTRA_TEXT, message);
+
+        /*
+         * Date dateVal = new Date(); String filename = dateVal.toString(); data
+         * = File.createTempFile("Report", ".csv"); FileWriter out =
+         * (FileWriter) GenerateCsv.generateCsvFile( data, "Name,Data1");
+         */
+
+        File baseDir = new File(Environment.getExternalStorageDirectory(),
+                "UD_PUF");
+        if (!baseDir.exists())
+        {
+            baseDir.mkdirs();
+        }
+        List<File> files = getListFiles(baseDir);
+
+        startActivity(Intent.createChooser(i, "E-mail"));
+
+        ArrayList<Uri> uris = new ArrayList<Uri>();
+        // convert from paths to Android friendly Parcelable Uri's
+        for (File fileIn : files)
+        {
+            Uri u = Uri.fromFile(fileIn);
+            uris.add(u);
+        }
+        i.putParcelableArrayListExtra(Intent.EXTRA_STREAM, uris);
+        startActivity(Intent.createChooser(i, "Send mail..."));
+    }
+
+    private List<File> getListFiles(File parentDir)
+    {
+        ArrayList<File> inFiles = new ArrayList<File>();
+        File[] files = parentDir.listFiles();
+        for (File file : files)
+        {
+            if (file.isDirectory())
+            {
+                inFiles.addAll(getListFiles(file));
+            }
+            else
+            {
+                if (file.getName().endsWith(".csv"))
+                {
+                    inFiles.add(file);
+                }
+            }
+        }
+        return inFiles;
+    }
+
     /**
      * start the super secret activity
      */

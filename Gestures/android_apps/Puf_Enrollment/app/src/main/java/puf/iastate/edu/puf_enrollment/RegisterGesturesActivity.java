@@ -5,18 +5,22 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.opencsv.CSVWriter;
 
 import org.apache.http.auth.AUTH;
 
 import java.io.File;
+import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -157,31 +161,58 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     public void AddResponseToChallenge(ArrayList<dataTypes.Point> response)
     {
         ArrayList<dataTypes.Point> points = new ArrayList<>();
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        for( int i = 0; i < mCurChallenge.size(); i++)
+        String testerName = prefs.getString("TesterName", "Ryan Scheel");
+        String deviceName = prefs.getString("DeviceName", "nexus-03");
+
+        File baseDir = new File(Environment.getExternalStorageDirectory(), "UD_PUF");
+        if (!baseDir.exists())
         {
-            Point point = mCurChallenge.get(i);
-            if(!mChallengePointsAssigned) mChallengePoints.add(new dataTypes.Point(point.x,point.y,0));
+            baseDir.mkdirs();
         }
+        String fileName = seed.curseed + ": " + deviceName + " " + testerName + " " + getCurrentLocalTime() + ".csv";
+        File f = new File(baseDir, fileName);
 
-        if(!mChallengePointsAssigned) {
-            mChallenge = new Challenge(mChallengePoints, (int)mSeed);
-            mChallengePointsAssigned = true;
+        try {
+            f.createNewFile();
+            CSVWriter csvWrite = new CSVWriter(new FileWriter(f));
+            String[] challengeHeaders = {"ChallengeX", "ChallengeY", "Tester Name", "Device Name"};
+            csvWrite.writeNext(challengeHeaders);
+            for( int i = 0; i < mCurChallenge.size(); i++) {
+                Point point = mCurChallenge.get(i);
+                if(!mChallengePointsAssigned) mChallengePoints.add(new dataTypes.Point(point.x,point.y,0));
+                String[] row = { Float.toString(point.x), Float.toString(point.y), testerName, deviceName };
+                csvWrite.writeNext(row);
+            }
+            if(!mChallengePointsAssigned) {
+                mChallenge = new Challenge(mChallengePoints, (int)mSeed);
+                mChallengePointsAssigned = true;
+            }
+
+            String[] headers = { "X", "Y", "PRESSURE", "DISTANCE", "TIME" };
+            csvWrite.writeNext(headers);
+
+            for( int i = 0; i < response.size(); i++)
+            {
+                dataTypes.Point point = response.get(i);
+                points.add(new dataTypes.Point(point.getX(), point.getY(), point.getPressure(), point.getTime()));
+                String[] row = { Double.toString(point.getX()), Double.toString(point.getY()),
+                        Double.toString(point.getPressure()), Double.toString(point.getDistance()),
+                        Double.toString(point.getTime()) };
+                csvWrite.writeNext(row);
+            }
+            csvWrite.close();
+            Response tempResponse = new Response(points);
+            mResponses.add(new Response(tempResponse.getNormalizedResponse()));
+            mChallenge.addResponse(new Response(response));
+
+        } catch (Exception e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
         }
-
-        for( int i = 0; i < response.size(); i++)
-        {
-            dataTypes.Point point = response.get(i);
-            points.add(new dataTypes.Point(point.getX(), point.getY(), point.getPressure(), point.getTime()));
-        }
-        Response tempResponse = new Response(points);
-        mResponses.add(new Response(tempResponse.getNormalizedResponse()));
-        mChallenge.addResponse(new Response(response));
-
     }
 
-    public String getCurrentLocalTime()
-    {
+    public String getCurrentLocalTime() {
         Calendar c = Calendar.getInstance();
         String format = "yyyy-MM-dd hh:mm:ss aa";
         SimpleDateFormat localSdf = new SimpleDateFormat(format);
