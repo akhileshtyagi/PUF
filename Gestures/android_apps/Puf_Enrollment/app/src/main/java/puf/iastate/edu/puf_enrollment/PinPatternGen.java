@@ -55,6 +55,7 @@ public class PinPatternGen  extends AppCompatActivity {
             pin = Integer.valueOf(mPinView.getText().toString());
             name = mNameView.getText().toString();
             seek = mSeekBar.getProgress();
+            if(seek < 3) seek = 3;
 
             //Save name
             SharedPreferences.Editor editor = sharedpreferences.edit();
