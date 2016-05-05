@@ -9,5 +9,9 @@
         android:id="@+id/action_emailcsvs"
         android:showAsAction="never"
         android:title="@string/action_emailcsvs"/>
+    <item
+        android:id="@+id/clean_csvs"
+        android:showAsAction="never"
+        android:title="Delete Saved Profiles"/>
 
 </menu>

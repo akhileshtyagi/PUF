@@ -168,6 +168,10 @@ public class MainActivity extends AppCompatActivity  {
             sendCSVEmail();
             return true;
         }
+        else if (itemId == R.id.clean_csvs) {
+            deleteCSVs();
+            return true;
+        }
         else
         {
             return super.onOptionsItemSelected(item);
@@ -234,6 +238,20 @@ public class MainActivity extends AppCompatActivity  {
         return inFiles;
     }
 
+    // Deletes all files in the UD_PUF directory
+    private void deleteCSVs () {
+        File dir = new File(Environment.getExternalStorageDirectory(), "UD_PUF");
+        if (dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                new File(dir, children[i]).delete();
+            }
+        }
+        Toast toast = Toast.makeText(getApplicationContext(), "Saved Profiles Deleted", Toast.LENGTH_LONG);
+        toast.show();
+    }
+
+
     /**
      * start the super secret activity
      */
@@ -244,11 +262,6 @@ public class MainActivity extends AppCompatActivity  {
 
     public void normalize_test_pressed(View v){
         Intent intent = new Intent(this, NormalizeTestActivity.class);
-        startActivity(intent);
-    }
-
-    public void new_normalize_test_pressed(View v){
-        Intent intent = new Intent(this, NewNormalizeTestActivity.class);
         startActivity(intent);
     }
 }

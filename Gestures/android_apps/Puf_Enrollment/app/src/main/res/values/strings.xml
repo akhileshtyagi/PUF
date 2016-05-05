@@ -4,7 +4,7 @@
     <string name="pin_label">Enter Pin</string>
     <string name="pin_begin_enrollment_button">Begin Enrollment</string>
 
-    <string name="title_activity_register_gestures">RegisterGesturesActivity</string>
+    <string name="title_activity_register_gestures"></string>
 
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>

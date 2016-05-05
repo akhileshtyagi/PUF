@@ -31,13 +31,15 @@ import dataTypes.Response;
 
 public class RegisterGesturesActivity extends AppCompatActivity implements PufDrawView.ResponseListener{
 
-    private long mSeed; //Seed for generating challenges
-    private ArrayList<Point> mCurChallenge; //Current challenge
-    private int mRemainingSwipes; //Remaining swipes until enrolled
-    private String mode; //Either "enroll" or "authenticate"
+    private long mSeed; // Seed for generating challenges
+    private ArrayList<Point> mCurChallenge; // Current challenge
+    private int mRemainingSwipes; // Remaining swipes until enrolled
+    private String mode; // Either "enroll" or "authenticate"
+    private String name; // Name of profile being generated/Authenticated against
     private char loadedProfile; //Either A or B
     private int strength; // How strong to make the profile
     private ChallengeGenerator mCg;
+    private int response_counter; // Keep track of number of responses generated
 
     private TextView mUpdateView;
     private TextView mRemainingView;
@@ -49,6 +51,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     private ArrayList<Response> mResponses;
     private ArrayList<dataTypes.Point> mChallengePoints;
     private boolean mChallengePointsAssigned;
+    private CSVWriter csvWrite;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,7 +67,6 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
 
         mPdv.setUpdateView(mUpdateView);
 
-        String name;
 
         //Grab pin from PinPatternGen Activity
         Intent i = getIntent();
@@ -81,6 +83,7 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
             mRemainingView.setVisibility(View.INVISIBLE);
             mProgressBar.setVisibility(View.INVISIBLE);
             mPromptView.setText("Authenticating " + name);
+            setTitle("Authenticate");
         }
         //Set the seed for referential purposes
         else {
@@ -92,8 +95,10 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
             strength = i.getIntExtra("seek", 20);
             mRemainingSwipes = strength;
             mRemainingView.setText(mRemainingSwipes + " Left");
+            setTitle("Enroll");
         }
 
+        response_counter = 0;
         mCg = new ChallengeGenerator(mSeed);
 
         //Setup an initial challenge and give the challenge
@@ -103,6 +108,8 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         mChallengePoints = new ArrayList<>();
 
         mChallengePointsAssigned = false;
+
+        CreateChallengePoints();
     }
 
     /**
@@ -113,7 +120,14 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
     @Override
     public void onResponseAttempt(ArrayList<dataTypes.Point> response) {
         if (mode.equals("enroll")) {
+            response_counter++;
+            AddResponseToChallenge(response);
             if (--mRemainingSwipes == 0) {
+                try {
+                    csvWrite.close();
+                } catch (Exception e) {
+                    Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+                }
                 Gson gson = new GsonBuilder()
                         .serializeNulls().serializeSpecialFloatingPointValues().create();
                 String json = gson.toJson(mChallenge, mChallenge.getClass());
@@ -133,7 +147,6 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
                 startActivity(intent);
                 finish();
             }
-            AddResponseToChallenge(response);
             mCurChallenge = mCg.generateChallenge();
             mRemainingView.setText(mRemainingSwipes + " Left");
             mProgressBar.setProgress(mProgressBar.getProgress() + (mProgressBar.getMax() / strength));
@@ -154,42 +167,62 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
         }
     }
 
-    /**
-     * Writes the response to a given challenge to a CSV file
-     * @param response
-     */
-    public void AddResponseToChallenge(ArrayList<dataTypes.Point> response)
-    {
-        ArrayList<dataTypes.Point> points = new ArrayList<>();
+    public void CreateChallengePoints() {
         SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
 
-        String testerName = prefs.getString("TesterName", "Ryan Scheel");
-        String deviceName = prefs.getString("DeviceName", "nexus-03");
+        String deviceName = prefs.getString("DeviceName", "");
 
         File baseDir = new File(Environment.getExternalStorageDirectory(), "UD_PUF");
         if (!baseDir.exists())
         {
             baseDir.mkdirs();
         }
-        String fileName = seed.curseed + ": " + deviceName + " " + testerName + " " + getCurrentLocalTime() + ".csv";
+        String fileName = name + "_" + mode + "_" + getCurrentLocalTime() + " " + seed.curseed + ".csv";
         File f = new File(baseDir, fileName);
 
         try {
             f.createNewFile();
-            CSVWriter csvWrite = new CSVWriter(new FileWriter(f));
-            String[] challengeHeaders = {"ChallengeX", "ChallengeY", "Tester Name", "Device Name"};
+            csvWrite = new CSVWriter(new FileWriter(f));
+
+            String title[] = {mode + " profile for user " + name + " on device " + deviceName};
+            csvWrite.writeNext(title);
+
+            String[] points_header = {"Challenge Points"};
+            csvWrite.writeNext(points_header);
+
+            String[] challengeHeaders = {"X", "Y"};
             csvWrite.writeNext(challengeHeaders);
-            for( int i = 0; i < mCurChallenge.size(); i++) {
+            for (int i = 0; i < mCurChallenge.size(); i++) {
                 Point point = mCurChallenge.get(i);
-                if(!mChallengePointsAssigned) mChallengePoints.add(new dataTypes.Point(point.x,point.y,0));
-                String[] row = { Float.toString(point.x), Float.toString(point.y), testerName, deviceName };
+                if (!mChallengePointsAssigned)
+                    mChallengePoints.add(new dataTypes.Point(point.x, point.y, 0));
+                String[] row = {Float.toString(point.x), Float.toString(point.y)};
                 csvWrite.writeNext(row);
             }
-            if(!mChallengePointsAssigned) {
-                mChallenge = new Challenge(mChallengePoints, (int)mSeed);
+            if (!mChallengePointsAssigned) {
+                mChallenge = new Challenge(mChallengePoints, (int) mSeed);
                 mChallengePointsAssigned = true;
             }
 
+        } catch (Exception e) {
+            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+
+    }
+    /**
+     * Writes the response to a given challenge to a CSV file
+     * @param response
+     */
+    public void AddResponseToChallenge(ArrayList<dataTypes.Point> response)
+    {
+
+        ArrayList<dataTypes.Point> points = new ArrayList<>();
+
+        try {
+            if(mode.equals("enroll")) {
+                String[] response_header = {"Response " + response_counter};
+                csvWrite.writeNext(response_header);
+            }
             String[] headers = { "X", "Y", "PRESSURE", "DISTANCE", "TIME" };
             csvWrite.writeNext(headers);
 
@@ -202,10 +235,17 @@ public class RegisterGesturesActivity extends AppCompatActivity implements PufDr
                         Double.toString(point.getTime()) };
                 csvWrite.writeNext(row);
             }
-            csvWrite.close();
             Response tempResponse = new Response(points);
             mResponses.add(new Response(tempResponse.getNormalizedResponse()));
             mChallenge.addResponse(new Response(response));
+
+            if(mode.equals("authenticate")) {
+                try {
+                    csvWrite.close();
+                } catch (Exception e) {
+                    Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+                }
+            }
 
         } catch (Exception e) {
             Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();

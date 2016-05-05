@@ -36,9 +36,11 @@ public class ShowProfile extends Activity {
                 if(i == 0) {
                     sb.append("PROFILE A\n");
                     json = sharedPref.getString(getString(R.string.profile_string_a), default_value);
+                    if (json.equals(default_value)) continue;
                 } else {
                     sb.append("\n\nPROFILE B\n");
                     json = sharedPref.getString(getString(R.string.profile_string_b), default_value);
+                    if (json.equals(default_value)) continue;
                 }
 
                 Challenge mChallenge = gson.fromJson(json, Challenge.class);
