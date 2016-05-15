@@ -1,3 +1,165 @@
+% outlined using the Heilmeier questions
 \section{Introduction}
-Introduction.
+% What are you trying to do? Articulate your objectives using absolutely no jargon.  What is the problem?  Why is it hard?
+Malicious parties attempt to gain access to data of their victims. 
+Often times these attackers go through the trouble of
+preforming these attacks because
+gaining access to the data might be quite lucrative.
+Take the example of 
+%TODO cite some sort of attack on mobile device data which results in 
+  %the attacker stealing money.
+
+  % many applications make assumptions about the device.
+  % that once a user has authenticated,
+  % possession of the device is sufficient to
+  % access the services
+
+% BAD EXAMPLE
+% a user who uses mobile applications for monetary transactions.
+% This application uses a user name and password to 
+% establish the identity of a user.
+% If an attacker is able to acquire this information,
+% the user name and password,
+% then the attacker will have the ability use money
+% kept within the legitimate user's account.
+% This is not acceptable.
+
+% How is it done today, and what are the limits of current practice?
+Many current practices keep mobile devices secure
+utilizing some nature of lock screen.
+These protection mechanisms require
+that the user preform some action 
+when the mobile device state moves from inactive to active.
+This one-time authentication allows access to a large amount 
+applications, tools, and data on the device.
+Some of this data could be potentially
+damaging if compromised by a malicious party.
+
+One issue with this nature of user verification %TODO
+There are many ways an attacker might trick
+this one-time authentication 
+hence gaining access to resources on the device.
+%TODO cite some attacks like "look over shoulder attacks"
 %TODO
+
+This paper focuses on an idea for creating
+added security for data stored on mobile devices.
+Often times there exists a trade off between
+security and convenience from the user's perspective.
+This can be seen in solutions such as
+%TODO cite a mobile device security solution which has poor convenience to the user
+where
+%TODO describe this solution and how it represents a tradeoff between security and convenience
+The solution presented in this paper
+provides additional security while requiring
+no additional actions from the user.
+This is accomplished by
+recording touch screen interactions
+in the background while the
+user interacts as they normally would
+with the applications on their mobile device.
+The most resent interactions are then
+tested against previous actions
+to determine if the user's
+pattern has changed.
+
+We provide a step forward, 
+enhancing the ability of mobile devices to
+recognize when the device may have been compromised.
+Compromised here meaning the device is in
+the physical possession of an illegitimate user.
+This system provides innovations in the following areas:
+\begin{itemize}
+\item We show that touch screen interactions may be used in order to
+  distinguish a legitimate user of a mobile device apart from
+  illegitimate users.
+  Specifically, section
+  ? %TODO give forward reference
+  shows how a combination of 
+  a user's pressure when touching the screen and 
+  the location on the screen being touched
+  may be used to develop a model of that user's behavior.
+\item We establish the behavior of a user on a device
+  is unique to both the device and the user.
+  Section 
+  ? %TODO give forward reference
+  establishes that a difference in either device or user
+  may be detected by our implementation.
+\item There is no convenience cost assessed upon the user.
+  All security improvements are accomplished without requiring any additional
+  actions from the user.
+  The specifications of the implementation used to accomplish 
+  this transparency are discussed in Section
+  ? %TODO give forward reference
+\item The performance of this system is sufficient to make it practical.
+  %TODO elaborate on what types of applications this is practical for,
+  % or on the definition of practicality
+  A performance comparison is presented in Section
+  ? %TODO give forward reference
+  which demonstrates the running time of the system on 
+  a Nexus 7 tablet.
+  % Section ? discusses the memory requirements of the system,
+  % showing that they are ?. 
+%TODO memory requirements of the system?
+\item We improve upon the ideas discussed in ? %TODO reference mellon sensec paper
+  utilizing similar concepts for modeling interactions. 
+  We extend beyond this work,
+  modeling soft keyboard interactions and
+  describing .
+  Section
+  ? %TODO forward reference related work
+  provides further discussion of %TODO reference mellon sensec paper 
+  with emphasis on similarities and differences
+  between work described throughout this paper.
+\end{itemize}
+
+% What's new in your approach and why do you think it will be successful?
+In deciding if a user is legitimate,
+it is useful to define three categories:
+something the user knows,
+something the user has, and
+something the user is.
+Traditional mobile authentication schemes,
+such as a lock screen,
+utilize only something a user knows.
+Interactions between a user
+and the touchscreen of a mobile device
+are rich with information.
+Current solutions suffer from underutilization 
+of this information; 
+they discard much of the content of these
+interactions in favor using
+the location of the interactions exclusively.
+%
+Our system utilizes 
+pressure,
+time, and
+location 
+capturing the currently under-utilized potential 
+of these interactions to expose patterns unique to a user.
+
+% describe the modeling scheme
+We use these properties to construct
+a model of how the user interacts with a mobile device.
+This model takes as input a sequence of touches preformed
+by the user.
+From this sequence
+probabilities are developed
+which represent the likelihood of a given touch screen interaction
+based on the properties of a number of previous interactions.
+A type Markov model which uses $n$ previous states
+in computing next state probabilities
+is used for the purpose of developing these probabilities.
+This model is explained more throughly in
+Section \ref{the_solution}. %TODO give forward reference
+
+% Who cares?
+
+% If you're successful, what difference will it make?   What impact will success have?  How will it be measured?
+
+% What are the risks and the payoffs?
+
+% How much will it cost?
+
+% How long will it take?
+% What are the midterm and final "exams" to check for success?  How will progress be measured?
