@@ -437,6 +437,7 @@ public class Chain{
 		double base_probability;
 		if(index==-1){
 			//auth window not found in base_window; hense the difference is maximum
+			// this stands for the probability in the base window
 			base_probability = 0;
 		}else{
 			//found it! now determine the probability of the same touch coming after

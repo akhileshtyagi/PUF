@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  15 MAY 2016 03:28
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  16 MAY 2016 20:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -188,7 +188,34 @@ File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 (/usr/share/texmf-dist/tex/latex/lipsum/lipsum.sty
 Package: lipsum 2014/07/27 v1.3 150 paragraphs of Lorem Ipsum dummy text
 \c@lips@count=\count109
-)) (./authors.tex)
+)
+(/usr/share/texmf-dist/tex/latex/listings/listings.sty
+\lst@mode=\count110
+\lst@gtempboxa=\box30
+\lst@token=\toks36
+\lst@length=\count111
+\lst@currlwidth=\dimen123
+\lst@column=\count112
+\lst@pos=\count113
+\lst@lostspace=\dimen124
+\lst@width=\dimen125
+\lst@newlines=\count114
+\lst@lineno=\count115
+\abovecaptionskip=\skip44
+\belowcaptionskip=\skip45
+\lst@maxwidth=\dimen126
+
+(/usr/share/texmf-dist/tex/latex/listings/lstmisc.sty
+File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
+\c@lstnumber=\count116
+\lst@skipnumbers=\count117
+\lst@framebox=\box31
+)
+(/usr/share/texmf-dist/tex/latex/listings/listings.cfg
+File: listings.cfg 2015/06/04 1.6 listings configuration
+))
+Package: listings 2015/06/04 1.6 (Carsten Heinz)
+) (./authors.tex)
 (./paper.aux)
 \openout1 = `paper.aux'.
 
@@ -206,17 +233,17 @@ LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
  (/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count110
-\scratchdimen=\dimen123
-\scratchbox=\box30
-\nofMPsegments=\count111
-\nofMParguments=\count112
-\everyMPshowfont=\toks36
-\MPscratchCnt=\count113
-\MPscratchDim=\dimen124
-\MPnumerator=\count114
-\makeMPintoPDFobject=\count115
-\everyMPtoPDFconversion=\toks37
+\scratchcounter=\count118
+\scratchdimen=\dimen127
+\scratchbox=\box32
+\nofMPsegments=\count119
+\nofMParguments=\count120
+\everyMPshowfont=\toks37
+\MPscratchCnt=\count121
+\MPscratchDim=\dimen128
+\MPnumerator=\count122
+\makeMPintoPDFobject=\count123
+\everyMPtoPDFconversion=\toks38
 ) (/usr/share/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
@@ -265,6 +292,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
+\c@lstlisting=\count124
 LaTeX Font Info:    Try loading font information for U+msa on input line 5.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -288,36 +316,48 @@ Overfull \hbox (2.52652pt too wide) in paragraph at lines 5--5
 pdftex.map}
 
 
-]) (./the_problem.tex) (./the_solution.tex) (./the_details.tex)
-(./related_work.tex) (./conclusion.tex
+]) (./the_problem.tex) (./the_solution.tex [2]
+Overfull \hbox (1.10489pt too wide) in paragraph at lines 224--246
+\T1/aer/m/n/9 space to make the se-quences the user's gen-er-ate re-pro-ducible
+.
+ []
+
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3])
+(./the_details.tex) (./related_work.tex) (./conclusion.tex
 Overfull \hbox (10.5278pt too wide) in paragraph at lines 4--17
 \T1/aer/m/n/9 cur-rent so-lu-tions uti-lize one-time au-then-ti-ca-tion schemes
  These
  []
 
-) (./paper.bbl [2]) [3
+) [4] (./paper.bbl) [5
 
 ] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 2986 strings out of 493054
- 36838 string characters out of 6140586
- 202526 words of memory out of 5000000
- 6415 multiletter control sequences out of 15000+600000
+ 4176 strings out of 493054
+ 54345 string characters out of 6140586
+ 225506 words of memory out of 5000000
+ 7593 multiletter control sequences out of 15000+600000
  47103 words of font info for 63 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,10n,28p,291b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,10n,32p,291b,248s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share
 /texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/
-share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dis
-t/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/he
-lvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
-Output written on paper.pdf (3 pages, 104912 bytes).
+onts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/
+share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmti9.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/sh
+are/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts
+/type1/urw/times/utmb8a.pfb>
+Output written on paper.pdf (5 pages, 152204 bytes).
 PDF statistics:
- 51 PDF objects out of 1000 (max. 8388607)
- 36 compressed objects within 1 object stream
+ 69 PDF objects out of 1000 (max. 8388607)
+ 49 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 
