@@ -1,9 +1,16 @@
 \begin{thebibliography}{1}
 
-\bibitem{rosenfeld2010sensor}
-{\sc Rosenfeld, K., Gavas, E., and Karri, R.}
-\newblock Sensor physical unclonable functions.
-\newblock In {\em Hardware-Oriented Security and Trust (HOST), 2010 IEEE
-  International Symposium on\/} (2010), IEEE, pp.~112--117.
+\bibitem{ScheelTyagi15}
+{\sc Scheel, R., and Tyagi, A.}
+\newblock Characterizing composite user-device touchscreen physical unclonable
+  functions (pufs) for mobile device authentication.
+\newblock In {\em ACM International Workshop in Trusted Embedded Devices,
+  TRUSTED 2015\/} (October 2015), ACM.
+
+\bibitem{sensec13}
+{\sc Zhang, J., Wang, X., Wu, P., and Zhu, J.}
+\newblock Sensec: Mobile security through passive sensing.
+\newblock {\em 2013 International Conference on Computing, Networking and
+  Communications (ICNC) 0\/} (2013), 1128--1133.
 
 \end{thebibliography}

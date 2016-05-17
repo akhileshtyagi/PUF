@@ -2,8 +2,59 @@
 % phrase the things which were added in terms of BENEFITS and DRAWBACKS
 \section{Related Work}
 \label{related_work}
-% need to describe the Mellon Sensec paper
-%TODO
-
 % mention ryan scheel's work on gestures authentication
+In \cite{ScheelTyagi15}
+a physical unclonable function (PUF) composed of
+a human biometric and silicon biometric
+leading to a unique user device identity.
+This work demonstrates how the PUF may be used
+for authentication.
+%
+The user is presented with a polyline draw on the touch screen.
+The user then traces this line.
+The human pressure exerted in the trace and
+the exact traced path profile captures
+a biometric of the user.
+%
+The silicon variability is extracted
+in a similar way to our implementation
+through capacitive touch and sensor circuitry
+of the mobile device.
+%
+% how does our work differ
+Our work differs in that
+we derive a model of user behavior over time
+which describes how the user
+interacts with the soft keyboard.
+Comparatively \cite{ScheelTyagi15} shows
+that, once trained for a particular challenge line,
+it is possible to differentiate pair of user, device from
+other pairs of user, device.
+%
+In addition,
+we use discrete touchscreen events, key presses, while 
+\cite{ScheelTyagi15} uses continuous touchscreen events, swipes.
+
+% need to describe the Mellon Sensec paper
+More good work done in the area of
+PUF's on mobile devices includes \cite{sensec13}.
+%
+This work utilizes the silicon manufacture variability 
+found in many different sensors
+combining them to create a model of the user.
+Again, the variability for this system also
+utilizes human biometrics.
+%
+\cite{sensec13} uses data from
+the accelerometers, gyroscopes, and magnetometers
+to develop their model.
+By comparison,
+our system shows this may be done for touch screen interactions.
+%
+%TODO describe how the modeling idea (MLE) came from sensec
 %TODO
+%
+%TODO describe our advantage over sensec
+%Our advantage over this work is....
+
+%TODO look for other work characterizing user using touchscreen interactions

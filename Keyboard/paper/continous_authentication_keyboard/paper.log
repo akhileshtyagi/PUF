@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  16 MAY 2016 20:47
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  17 MAY 2016 11:24
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -317,7 +317,7 @@ pdftex.map}
 
 
 ]) (./the_problem.tex) (./the_solution.tex [2]
-Overfull \hbox (1.10489pt too wide) in paragraph at lines 224--246
+Overfull \hbox (1.10489pt too wide) in paragraph at lines 227--249
 \T1/aer/m/n/9 space to make the se-quences the user's gen-er-ate re-pro-ducible
 .
  []
@@ -326,38 +326,65 @@ Overfull \hbox (1.10489pt too wide) in paragraph at lines 224--246
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [3])
-(./the_details.tex) (./related_work.tex) (./conclusion.tex
+(./the_details.tex
+<graphics/authentication_accuracy_vs_total_interactions.pdf, id=20, 1228.59pt x
+ 794.97pt>
+File: graphics/authentication_accuracy_vs_total_interactions.pdf Graphic file (
+type pdf)
+ <use graphics/authentication_accuracy_vs_total_interactions.pdf>
+Package pdftex.def Info: graphics/authentication_accuracy_vs_total_interactions
+.pdf used on input line 40.
+(pdftex.def)             Requested size: 226.79846pt x 146.75175pt.
+
+<graphics/false_positive_vs_authentication_threshold.pdf, id=21, 794.97pt x 614
+.295pt>
+File: graphics/false_positive_vs_authentication_threshold.pdf Graphic file (typ
+e pdf)
+ <use graphics/false_positive_vs_authentication_threshold.pdf>
+Package pdftex.def Info: graphics/false_positive_vs_authentication_threshold.pd
+f used on input line 48.
+(pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
+
+<graphics/nexus_7_runtimes.pdf, id=22, 794.97pt x 614.295pt>
+File: graphics/nexus_7_runtimes.pdf Graphic file (type pdf)
+
+<use graphics/nexus_7_runtimes.pdf>
+Package pdftex.def Info: graphics/nexus_7_runtimes.pdf used on input line 56.
+(pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
+ [4] [5 <./graphics/authentication_accuracy_vs_total_interactions.pdf> <./graph
+ics/false_positive_vs_authentication_threshold.pdf> <./graphics/nexus_7_runtime
+s.pdf>]) (./related_work.tex)
+(./conclusion.tex
 Overfull \hbox (10.5278pt too wide) in paragraph at lines 4--17
 \T1/aer/m/n/9 cur-rent so-lu-tions uti-lize one-time au-then-ti-ca-tion schemes
  These
  []
 
-) [4] (./paper.bbl) [5
-
-] (./paper.aux) ) 
+) (./paper.bbl) [6] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 4176 strings out of 493054
- 54345 string characters out of 6140586
- 225506 words of memory out of 5000000
- 7593 multiletter control sequences out of 15000+600000
- 47103 words of font info for 63 fonts, out of 8000000 for 9000
+ 4206 strings out of 493054
+ 55256 string characters out of 6140586
+ 227541 words of memory out of 5000000
+ 7613 multiletter control sequences out of 15000+600000
+ 50251 words of font info for 69 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,10n,32p,291b,248s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/
-share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/pu
-blic/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmti9.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/sh
-are/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts
-/type1/urw/times/utmb8a.pfb>
-Output written on paper.pdf (5 pages, 152204 bytes).
+ 43i,10n,32p,291b,282s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/fonts/enc/dvips/base/
+8r.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/sh
+are/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></u
+sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1
+/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmti9.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr
+/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fo
+nts/type1/urw/times/utmb8a.pfb>
+Output written on paper.pdf (6 pages, 247295 bytes).
 PDF statistics:
- 69 PDF objects out of 1000 (max. 8388607)
- 49 compressed objects within 1 object stream
+ 88 PDF objects out of 1000 (max. 8388607)
+ 57 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 1 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 16 words of extra memory for PDF output out of 10000 (max. 10000000)
 
