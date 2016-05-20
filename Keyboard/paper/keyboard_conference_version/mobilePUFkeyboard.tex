@@ -30,7 +30,8 @@
 \documentclass{acm_proc_article-sp}
 %\documentclass[conference]{IEEEtran}
 
-\renewcommand{\baselinestretch}{.85} 
+% 0.85
+\renewcommand{\baselinestretch}{1.0} 
 
 \begin{document}
 % set the path for graphics
@@ -71,26 +72,26 @@
 % of EIGHT authors. SIX appear on the 'first-page' (for formatting
 % reasons) and the remaining two appear in the \additionalauthors section.
 %
-%\author{
+\author{
 % 1st. author
-%\alignauthor Timothy M. Dee\\
- %      \affaddr{Electrical \& Computer Engineering}\\
- %      \affaddr{Iowa State University}\\
-  %     \affaddr{Ames, IA, USA}\\
-  %     \email{deetimothy33@gmail.com}
+\alignauthor Timothy M. Dee\\
+      \affaddr{Electrical \& Computer Engineering}\\
+      \affaddr{Iowa State University}\\
+      \affaddr{Ames, IA, USA}\\
+      \email{timdee@giastate.edu}
 % 2nd. author
-%\alignauthor Ian T. Richardson\\
-%      \affaddr{Electrical \& Computer Engineering}\\
- %     \affaddr{Iowa State University}\\
- %     \affaddr{Ames, IA, USA}\\
- %     \email{ian.t.rich@gmail.com}
+\alignauthor Ian T. Richardson\\
+     \affaddr{Electrical \& Computer Engineering}\\
+     \affaddr{Iowa State University}\\
+     \affaddr{Ames, IA, USA}\\
+     \email{ian.t.rich@gmail.com}
 % 3nd. author
-%\alignauthor Akhilesh Tyagi\\
-%      \affaddr{Electrical \& Computer Engineering}\\
- %     \affaddr{Iowa State University}\\
- %      \affaddr{Ames, IA, USA}\\
- %      \email{tyagi@iastate.edu}
-%}
+\alignauthor Akhilesh Tyagi\\
+     \affaddr{Electrical \& Computer Engineering}\\
+     \affaddr{Iowa State University}\\
+      \affaddr{Ames, IA, USA}\\
+      \email{tyagi@iastate.edu}
+}
 
 %\date{30 July 1999}
 % Just remember to make sure that the TOTAL number of authors
@@ -101,18 +102,35 @@
 \begin{abstract}
 %TODO remove the last sentence, mabe? Also, include numbers describing important results
 A mobile device user continually interacts with many sensors through the natural
-user interface (UI) of apps. These interactions are unique for each (user, device) pair
+user interface (UI) of apps. 
+These interactions are unique for each (user, device) pair
 forming a user-device biometric.  
+%
 A physical unclonable function (PUF) can be realized
-from the touch screen pressure variability. We illustrate how a sequence of these pressure values from discrete touchscreen interactions may be used to uniquely characterize a user-device pair. These
-touch screen interactions Markov models can be integrated into a
-continuous authentication layer. Based on the most recent sequence of touch screen
-interactions, the continuous authentication layer can assign a probability that these
-interactions came from the authenticated (user, device) pair. Continuous authentication  helps protect access to a mobile device from a malicious party by detecting the
-anomalies early. Our experimental results show that this scheme can distinguish a user-device
-pair from another with a confidence interval exceeding 80\%. The false positive and
-false negative rates are below 12\%. The execution time
-required  for this authentication is of the order of a few milliseconds, which suits mobile devices.
+from the touch screen pressure variability.
+%
+We illustrate how a sequence of these pressure values 
+from discrete touchscreen interactions 
+may be used to uniquely characterize a user-device pair.
+%
+These touch screen interactions' Markov models can be integrated into a
+continuous authentication layer.
+%
+Based on the most recent sequence of touch screen interactions,
+the continuous authentication layer can assign a probability that these
+interactions came from the authenticated (user, device) pair.
+%
+Continuous authentication helps protect access to a mobile device
+from a malicious party by detecting the anomalies early.
+%
+Our experimental results show that this scheme can distinguish a user-device
+pair from another with a confidence interval exceeding 70\%
+with relatively few interactions. 
+The false positive and false negative rates are below 12\%.
+%
+The execution time required for this authentication is 
+on the order of a few hundred milliseconds, which suits mobile devices.
+%
 Increased data set sizes can push this accuracy into 90+\%.
 \end{abstract}
 
@@ -127,33 +145,35 @@ Increased data set sizes can push this accuracy into 90+\%.
 
 \section{Introduction}
 \label{sec:intro}
-
 Mobile devices are increasingly becoming a repository of all our personal data and credentials.
-This suggests increased attention to mobile device security. The main gateway to any security
-schema is user authentication. Biometrics based authentication schemes are less onerous and 
+This suggests increased attention to mobile device security.
+The main gateway to any security schema is user authentication.
+Biometrics based authentication schemes are less onerous and 
 more transparent than the traditional password based authentication methods. 
 Demonstrated in \cite{ScheelTyagi15}, a physical unclonable function (PUF) that composes human biometric with silicon biometric
-leading to a unique user-device pair identity that is robust. This PUF is based on the mobile
-device touch screen interactions. The challenge is a polyline drawn on the screen. The user
+leading to a unique user-device pair identity that is robust.
+This PUF is based on the mobile device touch screen interactions.
+The challenge is a polyline drawn on the screen. The user
 traces this challenge line. The human pressure exerted in the trace and the exact traced path
 profile captures the human biometrics of the user. This pressure is
 processed through the capacitive touch
 and sensor circuitry of the touch screen whose output captures the silicon biometrics, in a 
 manner similar to the traditional PUFs. The touch events generated by the Android framework
 contain pressure values which reflect both the human and the touch screen biometrics.
-These pressure sequences can be quantized into a binary responses creating a challenge-response
-authentication framework. This PUF derives its randomness physically - from human behavior and silicon
-transistor characteristics. The composition of the human and silicon components is not mathematically
+These pressure sequences can be quantized into binary responses
+creating a challenge-response authentication framework. 
+This PUF derives its randomness physically - from human behavior and silicon
+transistor characteristics. 
+The composition of the human and silicon components is not mathematically
 modelable. This is what makes such an authentication framework robust. This polyline tracing authentication is relatively easy for a user - no passwords to remember
 and it is fairly transparent.
  
-
 Mobile device theft - particularly smartphones is a major problem. Consumer Reports \cite{CR14}
 reported over 3.1 million smartphone thefts in 2013. Federal Communications Commission (FCC)
 \cite{FCC14}
 in its December 2014 report estimates 368.9 phone thefts per 100000 individuals in 2013. It states 
 that about one third of crime involves a mobile phone. In NYC and San Francisco, the percentage
-of crime involving mobile phones shoots upto 55-59\%. A mobile device has a time window right after
+of crime involving mobile phones shoots up to 55-59\%. A mobile device has a time window right after
 the theft wherein the authentication state still holds, which can be exploited by an adversary for considerable loss. This leads to the need for going beyond discrete time authentication - such as
 password and touch screen PUF challenge response.
 
@@ -169,8 +189,8 @@ leading to pressure tokens of "t", "h", and "e". This locality comes from the la
 English.
 
 We modified a soft keyboard app to collect all the touch screen keyboard interactions data.
-Android framework generates a sequence of Motion Event objects in response to these touches.
-The Android framework includes a class {\tt MotionEvent} (http://developer.android.com/reference/android/\\view/MotionEvent.html). The {\tt getPressure()} method returns a normalized pressure value in the
+Android framework generates a sequence of MotionEvent objects in response to these touches.
+The Android framework includes a class {\tt MotionEvent} (http://developer.android.com/reference/\\android/view/MotionEvent.html). The {\tt getPressure()} method returns a normalized pressure value in the
 range $[0,1]$ which is derived from the quantification of the current flow change due to
 capacitive change. This pressure value
 should reflect per device variability in the pressure measurement.
@@ -179,32 +199,31 @@ values $p_0, p_1, \dots , p_{N-1}$ from the user interaction within an app throu
 This sequence is processed for an $n$th order Markov model $M_{U, D}$ for the given user and device.
 Figure~\ref{fig:final_markov_model_state} shows an example of 2-Markov model.
 
-
-
-
-
 %describe in depth the continuous authentication scheme proposed, this is where the main contributions of this work should be discussed
-
 The continuous authentication signature will fail if either the biometrically correct human user
 or the biometrically correct device component is removed.
-This paper builds the continuous authentication framework on the user touch screen interactions.
+This paper builds a continuous authentication framework on user touch screen interactions.
 
 Continuous authentication frameworks' basic premise is that a user behavior over time gravitates
-towards  predictable. It can be frequently modeled as an $n$-Markov model. It states that the
-user tokens of length $n$ repeat themselves with certain frequency. Hence if we can record history
-of $n$-token sequences, they could help us classify the user's current behavior. The tokens are
-touch screen pressure values that are continually generated as the user interacts with an app
-through a soft keyboard.
-
+towards  predictable. 
+It can be frequently modeled as an $n$-Markov model. 
+This model states that the user tokens of length $n$ repeat themselves with certain frequency. Hence if we can record history
+of $n$-token sequences, they could help us classify the user's current behavior.
+The tokens are touch screen pressure values that are continually generated
+as the user interacts with an app through a soft keyboard.
 
 In our system, we record the touch pressures generated by the user through system's soft keyboard. Once we have collected a sufficient number of touches, which is the training phase, we build 
 a user profile or model. Future touch screen tokens are authenticated against this model. Figure \ref{fig:authentication_accuracy} demonstrates that as few as 6000-8000 touches may be used to achieve accuracies higher than 80\%.
-A typical user can enter information through a soft keyboard at a rate of 20-60 words per minute. 
-A word consists of on average five letters  leading to a rate of 30*5 touch interactions per minute.
+%TODO consider not saying this
+A typical user can enter information through a soft keyboard at a rate of 20-60 words per minute. %TODO cite
+A word consists of on average five letters  leading to a rate of 30*5 touch interactions per minute. 
 This means in the average use case, a user can generate enough data to train
 the model within 40 minutes of continuous use. Hence the earliest this authentication can kick in
 for a user-device pair is of the order of 40 minutes.
+This training can occur in a non-intrusive way
+if the touch data is being collected over time in the background.
 
+%TODO consider not saying this or at least revise it.
 % describe the structure of the paper, what is contained in each section
 The structure of the paper is as follows. Section \ref{sec:related_work} discusses related work. The $n$-Markov model and its parametrization are discussed in Section \ref{sec:modeling}. 
 %Section \ref{touch_pressure_modeling} provides some implementation details with respect to how touchscreen pressure is used in the modeling scheme. 
@@ -213,6 +232,7 @@ their interpretation are given in Section \ref{sec:results}.
 Section \ref{sec:PUF} discusses the variability and reproducibility properties of our system.
 Conclusions are presented in Section \ref{sec:conclusions}. 
 
+%TODO continue proofreading
 \section{Related Work}
 \label{sec:related_work}
 %detail what was done in the sensec paper

@@ -20,12 +20,13 @@ public class Model_compare {
 	private final static String statistics_output_file_name = "results/model_compare_output_statistics.txt";
 	private final static String input_folder_name = "data_sets";
 	
-	//specify different model sizes and 
-	private final static int[] window_sizes = {3};
-	private final static int[] token_sizes = {7};
+	//specify different model sizes and
+	// window 3, token_sizes 7, thresholds 5000, user_model_sizes 8000, auth_model_sizes 4000
+	private final static int[] window_sizes = {2};
+	private final static int[] token_sizes = {3,4,5,6,7};
 	private final static int[] thresholds = {5000};
-	private static int[] user_model_sizes = {8000};//new int[10]; //5000
-	private static int[] auth_model_sizes = {4000};//new int[10]; //4000
+	private static int[] user_model_sizes = {8000};
+	private static int[] auth_model_sizes = {4000};
 	
 	public static void main(String[] args){
 		ArrayList<Model_compare_thread> test_models = new ArrayList<Model_compare_thread>();
