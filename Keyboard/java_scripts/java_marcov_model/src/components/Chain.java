@@ -44,7 +44,7 @@ public class Chain{
 	}
 
 	/* set various model parameters here */
-	private final WindowAveraging WINDOW_AVERAGING = WindowAveraging.UNWEIGHTED;
+	private final WindowAveraging WINDOW_AVERAGING = WindowAveraging.WEIGHTED;
 	private final TokenAveraging TOKEN_AVERAGING = TokenAveraging.UNWEIGHTED;
 	private final TokenExclusion TOKEN_EXCLUSION = TokenExclusion.INCLUDE_0;
 
@@ -318,7 +318,8 @@ public class Chain{
 
 				// add up the weighted difference between the windows \sigma(difference * weight of window)
 				total_difference += window_weight * get_window_difference(
-						auth_window_list.get(unique_auth_windows.get(i)), base_window_list, auth_window_list,
+						auth_window_list.get(unique_auth_windows.get(i)),
+						base_window_list, auth_window_list,
 						this.successor_touch, auth_chain.successor_touch);
 			}
 
@@ -381,35 +382,52 @@ public class Chain{
 		// both base and auth model used the same distribution to compute their tokens
 		List<Integer> index_list_base = base_window_list.get_index_list(window);
 
-		//TODO handle the case when the window does not exist in the base model
+		// handle the case when the window does not exist in the base model
 		if(index_list_base.size() == 0){
 			// the window does not exist in the base model
 			// furthest possible difference
 			return 1;
 		}
 
-		// TODO compute the difference between w_base and w_auth
-		// TODO do token weighting here
+		// compute the difference between w_base and w_auth
+		// do token weighting here
 		if (TOKEN_AVERAGING == TokenAveraging.UNWEIGHTED) {
+			//TODO check for correctness
 			// unweighted version of token averaging
 			// difference is simply for all tokens: |p_i - p`_i| where
 			// p_i is base model probability
+			double total_difference = 0;
 			for(int i=0; i<index_list_auth.size(); i++) {
-				//TODO
 				// get base and auth probabilities
-				double base_probability = successor_list_base.get(index_list_auth.get(i)).get_probability(window);
+				//TODO getting base_probability is incorrect, the index_lists don't necessarily correspond on i
+				//TODO want the probability of getting the same successor touch in the base model
+				double base_probability = successor_list_base.get(index_list_base.get(i)).get_probability(window);
 				double auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(window);
 
 				// compute absolute difference
-				difference += Math.abs(base_probability - auth_probability);
+				total_difference += Math.abs(base_probability - auth_probability);
 			}
+
+			difference = total_difference / ((double)index_list_auth.size());
 		} else if(TOKEN_AVERAGING == TokenAveraging.WEIGHTED) {
+			//TODO check for correctness
 			// weighted version of token averaging
-			// tokens are weighted by their occurrence
+			// tokens are weighted by their occurrence in auth model
 			double token_weight = 1.0;
 			for(int i=0; i<index_list_auth.size(); i++) {
-				//TODO
-				difference += 0;
+				// get base and auth probabilities
+				//TODO getting base_probability is incorrect, the index_lists don't necessarily correspond on i
+				//TODO want the probability of getting the same successor touch in the base model
+				double base_probability = successor_list_base.get(index_list_base.get(i)).get_probability(window);
+				double auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(window);
+
+				// token weight is simply the probability in the auth model
+				// this is because we are weighting by occurrences and auth_probability represents
+				// the fractional amount of time the token occurred
+				token_weight = auth_probability;
+
+				// compute absolute difference
+				difference += token_weight * Math.abs(base_probability - auth_probability);
 			}
 		}
 
