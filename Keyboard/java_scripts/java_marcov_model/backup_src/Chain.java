@@ -258,19 +258,54 @@ public class Chain{
 	///the value returned will be between 0 and 1
 	///0 indicates there is no difference
 	///1 indicates there is a large difference
-	/// compare should not return the same thing both directions
-	/// this is due to the windows in auth chain being compared against base chain
-	/// base chain may have more or different windows
+	//TODO compare should return the same thing both directions
 	public double compare_to(Chain auth_chain){
 		//TODO do this in a way that actually makes use of multipe threads
+		//TODO clean up replicated work
 		double difference = 0;
-
+		//TODO do on threads
 		//recompute the distributions incase set_distribution has been called on this chain
 		//call on_model_update() invalidate any previous calculations
 		on_model_update();
 		
 		//calculate all uncalculated quantities
 		compute_uncomputed();
+		
+//		Operation_thread base_distribution_runnable = new Operation_thread(this, Operation_thread.Computation.DISTRIBUTION);
+//		Operation_thread base_key_distriution_runnable = new Operation_thread(this, Operation_thread.Computation.KEY_DISTRIBUTION);
+//		Operation_thread base_window_runnable = new Operation_thread(this, Operation_thread.Computation.WINDOW);
+//		//Operation_thread base_tokens_runnable = new Operation_thread(this, Operation_thread.Computation.TOKEN);
+//		Operation_thread base_probability_runnable = new Operation_thread(this, Operation_thread.Computation.PROBABILITY);
+//		
+//		Thread base_distribution_thread = new Thread(base_distribution_runnable);
+//		Thread base_key_distribution_thread = new Thread(base_key_distriution_runnable);
+//		Thread base_window_thread = new Thread(base_window_runnable);
+//		//Thread base_tokens_thread = new Thread(base_tokens_runnable);
+//		Thread base_probability_thread = new Thread(base_probability_runnable);
+//		
+//		base_distribution_thread.start();
+//		base_key_distribution_thread.start();
+//		this.get_tokens();
+//		base_window_thread.start();
+//		//base_tokens_thread.start();
+//		
+//		//wait for windows and tokens to finsih before starting the probability thread
+//		try{
+//			base_window_thread.join();
+//			//base_tokens_thread.join();
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+//		
+//		base_probability_thread.start();
+//		
+//		//wait for distribution computation to finish before continuing
+//		try{
+//			base_distribution_thread.join();
+//			base_key_distribution_thread.join();
+//		}catch(InterruptedException e){
+//			e.printStackTrace();
+//		}
 		
 		//set the distribution of the auth_chain based on the base chain
 		auth_chain.set_distribution(this.get_distribution(), this.get_key_distribution());
@@ -281,152 +316,138 @@ public class Chain{
 		auth_chain.probability_computed=false;
 
 		auth_chain.compute_uncomputed();
-
+		
+//		Operation_thread auth_tokens_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.TOKEN);
+//		Operation_thread auth_window_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.WINDOW);
+//		Operation_thread auth_probability_runnable = new Operation_thread(auth_chain, Operation_thread.Computation.PROBABILITY);
+//		
+//		Thread auth_tokens_thread = new Thread(auth_tokens_runnable);
+//		Thread auth_window_thread = new Thread(auth_window_runnable);
+//		Thread auth_probability_thread = new Thread(auth_probability_runnable);
+//		
+//		auth_tokens_thread.start();
+//		auth_window_thread.start();
+//		
+//		//wait for auth_windows and auth_tokens to be computed before starting probability computation
+//		try{
+//			auth_tokens_thread.join();
+//			auth_window_thread.join();
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+//		
+//		auth_probability_thread.start();
+//		
+//		//now, wait for all computations to finish before continuing with comparason
+//		try{
+//			base_probability_thread.join();
+//			
+//			auth_probability_thread.join();
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+		
+		//for every window in auth_chain
+		for(int i=0;i<auth_chain.get_windows().size();i++){
+			//find the difference between base_chain and auth_chain's corresponding window
+			difference += get_window_difference(this.get_windows(), this.successor_touch, auth_chain.get_windows().get(i), auth_chain.successor_touch.get(i));
+		}
+		
+		//System.out.println(difference);
+		//System.out.println(auth_chain.get_windows().size());
+		//System.out.println(this.get_windows().size());
+		
 		//windows depend on the distribution because tokens are created over the distribution
 		//therefore if no windows were created, then the chains are very unequal... The distribution of the second chain does not intersect the first
 		if(auth_chain.get_windows().size()==0){
 			//furthest separation
 			return 1;
 		}
-
-		// window is a TrieList, we need to use this property to lookup occurences of windows
-		TrieList auth_window_list = (TrieList)auth_chain.get_windows();
-		TrieList base_window_list = (TrieList)this.get_windows();
-		double window_weight = 1;
-
-		//TODO token averaging without window averaging will not work using this method
-		//TODO this is because weighted and unweighted are calling different methods
-		//TODO to do the difference computation between windows
-		if(WINDOW_AVERAGING == WindowAveraging.UNWEIGHTED) {
-			//for every window in auth_chain
-			double total_difference = 0;
-			for (int i = 0; i < auth_chain.get_windows().size(); i++) {
-				// find the difference between base_chain and auth_chain's corresponding window
-				total_difference += get_window_successor_difference(this.get_windows(), this.successor_touch, auth_chain.get_windows().get(i), auth_chain.successor_touch.get(i));
-			}
-
-			difference = (total_difference==0) ? 0 : total_difference/((double)auth_chain.get_windows().size());
-		}else if(WINDOW_AVERAGING == WindowAveraging.WEIGHTED){
-			// create list of indexes of unique windows in auth_chain
-			List<Integer> unique_auth_windows = compute_unique_windows(auth_chain.get_tokens(), auth_chain.get_windows());
-
-			// compare the successor lists for each unique window
-			double total_difference = 0;
-			for(int i=0; i<unique_auth_windows.size(); i++){
-				// compute the window weight, occurrences of window / total windows, in auth model
-				window_weight = ((double) auth_window_list.occurrence_count(auth_chain.get_windows().get(i))) / ((double)auth_window_list.size());
-
-				// add up the weighted difference between the windows \sigma(difference * weight of window)
-				total_difference += window_weight * get_window_difference(
-						auth_window_list.get(unique_auth_windows.get(i)), base_window_list, auth_window_list,
-						this.successor_touch, auth_chain.successor_touch);
-			}
-
-			difference = total_difference;
-		}
-
+		
 		//return the average of the window differences
-		return difference;
-
-		//System.out.println((difference==0) ? 0 : difference/((double)auth_chain.get_windows().size()));
-		//System.out.println(auth_chain.get_windows().size());
-		//System.out.println(this.get_windows().size());
+		return difference/((double)auth_chain.get_windows().size());
 	}
-
-	/* compute the Indexes of unique windows in given List<Window>.
-	 *
-	 * requires a token list to know how to compare windows*/
-	private List<Integer> compute_unique_windows(List<Token> token_list, List<Window> window_list){
-		//TODO check for correctness
-		// compute indexes for unique windows in list
-		ArrayList<Integer> index_list = new ArrayList<>();
-
-		// add a window only if it does not match any of the previous windows
-		for(int i=0; i<window_list.size(); i++){
-			// for all existing unique indexes, if none of the windows match, add new index
-			boolean no_match = true;
-			for(int j=0; j<index_list.size(); j++){
-				if(window_list.get(i).compare_with_token(token_list, window_list.get(index_list.get(j)))){
-					// window_i and window in list are equal, there is a match
-					no_match = false;
-					break;
-				}
-			}
-
-			// if there was no match in the previous loop, add index to list, it is unique
-			if(no_match) index_list.add(i);
-		}
-
-		// return the list of indexes
-		return index_list;
-	}
-
-	/* compute the difference between two windows.
-	 * This can be done based on the successor lists of the windows.
-	 * Need some way of computing (occur(touch_i) / total(touch)) in auth model
-	 *
-	 * The weighted version weights by the ratio of
-	 * (occurences/total) in the auth list.*/
-	private double get_window_difference(Window window, TrieList base_window_list, TrieList auth_window_list, List<Touch> successor_list_base, List<Touch> successor_list_auth){
-		double difference = 0;
-
-		// get a List<Integer> of all occurrences of the given unique window
-		// this list also gives the index of the successor touch stored in the parallel arraylist
-		List<Integer> index_list_auth = auth_window_list.get_index_list(window);
-
-		// to get the successors for the same window in base model,
-		// need to first find an instance of this window,
-		// then the successors of the found instance may be gotten
-		// actually, using the same window from the auth model should work because
-		// both base and auth model used the same distribution to compute their tokens
-		List<Integer> index_list_base = base_window_list.get_index_list(window);
-
-		//TODO handle the case when the window does not exist in the base model
-		if(index_list_base.size() == 0){
-			// the window does not exist in the base model
-			// furthest possible difference
-			return 1;
-		}
-
-		// TODO compute the difference between w_base and w_auth
-		// TODO do token weighting here
-		if (TOKEN_AVERAGING == TokenAveraging.UNWEIGHTED) {
-			// unweighted version of token averaging
-			// difference is simply for all tokens: |p_i - p`_i| where
-			// p_i is base model probability
-			for(int i=0; i<index_list_auth.size(); i++) {
-				//TODO
-				// get base and auth probabilities
-				double base_probability = successor_list_base.get(index_list_auth.get(i)).get_probability(window);
-				double auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(window);
-
-				// compute absolute difference
-				difference += Math.abs(base_probability - auth_probability);
-			}
-		} else if(TOKEN_AVERAGING == TokenAveraging.WEIGHTED) {
-			// weighted version of token averaging
-			// tokens are weighted by their occurrence
-			double token_weight = 1.0;
-			for(int i=0; i<index_list_auth.size(); i++) {
-				//TODO
-				difference += 0;
-			}
-		}
-
-		return difference;
-	}
-
-	///return the difference between two given windows with following successor touch
+	
+	
+	///THIS DOES NOT WORK, but there may be useful code here
+	///returns a list of percent differences for each compare iteration
+	/// a sort of percent difference between this model and the one passed in. The idea is that this may be used to authenticate. Most of this code should come from Model_Compare.py
+	//TODO consider doing this on multiple threads if preformance is an issue
+	//TODO look at what happens when a window occurrs more than once in a chain
+//	public double compare_to_old(Chain auth_chain){
+//		//TODO compare two chains and return the percent difference between them
+//		//make sure to use the get_x() methods here instead of just using the instance variables. This will guarentee that the values have been calculated by the time they are used.
+//		//preform this check to allow the assumption that the base_chain is larger than the auth chain.
+//		//this check also forces the windows to be computed if they have not been alreadys
+//		if(this.get_windows().size()<auth_chain.get_windows().size()){
+//			//preform the comparison the other direction
+//			return auth_chain.compare_to_old(this);
+//		}
+//		
+//		//from now on I can assume that this_chain has more windows than auth_chain
+//		double differance = 0;
+//		ArrayList<Double> differances_list = new ArrayList<Double>();
+//		
+//		//TODO get a list of probabilities for each compare iteration
+//		int end_index = auth_chain.windows.size()-1; // index of the last window to compare in the base_model
+//		int start_index = 0;
+//		
+//		double current_difference = compare(this, auth_chain, start_index, end_index);		
+//		differances_list.add(current_difference);
+//		start_index++;
+//		end_index++;
+//		
+//		while(end_index <= this.windows.size()-1){
+//			//while we are still within the base_chain
+//			//do this as an incremental process.... compare should be done once before this loop, then each probability can be incrementally updated
+//			//find the differance of the current window, using the current differance
+//			current_difference += get_differential_difference(this, auth_chain, start_index, end_index);
+//			
+//			differances_list.add(current_difference);			
+//			
+//			start_index++;
+//			end_index++;
+//		}
+//		
+//		// use this list of probabilities to get an overall differance
+//		double max_probability = 0;
+//		double min_probability = 1;
+//		double average_probability = 0;
+//		double total_probability = 0;
+//		
+//		//compute the differant metrics that could be used to authenticate based on the probabilities list
+//		for(int i=0;i<differances_list.size();i++){
+//			if(differances_list.get(i)>max_probability){
+//				max_probability = differances_list.get(i);
+//			}
+//			
+//			if(differances_list.get(i)<min_probability){
+//				min_probability = differances_list.get(i);
+//			}
+//			
+//			total_probability+=differances_list.get(i);
+//		}
+//		
+//		average_probability = total_probability/differances_list.size();
+//		
+//		//TODO determine what to return as a differance based on these metrics
+//		differance = average_probability; //TODO change this
+//		
+//		return differance ;
+//		
+//	}
+	
+	
+	///return the difference between two given windows
 	///@param base window successor touch is the touch coming after base_window in the base model
 	///@param auth window_touches are the touches which succeeds auth_window
 	/// base_window_successor and auth_window_successor should be equivilent. This method simply returns the difference in their probabilities.
 	/// the reason this method is broken out is because this is likely to be modified to refine the model
-	private double get_window_successor_difference(List<Window> base_window_list, List<Touch> base_successor_touch_list, Window auth_window, Touch auth_window_successor_touch){
+	private double get_window_difference(List<Window> base_window_list, List<Touch> base_successor_touch_list, Window auth_window, Touch auth_window_successor_touch){
 		//TODO this can deffonatly be made more effecient
-		//TODO this can be done by using get_index_list() function of base_window_list
 		//we want to know the differences in touch probability for the touches which come after these windows
 		double difference = 0;
-
+		
 		// What it sould be doing is:
 		//  find the auth window in base_window_list
 		//  compare the probability of the successor touches
@@ -438,36 +459,86 @@ public class Chain{
 				break;
 			}
 		}
-
-		//TODO handle the cases differently:
-		//TODO  window found, successor touch not found
-		//TODO   don't include these in the averaging
-		//TODO  window found, successor touch found
-		//TODO   include the difference in probability in the average
-
+		
 		double base_probability;
 		if(index==-1){
-			// this stands for the probability in the base window
 			//auth window not found in base_window; hense the difference is maximum
+			// this stands for the probability in the base window
 			base_probability = 0;
 		}else{
 			//found it! now determine the probability of the same touch coming after
 			base_probability = base_successor_touch_list.get(index).get_probability(base_window_list.get(index));
-
-			//TODO might just be able to use auth window
-			//base_probability = base_successor_touch_list
 		}
 		
 		double auth_probability = auth_window_successor_touch.get_probability(auth_window);
 		
 		//System.out.println("base_p:"+base_probability+" auth_p:"+auth_probability);
 		
-		// take the absolute value because we are adding up
-		// the total difference between the edges of both models
+		//TODO should this be absolute value?
 		difference = Math.abs(base_probability - auth_probability);
 		
 		return difference;
 	}
+	
+	
+	///get the amount the difference would change by adding this window,and removing the oldest window
+	///the last window given will be the window added
+	///the window being added is the one at base end index, this will correspond the the last 
+//	private double get_differential_difference(Chain base_chain, Chain auth_chain, int base_start_index, int base_end_index){
+//		//TODO determine what base_window and auth_window should be
+//		double removed_window_difference = 0;
+//		double added_window_difference = 0;
+//		
+//		Window base_removed_window = null;
+//		Window auth_removed_window = null;
+//		Touch base_removed_successor_touch = null;
+//		Touch auth_removed_successor_touch = null;
+//		removed_window_difference = get_window_difference(base_removed_window, auth_removed_window, base_removed_successor_touch, auth_removed_successor_touch);
+//		
+//		Window base_added_window = null;
+//		Window auth_added_window = null;
+//		Touch base_added_successor_touch = null;
+//		Touch auth_added_successor_touch = null;
+//		added_window_difference = get_window_difference(base_added_window, auth_added_window, base_added_successor_touch, auth_added_successor_touch);
+//		
+//		return (added_window_difference - removed_window_difference);
+//	}
+	
+	
+	///compare two equally sized chains. Return the differance between them
+//	private double compare(Chain base_chain, Chain auth_chain, int base_start_index, int base_end_index){
+//		//compare all of auth to base
+//		//compare between base_start_index and base_end_index
+//		double differance = 0;
+//		int base_window_index = 0;
+//		
+//		List<Window> base_windows = base_chain.get_windows();
+//		List<Window> auth_windows = auth_chain.get_windows();
+//		Window base_window = null;
+//		Window auth_window = null;
+//		
+//		//for each window in auth_windows
+//		for(int i=0;i<auth_windows.size();i++){
+//			//TODO compare auth window to the same window in base_windows
+//			// handle when the window is not found
+//			// determine what base_window, auth_window should be
+//			auth_window = auth_windows.get(i);
+//			base_window_index = get_base_window_index(base_chain, auth_window, auth_chain.successor_touch.get(i), base_start_index, base_end_index);			
+//			
+//			if(base_window_index != -1){
+//				//auth_window was found in base_windows
+//				base_window = base_windows.get(base_window_index);
+//				differance += get_window_difference(base_window, auth_window, base_chain.successor_touch.get(base_window_index), auth_chain.successor_touch.get(i));
+//			}else{
+//				//window in auth_windows was not found in base_windows
+//				//TODO determine what to do... does this make sense
+//				differance+=1;
+//			}
+//		}
+//		
+//		return differance;
+//	}
+	
 	
 	//returns non -1 only if successor touches are the same for the given window
 	//returns the index of auth_window if it is contained in base window
@@ -545,7 +616,6 @@ public class Chain{
 
 	///returns the index of a given keycode in the list containing lists of touches corresponding to a given key. Returns -1 if the keycode does not exist in the list.
 	//TODO this seems like it could be done in less work, could save the indexes in some sort of data structure and retrieve them when needed
-	//TODO turn this into a list of size of unique keycodes, then take keycode % keycodes in order to find the index ? this doesn't work but its close
 	private int keycode_index(ArrayList<List<Touch>> list_of_keycodes, int keycode){
 		//TODO check for correctness
 		int index;		
@@ -561,6 +631,7 @@ public class Chain{
 
 
 	///compute the probability
+	//TODO consider splitting this up across multiple threads if preformance is an issue. I'm fairly certain this will be the main performance concern.
 	private void compute_probability(){
 		//ensure windows are computed
 		//if there are now windows, probabality is undefined, simply return
@@ -574,8 +645,7 @@ public class Chain{
 		//TODO write a program to determine the optimal number of loopse per thread
 		int thread_responsibility = 100;
 		
-		// create all the threads and begin executing them
-		// each thread has responsibility fro some of the loops
+		//TODO figure out why this code doesn't work.. create all the threads
 		for(int i=0;i<windows.size();i+=thread_responsibility){
 			int end_index = (i+thread_responsibility)-1;
 			
@@ -592,6 +662,32 @@ public class Chain{
 		
 		executor.shutdown();
 		while(!executor.isTerminated()){}
+		
+		//TODO test code... entire thing on one thread
+//		Runnable compute_partial_1 = new Compute_partial_probability(0, this.get_windows().size()/2);
+//		Runnable compute_partial_2 = new Compute_partial_probability(this.get_windows().size()/2+1, this.get_windows().size()-1);
+//		
+//		Thread partial_thread_1 = new Thread(compute_partial_1);
+//		Thread partial_thread_2 = new Thread(compute_partial_2);
+//		
+//		threads.add(partial_thread_1);
+//		threads.add(partial_thread_2);
+		
+		//start all the threads
+//		for(int i=0;i<threads.size();i++){
+//			threads.get(i).start();
+//		}
+		
+		//join all the threads
+//		try{
+//			for(int i=0;i<threads.size();i++){
+//				threads.get(i).join();
+//			}
+//		}catch(Exception e){
+//			e.printStackTrace();
+//		}
+		
+		//System.out.println("size_threads:"+threads.size());
 	}
 	
 	
@@ -643,6 +739,39 @@ public class Chain{
 			}
 		}
 	}
+	
+	
+//	///counts the number of times a given touch comes after a given window. in the given window, succesors list
+//	private int successor_count(List<Window> window_list, List<Touch> successor_list, Window window, Touch touch){
+//		int count = 0;
+//		
+//		for(int i=0;i<window_list.size();i++){
+//			//for every occurrence of window, successor match, increment count
+//			if((window_list.get(i).compare_with_token(this.get_tokens(), window)) && (successor_list.get(i).compare_with_token(this.get_tokens(),touch))){
+//				count++;
+//			}
+//		}
+//		
+//		return count;
+//	}
+//
+//	
+//	///return the number of occurrences of w in window_list
+//	///TODO I think this method needs to be faster. Storing windows in a prefix tree would allow for this
+//	private int occurrence_count(List<Window> window_list, Window w){
+//		//TODO check for correctness
+//		int occurrences=0;
+//		
+//		for(int i=0;i<window_list.size();i++){
+//			//determine if the windows are equal
+//			if(window_list.get(i).compare_with_token(this.get_tokens(),w)){
+//				occurrences++;
+//			}
+//		}
+//
+//		return occurrences;
+//	}
+
 
 	///compute the windows. This will also fill the successor_touch list
 	///this does not taken the token rules into account. this is done later in computing the probability

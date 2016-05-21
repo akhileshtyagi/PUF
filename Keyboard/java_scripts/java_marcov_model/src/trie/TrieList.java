@@ -172,11 +172,14 @@ public class TrieList extends ArrayList<Window>{
 		return count2;
 	}
 
+	/* return the indexes of a window's occurrence in window_list */
+	public List<Integer> get_index_list(Window window) {
+		return trie.get_index_list(encode(window));
+	}
 	
 	///return the number of occurrences of w in window_list
-	///TODO I think this method needs to be faster. Storing windows in a prefix tree would allow for this
 	public int occurrence_count(Window w){
-		//TODO use prefix tree to do this
+		// use prefix tree to do this
 		int occurrences=0;
 		
 //		for(int i=0;i<this.size();i++){
