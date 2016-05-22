@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  19 MAY 2016 14:00
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  21 MAY 2016 19:53
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -299,10 +299,10 @@ Underfull \vbox (badness 3049) has occurred while \output is active []
 File: figures/token_creation.png Graphic file (type png)
 
 <use figures/token_creation.png>
-Package pdftex.def Info: figures/token_creation.png used on input line 276.
+Package pdftex.def Info: figures/token_creation.png used on input line 275.
 (pdftex.def)             Requested size: 260.17244pt x 97.56717pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 276--277
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 275--276
  [][] 
  []
 
@@ -310,11 +310,11 @@ Overfull \hbox (20.17244pt too wide) in paragraph at lines 276--277
 File: figures/normal_distribution.png Graphic file (type png)
 
 <use figures/normal_distribution.png>
-Package pdftex.def Info: figures/normal_distribution.png used on input line 305
+Package pdftex.def Info: figures/normal_distribution.png used on input line 309
 .
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 305--306
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 309--310
  [][] 
  []
 
@@ -324,32 +324,28 @@ File: figures/markov_model_building.png Graphic file (type png)
 
 <use figures/markov_model_building.png>
 Package pdftex.def Info: figures/markov_model_building.png used on input line 3
-71.
+79.
 (pdftex.def)             Requested size: 245.71754pt x 105.44522pt.
 
-Overfull \hbox (5.71754pt too wide) in paragraph at lines 371--372
+Overfull \hbox (5.71754pt too wide) in paragraph at lines 379--380
  [][] 
  []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
 
 <figures/final_markov_model_state.png, id=24, 774.895pt x 354.32375pt>
 File: figures/final_markov_model_state.png Graphic file (type png)
 
 <use figures/final_markov_model_state.png>
 Package pdftex.def Info: figures/final_markov_model_state.png used on input lin
-e 402.
+e 410.
 (pdftex.def)             Requested size: 245.71754pt x 112.35326pt.
 
-Overfull \hbox (5.71754pt too wide) in paragraph at lines 402--406
+Overfull \hbox (5.71754pt too wide) in paragraph at lines 410--414
  [][] 
  []
 
 [3 <./figures/normal_distribution.png> <./figures/markov_model_building.png> <.
 /figures/final_markov_model_state.png>]
-Overfull \hbox (15.5365pt too wide) in paragraph at lines 443--443
+Overfull \hbox (15.5365pt too wide) in paragraph at lines 451--451
 []\secfnt DIFFERENTIATING USER-DEVICE PAIRS 
  []
 
@@ -358,10 +354,10 @@ File: figures/threshold_vs_percentages.png Graphic file (type png)
 
 <use figures/threshold_vs_percentages.png>
 Package pdftex.def Info: figures/threshold_vs_percentages.png used on input lin
-e 452.
+e 460.
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 452--453
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 460--461
  [][] 
  []
 
@@ -372,10 +368,10 @@ File: figures/window_size_vs_authentication_accuracy.png Graphic file (type png
 )
  <use figures/window_size_vs_authentication_accuracy.png>
 Package pdftex.def Info: figures/window_size_vs_authentication_accuracy.png use
-d on input line 505.
+d on input line 513.
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 505--506
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 513--514
  [][] 
  []
 
@@ -387,10 +383,10 @@ File: figures/authentication_accuracy_vs_model_size.png Graphic file (type png)
 
  <use figures/authentication_accuracy_vs_model_size.png>
 Package pdftex.def Info: figures/authentication_accuracy_vs_model_size.png used
- on input line 543.
+ on input line 551.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 543--546
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 551--554
  [][] 
  []
 
@@ -401,10 +397,10 @@ File: figures/total_touches_vs_authentication_accuracy.png Graphic file (type p
 ng)
  <use figures/total_touches_vs_authentication_accuracy.png>
 Package pdftex.def Info: figures/total_touches_vs_authentication_accuracy.png u
-sed on input line 587.
+sed on input line 595.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 587--588
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 595--596
  [][] 
  []
 
@@ -417,10 +413,10 @@ hes_vs_authentication_accuracy.png>]
 File: figures/nexus_speed_test.png Graphic file (type png)
 
 <use figures/nexus_speed_test.png>
-Package pdftex.def Info: figures/nexus_speed_test.png used on input line 629.
+Package pdftex.def Info: figures/nexus_speed_test.png used on input line 637.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 629--630
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 637--638
  [][] 
  []
 
@@ -429,15 +425,15 @@ File: figures/nexus_total_size_time.png Graphic file (type png)
 
 <use figures/nexus_total_size_time.png>
 Package pdftex.def Info: figures/nexus_total_size_time.png used on input line 6
-46.
+54.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 646--649
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 654--657
  [][] 
  []
 
 
-Overfull \hbox (1.30322pt too wide) in paragraph at lines 671--674
+Overfull \hbox (1.30322pt too wide) in paragraph at lines 679--682
 \T1/aer/m/n/9 mance trade-off as-so-ci-ated with in-creased num-bers of touches
 .
  []
@@ -446,12 +442,12 @@ Overfull \hbox (1.30322pt too wide) in paragraph at lines 671--674
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \hbox (5.70876pt too wide) in paragraph at lines 675--675
+Overfull \hbox (5.70876pt too wide) in paragraph at lines 683--683
 []\secfnt DISTRIBUTED USER-DEVICE (UD-) PUF 
  []
 
 
-Overfull \hbox (4.88376pt too wide) in paragraph at lines 690--692
+Overfull \hbox (4.88376pt too wide) in paragraph at lines 698--700
 \T1/aer/m/n/9 user-device com-bi-na-tions. A con-tin-u-ous au-then-ti-ca-tion m
 odel
  []
@@ -469,7 +465,7 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 Here is how much of TeX's memory you used:
  2882 strings out of 493054
  37405 string characters out of 6140586
- 102340 words of memory out of 5000000
+ 103340 words of memory out of 5000000
  6323 multiletter control sequences out of 15000+600000
  47803 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
@@ -488,7 +484,7 @@ share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dis
 t/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1/u
 rw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.p
 fb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
-Output written on mobilePUFkeyboard.pdf (7 pages, 447059 bytes).
+Output written on mobilePUFkeyboard.pdf (7 pages, 446852 bytes).
 PDF statistics:
  114 PDF objects out of 1000 (max. 8388607)
  68 compressed objects within 1 object stream

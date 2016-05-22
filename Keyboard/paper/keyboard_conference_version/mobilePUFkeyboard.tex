@@ -232,7 +232,6 @@ their interpretation are given in Section \ref{sec:results}.
 Section \ref{sec:PUF} discusses the variability and reproducibility properties of our system.
 Conclusions are presented in Section \ref{sec:conclusions}. 
 
-%TODO continue proofreading
 \section{Related Work}
 \label{sec:related_work}
 %detail what was done in the sensec paper
@@ -245,20 +244,20 @@ to establish a user identity. Sensec builds a user profile from accelerometers, 
 \cite{KeystrokeHASE14},  accelerometer based signature \cite{Liu:2009:UAP}, MEMS sensors
 \cite{Aysu:2013:DFL}, Gait sensors \cite{Gait}, gestures \cite{touchscreengestures}, \cite{Gesture14}, and 
 broader sensor set \cite{Dey:2013:AHP} have also been
-used. SenGuard \cite{shi2011senguard} is a similar to SenSec in creating a passive
+used. 
+SenGuard \cite{shi2011senguard} is a similar to SenSec in creating a passive
 authentication mechanism using sensor based models. In this paper, the continuous authentication is based on a combined user-device identity,
 which is derived from a user-device (UD)-PUF \cite{ScheelTyagi15}.
+
+%TODO describe how our work differes from that of our predecessors
 
 % Describe other works which are not being directly improved over, but are still similar
 %\textbf{
 %\cite{ruhrmair2015virtual}
 %}
 
-%TODO describe how our work differes from that of our predecessors
-
 %describe what touchscreen pressure is
 %describe the physical component of the pressure (current at the edge of screen on android device)
-
 
 %describe a Markov model in general
 %describe what it means to be an n-gram sliding Markov model
@@ -271,35 +270,40 @@ Raw touch interactions at a specific key in the soft keyboard square button
 generates a raw pressure value in the range $[0,1]$. These pressure values are tokenized
 into an input alphabet for the Markov model.
  
- \begin{figure}
+\begin{figure}
 \centering
 \includegraphics[width=3.6in]{token_creation.png}
 \caption{Touch Tokens are Only Created for Pressure Values within Two Sigma Range for Each Key.}
 \label{fig:token_creation}
 \end{figure}
 
-
-%TODO describe what is a Markov chain
-Markov Chains are useful in predicting and modeling systems whose behavior evolves through discrete states. The probability of transitions between states can be captured.
+% describe what is a Markov chain
+Markov Chains are useful in predicting and modeling systems whose behavior evolves through discrete states. 
+The probability of transitions between states can be captured.
 In general an $n$-Markov model states that the
-user tokens of length $n$ repeat themselves with certain frequency. Hence a user history
-of $n$-token sequences could help us classify the user's future behavior. The tokens are
+user tokens of length $n$ repeat themselves with certain frequency.
+Hence a user history of $n$-token sequences could help us classify the user's future behavior. The tokens are
+% pressure, location (the key which is pressed)
+%TODO potentially include pressure, location values
 touch screen pressure values that are continually generated as the user interacts with an app
 through a soft keyboard.
 
-%Other information about Markov chains
-%TODO traditional use of Markov chains
-%Historically the Markov Chain has found applications in (statistics?)
+% Other information about Markov chains
+% traditional use of Markov chains, text linguistic analysis
+% Historically the Markov Chain has found applications in (statistics?)
 
-%begin talking about the construction of the model
-Instead of building a complete Markov model of the user behavior, we build a collection of $n$-grams
+% begin talking about the construction of the model
+Instead of building a complete Markov model of the user behavior,
+we build a collection of $n$-grams
 which are frequently instantiated sequences of $n$ tokens.
-We use $n$-sized sequences  within a user interaction generated token sequence as an
-$n$-gram which approximates $n$-Markov model. $n$-grams were originally
+We use $n$-sized sequences 
+within a user interaction
+generated token sequence as an
+$n$-gram which approximates an $n$-Markov model.
+$n$-grams were originally
 used in natural language processing \cite{Brown:ngram}.
 
-%demonstrates how the range is split into many distinct token ranges by pressure
-
+% demonstrates how the range is split into many distinct token ranges by pressure
 \begin{figure}
 \centering
 \includegraphics[width=3.6in]{normal_distribution.png}
@@ -307,18 +311,18 @@ used in natural language processing \cite{Brown:ngram}.
 \label{fig:normal_distribution}
 \end{figure}
 
-
 %TODO continue talking about model construction.
 %how are tokens constructed
 %how are probabilities calculated
 In building the model we remove some touches likely to be mistakes by the user or simply outliers in the data set.
 The distribution of touch pressure values is calculated for each square button area on the touchscreen. 
-In our system these areas correspond to keys of the soft keyboard. In order to develop PUF reproducibility,
+In our system these areas correspond to keys of the soft keyboard.
+In order to develop PUF reproducibility,
 the pressure tokens from the same key are 
 assumed
 %shown 
 to have a normal distribution.
-Figure \ref{fig:normal_distribution} plots a set of touch pressure values from one of the test users
+Figure \ref{fig:normal_distribution} plots a set of touch pressure values from one of the test users.
 %. which shows that this data is close to a normal distribution.
 
 % show that our data is normally distributed
@@ -327,19 +331,24 @@ Figure \ref{fig:normal_distribution} plots a set of touch pressure values from o
 %\textbf{
 %To verify pressure values generated by user on a given touch screen user are normally distributed,
 %we preform the following statistical hypothesis test.
-% TODO TODO TODO prove that pressure values are normally distributed
+% TODO prove that pressure values are normally distributed
 %}
 
-From the token sequence, a normal distribution mean and variance ($\mu$ and $\sigma$) values are estimated for each soft keyboard key.
-If a token pressure value falls outside of $\mu \pm 2*\sigma$ for a given key, 
-then it is not included in any of the $n$-token sequences. 
+From the token sequence,
+a normal distribution mean and variance ($\mu$ and $\sigma$) values are estimated for each soft keyboard key.
+If a touch interaction's pressure value falls outside of
+$\mu \pm 2\sigma$ for a given key, 
+then the touch interaction is not included in any of the $n$-token sequences. 
 Figure \ref{fig:token_creation} illustrates 
-this tokenization process. The pressure values falling within $\mu \pm 2*\sigma$ are tokenized
-into a predetermined $k$ tokens - 7 token ranges in Figure \ref{fig:token_creation}.
-The value of $\mu\pm2\sigma$ was chosen because statistically $95.45$\% of touches 
+this tokenization process.
+The pressure values falling within $\mu \pm 2\sigma$ are tokenized
+into a predetermined number of tokens $k$. 
+$k=7$ token ranges in Figure \ref{fig:token_creation}.
+The value of $\mu \pm 2\sigma$ was chosen because statistically $95.45$\% of touches 
 will fall withing this range for normally distributed data \cite{threesigmarule}.
 Tokens are compared both for the key (keyboard button) location and the tokenized pressure value.
 
+%TODO consider including this again
 %n-gram a continuious sequence of n items
 %markov model for comparason is built from a sliding model of the previous n touches
 %describe how the Markov chain is applied to touch pressure to model a user
@@ -347,25 +356,42 @@ Tokens are compared both for the key (keyboard button) location and the tokenize
 %\section{Touch Pressure Modeling}
 %\label{touch_pressure_modeling}
 % this section should describe various implementation details
-%TODO it may be useful to include all different parameters to the model, and the effects of varying each of them
 
-%describes how the Markov model is built from the sequence of touch pressures
+%TODO it may be useful to include all different parameters to the model, 
+%TODO and the effects of varying each of them
 
+%TODO describe how the Markov model is built from the sequence of touch pressures
 
-%TODO desctibe, or reference somewhere, the above pictures
+%TODO describe, or reference somewhere, the above pictures
 
 %TODO describe the Markov model used
-Our goal in modeling user touch screen interactions with a Markov model is to classify the system in terms of its transitions between states. 
-Each touch token contains information about the pressure and location of the interaction with the touchscreen.
+Our goal in modeling user touch screen interactions with a Markov model
+is to classify the system in terms of its transitions between states. 
+Each touch token contains information about the pressure and location 
+of the interaction with the touchscreen.
 These token fire off transitions.
 In Figures \ref{fig:markov_model_building} and \ref{fig:final_markov_model_state}, 
 Touch\_$n$ is a token and therefore comprised of a location and pressure range.
+%
+Given that the user can generate large number of possible pressure values,
+ranges of pressure values are mapped to the same token as described above.
+This is done in order to enable reproducibility.
+This same approach works to help reduce the number unique locations.
+Our implementation represents location based
+on the key code associated with the key generating the interaction.
+The effect of this is 
+all coordinate pairs falling within the bounding box
+of the key are mapped to the same token.
+%
+Tokens are considered distinct if
+either the location or the pressure is different.
 For instance, two user interactions with the same location
-could be considered to be different touches in the model if
+would be considered to be different tokens in the model if
 the they fall within a different range of pressure values.
-In addition, two user interactions with different locations but with pressure
+Additionally, two user interactions with different locations but with pressure
 values within the same pressure range will be considered to be different touches.
 
+%TODO redo this figure's caption
 \begin{figure}
 \centering
 \includegraphics[width=3.4in]{figures/markov_model_building.png}
@@ -375,6 +401,7 @@ values within the same pressure range will be considered to be different touches
 
 %TODO describe aspects of the implementation
 %describe how the model is constructed from the touch pressure sequence
+%TODO continue proofreading
 Our Markov $n$-gram model calculates the probability of a given token following a specific 
 token sequence of length $n$. Given a training sequence of tokens $T_0, T_1, \dots , T_N$,
 we use maximum likelihood estimation (MLE) as follows to build the model. For all in-fixes of
