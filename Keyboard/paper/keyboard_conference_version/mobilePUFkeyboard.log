@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  22 MAY 2016 16:29
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  22 MAY 2016 17:42
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -345,7 +345,7 @@ Overfull \hbox (5.71754pt too wide) in paragraph at lines 458--462
 
 [3 <./figures/normal_distribution.png> <./figures/markov_model_building.png> <.
 /figures/final_markov_model_state.png>]
-Overfull \hbox (1.28062pt too wide) in paragraph at lines 500--500
+Overfull \hbox (1.28062pt too wide) in paragraph at lines 527--527
 []\secfnt USER-DEVICE PAIR DIS-CRIM-I-NA-TION 
  []
 
@@ -354,15 +354,19 @@ File: figures/threshold_vs_percentages.png Graphic file (type png)
 
 <use figures/threshold_vs_percentages.png>
 Package pdftex.def Info: figures/threshold_vs_percentages.png used on input lin
-e 508.
+e 535.
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 508--509
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 535--536
  [][] 
  []
 
 
-Underfull \vbox (badness 3058) has occurred while \output is active []
+Overfull \hbox (2.45642pt too wide) in paragraph at lines 563--577
+\T1/aer/m/n/9 pro-file can be given by $\OT1/cmr/m/n/9 1 \OMS/cmsy/m/n/9 ^^@ \O
+ML/cmm/m/it/9 avgDistance\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 TrainingProfile n \OMS
+/cmsy/m/n/9 ^^@
+ []
 
 
 <figures/window_size_vs_authentication_accuracy.png, id=34, 602.25pt x 372.3912
@@ -371,118 +375,123 @@ File: figures/window_size_vs_authentication_accuracy.png Graphic file (type png
 )
  <use figures/window_size_vs_authentication_accuracy.png>
 Package pdftex.def Info: figures/window_size_vs_authentication_accuracy.png use
-d on input line 565.
+d on input line 600.
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 565--566
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 600--601
  [][] 
  []
 
-[4 <./figures/threshold_vs_percentages.png> <./figures/window_size_vs_authentic
-ation_accuracy.png>]
-<figures/authentication_accuracy_vs_model_size.png, id=44, 602.25pt x 372.39125
+[4 <./figures/threshold_vs_percentages.png>]
+<figures/authentication_accuracy_vs_model_size.png, id=43, 602.25pt x 372.39125
 pt>
 File: figures/authentication_accuracy_vs_model_size.png Graphic file (type png)
 
  <use figures/authentication_accuracy_vs_model_size.png>
 Package pdftex.def Info: figures/authentication_accuracy_vs_model_size.png used
- on input line 603.
+ on input line 645.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 603--606
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 645--648
  [][] 
  []
 
 
-<figures/total_touches_vs_authentication_accuracy.png, id=45, 602.25pt x 372.39
+<figures/total_touches_vs_authentication_accuracy.png, id=44, 602.25pt x 372.39
 125pt>
 File: figures/total_touches_vs_authentication_accuracy.png Graphic file (type p
 ng)
  <use figures/total_touches_vs_authentication_accuracy.png>
 Package pdftex.def Info: figures/total_touches_vs_authentication_accuracy.png u
-sed on input line 647.
-(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
-
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 647--648
- [][] 
- []
-
-
-Underfull \vbox (badness 4954) has occurred while \output is active []
-
- [5 <./figures/authentication_accuracy_vs_model_size.png> <./figures/total_touc
-hes_vs_authentication_accuracy.png>]
-<figures/nexus_speed_test.png, id=51, 602.25pt x 372.39125pt>
-File: figures/nexus_speed_test.png Graphic file (type png)
-
-<use figures/nexus_speed_test.png>
-Package pdftex.def Info: figures/nexus_speed_test.png used on input line 689.
+sed on input line 689.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
 Overfull \hbox (12.94499pt too wide) in paragraph at lines 689--690
  [][] 
  []
 
-<figures/nexus_total_size_time.png, id=52, 602.25pt x 372.39125pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [5 <./figures/window_size_vs_authentication_accuracy.png> <./figures/authentic
+ation_accuracy_vs_model_size.png>]
+<figures/nexus_speed_test.png, id=50, 602.25pt x 372.39125pt>
+File: figures/nexus_speed_test.png Graphic file (type png)
+
+<use figures/nexus_speed_test.png>
+Package pdftex.def Info: figures/nexus_speed_test.png used on input line 731.
+(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
+
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 731--732
+ [][] 
+ []
+
+<figures/nexus_total_size_time.png, id=51, 602.25pt x 372.39125pt>
 File: figures/nexus_total_size_time.png Graphic file (type png)
 
 <use figures/nexus_total_size_time.png>
 Package pdftex.def Info: figures/nexus_total_size_time.png used on input line 7
-06.
+48.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 706--709
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 748--751
  [][] 
  []
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-
-Overfull \hbox (1.30322pt too wide) in paragraph at lines 731--734
+Overfull \hbox (1.30322pt too wide) in paragraph at lines 773--776
 \T1/aer/m/n/9 mance trade-off as-so-ci-ated with in-creased num-bers of touches
 .
  []
 
 
-Overfull \hbox (4.88376pt too wide) in paragraph at lines 751--753
+Underfull \vbox (badness 4954) has occurred while \output is active []
+
+ [6 <./figures/total_touches_vs_authentication_accuracy.png> <./figures/nexus_s
+peed_test.png> <./figures/nexus_total_size_time.png>]
+Overfull \hbox (4.88376pt too wide) in paragraph at lines 793--795
 \T1/aer/m/n/9 user-device com-bi-na-tions. A con-tin-u-ous au-then-ti-ca-tion m
 odel
  []
 
-[6 <./figures/nexus_speed_test.png> <./figures/nexus_total_size_time.png>]
 (./mobilePUFkeyboard.bbl
 Overfull \hbox (21.45428pt too wide) in paragraph at lines 11--16
 \T1/aer/m/n/9 http://www.consumerreports.org/cro/news/2014/04/smart- 
  []
 
-) [7] (./mobilePUFkeyboard.aux) ) 
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7])
+[8
+
+] (./mobilePUFkeyboard.aux) ) 
 Here is how much of TeX's memory you used:
  2882 strings out of 493054
  37405 string characters out of 6140586
- 102836 words of memory out of 5000000
+ 104836 words of memory out of 5000000
  6323 multiletter control sequences out of 15000+600000
  47803 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  41i,10n,28p,737b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/base/8r
-.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/shar
-e/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texmf-di
-st/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts
-/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></
-usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/t
-ype1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uh
-vr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
-Output written on mobilePUFkeyboard.pdf (7 pages, 435697 bytes).
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc
+}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/te
+xmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texmf-dist/f
+onts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/
+share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></us
+r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-d
+ist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1
+/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a
+.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
+Output written on mobilePUFkeyboard.pdf (8 pages, 455826 bytes).
 PDF statistics:
- 114 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
+ 117 PDF objects out of 1000 (max. 8388607)
+ 70 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  51 words of extra memory for PDF output out of 10000 (max. 10000000)
 

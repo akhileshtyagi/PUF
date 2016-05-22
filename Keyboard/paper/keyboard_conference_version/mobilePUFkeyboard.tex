@@ -494,6 +494,33 @@ a given token sequence.
 %TODO elaborate on prefix tree
 %TODO explain why this increases the speed of the probability caluclation... articulate how an alternative data structure would perform
 
+% gather touches over time
+% eventually we have enough to authenticate
+% authentication accuracy improves over time as more data is collected
+Such a system might be incorporated 
+into the Android environment in the following way.
+A background service could be used to collect MotionEvent objects
+from soft keyboard applications.
+This would allow touch interactions to be collected over time.
+A model of these touch events could then
+be constructed in the background.
+Periodic authentications could compare new touch interactions 
+against existing older touches which have come from the user.
+%
+The number of touches used in the authentication could be
+adjusted over time.
+This would allow for lower accuracy models to be
+constructed with relatively few touches while
+higher accuracies would be achievable as
+the system collects more touch interaction data.
+The effect would be a small amount of added
+security initially which improves over time.
+%
+Many things could be done if the result of this authentication
+find the user is illegitimate.
+One approach might be to lock the phone,
+forcing the user to re-authenticate with some other method.
+
 %basically the authentication scheme used
 %frame it in more general terms, independent of our specific application
 %\section{Differentiating \\A User-Device Pair}
@@ -514,39 +541,47 @@ a given token sequence.
 %TODO define false positive
 %TODO define false negative
 %TODO explain why the intersection of these two is significant in choosing the authentication threshold
-%TODO continue proofreading
-In distinguishing a user from another user, 
+In distinguishing one user from another user, 
 the $n$-grams for the two users need to be compared. 
 For a given $n$-gram 
 $[(T_{i_0} T_{i_1} \dots T_{i_{n-1}}), (p_0, p_1, \dots, p_k)]$ where 
 $(T_{i_0} T_{i_1} \dots T_{i_{n-1}})$ is the prefix sequence and 
 $(p_0, p_1, \dots, p_k)$ is the
 probability vector for the next token being 
-Token $0$, Token $1$, ..., Token $k$ from the alphabet $\Sigma$.
-The distance between two $n$-grams $distance[(T_{i_0} T_{i_1} \dots T_{i_{n-1}}), (p_0, p_1, \dots, p_k)]$
-and \\
-$[(T_{i_0} T_{i_1} \dots T_{i_{n-1}}), (q_0, q_1, \dots, q_k)]$ is
-given by \\
+Token $0$, Token $1$, $\dots$, Token $k$ from the alphabet $\Sigma$.
+The distance between two $n$-grams 
+$distance[(T_{i_0} T_{i_1} \dots T_{i_{n-1}}), (p_0, p_1, \dots, p_k)]$ and \\
+$[(T_{i_0} T_{i_1} \dots T_{i_{n-1}}), (q_0, q_1, \dots, q_k)]$ is given by \\
 $\Sigma_{j=0}^k|(p_j - q_j)|/(k+1)$ where $|x|$ is the absolute value of $x$.
-The difference between two user profiles is the average difference between $n$-grams belonging
-to the two profiles. If the two $n$-grams are identical, the distance is 0.
+The difference between two user profiles is 
+the average difference between $n$-grams belonging
+to the two profiles.
+If the two $n$-grams are identical, the distance is 0.
 One minus this distance is a measure of the {\it divergence} between two user profiles.
 
-Continuous authentication system needs to determine when two sets of touch pressure values came from the same user-device pair. When authenticating a user, we take the difference between
-the user profile $n$-grams constructed from the training data set and the $n$-grams
-constructed from the current touch interaction data. The confidence interval
-that the current user is the same whose training profile exists can be given $1 - 
-avgDistance(TrainingProfile \; n-grams, \; CurrentProfile \; n-grams)$. If the two profiles are
-identical with distance 0, confidence level in the user identity is highest at 1.
+% what is the goal in preforming the above computation
+Our continuous authentication system needs to determine 
+when two sets of touch pressure values came from the same user-device pair. 
+When authenticating a user, we take the difference between
+the user profile $n$-grams constructed from the training data set 
+and the $n$-grams constructed from the current touch interaction data.
+The confidence interval that the current user is the same 
+user who generated the training profile can be given by 
+$1 - avgDistance(TrainingProfile \; n-grams, \; CurrentProfile \; n-grams)$. 
+If the two profiles are identical with distance 0, 
+confidence level in the user identity is highest at 1.
 %
-%add more metrics, and explain them, provide more graphs about them
 If authentication is a binary decision of yes or no, a threshold value $0 \leq th \leq 1$ is set.
 if the ConfidenceInterval $= 1 -$ ProfileDistance $> th$, the user is authenticated; otherwise not. 
 Figure \ref{fig:threshold_vs_percentages} illustrates how false positive percentage and false negative percentage rates vary based on the threshold value for authentication. 
 
-%authentication threshold described
+%TODO explain whether these distances are weighted or not
+%TODO how are these distances weighted
+
+%TODO authentication threshold described
 
 %false positive percentage described
+%TODO continue proofreading
 False positive rate measures the fraction of authentications between two touch token profiles where 
 the two profiles did not come from the same user-device pair.
 False negative rate is exactly the inverse of false positive rate in that it describes the
@@ -595,6 +630,13 @@ The results presented here were derived from the touch data generated by two use
 %with what accuracy could users be distinguished from one-another
 \section{Results}
 \label{sec:results}
+%TODO describe the performance of the system in terms of
+% 1. aggregate performance
+% 2. distinguishing user sets:
+% 2.1. different user, different device
+% 2.1. different user, same device
+% 2.1. same user, different device
+% 2.1. same user, same device
 %TODO discuss predictions and whether they were correct or incorrect.
 
 %this section describes how authentication accuracy was investigated. Also included are a few figures which describe the best authentication accuracy percentage

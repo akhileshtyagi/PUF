@@ -487,16 +487,24 @@ penalized by considering the the difference between the windows to be $1.0$.
 %TODO
 
 % describe how this might be used in an android environment
-%TODO check that this is correct (use 388 slides)
 Such a system might be incorporated 
 into the Android environment in the following way.
 A background service could be used to collect MotionEvent objects
 from soft keyboard applications.
 This would allow touch interactions to be collected over time.
-A a model of these touch events could then
+A model of these touch events could then
 be constructed in the background.
 Periodic authentications could compare new touch interactions 
 against existing older touches which have come from the user.
+%
+The number of touches used in the authentication could be
+adjusted over time.
+This would allow for lower accuracy models to be
+constructed with relatively few touches while
+higher accuracies would be achievable as
+the system collects more touch interaction data.
+The effect would be a small amount of added
+security initially which improves over time.
 %
 Many things could be done if the result of this authentication
 find the user is illegitimate.
