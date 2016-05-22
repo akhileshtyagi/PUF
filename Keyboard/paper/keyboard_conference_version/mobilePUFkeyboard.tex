@@ -30,12 +30,12 @@
 \documentclass{acm_proc_article-sp}
 %\documentclass[conference]{IEEEtran}
 
+% set the path for graphics
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+
 % 0.85
 \renewcommand{\baselinestretch}{1.0} 
-
-\begin{document}
-% set the path for graphics
-\graphicspath{{figures/}}
 
 \title{Continuous Transparent Authentication with User-Device Physical Unclonable Functions (UD-PUFs) based on Mobile Device Touchscreen Interactions}
 %\subtitle{[Extended Abstract]
@@ -68,7 +68,8 @@
 % without further effort on your part as the last section in
 % the body of your article BEFORE References or any Appendices.
 
-\numberofauthors{3} %  in this sample file, there are a *total*
+\numberofauthors{3} 
+%  in this sample file, there are a *total*
 % of EIGHT authors. SIX appear on the 'first-page' (for formatting
 % reasons) and the remaining two appear in the \additionalauthors section.
 %
@@ -97,6 +98,7 @@
 % Just remember to make sure that the TOTAL number of authors
 % is the number that will appear on the first page PLUS the
 % number that will appear in the \additionalauthors section.
+\begin{document}
 
 \maketitle
 \begin{abstract}
@@ -400,18 +402,23 @@ values within the same pressure range will be considered to be different touches
 \end{figure}
 
 %TODO describe aspects of the implementation
+
 %describe how the model is constructed from the touch pressure sequence
-%TODO continue proofreading
 Our Markov $n$-gram model calculates the probability of a given token following a specific 
-token sequence of length $n$. Given a training sequence of tokens $T_0, T_1, \dots , T_N$,
-we use maximum likelihood estimation (MLE) as follows to build the model. For all in-fixes of
-length $n$: $T_i, T_{i+1}, \dots , T_{i+n-1}$, the following $n$-gram model is created:
+token sequence of length $n$.
+Given a training sequence of tokens $T_0, T_1, \dots , T_N$,
+we use maximum likelihood estimation (MLE) as follows to build the model.
+For all in-fixes of
+length $n$: $T_i, T_{i+1}, \dots , T_{i+n-1}$,
+the following $n$-gram model is created:
 $P(T | T_{i..(i+n-1)}) =  count(T, T_i, T_{i+1}, \dots , T_{i+n-1})/\sum_{T \in \Sigma} count(
 T, T_i, T_{i+1}, \dots , \\T_{i+n-1}))$, where $T_{i..j}$ represents the
 token sequence \\
-$T_i, T_{i+\\1}, \dots, T_j$. Here, we are computing the probability of next token being $T$
+$T_i, T_{i+\\1}, \dots, T_j$.
+Here, we are computing the probability of next token being $T$
 given that the token sequence \\
-$T_i, T_{i+1}, \dots , T_{i+n-1}$ has been seen. It is just the
+$T_i, T_{i+1}, \dots , T_{i+n-1}$ has been seen.
+It is just the
 frequency of this event in the token sequence $T_0, T_1, \dots , T_N$. \\
 $count(T, T_i, T_{i+1}, \dots , T_{i+n-1})$ is given by the number of in-fixes with the same value as
 $T_i, T_{i+1}, \dots , T_{i+n-1}$ followed by the token $T$. This gives 
@@ -419,11 +426,16 @@ $count(T, T_i, T_{i+1}, \dots , T_{i+n-1}) = \sum_{j=0}^{N-n}(1$ if $T_{j..(j+n-
 T_{j+n} == T)$.
 
 Larger $n$ increases accuracy of the true probability of a given token $T$ following
-a sequence $T_{i..(i+n-1)}$. The increased accuracy is due to the intuition that 
-two users will be behave identically for  a sequence of $n$ tokens.
+a sequence $T_{i..(i+n-1)}$.
+The increased accuracy is due to the intuition that 
+two users may behave identically for a sequence of $n$ tokens, but
+differ in a sequence of $n+1$ tokens.
+%TODO insert something here, doesn't flow
 Figure~\ref{fig:markov_model_building} demonstrates how the token sequences for the Markov model are generated from the user's raw input from the soft keyboard.
+%TODO describe this more
 
-%describes how the Markov model will look after it has been constructed
+% describes how the Markov model will look after it has been constructed
+%TODO rephrase caption
 \begin{figure}
 \centering
 \includegraphics[width=3.4in]{figures/final_markov_model_state.png}
@@ -434,17 +446,19 @@ Touch\_20, Touch\_56, and Touch\_123 are other touches which follow the precedin
 \label{fig:final_markov_model_state}
 \end{figure}
 
-%TODO describe the probability calculation in detail
+% describe the probability calculation in detail
 Recall that the probability of a token $T$ following  a token sequence $T_{i..(i+n-1)}$ is 
 expressed as the number of occurrences of $T$ succeeding the given sequence $T_{i..(i+n-1)}$ among
 all the $N-n+1$ in-fixes of the sequence $T_{i..(i+n-1)}$.
 The idea behind this probability calculation is illustrated in Figure \ref{fig:final_markov_model_state}.
-Notably, Touch\_$n$ is not distinct. In other words Touch\_$a$ will be considered equal to Touch\_$b$ if the keycodes of these touches are equal and the touches fall within the same pressure range. Pressure ranges are depicted in Figure \ref{fig:token_creation}.
+Notably, Touch\_$n$ is not distinct.
+In other words Touch\_$a$ will be considered equal to Touch\_$b$ if the keycodes of these touches are equal and the touches fall within the same pressure range. Pressure ranges are depicted in Figure \ref{fig:token_creation}.
 
 %TODO talk about how prefix tree is used to store these sequences in order to increase the speed.
 %TODO cite some source which supports the benefits of a prefix tree
 %TODO explain what a prefix tree is
 %TODO include some figures to illustrate what a prefix tree is
+%TODO continue proofreading
 The algorithm to calculate the $n$-gram probabilities of a token $T$ succeeding a given sequence
 $T_{i..(i+n-1)}$ is the number of times that touch succeeds the sequence. This counts the  number of 
 occurrences of $T_{i..(i+n-1)}||T$, where $||$ denotes concatenation.
@@ -454,16 +468,13 @@ in-fixes and the affect of backtracking thus increasing the efficiency of this p
 
 %TODO explain why this increases the speed of the probability caluclation... articulate how an alternative data structure would perform
 
-
 %explain how the prefix tree is implemented in our system
 In our system the $n$-token sequences are stored in a list while a prefix tree is used to store pointers to the instances of various tree prefixes in the list. 
 The prefix tree nodes also include the count of number of occurrences of a sequence in addition
 to a list of indexes/pointers to where the sequence occurs in the list storing all the sequences.
 This index list is useful because it eliminates the need to search the list in order to determine what the successor tokens of a token window are.
 
-
 %TODO this is the place for MLE, maximal liklihood estimation formulas
-
 
 %basically the authentication scheme used
 %frame it in more general terms, independent of our specific application

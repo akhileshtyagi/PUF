@@ -30,8 +30,8 @@
       <file leaf-file-name="Chain.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="244">
-              <caret line="681" column="88" selection-start-line="681" selection-start-column="88" selection-end-line="681" selection-end-column="88" />
+            <state relative-caret-position="282">
+              <caret line="451" column="98" selection-start-line="451" selection-start-column="98" selection-end-line="451" selection-end-column="98" />
               <folding />
             </state>
           </provider>
@@ -72,8 +72,8 @@
       <file leaf-file-name="Model_compare.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data_analysis/Model_compare.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="432">
-              <caret line="72" column="9" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
+            <state relative-caret-position="450">
+              <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
               <folding />
             </state>
           </provider>
@@ -124,7 +124,23 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="414">
               <caret line="30" column="76" selection-start-line="30" selection-start-column="76" selection-end-line="30" selection-end-column="76" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#1343#1351#0" expanded="false" />
+                <element signature="e#1427#1436#0" expanded="false" />
+                <element signature="e#1512#1521#0" expanded="false" />
+                <element signature="e#1587#1595#0" expanded="false" />
+                <element signature="e#1675#1684#0" expanded="false" />
+                <element signature="e#1764#1773#0" expanded="false" />
+                <element signature="e#7062#7081#0" expanded="false" />
+                <element signature="e#7221#7230#0" expanded="false" />
+                <element signature="e#7396#7405#0" expanded="false" />
+                <element signature="e#7567#7576#0" expanded="false" />
+                <element signature="e#7646#7655#0" expanded="false" />
+                <element signature="e#12044#12052#0" expanded="false" />
+                <element signature="e#13737#13745#0" expanded="false" />
+                <element signature="e#15308#15316#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -168,8 +184,8 @@
         <option value="$PROJECT_DIR$/src/components/Distribution.java" />
         <option value="$PROJECT_DIR$/src/test/minimal_working_example.java" />
         <option value="$PROJECT_DIR$/results/model_compare_output.txt" />
-        <option value="$PROJECT_DIR$/src/data_analysis/Model_compare.java" />
         <option value="$PROJECT_DIR$/src/trie/TrieList.java" />
+        <option value="$PROJECT_DIR$/src/data_analysis/Model_compare.java" />
         <option value="$PROJECT_DIR$/src/components/Chain.java" />
       </list>
     </option>
@@ -1018,7 +1034,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="414">
           <caret line="30" column="76" selection-start-line="30" selection-start-column="76" selection-end-line="30" selection-end-column="76" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#1343#1351#0" expanded="false" />
+            <element signature="e#1427#1436#0" expanded="false" />
+            <element signature="e#1512#1521#0" expanded="false" />
+            <element signature="e#1587#1595#0" expanded="false" />
+            <element signature="e#1675#1684#0" expanded="false" />
+            <element signature="e#1764#1773#0" expanded="false" />
+            <element signature="e#7062#7081#0" expanded="false" />
+            <element signature="e#7221#7230#0" expanded="false" />
+            <element signature="e#7396#7405#0" expanded="false" />
+            <element signature="e#7567#7576#0" expanded="false" />
+            <element signature="e#7646#7655#0" expanded="false" />
+            <element signature="e#12044#12052#0" expanded="false" />
+            <element signature="e#13737#13745#0" expanded="false" />
+            <element signature="e#15308#15316#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1026,14 +1058,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-684">
           <caret line="17" column="21" selection-start-line="17" selection-start-column="21" selection-end-line="17" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_analysis/Model_compare.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="72" column="9" selection-start-line="72" selection-start-column="9" selection-end-line="72" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -1064,10 +1088,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_analysis/Model_compare.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="28" column="51" selection-start-line="28" selection-start-column="51" selection-end-line="28" selection-end-column="51" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="244">
-          <caret line="681" column="88" selection-start-line="681" selection-start-column="88" selection-end-line="681" selection-end-column="88" />
+        <state relative-caret-position="282">
+          <caret line="451" column="98" selection-start-line="451" selection-start-column="98" selection-end-line="451" selection-end-column="98" />
           <folding />
         </state>
       </provider>
