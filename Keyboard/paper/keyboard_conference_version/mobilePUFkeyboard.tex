@@ -31,7 +31,7 @@
 %\documentclass[conference]{IEEEtran}
 
 % set the path for graphics
-\usepackage{graphicx}
+%\usepackage{graphicx}
 \graphicspath{{figures/}}
 
 % 0.85
@@ -68,6 +68,7 @@
 % without further effort on your part as the last section in
 % the body of your article BEFORE References or any Appendices.
 
+% acm
 \numberofauthors{3} 
 %  in this sample file, there are a *total*
 % of EIGHT authors. SIX appear on the 'first-page' (for formatting
@@ -94,10 +95,26 @@
       \email{tyagi@iastate.edu}
 }
 
-%\date{30 July 1999}
-% Just remember to make sure that the TOTAL number of authors
-% is the number that will appear on the first page PLUS the
-% number that will appear in the \additionalauthors section.
+%IEEE
+% \author{
+% \IEEEauthorblockN{Michael Shell}
+% \IEEEauthorblockA{School of Electrical and\\Computer Engineering\\
+% Georgia Institute of Technology\\
+% Atlanta, Georgia 30332--0250\\
+% Email: http://www.michaelshell.org/contact.html}
+% \and
+% \IEEEauthorblockN{Homer Simpson}
+% \IEEEauthorblockA{Twentieth Century Fox\\
+% Springfield, USA\\
+% Email: homer@thesimpsons.com}
+% \and
+% \IEEEauthorblockN{James Kirk\\ and Montgomery Scott}
+% \IEEEauthorblockA{Starfleet Academy\\
+% San Francisco, California 96678--2391\\
+% Telephone: (800) 555--1212\\
+% Fax: (888) 555--1212}
+% }
+
 \begin{document}
 
 \maketitle
@@ -458,31 +475,32 @@ In other words Touch\_$a$ will be considered equal to Touch\_$b$ if the keycodes
 %TODO cite some source which supports the benefits of a prefix tree
 %TODO explain what a prefix tree is
 %TODO include some figures to illustrate what a prefix tree is
-%TODO continue proofreading
-The algorithm to calculate the $n$-gram probabilities of a token $T$ succeeding a given sequence
-$T_{i..(i+n-1)}$ is the number of times that touch succeeds the sequence. This counts the  number of 
-occurrences of $T_{i..(i+n-1)}||T$, where $||$ denotes concatenation.
+The algorithm to calculate the $n$-gram probabilities of
+a token $T$ succeeding a given sequence
+$T_{i..(i+n-1)}$ is the number of times that touch succeeds the sequence.
+This counts the  number of 
+occurrences of $T_{i..(i+n-1)}||T$,
+where $||$ denotes concatenation.
 The use of a prefix tree as a data structure helps keep track of appropriate
 in-fixes and the affect of backtracking thus increasing the efficiency of this probability calculation.
-%TODO explain how prefix tree makes them readily accessible
 
+% explain how the prefix tree is implemented in our system
+In our system the $n$-token sequences are stored in a list
+while a prefix tree is used to store pointers to the
+instances of various tree prefixes in the list.
+The prefix tree nodes also include the count of number of occurrences of a sequence.
+This index list is useful because it eliminates the need to search the list in order to determine the successor tokens of
+a given token sequence.
+%TODO elaborate on prefix tree
 %TODO explain why this increases the speed of the probability caluclation... articulate how an alternative data structure would perform
-
-%explain how the prefix tree is implemented in our system
-In our system the $n$-token sequences are stored in a list while a prefix tree is used to store pointers to the instances of various tree prefixes in the list. 
-The prefix tree nodes also include the count of number of occurrences of a sequence in addition
-to a list of indexes/pointers to where the sequence occurs in the list storing all the sequences.
-This index list is useful because it eliminates the need to search the list in order to determine what the successor tokens of a token window are.
-
-%TODO this is the place for MLE, maximal liklihood estimation formulas
 
 %basically the authentication scheme used
 %frame it in more general terms, independent of our specific application
-\section{Differentiating User-Device Pairs}
+%\section{Differentiating \\A User-Device Pair}
+\section{User-Device Pair Discrimination}
 \label{sec:differentiation}
 %TODO describe each of the model parameters in detail
 %TODO state how each of the best model parameters were determined
-
 
 %this figure describes how false positive and false negative percentages vary based on authentication threshold
 \begin{figure}
@@ -492,15 +510,19 @@ This index list is useful because it eliminates the need to search the list in o
 \label{fig:threshold_vs_percentages}
 \end{figure}
 
-%TODO
-%describe what the authentication threshold is
-%define false positive
-%define false negative
-%explain why the intersection of these two is significant in choosing the authentication threshold
-In distinguishing a user from another user, the $n$-grams for the two users need to be compared. 
-For a given $n$-gram $[(T_{i_0} T_{i_1} \dots T_{i_{n-1}}), (p_0, p_1, \dots, p_k)]$ where 
-$(T_{i_0} T_{i_1} \dots T_{i_{n-1}})$ is the prefix sequence and $(p_0, p_1, \dots, p_k)$ is the
-probability vector for the next token being Token 0, Token 1, ..., Token $k$ from the alphabet $\Sigma$.
+%TODO describe what the authentication threshold is
+%TODO define false positive
+%TODO define false negative
+%TODO explain why the intersection of these two is significant in choosing the authentication threshold
+%TODO continue proofreading
+In distinguishing a user from another user, 
+the $n$-grams for the two users need to be compared. 
+For a given $n$-gram 
+$[(T_{i_0} T_{i_1} \dots T_{i_{n-1}}), (p_0, p_1, \dots, p_k)]$ where 
+$(T_{i_0} T_{i_1} \dots T_{i_{n-1}})$ is the prefix sequence and 
+$(p_0, p_1, \dots, p_k)$ is the
+probability vector for the next token being 
+Token $0$, Token $1$, ..., Token $k$ from the alphabet $\Sigma$.
 The distance between two $n$-grams $distance[(T_{i_0} T_{i_1} \dots T_{i_{n-1}}), (p_0, p_1, \dots, p_k)]$
 and \\
 $[(T_{i_0} T_{i_1} \dots T_{i_{n-1}}), (q_0, q_1, \dots, q_k)]$ is
@@ -710,7 +732,8 @@ Figures \ref{fig:authentication_accuracy}  \& \ref{fig:total_touches_vs_authenti
 corresponding to the largest numbers of touches. Figures \ref{fig:nexus_speed_test} and \ref{fig:nexus_total_size_time} demonstrate the performance tradeoff associated with increased numbers of touches. 
 As expected there exists an inverse relationship between performance in terms of speed and accuracy of authentication. That is, increased authentication accuracy comes at the expense of execution time. 
 
-\section{Distributed User-Device (UD-) PUF}
+% (UD-)
+\section{Distributed User-Device PUF}
 \label{sec:PUF}
 The preceding discussion extends the human-device entangled PUFs \cite{ScheelTyagi15} to a distributed
 implementation. The $n$-Markov model also determines frequently occurring $n$-token sequences for a

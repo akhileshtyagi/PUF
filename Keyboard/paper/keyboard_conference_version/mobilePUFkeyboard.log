@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  22 MAY 2016 08:43
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  22 MAY 2016 16:29
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -185,18 +185,18 @@ File: t1aer.fd 1997/11/16 Font definitions for T1/aer.
 ))) (./mobilePUFkeyboard.aux)
 \openout1 = `mobilePUFkeyboard.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 101.
-LaTeX Font Info:    ... okay on input line 101.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 118.
+LaTeX Font Info:    ... okay on input line 118.
 
 (/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
@@ -259,17 +259,17 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-LaTeX Font Info:    Try loading font information for U+msa on input line 103.
+LaTeX Font Info:    Try loading font information for U+msa on input line 120.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 )
-LaTeX Font Info:    Try loading font information for U+msb on input line 103.
+LaTeX Font Info:    Try loading font information for U+msb on input line 120.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 )
-LaTeX Font Info:    Try loading font information for U+lasy on input line 103.
+LaTeX Font Info:    Try loading font information for U+lasy on input line 120.
 
 (/usr/share/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
@@ -280,13 +280,13 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-LaTeX Font Info:    Try loading font information for T1+aett on input line 195.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 212.
 
 
 (/usr/share/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
-Overfull \hbox (13.84962pt too wide) in paragraph at lines 193--203
+Overfull \hbox (13.84962pt too wide) in paragraph at lines 210--220
 \T1/aer/m/n/9 android/view/MotionEvent.html). The \T1/aett/m/n/9 get-Pres-sure(
 ) \T1/aer/m/n/9 method
  []
@@ -299,10 +299,10 @@ Underfull \vbox (badness 3049) has occurred while \output is active []
 File: figures/token_creation.png Graphic file (type png)
 
 <use figures/token_creation.png>
-Package pdftex.def Info: figures/token_creation.png used on input line 277.
+Package pdftex.def Info: figures/token_creation.png used on input line 294.
 (pdftex.def)             Requested size: 260.17244pt x 97.56717pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 277--278
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 294--295
  [][] 
  []
 
@@ -310,11 +310,11 @@ Overfull \hbox (20.17244pt too wide) in paragraph at lines 277--278
 File: figures/normal_distribution.png Graphic file (type png)
 
 <use figures/normal_distribution.png>
-Package pdftex.def Info: figures/normal_distribution.png used on input line 311
+Package pdftex.def Info: figures/normal_distribution.png used on input line 328
 .
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 311--312
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 328--329
  [][] 
  []
 
@@ -323,11 +323,11 @@ Overfull \hbox (20.17244pt too wide) in paragraph at lines 311--312
 File: figures/markov_model_building.png Graphic file (type png)
 
 <use figures/markov_model_building.png>
-Package pdftex.def Info: figures/markov_model_building.png used on input line 3
-99.
+Package pdftex.def Info: figures/markov_model_building.png used on input line 4
+16.
 (pdftex.def)             Requested size: 245.71754pt x 105.44522pt.
 
-Overfull \hbox (5.71754pt too wide) in paragraph at lines 399--400
+Overfull \hbox (5.71754pt too wide) in paragraph at lines 416--417
  [][] 
  []
 
@@ -336,17 +336,17 @@ File: figures/final_markov_model_state.png Graphic file (type png)
 
 <use figures/final_markov_model_state.png>
 Package pdftex.def Info: figures/final_markov_model_state.png used on input lin
-e 441.
+e 458.
 (pdftex.def)             Requested size: 245.71754pt x 112.35326pt.
 
-Overfull \hbox (5.71754pt too wide) in paragraph at lines 441--445
+Overfull \hbox (5.71754pt too wide) in paragraph at lines 458--462
  [][] 
  []
 
 [3 <./figures/normal_distribution.png> <./figures/markov_model_building.png> <.
 /figures/final_markov_model_state.png>]
-Overfull \hbox (15.5365pt too wide) in paragraph at lines 481--481
-[]\secfnt DIFFERENTIATING USER-DEVICE PAIRS 
+Overfull \hbox (1.28062pt too wide) in paragraph at lines 500--500
+[]\secfnt USER-DEVICE PAIR DIS-CRIM-I-NA-TION 
  []
 
 <figures/threshold_vs_percentages.png, id=33, 602.25pt x 372.39125pt>
@@ -354,12 +354,15 @@ File: figures/threshold_vs_percentages.png Graphic file (type png)
 
 <use figures/threshold_vs_percentages.png>
 Package pdftex.def Info: figures/threshold_vs_percentages.png used on input lin
-e 490.
+e 508.
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 490--491
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 508--509
  [][] 
  []
+
+
+Underfull \vbox (badness 3058) has occurred while \output is active []
 
 
 <figures/window_size_vs_authentication_accuracy.png, id=34, 602.25pt x 372.3912
@@ -368,10 +371,10 @@ File: figures/window_size_vs_authentication_accuracy.png Graphic file (type png
 )
  <use figures/window_size_vs_authentication_accuracy.png>
 Package pdftex.def Info: figures/window_size_vs_authentication_accuracy.png use
-d on input line 543.
+d on input line 565.
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 543--544
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 565--566
  [][] 
  []
 
@@ -383,10 +386,10 @@ File: figures/authentication_accuracy_vs_model_size.png Graphic file (type png)
 
  <use figures/authentication_accuracy_vs_model_size.png>
 Package pdftex.def Info: figures/authentication_accuracy_vs_model_size.png used
- on input line 581.
+ on input line 603.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 581--584
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 603--606
  [][] 
  []
 
@@ -397,10 +400,10 @@ File: figures/total_touches_vs_authentication_accuracy.png Graphic file (type p
 ng)
  <use figures/total_touches_vs_authentication_accuracy.png>
 Package pdftex.def Info: figures/total_touches_vs_authentication_accuracy.png u
-sed on input line 625.
+sed on input line 647.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 625--626
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 647--648
  [][] 
  []
 
@@ -413,10 +416,10 @@ hes_vs_authentication_accuracy.png>]
 File: figures/nexus_speed_test.png Graphic file (type png)
 
 <use figures/nexus_speed_test.png>
-Package pdftex.def Info: figures/nexus_speed_test.png used on input line 667.
+Package pdftex.def Info: figures/nexus_speed_test.png used on input line 689.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 667--668
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 689--690
  [][] 
  []
 
@@ -424,11 +427,11 @@ Overfull \hbox (12.94499pt too wide) in paragraph at lines 667--668
 File: figures/nexus_total_size_time.png Graphic file (type png)
 
 <use figures/nexus_total_size_time.png>
-Package pdftex.def Info: figures/nexus_total_size_time.png used on input line 6
-84.
+Package pdftex.def Info: figures/nexus_total_size_time.png used on input line 7
+06.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 684--687
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 706--709
  [][] 
  []
 
@@ -436,18 +439,13 @@ Overfull \hbox (12.94499pt too wide) in paragraph at lines 684--687
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-Overfull \hbox (1.30322pt too wide) in paragraph at lines 709--712
+Overfull \hbox (1.30322pt too wide) in paragraph at lines 731--734
 \T1/aer/m/n/9 mance trade-off as-so-ci-ated with in-creased num-bers of touches
 .
  []
 
 
-Overfull \hbox (5.70876pt too wide) in paragraph at lines 713--713
-[]\secfnt DISTRIBUTED USER-DEVICE (UD-) PUF 
- []
-
-
-Overfull \hbox (4.88376pt too wide) in paragraph at lines 728--730
+Overfull \hbox (4.88376pt too wide) in paragraph at lines 751--753
 \T1/aer/m/n/9 user-device com-bi-na-tions. A con-tin-u-ous au-then-ti-ca-tion m
 odel
  []
@@ -481,7 +479,7 @@ s/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb>
 mf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/t
 ype1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uh
 vr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
-Output written on mobilePUFkeyboard.pdf (7 pages, 436011 bytes).
+Output written on mobilePUFkeyboard.pdf (7 pages, 435697 bytes).
 PDF statistics:
  114 PDF objects out of 1000 (max. 8388607)
  68 compressed objects within 1 object stream
