@@ -1324,8 +1324,8 @@ public class Main {
 		Touch touch = new Touch('a', .5, 100);
 		Window window = new Window(new ArrayList<Touch>());
 
-		touch.set_probability(window, .2);
-		correct = touch.get_probability(window) == .2;
+		touch.set_probability(create_tokens(), window, .2);
+		correct = touch.get_probability(create_tokens(), window) == .2;
 
 		return correct;
 	}
@@ -1339,16 +1339,16 @@ public class Main {
 		List<Touch> touches = new ArrayList<Touch>();
 		touches.add(touch);
 
-		touch.set_probability(window, .2);
+		touch.set_probability(create_tokens(), window, .2);
 		// test with a null window
-		correct = touch.get_probability(window) == .2;
+		correct = touch.get_probability(create_tokens(), window) == .2;
 
 		// test that a window not set returns 0
-		correct = correct && (0 == touch.get_probability(new Window(touches)));
+		correct = correct && (0 == touch.get_probability(create_tokens(), new Window(touches)));
 
 		// test that a window can be set and gotten if the window is not null
-		touch.set_probability(new Window(touches), 1);
-		correct = correct && (1 == touch.get_probability(new Window(touches)));
+		touch.set_probability(create_tokens(), new Window(touches), 1);
+		correct = correct && (1 == touch.get_probability(create_tokens(), new Window(touches)));
 
 		return correct;
 	}
@@ -1360,7 +1360,7 @@ public class Main {
 		Touch touch = new Touch('a', .5, 100);
 		Window window = new Window(new ArrayList<Touch>());
 
-		touch.set_probability(window, .2);
+		touch.set_probability(create_tokens(), window, .2);
 		correct = (touch.hashCode() > 0);
 
 		return correct;
@@ -1384,7 +1384,7 @@ public class Main {
 		correct = touch_0.compareTo(touch_1) == 0; // are they equal?
 
 		// change a touch
-		touch_0.set_probability(window, .2);
+		touch_0.set_probability(create_tokens(), window, .2);
 
 		// are they still equal? they shouldn't be.
 		correct = correct && (touch_0.compareTo(touch_1) > 0);
@@ -1753,5 +1753,15 @@ public class Main {
 	/// episilon of b.
 	private static boolean within_episilon(double a, double b, double episilon) {
 		return ((a > (b - episilon)) && (a < (b + episilon)));
+	}
+
+	/* return arbitrary token set
+	 * importantly, this will always return
+	 * the same token set
+	 */
+	private static List<Token> create_tokens(){
+		Chain chain = create_chain(1000);
+
+		return chain.get_tokens();
 	}
 }

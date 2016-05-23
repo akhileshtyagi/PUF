@@ -11,11 +11,11 @@ import components.Touch;
 /** This class will print out the model constructed form the designated file */
 public class Print_model {
 	//TODO define parameters
-	final static String data_path = "data_sets/3-30-15_timdee_07924e50.csv";
-	final static int window = 5;
-	final static int token = 5;
-	final static int threshold = 50000;
-	final static int model_size = 5000;
+	final static String data_path = "data_sets/t_tim_d_tim.csv";
+	final static int window = 2;
+	final static int token = 7;
+	final static int threshold = 5000;
+	final static int model_size = 100;
 	
 	public static void main(String[] args){
 		Chain chain = new Chain(window, token, threshold, model_size);

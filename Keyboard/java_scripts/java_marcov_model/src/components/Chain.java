@@ -414,18 +414,18 @@ public class Chain{
 		// compute the difference between w_base and w_auth
 		// do token weighting here
 		if (TOKEN_AVERAGING == TokenAveraging.UNWEIGHTED) {
-			//TODO check for correctness
+			//TODO move these computations to a different function
 			// unweighted version of token averaging
 			// difference is simply for all tokens: |p_i - p`_i| where
 			// p_i is base model probability
 			double total_difference = 0;
+			// for all successor touches of this window in the auth model
 			for(int i=0; i<index_list_auth.size(); i++) {
 				// get base and auth probabilities
 				// base tokens should be okay to use here because distributions and thus tokens are set to be the same
 				// between the base and the auth models
 				double auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.get_tokens(), window);
 
-				//TODO create a method to get base probability
 				// get base probability
 				double base_probability = 0;
 				// getting base_probability is incorrect, the index_lists don't necessarily correspond on i
@@ -453,18 +453,42 @@ public class Chain{
 
 				//TODO these test print statements print out probabilities for checking
 				//System.out.println("base_probability: " + base_probability + "\tauth_probability: " + auth_probability);
-//				System.out.println("Window Set:");
-//				for(int k=0; k<index_list_auth.size(); k++){
-//					System.out.print("\t" + "window: " + auth_window_list.get(index_list_auth.get(k)).toString() );
-//					System.out.println();
-//				}
-				//try{ Thread.sleep(100); }catch(Exception e){}
 
 				// compute absolute difference
 				total_difference += Math.abs(base_probability - auth_probability);
 			}
 
+			//TODO these test print statements print out probabilities for checking
+			//TODO print out all necessary information to know if the difference was taken correctly
+			//TODO difference or total_difference, window, successor touch, successor touch probability
+//			System.out.println("Auth Window Set:");
+//			for(int k=0; k<index_list_auth.size(); k++){
+//				System.out.print("\t" + "window: " + auth_window_list.get(index_list_auth.get(k)).toString() );
+//
+//				System.out.print("\t[");
+//				System.out.print("successor: " +successor_list_auth.get(index_list_auth.get(k)).toString());
+//				System.out.print(", " + "probability: " +successor_list_auth.get(index_list_auth.get(k)).get_probability(this.get_tokens(), window));
+//				System.out.print("]");
+//
+//				System.out.println();
+//			}
+//
+//			System.out.println("Base Window Set:");
+//			for(int k=0; k<index_list_base.size(); k++){
+//				System.out.print("\t" + "window: " + base_window_list.get(index_list_base.get(k)).toString() );
+//
+//				System.out.print("\t[");
+//				System.out.print("successor: " +successor_list_base.get(index_list_base.get(k)).toString());
+//				System.out.print(", " + "probability: " +successor_list_base.get(index_list_base.get(k)).get_probability(this.get_tokens(), window));
+//				System.out.print("]");
+//
+//				System.out.println();
+//			}
+
 			difference = total_difference / ((double)index_list_auth.size());
+
+			//TODO test print
+			//System.out.println("difference: " + difference);
 		} else if(TOKEN_AVERAGING == TokenAveraging.WEIGHTED) {
 			//TODO check for correctness
 			// weighted version of token averaging
@@ -514,55 +538,18 @@ public class Chain{
 	}
 
 	//TODO complete this method to simplify above code
-//	/* return the difference between
-//	 * the probabilities for the corresponding touch in base_window_list and auth_window_list.
-//	 * One window in the base data set and
-//	 * one window in the auth data set.
-//	 *
-//	 * the absolute difference between the probabilities will be returned.
-//	 */
-//	private double get_corresponding_successor_difference(List<Window> base_window_list, List<Touch> base_successor_touch_list, Window auth_window, Touch auth_window_successor_touch){
-//		//TODO function parameters
-//		get_corresponding_successor_difference(
-//				Window window,
-//				TrieList base_window_list,
-//				TrieList auth_window_list,
-//				List<Touch> successor_list_base,
-//				Touch successor_list_auth)
-//		//TODO method call
-//		get_window_successor_difference();
-//
-//		// get base and auth probabilities
-//		double auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(window);
-//
-//		// get base probability
-//		double base_probability = 0;
-//		// getting base_probability is incorrect, the index_lists don't necessarily correspond on i
-//		// want the probability of getting the same successor touch in the base model
-//		// for all successor touches of base
-//		int base_touch_index = -1;
-//		for(int j=0; j<index_list_base.size(); j++){
-//			// determine if there is a touch which matches the auth touch
-//			if( successor_list_base.get(index_list_base.get(j))
-//					.compare_with_token(this.get_tokens(), successor_list_auth.get(index_list_auth.get(i))) ){
-//				// they do match, this the index in index_list_base which corresponds to the index in index_list_auth
-//				base_touch_index = j;
-//				break;
-//			}
-//		}
-//
-//		// if there is no such touch, base_probability is 0
-//		if(base_touch_index == -1){
-//			// no touch was found
-//			base_probability = 0;
-//		}else{
-//			// matching touch was found
-//			base_probability = successor_list_base.get(index_list_base.get(base_touch_index)).get_probability(window);
-//		}
-//
-//		// compute absolute difference
-//		return Math.abs(base_probability - auth_probability);
-//	}
+	/* return the difference between
+	 * the probabilities for the corresponding touch in base_window_list and auth_window_list.
+	 * One window in the base data set and
+	 * one window in the auth data set.
+	 *
+	 * the absolute difference between the probabilities will be returned.
+	 */
+	//TODO this could compute just base probability, or
+	//TODO this method could compute the difference between base and auth probabilities
+	private double get_corresponding_successor_difference(Window window, TrieList base_window_list, TrieList auth_window_list, List<Touch> successor_list_base, List<Touch> successor_list_auth){
+
+	}
 
 	///return the difference between two given windows with following successor touch
 	///@param base window successor touch is the touch coming after base_window in the base model
