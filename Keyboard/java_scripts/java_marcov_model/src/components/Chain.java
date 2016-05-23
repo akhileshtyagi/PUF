@@ -188,7 +188,7 @@ public class Chain{
 			return 0;
 		}
 		
-		return successor.get_probability(predecessor);
+		return successor.get_probability(this.get_tokens(), predecessor);
 	}
 
 
@@ -421,7 +421,9 @@ public class Chain{
 			double total_difference = 0;
 			for(int i=0; i<index_list_auth.size(); i++) {
 				// get base and auth probabilities
-				double auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(window);
+				// base tokens should be okay to use here because distributions and thus tokens are set to be the same
+				// between the base and the auth models
+				double auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.get_tokens(), window);
 
 				//TODO create a method to get base probability
 				// get base probability
@@ -446,11 +448,17 @@ public class Chain{
 					base_probability = 0;
 				}else{
 					// matching touch was found
-					base_probability = successor_list_base.get(index_list_base.get(base_touch_index)).get_probability(window);
+					base_probability = successor_list_base.get(index_list_base.get(base_touch_index)).get_probability(this.get_tokens(), window);
 				}
 
-				//TODO base probability and auth probability are 0 alot of the time, I wonder why?
-				System.out.println("base_probability: " + base_probability + "\tauth_probability: " + auth_probability);
+				//TODO these test print statements print out probabilities for checking
+				//System.out.println("base_probability: " + base_probability + "\tauth_probability: " + auth_probability);
+//				System.out.println("Window Set:");
+//				for(int k=0; k<index_list_auth.size(); k++){
+//					System.out.print("\t" + "window: " + auth_window_list.get(index_list_auth.get(k)).toString() );
+//					System.out.println();
+//				}
+				//try{ Thread.sleep(100); }catch(Exception e){}
 
 				// compute absolute difference
 				total_difference += Math.abs(base_probability - auth_probability);
@@ -464,7 +472,7 @@ public class Chain{
 			double token_weight = 1.0;
 			for(int i=0; i<index_list_auth.size(); i++) {
 				// get auth probability
-				double auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(window);
+				double auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.get_tokens(), window);
 
 				//TODO create a method to get base probability
 				// get base probability
@@ -489,7 +497,7 @@ public class Chain{
 					base_probability = 0;
 				}else{
 					// matching touch was found
-					base_probability = successor_list_base.get(index_list_base.get(base_touch_index)).get_probability(window);
+					base_probability = successor_list_base.get(index_list_base.get(base_touch_index)).get_probability(this.get_tokens(), window);
 				}
 
 				// token weight is simply the probability in the auth model
@@ -586,13 +594,13 @@ public class Chain{
 			base_probability = 0;
 		}else{
 			//found it! now determine the probability of the same touch coming after
-			base_probability = base_successor_touch_list.get(index).get_probability(base_window_list.get(index));
+			base_probability = base_successor_touch_list.get(index).get_probability(this.get_tokens(), base_window_list.get(index));
 
 			//TODO might just be able to use auth window
 			//base_probability = base_successor_touch_list
 		}
 		
-		double auth_probability = auth_window_successor_touch.get_probability(auth_window);
+		double auth_probability = auth_window_successor_touch.get_probability(this.get_tokens(), auth_window);
 		
 		//System.out.println("base_p:"+base_probability+" auth_p:"+auth_probability);
 		
@@ -758,9 +766,9 @@ public class Chain{
 				//occurrences_of_window = occurrence_count(window_list, window_list.get(i));
 				occurrences_of_window = window_list.occurrence_count(window_list.get(i));
 				
-				//get the number of times a touch has succeeded this window. We can use the old probability following this window to figure this out. TODO if this method turns out not be correct, this would be a good place to begin looking for mistakes.
+				//get the number of times a touch has succeeded this window. We can use the old probability following this window to figure this out.
+				// old method
 				//number_successions = 1 + (successor_touch.get(i).get_probability(window_list.get(i)) * occurrences_of_window);
-				//TODO this can deffonately be done faster (with a prefix tree?)
 				
 				//number_successions=successor_count(window_list, successor_touch, window_list.get(i), successor_touch.get(i));
 				number_successions=window_list.successor_count(successor_touch, window_list.get(i), successor_touch.get(i));
@@ -770,7 +778,7 @@ public class Chain{
 				//System.out.println("number_successions:"+number_successions+" occurrences_of_windows:"+occurrences_of_window);
 				
 				//set the probability of the successor touch. To do this, I need to know how many times this touch succeeds this window
-				successor_touch.get(i).set_probability(window_list.get(i), probability);
+				successor_touch.get(i).set_probability(get_tokens(), window_list.get(i), probability);
 			}
 		}
 	}
@@ -947,7 +955,7 @@ public class Chain{
 			output.println("[preceeding sequence] [touch pressure, probability]");
 			for(int i=0;i<windows.size();i++){
 				String predecessor_window = windows.get(i).toString();
-				double touch_probability = successor_touch.get(i).get_probability(windows.get(i));
+				double touch_probability = successor_touch.get(i).get_probability(this.get_tokens(), windows.get(i));
 				double touch_pressure = successor_touch.get(i).get_pressure();
 				
 				//output.print("-");

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  22 MAY 2016 17:42
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  23 MAY 2016 14:01
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -362,7 +362,7 @@ Overfull \hbox (20.17244pt too wide) in paragraph at lines 535--536
  []
 
 
-Overfull \hbox (2.45642pt too wide) in paragraph at lines 563--577
+Overfull \hbox (2.45642pt too wide) in paragraph at lines 563--576
 \T1/aer/m/n/9 pro-file can be given by $\OT1/cmr/m/n/9 1 \OMS/cmsy/m/n/9 ^^@ \O
 ML/cmm/m/it/9 avgDistance\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 TrainingProfile n \OMS
 /cmsy/m/n/9 ^^@
@@ -375,10 +375,10 @@ File: figures/window_size_vs_authentication_accuracy.png Graphic file (type png
 )
  <use figures/window_size_vs_authentication_accuracy.png>
 Package pdftex.def Info: figures/window_size_vs_authentication_accuracy.png use
-d on input line 600.
+d on input line 604.
 (pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 600--601
+Overfull \hbox (20.17244pt too wide) in paragraph at lines 604--605
  [][] 
  []
 
@@ -389,11 +389,17 @@ File: figures/authentication_accuracy_vs_model_size.png Graphic file (type png)
 
  <use figures/authentication_accuracy_vs_model_size.png>
 Package pdftex.def Info: figures/authentication_accuracy_vs_model_size.png used
- on input line 645.
+ on input line 686.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 645--648
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 686--689
  [][] 
+ []
+
+
+Overfull \hbox (27.6552pt too wide) in paragraph at lines 694--719
+\T1/aer/m/n/9 num-bers of touches did not re-sult in higher \T1/aer/m/it/9 au-t
+hen-ti-ca-tion_accuracy\T1/aer/m/n/9 .
  []
 
 
@@ -403,95 +409,80 @@ File: figures/total_touches_vs_authentication_accuracy.png Graphic file (type p
 ng)
  <use figures/total_touches_vs_authentication_accuracy.png>
 Package pdftex.def Info: figures/total_touches_vs_authentication_accuracy.png u
-sed on input line 689.
+sed on input line 723.
 (pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 689--690
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 723--724
  [][] 
- []
-
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [5 <./figures/window_size_vs_authentication_accuracy.png> <./figures/authentic
-ation_accuracy_vs_model_size.png>]
-<figures/nexus_speed_test.png, id=50, 602.25pt x 372.39125pt>
-File: figures/nexus_speed_test.png Graphic file (type png)
-
-<use figures/nexus_speed_test.png>
-Package pdftex.def Info: figures/nexus_speed_test.png used on input line 731.
-(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
-
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 731--732
- [][] 
- []
-
-<figures/nexus_total_size_time.png, id=51, 602.25pt x 372.39125pt>
-File: figures/nexus_total_size_time.png Graphic file (type png)
-
-<use figures/nexus_total_size_time.png>
-Package pdftex.def Info: figures/nexus_total_size_time.png used on input line 7
-48.
-(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
-
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 748--751
- [][] 
- []
-
-
-Overfull \hbox (1.30322pt too wide) in paragraph at lines 773--776
-\T1/aer/m/n/9 mance trade-off as-so-ci-ated with in-creased num-bers of touches
-.
  []
 
 
 Underfull \vbox (badness 4954) has occurred while \output is active []
 
- [6 <./figures/total_touches_vs_authentication_accuracy.png> <./figures/nexus_s
-peed_test.png> <./figures/nexus_total_size_time.png>]
-Overfull \hbox (4.88376pt too wide) in paragraph at lines 793--795
-\T1/aer/m/n/9 user-device com-bi-na-tions. A con-tin-u-ous au-then-ti-ca-tion m
-odel
+ [5 <./figures/window_size_vs_authentication_accuracy.png> <./figures/authentic
+ation_accuracy_vs_model_size.png>]
+<figures/nexus_total_size_time.png, id=50, 602.25pt x 372.39125pt>
+File: figures/nexus_total_size_time.png Graphic file (type png)
+
+<use figures/nexus_total_size_time.png>
+Package pdftex.def Info: figures/nexus_total_size_time.png used on input line 7
+58.
+(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
+
+Overfull \hbox (12.94499pt too wide) in paragraph at lines 758--762
+ [][] 
  []
+
+
+Underfull \hbox (badness 1348) in paragraph at lines 762--762
+[]\T1/aer/bx/n/9 Figure 9: The ex-e-cu-tion time on a Nexus 7
+ []
+
+
+LaTeX Warning: Reference `fig:nexus_speed_test' on page \thepage  undefined on 
+input line 795.
 
 (./mobilePUFkeyboard.bbl
 Overfull \hbox (21.45428pt too wide) in paragraph at lines 11--16
 \T1/aer/m/n/9 http://www.consumerreports.org/cro/news/2014/04/smart- 
  []
 
-
+[6 <./figures/total_touches_vs_authentication_accuracy.png> <./figures/nexus_to
+tal_size_time.png>]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [7])
-[8
+) [7]
+(./mobilePUFkeyboard.aux)
 
-] (./mobilePUFkeyboard.aux) ) 
+LaTeX Warning: There were undefined references.
+
+ ) 
 Here is how much of TeX's memory you used:
- 2882 strings out of 493054
- 37405 string characters out of 6140586
- 104836 words of memory out of 5000000
- 6323 multiletter control sequences out of 15000+600000
- 47803 words of font info for 66 fonts, out of 8000000 for 9000
+ 2881 strings out of 493054
+ 37286 string characters out of 6140586
+ 104827 words of memory out of 5000000
+ 6321 multiletter control sequences out of 15000+600000
+ 50797 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,10n,28p,737b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc
-}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/te
-xmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/publ
-ic/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
-cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/
-share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist
-/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmsy5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
-/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></us
-r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1
-/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a
-.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
-Output written on mobilePUFkeyboard.pdf (8 pages, 455826 bytes).
+ 41i,10n,28p,507b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public
+/amsfonts/cmextra/cmex9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf
+-dist/fonts/type1/public/amsfonts/cm/cmr5.pfb></usr/share/texmf-dist/fonts/type
+1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
+s/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><
+/usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/ty
+pe1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
+onts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></
+usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist
+/fonts/type1/urw/times/utmb8a.pfb>
+Output written on mobilePUFkeyboard.pdf (7 pages, 403044 bytes).
 PDF statistics:
- 117 PDF objects out of 1000 (max. 8388607)
- 70 compressed objects within 1 object stream
+ 112 PDF objects out of 1000 (max. 8388607)
+ 68 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 51 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 46 words of extra memory for PDF output out of 10000 (max. 10000000)
 

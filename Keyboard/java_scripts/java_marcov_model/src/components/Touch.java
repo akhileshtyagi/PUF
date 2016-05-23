@@ -40,7 +40,7 @@ public class Touch implements Comparable<Touch>{
 
 
 	///sets the probability that this touch succeeds a given sequence. Reccord the sequence and the probability
-	public void set_probability(Window preceeding_window, double p){
+	public void set_probability(List<Token> tokens, Window preceeding_window, double p){
 		//TODO check for correctness
 		//add them at their respective locations
 		//if predecessor_window already exists, update the pressure value. If predecessor_window does not exist, then add both predecessor_window and pressure
@@ -48,10 +48,18 @@ public class Touch implements Comparable<Touch>{
 
 		//search for window in predecessor_window
 		for(index=0;index<predecessor_window.size();index++){
-			//does this window equal the current window?
-			if(predecessor_window.get(index).compareTo(preceeding_window)==0){
+			//TODO should this also use compare_with_tokens?
+			//TODO the effect of this should be that windows which are considered equal
+			//TODO appear only once. This is what I want?
+			if(predecessor_window.get(index).compare_with_token(tokens, preceeding_window)){
 				break;
 			}
+
+			// does this window equal the current window?
+			// old method makes exact comparison
+//			if(predecessor_window.get(index).compareTo(preceeding_window)==0){
+//				break;
+//			}
 		}
 
 		if(index < predecessor_window.size()){
@@ -65,17 +73,23 @@ public class Touch implements Comparable<Touch>{
 
 
 	///returns the probability of the touch occurring after a given window w. If the window does not exist return (TODO) currently returning 0
-	public double get_probability(Window preceeding_window){
+	public double get_probability(List<Token> tokens, Window preceeding_window){
 		//TODO check for correctness
 		//take in a window and return the probability of this touch coming after that window
 		//search for window in predecessor_window
 		int index;
 		
 		for(index=0;index<predecessor_window.size();index++){
-			//does this window equal the current window?
-			if(predecessor_window.get(index).compareTo(preceeding_window)==0){
+			// does this window equal the current window?
+			//TODO should this be using compare with token
+			if(predecessor_window.get(index).compare_with_token(tokens, preceeding_window)){
 				break;
 			}
+
+			// old method makes exact comparison
+//			if(predecessor_window.get(index).compareTo(preceeding_window)==0){
+//				break;
+//			}
 		}
 
 		if(index < predecessor_window.size()){
