@@ -7,6 +7,7 @@ import runtime.ChainBuilder;
 
 import components.Chain;
 import components.Touch;
+import trie.TrieList;
 
 /** This class will print out the model constructed form the designated file */
 public class Print_model {
@@ -28,8 +29,11 @@ public class Print_model {
 		chain.get_distribution();
 		chain.get_key_distribution();
 		chain.get_touch_probability(null, null);
+
+		// print out the chain window by window
+		chain.output_by_window("print_model_output.txt");
 		
 		// print out the model
-		chain.output_to_csv("print_model_output.txt");
+		//chain.output_to_csv("print_model_output.txt");
 	}
 }

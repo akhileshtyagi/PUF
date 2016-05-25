@@ -120,6 +120,7 @@ public class Touch implements Comparable<Touch>{
 	
 	///compares the touches with the given token list.
 	///this function will return true if the touches are contained within the smae token
+	/* and if the touches have the same keycode */
 	public boolean compare_with_token(List<Token> tokens, Touch other_touch){
 		Token this_touch_token = null;
 		Token other_touch_token = null;
@@ -136,8 +137,15 @@ public class Touch implements Comparable<Touch>{
 			
 			i++;
 		}
-		
-		return this_touch_token.equals(other_touch_token);
+
+		// check that tokens are the same
+		boolean token_equal = this_touch_token.equals(other_touch_token);
+
+		// check that keycodes are the same
+		boolean keycode_equal = (this.key == other_touch.key);
+
+		//TODO what would be the effect of removing the keycode check
+		return token_equal && keycode_equal;
 	}
 
 
