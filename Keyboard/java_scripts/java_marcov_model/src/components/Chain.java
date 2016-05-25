@@ -297,25 +297,11 @@ public class Chain{
 			//for every window in auth_chain
 			double total_difference = 0;
 
-			//TODO test: count the total unique window, successor touch, this should be the same as auth_chain.get_windows.size()
-//			int unique_window_successor_count = 0;
-//			for(int i=0; i<unique_auth_windows.size(); i++){
-//				List<Integer> successor_list = auth_window_list.get_index_list(auth_window_list.get(unique_auth_windows.get(i)));
-//				for(int j=0; j<successor_list.size(); j++){
-//					// for each successor
-//					unique_window_successor_count += 1;
-//				}
-//			}
-//
-//			System.out.print("auth_chain total: " + auth_window_list.size() + "\t");
-//			System.out.println("counted total: " + unique_window_successor_count);
-			//TODO test complete, concluded get_unique_windows() is working correctly
-
 			for (int i = 0; i<unique_auth_windows.size(); i++) {
 				// find the difference between base_chain and auth_chain's corresponding window
 				// multiply by number of successors, this will allow tokens to be weighted, without weighting windows
-				total_difference += auth_window_list.get_index_list(auth_window_list.get(unique_auth_windows.get(i))).size() *
-						get_window_difference(
+				//total_difference += auth_window_list.get_index_list(auth_window_list.get(unique_auth_windows.get(i))).size() *
+				total_difference += get_window_difference(
 						auth_window_list.get(unique_auth_windows.get(i)),
 						base_window_list, auth_window_list,
 						this.successor_touch, auth_chain.successor_touch);
@@ -326,8 +312,9 @@ public class Chain{
 //						this.successor_touch, auth_chain.successor_touch));
 			}
 
+//			total_difference = 0;
 //			for (int i = 0; i < auth_chain.get_windows().size(); i++) {
-//				//TODO old method which works, i think? I remember hand-computing some values.
+//				//TODO old method which works
 //				total_difference += get_window_successor_difference(this.get_windows(), this.successor_touch, auth_chain.get_windows().get(i), auth_chain.successor_touch.get(i));
 //			}
 
@@ -475,6 +462,7 @@ public class Chain{
 	 *
 	 * the absolute difference between the probabilities will be returned.
 	  * the returned value is 0<= x <= 1*/
+	//TODO change this method to be done for a single successor
 	private double get_corresponding_successor_difference(Window window, List<Integer> index_list_base, List<Integer> index_list_auth, List<Touch> successor_list_base, List<Touch> successor_list_auth){
 		// difference is simply for all tokens: |p_i - p`_i| where
 		// p_i is base model probability
