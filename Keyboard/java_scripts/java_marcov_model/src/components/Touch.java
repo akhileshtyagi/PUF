@@ -57,6 +57,8 @@ public class Touch implements Comparable<Touch>{
 
 			// does this window equal the current window?
 			// old method makes exact comparison
+			//TODO perhaps it shouldn't be .compare_with_token() because predecessor windows aren't unique?
+			//TODO or mabe it it should be ..... the predecessor windows should be unique with .compare_to_token().
 //			if(predecessor_window.get(index).compareTo(preceeding_window)==0){
 //				break;
 //			}

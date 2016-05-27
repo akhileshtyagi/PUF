@@ -13,6 +13,7 @@ import components.Touch;
 import components.Window;
 import runtime.ChainBuilder;
 import runtime.CompareChains;
+import trie.TrieList;
 
 //TODO generate a csv file for testing
 
@@ -456,6 +457,7 @@ public class Main {
 		boolean test_window_success = test_window();
 		boolean test_chain_builder_success = test_chain_builder();
 		boolean test_compare_chains_success = test_compare_chains();
+		boolean test_trie_list = test_trie_list();
 
 		// print out errors in a readable format
 		System.out.println("\nprogram overview error log:");
@@ -486,6 +488,10 @@ public class Main {
 
 		if (!test_compare_chains_success) {
 			System.out.println("\tcompare_chains fails");
+		}
+
+		if (!test_trie_list) {
+			System.out.println("\ttest_trie_list fails");
 		}
 	}
 
@@ -739,6 +745,49 @@ public class Main {
 
 		if (!test_compare_chains_run_success) {
 			System.out.println("\trun fails");
+			correct = false;
+		}
+
+		return correct;
+	}
+
+	/* # TrieList class # */
+	private static boolean test_trie_list() {
+		boolean correct = true;
+
+		// test functions in the distribution class
+		// TODO call methods to test the functionality
+		boolean test_add_remove_trielist_success = test_add_remove_trielist();
+		boolean test_successor_count_trielist_success = test_successor_count_trielist();
+		boolean test_get_index_list_success = test_get_index_list_trielist();
+		boolean test_get_occurrance_count_success = occurrance_count_trielist();
+		boolean test_get_token_index_success = get_token_index();
+
+		// print out any errors in a readable way
+		System.out.println("\nTrieList error log:");
+
+		if (!test_add_remove_trielist_success) {
+			System.out.println("\ttest_add_remove_trielist fails");
+			correct = false;
+		}
+
+		if (!test_successor_count_trielist_success ) {
+			System.out.println("\ttest_successor_count_trielist_success fails");
+			correct = false;
+		}
+
+		if (!test_get_index_list_success) {
+			System.out.println("\ttest_get_index_list_success fails");
+			correct = false;
+		}
+
+		if (!test_get_occurrance_count_success) {
+			System.out.println("\ttest_get_occurrance_count_success fails");
+			correct = false;
+		}
+
+		if (!test_get_token_index_success) {
+			System.out.println("\ttest_get_token_index_success fails");
 			correct = false;
 		}
 
@@ -1333,22 +1382,31 @@ public class Main {
 	private static boolean test_get_probability() {
 		boolean correct;
 
+		// create a set of tokens to use
+		List<Token> tokens = create_tokens();
+
 		Touch touch = new Touch('a', .5, 100);
-		Window window = new Window(new ArrayList<Touch>());
+		Window null_window = new Window(new ArrayList<Touch>());
 
 		List<Touch> touches = new ArrayList<Touch>();
 		touches.add(touch);
 
-		touch.set_probability(create_tokens(), window, .2);
+		Window touch_window = new Window(touches);
+
+		correct = true;
+
+		// THERE is no reason it needs to work will null_windows, this is a bad test
+		//TODO NOTE: it does not work with null windows
+		//touch.set_probability(tokens, null_window, .2);
 		// test with a null window
-		correct = touch.get_probability(create_tokens(), window) == .2;
+		//correct = touch.get_probability(tokens, null_window) == .2;
 
 		// test that a window not set returns 0
-		correct = correct && (0 == touch.get_probability(create_tokens(), new Window(touches)));
+		correct = correct && (0 == touch.get_probability(tokens, touch_window));
 
 		// test that a window can be set and gotten if the window is not null
-		touch.set_probability(create_tokens(), new Window(touches), 1);
-		correct = correct && (1 == touch.get_probability(create_tokens(), new Window(touches)));
+		touch.set_probability(tokens, touch_window, 1);
+		correct = correct && (1 == touch.get_probability(tokens, touch_window));
 
 		return correct;
 	}
@@ -1400,8 +1458,10 @@ public class Main {
 	private static boolean test_compare_with_token_touch() {
 		boolean correct = true;
 		Touch base_touch = new Touch('a', .55, 100);
-		Touch auth_touch_1 = new Touch('b', .58, 100);
-		Touch auth_touch_2 = new Touch('c', .62, 100);
+		Touch auth_touch_1 = new Touch('a', .58, 100);
+		Touch auth_touch_2 = new Touch('a', .62, 100);
+		Touch auth_touch_3 = new Touch('b', .62, 100);
+		Touch auth_touch_4 = new Touch('a', .58, 100);
 		List<Token> tokens = new ArrayList<Token>();
 
 		for (int i = 0; i < 10; i++) {
@@ -1413,6 +1473,12 @@ public class Main {
 
 		// should be false; compare to a touch in a different token
 		correct = correct && !base_touch.compare_with_token(tokens, auth_touch_2);
+
+		// should be false; compare to same token different keycode
+		correct = correct && !base_touch.compare_with_token(tokens, auth_touch_3);
+
+		// should be true; compare to different token, same keycode
+		correct = correct && base_touch.compare_with_token(tokens, auth_touch_4);
 
 		return correct;
 	}
@@ -1578,6 +1644,175 @@ public class Main {
 		// TODO in testing chain_builder, this method is also tested in
 		// authenticate
 
+		return true;
+	}
+
+	// # TrieList class #
+	private static boolean test_add_remove_trielist(){
+		boolean correct = true;
+
+		// create trielist
+		TrieList trie_list = new TrieList();
+
+		// set tokens
+		List<Token> token_list = create_tokens();
+		trie_list.set_tokens(token_list);
+
+		// create a window to be added to the list
+		ArrayList<Touch> touch_list = new ArrayList<Touch>();
+
+		// add touches to list
+		for(int i=0; i<10; i++) {
+			touch_list.add(new Touch('a', 0, 0));
+//			Touch touch_2 = new Touch('a', .1, 100);
+//			Touch touch_3 = new Touch('a', .2, 200);
+//			Touch touch_4 = new Touch('b', .1, 300);
+		}
+
+		Window window = new Window(touch_list);
+
+		// add a window to the list
+		trie_list.add(window);
+
+		// try to retrieve the window from the list
+		Window retrieved_window = trie_list.get(0);
+
+		// compare the window added and the window retrieved, ensure they are the same
+		correct = correct && window.equals(retrieved_window);
+
+		// remove the window from the list
+		//TODO
+
+		// try to retrieve the window from the list
+		//TODO
+
+		return correct;
+	}
+
+	//TODO
+	private static boolean test_successor_count_trielist(){
+		boolean correct = true;
+
+		// create trielist
+		TrieList trie_list = new TrieList();
+
+		// set tokens
+		List<Token> token_list = create_tokens();
+		trie_list.set_tokens(token_list);
+
+		// create 5 windowsto be added to the list
+		ArrayList<ArrayList<Touch>> touch_list = new ArrayList<>();
+		ArrayList<Window> window_list = new ArrayList<>();
+
+		// create 5 windows
+		int NUM_WINDOWS = 5;
+		for(int j=0; j<NUM_WINDOWS; j++) {
+			// create the list of touches for this window
+			ArrayList<Touch> add_touch_list = new ArrayList<>();
+			for (int i = 0; i < 2; i++) {
+				add_touch_list.add(new Touch('a', .1, 0));
+			}
+
+			touch_list.add(add_touch_list);
+			window_list.add(new Window(touch_list.get(j)));
+
+			// add the window to trie_list
+			trie_list.add(window_list.get(j));
+		}
+
+		// get all the windows from trielist and
+		// the successor counts for the windows
+		ArrayList<Window> retrieved_window_list = new ArrayList<>();
+		ArrayList<Integer> successor_count_list = new ArrayList<>();
+		for(int i=0; i<NUM_WINDOWS; i++) {
+			// get window
+			retrieved_window_list.add(trie_list.get(i));
+
+			// get successor count
+			//TODO
+			//successor_count_list.add(trie_list.successor_count(List<Touch>, Window, Touch));
+		}
+
+		// determine if the successor count of the windows are correct
+		//TODO
+		//correct = correct && window.equals(retrieved_window);
+
+		return correct;
+	}
+
+	private static boolean test_get_index_list_trielist(){
+		boolean correct = true;
+
+		// create trielist
+		TrieList trie_list = new TrieList();
+
+		// set tokens
+		List<Token> token_list = create_tokens();
+		trie_list.set_tokens(token_list);
+
+		// create 5 windowsto be added to the list
+		ArrayList<ArrayList<Touch>> touch_list = new ArrayList<>();
+		ArrayList<Window> window_list = new ArrayList<>();
+
+		// create 5 windows
+		int NUM_WINDOWS = 6;
+		for(int j=0; j<NUM_WINDOWS; j++) {
+			// create the list of touches for this window
+			ArrayList<Touch> add_touch_list = new ArrayList<>();
+			for (int i = 0; i < 2; i++) {
+				add_touch_list.add(new Touch('a' + (j % 2), .1, 0));
+			}
+
+			touch_list.add(add_touch_list);
+			window_list.add(new Window(touch_list.get(j)));
+
+			// add the window to trie_list
+			trie_list.add(window_list.get(j));
+		}
+
+		// get all the windows from trielist and
+		// the successor counts for the windows
+		ArrayList<Window> retrieved_window_list = new ArrayList<>();
+		ArrayList<Integer> successor_count_list = new ArrayList<>();
+		for(int i=0; i<NUM_WINDOWS; i++) {
+			// get window
+			retrieved_window_list.add(trie_list.get(i));
+
+			// get successor count
+			//TODO
+			//successor_count_list.add(trie_list.successor_count(List<Touch>, Window, Touch));
+		}
+
+		// test that get_index_list returns correct indexes
+		int window_index = 0;
+		List<Integer> returned_index_list = trie_list.get_index_list(window_list.get(window_index));
+
+		//System.out.println("returned_index_list: " + returned_index_list);
+
+		//TODO this is failing because encoding only happens based on pressure, not on location, fix it
+		// this should return windows [1, 3, 5]
+		for(int i=0; i<returned_index_list.size();i++) {
+			correct = correct && returned_index_list.get(i) == (2 * i);
+		}
+
+		// this should return windows [2, 4, 6]
+		returned_index_list = trie_list.get_index_list(window_list.get(window_index+1));
+		for(int i=0; i<returned_index_list.size();i++) {
+			correct = correct && returned_index_list.get(i) == 1 + (2 * i);
+		}
+
+		//System.out.println("returned_index_list: " + returned_index_list);
+
+		return correct;
+	}
+
+	private static boolean occurrance_count_trielist(){
+		//TODO
+		return true;
+	}
+
+	private static boolean get_token_index(){
+		//TODO
 		return true;
 	}
 

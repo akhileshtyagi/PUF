@@ -4,11 +4,11 @@
 \citation{FCC14}
 \@writefile{toc}{\contentsline {section}{\numberline {1}Introduction}{\thepage }}
 \newlabel{sec:intro}{{1}{\thepage }}
+\citation{mackenzie1999text}
 \citation{Devadas:2009:PUF}
 \citation{PUFIntro}
 \citation{Gassend:2002:SPR}
 \citation{Ratha:2001}
-\citation{rosenfeld2010sensor}
 \citation{zhu2013sensec}
 \citation{KeystrokeHASE14}
 \citation{Liu:2009:UAP}
@@ -19,53 +19,61 @@
 \citation{Dey:2013:AHP}
 \citation{shi2011senguard}
 \citation{ScheelTyagi15}
-\citation{Brown:ngram}
-\citation{threesigmarule}
-\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces Touch Tokens are Only Created for Pressure Values within Two Sigma Range for Each Key.}}{\thepage }}
+\citation{ruhrmair2015virtual}
+\citation{rosenfeld2010sensor}
+\citation{rosenfeld2010sensor}
+\citation{rosenfeld2010sensor}
+\@writefile{lof}{\contentsline {figure}{\numberline {1}{\ignorespaces  Tokens are only created for pressure range $\mu \pm 2\sigma $ for each key. Touches with pressure values $p>\mu + 2\sigma $ and $p<\mu - 2\sigma $ are thrown out. This eliminates outliers creating increased reproducibility. }}{\thepage }}
 \newlabel{fig:token_creation}{{1}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {2}Related Work}{\thepage }}
 \newlabel{sec:related_work}{{2}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {3}Modeling a User-Device Pair}{\thepage }}
 \newlabel{sec:modeling}{{3}{\thepage }}
-\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces This chart displays a set of pressure data from one of test users. Note that the pressure values are normally distributed.}}{\thepage }}
+\citation{Brown:ngram}
+\citation{shapiro1965analysis}
+\citation{threesigmarule}
+\@writefile{lof}{\contentsline {figure}{\numberline {2}{\ignorespaces  Density of touchscreen interactions' pressure values for one user. }}{\thepage }}
 \newlabel{fig:normal_distribution}{{2}{\thepage }}
-\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces The top of this figure depicts the raw input touchscreen token sequence. Each touch represents a single interaction between the human user and the soft keyboard. The bottom part shows how the raw input is parsed into 2-Markov model. For example, the bottom left image can be interpreted to say that Touch\_4 succeeds the sequence Touch\_2, Touch\_3 with a non-zero probability.}}{\thepage }}
-\newlabel{fig:markov_model_building}{{3}{\thepage }}
-\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces Example 2-Markov model after the probabilities have been calculated. The rounded rectangles indicate that the touches inside are a window in the Markov model. The top window states that Touch\_2 succeeds the sequence Touch\_0, Touch\_1 with probability 100\%. Touch\_20, Touch\_56, and Touch\_123 are other touches which follow the preceding window with some probability.}}{\thepage }}
-\newlabel{fig:final_markov_model_state}{{4}{\thepage }}
+\@writefile{lof}{\contentsline {figure}{\numberline {3}{\ignorespaces  This Q-Q Plot describes data which comes from a data set having a right skew compared to normally distributed data. }}{\thepage }}
+\newlabel{fig:qq_plot}{{3}{\thepage }}
+\@writefile{lof}{\contentsline {figure}{\numberline {4}{\ignorespaces  Multiple tokens, $k=3$ above, correspond to each key location. A touch screen interaction is assigned a token based on key location and pressure. }}{\thepage }}
+\newlabel{fig:phone_tokens}{{4}{\thepage }}
+\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces The top of this figure depicts the raw input touchscreen token sequence. Each touch represents a single interaction between the human user and the soft keyboard. The bottom part shows how the raw input is parsed into 2-Markov model. For example, the bottom left image can be interpreted to say that Touch\_4 succeeds the sequence Touch\_2, Touch\_3 with a non-zero probability.}}{\thepage }}
+\newlabel{fig:markov_model_building}{{5}{\thepage }}
+\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces Example 2-Markov model after the probabilities have been calculated. The rounded rectangles indicate that the touches inside are a window in the Markov model. The top window states that Touch\_2 succeeds the sequence Touch\_0, Touch\_1 with probability 100\%. Touch\_20, Touch\_56, and Touch\_123 are other touches which follow the preceding window with some probability.}}{\thepage }}
+\newlabel{fig:final_markov_model_state}{{6}{\thepage }}
+\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces False positive and false negative percentages vary as the authentication threshold is adjusted.}}{\thepage }}
+\newlabel{fig:threshold_vs_percentages}{{7}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {4}User-Device Pair Discrimination}{\thepage }}
 \newlabel{sec:differentiation}{{4}{\thepage }}
-\@writefile{lof}{\contentsline {figure}{\numberline {5}{\ignorespaces False positive and false negative percentages vary as the authentication threshold is adjusted.}}{\thepage }}
-\newlabel{fig:threshold_vs_percentages}{{5}{\thepage }}
-\@writefile{lof}{\contentsline {figure}{\numberline {6}{\ignorespaces The effect of $n$ in $n$-Markov Model window size on authentication accuracy.}}{\thepage }}
-\newlabel{fig:window_size_vs_authentication_accuracy}{{6}{\thepage }}
+\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces The effect of $n$ in $n$-Markov Model window size on authentication accuracy.}}{\thepage }}
+\newlabel{fig:window_size_vs_authentication_accuracy}{{8}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {5}Data Collection and Analysis}{\thepage }}
 \newlabel{sec:data_collection}{{5}{\thepage }}
 \@writefile{toc}{\contentsline {section}{\numberline {6}Results}{\thepage }}
 \newlabel{sec:results}{{6}{\thepage }}
-\@writefile{lof}{\contentsline {figure}{\numberline {7}{\ignorespaces Authentication accuracy is a function of both the base model size and authentication model size. This graph is aligned on the horizontal axis.}}{\thepage }}
-\newlabel{fig:authentication_accuracy}{{7}{\thepage }}
+\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces  The left y axis describes the size of model in number of touchscreen interactions. The right y axis describe the value of $authentication\_accuracy$ authentication accuracy(blue star), measured on the right y axis, to authentication model size(red triangle), base model size(yellow square), and total touch interactions(green diamond) measured on the left y axis. Total touch interactions is the sum of base model size and authentication model size. }}{\thepage }}
+\newlabel{fig:authentication_accuracy}{{9}{\thepage }}
 \citation{ScheelTyagi15}
 \citation{ScheelTyagi15}
+\@writefile{lof}{\contentsline {figure}{\numberline {10}{\ignorespaces  Authentication accuracy can be seen as a function of the total number of touch screen interactions used in model construction. Total touch interactions is the sum of base model size and authentication model size. }}{\thepage }}
+\newlabel{fig:total_touches_vs_authentication_accuracy}{{10}{\thepage }}
+\@writefile{lof}{\contentsline {figure}{\numberline {11}{\ignorespaces  The computation time, measured in milliseconds(ms), on a Nexus 7 tablet is a function of $Total Size =$ {\it  base\_model\_size} $+$ {\it  auth\_model\_size}. Model sizes are measured by number of touch interactions used in their construction. }}{\thepage }}
+\newlabel{fig:nexus_total_size_time}{{11}{\thepage }}
+\@writefile{toc}{\contentsline {section}{\numberline {7}Distributed User-Device PUF}{\thepage }}
+\newlabel{sec:PUF}{{7}{\thepage }}
+\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusions}{\thepage }}
+\newlabel{sec:conclusions}{{8}{\thepage }}
 \bibstyle{unsrt}
 \bibdata{bibliography/markov_chains,bibliography/pufs,bibliography/other,pufs}
 \bibcite{ScheelTyagi15}{1}
 \bibcite{CR14}{2}
 \bibcite{FCC14}{3}
-\@writefile{lof}{\contentsline {figure}{\numberline {8}{\ignorespaces Authentication accuracy is linked more closely to the total number of touches used in the authentication then to either the base model size or the authentication model size. Although authentication accuracy does not strictly increase with the number of touches it does trend upward.}}{\thepage }}
-\newlabel{fig:total_touches_vs_authentication_accuracy}{{8}{\thepage }}
-\@writefile{toc}{\contentsline {section}{\numberline {7}Distributed User-Device PUF}{\thepage }}
-\newlabel{sec:PUF}{{7}{\thepage }}
-\@writefile{lof}{\contentsline {figure}{\numberline {9}{\ignorespaces The execution time on a Nexus 7 tablet as a function of $Total Size =$ {\it  base\_model\_size} $+$ {\it  auth\_model\_size}. Time taken is measured in milliseconds while model sizes are measured by number of touches. This graph is aligned on the horizontal axis.}}{\thepage }}
-\newlabel{fig:nexus_total_size_time}{{9}{\thepage }}
-\@writefile{toc}{\contentsline {section}{\numberline {8}Conclusions}{\thepage }}
-\newlabel{sec:conclusions}{{8}{\thepage }}
-\@writefile{toc}{\contentsline {section}{\numberline {9}References}{\thepage }}
-\bibcite{Devadas:2009:PUF}{4}
-\bibcite{PUFIntro}{5}
-\bibcite{Gassend:2002:SPR}{6}
-\bibcite{Ratha:2001}{7}
-\bibcite{rosenfeld2010sensor}{8}
+\bibcite{mackenzie1999text}{4}
+\bibcite{Devadas:2009:PUF}{5}
+\bibcite{PUFIntro}{6}
+\bibcite{Gassend:2002:SPR}{7}
+\bibcite{Ratha:2001}{8}
 \bibcite{zhu2013sensec}{9}
 \bibcite{KeystrokeHASE14}{10}
 \bibcite{Liu:2009:UAP}{11}
@@ -75,5 +83,9 @@
 \bibcite{Gesture14}{15}
 \bibcite{Dey:2013:AHP}{16}
 \bibcite{shi2011senguard}{17}
-\bibcite{Brown:ngram}{18}
-\bibcite{threesigmarule}{19}
+\bibcite{ruhrmair2015virtual}{18}
+\bibcite{rosenfeld2010sensor}{19}
+\bibcite{Brown:ngram}{20}
+\bibcite{shapiro1965analysis}{21}
+\bibcite{threesigmarule}{22}
+\@writefile{toc}{\contentsline {section}{\numberline {9}References}{\thepage }}

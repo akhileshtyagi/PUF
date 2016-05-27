@@ -384,7 +384,10 @@ public class Chain{
 			// for all existing unique indexes, if none of the windows match, add new index
 			boolean no_match = true;
 			for(int j=0; j<index_list.size(); j++){
-				if( this.successor_touch.get(successor_list.get(i)).compare_with_token(token_list,
+				//TODO I think this check is incorrect,
+				// compare current successor i to every index already in list
+				if( this.successor_touch.get(successor_list.get(i))
+						.compare_with_token(token_list,
 						this.successor_touch.get(index_list.get(j)))){
 					// touch_i and touch in list are equal, there is a match
 					no_match = false;
@@ -481,7 +484,8 @@ public class Chain{
 
 			//difference = get_corresponding_successor_difference(window, index_list_base, index_list_auth, successor_list_base, successor_list_auth) / ((double)index_list_auth.size());
 		} else if(TOKEN_AVERAGING == TokenAveraging.WEIGHTED) {
-			System.out.println("new window");
+			//TODO test print statement
+			//System.out.println("new window");
 
 			// weighted version of token averaging
 			// tokens are weighted by their occurrence in auth model
@@ -523,7 +527,7 @@ public class Chain{
 				//TODO ah this unveils the problem. Token weights do not sum to 1. They should within a given window though
 				//TODO weight should be [number of tokens / total tokens coming after window]
 				//TODO perhaps this is a problem with the probability computation then? (THat would suck_)
-				System.out.println("token weight: " + token_weight);
+				//System.out.println("token weight: " + token_weight);
 
 				// compute absolute difference
 				difference += token_weight * Math.abs(base_probability - auth_probability);
@@ -1003,11 +1007,24 @@ public class Chain{
 			for(int i=0;i<unique_windows.size();i++){
 				// get a list of successor touches for this same window
 				List<Integer> successor_list = compute_unique_successors(get_tokens(), window_list.get_index_list(window_list.get(unique_windows.get(i))));
+				//TODO testing to see probability values for non-unique successors, are they all the same?
+				//List<Integer> successor_list = window_list.get_index_list(window_list.get(unique_windows.get(i)));
 
 				output.println("----- window " + i + " -----");
 
+//				ArrayList<Touch> visited_list = new ArrayList<>();
+
 				// for each successor
 				for(int j=0; j<successor_list.size(); j++) {
+					//TODO effectively, this only prints for unique tokens
+					// determine if we have seen this touch before
+//					for(int k=0;k<visited_list.size();k++){
+//						// we the touch has been seen, skip printing
+//						if(visited_list.get(i).compare_with_token(get_tokens(), successor_touch.get(successor_list.get(j)))){
+//							continue;
+//						}
+//					}
+
 					String predecessor_window = windows.get(successor_list.get(j)).toString();
 					double touch_probability = successor_touch.get(successor_list.get(j)).get_probability(this.get_tokens(), windows.get(successor_list.get(j)));
 					double touch_pressure = successor_touch.get(successor_list.get(j)).get_pressure();

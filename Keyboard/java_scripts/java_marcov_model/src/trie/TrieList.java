@@ -61,6 +61,7 @@ public class TrieList extends ArrayList<Window>{
 	public void add(int arg0, Window arg1) {
 		this.add_to_trie(arg1, arg0);
 		//TODO update the indexes in the trie
+		//TODO unimplemented
 		
 		super.add(arg0, arg1);
 	}
@@ -228,8 +229,13 @@ public class TrieList extends ArrayList<Window>{
 	private String encode(Window window){
 		String encoding = "";
 		List<Touch> touches = window.get_touch_list();
-				
+
+		//TODO make sure encorporation of keycode is correct
 		for(int i=0;i<touches.size();i++){
+			// location of key
+			encoding += touches.get(i).get_key();
+
+			// pressure at key
 			encoding += 'a' + get_token_index(touches.get(i));
 		}
 		

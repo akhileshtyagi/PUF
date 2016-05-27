@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  23 MAY 2016 14:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  27 MAY 2016 16:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -280,191 +280,182 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 ]
-LaTeX Font Info:    Try loading font information for T1+aett on input line 212.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 214.
 
 
 (/usr/share/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
-Overfull \hbox (13.84962pt too wide) in paragraph at lines 210--220
+Overfull \hbox (13.84962pt too wide) in paragraph at lines 212--222
 \T1/aer/m/n/9 android/view/MotionEvent.html). The \T1/aett/m/n/9 get-Pres-sure(
 ) \T1/aer/m/n/9 method
  []
 
 
-Underfull \vbox (badness 3049) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
-<figures/token_creation.png, id=10, 594.22pt x 222.8325pt>
-File: figures/token_creation.png Graphic file (type png)
+<figures/pdf/token_creation.pdf, id=10, 506.89375pt x 220.825pt>
+File: figures/pdf/token_creation.pdf Graphic file (type pdf)
 
-<use figures/token_creation.png>
-Package pdftex.def Info: figures/token_creation.png used on input line 294.
-(pdftex.def)             Requested size: 260.17244pt x 97.56717pt.
+<use figures/pdf/token_creation.pdf>
+Package pdftex.def Info: figures/pdf/token_creation.pdf used on input line 334.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 294--295
- [][] 
- []
+(pdftex.def)             Requested size: 226.79846pt x 98.80087pt.
+ [2 <./figures/pdf/token_creation.pdf>]
+<figures/pdf/Rplots.pdf, id=24, page=2, 505.89pt x 505.89pt>
+File: figures/pdf/Rplots.pdf Graphic file (type pdf)
 
-<figures/normal_distribution.png, id=12, 602.25pt x 372.39125pt>
-File: figures/normal_distribution.png Graphic file (type png)
+<use figures/pdf/Rplots.pdf, page 2>
+Package pdftex.def Info: figures/pdf/Rplots.pdf, page2 used on input line 378.
+(pdftex.def)             Requested size: 226.79846pt x 226.79927pt.
 
-<use figures/normal_distribution.png>
-Package pdftex.def Info: figures/normal_distribution.png used on input line 328
+<figures/pdf/Rplots.pdf, id=25, page=4, 505.89pt x 505.89pt>
+File: figures/pdf/Rplots.pdf Graphic file (type pdf)
+
+<use figures/pdf/Rplots.pdf, page 4>
+Package pdftex.def Info: figures/pdf/Rplots.pdf, page4 used on input line 390.
+(pdftex.def)             Requested size: 226.79846pt x 226.79927pt.
+
+<figures/pdf/phone_tokens.pdf, id=26, 794.97pt x 614.295pt>
+File: figures/pdf/phone_tokens.pdf Graphic file (type pdf)
+
+<use figures/pdf/phone_tokens.pdf>
+Package pdftex.def Info: figures/pdf/phone_tokens.pdf used on input line 474.
+(pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [3 <./figures/pdf/Rplots.pdf> <./figures/pdf/Rplots.pdf>]
+<figures/pdf/marcov_model_building.pdf, id=37, 770.88pt x 326.21875pt>
+File: figures/pdf/marcov_model_building.pdf Graphic file (type pdf)
+
+<use figures/pdf/marcov_model_building.pdf>
+Package pdftex.def Info: figures/pdf/marcov_model_building.pdf used on input li
+ne 540.
+(pdftex.def)             Requested size: 226.79846pt x 95.97485pt.
+
+<figures/pdf/final_marcov_model_state.pdf, id=38, 774.895pt x 352.31625pt>
+File: figures/pdf/final_marcov_model_state.pdf Graphic file (type pdf)
+
+<use figures/pdf/final_marcov_model_state.pdf>
+Package pdftex.def Info: figures/pdf/final_marcov_model_state.pdf used on input
+ line 582.
+(pdftex.def)             Requested size: 226.79846pt x 103.11525pt.
+
+Underfull \vbox (badness 4303) has occurred while \output is active []
+
+ [4 <./figures/pdf/phone_tokens.pdf
+
+pdfTeX warning: pdflatex (file ./figures/pdf/phone_tokens.pdf): PDF inclusion: 
+invalid other resource which is no dict (key 'ProcSets', type <array>); ignored
 .
-(pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
-
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 328--329
- [][] 
- []
-
-[2 <./figures/token_creation.png>]
-<figures/markov_model_building.png, id=23, 764.8575pt x 328.22626pt>
-File: figures/markov_model_building.png Graphic file (type png)
-
-<use figures/markov_model_building.png>
-Package pdftex.def Info: figures/markov_model_building.png used on input line 4
-16.
-(pdftex.def)             Requested size: 245.71754pt x 105.44522pt.
-
-Overfull \hbox (5.71754pt too wide) in paragraph at lines 416--417
- [][] 
- []
-
-<figures/final_markov_model_state.png, id=24, 774.895pt x 354.32375pt>
-File: figures/final_markov_model_state.png Graphic file (type png)
-
-<use figures/final_markov_model_state.png>
-Package pdftex.def Info: figures/final_markov_model_state.png used on input lin
-e 458.
-(pdftex.def)             Requested size: 245.71754pt x 112.35326pt.
-
-Overfull \hbox (5.71754pt too wide) in paragraph at lines 458--462
- [][] 
- []
-
-[3 <./figures/normal_distribution.png> <./figures/markov_model_building.png> <.
-/figures/final_markov_model_state.png>]
-Overfull \hbox (1.28062pt too wide) in paragraph at lines 527--527
+> <./figures/pdf/marcov_model_building.pdf> <./figures/pdf/final_marcov_model_s
+tate.pdf>]
+Overfull \hbox (1.28062pt too wide) in paragraph at lines 651--651
 []\secfnt USER-DEVICE PAIR DIS-CRIM-I-NA-TION 
  []
 
-<figures/threshold_vs_percentages.png, id=33, 602.25pt x 372.39125pt>
-File: figures/threshold_vs_percentages.png Graphic file (type png)
 
-<use figures/threshold_vs_percentages.png>
-Package pdftex.def Info: figures/threshold_vs_percentages.png used on input lin
-e 535.
-(pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
+<figures/pdf/false_positive_vs_authentication_threshold.pdf, id=62, 794.97pt x 
+614.295pt>
+File: figures/pdf/false_positive_vs_authentication_threshold.pdf Graphic file (
+type pdf)
+ <use figures/pdf/false_positive_vs_authentication_threshold.pdf>
+Package pdftex.def Info: figures/pdf/false_positive_vs_authentication_threshold
+.pdf used on input line 659.
+(pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
 
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 535--536
- [][] 
- []
-
-
-Overfull \hbox (2.45642pt too wide) in paragraph at lines 563--576
+Overfull \hbox (2.45642pt too wide) in paragraph at lines 687--700
 \T1/aer/m/n/9 pro-file can be given by $\OT1/cmr/m/n/9 1 \OMS/cmsy/m/n/9 ^^@ \O
 ML/cmm/m/it/9 avgDistance\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 TrainingProfile n \OMS
 /cmsy/m/n/9 ^^@
  []
 
 
-<figures/window_size_vs_authentication_accuracy.png, id=34, 602.25pt x 372.3912
-5pt>
-File: figures/window_size_vs_authentication_accuracy.png Graphic file (type png
-)
- <use figures/window_size_vs_authentication_accuracy.png>
-Package pdftex.def Info: figures/window_size_vs_authentication_accuracy.png use
-d on input line 604.
-(pdftex.def)             Requested size: 260.17244pt x 160.88084pt.
-
-Overfull \hbox (20.17244pt too wide) in paragraph at lines 604--605
- [][] 
- []
-
-[4 <./figures/threshold_vs_percentages.png>]
-<figures/authentication_accuracy_vs_model_size.png, id=43, 602.25pt x 372.39125
-pt>
-File: figures/authentication_accuracy_vs_model_size.png Graphic file (type png)
-
- <use figures/authentication_accuracy_vs_model_size.png>
-Package pdftex.def Info: figures/authentication_accuracy_vs_model_size.png used
- on input line 686.
-(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
-
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 686--689
- [][] 
- []
+Underfull \vbox (badness 1533) has occurred while \output is active []
 
 
-Overfull \hbox (27.6552pt too wide) in paragraph at lines 694--719
-\T1/aer/m/n/9 num-bers of touches did not re-sult in higher \T1/aer/m/it/9 au-t
-hen-ti-ca-tion_accuracy\T1/aer/m/n/9 .
- []
 
+pdfTeX warning: pdflatex (file ./figures/pdf/window_size_vs_authentication_accu
+racy.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> al
+lowed
 
-<figures/total_touches_vs_authentication_accuracy.png, id=44, 602.25pt x 372.39
-125pt>
-File: figures/total_touches_vs_authentication_accuracy.png Graphic file (type p
-ng)
- <use figures/total_touches_vs_authentication_accuracy.png>
-Package pdftex.def Info: figures/total_touches_vs_authentication_accuracy.png u
-sed on input line 723.
-(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
+<figures/pdf/window_size_vs_authentication_accuracy.pdf, id=63, 794.97pt x 614.
+295pt>
+File: figures/pdf/window_size_vs_authentication_accuracy.pdf Graphic file (type
+ pdf)
+ <use figures/pdf/window_size_vs_authentication_accuracy.pdf>
+Package pdftex.def Info: figures/pdf/window_size_vs_authentication_accuracy.pdf
+ used on input line 728.
+(pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 723--724
- [][] 
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
+ [5 <./figures/pdf/false_positive_vs_authentication_threshold.pdf> <./figures/p
+df/window_size_vs_authentication_accuracy.pdf>]
 
-Underfull \vbox (badness 4954) has occurred while \output is active []
+pdfTeX warning: pdflatex (file ./figures/pdf/authentication_accuracy_vs_touchsc
+reen_interactions.pdf): PDF inclusion: found PDF version <1.7>, but at most ver
+sion <1.5> allowed
 
- [5 <./figures/window_size_vs_authentication_accuracy.png> <./figures/authentic
-ation_accuracy_vs_model_size.png>]
-<figures/nexus_total_size_time.png, id=50, 602.25pt x 372.39125pt>
-File: figures/nexus_total_size_time.png Graphic file (type png)
+<figures/pdf/authentication_accuracy_vs_touchscreen_interactions.pdf, id=77, 43
+3.62pt x 216.81pt>
+File: figures/pdf/authentication_accuracy_vs_touchscreen_interactions.pdf Graph
+ic file (type pdf)
 
-<use figures/nexus_total_size_time.png>
-Package pdftex.def Info: figures/nexus_total_size_time.png used on input line 7
-58.
-(pdftex.def)             Requested size: 252.94499pt x 156.40324pt.
+<use figures/pdf/authentication_accuracy_vs_touchscreen_interactions.pdf>
+Package pdftex.def Info: figures/pdf/authentication_accuracy_vs_touchscreen_int
+eractions.pdf used on input line 846.
+(pdftex.def)             Requested size: 226.79846pt x 113.40018pt.
 
-Overfull \hbox (12.94499pt too wide) in paragraph at lines 758--762
- [][] 
- []
+<figures/pdf/authentication_accuracy_vs_total_interactions.pdf, id=78, 1228.59p
+t x 794.97pt>
+File: figures/pdf/authentication_accuracy_vs_total_interactions.pdf Graphic fil
+e (type pdf)
 
+<use figures/pdf/authentication_accuracy_vs_total_interactions.pdf>
+Package pdftex.def Info: figures/pdf/authentication_accuracy_vs_total_interacti
+ons.pdf used on input line 893.
+(pdftex.def)             Requested size: 226.79846pt x 146.75175pt.
 
-Underfull \hbox (badness 1348) in paragraph at lines 762--762
-[]\T1/aer/bx/n/9 Figure 9: The ex-e-cu-tion time on a Nexus 7
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [6 <./figures/pdf/authentication_accuracy_vs_touchscreen_interactions.pdf>]
+<figures/pdf/nexus_7_runtimes.pdf, id=87, 794.97pt x 614.295pt>
+File: figures/pdf/nexus_7_runtimes.pdf Graphic file (type pdf)
+
+<use figures/pdf/nexus_7_runtimes.pdf>
+Package pdftex.def Info: figures/pdf/nexus_7_runtimes.pdf used on input line 95
+2.
+(pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
 
 
 LaTeX Warning: Reference `fig:nexus_speed_test' on page \thepage  undefined on 
-input line 795.
+input line 991.
 
-(./mobilePUFkeyboard.bbl
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7 <./figures/pdf/authentication_accuracy_vs_total_interactions.pdf> <./figure
+s/pdf/nexus_7_runtimes.pdf>] (./mobilePUFkeyboard.bbl
 Overfull \hbox (21.45428pt too wide) in paragraph at lines 11--16
 \T1/aer/m/n/9 http://www.consumerreports.org/cro/news/2014/04/smart- 
  []
 
-[6 <./figures/total_touches_vs_authentication_accuracy.png> <./figures/nexus_to
-tal_size_time.png>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
-) [7]
-(./mobilePUFkeyboard.aux)
+) [8] (./mobilePUFkeyboard.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2881 strings out of 493054
- 37286 string characters out of 6140586
- 104827 words of memory out of 5000000
- 6321 multiletter control sequences out of 15000+600000
- 50797 words of font info for 68 fonts, out of 8000000 for 9000
+ 2898 strings out of 493054
+ 37915 string characters out of 6140586
+ 105875 words of memory out of 5000000
+ 6335 multiletter control sequences out of 15000+600000
+ 53821 words of font info for 70 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,10n,28p,507b,246s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,10n,28p,581b,254s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cmextra/cmex9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
@@ -479,10 +470,10 @@ pe1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></
 usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist
 /fonts/type1/urw/times/utmb8a.pfb>
-Output written on mobilePUFkeyboard.pdf (7 pages, 403044 bytes).
+Output written on mobilePUFkeyboard.pdf (8 pages, 604901 bytes).
 PDF statistics:
- 112 PDF objects out of 1000 (max. 8388607)
- 68 compressed objects within 1 object stream
+ 154 PDF objects out of 1000 (max. 8388607)
+ 103 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 46 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

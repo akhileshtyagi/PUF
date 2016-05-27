@@ -16,7 +16,7 @@ public class Print_model {
 	final static int window = 2;
 	final static int token = 7;
 	final static int threshold = 5000;
-	final static int model_size = 100;
+	final static int model_size = 10000;
 	
 	public static void main(String[] args){
 		Chain chain = new Chain(window, token, threshold, model_size);

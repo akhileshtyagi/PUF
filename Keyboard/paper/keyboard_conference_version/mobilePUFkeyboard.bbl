@@ -21,6 +21,11 @@ Federal~Communications Commission.
 \newblock FCC,
   http://transition.fcc.gov/bureaus/oet/tac/tacdocs/\\meeting12414/TAC-MDTP-Report-v1.0-FINAL-TAC-version.pdf.
 
+\bibitem{mackenzie1999text}
+I~Scott MacKenzie, Shawn~X Zhang, and R~William Soukoreff.
+\newblock Text entry using soft keyboards.
+\newblock {\em Behaviour \& information technology}, 18(4):235--244, 1999.
+
 \bibitem{Devadas:2009:PUF}
 Srini Devadas.
 \newblock Physical unclonable functions and secure processors.
@@ -48,12 +53,6 @@ N.~K. Ratha, J.~H. Connell, and R.~M. Bolle.
 \newblock Enhancing security and privacy in biometrics-based authentication
   systems.
 \newblock {\em IBM Syst. J.}, 40(3):614--634, March 2001.
-
-\bibitem{rosenfeld2010sensor}
-Kurt Rosenfeld, Efstratios Gavas, and Ramesh Karri.
-\newblock Sensor physical unclonable functions.
-\newblock In {\em Hardware-Oriented Security and Trust (HOST), 2010 IEEE
-  International Symposium on}, pages 112--117. IEEE, 2010.
 
 \bibitem{zhu2013sensec}
 Jiang Zhu, Pang Wu, Xiao Wang, and Joy Zhang.
@@ -116,11 +115,29 @@ Weidong Shi, Feng Yang, Yifei Jiang, Feng Yang, and Yingen Xiong.
   (WiMob), 2011 IEEE 7th International Conference on}, pages 141--148. IEEE,
   2011.
 
+\bibitem{ruhrmair2015virtual}
+Ulrich Ruhrmair, JL~Martinez-Hurtado, Xiaolin Xu, Christian Kraeh, Christian
+  Hilgers, Dima Kononchuk, Jonathan~J Finley, and Wayne~P Burleson.
+\newblock Virtual proofs of reality and their physical implementation.
+\newblock In {\em Security and Privacy (SP), 2015 IEEE Symposium on}, pages
+  70--85. IEEE, 2015.
+
+\bibitem{rosenfeld2010sensor}
+Kurt Rosenfeld, Efstratios Gavas, and Ramesh Karri.
+\newblock Sensor physical unclonable functions.
+\newblock In {\em Hardware-Oriented Security and Trust (HOST), 2010 IEEE
+  International Symposium on}, pages 112--117. IEEE, 2010.
+
 \bibitem{Brown:ngram}
 Peter~F. Brown, Peter~V. deSouza, Robert~L. Mercer, Vincent J.~Della Pietra,
   and Jenifer~C. Lai.
 \newblock Class-based n-gram models of natural language.
 \newblock {\em Comput. Linguist.}, 18(4):467--479, December 1992.
+
+\bibitem{shapiro1965analysis}
+Samuel~Sanford Shapiro and Martin~B Wilk.
+\newblock An analysis of variance test for normality (complete samples).
+\newblock {\em Biometrika}, 52(3/4):591--611, 1965.
 
 \bibitem{threesigmarule}
 Friedrich Pukelsheim.
