@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  27 MAY 2016 16:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  27 MAY 2016 18:03
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -274,23 +274,27 @@ LaTeX Font Info:    Try loading font information for U+lasy on input line 120.
 (/usr/share/texmf-dist/tex/latex/base/ulasy.fd
 File: ulasy.fd 1998/08/17 v2.2e LaTeX symbol font definitions
 )
+
+LaTeX Warning: No \author given.
+
+LaTeX Font Info:    Try loading font information for T1+aett on input line 214.
+
+(/usr/share/texmf-dist/tex/latex/ae/t1aett.fd
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+)
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
 ]
-LaTeX Font Info:    Try loading font information for T1+aett on input line 214.
+<figures/pdf/final_marcov_model_state.pdf, id=9, 774.895pt x 352.31625pt>
+File: figures/pdf/final_marcov_model_state.pdf Graphic file (type pdf)
 
-
-(/usr/share/texmf-dist/tex/latex/ae/t1aett.fd
-File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
-)
-Overfull \hbox (13.84962pt too wide) in paragraph at lines 212--222
-\T1/aer/m/n/9 android/view/MotionEvent.html). The \T1/aett/m/n/9 get-Pres-sure(
-) \T1/aer/m/n/9 method
- []
-
+<use figures/pdf/final_marcov_model_state.pdf>
+Package pdftex.def Info: figures/pdf/final_marcov_model_state.pdf used on input
+ line 230.
+(pdftex.def)             Requested size: 226.79846pt x 103.11525pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
@@ -299,81 +303,67 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
 File: figures/pdf/token_creation.pdf Graphic file (type pdf)
 
 <use figures/pdf/token_creation.pdf>
-Package pdftex.def Info: figures/pdf/token_creation.pdf used on input line 334.
+Package pdftex.def Info: figures/pdf/token_creation.pdf used on input line 302.
 
 (pdftex.def)             Requested size: 226.79846pt x 98.80087pt.
- [2 <./figures/pdf/token_creation.pdf>]
-<figures/pdf/Rplots.pdf, id=24, page=2, 505.89pt x 505.89pt>
+ [2 <./figures/pdf/final_marcov_model_state.pdf> <./figures/pdf/token_creation.
+pdf>]
+<figures/pdf/Rplots.pdf, id=27, page=2, 505.89pt x 505.89pt>
 File: figures/pdf/Rplots.pdf Graphic file (type pdf)
 
 <use figures/pdf/Rplots.pdf, page 2>
-Package pdftex.def Info: figures/pdf/Rplots.pdf, page2 used on input line 378.
+Package pdftex.def Info: figures/pdf/Rplots.pdf, page2 used on input line 401.
 (pdftex.def)             Requested size: 226.79846pt x 226.79927pt.
 
-<figures/pdf/Rplots.pdf, id=25, page=4, 505.89pt x 505.89pt>
+<figures/pdf/Rplots.pdf, id=28, page=4, 505.89pt x 505.89pt>
 File: figures/pdf/Rplots.pdf Graphic file (type pdf)
 
 <use figures/pdf/Rplots.pdf, page 4>
-Package pdftex.def Info: figures/pdf/Rplots.pdf, page4 used on input line 390.
+Package pdftex.def Info: figures/pdf/Rplots.pdf, page4 used on input line 413.
 (pdftex.def)             Requested size: 226.79846pt x 226.79927pt.
 
-<figures/pdf/phone_tokens.pdf, id=26, 794.97pt x 614.295pt>
+<figures/pdf/phone_tokens.pdf, id=29, 794.97pt x 614.295pt>
 File: figures/pdf/phone_tokens.pdf Graphic file (type pdf)
 
 <use figures/pdf/phone_tokens.pdf>
-Package pdftex.def Info: figures/pdf/phone_tokens.pdf used on input line 474.
+Package pdftex.def Info: figures/pdf/phone_tokens.pdf used on input line 497.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
  [3 <./figures/pdf/Rplots.pdf> <./figures/pdf/Rplots.pdf>]
-<figures/pdf/marcov_model_building.pdf, id=37, 770.88pt x 326.21875pt>
+<figures/pdf/marcov_model_building.pdf, id=40, 770.88pt x 326.21875pt>
 File: figures/pdf/marcov_model_building.pdf Graphic file (type pdf)
 
 <use figures/pdf/marcov_model_building.pdf>
 Package pdftex.def Info: figures/pdf/marcov_model_building.pdf used on input li
-ne 540.
+ne 560.
 (pdftex.def)             Requested size: 226.79846pt x 95.97485pt.
 
-<figures/pdf/final_marcov_model_state.pdf, id=38, 774.895pt x 352.31625pt>
-File: figures/pdf/final_marcov_model_state.pdf Graphic file (type pdf)
-
-<use figures/pdf/final_marcov_model_state.pdf>
-Package pdftex.def Info: figures/pdf/final_marcov_model_state.pdf used on input
- line 582.
-(pdftex.def)             Requested size: 226.79846pt x 103.11525pt.
-
-Underfull \vbox (badness 4303) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [4 <./figures/pdf/phone_tokens.pdf
 
 pdfTeX warning: pdflatex (file ./figures/pdf/phone_tokens.pdf): PDF inclusion: 
 invalid other resource which is no dict (key 'ProcSets', type <array>); ignored
 .
-> <./figures/pdf/marcov_model_building.pdf> <./figures/pdf/final_marcov_model_s
-tate.pdf>]
-Overfull \hbox (1.28062pt too wide) in paragraph at lines 651--651
+> <./figures/pdf/marcov_model_building.pdf>]
+Overfull \hbox (1.28062pt too wide) in paragraph at lines 662--662
 []\secfnt USER-DEVICE PAIR DIS-CRIM-I-NA-TION 
  []
 
 
-<figures/pdf/false_positive_vs_authentication_threshold.pdf, id=62, 794.97pt x 
+<figures/pdf/false_positive_vs_authentication_threshold.pdf, id=61, 794.97pt x 
 614.295pt>
 File: figures/pdf/false_positive_vs_authentication_threshold.pdf Graphic file (
 type pdf)
  <use figures/pdf/false_positive_vs_authentication_threshold.pdf>
 Package pdftex.def Info: figures/pdf/false_positive_vs_authentication_threshold
-.pdf used on input line 659.
+.pdf used on input line 670.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
 
-Overfull \hbox (2.45642pt too wide) in paragraph at lines 687--700
+Overfull \hbox (2.45642pt too wide) in paragraph at lines 698--711
 \T1/aer/m/n/9 pro-file can be given by $\OT1/cmr/m/n/9 1 \OMS/cmsy/m/n/9 ^^@ \O
 ML/cmm/m/it/9 avgDistance\OT1/cmr/m/n/9 (\OML/cmm/m/it/9 TrainingProfile n \OMS
 /cmsy/m/n/9 ^^@
  []
-
-
-Underfull \vbox (badness 1533) has occurred while \output is active []
 
 
 
@@ -381,13 +371,13 @@ pdfTeX warning: pdflatex (file ./figures/pdf/window_size_vs_authentication_accu
 racy.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> al
 lowed
 
-<figures/pdf/window_size_vs_authentication_accuracy.pdf, id=63, 794.97pt x 614.
+<figures/pdf/window_size_vs_authentication_accuracy.pdf, id=62, 794.97pt x 614.
 295pt>
 File: figures/pdf/window_size_vs_authentication_accuracy.pdf Graphic file (type
  pdf)
  <use figures/pdf/window_size_vs_authentication_accuracy.pdf>
 Package pdftex.def Info: figures/pdf/window_size_vs_authentication_accuracy.pdf
- used on input line 728.
+ used on input line 739.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -399,63 +389,68 @@ pdfTeX warning: pdflatex (file ./figures/pdf/authentication_accuracy_vs_touchsc
 reen_interactions.pdf): PDF inclusion: found PDF version <1.7>, but at most ver
 sion <1.5> allowed
 
-<figures/pdf/authentication_accuracy_vs_touchscreen_interactions.pdf, id=77, 43
+<figures/pdf/authentication_accuracy_vs_touchscreen_interactions.pdf, id=76, 43
 3.62pt x 216.81pt>
 File: figures/pdf/authentication_accuracy_vs_touchscreen_interactions.pdf Graph
 ic file (type pdf)
 
 <use figures/pdf/authentication_accuracy_vs_touchscreen_interactions.pdf>
 Package pdftex.def Info: figures/pdf/authentication_accuracy_vs_touchscreen_int
-eractions.pdf used on input line 846.
+eractions.pdf used on input line 857.
 (pdftex.def)             Requested size: 226.79846pt x 113.40018pt.
 
-<figures/pdf/authentication_accuracy_vs_total_interactions.pdf, id=78, 1228.59p
+<figures/pdf/authentication_accuracy_vs_total_interactions.pdf, id=77, 1228.59p
 t x 794.97pt>
 File: figures/pdf/authentication_accuracy_vs_total_interactions.pdf Graphic fil
 e (type pdf)
 
 <use figures/pdf/authentication_accuracy_vs_total_interactions.pdf>
 Package pdftex.def Info: figures/pdf/authentication_accuracy_vs_total_interacti
-ons.pdf used on input line 893.
+ons.pdf used on input line 904.
 (pdftex.def)             Requested size: 226.79846pt x 146.75175pt.
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [6 <./figures/pdf/authentication_accuracy_vs_touchscreen_interactions.pdf>]
-<figures/pdf/nexus_7_runtimes.pdf, id=87, 794.97pt x 614.295pt>
+<figures/pdf/nexus_7_runtimes.pdf, id=86, 794.97pt x 614.295pt>
 File: figures/pdf/nexus_7_runtimes.pdf Graphic file (type pdf)
 
 <use figures/pdf/nexus_7_runtimes.pdf>
-Package pdftex.def Info: figures/pdf/nexus_7_runtimes.pdf used on input line 95
-2.
+Package pdftex.def Info: figures/pdf/nexus_7_runtimes.pdf used on input line 96
+3.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
 
 
 LaTeX Warning: Reference `fig:nexus_speed_test' on page \thepage  undefined on 
-input line 991.
+input line 1002.
 
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 6995) has occurred while \output is active []
 
- [7 <./figures/pdf/authentication_accuracy_vs_total_interactions.pdf> <./figure
-s/pdf/nexus_7_runtimes.pdf>] (./mobilePUFkeyboard.bbl
+
+(./mobilePUFkeyboard.bbl [7 <./figures/pdf/authentication_accuracy_vs_total_int
+eractions.pdf> <./figures/pdf/nexus_7_runtimes.pdf>]
 Overfull \hbox (21.45428pt too wide) in paragraph at lines 11--16
 \T1/aer/m/n/9 http://www.consumerreports.org/cro/news/2014/04/smart- 
  []
 
-) [8] (./mobilePUFkeyboard.aux)
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+) [8]
+(./mobilePUFkeyboard.aux)
 
 LaTeX Warning: There were undefined references.
 
  ) 
 Here is how much of TeX's memory you used:
- 2898 strings out of 493054
- 37915 string characters out of 6140586
- 105875 words of memory out of 5000000
- 6335 multiletter control sequences out of 15000+600000
- 53821 words of font info for 70 fonts, out of 8000000 for 9000
+ 2892 strings out of 493054
+ 37867 string characters out of 6140586
+ 104520 words of memory out of 5000000
+ 6333 multiletter control sequences out of 15000+600000
+ 48489 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 41i,10n,28p,581b,254s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 41i,8n,28p,526b,237s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fon
 ts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public
 /amsfonts/cmextra/cmex9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
@@ -468,12 +463,11 @@ s/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy5.pfb><
 f-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/ty
 pe1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dist/fonts/type1/public/amsf
 onts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></
-usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist
-/fonts/type1/urw/times/utmb8a.pfb>
-Output written on mobilePUFkeyboard.pdf (8 pages, 604901 bytes).
+usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
+Output written on mobilePUFkeyboard.pdf (8 pages, 597591 bytes).
 PDF statistics:
- 154 PDF objects out of 1000 (max. 8388607)
- 103 compressed objects within 2 object streams
+ 149 PDF objects out of 1000 (max. 8388607)
+ 100 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

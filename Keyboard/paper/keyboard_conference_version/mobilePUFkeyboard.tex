@@ -69,31 +69,31 @@
 % the body of your article BEFORE References or any Appendices.
 
 % acm
-\numberofauthors{3} 
-%  in this sample file, there are a *total*
-% of EIGHT authors. SIX appear on the 'first-page' (for formatting
-% reasons) and the remaining two appear in the \additionalauthors section.
-%
-\author{
-% 1st. author
-\alignauthor Timothy M. Dee\\
-      \affaddr{Electrical \& Computer Engineering}\\
-      \affaddr{Iowa State University}\\
-      \affaddr{Ames, IA, USA}\\
-      \email{timdee@iastate.edu}
-% 2nd. author
-\alignauthor Ian T. Richardson\\
-     \affaddr{Electrical \& Computer Engineering}\\
-     \affaddr{Iowa State University}\\
-     \affaddr{Ames, IA, USA}\\
-     \email{ian.t.rich@gmail.com}
-% 3nd. author
-\alignauthor Akhilesh Tyagi\\
-     \affaddr{Electrical \& Computer Engineering}\\
-     \affaddr{Iowa State University}\\
-      \affaddr{Ames, IA, USA}\\
-      \email{tyagi@iastate.edu}
-}
+% \numberofauthors{3} 
+% %  in this sample file, there are a *total*
+% % of EIGHT authors. SIX appear on the 'first-page' (for formatting
+% % reasons) and the remaining two appear in the \additionalauthors section.
+% %
+% \author{
+% % 1st. author
+% \alignauthor Timothy M. Dee\\
+%       \affaddr{Electrical \& Computer Engineering}\\
+%       \affaddr{Iowa State University}\\
+%       \affaddr{Ames, IA, USA}\\
+%       \email{timdee@iastate.edu}
+% % 2nd. author
+% \alignauthor Ian T. Richardson\\
+%      \affaddr{Electrical \& Computer Engineering}\\
+%      \affaddr{Iowa State University}\\
+%      \affaddr{Ames, IA, USA}\\
+%      \email{ian.t.rich@gmail.com}
+% % 3nd. author
+% \alignauthor Akhilesh Tyagi\\
+%      \affaddr{Electrical \& Computer Engineering}\\
+%      \affaddr{Iowa State University}\\
+%       \affaddr{Ames, IA, USA}\\
+%       \email{tyagi@iastate.edu}
+% }
 
 %IEEE
 % \author{
@@ -211,14 +211,36 @@ English.
 
 We modified a soft keyboard app to collect all the touch screen keyboard interactions data.
 Android framework generates a sequence of MotionEvent objects in response to these touches.
-The Android framework includes a class {\tt MotionEvent} (http://developer.android.com/reference/\\android/view/MotionEvent.html). The {\tt getPressure()} method returns a normalized pressure value in the
+The Android framework includes a class {\tt MotionEvent} (http://developer.android.com/reference/\\android/view/MotionEvent.html). 
+The {\tt getPressure()}\\
+method returns a normalized pressure value in the
 range $[0,1]$ which is derived from the quantification of the current flow change due to
 capacitive change. This pressure value
 should reflect per device variability in the pressure measurement.
 The continuous authentication layer (CAL) collects a sequence $S_{initial}$ of $N$ touch events' pressure
 values $p_0, p_1, \dots , p_{N-1}$ from the user interaction within an app through the modified keyboard.
 This sequence is processed for an $n$th order Markov model $M_{U, D}$ for the given user and device.
+%Section \ref{} describes and example of a 2-Markov model to illustrate this concept.
 Figure~\ref{fig:final_markov_model_state} shows an example of 2-Markov model.
+
+% describes how the Markov model will look after it has been constructed
+%TODO rephrase caption
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{final_marcov_model_state.pdf}
+\caption{
+Example 2-Markov model after the probabilities have been calculated.
+The rounded rectangles indicate 
+a sequence of touch interactions 
+which precede the following touch interaction with some probability $p$.
+$p$ for token $T$ after sequence $W$ is computed 
+as occurrences of $T$ after $W$
+by occurrences of $W$.
+% The top window states that 
+% Touch\_2 succeeds the sequence Touch\_0, Touch\_1 with probability $100$\%.
+}
+\label{fig:final_markov_model_state}
+\end{figure}
 
 %describe in depth the continuous authentication scheme proposed, this is where the main contributions of this work should be discussed
 The continuous authentication signature will fail if either the biometrically correct human user
@@ -273,6 +295,24 @@ Conclusions are presented in Section \ref{sec:conclusions}.
 
 \section{Related Work}
 \label{sec:related_work}
+
+% show the range over which tokens are created
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth, keepaspectratio]{token_creation.pdf}
+\caption{
+Tokens are only created for 
+pressure range $\mu \pm 2\sigma$ 
+for each key.
+Touches with pressure values
+$p>\mu + 2\sigma$ and $p<\mu - 2\sigma$
+are thrown out.
+This eliminates outliers creating
+increased reproducibility.
+}
+\label{fig:token_creation}
+\end{figure}
+
 % compare our work to other biometric work
 There is significant amount of work on PUFs \cite{Devadas:2009:PUF}, \cite{PUFIntro}, \cite{Gassend:2002:SPR}
 Ratha et al. \cite{Ratha:2001} proposed use of sensor biometrics for authentication.
@@ -327,23 +367,6 @@ the capacity of standard touchscreen sensors to provide PUF functionality.
 Raw touch interactions at a specific key in the soft keyboard square button
 generates a raw pressure value in the range $[0,1]$. These pressure values are tokenized
 into an input alphabet for the Markov model.
- 
-% show the range over which tokens are created
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth, keepaspectratio]{token_creation.pdf}
-\caption{
-Tokens are only created for 
-pressure range $\mu \pm 2\sigma$ 
-for each key.
-Touches with pressure values
-$p>\mu + 2\sigma$ and $p<\mu - 2\sigma$
-are thrown out.
-This eliminates outliers creating
-increased reproducibility.
-}
-\label{fig:token_creation}
-\end{figure}
 
 % describe what is a Markov chain
 Markov Chains are useful in predicting and modeling systems whose behavior evolves through discrete states. 
@@ -389,7 +412,7 @@ Density of touchscreen interactions' pressure values for one user.
 %\includegraphics[width=.45\textwidth, keepaspectratio]{pressure_distribution.pdf}
 \includegraphics[page=4, width=.45\textwidth, keepaspectratio]{Rplots.pdf}
 \caption{
-This Q-Q Plot describes data which comes from
+This Q-Q Plot describes data from
 a data set having a right skew compared to normally distributed data.
 }
 \label{fig:qq_plot}
@@ -503,11 +526,8 @@ the number of tokens per screen area.
 %TODO it may be useful to include all different parameters to the model, 
 %TODO and the effects of varying each of them
 
-%TODO describe how the Markov model is built from the sequence of touch pressures
-
-%TODO describe, or reference somewhere, the above pictures
-
-%TODO describe the Markov model used
+% describe how the Markov model is built from the sequence of touch pressures
+% describe the Markov model used
 Our goal in modeling user touch screen interactions with a Markov model
 is to classify the system in terms of its transitions between states. 
 Each touch token contains information about the pressure and location 
@@ -538,11 +558,14 @@ values within the same pressure range will be considered to be different touches
 \begin{figure}
 \centering
 \includegraphics[width=.45\textwidth]{marcov_model_building.pdf}
-\caption{The top of this figure depicts the raw input touchscreen token sequence. Each touch represents a single interaction between the human user and the soft keyboard. The bottom part shows how the raw input is parsed into 2-Markov model. For example, the bottom left image can be interpreted to say that Touch\_4 succeeds the sequence Touch\_2, Touch\_3 with a non-zero probability.}
+\caption{
+The top of this figure depicts the raw touchscreen interaction sequence.
+Each touch represents a single interaction between the human user and the soft keyboard.
+The diagram's lower portion demonstrates how the raw input is parsed into a 2-Markov model.
+The bottom left image can be interpreted to say that Touch\_4 succeeds the sequence Touch\_2, Touch\_3 with some probability $p$.
+}
 \label{fig:markov_model_building}
 \end{figure}
-
-%TODO describe aspects of the implementation
 
 %describe how the model is constructed from the touch pressure sequence
 Our Markov $n$-gram model calculates the probability of a given token following a specific 
@@ -574,18 +597,6 @@ differ in a sequence of $n+1$ tokens.
 %TODO insert something here, doesn't flow
 Figure~\ref{fig:markov_model_building} demonstrates how the token sequences for the Markov model are generated from the user's raw input from the soft keyboard.
 %TODO describe this more
-
-% describes how the Markov model will look after it has been constructed
-%TODO rephrase caption
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth]{final_marcov_model_state.pdf}
-\caption{Example 2-Markov model after the probabilities have been calculated.
-The rounded rectangles indicate that the touches inside are a window in the Markov model.
-The top window states that Touch\_2 succeeds the sequence Touch\_0, Touch\_1 with probability 100\%.
-Touch\_20, Touch\_56, and Touch\_123 are other touches which follow the preceding window with some probability.}
-\label{fig:final_markov_model_state}
-\end{figure}
 
 % describe the probability calculation in detail
 Recall that the probability of a token $T$ following  a token sequence $T_{i..(i+n-1)}$ is 
@@ -847,7 +858,7 @@ results in 85\% authentication accuracy.
 \caption{
 The left y axis describes the size of model
 in number of touchscreen interactions.
-The right y axis describe the value of $authentication\_accuracy$
+We compare
 authentication accuracy(blue star), measured on the right y axis, 
 to authentication model size(red triangle),
 base model size(yellow square),
@@ -951,7 +962,7 @@ by $k$.
 \centering
 \includegraphics[width=.45\textwidth]{nexus_7_runtimes.pdf}
 \caption{
-The computation time, measured in milliseconds(ms), on a Nexus 7 tablet is
+The computation time, measured in seconds(sec), on a Nexus 7 tablet is
 a function of
 $Total Size =$ {\it base\_model\_size} $+$ {\it auth\_model\_size}.
 Model sizes are measured by number of touch interactions used in their construction.
