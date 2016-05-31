@@ -325,5 +325,23 @@ public class Response implements Serializable {
                 Math.pow((p1.getY() - p2.getY()), 2));
     }
 
+    @Override
+    public String toString(){
+        String s = "";
+
+        s += "Response: ";
+        s += "[size: " + getOrigionalResponse().size() + "]";
+        s += "\n[";
+
+        // print all the points in response
+        for(Point p : getOrigionalResponse()){
+            s += p.toString();
+            s += ", ";
+        }
+
+        s += "]";
+
+        return s;
+    }
 }
 

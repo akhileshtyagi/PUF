@@ -41,6 +41,16 @@ public class UserDevicePair {
         PRESSURE, DISTANCE, TIME, VELOCiTY, ACCELERATION, TIME_LENGTH
     }
 
+    // this set toggles between vector authenticaiton and number of failed points authentication
+    public enum AuthenticationType {
+        POINT_VECTOR,
+        FAILED_POINTS
+    }
+
+    // this set of authentications attempts to use the vectors in order to authenticate
+    //TODO
+
+    // this is a set of authentication options for testing number of failed points
     public enum AuthenticationPredicate {
         PRESSURE,
         NO_PRESSURE,
@@ -56,6 +66,7 @@ public class UserDevicePair {
     }
 
     // determine what type of predicate to authenticate with
+    public final static AuthenticationType AUTHENTICATION_TYPE = AuthenticationType.POINT_VECTOR;
     public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.PRESSURE;
 
     // List of challenges correlating to this user/device pair
@@ -111,14 +122,25 @@ public class UserDevicePair {
 
             if(metric == Point.Metrics.PRESSURE) {
                 this.auth_values_list.get(this.auth_values_list.size() - 1).allowed_deviations = pressure_allowed_deviations;
+
+                //TODO this verifies that the value is being set, but what happens to it?
+                //System.out.println("pressure_allowed_deviations_set: " + pressure_allowed_deviations);
             }else
             if(metric == Point.Metrics.DISTANCE) {
                 this.auth_values_list.get(this.auth_values_list.size() - 1).allowed_deviations = distance_allowed_deviations;
             }else
             if(metric == Point.Metrics.TIME) {
                 this.auth_values_list.get(this.auth_values_list.size() - 1).allowed_deviations = time_allowed_deviations;
+            }else
+            if(metric == Point.Metrics.VELOCITY) {
+                this.auth_values_list.get(this.auth_values_list.size() - 1).allowed_deviations = VELOCITY_LENGTH_DEFAULT_ALLOWED_DEVIATIONS;
+            }else
+            if(metric == Point.Metrics.ACCELERATION) {
+                this.auth_values_list.get(this.auth_values_list.size() - 1).allowed_deviations = ACCELERATION_DEFAULT_ALLOWED_DEVIATIONS;
             }
 
+            //TODO right now a singular authentication threshold is being used.
+            //TODO this could be changed ot be a separate authentication threshold for each (switch above could be used)
             this.auth_values_list.get(this.auth_values_list.size() - 1).authentication_threshold = authentication_threshold;
             this.auth_values_list.get(this.auth_values_list.size() - 1).authentication_failed_point_ratio = 0.0;
             this.auth_values_list.get(this.auth_values_list.size() - 1).point_vector = new ArrayList<>();
@@ -193,6 +215,9 @@ public class UserDevicePair {
      * @return
      */
     public boolean authenticate(List<Point> new_response_data, Challenge challenge) {
+        //TODO why is this happening? I have no clue
+        System.out.println("pressure_deviations_allowed: " + this.auth_values_list.get(0).allowed_deviations + ", ");
+
         Profile profile = challenge.getProfile();
 
         // set a value which represents all points failing
@@ -233,33 +258,97 @@ public class UserDevicePair {
             return false;
         }
 
-        // determine the size of the list
-        int list_size = profile.getNormalizedResponses().get(0).getNormalizedResponse().size();
+        /* determine what type of authentication will happen */
+        switch(AUTHENTICATION_TYPE) {
+            case POINT_VECTOR:
+                return point_vector_authentication(profile);
 
-        // for each point metric
-        for(int i=0; i<auth_values_list.size(); i++){
-            // compute number of failed points
-            int failed_points = failed_points(new_response_data, profile,
-                    auth_values_list.get(i).allowed_deviations, auth_values_list.get(i).metrics_type);
+            case FAILED_POINTS:
+                // determine the size of the list
+                int list_size = profile.getNormalizedResponses().get(0).getNormalizedResponse().size();
 
-            // compute failed points ratio
-            auth_values_list.get(i).authentication_failed_point_ratio = ((double) failed_points) / list_size;
+                // for each point metric
+                for (int i = 0; i < auth_values_list.size(); i++) {
+                    // compute number of failed points
+                    int failed_points = failed_points(new_response_data, profile,
+                            auth_values_list.get(i).allowed_deviations, auth_values_list.get(i).metrics_type);
+
+                    // compute failed points ratio
+                    auth_values_list.get(i).authentication_failed_point_ratio = ((double) failed_points) / list_size;
+                }
+
+                double response_time_length = new_response_data.get(new_response_data.size() - 1).getTime()
+                        - new_response_data.get(0).getTime();
+                boolean time_length_within_sigma = (Math.abs(profile.getTimeLengthMu()
+                        - response_time_length) <= (profile.getTimeLengthSigma() * this.time_length_allowed_deviations));
+
+                // if the fraction of points that pass is greater than the
+                // authentication threshold, then we pass this person
+                return authenticatePredicate(this.auth_values_list,
+                        time_length_within_sigma);
+
+            default:
+                return false;
+        }
+    }
+
+    /**
+     * Determine whether the user should be authenticated or not.
+     * this authentication method is based on point vectors.
+     *
+     * determine the average value of each vector.
+     * This represents the average difference.
+     */
+    private boolean point_vector_authentication(Profile profile){
+        // for all metrics
+        for(int i=0; i<this.auth_values_list.size(); i++){
+            Point.Metrics metrics = this.auth_values_list.get(i).metrics_type;
+
+            //TODO only do this for certain metrics we have set (eg. PRESSURE => only pressure)
+            if(metrics != Point.Metrics.PRESSURE){ continue; }
+
+            // determine the average difference and average sigma for the points
+            double average_difference = 0.0;
+            double average_sigma = 0.0;
+            for (int j = 0; j < this.auth_values_list.get(i).point_vector.size(); j++) {
+                // compute the average difference
+                average_difference += this.auth_values_list.get(i).point_vector.get(j) /
+                        this.auth_values_list.get(i).point_vector.size();
+
+                // compute the average sigma value for each point
+                average_sigma += profile.getMuSigmaValues(metrics).getSigmaValues().get(j) /
+                        profile.getMuSigmaValues(metrics).getSigmaValues().size();
+            }
+
+            // continue to pass authentication if this value is less than the maximum allowed difference
+            // the maximum allowed difference is a function of the allowed standard deviations
+            double allowed_difference = this.auth_values_list.get(i).allowed_deviations *
+                    average_sigma;
+
+            //TODO print out the average_difference and allowed_difference
+            //TODO this will indicate what the issue may be
+//            System.out.print("deviations_allowed: " + this.auth_values_list.get(i).allowed_deviations + ", ");
+//            System.out.print("average_sigma: " + average_sigma + ", ");
+//            System.out.print("average_difference: " + average_difference + ", ");
+//            System.out.println("allowed_difference: " + allowed_difference);
+
+            //try{ Thread.sleep(5000); } catch(Exception e) { e.printStackTrace(); }
+
+            // if the average difference is greater than the allowed difference
+            if(average_difference > allowed_difference){
+                return false;
+            }
         }
 
-        double response_time_length = new_response_data.get(new_response_data.size() - 1).getTime()
-                - new_response_data.get(0).getTime();
-        boolean time_length_within_sigma = (Math.abs(profile.getTimeLengthMu()
-                - response_time_length) <= (profile.getTimeLengthSigma() * this.time_length_allowed_deviations));
-
-        // if the fraction of points that pass is greater than the
-        // authentication threshold, then we pass this person
-        return authenticatePredicate(this.auth_values_list,
-                time_length_within_sigma);
+        return true;
     }
 
     /**
      * preticate used to combine the failed point ratios. Returns true if the
      * device passes. preticate: (pressure) or (distance and time)
+     *
+     * in this, we only measure whether a point falls outside of a number
+     * of standard deviations of the
      */
     //TODO extend this to include velocity and acceleration
     private boolean authenticatePredicate(ArrayList<AuthValues<Double>> auth_list, boolean time_length_within_sigma) {
@@ -498,7 +587,7 @@ public class UserDevicePair {
      * each element in the array is abs(profile[i] - response[i])
      */
     public List<Double> getNew_response_point_vector(RatioType type) {
-        // return a failed point ratio dependtant on the ratio type
+        // return a point vector
         return this.auth_values_list.get(auth_value_of(point_metrics_of(type))).point_vector;
     }
 
@@ -592,16 +681,20 @@ public class UserDevicePair {
             return;
         }
 
+        //TODO i think the same computation was being done twice,
+        //TODO so the first one is commented out
         // for each point in new_response, take abs(profile[i] - response[i])
-        for (int i = 0; i < new_response_data.size(); i++) {
-            // for each metric
-            for(int j=0; j<this.auth_values_list.size(); j++){
-                Double distance = Math.abs(new_response_data.get(i).get_metric(this.auth_values_list.get(j).metrics_type) -
-                                    profile.getMuSigmaValues(this.auth_values_list.get(j).metrics_type).getMuValues().
-                                            get(i));
-                this.auth_values_list.get(j).point_vector.add(distance);
-            }
-        }
+        // this computes the difference between the profile and the new response
+        // the difference is stored in the point vector for that metric
+//        for (int i = 0; i < new_response_data.size(); i++) {
+//            // for each metric
+//            for(int j=0; j<this.auth_values_list.size(); j++){
+//                Double distance = Math.abs(new_response_data.get(i).get_metric(this.auth_values_list.get(j).metrics_type) -
+//                                    profile.getMuSigmaValues(this.auth_values_list.get(j).metrics_type).getMuValues().
+//                                            get(i));
+//                this.auth_values_list.get(j).point_vector.add(distance);
+//            }
+//        }
 
         // we want to compute vectors for all the metrics
         for(int i=0; i<this.auth_values_list.size(); i++){
@@ -615,6 +708,10 @@ public class UserDevicePair {
         }
     }
 
+    /**
+     * this computation seems trivial, but
+     * it is done this way so that it may be easily changed in the future.
+     */
     private double vector_computation(double new_response_metric, double profile_metric_mu){
         return Math.abs(new_response_metric - profile_metric_mu);
     }
@@ -666,6 +763,13 @@ public class UserDevicePair {
      */
     //TODO handle time length
     public void setStandardDeviations(RatioType type, double standard_deviations) {
+        //TODO i don't htink this method is handling things correctly
+//        if(type == RatioType.PRESSURE) {
+//            System.out.println("PRESSURE_set_deviations: " + standard_deviations);
+//            System.out.println("point_metrics_type == pressure?: " + (point_metrics_of(type)==Point.Metrics.PRESSURE));
+//            System.out.println("auth_values_list index: " + auth_value_of(point_metrics_of(type)));
+//        }
+
         this.auth_values_list.get(auth_value_of(point_metrics_of(type))).allowed_deviations = standard_deviations;
     }
 

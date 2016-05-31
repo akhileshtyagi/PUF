@@ -125,5 +125,11 @@ public class Test {
 
 		// set authentication result based on the outcome
 		this.authentication_result = ud_pair.authenticate(response.getOrigionalResponse(), challenge);
+
+		//ud_pair.dumpUserDevicePairData(challenge);
+
+		// print out the challenge points for test purposes
+		//System.out.println(response_set.size());
+		//try{ Thread.sleep(5000); } catch(Exception e) { e.printStackTrace(); }
     }
 }
