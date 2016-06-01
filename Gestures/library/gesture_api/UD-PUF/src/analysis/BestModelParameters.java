@@ -36,14 +36,14 @@ public class BestModelParameters {
 
         // generate a set of parameters to try for each deviation
         // for pressure
-        int p_steps = 100;
+        int p_steps = 1;
         for (int i = 0; i < p_steps; i++) {
             double deviations = (i * (1.0 / p_steps)) + 0.0;
             pressure_deviations_list.add(deviations);
         }
 
         // for time
-        int t_steps = 1;
+        int t_steps = 10;
         for (int i = 0; i < t_steps; i++) {
             double deviations = (i * 2.0 / t_steps) + 0.0; // + .275;
             time_deviations_list.add(deviations);

@@ -216,10 +216,6 @@ public class Response implements Serializable {
             * also ant to use normalized velocity from the previous points*/
             newAcceleration = (newVelocity - newNormalizedList.get(newNormalizedList.size()-1).get_metric(Point.Metrics.VELOCITY)) / newTime;
 
-            //TODO this tells me that the values are being computed correctly,
-            //TODO so something must be going wrong in the storing or retrieving process
-            //System.out.println("newVelocity: " + newVelocity + "\tnewAcceleration: " + newAcceleration);
-
             Point p = new Point(newX, newY);
             p.set_metric(Point.Metrics.PRESSURE, newPressure);
             p.set_metric(Point.Metrics.DISTANCE, newDistance);
@@ -257,6 +253,19 @@ public class Response implements Serializable {
 
         cumulativeTime += cumulativeTime + curPoint.getTime();
         interpolated_time = cumulativeTime / normalizingPointsLength;
+
+        // negative time does not make sense
+        //TODO reconsider this (and the analog above)
+        if(interpolated_time <= 0) {
+            // setting this to 1 effectively makes the minimum distance between points 1 ms (seems reasonable)
+            // perhaps the absolute value of time would make more sense?
+            //TODO find a basis for this
+            interpolated_time = 1;
+        }
+
+        //TODO setting interpolated time to 11 fixed my issue, but why?
+//        System.out.println("interpolated_time: " + interpolated_time + "\tcumulativeTime: " + cumulativeTime + "\tnormalizingPointsLength: " + normalizingPointsLength);
+//        interpolated_time = 11;
 
         for (i = numExtraNormalizingPoints; i < normalizingPointsLength; i++) {
             newX = prevPoint.getX() + (d * Math.cos(theta) * x_sine);

@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import static java.lang.Double.NaN;
+
 /**
  * Represents a profile containing Mu and Sigma values, along with a list of
  * normalized challanges
@@ -204,11 +206,12 @@ public class Profile implements Serializable {
         double average = 0;
         double total = 0;
 
+
+
         while (iterator.hasNext()) {
             Double t = iterator.next();
 
             total += t;
-
         }
 
         average = total / list.size();
@@ -435,9 +438,6 @@ public class Profile implements Serializable {
         double mu = computeMu(list);
         double sigma = computeSigma(list, mu);
 
-        //TODO these are returning NaN, Infinity for Velocity, Acceleration.... why?
-        System.out.println("mu: " + mu + "\tsigma: " + sigma);
-
         store_mu_sigma(mu, sigma, type);
     }
 
@@ -622,5 +622,4 @@ public class Profile implements Serializable {
 
         return std;
     }
-
 }

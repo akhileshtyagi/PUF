@@ -66,8 +66,8 @@ public class UserDevicePair {
     }
 
     // determine what type of predicate to authenticate with
-    public final static AuthenticationType AUTHENTICATION_TYPE = AuthenticationType.POINT_VECTOR;
-    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.DISTANCE;
+    public final static AuthenticationType AUTHENTICATION_TYPE = AuthenticationType.FAILED_POINTS;
+    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.TIME;
 
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
@@ -718,17 +718,10 @@ public class UserDevicePair {
                 this.auth_values_list.get(i).point_vector.add(
                         vector_computation(new_response_data.get(j).get_metric(metrics),
                                 profile.getMuSigmaValues(metrics).getMuValues().get(j)));
-
-                //TODO the problem with the vector computation is either (1) new response metric, (2) profile metric
-                if(metrics == Point.Metrics.VELOCITY) {
-                    System.out.print("new_response_data: " + new_response_data.get(j).get_metric(metrics));
-                    //TODO seems to be profile data causing the mess, but why?
-                    //TODO why would the mu value be infinity?
-                    System.out.println("\tprofile_data: " + profile.getMuSigmaValues(metrics).getMuValues().get(j));
-                }
             }
 
-            System.out.println("vector_" + i + ": " + auth_values_list.get(i).point_vector);
+            //TODO
+            //System.out.println("vector_" + i + ": " + auth_values_list.get(i).point_vector);
         }
     }
 
