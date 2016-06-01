@@ -67,7 +67,7 @@ public class UserDevicePair {
 
     // determine what type of predicate to authenticate with
     public final static AuthenticationType AUTHENTICATION_TYPE = AuthenticationType.POINT_VECTOR;
-    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.PRESSURE;
+    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.DISTANCE;
 
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
@@ -216,7 +216,8 @@ public class UserDevicePair {
      */
     public boolean authenticate(List<Point> new_response_data, Challenge challenge) {
         //TODO why is this happening? I have no clue
-        System.out.println("pressure_deviations_allowed: " + this.auth_values_list.get(0).allowed_deviations + ", ");
+        //System.out.println("pressure_deviations_allowed: " + this.auth_values_list.get(0).allowed_deviations + ", ");
+        //System.out.println("pressure_deviations_allowed: " + this.auth_values_list.get(auth_value_of(Point.Metrics.PRESSURE)).allowed_deviations + ", ");
 
         Profile profile = challenge.getProfile();
 
@@ -305,7 +306,20 @@ public class UserDevicePair {
             Point.Metrics metrics = this.auth_values_list.get(i).metrics_type;
 
             //TODO only do this for certain metrics we have set (eg. PRESSURE => only pressure)
-            if(metrics != Point.Metrics.PRESSURE){ continue; }
+            switch(AUTHENTICATION_PREDICATE) {
+                case PRESSURE: if (metrics != Point.Metrics.PRESSURE) { continue; }
+                    break;
+                case NO_PRESSURE: if (metrics == Point.Metrics.PRESSURE) { continue; }
+                    break;
+                case TIME: if (metrics != Point.Metrics.TIME) { continue; }
+                    break;
+                case DISTANCE: if (metrics != Point.Metrics.DISTANCE) { continue; }
+                    break;
+                case VELOCITY: if (metrics != Point.Metrics.VELOCITY) { continue; }
+                    break;
+                case ACCELERATION: if (metrics != Point.Metrics.ACCELERATION) { continue; }
+                    break;
+            }
 
             // determine the average difference and average sigma for the points
             double average_difference = 0.0;
@@ -573,7 +587,7 @@ public class UserDevicePair {
                 return Point.Metrics.ACCELERATION;
             //TODO fix this, time length should not be computing pressure
             case TIME_LENGTH:
-                return Point.Metrics.PRESSURE;
+                return Point.Metrics.ACCELERATION;
         }
 
         //TODO fix this, not technically correct
@@ -702,9 +716,19 @@ public class UserDevicePair {
 
             for (int j = 0; j < new_response_data.size(); j++) {
                 this.auth_values_list.get(i).point_vector.add(
-                        vector_computation(new_response_data.get(j).get_metric(metrics), profile.getMuSigmaValues(metrics).getMuValues().get(j))
-                );
+                        vector_computation(new_response_data.get(j).get_metric(metrics),
+                                profile.getMuSigmaValues(metrics).getMuValues().get(j)));
+
+                //TODO the problem with the vector computation is either (1) new response metric, (2) profile metric
+                if(metrics == Point.Metrics.VELOCITY) {
+                    System.out.print("new_response_data: " + new_response_data.get(j).get_metric(metrics));
+                    //TODO seems to be profile data causing the mess, but why?
+                    //TODO why would the mu value be infinity?
+                    System.out.println("\tprofile_data: " + profile.getMuSigmaValues(metrics).getMuValues().get(j));
+                }
             }
+
+            System.out.println("vector_" + i + ": " + auth_values_list.get(i).point_vector);
         }
     }
 
@@ -939,6 +963,14 @@ public class UserDevicePair {
         }
 
         return points;
+    }
+
+    /**
+     * test function to help locate the source of allowed deviations being set to 0
+     * before authentication occurs
+     */
+    public double get_allowed_deviations(Point.Metrics metrics){
+        return this.auth_values_list.get(auth_value_of(metrics)).allowed_deviations;
     }
 
     /**

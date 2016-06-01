@@ -200,10 +200,11 @@ public class Response implements Serializable {
             /* time */
             newTime = cumulativeTime + (curPoint.getTime() * (remainingDistance / computeEuclideanDistance(prevPoint, curPoint))) - prevCumulativeTime;
 
-            // time less than equal 0 makes no sense, set equal to a small number
+            // negative time does not make sense
             if(newTime <= 0) {
-                // TODO find a basis for this, .1 is arbitrary
-                newTime = .1;
+                // setting this to 1 effectively makes the minimum distance between points 1 ms (seems reasonable)
+                //TODO find a basis for this
+                newTime = 1;
             }
 
             /* velocity
@@ -214,6 +215,10 @@ public class Response implements Serializable {
             * want to use normalized velocity (ie newVelocity)
             * also ant to use normalized velocity from the previous points*/
             newAcceleration = (newVelocity - newNormalizedList.get(newNormalizedList.size()-1).get_metric(Point.Metrics.VELOCITY)) / newTime;
+
+            //TODO this tells me that the values are being computed correctly,
+            //TODO so something must be going wrong in the storing or retrieving process
+            //System.out.println("newVelocity: " + newVelocity + "\tnewAcceleration: " + newAcceleration);
 
             Point p = new Point(newX, newY);
             p.set_metric(Point.Metrics.PRESSURE, newPressure);

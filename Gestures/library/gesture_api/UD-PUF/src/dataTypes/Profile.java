@@ -213,6 +213,11 @@ public class Profile implements Serializable {
 
         average = total / list.size();
 
+        //TODO total seems to be the issue,
+        //TODO in order for total to be wrong, what needs to happen?
+        //TODO t must be wrong implying the metric is not being set correctly when the response is normalized
+        //if(true) System.out.println("total: " + total);
+
         return average;
     }
 
@@ -430,6 +435,9 @@ public class Profile implements Serializable {
         double mu = computeMu(list);
         double sigma = computeSigma(list, mu);
 
+        //TODO these are returning NaN, Infinity for Velocity, Acceleration.... why?
+        System.out.println("mu: " + mu + "\tsigma: " + sigma);
+
         store_mu_sigma(mu, sigma, type);
     }
 
@@ -440,6 +448,8 @@ public class Profile implements Serializable {
      * to make this easier to program.
      * <p>
      * stores a single MuSigma Point in the respective list
+     *
+     * BAD ASSUMPTION: the computations are done in order
      */
     private void store_mu_sigma(double mu, double sigma, Point.Metrics type) {
         switch (type) {
@@ -469,6 +479,9 @@ public class Profile implements Serializable {
      * used to extract a list of points
      * <p>
      * these points are stored in parallell in the normalized responses at index, index
+     *
+     * immagine all normalized responses are aligned vertically (in columns)
+     * this method extracts a row, the same point across multiple responses
      */
     private List<Double> extract_parallel_points(List<Response> normalized_response_list, int index, Point.Metrics type) {
         // go though each of the responses collecting value
@@ -476,6 +489,7 @@ public class Profile implements Serializable {
         List<Double> normalized_point_list = new ArrayList<Double>();
 
         for (Response response : normalized_response_list) {
+            //TODO this check shouldn't be necessary if the responses are normalized
             if (response.getNormalizedResponse().size() <= index) continue;
 
             normalized_point_list.add(response.getNormalizedResponse().get(index).get_metric(type));
@@ -505,6 +519,7 @@ public class Profile implements Serializable {
         // this uses the functions we just made
         Point.Metrics[] metrics = Point.Metrics.values();
 
+        // for all metrics (pressure, distance, time, velocity, acceleration)
         for (int i = 0; i < metrics.length; i++) {
             // want to add mu sigma for each point in each metric
             for (int j = 0; j < this.normalizedResponses.get(0).getNormalizedResponse().size(); j++) {
@@ -513,6 +528,7 @@ public class Profile implements Serializable {
             }
         }
 
+        //TODO what does the below mean?
         // call methods to load the correct mu, sigma objects into instance
         // variables
         compute_time_length_mu_sigma();

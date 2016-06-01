@@ -114,7 +114,11 @@ public class Test {
 		ud_pair.setStandardDeviations(UserDevicePair.RatioType.TIME, this.time_allowed_deviations);
 		ud_pair.setStandardDeviations(UserDevicePair.RatioType.VELOCiTY, this.velocity_allowed_deviations);
 		ud_pair.setStandardDeviations(UserDevicePair.RatioType.ACCELERATION, this.acceleration_allowed_deviations);
-		ud_pair.setStandardDeviations(UserDevicePair.RatioType.TIME_LENGTH, this.time_length_allowed_deviations);
+
+		//TODO this causes pressure to be set (This should be changed for sure)
+		//ud_pair.setStandardDeviations(UserDevicePair.RatioType.TIME_LENGTH, this.time_length_allowed_deviations);
+
+		//System.out.println("pressure_deviations_allowed: " + ud_pair.get_allowed_deviations(Point.Metrics.PRESSURE));
 
 		ud_pair.addChallenge(challenge);
 
