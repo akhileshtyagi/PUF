@@ -16,21 +16,37 @@ public class Combination {
     public double pressure_allowed_deviations;
     public double distance_allowed_deviations;
     public double time_allowed_deviations;
+	public double velocity_allowed_deviations;
+	public double acceleration_allowed_deviations;
     public double pressure_authentication_threshold;
     public double distance_authentication_threshold;
     public double time_authentication_threshold;
+	public double velocity_authentication_threshold;
+	public double acceleration_authentication_threshold;
     public double time_length_allowed_deviations;
 
-    public Combination(double pressure_allowed_deviations, double distance_allowed_deviations,
-	    double time_allowed_deviations, double time_length_allowed_deviations,
-	    double pressure_authentication_threshold, double distance_authentication_threshold,
-	    double time_authentication_threshold) {
+    public Combination(
+			double pressure_allowed_deviations,
+			double distance_allowed_deviations,
+			double time_allowed_deviations,
+			double velocity_allowed_deviations,
+			double acceleration_allowed_deviations,
+			double time_length_allowed_deviations,
+			double pressure_authentication_threshold,
+			double distance_authentication_threshold,
+			double time_authentication_threshold,
+			double velocity_authentication_threshold,
+			double acceleration_authentication_threshold) {
 	this.pressure_allowed_deviations = pressure_allowed_deviations;
 	this.distance_allowed_deviations = distance_allowed_deviations;
 	this.time_allowed_deviations = time_allowed_deviations;
+		this.velocity_allowed_deviations = velocity_allowed_deviations;
+		this.acceleration_allowed_deviations = acceleration_allowed_deviations;
 	this.pressure_authentication_threshold = pressure_authentication_threshold;
 	this.distance_authentication_threshold = distance_authentication_threshold;
 	this.time_authentication_threshold = time_authentication_threshold;
+		this.velocity_authentication_threshold = velocity_authentication_threshold;
+		this.acceleration_authentication_threshold = acceleration_authentication_threshold;
 	this.time_length_allowed_deviations = time_length_allowed_deviations;
 
 	// compute the effectiveness
@@ -56,15 +72,18 @@ public class Combination {
 	output.append("false positive: " + this.false_positive + "\n");
 	output.append("false negative: " + this.false_negative + "\n");
 	output.append("accuracy: " + this.accuracy + "\n");
-
 	output.append("\n");
 	output.append("pressure_allowed_deviations: " + this.pressure_allowed_deviations + "\n");
 	output.append("distance_allowed_deviations: " + this.distance_allowed_deviations + "\n");
 	output.append("time_allowed_deviations: " + this.time_allowed_deviations + "\n");
+		output.append("velocity_allowed_deviations: " + this.velocity_allowed_deviations + "\n");
+		output.append("acceleration_allowed_deviations: " + this.acceleration_allowed_deviations + "\n");
 	output.append("time_length_allowed_deviations: " + this.time_length_allowed_deviations + "\n");
 	output.append("pressure_authentication_threshold: " + this.pressure_authentication_threshold + "\n");
 	output.append("distance_authentication_threshold: " + this.distance_authentication_threshold + "\n");
 	output.append("time_authentication_threshold: " + this.time_authentication_threshold + "\n");
+		output.append("velocity_authentication_threshold: " + this.velocity_authentication_threshold + "\n");
+		output.append("acceleration_authentication_threshold: " + this.acceleration_authentication_threshold + "\n");
 
 	return output.toString();
     }

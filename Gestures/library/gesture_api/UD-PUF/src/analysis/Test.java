@@ -42,18 +42,33 @@ public class Test {
      */
     public Test(Response response, List<Response> response_set, boolean expected_result, List<Point> challenge_points) {
 	this(response, response_set, expected_result, challenge_points,
-		UserDevicePair.PRESSURE_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.DISTANCE_DEFAULT_ALLOWED_DEVIATIONS,
-		UserDevicePair.TIME_DEFAULT_ALLOWED_DEVIATIONS, UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS,
-		UserDevicePair.PRESSURE_DEFAULT_AUTHENTICATION_THRESHOLD, UserDevicePair.DISTANCE_DEFAULT_AUTHENTICATION_THRESHOLD,
-		UserDevicePair.TIME_DEFAULT_AUTHENTICATION_THRESHOLD);
+			UserDevicePair.PRESSURE_DEFAULT_ALLOWED_DEVIATIONS,
+			UserDevicePair.DISTANCE_DEFAULT_ALLOWED_DEVIATIONS,
+			UserDevicePair.TIME_DEFAULT_ALLOWED_DEVIATIONS,
+			UserDevicePair.VELOCITY_LENGTH_DEFAULT_ALLOWED_DEVIATIONS,
+			UserDevicePair.ACCELERATION_DEFAULT_ALLOWED_DEVIATIONS,
+			UserDevicePair.TIME_LENGTH_DEFAULT_ALLOWED_DEVIATIONS,
+			UserDevicePair.PRESSURE_DEFAULT_AUTHENTICATION_THRESHOLD,
+			UserDevicePair.DISTANCE_DEFAULT_AUTHENTICATION_THRESHOLD,
+			UserDevicePair.TIME_DEFAULT_AUTHENTICATION_THRESHOLD,
+			UserDevicePair.VELOCITY_DEFAULT_AUTHENTICATION_THRESHOLD,
+			UserDevicePair.ACCELERATION_DEFAULT_AUTHENTICATION_THRESHOLD);
     }
 
     public Test(Response response, List<Response> response_set, boolean expected_result, List<Point> challenge_points,
 	    Combination c) {
-	this(response, response_set, expected_result, challenge_points, c.pressure_allowed_deviations,
-		c.distance_allowed_deviations, c.time_allowed_deviations, c.time_length_allowed_deviations,
-		c.pressure_authentication_threshold, c.distance_authentication_threshold,
-		c.time_authentication_threshold);
+	this(response, response_set, expected_result, challenge_points,
+			c.pressure_allowed_deviations,
+			c.distance_allowed_deviations,
+			c.time_allowed_deviations,
+			c.velocity_allowed_deviations,
+			c.acceleration_allowed_deviations,
+			c.time_length_allowed_deviations,
+			c.pressure_authentication_threshold,
+			c.distance_authentication_threshold,
+			c.time_authentication_threshold,
+			c.velocity_authentication_threshold,
+			c.acceleration_authentication_threshold);
     }
 
     /**
@@ -67,10 +82,14 @@ public class Test {
 	    		double pressure_allowed_deviations,
 				double distance_allowed_deviations,
 				double time_allowed_deviations,
+				double velocity_allowed_deviations,
+				double acceleration_allowed_deviations,
 	    		double time_length_allowed_deviations,
 				double pressure_authentication_threshold,
 	    		double distance_authentication_threshold,
-				double time_authentication_threshold) {
+				double time_authentication_threshold,
+				double velocity_authentication_threshold,
+				double acceleration_authentication_threshold) {
 
 		this.expected_authentication_result = expected_result;
 		this.pressure_allowed_deviations = pressure_allowed_deviations;
@@ -80,11 +99,10 @@ public class Test {
 		this.distance_authentication_threshold = distance_authentication_threshold;
 		this.time_authentication_threshold = time_authentication_threshold;
 
-		//TODO make these actually settable
-		this.velocity_authentication_threshold = 0;
-		this.acceleration_authentication_threshold = 0;
-		this.velocity_allowed_deviations = 1;
-		this.acceleration_allowed_deviations = 1;
+		this.velocity_authentication_threshold = velocity_authentication_threshold;
+		this.acceleration_authentication_threshold = acceleration_authentication_threshold;
+		this.velocity_allowed_deviations = velocity_allowed_deviations;
+		this.acceleration_allowed_deviations = acceleration_allowed_deviations;
 
 		this.time_length_allowed_deviations = time_length_allowed_deviations;
 

@@ -66,8 +66,8 @@ public class UserDevicePair {
     }
 
     // determine what type of predicate to authenticate with
-    public final static AuthenticationType AUTHENTICATION_TYPE = AuthenticationType.FAILED_POINTS;
-    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.TIME;
+    public final static AuthenticationType AUTHENTICATION_TYPE = AuthenticationType.POINT_VECTOR;
+    public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.VELOCITY;
 
     // List of challenges correlating to this user/device pair
     private List<Challenge> challenges;
@@ -314,7 +314,7 @@ public class UserDevicePair {
                 case TIME: if (metrics != Point.Metrics.TIME) { continue; }
                     break;
                 case DISTANCE: if (metrics != Point.Metrics.DISTANCE) { continue; }
-                    break;
+                            break;
                 case VELOCITY: if (metrics != Point.Metrics.VELOCITY) { continue; }
                     break;
                 case ACCELERATION: if (metrics != Point.Metrics.ACCELERATION) { continue; }
@@ -326,6 +326,7 @@ public class UserDevicePair {
             double average_sigma = 0.0;
             for (int j = 0; j < this.auth_values_list.get(i).point_vector.size(); j++) {
                 // compute the average difference
+                // difference is defined to be positive, so I don't need abs value
                 average_difference += this.auth_values_list.get(i).point_vector.get(j) /
                         this.auth_values_list.get(i).point_vector.size();
 
@@ -350,6 +351,7 @@ public class UserDevicePair {
 
             // if the average difference is greater than the allowed difference
             if(average_difference > allowed_difference){
+                // the authenticaiton fails
                 return false;
             }
         }
@@ -374,6 +376,7 @@ public class UserDevicePair {
         // determine whether or not each metric passed
         for(int i=0; i<auth_values_list.size(); i++){
             // keep track of pass / not pass and metrics type
+            // if the number of points which passed is above a threshold, then true
             pass_list.add((1 - auth_values_list.get(i).authentication_failed_point_ratio) >
                     auth_values_list.get(i).authentication_threshold);
 

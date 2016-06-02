@@ -998,7 +998,7 @@ public class Chain{
 		try {
 			output = new PrintWriter(file_name, "UTF-8");
 
-			output.println("[preceeding sequence] [touch pressure, probability]");
+			output.println("[preceeding sequence] [touch pressure, probability] [token occurrences, preceeding sequence occurrences]");
 
 			List<Integer> unique_windows = compute_unique_windows(this.get_tokens(), this.get_windows());
 			TrieList window_list = (TrieList)this.get_windows();
@@ -1010,7 +1010,7 @@ public class Chain{
 				//TODO testing to see probability values for non-unique successors, are they all the same?
 				//List<Integer> successor_list = window_list.get_index_list(window_list.get(unique_windows.get(i)));
 
-				output.println("----- window " + i + " -----");
+				output.println("----- window_" + i + " -----");
 
 //				ArrayList<Touch> visited_list = new ArrayList<>();
 
@@ -1028,9 +1028,13 @@ public class Chain{
 					String predecessor_window = windows.get(successor_list.get(j)).toString();
 					double touch_probability = successor_touch.get(successor_list.get(j)).get_probability(this.get_tokens(), windows.get(successor_list.get(j)));
 					double touch_pressure = successor_touch.get(successor_list.get(j)).get_pressure();
+					//TODO i think these are correct, but they could not be... think though what these are actually doing
+					int token_occurrences = window_list.occurrence_count(windows.get(successor_list.get(j)));
+					int preceeding_sequence_occurrences = window_list.successor_count(successor_touch, windows.get(successor_list.get(j)), successor_touch.get(successor_list.get(j)));
 
 					//output.print("-");
-					output.println("["+ predecessor_window+"] ["+String.format("%.4f", touch_pressure)+", "+String.format("%.4f", touch_probability)+"]");
+					output.print("["+ predecessor_window+"] ["+String.format("%.4f", touch_pressure)+", "+String.format("%.4f", touch_probability)+"]");
+					output.println(" [" + token_occurrences + ", " + preceeding_sequence_occurrences + "]");
 				}
 			}
 
