@@ -38,7 +38,7 @@ public class Chain{
 	}
 
 	/* set various model parameters here */
-	//TODO weighted and unweighted windows return exactly the same values, what is up with this?
+	//TODO TEST
 	private final WindowAveraging WINDOW_AVERAGING = WindowAveraging.WEIGHTED;
 	private final TokenAveraging TOKEN_AVERAGING = TokenAveraging.WEIGHTED;
 
@@ -371,21 +371,18 @@ public class Chain{
 		return index_list;
 	}
 
-	/* compute the Indexes of unique windows in given List<Window>.
+	/* compute the Indexes of unique windows in given List<Window>
 	 *
-	 * requires a token list to know how to compare touches */
-	private List<Integer> compute_unique_successors(List<Token> token_list, List<Integer> successor_list){
-					//TODO this method works, compare the logic
-//					for(int k=0;k<visited_list.size();k++){
-//						// we the touch has been seen, skip printing
-//						if(visited_list.get(i).compare_with_token(get_tokens(), successor_touch.get(successor_list.get(j)))){
-//							System.out.println("successors are not unique");
-//							continue;
-//						}
-//					}
-
-		//TODO make sure this method is correct, it doesn't appear to be
-		// compute indexes for unique windows in list
+	 * the windows pointed at by successor_list are unique,
+	 * the goal is to find the indexes which point to
+	 * unique successor touches
+	 *
+	 * requires a token list to know how to compare touches
+	 *
+	 * returns a list of indexes corresponding to
+	 * windows in successor_list which have a unique successor touch*/
+	private List<Integer> compute_unique_successors(List<Token> token_list, List<Touch> successor_touch, List<Integer> successor_list){
+		// compute indexes for unique successor touches in list
 		ArrayList<Integer> index_list = new ArrayList<>();
 
 		// add a successor only if it does not match any of the previous windows
@@ -393,18 +390,19 @@ public class Chain{
 			// for all existing unique indexes, if none of the windows match, add new index
 			boolean no_match = true;
 			for(int j=0; j<index_list.size(); j++){
-				//TODO I think this check is incorrect,
 				// compare current successor i to every index already in list
-				if( this.successor_touch.get(successor_list.get(i))
-						.compare_with_token(token_list, this.successor_touch.get(index_list.get(j)))){
+				if( successor_touch.get(successor_list.get(i))
+						.compare_with_token(token_list, successor_touch.get(index_list.get(j)))){
 					// touch_i and touch in list are equal, there is a match
 					no_match = false;
+
+					// no need to keep going
 					break;
 				}
 			}
 
 			// if there was no match in the previous loop, add index to list, it is unique
-			if(no_match) index_list.add(i);
+			if(no_match) index_list.add(successor_list.get(i));
 		}
 
 		// return the list of indexes
@@ -422,14 +420,14 @@ public class Chain{
 
 		// get a List<Integer> of all occurrences of the given unique window
 		// this list also gives the index of the successor touch stored in the parallel arraylist
-		List<Integer> index_list_auth = compute_unique_successors(get_tokens(), auth_window_list.get_index_list(window));
+		List<Integer> index_list_auth = compute_unique_successors(get_tokens(), successor_list_auth, auth_window_list.get_index_list(window));
 
 		// to get the successors for the same window in base model,
 		// need to first find an instance of this window,
 		// then the successors of the found instance may be gotten
 		// actually, using the same window from the auth model should work because
 		// both base and auth model used the same distribution to compute their tokens
-		List<Integer> index_list_base = compute_unique_successors(get_tokens(), base_window_list.get_index_list(window));
+		List<Integer> index_list_base = compute_unique_successors(get_tokens(), successor_list_base, base_window_list.get_index_list(window));
 
 		// handle the case when the window does not exist in the base model
 		if(index_list_base.size() == 0){
@@ -1031,34 +1029,34 @@ public class Chain{
 				// get a list of successor touches for this same window
 				//TODO compute_unique_successors() does not seem to be returning correctly
 				//TODO if i can get it working, I can use it to verify the probability computation is correct
-//				List<Integer> successor_list = compute_unique_successors(get_tokens(), window_list.get_index_list(window_list.get(unique_windows.get(i))));
+				List<Integer> successor_list = compute_unique_successors(get_tokens(), this.successor_touch, window_list.get_index_list(window_list.get(unique_windows.get(i))));
 				//TODO testing to see probability values for non-unique successors, are they all the same?
-				List<Integer> successor_list = window_list.get_index_list(window_list.get(unique_windows.get(i)));
+//				List<Integer> successor_list = window_list.get_index_list(window_list.get(unique_windows.get(i)));
 
 				output.println("----- window_" + i + " -----");
 
-				ArrayList<Touch> visited_list = new ArrayList<>();
+//				ArrayList<Touch> visited_list = new ArrayList<>();
 
 				// for each successor
 				for(int j=0; j<successor_list.size(); j++) {
-					//TODO effectively, this only prints for unique tokens
-					// determine if we have seen this touch before
-					boolean skip = false;
-					for(int k=0;k<visited_list.size();k++){
-						// we the touch has been seen, skip printing
-						if(visited_list.get(k).compare_with_token(get_tokens(), successor_touch.get(successor_list.get(j)))){
-							System.out.println("successors are not unique");
-							skip = true;
-							break;
-						}
-					}
-					//TODO add the current touch to the visited list
-					visited_list.add(successor_touch.get(successor_list.get(j)));
-					//TODO determine if the successors were the same,
-					//TODO if it was the same as a previous one, then skip
-					if(skip){
-						continue;
-					}
+//					//TODO effectively, this only prints for unique tokens
+//					// determine if we have seen this touch before
+//					boolean skip = false;
+//					for(int k=0;k<visited_list.size();k++){
+//						// we the touch has been seen, skip printing
+//						if(visited_list.get(k).compare_with_token(get_tokens(), successor_touch.get(successor_list.get(j)))){
+//							System.out.println("successors are not unique");
+//							skip = true;
+//							break;
+//						}
+//					}
+//					//TODO add the current touch to the visited list
+//					visited_list.add(successor_touch.get(successor_list.get(j)));
+//					//TODO determine if the successors were the same,
+//					//TODO if it was the same as a previous one, then skip
+//					if(skip){
+//						continue;
+//					}
 
 					String predecessor_window = windows.get(successor_list.get(j)).toString();
 					double touch_probability = successor_touch.get(successor_list.get(j)).get_probability(this.get_tokens(), windows.get(successor_list.get(j)));
@@ -1069,7 +1067,7 @@ public class Chain{
 					int token_occurrences = window_list.successor_count(successor_touch, windows.get(successor_list.get(j)), successor_touch.get(successor_list.get(j)));
 
 					//output.print("-");
-					output.print("["+ predecessor_window+"] ["+touch_key+", "+String.format("%.4f", touch_pressure)+", "+String.format("%.4f", touch_probability)+"]");
+					output.print("["+ predecessor_window+"] ["+String.format("%3d", touch_key)+", "+String.format("%.4f", touch_pressure)+", "+String.format("%.4f", touch_probability)+"]");
 					output.println(" [" + token_occurrences + ", " + preceeding_sequence_occurrences + "]");
 				}
 			}

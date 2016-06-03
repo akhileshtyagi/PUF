@@ -11,7 +11,6 @@ import trie.TrieList;
 
 /** This class will print out the model constructed form the designated file */
 public class Print_model {
-	//TODO define parameters
 	final static String data_path = "data_sets/t_tim_d_tim.csv";
 	final static int window = 2;
 	final static int token = 7;

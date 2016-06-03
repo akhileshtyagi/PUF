@@ -25,8 +25,8 @@ public class Model_compare {
 	private final static int[] window_sizes = {3};
 	private final static int[] token_sizes = {7};
 	private final static int[] thresholds = {5000};
-	private static int[] user_model_sizes = {1000};
-	private static int[] auth_model_sizes = {1000};
+	private static int[] user_model_sizes = {10000};
+	private static int[] auth_model_sizes = {10000};
 	
 	public static void main(String[] args){
 		ArrayList<Model_compare_thread> test_models = new ArrayList<Model_compare_thread>();
