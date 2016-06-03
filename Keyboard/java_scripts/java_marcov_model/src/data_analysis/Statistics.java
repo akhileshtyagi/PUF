@@ -121,9 +121,13 @@ public class Statistics {
 					+"authentication_accuracy");
 			
 			//try a range of authentication thresholds
-			for(int i=0;i<400;i++){
-				//go from 60 to 100, in steps of .001
-				double current_threshold = .60+(.001*i);
+			int step_number = 100000;
+			double beginning = 0.0;
+			// end must be between beginning and 1.0
+			double end = 0.001;
+			for(int i=0;i<step_number;i++){
+				//go from .01 to 100, in steps of .0001
+				double current_threshold = beginning+(end/((double)step_number))*i;
 				
 				//System.out.println(String.format("%f", false_positive_percentage(current_threshold, should_authenticate, should_not_authenticate)));
 				
