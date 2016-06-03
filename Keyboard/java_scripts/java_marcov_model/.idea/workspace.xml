@@ -30,8 +30,8 @@
       <file leaf-file-name="Chain.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="265">
-              <caret line="1030" column="121" selection-start-line="1030" selection-start-column="121" selection-end-line="1030" selection-end-column="121" />
+            <state relative-caret-position="18">
+              <caret line="1034" column="50" selection-start-line="1034" selection-start-column="50" selection-end-line="1034" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -40,8 +40,8 @@
       <file leaf-file-name="Main.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/Main.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="31734">
-              <caret line="1802" column="0" selection-start-line="1802" selection-start-column="0" selection-end-line="1802" selection-end-column="0" />
+            <state relative-caret-position="746">
+              <caret line="1746" column="95" selection-start-line="1746" selection-start-column="95" selection-end-line="1746" selection-end-column="95" />
               <folding>
                 <element signature="e#43708#43715#0" expanded="true" />
               </folding>
@@ -52,8 +52,8 @@
       <file leaf-file-name="Print_model.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/test/Print_model.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="198">
-              <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+            <state relative-caret-position="234">
+              <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -72,12 +72,9 @@
       <file leaf-file-name="TrieList.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/trie/TrieList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4050">
-              <caret line="235" column="27" selection-start-line="235" selection-start-column="27" selection-end-line="235" selection-end-column="27" />
-              <folding>
-                <element signature="e#4263#4264#0" expanded="true" />
-                <element signature="e#4312#4313#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="437">
+              <caret line="202" column="26" selection-start-line="202" selection-start-column="16" selection-end-line="202" selection-end-column="26" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -85,8 +82,8 @@
       <file leaf-file-name="Trie.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/trie/Trie.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="414">
+              <caret line="95" column="37" selection-start-line="95" selection-start-column="37" selection-end-line="95" selection-end-column="37" />
               <folding />
             </state>
           </provider>
@@ -115,8 +112,8 @@
       <file leaf-file-name="Touch.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Touch.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="900">
-              <caret line="52" column="57" selection-start-line="52" selection-start-column="57" selection-end-line="52" selection-end-column="57" />
+            <state relative-caret-position="464">
+              <caret line="221" column="35" selection-start-line="221" selection-start-column="35" selection-end-line="221" selection-end-column="35" />
               <folding />
             </state>
           </provider>
@@ -125,8 +122,8 @@
       <file leaf-file-name="Window.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Window.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="684">
-              <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
+            <state relative-caret-position="518">
+              <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -169,11 +166,11 @@
         <option value="$PROJECT_DIR$/src/test/minimal_working_example.java" />
         <option value="$PROJECT_DIR$/results/model_compare_output.txt" />
         <option value="$PROJECT_DIR$/src/data_analysis/Model_compare.java" />
-        <option value="$PROJECT_DIR$/src/components/Touch.java" />
-        <option value="$PROJECT_DIR$/src/trie/TrieList.java" />
-        <option value="$PROJECT_DIR$/src/test/Main.java" />
         <option value="$PROJECT_DIR$/src/test/Print_model.java" />
+        <option value="$PROJECT_DIR$/src/test/Main.java" />
+        <option value="$PROJECT_DIR$/src/trie/TrieList.java" />
         <option value="$PROJECT_DIR$/src/components/Chain.java" />
+        <option value="$PROJECT_DIR$/src/components/Touch.java" />
       </list>
     </option>
   </component>
@@ -727,7 +724,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24199288" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24080664" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982087" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -1072,14 +1069,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Window.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="684">
-          <caret line="40" column="0" selection-start-line="40" selection-start-column="0" selection-end-line="40" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Token.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2376">
@@ -1090,35 +1079,16 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/trie/Trie.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="414">
+          <caret line="95" column="37" selection-start-line="95" selection-start-column="37" selection-end-line="95" selection-end-column="37" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Touch.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="900">
-          <caret line="52" column="57" selection-start-line="52" selection-start-column="57" selection-end-line="52" selection-end-column="57" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/trie/TrieList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4050">
-          <caret line="235" column="27" selection-start-line="235" selection-start-column="27" selection-end-line="235" selection-end-column="27" />
-          <folding>
-            <element signature="e#4263#4264#0" expanded="true" />
-            <element signature="e#4312#4313#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Main.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="31734">
-          <caret line="1802" column="0" selection-start-line="1802" selection-start-column="0" selection-end-line="1802" selection-end-column="0" />
+        <state relative-caret-position="746">
+          <caret line="1746" column="95" selection-start-line="1746" selection-start-column="95" selection-end-line="1746" selection-end-column="95" />
           <folding>
             <element signature="e#43708#43715#0" expanded="true" />
           </folding>
@@ -1127,16 +1097,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Print_model.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="18" column="36" selection-start-line="18" selection-start-column="36" selection-end-line="18" selection-end-column="36" />
+        <state relative-caret-position="234">
+          <caret line="20" column="37" selection-start-line="20" selection-start-column="37" selection-end-line="20" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/trie/TrieList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="437">
+          <caret line="202" column="26" selection-start-line="202" selection-start-column="16" selection-end-line="202" selection-end-column="26" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Window.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="518">
+          <caret line="136" column="0" selection-start-line="136" selection-start-column="0" selection-end-line="136" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Touch.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="221" column="35" selection-start-line="221" selection-start-column="35" selection-end-line="221" selection-end-column="35" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="265">
-          <caret line="1030" column="121" selection-start-line="1030" selection-start-column="121" selection-end-line="1030" selection-end-column="121" />
+        <state relative-caret-position="18">
+          <caret line="1034" column="50" selection-start-line="1034" selection-start-column="50" selection-end-line="1034" selection-end-column="50" />
           <folding />
         </state>
       </provider>

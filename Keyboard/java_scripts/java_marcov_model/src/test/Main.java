@@ -1703,18 +1703,29 @@ public class Main {
 		// create 5 windowsto be added to the list
 		ArrayList<ArrayList<Touch>> touch_list = new ArrayList<>();
 		ArrayList<Window> window_list = new ArrayList<>();
+		ArrayList<Touch> successor_touch_list_0 = new ArrayList<>();
+		ArrayList<Touch> successor_touch_list_1 = new ArrayList<>();
 
 		// create 5 windows
-		int NUM_WINDOWS = 5;
+		int NUM_WINDOWS = 6;
 		for(int j=0; j<NUM_WINDOWS; j++) {
 			// create the list of touches for this window
 			ArrayList<Touch> add_touch_list = new ArrayList<>();
+			Touch touch;
 			for (int i = 0; i < 2; i++) {
-				add_touch_list.add(new Touch('a', .1, 0));
+				touch = new Touch('a', .1 + (j%2), 0);
+				add_touch_list.add(touch);
 			}
 
 			touch_list.add(add_touch_list);
 			window_list.add(new Window(touch_list.get(j)));
+
+			// create the successor touches of the window
+			touch = new Touch('a', .1, 0);
+			successor_touch_list_0.add(touch);
+
+			touch = new Touch('b', .1 * j, 0);
+			successor_touch_list_1.add(touch);
 
 			// add the window to trie_list
 			trie_list.add(window_list.get(j));
@@ -1729,13 +1740,12 @@ public class Main {
 			retrieved_window_list.add(trie_list.get(i));
 
 			// get successor count
-			//TODO
-			//successor_count_list.add(trie_list.successor_count(List<Touch>, Window, Touch));
-		}
+			Touch touch = new Touch('a', .1, 0);
+			successor_count_list.add(trie_list.successor_count(successor_touch_list_0, retrieved_window_list.get(retrieved_window_list.size()-1), touch));
 
-		// determine if the successor count of the windows are correct
-		//TODO
-		//correct = correct && window.equals(retrieved_window);
+			// determine if the successor count of the windows are correct, should be 5 every time
+			correct = correct && successor_count_list.get(successor_count_list.size() - 1) == 3;
+		}
 
 		return correct;
 	}
@@ -1789,7 +1799,6 @@ public class Main {
 
 		//System.out.println("returned_index_list: " + returned_index_list);
 
-		//TODO this is failing because encoding only happens based on pressure, not on location, fix it
 		// this should return windows [1, 3, 5]
 		for(int i=0; i<returned_index_list.size();i++) {
 			correct = correct && returned_index_list.get(i) == (2 * i);
@@ -1807,12 +1816,45 @@ public class Main {
 	}
 
 	private static boolean occurrance_count_trielist(){
-		//TODO
-		return true;
+		boolean correct = true;
+
+		// create trielist
+		TrieList trie_list = new TrieList();
+
+		// set tokens
+		List<Token> token_list = create_tokens();
+		trie_list.set_tokens(token_list);
+
+		// create 5 windowsto be added to the list
+		ArrayList<ArrayList<Touch>> touch_list = new ArrayList<>();
+		ArrayList<Window> window_list = new ArrayList<>();
+
+		// create 5 windows
+		int NUM_WINDOWS = 6;
+		Window w = null;
+		for(int j=0; j<NUM_WINDOWS; j++) {
+			// create the list of touches for this window
+			ArrayList<Touch> add_touch_list = new ArrayList<>();
+			for (int i = 0; i < 2; i++) {
+				add_touch_list.add(new Touch('a' + (j % 2), .1, 0));
+			}
+
+			touch_list.add(add_touch_list);
+			w = new Window(touch_list.get(j));
+			window_list.add(w);
+
+			// add the window to trie_list
+			trie_list.add(window_list.get(j));
+		}
+
+		// test that occurrence count is returned correctly
+		correct = correct && (trie_list.occurrence_count(w) == 3);
+
+		return correct;
 	}
 
 	private static boolean get_token_index(){
-		//TODO
+		//TODO i believe this is tested elsewhere
 		return true;
 	}
 

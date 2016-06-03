@@ -216,9 +216,15 @@ public class Touch implements Comparable<Touch>{
 	@Override
 	public String toString(){
 		String string="";
-		
+
+		string += "[";
+		string += "k:";
+		string += String.format("%3d", key);
+		string += ", ";
+		string += "p:";
 		string += String.format("%.4f", pressure);
-		
+		string += "]";
+
 		return string;
 	}
 }

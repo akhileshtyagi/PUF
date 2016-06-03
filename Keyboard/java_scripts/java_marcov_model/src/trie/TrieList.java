@@ -145,30 +145,31 @@ public class TrieList extends ArrayList<Window>{
 	
 	///counts the number of times a given touch comes after a given window. in the given window, succesors list
 	public int successor_count(List<Touch> successor_list, Window window, Touch touch){
-		//int count = 0;
-		int count2 = 0;
-		
+//		int count = 0;
 //		for(int i=0;i<this.size();i++){
 //			//for every occurrence of window, successor match, increment count
 //			if((this.get(i).compare_with_token(tokens, window)) && (successor_list.get(i).compare_with_token(tokens,touch))){
 //				count++;
 //			}
 //		}
-		
-		//TODO
+
 		//1) get a list of the indexes which contain the window
 		//2) for each item in this list, test to see if the successor==touch
 		List<Integer> index_list = trie.get_index_list(encode(window));
-		
+
+		int count2 = 0;
 		for(int i=0;i<index_list.size();i++){
 			//for every occurrence of window, successor match, increment count
 			if(successor_list.get(index_list.get(i)).compare_with_token(tokens,touch)){
 				count2++;
 			}
 		}
-		
-		//System.out.println("count:"+count+"   count2:"+count2);
-		//System.out.println(count==count2);
+
+		//TODO test determine if htey reutnr hte same vlaue, they do
+//		if(count!=count2) {
+//			System.out.println("count:" + count + "   count2:" + count2);
+//			System.out.println(count == count2);
+//		}
 		
 		return count2;
 	}
@@ -181,16 +182,18 @@ public class TrieList extends ArrayList<Window>{
 	///return the number of occurrences of w in window_list
 	public int occurrence_count(Window w){
 		// use prefix tree to do this
-		int occurrences=0;
-		
+		//int occurrences=0;
+
+		// inefficient
 //		for(int i=0;i<this.size();i++){
 //			//determine if the windows are equal
 //			if(this.get(i).compare_with_token(tokens,w)){
 //				occurrences++;
 //			}
 //		}
-		
-		occurrences=trie.occurrence_count(encode(w));
+
+		//TODO efficient but possibly broken, returns the same results as inefficient mehtod
+		int occurrences = trie.occurrence_count(encode(w));
 
 		return occurrences;
 	}
@@ -219,6 +222,8 @@ public class TrieList extends ArrayList<Window>{
 	
 	///removes an element from trie
 	private void remove_from_trie(Window element){
+		//TODO remove functionality is not currently utilized
+		//TODO therefore this mehtod is uncessary for now
 		//TODO, possibly:
 		//remove everything from trie and re add all non-removed elements
 		
@@ -230,14 +235,23 @@ public class TrieList extends ArrayList<Window>{
 		String encoding = "";
 		List<Touch> touches = window.get_touch_list();
 
-		//TODO make sure encorporation of keycode is correct
+		//TODO make sure this a correct way to encode things to the trie
+		// 'k' and 't' are here to ensure there is no overlap in windows
+		// though rare, this overlap could occur if
+		// part of the token encoding mistakenly represented a key
+		// this arises from the alloance for arbitrary length strings
+		// to represent touches and tokens
 		for(int i=0;i<touches.size();i++){
 			// location of key
+			encoding += 'k';
 			encoding += touches.get(i).get_key();
 
 			// pressure at key
+			encoding += 't';
 			encoding += 'a' + get_token_index(touches.get(i));
 		}
+
+		//System.out.println("encoding: " + encoding);
 		
 		return encoding;
 	}
