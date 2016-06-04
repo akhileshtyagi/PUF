@@ -247,7 +247,24 @@ public class Chain{
 		get_windows();
 		get_touch_probability(null,null);
 	}
-	
+
+	/**
+	 * computes the confidence interval for this chain.
+	 * this is defined as a number between 0.0 and 1.0
+	 * 1.0 is maximally confident
+	 * 0.0 is no confidence
+	 *
+	 * confidence is computed over data currently in the chain
+     */
+	public double get_confidence(){
+		// make sure everything which needs to be computed is
+		compute_uncomputed();
+
+		// use the confidence healper class to preform the computation
+		return Confidence.compute_confidence(this);
+	}
+
+
 	///returns the percent difference between this chain and auth_chain.
 	///the value returned will be between 0 and 1
 	///0 indicates there is no difference
@@ -953,6 +970,16 @@ public class Chain{
 	public List<Touch> get_touches(){
 		return touches;
 	}
+
+	/// return the successor touch list
+	public List<Touch> get_successors() {
+		// make sure successor touch have been computed
+		if(!windows_computed) {
+			get_windows();
+		}
+
+		return this.successor_touch;
+	}
 	
 	///prints out all of the touches in order
 	@Override
@@ -1004,60 +1031,24 @@ public class Chain{
 		try {
 			output = new PrintWriter(file_name, "UTF-8");
 
+			// print out the confidence in this data
+			output.println(String.format("%20s: %.4f", "confidence", this.get_confidence()));
+
+			// print out the model window-by-window
 			output.println("[preceeding sequence] [touch key, touch pressure, probability] [token occurrences, preceeding sequence occurrences]");
 
 			List<Integer> unique_windows = compute_unique_windows(this.get_tokens(), this.get_windows());
 			TrieList window_list = (TrieList)this.get_windows();
 
-			//TODO check if the windows are in fact unique
-			// for all windows
-//			for(int i=0;i<unique_windows.size();i++){
-//				// do they match any other windows?
-//				for(int j=0;j<unique_windows.size();j++){
-//					// avoid the case where they are the same index
-//					if(j != i){
-//						boolean same = windows.get(unique_windows.get(i)).compare_with_token(this.get_tokens(), windows.get(unique_windows.get(j)));
-//						if(same){
-//							System.out.println("windows are not unique");
-//						}
-//					}
-//				}
-//			}
-
 			// for every unique window
 			for(int i=0;i<unique_windows.size();i++){
 				// get a list of successor touches for this same window
-				//TODO compute_unique_successors() does not seem to be returning correctly
-				//TODO if i can get it working, I can use it to verify the probability computation is correct
 				List<Integer> successor_list = compute_unique_successors(get_tokens(), this.successor_touch, window_list.get_index_list(window_list.get(unique_windows.get(i))));
-				//TODO testing to see probability values for non-unique successors, are they all the same?
-//				List<Integer> successor_list = window_list.get_index_list(window_list.get(unique_windows.get(i)));
 
 				output.println("----- window_" + i + " -----");
 
-//				ArrayList<Touch> visited_list = new ArrayList<>();
-
 				// for each successor
 				for(int j=0; j<successor_list.size(); j++) {
-//					//TODO effectively, this only prints for unique tokens
-//					// determine if we have seen this touch before
-//					boolean skip = false;
-//					for(int k=0;k<visited_list.size();k++){
-//						// we the touch has been seen, skip printing
-//						if(visited_list.get(k).compare_with_token(get_tokens(), successor_touch.get(successor_list.get(j)))){
-//							System.out.println("successors are not unique");
-//							skip = true;
-//							break;
-//						}
-//					}
-//					//TODO add the current touch to the visited list
-//					visited_list.add(successor_touch.get(successor_list.get(j)));
-//					//TODO determine if the successors were the same,
-//					//TODO if it was the same as a previous one, then skip
-//					if(skip){
-//						continue;
-//					}
-
 					String predecessor_window = windows.get(successor_list.get(j)).toString();
 					double touch_probability = successor_touch.get(successor_list.get(j)).get_probability(this.get_tokens(), windows.get(successor_list.get(j)));
 					double touch_pressure = successor_touch.get(successor_list.get(j)).get_pressure();
