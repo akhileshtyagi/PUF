@@ -2,8 +2,17 @@ package components;
 
 import trie.TrieList;
 
-import java.util.ArrayList;
 import java.util.List;
+
+/**
+ * TODO list
+ * [x] verify touch confidence is being computed correctly
+ * [x] verify window confidence is being computed correctly, given touch touch confidence
+ * [x] verify overall weighted confidence is being computed correctly, given window confidence
+ *      * hand computed some values from the output of print_model
+ * [x] verify unweighted confidence is being computed correctly
+ *      * if weighted is correct, then unweighted is correct. Tested by setting window weight = 1. got same value as unweighted
+ */
 
 /**
  * Measure how go or bad data may be
@@ -11,7 +20,7 @@ import java.util.List;
 public class Confidence {
     public enum Weight { WEIGHTED, UNWEIGHTED }
 
-    final static Weight WEIGHT = Weight.UNWEIGHTED;
+    final static Weight WEIGHT = Weight.WEIGHTED;
 
     /**
      * compute confidence 0.0 to 1.0 for the chain
@@ -78,20 +87,21 @@ public class Confidence {
         double confidence = 0.0;
 
         // get the unique windows
-        //TODO
-        List<Integer> unique_window_list = new ArrayList<>();
+        List<Integer> unique_window_list = Chain.compute_unique_windows(token_list, window_list);
 
         // for each unique successor
         for(Integer i : unique_window_list){
             // weight of a window is ( [occurrences of window] / [total windows] )
-            //TODO
-            double weight = 1;
+            //double weight = 1.0 / unique_window_list.size();
+            double weight = ((double)window_list.occurrence_count(window_list.get(i))) / ((double)window_list.size());
             double window_confidence = compute_window_confidence(key_distribution_list, token_list, window_list, successor_list, window_list.get(i));
+
+            System.out.println("window_confidence: " + window_confidence + "\twindow_weight: " + weight);
 
             confidence += weight * window_confidence;
         }
 
-        return 0.0;
+        return confidence;
     }
 
     /**
@@ -110,22 +120,22 @@ public class Confidence {
     ){
         double confidence = 0.0;
 
-        // get the unique sucdessor touches of a window
-        //TODO
-        List<Integer> unique_successor_list = new ArrayList<>();
+        // get the unique successor touches of a window
+        List<Integer> unique_successor_list = Chain.compute_unique_successors(token_list, successor_list, window_list.get_index_list(window));
 
         // for each unique successor
         for(Integer i : unique_successor_list){
             // weight should simply be the probability of the touch occurring after the given window
-            //TODO
-            double weight = 1;
+            //double weight = 1 / unique_successor_list.size();
+            double weight = successor_list.get(i).get_probability(token_list, window);
             double touch_confidence = compute_touch_confidence(key_distribution_list, successor_list.get(i));
+
+            //System.out.println("touch_confidence: " + touch_confidence + "touch_weight: " + weight);
 
             confidence += weight * touch_confidence;
         }
 
-
-        return 0.0;
+        return confidence;
     }
 
     /**
@@ -158,7 +168,7 @@ public class Confidence {
 
         // \Sigma_i^n ( (\sigma / \mu) / list_size )
         for(Distribution distribution : key_distribution_list){
-            confidence += (distribution.get_standard_deviation() / distribution.get_average()) /key_distribution_list.size();
+            confidence += (distribution.get_standard_deviation() / distribution.get_average()) / key_distribution_list.size();
         }
 
         return confidence;

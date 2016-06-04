@@ -364,7 +364,7 @@ public class Chain{
 	/* compute the Indexes of unique windows in given List<Window>.
 	 *
 	 * requires a token list to know how to compare windows*/
-	private List<Integer> compute_unique_windows(List<Token> token_list, List<Window> window_list){
+	public static List<Integer> compute_unique_windows(List<Token> token_list, List<Window> window_list){
 		// compute indexes for unique windows in list
 		ArrayList<Integer> index_list = new ArrayList<>();
 
@@ -398,7 +398,7 @@ public class Chain{
 	 *
 	 * returns a list of indexes corresponding to
 	 * windows in successor_list which have a unique successor touch*/
-	private List<Integer> compute_unique_successors(List<Token> token_list, List<Touch> successor_touch, List<Integer> successor_list){
+	public static List<Integer> compute_unique_successors(List<Token> token_list, List<Touch> successor_touch, List<Integer> successor_list){
 		// compute indexes for unique successor touches in list
 		ArrayList<Integer> index_list = new ArrayList<>();
 
