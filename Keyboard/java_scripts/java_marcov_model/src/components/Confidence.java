@@ -56,6 +56,8 @@ public class Confidence {
             confidence = compute_unweighted_confidence(key_distribution_list);
         }
 
+        System.out.println("confidence: " + confidence);
+
         return confidence;
     }
 
@@ -96,7 +98,7 @@ public class Confidence {
             double weight = ((double)window_list.occurrence_count(window_list.get(i))) / ((double)window_list.size());
             double window_confidence = compute_window_confidence(key_distribution_list, token_list, window_list, successor_list, window_list.get(i));
 
-            System.out.println("window_confidence: " + window_confidence + "\twindow_weight: " + weight);
+            //System.out.println("window_confidence: " + window_confidence + "\twindow_weight: " + weight);
 
             confidence += weight * window_confidence;
         }
