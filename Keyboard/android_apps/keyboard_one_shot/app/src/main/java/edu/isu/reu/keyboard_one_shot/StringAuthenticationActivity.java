@@ -38,8 +38,6 @@ public class StringAuthenticationActivity extends AppCompatActivity {
 
         // display the intent string
         display_intent_string(this.display_text, this.bolded_index);
-
-        // display the keyboard
     }
 
     /**
@@ -106,12 +104,14 @@ public class StringAuthenticationActivity extends AppCompatActivity {
      * the method is called every time the user presses a key
      */
     private void manage_text_entry(float x, float y, float pressure){
-        //TODO
         Log.d("event information", String.format("x:%.4f, y:%.4f, p:%.4f", x, y, pressure));
 
         // go though the text, set one character to bold indicated by bolded_index
         char[] text_char_list = new char[this.display_text.length()];
         this.display_text.getChars(0, this.display_text.length(), text_char_list, 0);
+
+        // grab the edit text box
+        EditText enter_text_edit_text = (EditText)findViewById(R.id.enter_text_edit_text);
 
         // decide what key was pressed
         // this is based on the location of the key on the screen
@@ -127,14 +127,32 @@ public class StringAuthenticationActivity extends AppCompatActivity {
             // advance the bolded index
             this.bolded_index++;
 
-            // check if this is the last character
+            // add the character to edittext
+            enter_text_edit_text.setText(enter_text_edit_text.getText().append(key), TextView.BufferType.EDITABLE);
+
+            // check if this is the last character in the entire string
+            // this happens if bolded index equals the length of the string
+            if(bolded_index == text_char_list.length) {
+                // we are done!
+                // show the authentication view
+                display_authentication_results();
+
+                //TODO potentially call finish() here,
+                //TODO i want to do this if it will finish on return
+            }
 
             // check if it is a space
-            //TODO
-        }else {
+            if(key == ' ') {
+                // delete all characters in edit text
+                enter_text_edit_text.setText("", TextView.BufferType.EDITABLE);
+            }
+
+            // redisplay the display string
+            display_intent_string(this.display_text, this.bolded_index);
+        }//else {
             //TODO could do somehting like turn edittext red and put bad character there until backspace
             //TODO currently backspace is not implemnted
-        }
+        //}
     }
 
     /**
