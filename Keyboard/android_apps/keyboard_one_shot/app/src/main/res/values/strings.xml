@@ -1,4 +1,10 @@
 <resources>
     <string name="app_name">keyboard_one_shot</string>
     <string name="action_settings">Settings</string>
+
+
+    <string name="button_height">50px</string>
+    <string name="button_width">32px</string>
+    <string name="button_horizontal_gap">2px</string>
+    <string name="button_vertical_gap">2px</string>
 </resources>
