@@ -18,7 +18,8 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".StringAuthenticationActivity"></activity>
+        <activity android:name=".StringAuthenticationActivity" />
+        <activity android:name=".KeyboardAuthenticationResult"></activity>
     </application>
 
 </manifest>

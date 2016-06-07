@@ -3,8 +3,9 @@
     <output-path>$PROJECT_DIR$/out/artifacts/java_marcov_model_jar</output-path>
     <root id="archive" name="java_marcov_model.jar">
       <element id="module-output" name="java_marcov_model" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/gui_window_size_vs_auth_accuracy_non_extensive.jar" path-in-jar="/" />
-      <element id="extracted-dir" path="$PROJECT_DIR$/gui_window_size_vs_auth_accuracy.jar" path-in-jar="/" />
+      <element id="directory" name="META-INF">
+        <element id="file-copy" path="$PROJECT_DIR$/META-INF/MANIFEST.MF" />
+      </element>
     </root>
   </artifact>
 </component>
