@@ -15,6 +15,7 @@ public class Keyboard {
     public int x_offset, y_offset;
 
     List<Key> key_list;
+    int keyboard_width, keyboard_height, key_separation_x, key_separation_y;
 
     /**
      * initialize the keyboard
@@ -27,6 +28,10 @@ public class Keyboard {
      * the upper left corner of the keyboard is 0,0
      */
     public Keyboard(int keyboard_width, int keyboard_height, int key_separation_x, int key_separation_y){
+        this.keyboard_width = keyboard_width;
+        this.keyboard_height = keyboard_height;
+        this.key_separation_x = key_separation_x;
+        this.key_separation_y = key_separation_y;
         this.key_list = new ArrayList<>();
 
         // create first row
@@ -151,5 +156,13 @@ public class Keyboard {
 
         // no character was found return error character
         return '#';
+    }
+
+    public int get_height(){
+        return this.keyboard_height;
+    }
+
+    public int get_width(){
+        return this.keyboard_width;
     }
 }

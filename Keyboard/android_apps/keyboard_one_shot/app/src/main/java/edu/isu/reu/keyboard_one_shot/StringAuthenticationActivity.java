@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.MotionEvent;
+import android.view.ViewTreeObserver;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -48,16 +49,8 @@ public class StringAuthenticationActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_string_authentication);
 
-        // acquire the imageview that displays the keyboard
-        ImageView keyboard_image_view = (ImageView)findViewById(R.id.keyboard_image_view);
-
         // initialize the keyboard
-        int width = keyboard_image_view.getWidth();
-        int height = keyboard_image_view.getHeight();
-        int separation = 2;
-        this.keyboard = new Keyboard(width, height, separation, separation);
-        this.keyboard.x_offset = (int)keyboard_image_view.getX();
-        this.keyboard.y_offset = (int)keyboard_image_view.getY();
+        initialize_keyboard();
 
         // get the intent string
         this.display_text = get_intent_string();
@@ -76,6 +69,77 @@ public class StringAuthenticationActivity extends AppCompatActivity {
 
         // init variables
         this.touch_point_list = new ArrayList<List<Float>>();
+    }
+
+    /**
+     * this method initializes the keyboard
+     */
+    private void initialize_keyboard(){
+        // acquire the imageview that displays the keyboard
+        ImageView keyboard_image_view = (ImageView)findViewById(R.id.keyboard_image_view);
+
+        // create a listener to wait for keyboard to be drawn
+        keyboard_image_view.getViewTreeObserver().addOnGlobalLayoutListener(
+                new ViewTreeObserver.OnGlobalLayoutListener() {
+                    @Override
+                    public void onGlobalLayout() {
+                        // Layout has happened here.
+                        if(keyboard == null){
+                            // if this is the first time this listener has run,
+                            setup_keyboard_instance();
+                        }
+
+                        // the x value is simply x (probabally 0)
+                        keyboard.x_offset = (int)keyboard_image_view.getX();
+
+                        // the y offset of the keyboard is more complicated
+                        // the imageview does not necessarily display
+                        // the entire keyboard.
+                        // to get this value,
+                        // 1. get the bottom of the keyboard
+                        // 2. add the keyboard height to this
+                        float keyboard_bottom = keyboard_image_view.getY() + keyboard_image_view.getHeight();
+                        keyboard.y_offset = (int)(keyboard_bottom - keyboard.get_height());
+
+                        // the next line of code removes the listener
+                        // don't want to do this because above the keyboard is updated with text
+                        // this will push the keyboard down.
+                        // When the layout is redone, we need to be informed
+                        //keyboard_image_view.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+                    }
+                });
+    }
+
+    /**
+     * set up the keyboard instance variable
+     * this is useful because it only needs to be done once
+     *
+     * also this needs to be done after the layout has been created
+     */
+    private void setup_keyboard_instance(){
+        // acquire the imageview that displays the keyboard
+        ImageView keyboard_image_view = (ImageView)findViewById(R.id.keyboard_image_view);
+
+        // initialize the keyboard
+        // get other attributes and instanciate keyboard
+        int width = keyboard_image_view.getWidth();
+
+        // height is height of the keyboard graphic,
+        // not the height of the imageview
+        // acquire the actual height of the drawn image
+        float keyboard_image_actual_height = keyboard_image_view.getDrawable().getIntrinsicHeight();
+        float keyboard_image_actual_width = keyboard_image_view.getDrawable().getIntrinsicWidth();
+
+        // use the width to determine the scale factor
+        float scale_factor = keyboard_image_actual_width / (float)width;
+
+        // the actual height of the scaled keyboard will be the
+        // scaling factor * intrinsic height
+        int height = (int)(keyboard_image_actual_height * scale_factor);
+
+        // create keyboard instance
+        int separation = 0;
+        this.keyboard = new Keyboard(width, height, separation, separation);
     }
 
     /**
@@ -208,6 +272,11 @@ public class StringAuthenticationActivity extends AppCompatActivity {
         //char key = Character.toLowerCase(text_char_list[this.bolded_index]);
 
         //return key;
+
+        //TODo seems to be returning the incorrect character
+        Log.d("key", "" + this.keyboard.get_character(x - this.keyboard.x_offset, y - this.keyboard.y_offset));
+        Log.d("x, y", "x: " + (x - this.keyboard.x_offset) + ", y: " + (y - this.keyboard.y_offset));
+        Log.d("offset", "x: " + (this.keyboard.x_offset) + ", y: " + (this.keyboard.y_offset));
 
         //TODO this returns the real key according to the keyboard
         return this.keyboard.get_character(x - this.keyboard.x_offset, y - this.keyboard.y_offset);
