@@ -1,14 +1,21 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion "23.0.1"
+//    compileSdkVersion = "android-N"
+    buildToolsVersion = "24.0.0 rc3"
 
-    // added 5 below
+    // 2 below are origional
+    compileSdkVersion 23
+//    buildToolsVersion "23.0.1"
+    // added 9 below
     dexOptions {
         incremental = true
         javaMaxHeapSize "4g" //specify the heap size for the dex process
         preDexLibraries = false //delete the already predexed libraries
+    }
+    compileOptions {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
     }
     defaultConfig {
         applicationId "edu.isu.reu.keyboard_one_shot"
@@ -16,14 +23,25 @@ android {
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
-        // added 1 below
+        // added 4 below
         multiDexEnabled true
+        jackOptions {
+            enabled true
+        }
     }
     buildTypes {
         release {
+            // changed this from false to true
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
+    }
+    // added the below
+//    compileOptions {
+//        sourceCompatibility JavaVersion.VERSION_1_8
+//        targetCompatibility JavaVersion.VERSION_1_8
+//    }
+    productFlavors {
     }
 }
 
@@ -33,4 +51,7 @@ dependencies {
     compile 'com.android.support:appcompat-v7:23.1.1'
     compile 'com.android.support:design:23.1.1'
     compile files('libs/java_marcov_model.jar')
+    // added multidex dependencey
+    compile 'com.android.support:multidex:1.0.1'
+    // add the following gradel specs added
 }

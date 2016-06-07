@@ -1,4 +1,4 @@
-          confidence: 0.2259
+          confidence: 0.2497
 [preceeding sequence] [touch key, touch pressure, probability] [token occurrences, preceeding sequence occurrences]
 ----- window_0 -----
 [[k: 22, p:0.1488], [k: 15, p:0.1776]] [ 13, 0.1824, 0.3333] [1, 3]

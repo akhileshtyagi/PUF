@@ -52,13 +52,12 @@ public class StringAuthenticationActivity extends AppCompatActivity {
         ImageView keyboard_image_view = (ImageView)findViewById(R.id.keyboard_image_view);
 
         // initialize the keyboard
-        //TODO find the x,y,w,h, x_offset, y_offset
-        this.keyboard.x_offset = (int)keyboard_image_view.getX();;
-        this.keyboard.y_offset = (int)keyboard_image_view.getY();
         int width = keyboard_image_view.getWidth();
         int height = keyboard_image_view.getHeight();
         int separation = 2;
         this.keyboard = new Keyboard(width, height, separation, separation);
+        this.keyboard.x_offset = (int)keyboard_image_view.getX();
+        this.keyboard.y_offset = (int)keyboard_image_view.getY();
 
         // get the intent string
         this.display_text = get_intent_string();
