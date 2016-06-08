@@ -55,4 +55,5 @@ dependencies {
     // added multidex dependencey
     compile 'com.android.support:multidex:1.0.1'
     // add the following gradel specs added
+    compile 'com.google.android.gms:play-services-appindexing:8.1.0'
 }
