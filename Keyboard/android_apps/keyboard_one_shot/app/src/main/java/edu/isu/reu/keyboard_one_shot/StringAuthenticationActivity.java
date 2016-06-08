@@ -127,12 +127,12 @@ public class StringAuthenticationActivity extends AppCompatActivity {
                         keyboard.y_offset = (int)(keyboard_bottom - keyboard.get_height());
 
                         //TODO testing to figure out why height is incorrect
-                        Log.d("offset", "x: " + (keyboard.x_offset) + ", y: " + (keyboard.y_offset));
+                        //Log.d("offset", "x: " + (keyboard.x_offset) + ", y: " + (keyboard.y_offset));
                         //Log.d("keyboard bottom", "" + (keyboard_bottom));
-                        Log.d("keyboard height", "" + (keyboard.get_height()));
-                        Log.d("keyboard copyBounds", "" + (keyboard_image_view.getDrawable().copyBounds()));
-                        Log.d("image view y", "" + (keyboard_image_view.getY()));
-                        Log.d("image view height", "" + (keyboard_image_view.getHeight()));
+                        //Log.d("keyboard height", "" + (keyboard.get_height()));
+                        //Log.d("keyboard copyBounds", "" + (keyboard_image_view.getDrawable().copyBounds()));
+                        //Log.d("image view y", "" + (keyboard_image_view.getY()));
+                        //Log.d("image view height", "" + (keyboard_image_view.getHeight()));
 
 
                         // the next line of code removes the listener
@@ -177,8 +177,8 @@ public class StringAuthenticationActivity extends AppCompatActivity {
         this.keyboard = new Keyboard(width, height, separation, separation);
 
         //TODO testing to figure out why height is incorrect
-        Log.d("keyboard width, height",
-                "width: " + (this.keyboard.get_width()) + ", height: " + this.keyboard.get_height());
+        //Log.d("keyboard width, height",
+          //      "width: " + (this.keyboard.get_width()) + ", height: " + this.keyboard.get_height());
     }
 
     /**

@@ -131,14 +131,25 @@ public class Keyboard {
         //TODO implement other keys
         // the only key implemented here right now is space
         // want to offset by 2.5 keys for space ( keyboard_width / 20 * 5)
-        int x = (keyboard_width / 10) + (keyboard_width / 20 * 5);
+        int x = (keyboard_width / 20 * 5);
         // fourth row is 3 key heights down
         int y = keyboard_height / 4 * 3;
         // space is 5 keys wide
         int key_width = keyboard_width / 10 * 5;
         int key_height = keyboard_height / 4;
 
+        // spacebar
         this.key_list.add(new Key(x, y, key_width, key_height, ' '));
+
+        // want to offset by 7.5 keys for . ( keyboard_width / 20 ) is .5 keys
+        x = (keyboard_width / 20 * 15);
+        // fourth row is 3 key heights down
+        y = keyboard_height / 4 * 3;
+        key_width = keyboard_width / 10;
+        key_height = keyboard_height / 4;
+
+        // period
+        this.key_list.add(new Key(x, y, key_width, key_height, '.'));
     }
 
     /**

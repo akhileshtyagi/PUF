@@ -6,11 +6,12 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import java.util.BitSet;
 import java.util.List;
 import java.util.Random;
 
-//import components.Chain;
-//import components.Touch;
+import components.Chain;
+import components.Touch;
 
 /**
  * the goal of this class is simply to
@@ -65,60 +66,40 @@ public class KeyboardAuthenticationResult extends AppCompatActivity {
         //authentication_result_string += touch_point_list.toString();
 
         // preform the authentication using keyboard_markov_model library
+        // create a chain
+        int window = 0;
+        int token = 0;
+        int threshold = 0;
+        int size = 0;
+        Chain chain = new Chain(window, token, threshold, size);
 
-        //TODO
+        // add touches to chain
+        //TODO timestamp is not accuracte
+        for(List<Float> touch_point : touch_point_list){
+            //TODO
+            int keycode = 0;
+            double pressure = touch_point.get(1);
+            long timestamp = 0;
+            chain.add_touch(new Touch(keycode, pressure, timestamp));
+        }
 
-        // build the result string after the authentication has finished
-        //TODO
-
-        return authentication_result_string;
+        // quantize the chain
+        return quantize(chain).toString();
     }
 
-    //TODO make these methods work
-//    private static void chain_example(){
-//        int base_chain_size = 6000;
-//        int auth_chain_size = 2000;
-//
-//        // window 3, tokens 7, threshold 500, size 6000
-//        Chain base_chain = new Chain(3, 10, 500, base_chain_size);
-//        Chain auth_chain = new Chain(3, 10, 500, auth_chain_size);
-//
-//        // add touches to chain_builder
-//        // touches have raw data
-//        for(int i=0; i<base_chain_size; i++){
-//            base_chain.add_touch(generate_dummy_touch());
-//        }
-//
-//        for(int i=0; i<auth_chain_size; i++){
-//            auth_chain.add_touch(generate_dummy_touch());
-//        }
-//
-//        // this function returns an double representing the difference between the chains
-//        // the range of this value is 0 to 1
-//        double auth_result = base_chain.compare_to(auth_chain);
-//        double auth_threshold = .6;
-//
-//        System.out.println("auth_result: " + auth_result);
-//
-//        // it may be compared against a threshold like this
-//        System.out.println("auth_passed?: " + (auth_result > auth_threshold));
-//    }
-//
-//    private static Touch generate_dummy_touch(){
-//        // randomly generate some raw data
-//        Random random = new Random(System.currentTimeMillis());
-//
-//        // keycode which indicates the screen area
-//        // from which the touch came
-//        // this value can be the keycode, bu
-//        int keycode = random.nextInt();
-//
-//        // pressure value from the touch
-//        double pressure = random.nextDouble();
-//
-//        // timestamp of the touch
-//        long timestamp = System.currentTimeMillis();
-//
-//        return new Touch(keycode, pressure, timestamp);
-//    }
+    /**
+     * this mehtod will try to quantize the chain
+     *
+     * this will eventually be moved into the chain class,
+     * but for testing purposes it is implemented here
+     *
+     * Quantization is preformed in the following way
+     */
+    private BitSet quantize(Chain chain){
+        BitSet bit_set = new BitSet();
+
+        //TODO
+
+        return bit_set;
+    }
 }
