@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  17 MAY 2016 11:24
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  8 JUN 2016 23:13
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -215,8 +215,11 @@ File: lstmisc.sty 2015/06/04 1.6 (Carsten Heinz)
 File: listings.cfg 2015/06/04 1.6 listings configuration
 ))
 Package: listings 2015/06/04 1.6 (Carsten Heinz)
-) (./authors.tex)
-(./paper.aux)
+
+(/usr/share/texmf-dist/tex/latex/url/url.sty
+\Urlmuskip=\muskip11
+Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
+)) (./authors.tex) (./paper.aux)
 \openout1 = `paper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
@@ -231,7 +234,8 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
- (/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
+
+(/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count118
 \scratchdimen=\dimen127
@@ -312,11 +316,14 @@ Overfull \hbox (2.52652pt too wide) in paragraph at lines 5--5
  []\eaddfnt deetimothy33@gmail.com| 
  []
 
-(./abstract.tex) (./introduction.tex [1{/var/lib/texmf/fonts/map/pdftex/updmap/
-pdftex.map}
+(./abstract.tex) (./introduction.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [1{/var/lib/texmf/fonts/map/pdftex/updmap/pdftex.map}
 
 
-]) (./the_problem.tex) (./the_solution.tex [2]
+]) (./the_problem.tex)
+(./the_solution.tex [2]
 Overfull \hbox (1.10489pt too wide) in paragraph at lines 227--249
 \T1/aer/m/n/9 space to make the se-quences the user's gen-er-ate re-pro-ducible
 .
@@ -325,66 +332,166 @@ Overfull \hbox (1.10489pt too wide) in paragraph at lines 227--249
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [3])
-(./the_details.tex
-<graphics/authentication_accuracy_vs_total_interactions.pdf, id=20, 1228.59pt x
- 794.97pt>
-File: graphics/authentication_accuracy_vs_total_interactions.pdf Graphic file (
-type pdf)
- <use graphics/authentication_accuracy_vs_total_interactions.pdf>
-Package pdftex.def Info: graphics/authentication_accuracy_vs_total_interactions
-.pdf used on input line 40.
-(pdftex.def)             Requested size: 226.79846pt x 146.75175pt.
+ [3]
+[4]) (./the_details.tex
+<graphics/final_marcov_model_state.pdf, id=25, 774.895pt x 352.31625pt>
+File: graphics/final_marcov_model_state.pdf Graphic file (type pdf)
 
-<graphics/false_positive_vs_authentication_threshold.pdf, id=21, 794.97pt x 614
+<use graphics/final_marcov_model_state.pdf>
+Package pdftex.def Info: graphics/final_marcov_model_state.pdf used on input li
+ne 38.
+(pdftex.def)             Requested size: 226.79846pt x 103.11525pt.
+
+<graphics/token_creation.pdf, id=26, 506.89375pt x 220.825pt>
+File: graphics/token_creation.pdf Graphic file (type pdf)
+
+<use graphics/token_creation.pdf>
+Package pdftex.def Info: graphics/token_creation.pdf used on input line 56.
+(pdftex.def)             Requested size: 226.79846pt x 98.80087pt.
+
+<graphics/Rplots.pdf, id=27, page=2, 505.89pt x 505.89pt>
+File: graphics/Rplots.pdf Graphic file (type pdf)
+
+<use graphics/Rplots.pdf, page 2>
+Package pdftex.def Info: graphics/Rplots.pdf, page2 used on input line 74.
+(pdftex.def)             Requested size: 226.79846pt x 226.79927pt.
+
+<graphics/Rplots.pdf, id=28, page=4, 505.89pt x 505.89pt>
+File: graphics/Rplots.pdf Graphic file (type pdf)
+
+<use graphics/Rplots.pdf, page 4>
+Package pdftex.def Info: graphics/Rplots.pdf, page4 used on input line 86.
+(pdftex.def)             Requested size: 226.79846pt x 226.79927pt.
+
+<graphics/phone_tokens.pdf, id=29, 794.97pt x 614.295pt>
+File: graphics/phone_tokens.pdf Graphic file (type pdf)
+
+<use graphics/phone_tokens.pdf>
+Package pdftex.def Info: graphics/phone_tokens.pdf used on input line 98.
+(pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
+
+<graphics/marcov_model_building.pdf, id=30, 770.88pt x 326.21875pt>
+File: graphics/marcov_model_building.pdf Graphic file (type pdf)
+
+<use graphics/marcov_model_building.pdf>
+Package pdftex.def Info: graphics/marcov_model_building.pdf used on input line 
+110.
+(pdftex.def)             Requested size: 226.79846pt x 95.97485pt.
+
+Overfull \hbox (1.28062pt too wide) in paragraph at lines 123--123
+[]\secfnt USER-DEVICE PAIR DIS-CRIM-I-NA-TION 
+ []
+
+
+<graphics/false_positive_vs_authentication_threshold.pdf, id=31, 794.97pt x 614
 .295pt>
 File: graphics/false_positive_vs_authentication_threshold.pdf Graphic file (typ
 e pdf)
  <use graphics/false_positive_vs_authentication_threshold.pdf>
 Package pdftex.def Info: graphics/false_positive_vs_authentication_threshold.pd
-f used on input line 48.
+f used on input line 131.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
 
-<graphics/nexus_7_runtimes.pdf, id=22, 794.97pt x 614.295pt>
+
+pdfTeX warning: pdflatex (file ./graphics/window_size_vs_authentication_accurac
+y.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allow
+ed
+
+<graphics/window_size_vs_authentication_accuracy.pdf, id=32, 794.97pt x 614.295
+pt>
+File: graphics/window_size_vs_authentication_accuracy.pdf Graphic file (type pd
+f)
+ <use graphics/window_size_vs_authentication_accuracy.pdf>
+Package pdftex.def Info: graphics/window_size_vs_authentication_accuracy.pdf us
+ed on input line 139.
+(pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
+
+
+pdfTeX warning: pdflatex (file ./graphics/authentication_accuracy_vs_touchscree
+n_interactions.pdf): PDF inclusion: found PDF version <1.7>, but at most versio
+n <1.5> allowed
+
+<graphics/authentication_accuracy_vs_touchscreen_interactions.pdf, id=33, 433.6
+2pt x 216.81pt>
+File: graphics/authentication_accuracy_vs_touchscreen_interactions.pdf Graphic 
+file (type pdf)
+
+<use graphics/authentication_accuracy_vs_touchscreen_interactions.pdf>
+Package pdftex.def Info: graphics/authentication_accuracy_vs_touchscreen_intera
+ctions.pdf used on input line 146.
+(pdftex.def)             Requested size: 226.79846pt x 113.40018pt.
+
+<graphics/authentication_accuracy_vs_total_interactions.pdf, id=34, 1228.59pt x
+ 794.97pt>
+File: graphics/authentication_accuracy_vs_total_interactions.pdf Graphic file (
+type pdf)
+ <use graphics/authentication_accuracy_vs_total_interactions.pdf>
+Package pdftex.def Info: graphics/authentication_accuracy_vs_total_interactions
+.pdf used on input line 165.
+(pdftex.def)             Requested size: 226.79846pt x 146.75175pt.
+
+<graphics/nexus_7_runtimes.pdf, id=35, 794.97pt x 614.295pt>
 File: graphics/nexus_7_runtimes.pdf Graphic file (type pdf)
 
 <use graphics/nexus_7_runtimes.pdf>
-Package pdftex.def Info: graphics/nexus_7_runtimes.pdf used on input line 56.
+Package pdftex.def Info: graphics/nexus_7_runtimes.pdf used on input line 179.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
- [4] [5 <./graphics/authentication_accuracy_vs_total_interactions.pdf> <./graph
-ics/false_positive_vs_authentication_threshold.pdf> <./graphics/nexus_7_runtime
-s.pdf>]) (./related_work.tex)
-(./conclusion.tex
+ [5 <./graphics/final_marcov_model_state.pdf> <./graphics/token_creation.pdf>] 
+[6 <./graphics/Rplots.pdf> <./graphics/Rplots.pdf> <./graphics/phone_tokens.pdf
+
+
+pdfTeX warning: pdflatex (file ./graphics/phone_tokens.pdf): PDF inclusion: inv
+alid other resource which is no dict (key 'ProcSets', type <array>); ignored.
+> <./graphics/marcov_model_building.pdf> <./graphics/false_positive_vs_authenti
+cation_threshold.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [7 <./graphics/window_size_vs_authentication_accuracy.pdf> <./graphics/authent
+ication_accuracy_vs_touchscreen_interactions.pdf> <./graphics/authentication_ac
+curacy_vs_total_interactions.pdf> <./graphics/nexus_7_runtimes.pdf>]) (./relate
+d_work.tex) (./conclusion.tex
 Overfull \hbox (10.5278pt too wide) in paragraph at lines 4--17
 \T1/aer/m/n/9 cur-rent so-lu-tions uti-lize one-time au-then-ti-ca-tion schemes
  These
  []
 
-) (./paper.bbl) [6] (./paper.aux) ) 
+) (./paper.bbl
+LaTeX Font Info:    Try loading font information for T1+aett on input line 8.
+ (/usr/share/texmf-dist/tex/latex/ae/t1aett.fd
+File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
+)
+Overfull \hbox (9.82721pt too wide) in paragraph at lines 4--10
+\T1/aett/m/n/9 smart-[]phone-[]thefts-[]rose-[]to-[]3-[]1-[]million-[]last-[]ye
+ar / 
+ []
+
+[8]) [9
+
+] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 4206 strings out of 493054
- 55256 string characters out of 6140586
- 227541 words of memory out of 5000000
- 7613 multiletter control sequences out of 15000+600000
- 50251 words of font info for 69 fonts, out of 8000000 for 9000
+ 4354 strings out of 493054
+ 58237 string characters out of 6140586
+ 228717 words of memory out of 5000000
+ 7745 multiletter control sequences out of 15000+600000
+ 50739 words of font info for 71 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,10n,32p,291b,282s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/base/
-8r.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/sh
-are/texmf-dist/fonts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dis
-t/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></u
-sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmti9.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr
-/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fo
-nts/type1/urw/times/utmb8a.pfb>
-Output written on paper.pdf (6 pages, 247295 bytes).
+ 43i,10n,32p,514b,253s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmcsc10.pfb></usr/share/texmf-dist/fonts/type1/publ
+ic/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/
+cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></usr
+/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-dis
+t/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></u
+sr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texmf-
+dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/urw
+/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
+Output written on paper.pdf (9 pages, 596854 bytes).
 PDF statistics:
- 88 PDF objects out of 1000 (max. 8388607)
- 57 compressed objects within 1 object stream
+ 148 PDF objects out of 1000 (max. 8388607)
+ 99 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
- 16 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 56 words of extra memory for PDF output out of 10000 (max. 10000000)
 

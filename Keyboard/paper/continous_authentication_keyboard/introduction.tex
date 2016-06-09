@@ -26,24 +26,123 @@ Take the example of
 
 % How is it done today, and what are the limits of current practice?
 Many current practices keep mobile devices secure
-utilizing some nature of lock screen.
+with a lock screen.
 These protection mechanisms require
 that the user preform some action 
 when the mobile device state moves from inactive to active.
-This one-time authentication allows access to a large amount 
-applications, tools, and data on the device.
-Some of this data could be potentially
-damaging if compromised by a malicious party.
+This one-time authentication allows access 
+to everything on the device.
+% 
+Significant amounts of data is hosted 
+in various applications on mobile devices.
+This data could be potentially damaging to
+the user if it is exposed to a malicious party.
+The compromised information could include
+social security numbers, credit cards, passwords, and banking information.
 
-One issue with this nature of user verification %TODO
-There are many ways an attacker might trick
-this one-time authentication 
-hence gaining access to resources on the device.
-%TODO cite some attacks like "look over shoulder attacks"
+The tendency for applications to remember a user's
+authentication information functions
+to make the lock screen the only line of defense in many cases.
+%
+The combination of
+having a single authentication with a significant amount
+of valuable data makes mobile devices
+potentially very lucrative to steal.
+%
+The mobile nature of these devices 
+exacerbates the issue
+causes them to be extremely susceptible to theft.
+%
+% stats on mobile device thefts
+In fact, mobile device theft is a serious problem.
+Consumer Reports \cite{CR14} %TODO ?
+reported over $3.1$ million smart phone thefts in $2013$. 
+Federal Communications Commission (FCC)\cite{FCC14} %TODO ?
+in its December $2014$ report 
+estimates $368.9$ phone thefts per $100000$ individuals in $2013$. 
+It states that about one third of crime involves a mobile phone.
+%
+There are many ways an attacker might
+exploit this one-time authentication 
+in order to gain access to resources on a mobile device.
+% say how the attacker might exploit the one-time authentication
+There are several different types of
+lock screens which are commonly employed.
+Android Version $6.0.1$ Marshmallow includes
+password, pin, and pattern options for
+securing the lock screen.
+%
+% 4 digit pin's and swipe patterns and password
+Pin allows the user to create a small fixed-length sequence of numbers.
+Password authentication is similar to pin authentication
+except letters, symbols, and numbers
+are all used to create the secret.
+Swipe authentication is seemingly different
+allowing the user to create a pattern of swiping
+between $9$ points on the screen.
+%TODO potentially analyzing the screen for commonly traced patterns (smuge attacks)
+These methods are based on the user having some secret knowledge
+which is entered 
+on the lock screen
+using the touchscreen.
+This authentication occurs each time the phone state
+changes from inactive to active.
+
+%TODO cite some attacks like "look over shoulder attacks" and smuge
+All methods of authentication mentioned discussed thus far
+require that a user enter information using the touch screen
+each time they want to utilize their device.
+%
+There are some problems with this.
+Malicious parties may try to 
+exploit the requirement of entry through the
+touch screen by
 %TODO
+looking over shoulder
+\cite{de2014now}
+smuge
+\cite{aviv2010smudge}
+%TODO 
 
-This paper focuses on an idea for creating
-added security for data stored on mobile devices.
+%TODO use some other examples of lock screens
+These vulnerabilities have led to the development of 
+lock screens which .
+%TODO finger print scanners and facial recognition
+While these methods are an improvement over the password, pin, and pattern options
+they are insufficient to protect the device from attack.
+%TODO
+%
+%TODO talk about how finger print scanners and facial recognition may be exploited
+Finger print scanner may be exploited in 
+x \cite{cao2016hacking}%TODO 
+as shown by 
+y%TODO.
+Similar techniques may be applied to facial recognition,
+x%TDOO 
+showed that displaying a picture of the authentic user
+can be used to pass facial recognition.
+
+In some situations,
+an attacker may not even need to pass the lock screen authentication.
+% mobile devices can change hands while the authentication state is still active
+Imagine a situation where the authentic user of a device preforms the authentication,
+unlocking the device.
+The device then falls into the hands of an attacker.
+This attacker can not only exploit the authenticated state of the device,
+but may use the authenticated state to disable the lock screen entirely;
+Thus allowing permanent access to all applications on the device.
+%
+%TODO many people neglect to use a lock screen at all
+\cite{harbach2014sa}
+
+This paper does not propose a new method of
+authenticating the user through the lock screen.
+Instead we seek to mitigate should a
+device become compromised.
+We describe a continuous authentication
+layer which can distinguish among users
+based on how these users enter data into the device.
+%
 Often times there exists a trade off between
 security and convenience from the user's perspective.
 This can be seen in solutions such as
