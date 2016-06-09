@@ -2,27 +2,13 @@
 \section{Introduction}
 % What are you trying to do? Articulate your objectives using absolutely no jargon.  What is the problem?  Why is it hard?
 Malicious parties attempt to gain access to data of their victims. 
-Often times these attackers go through the trouble of
+Attackers go through the trouble of
 preforming these attacks because
 gaining access to the data might be quite lucrative.
-Take the example of 
-%TODO cite some sort of attack on mobile device data which results in 
-  %the attacker stealing money.
-
-  % many applications make assumptions about the device.
-  % that once a user has authenticated,
-  % possession of the device is sufficient to
-  % access the services
-
-% BAD EXAMPLE
-% a user who uses mobile applications for monetary transactions.
-% This application uses a user name and password to 
-% establish the identity of a user.
-% If an attacker is able to acquire this information,
-% the user name and password,
-% then the attacker will have the ability use money
-% kept within the legitimate user's account.
-% This is not acceptable.
+%
+Mobile devices are often used to store
+credit card information, passwords, and banking information.
+This data can be leveraged for significant loss.
 
 % How is it done today, and what are the limits of current practice?
 Many current practices keep mobile devices secure
@@ -31,7 +17,8 @@ These protection mechanisms require
 that the user preform some action 
 when the mobile device state moves from inactive to active.
 This one-time authentication allows access 
-to everything on the device.
+to everything on the device
+including all applications.
 % 
 Significant amounts of data is hosted 
 in various applications on mobile devices.
@@ -55,9 +42,9 @@ causes them to be extremely susceptible to theft.
 %
 % stats on mobile device thefts
 In fact, mobile device theft is a serious problem.
-Consumer Reports \cite{CR14} %TODO ?
+Consumer Reports \cite{CR14}
 reported over $3.1$ million smart phone thefts in $2013$. 
-Federal Communications Commission (FCC)\cite{FCC14} %TODO ?
+Federal Communications Commission (FCC)\cite{FCC14}
 in its December $2014$ report 
 estimates $368.9$ phone thefts per $100000$ individuals in $2013$. 
 It states that about one third of crime involves a mobile phone.
@@ -80,7 +67,7 @@ are all used to create the secret.
 Swipe authentication is seemingly different
 allowing the user to create a pattern of swiping
 between $9$ points on the screen.
-%TODO potentially analyzing the screen for commonly traced patterns (smuge attacks)
+% potentially analyzing the screen for commonly traced patterns (smuge attacks)
 These methods are based on the user having some secret knowledge
 which is entered 
 on the lock screen
@@ -88,7 +75,7 @@ using the touchscreen.
 This authentication occurs each time the phone state
 changes from inactive to active.
 
-%TODO cite some attacks like "look over shoulder attacks" and smuge
+% cite some attacks like "look over shoulder attacks" and smuge
 All methods of authentication mentioned discussed thus far
 require that a user enter information using the touch screen
 each time they want to utilize their device.
@@ -97,32 +84,60 @@ There are some problems with this.
 Malicious parties may try to 
 exploit the requirement of entry through the
 touch screen by
-%TODO
-looking over shoulder
-\cite{de2014now}
-smuge
-\cite{aviv2010smudge}
-%TODO 
-
-%TODO use some other examples of lock screens
-These vulnerabilities have led to the development of 
-lock screens which .
-%TODO finger print scanners and facial recognition
-While these methods are an improvement over the password, pin, and pattern options
-they are insufficient to protect the device from attack.
-%TODO
+shoulder-surfing.
+This practice involves an attacker
+watching a person enter their secret 
+so that it might be replicated later.
 %
-%TODO talk about how finger print scanners and facial recognition may be exploited
-Finger print scanner may be exploited in 
-x \cite{cao2016hacking}%TODO 
-as shown by 
-y%TODO.
-Similar techniques may be applied to facial recognition,
-x%TDOO 
-showed that displaying a picture of the authentic user
-can be used to pass facial recognition.
+\cite{schaub2012password} discusses the vulnerability of
+various touch screen input methods to shoulder-surfing attacks
+while
+\cite{hafiz2008towards} measured the susceptibility of 
+users to shoulder surfing attacks observing
+attackers having a ($\textgreater20\%$) success rate
+on Android keyboards
+in the reproduction of a password after $3$ attempts.
+%
+Smudge attacks where,
+oily residues are used to detect common touch screen patters,
+also represent a significant security risk
+for secrets input via the touch screen.
+\cite{aviv2010smudge} explores the feasibility of
+such attacks finding in one experiment
+the lock screen pattern was partially identifiable $92\%$ of the time
+and full identifiable $68\%$ of the time.
 
-In some situations,
+% use some other examples of lock screens
+These vulnerabilities have led to the development of 
+lock screens which 
+use a user biometric in an attempt to increase security.
+Facial recognition and finger print scanners have
+been employed as lock screen mechanisms.
+% finger print scanners and facial recognition
+These methods insufficient to protect the device from attack.
+%
+% talk about how finger print scanners and facial recognition may be exploited
+\cite{cao2016hacking} demonstrates a method 
+to exploit the finger print scanner on an android device
+using printed fingerprints.
+This method is simple and fast as long as a print of the
+authentic user's finger can be obtained.
+%
+Other works by Germany's Chaos Computer Club \cite{CHAOS}
+have show that it is possible to lift a finger print 
+belonging to the authentic user from the device touch screen
+and use it to pass the finger print scanner authentication on Apple's Iphone $4S$ and $5$. 
+%
+Attacks against facial recognition schemes involve
+spoofing the facial features of the authentic user
+in order to pass facial recognition authentication.
+\cite{de2013can}
+accesses the practically anti-spoofing measures in real word scenarios
+observing 
+low generalization of
+and possible database bias in existing schemes.
+
+In many situations,
 an attacker may not even need to pass the lock screen authentication.
 % mobile devices can change hands while the authentication state is still active
 Imagine a situation where the authentic user of a device preforms the authentication,
@@ -132,41 +147,65 @@ This attacker can not only exploit the authenticated state of the device,
 but may use the authenticated state to disable the lock screen entirely;
 Thus allowing permanent access to all applications on the device.
 %
-%TODO many people neglect to use a lock screen at all
-\cite{harbach2014sa}
+% many people neglect to use a lock screen at all
+% demographic
+\cite{harbach2014sa} surveyed the lock screen behavior of $320$
+individuals ages $18 - 67$ with a median age of $31$.
+Of these individuals, $39.6\%$  rated themselves as having
+a very high level of IT expertise.
+% findings
+The results of this survey indicate $56.3\%$ of the participants
+did not use a lock screen at all.
 
 This paper does not propose a new method of
 authenticating the user through the lock screen.
-Instead we seek to mitigate should a
+Instead we seek to mitigate risk of loss should a
 device become compromised.
 We describe a continuous authentication
 layer which can distinguish among users
-based on how these users enter data into the device.
+using a biometric of the user
+generated though data entry on an Android device's soft keyboard.
 %
-Often times there exists a trade off between
+In many situations there exists a trade off between
 security and convenience from the user's perspective.
-This can be seen in solutions such as
-%TODO cite a mobile device security solution which has poor convenience to the user
-where
-%TODO describe this solution and how it represents a tradeoff between security and convenience
+%
+This trade off can be observed in the Android lock screen.
+The necessity to enter a pin, password, or pattern 
+every time access to the device is desired is 
+an inconvenience.
+In exchange for this inconvenience,
+users are rewarded with some security.
+%
 The solution presented in this paper
 provides additional security while requiring
 no additional actions from the user.
+%
 This is accomplished by
-recording touch screen interactions
-in the background while the
-user interacts as they normally would
-with the applications on their mobile device.
+recording a biometric of 
+the user's interactions with the touch screen
+in the background.
+The user continues, unaffected by this collection, 
+interacting with the device as they normally would.
+%
 The most resent interactions are then
 tested against previous actions
 to determine if the user's
-pattern has changed.
+pattern has begun to deviate.
+%
+Deviations may indicate that a
+malicious party has gain control over the device.
 
 We provide a step forward, 
-enhancing the ability of mobile devices to
-recognize when the device may have been compromised.
-Compromised here meaning the device is in
+%
+in mobile device security by
+establishing a continuous, unobtrusive user identity.
+%
+This identity
+enhances the ability of mobile devices to
+recognize when the 
+device may have come under
 the physical possession of an illegitimate user.
+%
 This system provides innovations in the following areas:
 \begin{itemize}
 \item We show that touch screen interactions may be used in order to
@@ -175,44 +214,60 @@ This system provides innovations in the following areas:
   Specifically, section
   \ref{the_solution} % give forward reference
   shows how a combination of 
-  a user's pressure when touching the screen and 
-  the location on the screen being touched
+  a touch screen pressure and 
+  the location on the screen
   may be used to develop a model of that user's behavior.
 \item We establish the behavior of a user on a device
-  is unique to both the device and the user.
+  is unique to the user.
+  %
+  Many applications, such as Google Wallet,
+  can benefit from an increased
+  assurance the user is authentic.
+  %
   Section 
-  \ref{the_details} %TODO give forward reference
-  establishes that a difference in either device or user
+  \ref{the_details} % give forward reference
+  establishes that a difference in user identity
   may be detected by our implementation.
-\item There is no convenience cost assessed upon the user.
+\item We establish the behavior of a user on a device
+  is unique to the device.
+  %
+  Such an identity could be useful in defeating
+  attacks where a user is tricked into entering
+  secret data, such as a password,
+  on another device.
+  %
+  Section 
+  \ref{the_details} % give forward reference
+  establishes that a difference in device identity
+  may be detected by our implementation.
+\item The system is unobtrusive meaning there is no convenience cost assessed upon the user.
   All security improvements are accomplished without requiring any additional
   actions from the user.
-  The specifications of the implementation used to accomplish 
-  this transparency are discussed in Section
+  Our implementation,
+  capable of utilizing touch screen data collected in the background, 
+  is described in
+  Section
   \ref{the_solution} % give forward reference
-\item The performance of this system is sufficient to make it practical.
-  %TODO elaborate on what types of applications this is practical for,
-  % or on the definition of practicality
+% express what is sufficient performance quantativly
+\item The performance of this system 
+  has sufficiently high accuracy, ($70-90+\%$), and
+  low computational overhead, ($1-5 sec$),
+  to make it practical.
   A performance comparison is presented in Section
-  \ref{the_details} %TODO give forward reference
-  which demonstrates the running time of the system on 
-  a Nexus 7 tablet.
+  \ref{the_details} % give forward reference
+  which demonstrates 
+  the computation time as a function of
+  the number of touch screen interactions used and
+  the running time of the system on a Nexus 7 tablet.
   % Section ? discusses the memory requirements of the system,
   % showing that they are ?. 
-%TODO memory requirements of the system?
-\item We improve upon the ideas discussed in ? %TODO reference mellon sensec paper
-  utilizing similar concepts for modeling interactions. 
-  We extend beyond this work,
-  modeling soft keyboard interactions
-  to describe user behavior over time.
-  Section
-  \ref{related_work} % forward reference related work
-  provides further discussion of ?%TODO reference mellon sensec paper 
-  with emphasis on similarities and differences
-  between work described throughout this paper.
-\item This work solves the problem of x %TODO describe problem
-  by ensuring data security in situation y. %TODO describe problematic situation
+  %TODO memory requirements of the system?
+\item This work solves the problem of
+  detecting a non-authentic user
+  in cases where the lock screen has been bypassed. % describe problem
+  %
   Other solutions fail to consider this problem
+  or fail to provide a sufficient solution
   as discussed in Section
   \ref{the_problem}.
 \end{itemize}
@@ -251,9 +306,11 @@ From this sequence
 probabilities are developed
 which represent the likelihood of a given touch screen interaction
 based on the properties of a number of previous interactions.
-A type Markov model which uses $n$ previous states
-in computing next state probabilities
-is used for the purpose of developing these probabilities.
+%
+We use an $n-gram$ Markov model,
+a subclass of Markov text analysis.
+This model uses $n$ previous states
+in computing next state probabilities.
 This model is explained more throughly in
 Section \ref{the_solution}. % give forward reference
 

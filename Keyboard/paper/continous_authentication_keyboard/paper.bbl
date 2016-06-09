@@ -1,4 +1,4 @@
-\begin{thebibliography}{1}
+\begin{thebibliography}{10}
 
 \bibitem{CR14}
 {Consumer Reports.} smart phone thefts rose to 3.1 million in 2013 industry
@@ -16,37 +16,64 @@
   \url{http://transition.fcc.gov/bureaus/oet/tac/tacdocs/meeting12414/TAC-MDTP-Report-v1.0-FINAL-TAC-version.pdf}.
 \newblock Accessed: 2016-04-08.
 
-\bibitem{aviv2010smudge}
-{\sc Aviv, A.~J., Gibson, K., Mossop, E., Blaze, M., and Smith, J.~M.}
-\newblock Smudge attacks on smartphone touch screens.
-\newblock {\em WOOT 10\/} (2010), 1--7.
+\bibitem{schaub2012password}
+Florian Schaub, Ruben Deyhle, and Michael Weber.
+\newblock Password entry usability and shoulder surfing susceptibility on
+  different smartphone platforms.
+\newblock In {\em Proceedings of the 11th International Conference on Mobile
+  and Ubiquitous Multimedia}, page~13. ACM, 2012.
 
-\bibitem{de2014now}
-{\sc De~Luca, A., Harbach, M., von Zezschwitz, E., Maurer, M.-E., Slawik,
-  B.~E., Hussmann, H., and Smith, M.}
-\newblock Now you see me, now you don't: protecting smartphone authentication
-  from shoulder surfers.
-\newblock In {\em Proceedings of the SIGCHI Conference on Human Factors in
-  Computing Systems\/} (2014), ACM, pp.~2937--2946.
+\bibitem{hafiz2008towards}
+Muhammad~Daniel Hafiz, Abdul~Hanan Abdullah, Norafida Ithnin, and Hazinah~K
+  Mammi.
+\newblock Towards identifying usability and security features of graphical
+  password in knowledge based authentication technique.
+\newblock In {\em Modeling \& Simulation, 2008. AICMS 08. Second Asia
+  International Conference on}, pages 396--403. IEEE, 2008.
+
+\bibitem{aviv2010smudge}
+Adam~J Aviv, Katherine Gibson, Evan Mossop, Matt Blaze, and Jonathan~M Smith.
+\newblock Smudge attacks on smartphone touch screens.
+\newblock {\em WOOT}, 10:1--7, 2010.
+
+\bibitem{cao2016hacking}
+Kai Cao and Anil~K Jain.
+\newblock Hacking mobile phones using 2d printed fingerprints.
+\newblock 2016.
+
+\bibitem{CHAOS}
+{Chaos Computer Club.} instructions detailing how to create fake finger prints
+  capable of passing finger print scanner authentication, october 2004, chaos
+  computer club.
+\newblock \url{http://dasalte.ccc.de/biometrie/fingerabdruck_kopieren.en}.
+\newblock Accessed: 2016-04-09.
+
+\bibitem{de2013can}
+Tiago de~Freitas~Pereira, Andr{\'e} Anjos, Jos{\'e}~Mario De~Martino, and
+  S{\'e}bastien Marcel.
+\newblock Can face anti-spoofing countermeasures work in a real world scenario?
+\newblock In {\em Biometrics (ICB), 2013 International Conference on}, pages
+  1--8. IEEE, 2013.
 
 \bibitem{harbach2014sa}
-{\sc Harbach, M., von Zezschwitz, E., Fichtner, A., De~Luca, A., and Smith, M.}
+Marian Harbach, Emanuel von Zezschwitz, Andreas Fichtner, Alexander De~Luca,
+  and Matthew Smith.
 \newblock It’sa hard lock life: A field study of smartphone (un) locking
   behavior and risk perception.
-\newblock In {\em Symposium On Usable Privacy and Security (SOUPS 2014)\/}
-  (2014), pp.~213--230.
+\newblock In {\em Symposium On Usable Privacy and Security (SOUPS 2014)}, pages
+  213--230, 2014.
 
 \bibitem{ScheelTyagi15}
-{\sc Scheel, R., and Tyagi, A.}
+R.~Scheel and A.~Tyagi.
 \newblock Characterizing composite user-device touchscreen physical unclonable
   functions (pufs) for mobile device authentication.
 \newblock In {\em ACM International Workshop in Trusted Embedded Devices,
-  TRUSTED 2015\/} (October 2015), ACM.
+  TRUSTED 2015}. ACM, October 2015.
 
 \bibitem{sensec13}
-{\sc Zhang, J., Wang, X., Wu, P., and Zhu, J.}
+Joy Zhang, Xiao Wang, Pang Wu, and Jiang Zhu.
 \newblock Sensec: Mobile security through passive sensing.
 \newblock {\em 2013 International Conference on Computing, Networking and
-  Communications (ICNC) 0\/} (2013), 1128--1133.
+  Communications (ICNC)}, 0:1128--1133, 2013.
 
 \end{thebibliography}
