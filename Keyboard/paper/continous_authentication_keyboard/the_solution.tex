@@ -2,10 +2,74 @@
 %   one clear, sharp idea
 \section{The Solution}
 \label{the_solution}
+
+%TODO integrate figures
+% describes how the Markov model will look after it has been constructed
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{final_marcov_model_state.pdf}
+\caption{
+Example 2-Markov model after the probabilities have been calculated.
+The rounded rectangles indicate 
+a sequence of touch interactions 
+which precede the following touch interaction with some probability $p$.
+$p$ for token $T$ after sequence $W$ is computed 
+as occurrences of $T$ after $W$
+by occurrences of $W$.
+% The top window states that 
+% Touch\_2 succeeds the sequence Touch\_0, Touch\_1 with probability $100$\%.
+}
+\label{fig:final_markov_model_state}
+\end{figure}
+
+% show the range over which tokens are created
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth, keepaspectratio]{token_creation.pdf}
+\caption{
+Tokens are only created for 
+pressure range $\mu \pm 2\sigma$ 
+for each key.
+Touches with pressure values
+$p>\mu + 2\sigma$ and $p<\mu - 2\sigma$
+are thrown out.
+This eliminates outliers creating
+increased reproducibility.
+}
+\label{fig:token_creation}
+\end{figure}
+
+% visually drive the process of token creation
+% this shows a model with k=3
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth, keepaspectratio]{phone_tokens.pdf}
+\caption{
+Multiple tokens, $k=3$ above, correspond to each key location.
+A touch screen interaction is assigned a token based on
+key location and pressure.
+}
+\label{fig:phone_tokens}
+\end{figure}
+
+\begin{figure}
+\centering
+\includegraphics[width=.45\textwidth]{marcov_model_building.pdf}
+\caption{
+The top of this figure depicts the raw touchscreen interaction sequence.
+Each touch represents a single interaction between the human user and the soft keyboard.
+The diagram's lower portion demonstrates how the raw input is parsed into a 2-Markov model.
+The bottom left image can be interpreted to say that Touch\_4 succeeds the sequence Touch\_2, Touch\_3 with some probability $p$.
+}
+\label{fig:markov_model_building}
+\end{figure}
+
 % explain the main idea
 The main idea of this paper is that user
+touch screen interactions may be used 
+to establish a user identity.
 %
-touch screen interactions may be used in order to
+This identity may be used in order to
 distinguish a legitimate user of a mobile device apart from
 illegitimate users.
 %
@@ -13,7 +77,8 @@ We implement a continuous authentication system
 based on user interactions with the soft keyboard of
 a mobile device.
 This system uses properties of the interactions including
-pressure and location.
+pressure and location
+to establish a user identity.
 
 % explain that the user of the soft keyboard generates necessary sequence of data
 A large part of a user's interactions with a mobile
@@ -101,12 +166,37 @@ in computing the probability of the next state.
 %Say now that we want to predict the probability the individual will be
 %in each state at time instance $9$.
 %
+
 This approach is grounded in
 maximal likelihood estimation(MLE).
 MLE is formulated as follows.
 %TODO include some math about maximal likelihood estimation
 Each probability depends on all previous states of the system
-according to :::%TODO insert formula (p | p_n-1 ...).
+according to 
+:::%TODO insert formula (p | p_n-1 ...).
+
+%TODO integrate this
+%describe how the model is constructed from the touch pressure sequence
+Our Markov $n$-gram model calculates the probability of a given token following a specific 
+token sequence of length $n$.
+Given a training sequence of tokens $T_0, T_1, \dots , T_N$,
+we use maximum likelihood estimation (MLE) as follows to build the model.
+For all in-fixes of
+length $n$: $T_i, T_{i+1}, \dots , T_{i+n-1}$,
+the following $n$-gram model is created:
+$P(T | T_{i..(i+n-1)}) =  count(T, T_i, T_{i+1}, \dots , T_{i+n-1})/\sum_{T \in \Sigma} count(
+T, T_i, T_{i+1}, \dots , \\T_{i+n-1}))$, where $T_{i..j}$ represents the
+token sequence \\
+$T_i, T_{i+\\1}, \dots, T_j$.
+Here, we are computing the probability of next token being $T$
+given that the token sequence \\
+$T_i, T_{i+1}, \dots , T_{i+n-1}$ has been seen.
+It is just the
+frequency of this event in the token sequence $T_0, T_1, \dots , T_N$. \\
+$count(T, T_i, T_{i+1}, \dots , T_{i+n-1})$ is given by the number of in-fixes with the same value as
+$T_i, T_{i+1}, \dots , T_{i+n-1}$ followed by the token $T$. This gives 
+$count(T, T_i, T_{i+1}, \dots , T_{i+n-1}) = \sum_{j=0}^{N-n}(1$ if $T_{j..(j+n-1)} == T_{i..(i+n-1)} \&\&
+T_{j+n} == T)$.
 
 % explain how the n-gram model differs from the full Markov model
 % explain the n in n gram
