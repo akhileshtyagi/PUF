@@ -64,6 +64,21 @@ The bottom left image can be interpreted to say that Touch\_4 succeeds the seque
 \label{fig:markov_model_building}
 \end{figure}
 
+% describes the difference computation in detail
+\begin{figure*}
+\centering
+\includegraphics[width=1.0\textwidth]{difference_computation.pdf}
+\caption{
+Description of the difference metric taken between
+$W^U$, the $n-gram$ Markov Model constructed from the authentic user touch screen interactions,
+and $W^O$, the $n-gram$ Markkov Model constructed 
+from a different set of touch screen interactions.
+%
+The goal is to determine how closely model $W^O$ is to model $W^U$.
+}
+\label{fig:difference_computation}
+\end{figure*}
+
 % explain the main idea
 The main idea of this paper is that user
 touch screen interactions may be used 
@@ -128,7 +143,7 @@ the way in which they touch the screen.
 Let's say we want to model the behavior
 of an individual in terms of where 
 they choose to spend their time.
-Say further that the goal in creating
+The goal in creating
 this model is to predict their $t+1^{st}$ location
 based on their current location.
 %
@@ -167,16 +182,8 @@ in computing the probability of the next state.
 %in each state at time instance $9$.
 %
 
-This approach is grounded in
-maximal likelihood estimation(MLE).
-MLE is formulated as follows.
-%TODO include some math about maximal likelihood estimation
-Each probability depends on all previous states of the system
-according to 
-:::%TODO insert formula (p | p_n-1 ...).
-
-%TODO integrate this
-%describe how the model is constructed from the touch pressure sequence
+% describe how the model is constructed from the touch pressure sequence
+%TODO perhaps move this later in the paper... it may make more sense somewhere else
 Our Markov $n$-gram model calculates the probability of a given token following a specific 
 token sequence of length $n$.
 Given a training sequence of tokens $T_0, T_1, \dots , T_N$,
@@ -255,7 +262,7 @@ Second the number of times a touch succeeds a window must be known.
 % describe the n-gram model we use
 % what does n mean in this context?
 % what are states in the model? why does this make sense?
-Our implementation utilizes an n-gram model.
+Our implementation utilizes an $n-gram$ model.
 Similar to the earlier example of predicting locations,
 our goal is to predict a user's behavior in
 interacting with a soft keyboard.
@@ -504,49 +511,55 @@ the computations completed to compute probabilities in our system.
 Suppose there are two lists of touch interactions which need to 
 be compared.
 List $U$ contains the authentic user's behavior while
-list $O$ contains other touches of unknown origin.
+list $O$ contains other touch interactions of unknown origin.
 The goal is to classify this list $O$ as 
-coming from the same user an device as $U$ or
+coming from the same user and device as $U$ or
 not coming from the same user and device as $U$.
 \begin{enumerate}
 \item Compute the distribution ($\mu$, $\sigma$) values for the 
   the list $U$
 \item Set the set the distribution of list $O$ equal to that 
   computed for $U$
-\item For both lists, compute a set $T$ of $k$ tokens in the range $[\mu-2\sigma, \mu+2\sigma]$
+\item For both lists, compute a set $T$ of $m$ tokens
+  \begin{itemize}
+  \item One token is created for each location $L$ 
+  \item $k$ tokens in the range $[\mu-2\sigma, \mu+2\sigma]$
+    are created for each location
+  \item $m = L * k$
+  \end{itemize}
 \item For both lists, compute a set $W$ of all windows
   \begin{itemize}
   \item for each element in $W$, determine the number of occurrences
-  \item for each element in $W$, determine the successor touches
+  \item for each element in $W$, determine the successor tokens
   \item let $W^U$ represent the windows in $U$ and
     $W^O$ represent the windows in $O$
   \end{itemize}
 \item Determine the probabilities associated with a token succeeding a window
-  as $P(T_i|W_j) = \frac{succeeds(T_i, W_j)}{occurrences(W_j)}$ where
+  as $P(T_q|W_j) = \frac{succeeds(T_q, W_j)}{occurrences(W_j)}$ where
   \begin{itemize}
-  \item $T_i$ represents a token $i$ from set $T$
-  \item $P(T_i|W)$ represents the probability 
-    of token $T_i$ given that $W_j$ precedes $T_i$
+  \item $T_q$ represents a token $q$ from set $T$
+  \item $P(T_q|W)$ represents the probability 
+    of token $T_q$ given that $W_j$ precedes $T_q$
   \item $occurrences(W_j)$ represents the number of occurrences of $W_j$ in $W$
-  \item $succeeds(T_i, W_j)$ computes the number of times $T_i$ succeeds $W_j$
+  \item $succeeds(T_q, W_j)$ computes the number of times $T_q$ succeeds $W_j$
   \end{itemize}
-\item For each $W^O$, compute the difference between the corresponding $W^U$.
-  \begin{itemize}
-  \item The difference between windows is defined as the average difference
-  between the successor touch probabilities
-  \end{itemize}
-\item The difference between the models is then
-  $\Sigma_i^n \frac{|W_i^U-W_i^O|}{||W^O||}$ where 
+\item Compute a weighted average of the difference between correspnding windows
+  in $W^O$ and $W^U$ expressed as $\Sigma_i^n \frac{|W_i^U-W_i^O| * B}{||W^O||}$ where
   \begin{itemize}
   \item $n$ is the number of windows
   \item $W_i^U$ is the window in $W^U$ which corresponds to
     and equivalent window $W_i^O$ in $W^O$
-  \item $-$ represents the window difference operation described above
-  \item $||W^O||$ is the number of windows in $O$
+  \item $B$ is the weight of $W^O$ given by $\frac{occurrences(W^O)}{||W^O||)}$
+    where $||W^O||$ represents the total number of elements in set $W^O$
+  \item $-$ represents the window difference operation
+    \begin{itemize}
+    \item The window difference operation is
+      a weighted average of the probability difference
+      between corresponding tokens for a given $W_i^O$
+    \item expressed as 
+    \end{itemize}
   \end{itemize}
 \end{enumerate}
-%TODO look over the above example to ensure correctness
-% (especially among $O$ and $W$)
 %
 There are several points from the above approach which require mention.
 %
@@ -577,27 +590,63 @@ penalized by considering the the difference between the windows to be $1.0$.
 %TODO
 
 % describe how this might be used in an android environment
+% word description
+% Such a system might be incorporated 
+% into the Android environment in the following way.
+% A background service could be used to collect MotionEvent objects
+% from soft keyboard applications.
+% This would allow touch interactions to be collected over time.
+% A model of these touch events could then
+% be constructed in the background.
+% Periodic authentications could compare new touch interactions 
+% against existing older touches which have come from the user.
+% %
+% The number of touches used in the authentication could be
+% adjusted over time.
+% This would allow for lower accuracy models to be
+% constructed with relatively few touches while
+% higher accuracies would be achievable as
+% the system collects more touch interaction data.
+% The effect would be a small amount of added
+% security initially which improves over time.
+% %
+% Many things could be done if the result of this authentication
+% find the user is illegitimate.
+% One approach might be to lock the phone,
+% forcing the user to re-authenticate with some other method.
+
+% describe how this might be used in an android environment
+% algorithmic description
 Such a system might be incorporated 
 into the Android environment in the following way.
-A background service could be used to collect MotionEvent objects
-from soft keyboard applications.
-This would allow touch interactions to be collected over time.
-A model of these touch events could then
-be constructed in the background.
-Periodic authentications could compare new touch interactions 
-against existing older touches which have come from the user.
+\begin{enumerate}
+\item A background service could be used to collect {\tt MotionEvent} objects
+  from soft keyboard applications
+  \begin{itemize}
+  \item touch interactions to be collected over time
+  \item a model of these user touch screen events
+    could then be constructed in the background
+  \end{itemize}
+\item Periodic authentication could compare new touch screen interactions
+  against the existing model
+  \begin{itemize}
+  \item a number of interactions would need to be collected
+    before authentications can begin,
+    discussed in Section \ref{the_details}
+  \item lower accuracy models can be construced with
+    relatively few interactions
+  \item the number of touch screen interactions used in the
+    authentication could be adjusted upward over time to
+    achieve higher accuracies
+  \end{itemize}
+\end{enumerate}
+The effect of such an implimentation
+is a small amount of added
+security initially which improves over time
+as more data is collected.
 %
-The number of touches used in the authentication could be
-adjusted over time.
-This would allow for lower accuracy models to be
-constructed with relatively few touches while
-higher accuracies would be achievable as
-the system collects more touch interaction data.
-The effect would be a small amount of added
-security initially which improves over time.
-%
-Many things could be done if the result of this authentication
-find the user is illegitimate.
+Many actions could be taken if the result of this authentication
+finds the user is illegitimate.
 One approach might be to lock the phone,
 forcing the user to re-authenticate with some other method.
 
