@@ -1,13 +1,32 @@
+#! /bin/Rscript
+
+# information about this document can be found:
+# http://stackoverflow.com/questions/11226627/jensen-shannon-divergence-in-r
+# http://enterotype.embl.de/enterotypes.html
+# http://journals.plos.org/plosone/article?id=10.1371/journal.pone.0061217
+
 #Uncomment next two lines if R packages are already installed
 #install.packages("cluster")
 #install.packages("clusterSim")
 library(cluster)
 library(clusterSim)
 
-#Download the example data and set the working directory
-#setwd('<path_to_working_directory>')
+# contains dudi.pca
+library(ade4)
+
+# set working directory to data directory
+setwd("./data")
+
+# read in the data
+# each file in the data directory is one data set
+temp = list.files(pattern="*.csv")
+myfiles = lapply(temp, read.delim)
+
 data=read.table("MetaHIT_SangerSamples.genus.txt", header=T, row.names=1, dec=".", sep="\t")
 data=data[-1,]
+
+# set working directory to ouputs directory
+setwd("../output")
 
 dist.JSD <- function(inMatrix, pseudocount=0.000001, ...) {
   KLD <- function(x,y) sum(x *log(x/y))
