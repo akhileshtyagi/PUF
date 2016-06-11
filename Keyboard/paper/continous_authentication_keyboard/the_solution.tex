@@ -361,7 +361,7 @@ Alternatively all possible pressure values reported
 by the device could be used.
 The former masks any potential pressure variation unique to a user while
 the later would capture the variation of a user at two fine a granularity.
-Neither scheme is are desirable as a whole, but both have desirable properties.
+Neither scheme is desirable as a whole, but both have desirable properties.
 %
 Using all possible pressure values captures
 as much uniqueness as possible.
@@ -369,7 +369,7 @@ This uniqueness would help to distinguish between users.
 However patters created using this scheme would 
 fail to be reproducible by the same user.
 Contrast this with grouping all pressure values together. 
-This scheme produces patters which are entirely reproducible, but
+This scheme produces patterns which are entirely reproducible, but
 fails to be able to distinguish between users.
 %
 The goal is to maximize the degree to which users
@@ -404,11 +404,12 @@ this variability is as follows.
 \item Divide the range $[\mu-2\sigma, \mu+2\sigma]$ into $k$ pressure ranges
 \end{enumerate}
 %
-$k$ is then the number tokens created for each location.
+$k$ is then the number of tokens created for each location.
 The total number of tokens is $k$ multiplied by the number of locations.
 % discuss why 2 sigma is chosen
-2 sigma is chosen because 95\% of the user's pressure values
-will fall within this range. %TODO \cite{}
+$2$ sigma is chosen because $95.45\%$ of the user's pressure values
+will fall within this range
+\cite{threesigmarule}.
 This will throw away some touch interactions
 which have very high or very low pressures
 relative to the user's average.
@@ -544,19 +545,19 @@ not coming from the same user and device as $U$.
   \item $succeeds(T_q, W_j)$ computes the number of times $T_q$ succeeds $W_j$
   \end{itemize}
 \item Compute a weighted average of the difference between correspnding windows
-  in $W^O$ and $W^U$ expressed as $\Sigma_i^n \frac{|W_i^U-W_i^O| * B}{||W^O||}$ where
+  in $W^O$ and $W^U$ expressed as $\Sigma_i^n |W_i^U-W_i^O| * B$ where
   \begin{itemize}
   \item $n$ is the number of windows
   \item $W_i^U$ is the window in $W^U$ which corresponds to
     and equivalent window $W_i^O$ in $W^O$
   \item $B$ is the weight of $W^O$ given by $\frac{occurrences(W^O)}{||W^O||)}$
     where $||W^O||$ represents the total number of elements in set $W^O$
-  \item $-$ represents the window difference operation
+  \item ($-$) represents the window difference operation
     \begin{itemize}
     \item The window difference operation is
       a weighted average of the probability difference
-      between corresponding tokens for a given $W_i^O$
-    \item expressed as 
+      between corresponding successor tokens for a given $W_i^O$
+    \item expressed as $\Sigma_q^m |P(T_q|W_i^U)-P(T_q|W_i^O)| * P(T_q|W_i^O)$
     \end{itemize}
   \end{itemize}
 \end{enumerate}

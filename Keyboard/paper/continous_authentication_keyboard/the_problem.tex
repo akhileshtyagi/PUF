@@ -6,12 +6,135 @@
 % 3: present the general case of problems
 \section{The Problem}
 \label{the_problem}
-% what are the issues
-%TODO
+% what are the issues ( restate from introduction )
+Current protection mechanisms do not adequately protect
+data contained on mobile devices.
+The current scheme provides a single line of defense,
+the lock screen.
+If this line of defense has been compromised
+by an attacker,
+all applications and data on the device become available.
+%
+This scheme might be considered successful 
+if the lock screen offered a high level of device security.
+Unfortunately, there are exploits for many common lock screen 
+authentication mechanisms 
+allowing an attacker to bypass the protection.
+%
+Common protection mechanisms include
+pin, password, pattern, finger print scanners, and facial recognition.
+%
+The first three can be overcome successfully with 
+shoulder-surfing \cite{schaub2012password} and smudge attacks \cite{aviv2010smudge}.
+Finger print scanners and facial recognition require a different approach
+where the relevant features of the legitimate user are spoofed
+in order to pass authentication.
+%
+A system is created in \cite{cao2016hacking} 
+to easily and quickly print finger prints
+capable of passing finger print scanner authentication.
+%
+Similarly \cite{de2013can} describes how
+facial recognition may be tricked using an image of the legitimate user.
 
 % why don't current solution solve these issues
-%TODO
+% each paragraph corresponds to one problem
+%TODO shoulder-surfing
+%TODO smudge attacks
+%TODO printable finger prints
+%TODO facial recognition spoofing
+
+% discuss the issues with lock screen in more detail
+%TODO integrate each of these problems
+%%%%%%%%%%%%%%%%%%%
+\cite{schaub2012password} discusses the vulnerability of
+various touch screen input methods to shoulder-surfing attacks
+while
+\cite{hafiz2008towards} measured the susceptibility of 
+users to shoulder surfing attacks observing
+attackers having a ($\textgreater20\%$) success rate
+on Android keyboards
+in the reproduction of a password after $3$ attempts.
+%
+Smudge attacks where,
+oily residues are used to detect common touch screen patters,
+also represent a significant security risk
+for secrets input via the touch screen.
+\cite{aviv2010smudge} explores the feasibility of
+such attacks finding in one experiment
+the lock screen pattern was partially identifiable $92\%$ of the time
+and full identifiable $68\%$ of the time.
+
+% use some other examples of lock screens
+These vulnerabilities have led to the development of 
+lock screens which 
+use a user biometric in an attempt to increase security.
+Facial recognition and finger print scanners have
+been employed as lock screen mechanisms.
+% finger print scanners and facial recognition
+These methods insufficient to protect the device from attack.
+%
+% talk about how finger print scanners and facial recognition may be exploited
+\cite{cao2016hacking} demonstrates a method 
+to exploit the finger print scanner on an android device
+using printed fingerprints.
+This method is simple and fast as long as a print of the
+authentic user's finger can be obtained.
+%
+Other works by Germany's Chaos Computer Club \cite{CHAOS}
+have show that it is possible to lift a finger print 
+belonging to the authentic user from the device touch screen
+and use it to pass the finger print scanner authentication on Apple's Iphone $4S$ and $5$. 
+%
+Attacks against facial recognition schemes involve
+spoofing the facial features of the authentic user
+in order to pass facial recognition authentication.
+\cite{de2013can}
+accesses the practically anti-spoofing measures in real word scenarios
+observing 
+low generalization of
+and possible database bias in existing schemes.
+
+In many situations,
+an attacker may not even need to pass the lock screen authentication.
+% mobile devices can change hands while the authentication state is still active
+Imagine a situation where the authentic user of a device preforms the authentication,
+unlocking the device.
+The device then falls into the hands of an attacker.
+This attacker can not only exploit the authenticated state of the device,
+but may use the authenticated state to disable the lock screen entirely;
+Thus allowing permanent access to all applications on the device.
+%
+% many people neglect to use a lock screen at all
+% demographic
+\cite{harbach2014sa} surveyed the lock screen behavior of $320$
+individuals ages $18 - 67$ with a median age of $31$.
+Of these individuals, $39.6\%$  rated themselves as having
+a very high level of IT expertise.
+% findings
+The results of this survey indicate $56.3\%$ of the participants
+did not use a lock screen at all.
+%%%%%%%%%%%%%%%%%%%%5
+
+%TODO look for other security solutions which establish a user
+%TODO identity while the device is in use
+
+% state the issue in general terms
+Having a single authentication mechanism which
+verifies the user identity once when the device
+state changes from inactive to active has
+proven to be an ineffective method for 
+delivering device security.
+%
+The need for a more comprehensive security solution more is evident.
+%
+We propose that a system which uses
+a biometric of user touch screen interaction to
+establish a user, device identity would 
+be more comprehensive compared to solutions 
+which are currently available.
 
 % how does our solution solve these issues
 % (assume the claims are correct, prove claims later)
+% make a case for why, how our system solves current issues
 %TODO
