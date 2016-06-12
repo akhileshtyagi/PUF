@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import computation.Confidence;
 import trie.TrieList;
 
 //TODO make the chain's compare_to method be able to update incrementally
@@ -255,15 +256,48 @@ public class Chain{
 	 * 0.0 is no confidence
 	 *
 	 * confidence is computed over data currently in the chain
+	 * (NOT ACTUALLY A VALUE BETWEEN 0.0 AND 1.0)
      */
 	public double get_confidence(){
-		// make sure everything which needs to be computed is
+		// invalidate all computations and re-compute
+		on_model_update();
 		compute_uncomputed();
 
 		// use the confidence healper class to preform the computation
 		return Confidence.compute_confidence(this);
 	}
 
+	/**
+	 * compute the confidence interval for the difference
+	 * between this chain and auth_chain.
+	 *
+	 * This will help to understand the variance in the difference
+	 * between the data sets
+     */
+	public double get_distance_confidence(Chain auth_chain){
+		// invalidate all computations and re-compute
+		// this
+		on_model_update();
+		compute_uncomputed();
+
+		// auth_chain ( this makes sure that both chains are using the same distribution ) => ( same windows and tokens )
+		//set the distribution of the auth_chain based on the base chain
+		auth_chain.set_distribution(this.get_distribution(), this.get_key_distribution());
+
+		//begin the auth chain computations
+		auth_chain.tokens_computed=false;
+		auth_chain.windows_computed=false;
+		auth_chain.probability_computed=false;
+
+		// compute uncomputed values of auth chain
+		auth_chain.compute_uncomputed();
+
+		// compute the distance vector for the two chains
+		DistanceVector distance_vector = new DistanceVector(this, auth_chain);
+
+		// next, ask Confidence to compute the confidence for this distance vector
+		return Confidence.compute_confidence(distance_vector);
+	}
 
 	///returns the percent difference between this chain and auth_chain.
 	///the value returned will be between 0 and 1
@@ -309,7 +343,6 @@ public class Chain{
 		List<Integer> unique_auth_windows = compute_unique_windows(auth_chain.get_tokens(), auth_chain.get_windows());
 
 		// decide to use window averaging or not
-		//TODO weighted and unweighted window averaging schemes produce the same value
 		if(WINDOW_AVERAGING == WindowAveraging.UNWEIGHTED) {
 			//for every window in auth_chain
 			double total_difference = 0;

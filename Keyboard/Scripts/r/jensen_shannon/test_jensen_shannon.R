@@ -19,6 +19,10 @@ library(clusterSim)
 # contains dudi.pca
 library(ade4)
 
+# this function returns a matrix of the JSD 
+# from each column vector passed in to
+# every other column vector passed in
+#
 # define Jensen shannon distribution function
 dist.JSD <- function(inMatrix, pseudocount=0.000001, ...) {
   KLD <- function(x,y) sum(x *log(x/y))

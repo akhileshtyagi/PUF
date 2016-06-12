@@ -1,5 +1,6 @@
-package components;
+package computation;
 
+import components.*;
 import trie.TrieList;
 
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.List;
  *      * hand computed some values from the output of print_model
  * [x] verify unweighted confidence is being computed correctly
  *      * if weighted is correct, then unweighted is correct. Tested by setting window weight = 1. got same value as unweighted
+ * [ ] create methods capable of computing confidence interval for a distance vector be
  */
 
 /**
@@ -21,6 +23,14 @@ public class Confidence {
     public enum Weight { WEIGHTED, UNWEIGHTED }
 
     final static Weight WEIGHT = Weight.WEIGHTED;
+
+    /**
+     * compute confidence 0.0 to 1.0 for the distance vector
+     */
+    public static double compute_confidence(DistanceVector distance_vector){
+        //TODO UIMPLEMENTED
+        return 0.0;
+    }
 
     /**
      * compute confidence 0.0 to 1.0 for the chain
@@ -56,6 +66,7 @@ public class Confidence {
             confidence = compute_unweighted_confidence(key_distribution_list);
         }
 
+        //TODO remove print computed confidence
         System.out.println("confidence: " + confidence);
 
         return confidence;
