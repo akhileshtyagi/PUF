@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  10 JUN 2016 19:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  13 JUN 2016 05:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -377,18 +377,13 @@ File: graphics/difference_computation.pdf Graphic file (type pdf)
 Package pdftex.def Info: graphics/difference_computation.pdf used on input line
  70.
 (pdftex.def)             Requested size: 504.0pt x 221.05197pt.
- [3 <./graphics/final_marcov_model_state.pdf> <./graphics/token_creation.pdf>]
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [4 <./graphics/phone_tokens.pdf
+ [3 <./graphics/final_marcov_model_state.pdf> <./graphics/token_creation.pdf>] 
+[4 <./graphics/phone_tokens.pdf
 
 pdfTeX warning: pdflatex (file ./graphics/phone_tokens.pdf): PDF inclusion: inv
 alid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 > <./graphics/marcov_model_building.pdf>]
-Overfull \hbox (1.10489pt too wide) in paragraph at lines 324--346
-\T1/aer/m/n/9 space to make the se-quences the user's gen-er-ate re-pro-ducible
-.
- []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -396,20 +391,21 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [5 <./graphics/difference_computation.pdf>]
 
 LaTeX Warning: Citation `threesigmarule' on page \thepage  undefined on input l
-ine 412.
+ine 466.
 
-[6]
-Overfull \hbox (3.08466pt too wide) in paragraph at lines 557--560
+
+Overfull \hbox (3.08466pt too wide) in paragraph at lines 616--619
 \T1/aer/m/n/9 cor-re-spond-ing suc-ces-sor to-kens for a given $\OML/cmm/m/it/9
  W[]$ 
  []
 
-LaTeX Font Info:    Try loading font information for T1+aett on input line 624.
+[6]
+LaTeX Font Info:    Try loading font information for T1+aett on input line 683.
 
-(/usr/share/texmf-dist/tex/latex/ae/t1aett.fd
+ (/usr/share/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
-Overfull \hbox (4.46242pt too wide) in paragraph at lines 631--633
+Overfull \hbox (4.46242pt too wide) in paragraph at lines 690--692
 []\T1/aer/m/n/9 Periodic au-then-ti-ca-tion could com-pare new touch screen
  []
 
@@ -485,10 +481,11 @@ File: graphics/nexus_7_runtimes.pdf Graphic file (type pdf)
 <use graphics/nexus_7_runtimes.pdf>
 Package pdftex.def Info: graphics/nexus_7_runtimes.pdf used on input line 118.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
-) (./related_work.tex [7] [8 <./graphics/Rplots.pdf> <./graphics/Rplots.pdf> <.
+) (./related_work.tex [7 <./graphics/Rplots.pdf>] [8 <./graphics/Rplots.pdf> <.
 /graphics/false_positive_vs_authentication_threshold.pdf> <./graphics/window_si
 ze_vs_authentication_accuracy.pdf> <./graphics/authentication_accuracy_vs_touch
-screen_interactions.pdf>]) (./conclusion.tex
+screen_interactions.pdf> <./graphics/authentication_accuracy_vs_total_interacti
+ons.pdf>]) (./conclusion.tex
 Overfull \hbox (10.5278pt too wide) in paragraph at lines 4--17
 \T1/aer/m/n/9 cur-rent so-lu-tions uti-lize one-time au-then-ti-ca-tion schemes
  These
@@ -500,35 +497,32 @@ Overfull \hbox (14.44414pt too wide) in paragraph at lines 4--10
 ar / 
  []
 
-[9 <./graphics/authentication_accuracy_vs_total_interactions.pdf> <./graphics/n
-exus_7_runtimes.pdf>]) [10
-
-] (./paper.aux) ) 
+) [9 <./graphics/nexus_7_runtimes.pdf>] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
  4358 strings out of 493054
  58475 string characters out of 6140586
- 230740 words of memory out of 5000000
+ 227740 words of memory out of 5000000
  7753 multiletter control sequences out of 15000+600000
  47803 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,10n,32p,515b,250s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texmf-dist/fonts/type1/p
-ublic/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
-cm/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></
-usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-
-dist/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1
-/public/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfont
-s/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
-</usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/tex
-mf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/
-urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
->
-Output written on paper.pdf (10 pages, 643320 bytes).
+ 43i,10n,32p,515b,311s stack positions out of 5000i,500n,10000p,200000b,80000s
+{/usr/share/texmf-dist/f
+onts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/c
+m/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pf
+b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts
+/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/a
+msfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.
+pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share
+/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dist/fonts/type1/public
+/amsfonts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.p
+fb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf
+-dist/fonts/type1/urw/times/utmb8a.pfb>
+Output written on paper.pdf (9 pages, 639252 bytes).
 PDF statistics:
- 171 PDF objects out of 1000 (max. 8388607)
- 115 compressed objects within 2 object streams
+ 168 PDF objects out of 1000 (max. 8388607)
+ 113 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

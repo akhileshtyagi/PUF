@@ -24,11 +24,17 @@ public class WindowDistance extends ArrayList<TokenDistance> {
     /**
      * the windowe weight is based on the window from the auth model
      */
-    public WindowDistance(Window user_window, Window auth_window, TrieList auth_window_list){
+    public WindowDistance(Window auth_window, Chain user_chain, Chain auth_chain){
         super();
 
-        this.user_window = user_window;
+        // determine the windows to be compared
+        // auth window
         this.auth_window = auth_window;
+
+        // user window
+        this.user_window = null;
+
+        // create the list of token distances
 
         // get the unique successor touches of a window
         List<Integer> unique_successor_list = Chain.compute_unique_successors(token_list, successor_list, window_list.get_index_list(window));

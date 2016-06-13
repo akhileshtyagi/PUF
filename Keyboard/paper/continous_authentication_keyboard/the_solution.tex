@@ -343,16 +343,14 @@ to accommodate the inconsistency of the user
 otherwise
 nothing can be said about a user's behavior.
 
-%TODO continue proofreading from here
-
 % describe how the space is divided up
 % how are tokens chosen
 % describe how we choose the range in which tokens are constructed over
-We require some way of grouping numbers of elements this space
-to make the sequences the user's generate reproducible.
+We require a way of grouping a number of elements in this space together
+to make the sequences the user generates reproducible.
 %
 Grouping here involves the selection of
-a range of values which will be considered the same.
+a range of values which will be considered equivilent.
 %
 For instance, 
 if there are apples of varying sizes
@@ -360,16 +358,35 @@ which need to be categorized as "small", "medium" or "large",
 then we need to choose a range of values 
 from some metric which could be used to describe all apples.
 Perhaps weight is chosen as this metric.
-The "small" grouping of apples might include
+Apples have far more than three possible weights.
+It needs to be determined which weights will be considered equivilent for
+purposes of categorization.
+%
+For instance, the "small" grouping of apples might include
 apples which are less than 1.0 pound.
+
+The goal in grouping elements is to
+increase reproducability of a particular pattern.
 %
 In choosing how to group elements
 care must be taken not to group too many 
-pressures and locations together;
-doing so would fail to capture characteristics
-of the sequence unique to a user.
-Thus multiple users would present with similar sequences
-making it difficult to distinguish among users.
+elements together.
+Variability within any given grouping 
+is masked.
+If 
+the uniqueness exhibited by 
+two different users lies entirely within
+a grouping
+then 
+it will be impossible to tell the users appart.
+%
+To overview our method of grouping data,
+pressure and location values taken together form a tuple
+which represents a state or token.
+These tuples are considered equivilent 
+if
+the location values fall within the same $(x,y)$ coordinate range and
+the pressure values fall within the same pressure range.
 
 In our implementation,
 we choose to use the key code produced by 
@@ -381,20 +398,27 @@ interactions which produce the same key code have equivalent user intent.
 %
 A different approach is used in determining
 what pressure values are to be grouped together.
+%
 The two extremes for grouping the pressure metric 
 are to consider all pressure values to be the same token on the one hand.
-In effect, this does not use pressure at all.
+In effect, this does not use pressure at all, 
+equivilent to using only location.
+%
 Alternatively all possible pressure values reported
 by the device could be used.
+%
 The former masks any potential pressure variation unique to a user while
-the later would capture the variation of a user at two fine a granularity.
-Neither scheme is desirable as a whole, but both have desirable properties.
+the later captures the variation of a user at two fine a granularity
+to be reproducable.
+Neither scheme is entirely desirable, 
+but both have desirable properties.
 %
 Using all possible pressure values captures
 as much uniqueness as possible.
 This uniqueness would help to distinguish between users.
-However patters created using this scheme would 
-fail to be reproducible by the same user.
+However patterns created using this scheme would 
+fail to be reproducible, even by the same user.
+%
 Contrast this with grouping all pressure values together. 
 This scheme produces patterns which are entirely reproducible, but
 fails to be able to distinguish between users.
@@ -407,7 +431,9 @@ reproducibility for the same user.
 In our implementation,
 groupings for pressure values are selected based on the user's behavior.
 Pressure ranges are chosen around values which the user frequents.
-The goal of choosing tokens in this way is to capture
+The goal of choosing 
+the pressure component of the
+tokens in this way is to capture
 as much variation as possible.
 %
 Consider an alternative scheme where ranges are
@@ -417,6 +443,7 @@ pressure when preforming all actions.
 Under uniform ranges this type of behavior might 
 capture no variation; there is the potential
 for all pressure values to fall within one range.
+%
 This is not desirable as 
 only the magnitude of the pressure is captured.
 All of the potential variability contained
@@ -437,9 +464,13 @@ The total number of tokens is $k$ multiplied by the number of locations.
 $2$ sigma is chosen because $95.45\%$ of the user's pressure values
 will fall within this range
 \cite{threesigmarule}.
+%
+%TODO insert discussion about normality of the data
+%
 This will throw away some touch interactions
 which have very high or very low pressures
 relative to the user's average.
+%
 The benefit in doing this is
 that the pressure are then constructed around
 area where the user's variability is more likely to be expressed. %TODO \cite{}
@@ -451,7 +482,7 @@ a sequence of length $n$ touch events.
 These sequences may overlap.
 To illustrate this suppose $n = 2$ and the user has input "apple".
 Each character has an associated pressure value,
-but suppose the number of tokens per location is 1.
+but suppose the number of tokens per location is $1$.
 The effect of this will be that all equivalent characters,
 such as two "p" characters, 
 will be considered to be the same token within the model.
@@ -460,73 +491,74 @@ The windows for this sequence of characters will be
 %
 %TODO
 
+%TODO revise room example
 % explain how this model is used to compute probabilities (in general)
-Let us return to the situation where
-a Markov model was used to predict the $t+1^{st}$ location
-of an individual.
-Now suppose that these probabilities have been developed for
-two people, $A$ and $B$, who's behavior patterns we would like to
-compare.
-Our goal is to quantify the difference between
-the location patterns of these individuals.
-% describe how to compare these location patterns 
-% (develop the probabilities and mathematically find the difference) 
-Suppose that in both cases there are three rooms,
-living room, kitchen, and bathroom, and
-that the locations of $A$ and $B$ are measured at 4 time instants.
-%
-$A$ is in the living room during the first time instant.
-In subsequent time instants,
-$A$ is in the kitchen then living room then bathroom.
-The result of these movements is 
-the probabilities $0\%$, $50\%$, $50\%$.
-These probabilities describe $A$'s how likely
-$A$ is to be in the
-living room, kitchen, and bathroom at the next time instant, $t+1$,
-if $A$ is currently in the living room.
-%
-$B$, on the other hand,
-at the measured time points is located in
-the living room then living room then kitchen then bathroom.
-In this case the
-result is probabilities $50\%$, $50\%$, $0\%$ 
-that $B$ will be in the
-living room, kitchen, and bathroom at the next time instant
-if $B$ is currently in the living room.
-%
-%TODO phrase this in terms of MLE
-%Note the probabilities were computed by ...
+% Let us return to the situation where
+% a Markov model was used to predict the $t+1^{st}$ location
+% of an individual.
+% Now suppose that these probabilities have been developed for
+% two people, $A$ and $B$, who's behavior patterns we would like to
+% compare.
+% Our goal is to quantify the difference between
+% the location patterns of these individuals.
+% % describe how to compare these location patterns 
+% % (develop the probabilities and mathematically find the difference) 
+% Suppose that in both cases there are three rooms,
+% living room, kitchen, and bathroom, and
+% that the locations of $A$ and $B$ are measured at 4 time instants.
+% %
+% $A$ is in the living room during the first time instant.
+% In subsequent time instants,
+% $A$ is in the kitchen then living room then bathroom.
+% The result of these movements is 
+% the probabilities $0\%$, $50\%$, $50\%$.
+% These probabilities describe $A$'s how likely
+% $A$ is to be in the
+% living room, kitchen, and bathroom at the next time instant, $t+1$,
+% if $A$ is currently in the living room.
+% %
+% $B$, on the other hand,
+% at the measured time points is located in
+% the living room then living room then kitchen then bathroom.
+% In this case the
+% result is probabilities $50\%$, $50\%$, $0\%$ 
+% that $B$ will be in the
+% living room, kitchen, and bathroom at the next time instant
+% if $B$ is currently in the living room.
+% %
+% %TODO phrase this in terms of MLE
+% %Note the probabilities were computed by ...
 
-% describe how to compare the location behavior of a and b
-% describe how the probabilities are computed in the above example
-% the goal of this paragraph is to give intuition about how to compare windows
-Now suppose the goal is to compare the 
-movement of $A$ and $B$ from the living room.
-The end result should be some number which represents
-the difference in probabilities between $A$ and $B$.
-%
-Our approach consists of computing
-the average absolute difference between the probabilities.
-%
-In the scenario described above
-the average difference between $A$ and $B$ 
-is computed by
-$\frac{|0\%-50\%| + |50\%-50\%| + |50\%-0\%|}{3}$.
-The resulting value, $0.33$, is a floating point value
-between $0.0$ and $1.0$ which represents
-the closeness of the two vectors.
-$0$ indicates maximal closeness while
-$1$ describes two vectors which are a different as possible.
-%
-%TODO justify why the comparison is done this way
-%TODO
+% % describe how to compare the location behavior of a and b
+% % describe how the probabilities are computed in the above example
+% % the goal of this paragraph is to give intuition about how to compare windows
+% Now suppose the goal is to compare the 
+% movement of $A$ and $B$ from the living room.
+% The end result should be some number which represents
+% the difference in probabilities between $A$ and $B$.
+% %
+% Our approach consists of computing
+% the average absolute difference between the probabilities.
+% %
+% In the scenario described above
+% the average difference between $A$ and $B$ 
+% is computed by
+% $\frac{|0\%-50\%| + |50\%-50\%| + |50\%-0\%|}{3}$.
+% The resulting value, $0.33$, is a floating point value
+% between $0.0$ and $1.0$ which represents
+% the closeness of the two vectors.
+% $0$ indicates maximal closeness while
+% $1$ describes two vectors which are a different as possible.
+% %
+% %TODO justify why the comparison is done this way
+% %TODO
 
-% describe the specifics of the probability computation in our implementation
-% the difference is in our model we have:: 
-% for multiple windows :: for multiple touches within a window :: find difference
-In our implementation
-the difference between two models is computed with a
-method analogous to the comparison of movement between $A$ an $B$.
+% % describe the specifics of the probability computation in our implementation
+% % the difference is in our model we have:: 
+% % for multiple windows :: for multiple touches within a window :: find difference
+% In our implementation
+% the difference between two models is computed with a
+% method analogous to the comparison of movement between $A$ an $B$.
 %
 Comparing models of user input 
 is further complicated by the existence of
@@ -680,8 +712,8 @@ forcing the user to re-authenticate with some other method.
 
 % finally, relate this model back to the claims
 % describe how this is the solution
-The following section provides evidence this scheme
-works.
+The following section provides evidence 
+this scheme works.
 Support that this scheme is capable of using
 touch screen interactions to distinguish from
 among unique pairs of users and devices is provided.

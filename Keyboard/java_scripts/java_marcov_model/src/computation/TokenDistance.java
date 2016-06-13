@@ -26,16 +26,14 @@ public class TokenDistance {
      * returns the weighted difference between the tokens
      */
     public double get_weighted_distance() {
-        //TODO
-        return 0.0;
+        return this.distance * this.weight;
     }
 
     /**
      * returns the unweighted difference between the tokens
      */
     public double get_unweighted_distance() {
-        //TODO
-        return 0.0;
+        return this.distance;
     }
 
     /**

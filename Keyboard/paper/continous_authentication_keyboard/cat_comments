@@ -1,0 +1,18 @@
+#! /bin/ruby
+
+# this script prints all comments and whitespace in latex document
+# the goal is to be able to understand the flow of the document
+puts "printing all comments and white space in file"
+puts ""
+
+# for each line of the file,
+File.open(ARGV[0]).each do |line|
+  # if the line begins with '\n' or %, print the line
+  new_line = (line[0] == '\n')
+  comment = (line[0] == '%')
+
+  if new_line || comment
+    # print the line
+    puts "#{line}"
+  end
+end
