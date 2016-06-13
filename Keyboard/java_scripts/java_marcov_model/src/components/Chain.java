@@ -7,6 +7,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import computation.Confidence;
+import computation.DistanceVector;
 import trie.TrieList;
 
 //TODO make the chain's compare_to method be able to update incrementally

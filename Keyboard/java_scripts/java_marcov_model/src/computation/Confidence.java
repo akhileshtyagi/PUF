@@ -14,6 +14,7 @@ import java.util.List;
  * [x] verify unweighted confidence is being computed correctly
  *      * if weighted is correct, then unweighted is correct. Tested by setting window weight = 1. got same value as unweighted
  * [ ] create methods capable of computing confidence interval for a distance vector be
+ * [ ] I don't think it actually makes sense to be using the keycode distribution, think more about this
  */
 
 /**
@@ -26,9 +27,15 @@ public class Confidence {
 
     /**
      * compute confidence 0.0 to 1.0 for the distance vector
+     *
+     * the goal of this method is to compute a confidence interval
+     * for the accuracy of authentication.
+     *
+     * The DistanceVector provides methods to:
+     *
      */
     public static double compute_confidence(DistanceVector distance_vector){
-        //TODO UIMPLEMENTED
+        //TODO
         return 0.0;
     }
 
