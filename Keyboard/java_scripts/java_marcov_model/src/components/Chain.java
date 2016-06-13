@@ -594,7 +594,7 @@ public class Chain{
 
 		//TODO this should not be greater than 1 but is greater than 1
 		//TODO only shows up under WEIGHTED condition
-		if(difference > 1){ System.out.println("true"); }
+		if(difference > 1){ System.out.println("Should not be here: Chain, window_difference()"); }
 
 		return difference;
 	}

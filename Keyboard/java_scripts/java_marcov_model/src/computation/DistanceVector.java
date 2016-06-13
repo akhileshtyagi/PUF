@@ -11,9 +11,16 @@ import java.util.List;
 
 /**
  * TODO list
- * [ ] finish implementing WindowDistance, TokenDistance
+ * [x] finish implementing WindowDistance
+ * [ ] finish implementing  TokenDistance
  * [ ] implement methods which will be needed by Confidence in order to compute Distance confidence
  * [ ] go though WindowDistance, TokenDistance and give them only the arguments they actually need in the constructor
+ * [ ] make sure WindowDistance has correct weighted and unweighted distance computations
+ * [ ] Test all functionality of distance vector
+ *      [ ] WindowDistance weighted correct
+ *      [ ] WindowDistance unweighted correct
+ *      [ ] TokenDistance weighted correct
+ *      [ ] TokenDistance unweighted correct
  */
 
 /**
@@ -24,6 +31,9 @@ import java.util.List;
  * between that window, and
  * the corresponding window in the auth chain
  * it was constructed with
+ *
+ * NOTE:
+ * This class and the class, and the classes utilized by it are not efficient
  */
 public class DistanceVector extends ArrayList<WindowDistance> {
     /**
