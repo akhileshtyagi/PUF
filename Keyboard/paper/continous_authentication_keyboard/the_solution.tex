@@ -125,7 +125,7 @@ If either the user or device is changed,
 the model will be sufficiently different
 that it is detectable.
 The input sequence will be used to characterize the user-device pair.
-%TODO cite properties of device silicon
+%
 This uniqueness is possible because
 the pressure metric is a product of 
 unique properties in
@@ -134,53 +134,55 @@ the finger of the human user.
 %
 Pressure is processed though the capacitive touch and sensor circuitry.
 The silicon's unique properties
-are a product of the fabrication process %TODO \cite{}
+are a product of the fabrication process % TODO cite properties of device silicon ?
 reflected when pressure is measured.
 The uniqueness of the human user is derived from
 the way in which they touch the screen.
 
-% motivate the choice of a Markov model though example
-Let's say we want to model the behavior
-of an individual in terms of where 
-they choose to spend their time.
-The goal in creating
-this model is to predict their $t+1^{st}$ location
-based on their current location.
-%
-The outcome of using a Markov model to describe a system
-is a vector $\hat{P}$ of probabilities for each possible state.
-For the individual in our behavior model,
-$\hat{P}_i$ corresponds to the probability that the $i_{th}$ location
-will be the location of the person at time $t+1$ if the current time is $t$.
-%
-Such a probability outcome for our individual might be
-that if at time $t$ the person is in the living room,
-then at time $t+1$ there might be 
-a $70\%$ probability they are still in the living room,
-a $20\%$ probability they are in the kitchen, and
-a $10\%$ probability they are in the bathroom.
-%
-Such a model might be useful in understanding 
-the behavior patterns of one person, or
-comparing behavior patterns among persons.
+%TODO room example
+% % motivate the choice of a Markov model though example
+% Let's say we want to model the behavior
+% of an individual in terms of where 
+% they choose to spend their time.
+% The goal in creating
+% this model is to predict their $t+1^{st}$ location
+% based on their current location.
+% %
+% The outcome of using a Markov model to describe a system
+% is a vector $\hat{P}$ of probabilities for each possible state.
+% For the individual in our behavior model,
+% $\hat{P}_i$ corresponds to the probability that the $i_{th}$ location
+% will be the location of the person at time $t+1$ if the current time is $t$.
+% %
+% Such a probability outcome for our individual might be
+% that if at time $t$ the person is in the living room,
+% then at time $t+1$ there might be 
+% a $70\%$ probability they are still in the living room,
+% a $20\%$ probability they are in the kitchen, and
+% a $10\%$ probability they are in the bathroom.
+% %
+% Such a model might be useful in understanding 
+% the behavior patterns of one person, or
+% comparing behavior patterns among persons.
 
-% explain what a full Markov model is
-% be sure to explain tokens, window, model building process, what outcome probabilities mean
-% say that the state at t+1 is predicted by all states 0-t
-Continuing the example of predicting
-the next location of a person,
-we stated the outcome of the model as a vector
-giving probabilities for each state.
-The full Markov model uses the sequence of all previous states
-in computing the probability of the next state.
-%In predicting the location of a person say 
-%
-%at time $8$ the person has located themselves in three rooms.
-%Suppose this sequence of rooms is
-%[kitchen, kitchen, living room, bathroom, living room, kitchen, kitchen, living room].
-%Say now that we want to predict the probability the individual will be
-%in each state at time instance $9$.
-%
+%TODO room example
+% % explain what a full Markov model is
+% % be sure to explain tokens, window, model building process, what outcome probabilities mean
+% % say that the state at t+1 is predicted by all states 0-t
+% Continuing the example of predicting
+% the next location of a person,
+% we stated the outcome of the model as a vector
+% giving probabilities for each state.
+% The full Markov model uses the sequence of all previous states
+% in computing the probability of the next state.
+% %In predicting the location of a person say 
+% %
+% %at time $8$ the person has located themselves in three rooms.
+% %Suppose this sequence of rooms is
+% %[kitchen, kitchen, living room, bathroom, living room, kitchen, kitchen, living room].
+% %Say now that we want to predict the probability the individual will be
+% %in each state at time instance $9$.
+% %
 
 % describe how the model is constructed from the touch pressure sequence
 %TODO perhaps move this later in the paper... it may make more sense somewhere else
@@ -219,15 +221,16 @@ next state probability.
 This $n$ is referred to as the window size
 while the $n$ states are
 referred to as a window.
-The window precedes a single state.
+Each window precedes a single state.
 %
-The location of the person in the
-previous example might be predicted by
-the previous three rooms they located
-themselves within.
-In other words,
-location $t+1$ might be predicted
-states $t-2$, $t-1$, and $t$
+%TODO room example
+% The location of the person in the
+% previous example might be predicted by
+% the previous three rooms they located
+% themselves within.
+% In other words,
+% location $t+1$ might be predicted
+% states $t-2$, $t-1$, and $t$
 %
 This approach develops a close approximation
 to the full Markov model while
@@ -262,14 +265,15 @@ Second the number of times a touch succeeds a window must be known.
 % describe the n-gram model we use
 % what does n mean in this context?
 % what are states in the model? why does this make sense?
-Our implementation utilizes an $n-gram$ model.
-Similar to the earlier example of predicting locations,
-our goal is to predict a user's behavior in
-interacting with a soft keyboard.
-Locations are analogous to keys, but
-an interaction with a key on the soft keyboard is 
-more complex than 
-existing in a room.
+%TODO room example
+% Our implementation utilizes an $n-gram$ model.
+% Similar to the earlier example of predicting locations,
+% our goal is to predict a user's behavior in
+% interacting with a soft keyboard.
+% Locations are analogous to keys, but
+% an interaction with a key on the soft keyboard is 
+% more complex than 
+% existing in a room.
 %
 Existence, in this case, is a binary decision.
 A person is either in a room or not in a room.
@@ -296,7 +300,7 @@ The first two illustrate a same key, different pressure scenario
 while the first and last describe
 a situation with different key, same pressure.
 In both cases our model takes these to be 
-different states.
+different tokens.
 
 % what are tokens in our model?
 Our $n$-gram Markov model uses tokens
@@ -304,19 +308,42 @@ which are a tuple of location and pressure
 generated through user touch screen interactions. 
 There are a very large number of possible
 location, pressure combinations.
+%
 Since it is unlikely that the user will be
-very precise in location or pressure,
-having such a large number of tokens
+very precise in location or pressure
+when pressing a key.
+In other words,
+each key press, 
+even from the same user on the same device,
+will not be exactly the same.
+%
+If our implementation were to take all tokens to be different when
+location and pressure are not exactly the same,
+then there would be a very large number of tokens in the model.
+%
+Having a large number of tokens
 creates a situation where each sequence of 
-touch interactions will be different
-for the same user on the same device;
+touch interactions will be different,
+even for the same user on the same device;
 this is not desirable.
-In fact, if the entire space were used 
+%
+Further, if the entire space were used 
 the variations in location and pressure,
 even when generated by a single user,
-would result in a very large number of tokens
-each having low probabilities of succeeding any
-$n$ token sequence.
+would result in many $n$ token sequences
+where are never produced more than once.
+%
+This would say nothing about
+the user's affinity for producing certain token sequences.
+The user's tendency to produce recurring patterns
+is being used to classify the user's behavior.
+%
+Therefore it is necessary to divide the available token space
+to accommodate the inconsistency of the user
+otherwise
+nothing can be said about a user's behavior.
+
+%TODO continue proofreading from here
 
 % describe how the space is divided up
 % how are tokens chosen
