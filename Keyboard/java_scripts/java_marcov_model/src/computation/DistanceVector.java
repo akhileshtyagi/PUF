@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * TODO list
  * [x] finish implementing WindowDistance
- * [ ] finish implementing  TokenDistance
+ * [x] finish implementing  TokenDistance
  * [ ] implement methods which will be needed by Confidence in order to compute Distance confidence
  * [ ] go though WindowDistance, TokenDistance and give them only the arguments they actually need in the constructor
  * [ ] make sure WindowDistance has correct weighted and unweighted distance computations

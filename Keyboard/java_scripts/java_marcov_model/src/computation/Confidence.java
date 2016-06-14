@@ -13,7 +13,7 @@ import java.util.List;
  *      * hand computed some values from the output of print_model
  * [x] verify unweighted confidence is being computed correctly
  *      * if weighted is correct, then unweighted is correct. Tested by setting window weight = 1. got same value as unweighted
- * [ ] create methods capable of computing confidence interval for a distance vector be
+ * [ ] create methods capable of computing confidence interval for a distance vector
  * [ ] I don't think it actually makes sense to be using the keycode distribution, think more about this
  */
 

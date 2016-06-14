@@ -53,12 +53,12 @@ public class WindowDistance extends ArrayList<TokenDistance> {
         List<Touch> successor_list = null;
 
         // get the unique successor touches of a window
-        List<Integer> unique_successor_list = Chain.compute_unique_successors(token_list, successor_list, window_list.get_index_list(this.auth_window));
+        List<Integer> unique_successor_list_auth = Chain.compute_unique_successors(token_list, successor_list, window_list.get_index_list(this.auth_window));
 
         // for each unique successor
-        for (Integer i : unique_successor_list) {
+        for (Integer i : unique_successor_list_auth) {
             // add the TokenDistance object to this
-            this.add(new TokenDistance(successor_list.get(i), auth_chain.get_successors(), i, auth_chain.get_tokens(), this.auth_window));
+            this.add(new TokenDistance(successor_list.get(i), user_chain.get_successors(), auth_chain.get_successors(), i, auth_chain.get_tokens(), this.auth_window, (TrieList)user_chain.get_windows()));
         }
     }
 
