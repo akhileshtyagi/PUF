@@ -2,6 +2,52 @@
 % phrase the things which were added in terms of BENEFITS and DRAWBACKS
 \section{Related Work}
 \label{related_work}
+% from conference version of paper
+%%%
+% compare our work to other biometric work
+There is significant amount of work on PUFs \cite{Devadas:2009:PUF}, \cite{PUFIntro}, \cite{Gassend:2002:SPR}
+Ratha et al. \cite{Ratha:2001} proposed use of sensor biometrics for authentication.
+%
+In the continuous authentication world, a composite sensor vector \cite{zhu2013sensec} has been used to establish a user identity. 
+This system, Sensec, builds the composite sensor
+utilizing data from accelerometers, gyroscopes and magnetometers.
+%
+Other user biometrics such as inter key stroke timing 
+\cite{KeystrokeHASE14},  accelerometer based signature \cite{Liu:2009:UAP}, MEMS sensors
+\cite{Aysu:2013:DFL}, Gait sensors \cite{Gait}, gestures \cite{touchscreengestures}, \cite{Gesture14}, and 
+broader sensor set \cite{Dey:2013:AHP} have also been
+used. 
+SenGuard \cite{shi2011senguard} is a similar to SenSec in creating a passive
+authentication mechanism using sensor based models. In this paper, the continuous authentication is based on a combined user-device identity,
+which is derived from a user-device (UD)-PUF \cite{ScheelTyagi15}.
+%
+\cite{ruhrmair2015virtual} presents the idea of
+"virtual proofs of reality" 
+also referred to as "virtual proofs" (VP).
+The aim of this work on VPs is
+to prove physical statements over digital communication channels.
+%
+Our work can be seen as
+a VP of the user's presence at the touchscreen.
+
+% citation mentioned in HOST review
+Other works \cite{rosenfeld2010sensor} have proposed 
+entangling physical measurements with sensor data
+to produce PUFs.
+%
+The goal of \cite{rosenfeld2010sensor} is to 
+extend the functionality of conventional PUFs
+to provide authentication, unclonability, and verification of sensed values.
+\cite{rosenfeld2010sensor} proposes the integration of PUFs into sensors
+at the level of hardware.
+These hardware PUF sensors use sensed values as part of the challenge,
+generating a different response depending on the physical measurement.
+%
+The work in this paper uses software to exhibit
+the capacity of standard touchscreen sensors to provide PUF functionality.
+%%%
+% end from conference version
+
 % mention ryan scheel's work on gestures authentication
 In \cite{ScheelTyagi15}
 a physical unclonable function (PUF) composed of
@@ -37,24 +83,44 @@ we use discrete touchscreen events, key presses, while
 
 % need to describe the Mellon Sensec paper
 More good work done in the area of
-PUF's on mobile devices includes \cite{sensec13}.
+PUF's on mobile devices includes Sensec \cite{sensec13}.
 %
 This work utilizes the silicon manufacture variability 
 found in many different sensors
-combining them to create a model of the user.
-Again, the variability for this system also
-utilizes human biometrics.
+combining them to create a user identity.
+Again, the variability for this system  is also
+derived from human biometrics.
 %
-\cite{sensec13} uses data from
+Sensec uses data from
 the accelerometers, gyroscopes, and magnetometers
 to develop their model.
-By comparison,
-our system shows this may be done for touch screen interactions.
+In this work,
+raw data is converted into a textual representation.
+An $n-gram$ Markov model is 
+then trained with this textual representation.
+%
+Our system also utilizes a similar $n-gram$ Markov model, but
+our model allows us to say significantly different
+things about the user
+because it is tailored toward aspects of 
+a single physical event, user touch screen interactions.
+%
+With our model,
+it is straightforward to make statements about the user behavior.
+We can say the user has some $\%$ likelihood of pressing a key
+with a certain pressure given the previous few touch screen interactions.
+%
+No such deduction can be made in an obvious way from the Sensec model.
+%
+%Because our model is tied physically
+%
+Sensec requires information from an array of sensors
+while
+our system shows pressure from touch screen interactions is
+a sufficient user biometric to classify users with high accuracy.
 %
 %TODO describe how the modeling idea (MLE) came from sensec
 %TODO
 %
 %TODO describe our advantage over sensec
 %Our advantage over this work is....
-
-%TODO look for other work characterizing user using touchscreen interactions

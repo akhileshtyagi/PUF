@@ -1,10 +1,7 @@
 package computation;
 
 import components.Chain;
-import components.Token;
-import components.Touch;
 import components.Window;
-import trie.TrieList;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,8 +35,13 @@ import java.util.List;
  * This class and the class, and the classes utilized by it are not efficient
  */
 public class DistanceVector extends ArrayList<WindowDistance> {
+    private double distance_windows_weighted;
+    private double distance_windows_unweighted;
+
     /**
      * create an element in this array for every unique window
+     *
+     * THIS ASSUMES THAT ALL VALUES FROM THE CHAINS HAVE BEEN COMPUTED
      */
     public DistanceVector(Chain user_chain, Chain auth_chain) {
         super();
@@ -53,5 +55,67 @@ public class DistanceVector extends ArrayList<WindowDistance> {
             // add a window difference to this
             this.add(new WindowDistance(auth_window_list.get(i), user_chain, auth_chain));
         }
+
+        // determine the overall distance between the chains
+        // compute aggregate values for distance and weight
+        // compute unweighted distance
+        this.distance_windows_weighted = distance_tokens_weighted();
+        this.distance_windows_unweighted = distance_tokens_unweighted();
+    }
+
+    /**
+     * returns the weighted difference between the windows
+     */
+    public double get_weighted_distance() {
+        return this.distance_windows_weighted;
+    }
+
+    /**
+     * returns the unweighted difference between the windows
+     */
+    public double get_unweighted_distance() {
+        return this.distance_windows_unweighted;
+    }
+
+    /**
+     * compute the difference between window_0 and window_1 given
+     * window_0 from base model
+     * window_1 from auth model
+     *
+     * this function acts based on items stored in "this"
+     */
+    private double distance_tokens_weighted() {
+        double distance = 0.0;
+
+        // for token which succeeds this window
+        for(WindowDistance window_distance : this){
+            // true => also weighting tokens
+            distance += window_distance.get_weighted_distance(true);
+        }
+
+        // divide by the size of the list to get an average
+        return distance / this.size();
+    }
+
+    /**
+     * compute the difference between window_0 and window_1 given
+     * window_0 from base model
+     * window_1 from auth model
+     *
+     * this function acts based on items stored in "this"
+     *
+     * get the unweighted version of tokens
+     */
+    private double distance_tokens_unweighted() {
+        double distance = 0.0;
+
+        // for token which succeeds this window
+        for(WindowDistance window_distance : this){
+            // true => also weighting tokens
+            distance += window_distance.get_unweighted_distance(true);
+        }
+
+        // divide by the size of the list to get an average
+        return distance / this.size();
     }
 }

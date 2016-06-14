@@ -30,8 +30,8 @@
       <file leaf-file-name="Chain.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="270">
-              <caret line="69" column="69" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="69" />
+            <state relative-caret-position="-270">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -40,10 +40,14 @@
       <file leaf-file-name="DistanceVector.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/computation/DistanceVector.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="532">
-              <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
+            <state relative-caret-position="406">
+              <caret line="114" column="29" selection-start-line="114" selection-start-column="29" selection-end-line="114" selection-end-column="29" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#2526#2527#0" expanded="true" />
+                <element signature="e#2579#2580#0" expanded="true" />
+                <element signature="e#2703#2704#0" expanded="true" />
+                <element signature="e#2758#2759#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -52,14 +56,12 @@
       <file leaf-file-name="TokenDistance.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/computation/TokenDistance.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="20" column="195" selection-start-line="20" selection-start-column="195" selection-end-line="20" selection-end-column="195" />
+            <state relative-caret-position="450">
+              <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#1079#1080#0" expanded="true" />
                 <element signature="e#1129#1130#0" expanded="true" />
-                <element signature="e#1252#1253#0" expanded="true" />
-                <element signature="e#1288#1289#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -68,8 +70,8 @@
       <file leaf-file-name="WindowDistance.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/computation/WindowDistance.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
+            <state relative-caret-position="446">
+              <caret line="128" column="65" selection-start-line="128" selection-start-column="65" selection-end-line="128" selection-end-column="65" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -90,8 +92,8 @@
       <file leaf-file-name="TestDistanceVectorConfidence.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/test/TestDistanceVectorConfidence.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="766">
-              <caret line="107" column="22" selection-start-line="107" selection-start-column="22" selection-end-line="107" selection-end-column="22" />
+            <state relative-caret-position="324">
+              <caret line="199" column="62" selection-start-line="199" selection-start-column="62" selection-end-line="199" selection-end-column="62" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -173,10 +175,10 @@
         <option value="$PROJECT_DIR$/src/components/Confidence.java" />
         <option value="$PROJECT_DIR$/src/components/DistanceVector.java" />
         <option value="$PROJECT_DIR$/src/components/Chain.java" />
-        <option value="$PROJECT_DIR$/src/computation/TokenDistance.java" />
-        <option value="$PROJECT_DIR$/src/computation/WindowDistance.java" />
         <option value="$PROJECT_DIR$/src/computation/Confidence.java" />
+        <option value="$PROJECT_DIR$/src/computation/WindowDistance.java" />
         <option value="$PROJECT_DIR$/src/computation/DistanceVector.java" />
+        <option value="$PROJECT_DIR$/src/computation/TokenDistance.java" />
         <option value="$PROJECT_DIR$/src/test/TestDistanceVectorConfidence.java" />
       </list>
     </option>
@@ -1124,30 +1126,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/computation/TokenDistance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="195" selection-start-line="20" selection-start-column="195" selection-end-line="20" selection-end-column="195" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#1079#1080#0" expanded="true" />
-            <element signature="e#1129#1130#0" expanded="true" />
-            <element signature="e#1252#1253#0" expanded="true" />
-            <element signature="e#1288#1289#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/computation/WindowDistance.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="60" column="12" selection-start-line="60" selection-start-column="12" selection-end-line="60" selection-end-column="12" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Distribution.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="18">
@@ -1172,28 +1150,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/computation/DistanceVector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="532">
-          <caret line="57" column="0" selection-start-line="57" selection-start-column="0" selection-end-line="57" selection-end-column="0" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Utilities.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="270">
-          <caret line="69" column="69" selection-start-line="69" selection-start-column="17" selection-end-line="69" selection-end-column="69" />
           <folding />
         </state>
       </provider>
@@ -1206,10 +1166,54 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/computation/WindowDistance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="446">
+          <caret line="128" column="65" selection-start-line="128" selection-start-column="65" selection-end-line="128" selection-end-column="65" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/computation/DistanceVector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="406">
+          <caret line="114" column="29" selection-start-line="114" selection-start-column="29" selection-end-line="114" selection-end-column="29" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2526#2527#0" expanded="true" />
+            <element signature="e#2579#2580#0" expanded="true" />
+            <element signature="e#2703#2704#0" expanded="true" />
+            <element signature="e#2758#2759#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-270">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/computation/TokenDistance.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#1079#1080#0" expanded="true" />
+            <element signature="e#1129#1130#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/TestDistanceVectorConfidence.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="766">
-          <caret line="107" column="22" selection-start-line="107" selection-start-column="22" selection-end-line="107" selection-end-column="22" />
+        <state relative-caret-position="324">
+          <caret line="199" column="62" selection-start-line="199" selection-start-column="62" selection-end-line="199" selection-end-column="62" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

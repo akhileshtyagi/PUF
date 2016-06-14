@@ -50,7 +50,7 @@ public class WindowDistance extends ArrayList<TokenDistance> {
      */
     private void populate_this(List<Token> token_list, TrieList window_list, Chain user_chain, Chain auth_chain) {
         // create list of TokenDistance
-        List<Touch> successor_list = null;
+        List<Touch> successor_list = auth_chain.get_successors();
 
         // get the unique successor touches of a window
         List<Integer> unique_successor_list_auth = Chain.compute_unique_successors(token_list, successor_list, window_list.get_index_list(this.auth_window));

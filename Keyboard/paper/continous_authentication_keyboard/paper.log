@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  13 JUN 2016 05:48
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  14 JUN 2016 18:32
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -333,7 +333,7 @@ Overfull \hbox (10.07861pt too wide) in paragraph at lines 265--273
 
 ) (./the_problem.tex [2]
 
-LaTeX Warning: Command \textgreater invalid in math mode on input line 55.
+LaTeX Warning: Command \textgreater invalid in math mode on input line 59.
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
@@ -423,18 +423,13 @@ File: graphics/Rplots.pdf Graphic file (type pdf)
 Package pdftex.def Info: graphics/Rplots.pdf, page4 used on input line 51.
 (pdftex.def)             Requested size: 226.79846pt x 226.79927pt.
 
-Overfull \hbox (1.28062pt too wide) in paragraph at lines 62--62
-[]\secfnt USER-DEVICE PAIR DIS-CRIM-I-NA-TION 
- []
-
-
 <graphics/false_positive_vs_authentication_threshold.pdf, id=80, 794.97pt x 614
 .295pt>
 File: graphics/false_positive_vs_authentication_threshold.pdf Graphic file (typ
 e pdf)
  <use graphics/false_positive_vs_authentication_threshold.pdf>
 Package pdftex.def Info: graphics/false_positive_vs_authentication_threshold.pd
-f used on input line 70.
+f used on input line 62.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
 
 
@@ -448,7 +443,7 @@ File: graphics/window_size_vs_authentication_accuracy.pdf Graphic file (type pd
 f)
  <use graphics/window_size_vs_authentication_accuracy.pdf>
 Package pdftex.def Info: graphics/window_size_vs_authentication_accuracy.pdf us
-ed on input line 78.
+ed on input line 70.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
 
 
@@ -463,7 +458,7 @@ file (type pdf)
 
 <use graphics/authentication_accuracy_vs_touchscreen_interactions.pdf>
 Package pdftex.def Info: graphics/authentication_accuracy_vs_touchscreen_intera
-ctions.pdf used on input line 85.
+ctions.pdf used on input line 77.
 (pdftex.def)             Requested size: 226.79846pt x 113.40018pt.
 
 <graphics/authentication_accuracy_vs_total_interactions.pdf, id=83, 1228.59pt x
@@ -472,20 +467,29 @@ File: graphics/authentication_accuracy_vs_total_interactions.pdf Graphic file (
 type pdf)
  <use graphics/authentication_accuracy_vs_total_interactions.pdf>
 Package pdftex.def Info: graphics/authentication_accuracy_vs_total_interactions
-.pdf used on input line 104.
+.pdf used on input line 96.
 (pdftex.def)             Requested size: 226.79846pt x 146.75175pt.
 
 <graphics/nexus_7_runtimes.pdf, id=84, 794.97pt x 614.295pt>
 File: graphics/nexus_7_runtimes.pdf Graphic file (type pdf)
 
 <use graphics/nexus_7_runtimes.pdf>
-Package pdftex.def Info: graphics/nexus_7_runtimes.pdf used on input line 118.
+Package pdftex.def Info: graphics/nexus_7_runtimes.pdf used on input line 110.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
-) (./related_work.tex [7 <./graphics/Rplots.pdf>] [8 <./graphics/Rplots.pdf> <.
-/graphics/false_positive_vs_authentication_threshold.pdf> <./graphics/window_si
-ze_vs_authentication_accuracy.pdf> <./graphics/authentication_accuracy_vs_touch
-screen_interactions.pdf> <./graphics/authentication_accuracy_vs_total_interacti
-ons.pdf>]) (./conclusion.tex
+) (./related_work.tex
+
+LaTeX Warning: Citation `zhu2013sensec' on page \thepage  undefined on input li
+ne 11.
+
+
+LaTeX Warning: Citation `shi2011senguard' on page \thepage  undefined on input 
+line 20.
+
+[7 <./graphics/Rplots.pdf>] [8 <./graphics/Rplots.pdf> <./graphics/false_positi
+ve_vs_authentication_threshold.pdf> <./graphics/window_size_vs_authentication_a
+ccuracy.pdf> <./graphics/authentication_accuracy_vs_touchscreen_interactions.pd
+f> <./graphics/authentication_accuracy_vs_total_interactions.pdf>])
+(./conclusion.tex
 Overfull \hbox (10.5278pt too wide) in paragraph at lines 4--17
 \T1/aer/m/n/9 cur-rent so-lu-tions uti-lize one-time au-then-ti-ca-tion schemes
  These
@@ -497,32 +501,35 @@ Overfull \hbox (14.44414pt too wide) in paragraph at lines 4--10
 ar / 
  []
 
-) [9 <./graphics/nexus_7_runtimes.pdf>] (./paper.aux) ) 
+[9 <./graphics/nexus_7_runtimes.pdf>]
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+) [10]
+(./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 4358 strings out of 493054
- 58475 string characters out of 6140586
- 227740 words of memory out of 5000000
- 7753 multiletter control sequences out of 15000+600000
+ 4372 strings out of 493054
+ 58684 string characters out of 6140586
+ 227784 words of memory out of 5000000
+ 7767 multiletter control sequences out of 15000+600000
  47803 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  43i,10n,32p,515b,311s stack positions out of 5000i,500n,10000p,200000b,80000s
-{/usr/share/texmf-dist/f
-onts/enc/dvips/base/8r.enc}</usr/share/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmbx9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cmextra/cmex9.pf
-b></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi5.pfb></usr/share/t
-exmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texmf-dist/fonts
-/type1/public/amsfonts/cm/cmmi9.pfb></usr/share/texmf-dist/fonts/type1/public/a
-msfonts/cm/cmr6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr9.
-pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy6.pfb></usr/share
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy9.pfb></usr/share/texmf-dist/fon
-ts/type1/public/amsfonts/cm/cmti9.pfb></usr/share/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmtt9.pfb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvb8a.p
-fb></usr/share/texmf-dist/fonts/type1/urw/helvetic/uhvr8a.pfb></usr/share/texmf
--dist/fonts/type1/urw/times/utmb8a.pfb>
-Output written on paper.pdf (9 pages, 639252 bytes).
+{/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/t
+exmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts
+/type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texmf-dist/fonts/type1/pub
+lic/amsfonts/cm/cmmi5.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm
+/cmmi6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi9.pfb></us
+r/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmr9.pfb></usr/share/texmf-dist/fonts/type1/p
+ublic/amsfonts/cm/cmsy6.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></
+usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texmf
+-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/ur
+w/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
+Output written on paper.pdf (10 pages, 646643 bytes).
 PDF statistics:
- 168 PDF objects out of 1000 (max. 8388607)
- 113 compressed objects within 2 object streams
+ 171 PDF objects out of 1000 (max. 8388607)
+ 115 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  61 words of extra memory for PDF output out of 10000 (max. 10000000)
 

@@ -41,6 +41,8 @@ public class TokenDistance {
      * returns the unweighted difference between the tokens
      */
     public double get_unweighted_distance() {
+        //System.out.println("distance: " + distance);
+
         return this.distance;
     }
 
@@ -73,11 +75,13 @@ public class TokenDistance {
         // if there is no such touch, base_probability is 0
         if(base_touch_index == -1){
             // no touch was found
-            base_probability = 0;
+            base_probability = 0.0;
         }else{
             // matching touch was found
             base_probability = successor_list_user.get(index_list_base.get(base_touch_index)).get_probability(auth_tokens, auth_window);
         }
+
+        //System.out.println("auth_probability: " + auth_probability + "\tbase_probability: " + base_probability);
 
         // compute absolute difference
         return Math.abs(base_probability - auth_probability);

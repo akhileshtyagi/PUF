@@ -63,12 +63,100 @@ Marian Harbach, Emanuel von Zezschwitz, Andreas Fichtner, Alexander De~Luca,
 \newblock In {\em Symposium On Usable Privacy and Security (SOUPS 2014)}, pages
   213--230, 2014.
 
+\bibitem{Devadas:2009:PUF}
+Srini Devadas.
+\newblock Physical unclonable functions and secure processors.
+\newblock In {\em Proceedings of the 11th International Workshop on
+  Cryptographic Hardware and Embedded Systems}, CHES '09, pages 65--65, Berlin,
+  Heidelberg, 2009. Springer-Verlag.
+
+\bibitem{PUFIntro}
+Dominik Merli, Georg Sigl, and Claudia Eckert.
+\newblock Identities for embedded systems enabled by physical unclonable
+  functions.
+\newblock In Marc Fischlin and Stefan Katzenbeisser, editors, {\em Number
+  Theory and Cryptography}, volume 8260 of {\em Lecture Notes in Computer
+  Science}, pages 125--138. Springer Berlin Heidelberg, 2013.
+
+\bibitem{Gassend:2002:SPR}
+Blaise Gassend, Dwaine Clarke, Marten van Dijk, and Srinivas Devadas.
+\newblock Silicon physical random functions.
+\newblock In {\em Proceedings of the 9th ACM Conference on Computer and
+  Communications Security}, CCS '02, pages 148--160, New York, NY, USA, 2002.
+  ACM.
+
+\bibitem{Ratha:2001}
+N.~K. Ratha, J.~H. Connell, and R.~M. Bolle.
+\newblock Enhancing security and privacy in biometrics-based authentication
+  systems.
+\newblock {\em IBM Syst. J.}, 40(3):614--634, March 2001.
+
+\bibitem{KeystrokeHASE14}
+Zahid Syed, Sean Banerjee, and Bojan Cukic.
+\newblock Leveraging variations in event sequences in keystroke-dynamics
+  authentication systems.
+\newblock {\em Ninth IEEE International Symposium on High-Assurance Systems
+  Engineering (HASE'05)}, 0:9--16, 2014.
+
+\bibitem{Liu:2009:UAP}
+Jiayang Liu, Lin Zhong, Jehan Wickramasuriya, and Venu Vasudevan.
+\newblock uwave: Accelerometer-based personalized gesture recognition and its
+  applications.
+\newblock {\em Pervasive Mob. Comput.}, 5(6):657--675, December 2009.
+
+\bibitem{Aysu:2013:DFL}
+Aydin Aysu, Nahid~Farhady Ghalaty, Zane Franklin, Moein~Pahlavan Yali, and
+  Patrick Schaumont.
+\newblock Digital fingerprints for low-cost platforms using mems sensors.
+\newblock In {\em Proceedings of the Workshop on Embedded Systems Security},
+  WESS '13, pages 2:1--2:6, New York, NY, USA, 2013. ACM.
+
+\bibitem{Gait}
+Sangil Choi, Ik-Hyun Youn, R.~LeMay, S.~Burns, and Jong-Hoon Youn.
+\newblock Biometric gait recognition based on wireless acceleration sensor
+  using k-nearest neighbor classification.
+\newblock In {\em Computing, Networking and Communications (ICNC), 2014
+  International Conference on}, pages 1091--1095, Feb 2014.
+
+\bibitem{touchscreengestures}
+Tao Feng, Ziyi Liu, Kyeong-An Kwon, Weidong Shi, B.~Carbunar, Yifei Jiang, and
+  N.~Nguyen.
+\newblock Continuous mobile authentication using touchscreen gestures.
+\newblock In {\em Homeland Security (HST), 2012 IEEE Conference on Technologies
+  for}, pages 451--456, Nov 2012.
+
+\bibitem{Gesture14}
+Napa Sae-Bae, N.~Memon, K.~Isbister, and K.~Ahmed.
+\newblock Multitouch gesture-based authentication.
+\newblock {\em Information Forensics and Security, IEEE Transactions on},
+  9(4):568--582, April 2014.
+
+\bibitem{Dey:2013:AHP}
+Sanorita Dey, Nirupam Roy, Wenyuan Xu, and Srihari Nelakuditi.
+\newblock Acm hotmobile 2013 poster: Leveraging imperfections of sensors for
+  fingerprinting smartphones.
+\newblock {\em SIGMOBILE Mob. Comput. Commun. Rev.}, 17(3):21--22, November
+  2013.
+
 \bibitem{ScheelTyagi15}
 R.~Scheel and A.~Tyagi.
 \newblock Characterizing composite user-device touchscreen physical unclonable
   functions (pufs) for mobile device authentication.
 \newblock In {\em ACM International Workshop in Trusted Embedded Devices,
   TRUSTED 2015}. ACM, October 2015.
+
+\bibitem{ruhrmair2015virtual}
+Ulrich Ruhrmair, JL~Martinez-Hurtado, Xiaolin Xu, Christian Kraeh, Christian
+  Hilgers, Dima Kononchuk, Jonathan~J Finley, and Wayne~P Burleson.
+\newblock Virtual proofs of reality and their physical implementation.
+\newblock In {\em Security and Privacy (SP), 2015 IEEE Symposium on}, pages
+  70--85. IEEE, 2015.
+
+\bibitem{rosenfeld2010sensor}
+Kurt Rosenfeld, Efstratios Gavas, and Ramesh Karri.
+\newblock Sensor physical unclonable functions.
+\newblock In {\em Hardware-Oriented Security and Trust (HOST), 2010 IEEE
+  International Symposium on}, pages 112--117. IEEE, 2010.
 
 \bibitem{sensec13}
 Joy Zhang, Xiao Wang, Pang Wu, and Jiang Zhu.
