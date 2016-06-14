@@ -21,6 +21,8 @@ import java.util.List;
  *      [ ] WindowDistance unweighted correct
  *      [ ] TokenDistance weighted correct
  *      [ ] TokenDistance unweighted correct
+ * [ ] test Chain.get_distance_confidence for correctness
+ * [ ] determine if distance confidence is more confident for higher accuracy authentications
  */
 
 /**

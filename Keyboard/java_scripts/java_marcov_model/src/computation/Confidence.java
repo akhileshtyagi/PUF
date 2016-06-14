@@ -3,6 +3,7 @@ package computation;
 import components.*;
 import trie.TrieList;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -23,7 +24,14 @@ import java.util.List;
 public class Confidence {
     public enum Weight { WEIGHTED, UNWEIGHTED }
 
+    /**
+     * determines the basis for compute confidence
+     * with distance_vector
+     */
+    public enum Basis { TOKEN, WINDOW}
+
     final static Weight WEIGHT = Weight.WEIGHTED;
+    final static Basis BASIS = Basis.WINDOW;
 
     /**
      * compute confidence 0.0 to 1.0 for the distance vector
@@ -31,12 +39,60 @@ public class Confidence {
      * the goal of this method is to compute a confidence interval
      * for the accuracy of authentication.
      *
-     * The DistanceVector provides methods to:
+     * the confidence is \sigma by \mu
+     * for some quantity
      *
+     * candidate quantities
+     *      token distance value
+     *      window distance value
      */
     public static double compute_confidence(DistanceVector distance_vector){
-        //TODO
-        return 0.0;
+        double confidence = 0.0;
+
+        if(WEIGHT == Weight.UNWEIGHTED){
+            // unweighted version
+            if(BASIS == Basis.TOKEN){
+                // token based
+                // TODO
+            }else{
+                // window based
+                // TODO
+            }
+        }else{
+            // weighted version
+            if(BASIS == Basis.TOKEN){
+                // token based
+                // TODO
+            }else{
+                // window based
+                confidence = distance_vector_weighted_window_confidence(distance_vector);
+            }
+        }
+
+        return confidence;
+    }
+
+    /**
+     * computes confidence for the distance vector
+     *
+     * computes the \sigma by \mu for window
+     */
+    private static double distance_vector_weighted_window_confidence(DistanceVector distance_vector){
+        List<Touch> touch_list = new ArrayList<>();
+
+        // add all weighted window differences in distance vector to a Distribution object
+        for(WindowDistance distance : distance_vector){
+            // new Touch( keycode, pressure, timestamp)
+            touch_list.add(new Touch(0, distance.get_weighted_distance(true), 0));
+        }
+
+        // distribution computes \mu and \sigma for the pressure values of touches
+        // it can be coerced into computing the \mu \sigma of distance for us if
+        // the distances are added to Touch objects as pressure
+        Distribution distribution = new Distribution(touch_list);
+
+        // use the Distribution object to compute \sigma by \mu
+        return (distribution.get_standard_deviation() / distribution.get_average());
     }
 
     /**
