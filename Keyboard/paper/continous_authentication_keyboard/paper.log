@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  14 JUN 2016 18:32
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  15 JUN 2016 08:19
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -219,7 +219,36 @@ Package: listings 2015/06/04 1.6 (Carsten Heinz)
 (/usr/share/texmf-dist/tex/latex/url/url.sty
 \Urlmuskip=\muskip11
 Package: url 2013/09/16  ver 3.4  Verb mode for urls, etc.
-)) (./authors.tex) (./paper.aux)
+)
+(/usr/share/texmf-dist/tex/latex/catchfilebetweentags/catchfilebetweentags.sty
+Package: catchfilebetweentags 2011/02/19 v1.1 - Catch file between tags (FC)
+
+(/usr/share/texmf-dist/tex/latex/etex-pkg/etex.sty
+Package: etex 2015/09/02 v2.4 eTeX basic definition package (PEB,DPC)
+\et@xins=\count118
+)
+(/usr/share/texmf-dist/tex/latex/etoolbox/etoolbox.sty
+Package: etoolbox 2015/08/02 v2.2a e-TeX tools for LaTeX (JAW)
+\etb@tempcnta=\count119
+)
+(/usr/share/texmf-dist/tex/generic/oberdiek/catchfile.sty
+Package: catchfile 2011/03/01 v1.6 Catch the contents of a file (HO)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/etexcmds.sty
+Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
+
+(/usr/share/texmf-dist/tex/generic/oberdiek/ifluatex.sty
+Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
+Package ifluatex Info: LuaTeX not detected.
+)
+Package etexcmds Info: Could not find \expanded.
+(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
+(etexcmds)             that some package has redefined \expanded.
+(etexcmds)             In the latter case, load this package earlier.
+))
+\CatchFBT@tok=\toks256
+)) (./authors.tex)
+(./paper.aux)
 \openout1 = `paper.aux'.
 
 LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 4.
@@ -234,28 +263,23 @@ LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
 LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 4.
 LaTeX Font Info:    ... okay on input line 4.
-
-(/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
+ (/usr/share/texmf-dist/tex/context/base/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count118
+\scratchcounter=\count120
 \scratchdimen=\dimen127
 \scratchbox=\box32
-\nofMPsegments=\count119
-\nofMParguments=\count120
+\nofMPsegments=\count121
+\nofMParguments=\count122
 \everyMPshowfont=\toks37
-\MPscratchCnt=\count121
+\MPscratchCnt=\count123
 \MPscratchDim=\dimen128
-\MPnumerator=\count122
-\makeMPintoPDFobject=\count123
+\MPnumerator=\count124
+\makeMPintoPDFobject=\count125
 \everyMPtoPDFconversion=\toks38
 ) (/usr/share/texmf-dist/tex/generic/oberdiek/pdftexcmds.sty
 Package: pdftexcmds 2011/11/29 v0.20 Utility functions of pdfTeX for LuaTeX (HO
 )
 
-(/usr/share/texmf-dist/tex/generic/oberdiek/ifluatex.sty
-Package: ifluatex 2010/03/01 v1.3 Provides the ifluatex switch (HO)
-Package ifluatex Info: LuaTeX not detected.
-)
 (/usr/share/texmf-dist/tex/generic/oberdiek/ifpdf.sty
 Package: ifpdf 2011/01/30 v2.3 Provides the ifpdf switch (HO)
 Package ifpdf Info: pdfTeX in PDF mode is detected.
@@ -279,14 +303,7 @@ Package: kvoptions 2011/06/30 v3.11 Key value format for package options (HO)
 
 (/usr/share/texmf-dist/tex/generic/oberdiek/kvsetkeys.sty
 Package: kvsetkeys 2012/04/25 v1.16 Key value parser (HO)
-
-(/usr/share/texmf-dist/tex/generic/oberdiek/etexcmds.sty
-Package: etexcmds 2011/02/16 v1.5 Avoid name clashes with e-TeX commands (HO)
-Package etexcmds Info: Could not find \expanded.
-(etexcmds)             That can mean that you are not using pdfTeX 1.50 or
-(etexcmds)             that some package has redefined \expanded.
-(etexcmds)             In the latter case, load this package earlier.
-)))
+))
 Package grfext Info: Graphics extension search list:
 (grfext)             [.png,.pdf,.jpg,.mps,.jpeg,.jbig2,.jb2,.PNG,.PDF,.JPG,.JPE
 G,.JBIG2,.JB2,.eps]
@@ -296,7 +313,7 @@ G,.JBIG2,.JB2,.eps]
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-\c@lstlisting=\count124
+\c@lstlisting=\count126
 LaTeX Font Info:    Try loading font information for U+msa on input line 5.
 
 (/usr/share/texmf-dist/tex/latex/amsfonts/umsa.fd
@@ -339,43 +356,43 @@ LaTeX Warning: Command \textgreater invalid in math mode on input line 59.
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 )
-(./the_solution.tex
+(./the_solution.tex (./graphics.tex)
 <graphics/final_marcov_model_state.pdf, id=15, 774.895pt x 352.31625pt>
 File: graphics/final_marcov_model_state.pdf Graphic file (type pdf)
 
 <use graphics/final_marcov_model_state.pdf>
 Package pdftex.def Info: graphics/final_marcov_model_state.pdf used on input li
-ne 10.
+ne 7.
 (pdftex.def)             Requested size: 226.79846pt x 103.11525pt.
-
+ (./graphics.tex)
 <graphics/token_creation.pdf, id=16, 506.89375pt x 220.825pt>
 File: graphics/token_creation.pdf Graphic file (type pdf)
 
 <use graphics/token_creation.pdf>
-Package pdftex.def Info: graphics/token_creation.pdf used on input line 28.
+Package pdftex.def Info: graphics/token_creation.pdf used on input line 8.
 (pdftex.def)             Requested size: 226.79846pt x 98.80087pt.
-
+ (./graphics.tex)
 <graphics/phone_tokens.pdf, id=17, 794.97pt x 614.295pt>
 File: graphics/phone_tokens.pdf Graphic file (type pdf)
 
 <use graphics/phone_tokens.pdf>
-Package pdftex.def Info: graphics/phone_tokens.pdf used on input line 46.
+Package pdftex.def Info: graphics/phone_tokens.pdf used on input line 9.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
-
+ (./graphics.tex)
 <graphics/marcov_model_building.pdf, id=18, 770.88pt x 326.21875pt>
 File: graphics/marcov_model_building.pdf Graphic file (type pdf)
 
 <use graphics/marcov_model_building.pdf>
 Package pdftex.def Info: graphics/marcov_model_building.pdf used on input line 
-57.
+10.
 (pdftex.def)             Requested size: 226.79846pt x 95.97485pt.
-
+ (./graphics.tex)
 <graphics/difference_computation.pdf, id=19, 1201.48875pt x 526.96875pt>
 File: graphics/difference_computation.pdf Graphic file (type pdf)
 
 <use graphics/difference_computation.pdf>
 Package pdftex.def Info: graphics/difference_computation.pdf used on input line
- 70.
+ 11.
 (pdftex.def)             Requested size: 504.0pt x 221.05197pt.
  [3 <./graphics/final_marcov_model_state.pdf> <./graphics/token_creation.pdf>] 
 [4 <./graphics/phone_tokens.pdf
@@ -391,47 +408,49 @@ Underfull \vbox (badness 10000) has occurred while \output is active []
  [5 <./graphics/difference_computation.pdf>]
 
 LaTeX Warning: Citation `threesigmarule' on page \thepage  undefined on input l
-ine 466.
+ine 397.
 
 
-Overfull \hbox (3.08466pt too wide) in paragraph at lines 616--619
+Overfull \hbox (3.08466pt too wide) in paragraph at lines 547--550
 \T1/aer/m/n/9 cor-re-spond-ing suc-ces-sor to-kens for a given $\OML/cmm/m/it/9
  W[]$ 
  []
 
 [6]
-LaTeX Font Info:    Try loading font information for T1+aett on input line 683.
+LaTeX Font Info:    Try loading font information for T1+aett on input line 614.
 
  (/usr/share/texmf-dist/tex/latex/ae/t1aett.fd
 File: t1aett.fd 1997/11/16 Font definitions for T1/aett.
 )
-Overfull \hbox (4.46242pt too wide) in paragraph at lines 690--692
+Overfull \hbox (4.46242pt too wide) in paragraph at lines 621--623
 []\T1/aer/m/n/9 Periodic au-then-ti-ca-tion could com-pare new touch screen
  []
 
-) (./the_details.tex <graphics/Rplots.pdf, id=78, page=2, 505.89pt x 505.89pt>
+) (./the_details.tex (./graphics.tex)
+<graphics/Rplots.pdf, id=78, page=2, 505.89pt x 505.89pt>
 File: graphics/Rplots.pdf Graphic file (type pdf)
 
 <use graphics/Rplots.pdf, page 2>
-Package pdftex.def Info: graphics/Rplots.pdf, page2 used on input line 39.
+Package pdftex.def Info: graphics/Rplots.pdf, page2 used on input line 10.
 (pdftex.def)             Requested size: 226.79846pt x 226.79927pt.
-
+ (./graphics.tex)
 <graphics/Rplots.pdf, id=79, page=4, 505.89pt x 505.89pt>
 File: graphics/Rplots.pdf Graphic file (type pdf)
 
 <use graphics/Rplots.pdf, page 4>
-Package pdftex.def Info: graphics/Rplots.pdf, page4 used on input line 51.
+Package pdftex.def Info: graphics/Rplots.pdf, page4 used on input line 11.
 (pdftex.def)             Requested size: 226.79846pt x 226.79927pt.
-
+ (./graphics.tex)
 <graphics/false_positive_vs_authentication_threshold.pdf, id=80, 794.97pt x 614
 .295pt>
 File: graphics/false_positive_vs_authentication_threshold.pdf Graphic file (typ
 e pdf)
  <use graphics/false_positive_vs_authentication_threshold.pdf>
 Package pdftex.def Info: graphics/false_positive_vs_authentication_threshold.pd
-f used on input line 62.
+f used on input line 12.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
 
+(./graphics.tex)
 
 pdfTeX warning: pdflatex (file ./graphics/window_size_vs_authentication_accurac
 y.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allow
@@ -443,9 +462,9 @@ File: graphics/window_size_vs_authentication_accuracy.pdf Graphic file (type pd
 f)
  <use graphics/window_size_vs_authentication_accuracy.pdf>
 Package pdftex.def Info: graphics/window_size_vs_authentication_accuracy.pdf us
-ed on input line 70.
+ed on input line 13.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
-
+ (./graphics.tex)
 
 pdfTeX warning: pdflatex (file ./graphics/authentication_accuracy_vs_touchscree
 n_interactions.pdf): PDF inclusion: found PDF version <1.7>, but at most versio
@@ -458,25 +477,30 @@ file (type pdf)
 
 <use graphics/authentication_accuracy_vs_touchscreen_interactions.pdf>
 Package pdftex.def Info: graphics/authentication_accuracy_vs_touchscreen_intera
-ctions.pdf used on input line 77.
+ctions.pdf used on input line 14.
 (pdftex.def)             Requested size: 226.79846pt x 113.40018pt.
 
+(./graphics.tex)
 <graphics/authentication_accuracy_vs_total_interactions.pdf, id=83, 1228.59pt x
  794.97pt>
 File: graphics/authentication_accuracy_vs_total_interactions.pdf Graphic file (
 type pdf)
  <use graphics/authentication_accuracy_vs_total_interactions.pdf>
 Package pdftex.def Info: graphics/authentication_accuracy_vs_total_interactions
-.pdf used on input line 96.
+.pdf used on input line 15.
 (pdftex.def)             Requested size: 226.79846pt x 146.75175pt.
 
-<graphics/nexus_7_runtimes.pdf, id=84, 794.97pt x 614.295pt>
+(./graphics.tex) <graphics/nexus_7_runtimes.pdf, id=84, 794.97pt x 614.295pt>
 File: graphics/nexus_7_runtimes.pdf Graphic file (type pdf)
 
 <use graphics/nexus_7_runtimes.pdf>
-Package pdftex.def Info: graphics/nexus_7_runtimes.pdf used on input line 110.
+Package pdftex.def Info: graphics/nexus_7_runtimes.pdf used on input line 16.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
-) (./related_work.tex
+ [7 <./graphics/Rplots.pdf> <./graphics/Rplots.pdf>] [8 <./graphics/false_posit
+ive_vs_authentication_threshold.pdf> <./graphics/window_size_vs_authentication_
+accuracy.pdf> <./graphics/authentication_accuracy_vs_touchscreen_interactions.p
+df> <./graphics/authentication_accuracy_vs_total_interactions.pdf> <./graphics/
+nexus_7_runtimes.pdf>]) (./related_work.tex
 
 LaTeX Warning: Citation `zhu2013sensec' on page \thepage  undefined on input li
 ne 11.
@@ -485,11 +509,7 @@ ne 11.
 LaTeX Warning: Citation `shi2011senguard' on page \thepage  undefined on input 
 line 20.
 
-[7 <./graphics/Rplots.pdf>] [8 <./graphics/Rplots.pdf> <./graphics/false_positi
-ve_vs_authentication_threshold.pdf> <./graphics/window_size_vs_authentication_a
-ccuracy.pdf> <./graphics/authentication_accuracy_vs_touchscreen_interactions.pd
-f> <./graphics/authentication_accuracy_vs_total_interactions.pdf>])
-(./conclusion.tex
+) (./conclusion.tex
 Overfull \hbox (10.5278pt too wide) in paragraph at lines 4--17
 \T1/aer/m/n/9 cur-rent so-lu-tions uti-lize one-time au-then-ti-ca-tion schemes
  These
@@ -501,19 +521,19 @@ Overfull \hbox (14.44414pt too wide) in paragraph at lines 4--10
 ar / 
  []
 
-[9 <./graphics/nexus_7_runtimes.pdf>]
+[9]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 ) [10]
 (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 4372 strings out of 493054
- 58684 string characters out of 6140586
- 227784 words of memory out of 5000000
- 7767 multiletter control sequences out of 15000+600000
+ 4791 strings out of 493054
+ 64038 string characters out of 6140586
+ 235818 words of memory out of 5000000
+ 8147 multiletter control sequences out of 15000+600000
  47803 words of font info for 66 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 43i,10n,32p,515b,311s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 43i,10n,32p,816b,311s stack positions out of 5000i,500n,10000p,200000b,80000s
 {/usr/share/texmf-dist/fonts/enc/dvips/base/8r.enc}</usr/share/t
 exmf-dist/fonts/type1/public/amsfonts/cm/cmbx9.pfb></usr/share/texmf-dist/fonts
 /type1/public/amsfonts/cmextra/cmex9.pfb></usr/share/texmf-dist/fonts/type1/pub
@@ -526,7 +546,7 @@ cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb></
 usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb></usr/share/texmf
 -dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/ur
 w/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb>
-Output written on paper.pdf (10 pages, 646643 bytes).
+Output written on paper.pdf (10 pages, 646372 bytes).
 PDF statistics:
  171 PDF objects out of 1000 (max. 8388607)
  115 compressed objects within 2 object streams

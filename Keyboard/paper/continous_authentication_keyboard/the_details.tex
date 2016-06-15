@@ -5,6 +5,16 @@
 % 3 x supports my claim in the following way
 \section{The Details}
 \label{the_details}
+
+%TODO move these figures to where they need to go in the paper
+\ExecuteMetaData[graphics.tex]{normal}
+\ExecuteMetaData[graphics.tex]{qq}
+\ExecuteMetaData[graphics.tex]{threshold}
+\ExecuteMetaData[graphics.tex]{window}
+\ExecuteMetaData[graphics.tex]{authentication}
+\ExecuteMetaData[graphics.tex]{total}
+\ExecuteMetaData[graphics.tex]{nexus}
+
 % begin by describing what our implementation is
 % answer the question, "what did you do"
 In order to answer the question of
@@ -27,98 +37,65 @@ In order to analyze the collected data,
 the system described in \ref{the_solution}
 has been constructed.
 
+% discuss false_positive and false_negative percentages
+% what are these metrics (definitions)
+% what did we find them to be (values)
+
+% discuss authentication_accuracy
+% what is is this metric
+% how is it measure
+% why is it a good way to measure how well the system preforms
+%TODO
+
+% discussion of the model parameters in general
+% say what each of them were and their impact on the system
+% window, token, time_threshold, (user_model_size, auth_model_size), authentication_threshold
+%TODO
+
+% now go into detail on each of the model parameters affected the system
+% present data with regards to each of the parameters
+% 1 This is my analysis
+% 2 This analysis shows/demonstrates x
+% 3 x supports my claim in the following way
+%
+% window
+%TODO
+
+% token
+%TODO
+
+% time_threshold
+%TODO
+
+% user_model_size and auth_model size
+%TODO
+
+% authentication threshold
+%TODO
+
+% discuss iterations of the difference computation
+% say what worked and what didn't work
+% discuss what we were seeing that motivated specific design choices
+%
+% weighted windows and tokens in difference computation
+%TODO
+
+% TODO something else we changed in the difference computation
+%TODO
+
+% discuss computation time on the nexus 7
+% How does changing different model parameters affect run time
+%
+% user_model_size and auth_model_size
+%TODO
+
+%TODO was there no significant difference for changing the other parameters?
+%TODO
+
 % describe how the results were analyzed
-The data were analyzed by 
+% in other words what did we do to produces the numbers presented above
+The data is analyzed by 
 %TODO 
-
-%TODO move these figures to where they need to go in the paper
-% shows the pressure density for one of our users
-\begin{figure}
-\centering
-%\includegraphics[width=.45\textwidth, keepaspectratio]{pressure_distribution.pdf}
-\includegraphics[page=2, width=.45\textwidth, keepaspectratio]{Rplots.pdf}
-\caption{
-Density of touchscreen interactions' pressure values for one user.
-%TODO say what is important about this observation
-}
-\label{fig:normal_distribution}
-\end{figure}
-
-% shows the qq-plot
-\begin{figure}
-\centering
-%\includegraphics[width=.45\textwidth, keepaspectratio]{pressure_distribution.pdf}
-\includegraphics[page=4, width=.45\textwidth, keepaspectratio]{Rplots.pdf}
-\caption{
-This Q-Q Plot describes data from
-a data set having a right skew compared to normally distributed data.
-}
-\label{fig:qq_plot}
-\end{figure}
-
-%this figure describes how false positive and false negative percentages vary based on authentication threshold
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth]{false_positive_vs_authentication_threshold.pdf}
-\caption{False positive and false negative percentages vary as the authentication threshold is adjusted.}
-\label{fig:threshold_vs_percentages}
-\end{figure}
-
-% this figure describes the effect of window size on authentication accuracy
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth]{window_size_vs_authentication_accuracy.pdf}
-\caption{The effect of $n$ in $n$-Markov Model window size on authentication accuracy.}
-\label{fig:window_size_vs_authentication_accuracy}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth]{authentication_accuracy_vs_touchscreen_interactions.pdf}
-\caption{
-The left y axis describes the size of model
-in number of touchscreen interactions.
-We compare
-authentication accuracy(blue star), measured on the right y axis, 
-to authentication model size(red triangle),
-base model size(yellow square),
-and total touch interactions(green diamond)
-measured on the left y axis.
-Total touch interactions is the sum of
-base model size and authentication model size.
-}
-\label{fig:authentication_accuracy}
-\end{figure}
-
-% describes authentication accuracy dependence on the amount of user data
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth]{authentication_accuracy_vs_total_interactions.pdf}
-\caption{
-Authentication accuracy can be seen as
-a function of
-the total number of touch screen interactions
-used in model construction.
-Total touch interactions is the sum of
-base model size and authentication model size.
-}
-\label{fig:total_touches_vs_authentication_accuracy}
-\end{figure}
-
-\begin{figure}
-\centering
-\includegraphics[width=.45\textwidth]{nexus_7_runtimes.pdf}
-\caption{
-The computation time, measured in seconds(sec), on a Nexus 7 tablet is
-a function of
-$Total Size =$ {\it base\_model\_size} $+$ {\it auth\_model\_size}.
-Model sizes are measured by number of touch interactions used in their construction.
-}
-\label{fig:nexus_total_size_time}
-\end{figure}
-
-%TODO this exists to help position the pictures
-%\lipsum[0-70]
 
 % include mention of some problems which presented themselves
 Some notable problems presented themselves
