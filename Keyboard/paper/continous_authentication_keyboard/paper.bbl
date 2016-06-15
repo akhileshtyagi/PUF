@@ -1,20 +1,18 @@
 \begin{thebibliography}{10}
 
 \bibitem{CR14}
-{Consumer Reports.} smart phone thefts rose to 3.1 million in 2013 industry
-  solution falls short, while legislative efforts to curb theft continue,
-  may2014.
-\newblock
-  \url{http://www.consumerreports.org/cro/news/2014/04/smart-phone-thefts-rose-to-3-1-million-last-year/index.htm}.
-\newblock Accessed: 2016-04-08.
+Consumer Reports.
+\newblock Smart phone thefts rose to 3.1 million in 2013 industry solution
+  falls short, while legislative efforts to curb theft continue, May 2014.
+\newblock Consumer Reports,
+  http://www.consumerreports.org/cro/news/2014/04/smart-phone-thefts-rose-to-3-1-million-last-year/index.htm.
 
 \bibitem{FCC14}
-{Federal Communications Commission.} report of technological advisory council
-  (tac) subcommittee on mobile device theft prevention (mdtp), december 2014,
-  fcc.
-\newblock
-  \url{http://transition.fcc.gov/bureaus/oet/tac/tacdocs/meeting12414/TAC-MDTP-Report-v1.0-FINAL-TAC-version.pdf}.
-\newblock Accessed: 2016-04-08.
+Federal~Communications Commission.
+\newblock Report of technological advisory council (tac) subcommittee on mobile
+  device theft prevention (mdtp), December 2014.
+\newblock FCC,
+  http://transition.fcc.gov/bureaus/oet/tac/tacdocs/\\meeting12414/TAC-MDTP-Report-v1.0-FINAL-TAC-version.pdf.
 
 \bibitem{schaub2012password}
 Florian Schaub, Ruben Deyhle, and Michael Weber.
@@ -63,6 +61,11 @@ Marian Harbach, Emanuel von Zezschwitz, Andreas Fichtner, Alexander De~Luca,
 \newblock In {\em Symposium On Usable Privacy and Security (SOUPS 2014)}, pages
   213--230, 2014.
 
+\bibitem{threesigmarule}
+Friedrich Pukelsheim.
+\newblock {The Three Sigma Rule}.
+\newblock {\em The American Statistician}, 48(2):88--91, May 1994.
+
 \bibitem{Devadas:2009:PUF}
 Srini Devadas.
 \newblock Physical unclonable functions and secure processors.
@@ -90,6 +93,12 @@ N.~K. Ratha, J.~H. Connell, and R.~M. Bolle.
 \newblock Enhancing security and privacy in biometrics-based authentication
   systems.
 \newblock {\em IBM Syst. J.}, 40(3):614--634, March 2001.
+
+\bibitem{zhu2013sensec}
+Joy Zhang, Xiao Wang, Pang Wu, and Jiang Zhu.
+\newblock Sensec: Mobile security through passive sensing.
+\newblock {\em 2013 International Conference on Computing, Networking and
+  Communications (ICNC)}, 0:1128--1133, 2013.
 
 \bibitem{KeystrokeHASE14}
 Zahid Syed, Sean Banerjee, and Bojan Cukic.
@@ -138,6 +147,14 @@ Sanorita Dey, Nirupam Roy, Wenyuan Xu, and Srihari Nelakuditi.
 \newblock {\em SIGMOBILE Mob. Comput. Commun. Rev.}, 17(3):21--22, November
   2013.
 
+\bibitem{shi2011senguard}
+Weidong Shi, Feng Yang, Yifei Jiang, Feng Yang, and Yingen Xiong.
+\newblock Senguard: Passive user identification on smartphones using multiple
+  sensors.
+\newblock In {\em Wireless and Mobile Computing, Networking and Communications
+  (WiMob), 2011 IEEE 7th International Conference on}, pages 141--148. IEEE,
+  2011.
+
 \bibitem{ScheelTyagi15}
 R.~Scheel and A.~Tyagi.
 \newblock Characterizing composite user-device touchscreen physical unclonable
@@ -157,11 +174,5 @@ Kurt Rosenfeld, Efstratios Gavas, and Ramesh Karri.
 \newblock Sensor physical unclonable functions.
 \newblock In {\em Hardware-Oriented Security and Trust (HOST), 2010 IEEE
   International Symposium on}, pages 112--117. IEEE, 2010.
-
-\bibitem{sensec13}
-Joy Zhang, Xiao Wang, Pang Wu, and Jiang Zhu.
-\newblock Sensec: Mobile security through passive sensing.
-\newblock {\em 2013 International Conference on Computing, Networking and
-  Communications (ICNC)}, 0:1128--1133, 2013.
 
 \end{thebibliography}

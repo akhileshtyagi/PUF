@@ -3,49 +3,46 @@ Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
 The top-level auxiliary file: paper.aux
 The style file: unsrt.bst
 Database file #1: pufs.bib
-Warning--I didn't find a database entry for "threesigmarule"
-Warning--I didn't find a database entry for "zhu2013sensec"
-Warning--I didn't find a database entry for "shi2011senguard"
 Warning--empty journal in cao2016hacking
-You've used 24 entries,
+You've used 26 entries,
             1791 wiz_defined-function locations,
-            612 strings with 9418 characters,
-and the built_in function-call counts, 7031 in all, are:
-= -- 653
-> -- 301
-< -- 13
-+ -- 109
-- -- 85
-* -- 456
-:= -- 1010
-add.period$ -- 82
-call.type$ -- 24
-change.case$ -- 24
+            625 strings with 9739 characters,
+and the built_in function-call counts, 7688 in all, are:
+= -- 715
+> -- 328
+< -- 14
++ -- 119
+- -- 93
+* -- 504
+:= -- 1113
+add.period$ -- 89
+call.type$ -- 26
+change.case$ -- 26
 chr.to.int$ -- 0
-cite$ -- 25
-duplicate$ -- 342
-empty$ -- 685
-format.name$ -- 85
-if$ -- 1670
+cite$ -- 27
+duplicate$ -- 372
+empty$ -- 745
+format.name$ -- 93
+if$ -- 1817
 int.to.chr$ -- 0
-int.to.str$ -- 24
-missing$ -- 21
-newline$ -- 123
-num.names$ -- 23
-pop$ -- 105
+int.to.str$ -- 26
+missing$ -- 23
+newline$ -- 133
+num.names$ -- 27
+pop$ -- 110
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 198
+skip$ -- 215
 stack$ -- 0
-substring$ -- 462
-swap$ -- 132
-text.length$ -- 13
+substring$ -- 513
+swap$ -- 144
+text.length$ -- 14
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 64
-width$ -- 26
-write$ -- 274
-(There were 4 warnings)
+while$ -- 73
+width$ -- 28
+write$ -- 299
+(There was 1 warning)

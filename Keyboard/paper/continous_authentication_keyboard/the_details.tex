@@ -9,7 +9,6 @@
 %TODO move these figures to where they need to go in the paper
 \ExecuteMetaData[graphics.tex]{normal}
 \ExecuteMetaData[graphics.tex]{qq}
-\ExecuteMetaData[graphics.tex]{threshold}
 \ExecuteMetaData[graphics.tex]{window}
 \ExecuteMetaData[graphics.tex]{authentication}
 \ExecuteMetaData[graphics.tex]{total}
@@ -40,11 +39,75 @@ has been constructed.
 % discuss false_positive and false_negative percentages
 % what are these metrics (definitions)
 % what did we find them to be (values)
+In order to measure the performance of the system
+it is useful to define some metrics
+which give insight into the user experience.
+%
+We use false positive percentage,
+the ratio of identities which are incorrectly classified as the user
+to the total number of identities authenticated,
+and
+false negative percentage,
+the ratio of identities which are incorrectly classified as not the user,
+to the total number of identities authenticated.
+%
+These metrics can be used to describe how the device will
+behave from the user's perspective.
+%
+False positives allow illegitimate users access to the device
+which may result in loss of data should the device be compromised.
+%
+On the other hand,
+false negatives deny device access to the legitimate user.
+A large number of false negatives would conceivably 
+be very frustrating to the user.
+%
+There is a natural inverse relationship between
+false positive percentage and false negative percentage.
+The authentication can be made less restrictive to 
+engender fewer false negatives, but
+in exchange a greater proportion of
+illegitimate users will also authenticate.
+%
+This relationship is exhibited in Figure \ref{fig:threshold_vs_percentages}
+where one of our system's parameters is adjusted to 
+allow varying rates 
+of false positive percentage and false negative percentage.
+
+% picture of false positives and false negatives in our system
+\ExecuteMetaData[graphics.tex]{threshold}
 
 % discuss authentication_accuracy
 % what is is this metric
 % how is it measure
 % why is it a good way to measure how well the system preforms
+Another metric used to describe the performance of our system
+is authentication accuracy.
+%
+Defined as the 
+number of correct authentications by
+the total number of authentications,
+the goal of this metric is to
+aggregate
+false positive percentage and
+false negative percentage 
+to say something about how well our system can distinguish between
+legitimate and illegitimate identities.
+%
+Authentication accuracy is 
+expressed as a percentage
+related to 
+false positive percentage and
+false negative percentage by
+$authentication_accuracy = 1.0 - (false_positive_percent) - (false_negative_percent)$.
+%
+This is intuitive as both 
+false positive percentage and
+false negative percentage 
+represent incorrect authentication results.
+
+% discuss our authentication accuracy findings
+% how well does the system do overall
 %TODO
 
 % discussion of the model parameters in general
@@ -78,9 +141,16 @@ has been constructed.
 % discuss what we were seeing that motivated specific design choices
 %
 % weighted windows and tokens in difference computation
+% why did we do this?
+The windows and tokens in the \dots 
+are weighted by \dots
+to help \dots
 %TODO
 
-% TODO something else we changed in the difference computation
+% define confidence interval for the difference computation
+%TODO
+
+% talk about how this correlates with the Jensen Shannon divergence between the sets
 %TODO
 
 % discuss computation time on the nexus 7
@@ -90,6 +160,16 @@ has been constructed.
 %TODO
 
 %TODO was there no significant difference for changing the other parameters?
+%TODO
+
+% describe the data collection process
+%TODO
+
+% describe how the data looked 
+% (normal distribution?)
+% (q,q plot?)
+% how fine grained was the pressure data?
+% what did this cause us to decide to do?
 %TODO
 
 % describe how the results were analyzed
@@ -119,7 +199,55 @@ in decreasing the reported graininess of pressure.
 Another possibility might be the values
 reported by the sensors,
 Perhaps these sensors only report a small number of steps.
-%TODO state the performance impact on our system
+
+% state the performance impact on our system
+% say how fine grained the pressure data is on the nexus 7
+On the Nexus $7$ tablets used to test this implementation,
+the pressure data from the touchscreen is 
+reported at a precision of $0.096$ by the {\tt getPressure()} method.
+This measurement has been determined
+by finding the minimum difference between
+any two pressure values in one of our data sets.
+%
+There is a small probability the precision could
+be greater if two adjacent pressure measurements
+were never taken in the dataset.
+%
+The precision of {\tt getPressure()} is
+known to vary among devices.
+We have not encountered any inconsistency
+in the precision among devices of the same type (eg. Nexus $7$).
+%
+Devices with less precise values returned from
+{\tt getPressure()}
+compared to those pressure values on the Nexus $7$
+tended to preform worse.
+%
+This makes intuitive sense as the basis for the system
+is that pressure may be used as a user and device biometric.
 
 % tie all analysis's back to the claims
-%TODO
+Where does this leave us?
+The goal in preforming these tests was to show it is possible to construct
+an 
+%
+unobtrusive system which 
+establishes a user identity 
+and a device identity
+based on pressure values 
+derived from user touch screen interactions.
+%
+Further to show that this identity may be 
+distinguished from other 
+user and device identities with accuracy ($70-90+\%$)
+in ($1-5 sec$) on a Nexus $7$ tablet.
+%
+% discuss how all of these claims have been accounted for
+All of these claims have been accounted for
+in the above discussion.
+%
+% relate back to solving the problem of 
+% insufficient authentication after the lock screen has been bypassed
+Such a system provides a reasonable step forward in
+securing mobile devices in cases where the lock screen has
+been bypassed by an illegitimate user.
