@@ -377,11 +377,17 @@ public class Chain{
 				// compute the window weight, occurrences of window / total windows, in auth model
 				window_weight = ((double) auth_window_list.occurrence_count(auth_window_list.get( unique_auth_windows.get(i) ))) / ((double)auth_window_list.size());
 
-				// add up the weighted difference between the windows \sigma(difference * weight of window)
-				total_difference += window_weight * get_window_difference(
+				// compute the window difference
+				double window_difference = get_window_difference(
 						auth_window_list.get(unique_auth_windows.get(i)),
 						base_window_list, auth_window_list,
 						this.successor_touch, auth_chain.successor_touch);
+
+				//TODO
+				System.out.println("Chain Window difference: " + window_difference);
+
+				// add up the weighted difference between the windows \sigma(difference * weight of window)
+				total_difference += window_weight * window_difference;
 			}
 
 			difference = total_difference;

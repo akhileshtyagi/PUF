@@ -124,3 +124,43 @@ a sufficient user biometric to classify users with high accuracy.
 %
 %TODO describe our advantage over sensec
 %Our advantage over this work is....
+
+% describe other continuous authentication work
+Other continuous authentication schemes 
+which seek to build an identity of the user based on
+touch screen interactions.
+%
+\cite{feng2012continuous} describes such a scheme which combines readings
+using a glove containing accelerometers, gyroscopes 
+with touch screen interactions 
+to construct a user identity.
+While this solution does have 
+a higher accuracy (\textgreater$95\%$)
+compared to our system,
+the need for the glove causes it
+to be cumbersome to implement in a practical environment.
+%
+\cite{frank2013touchalytics} uses two machine learning
+classifiers $k$-nearest-neighbors and 
+a support-vector machine with an rbf-kernel.
+$30$ features are extracted from touch screen interactions.
+%
+This work has higher accuracy compared to our system
+attaining a median equal error rate of $0\%$
+for multiple sessions at the same time dropping to below $4\%$
+for tests conducted a week after the training.
+%
+%TODO perhaps this could be stated better
+A drawback of this system is it's complexity of implementation.
+Extracting $30$ features features from each touch screen 
+interaction is not a trivial undertaking.
+%
+Our system is distinguished from the previous two
+most strongly by the classification system.
+\cite{feng2012continuous}, \cite{frank2013touchalytics}
+use machine learning in classifying data
+while our proposed solution makes use of an $n-gram$ Markov model.
+%
+Another significant factor is the comparative implementation simplicity of our system.
+We utilize comparatively fewer features 
+while achieving relatively high accuracies (\textgreater$90\%$).

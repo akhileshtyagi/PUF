@@ -40,88 +40,232 @@ facial recognition may be tricked using an image of the legitimate user.
 % why don't current solution solve these issues
 % each paragraph corresponds to one problem
 %
-%TODO shoulder-surfing
+% shoulder-surfing
 % describe what a shoulder surfing attack is
-%Shoulder surfing is a major concern
-
-%TODO smudge attacks
-%TODO printable finger prints
-%TODO facial recognition spoofing
-
-% discuss the issues with lock screen in more detail
-%TODO integrate each of these problems ( talk about all of them in further detail)
-%%%%%%%%%%%%%%%%%%%
-\cite{schaub2012password} discusses the vulnerability of
-various touch screen input methods to shoulder-surfing attacks
-while
-\cite{hafiz2008towards} measured the susceptibility of 
-users to shoulder surfing attacks observing
-attackers having a (\textgreater$20\%$) success rate
+Shoulder surfing is the practice of spying
+on a user for the purpose of
+obtaining that user's personal information.
+%
+When discussing shoulder surfing in this context,
+it usually means watching an unaware user 
+enter their pin, password, or pattern into
+the lock screen.
+%
+The frequency of smart phone use in public areas
+makes shoulder surfers an ever-present threat.
+%
+Once a malicious party has obtained
+the lock screen secret by means of shoulder surfing
+they may attempt to steal the phone and bypass the lock screen.
+%
+\cite{schaub2012password} and \cite{hafiz2008towards} both
+cite shoulder surfing as a major concern with 
+\cite{schaub2012password} identifying
+a (\textgreater$20\%$) success rate
 on Android keyboards
+for the the shoulder surfing technique
 in the reproduction of a password after $3$ attempts.
 %
-Smudge attacks where,
-oily residues are used to detect common touch screen patters,
-also represent a significant security risk
-for secrets input via the touch screen.
-\cite{aviv2010smudge} explores the feasibility of
-such attacks finding in one experiment
-the lock screen pattern was partially identifiable $92\%$ of the time
-and full identifiable $68\%$ of the time.
-
-% use some other examples of lock screens
-These vulnerabilities have led to the development of 
-lock screens which 
-use a user biometric in an attempt to increase security.
-Facial recognition and finger print scanners have
-been employed as lock screen mechanisms.
-% finger print scanners and facial recognition
-These methods insufficient to protect the device from attack.
+Both works discuss lock screen security mechanisms
+and changes which can be made to make them more secure.
+However, these changes often resulted in 
+decreased usability.
 %
-% talk about how finger print scanners and facial recognition may be exploited
-\cite{cao2016hacking} demonstrates a method 
-to exploit the finger print scanner on an android device
-using printed fingerprints.
-This method is simple and fast as long as a print of the
-authentic user's finger can be obtained.
+In the present state of the lock screen,
+studies such as \cite{harbach2014sa} 
+which surveyed the lock screen habits of a variety of individuals
+have found that
+$56.3\%$ of the participants
+did not use a lock screen at all.
+%
+Decreasing the usability of the lock screen even further might
+have a worsening effect on overall device security if
+it deters individuals from using a lock screen entirely. 
+
+% smudge attacks
+% what is a smudge attack
+% how does one execute a smudge attack
+Smudge attacks attempt to detect
+oily residues can expose common touch screen patterns.
+%
+Attacks can be as simple as using a camera to capture the
+these residues for simple image analysis as in
+\cite{aviv2010smudge}.
+%
+This study investigates smudge attacks against
+Android's pattern authentication suggesting
+an attacker might choose a set of highly likely patterns
+from the $389,112$ possible patterns.
+%
+Another finding is that lock screen patterns could be detectable
+even after application use and
+incidental clothing contact.
+This is significant because 
+events which would potentially remove
+the oily residues in a real-world scenario
+are captured.
+%
+The question, "is this practical as a method for
+phone thieves to recover the lock screen pattern?"
+is what is relevant for this paper.
+This work \cite{aviv2010smudge}
+strongly suggest the answer to
+this question should be "yes".
+
+% printable finger prints
+Recognizing the limitations of 
+traditional authentication mechanisms (pin, password, pattern)
+in a mobile environment,
+other systems have sought to use a user biometric 
+for security.
+%
+An example of such a system is the finger print scanner 
+which has been implemented on many mobile devices today.
+The device works by 
+asking the user to hold their finger on the scanner for an amount of time.
+The scanner reads characteristics of the human finger and
+compares the reading against the known user identity.
+%
+The primary problem with this system is that it may be easily fooled
+by through the use of 
+fake prints having characteristics similar to those of the
+legitimate user.
+%
+\cite{cao2016hacking} has shown it is possible to fool the
+finger print scanner on an Android device into 
+false falsely authenticating printed finger print.
+The false finger print used
+is printed with on AgIC with AgIC ink on AgIC paper,
+% say what AgIC is (potentially use same citatioon that was in paper)
+a special conductive ink designed for printing circuits
+on household printers \cite{AGIC}.
 %
 Other works by Germany's Chaos Computer Club \cite{CHAOS}
-have show that it is possible to lift a finger print 
-belonging to the authentic user from the device touch screen
-and use it to pass the finger print scanner authentication on Apple's Iphone $4S$ and $5$. 
+have shown that it is possible to lift a finger print
+belonging to the authentic user from the device touch screen.
 %
-Attacks against facial recognition schemes involve
-spoofing the facial features of the authentic user
-in order to pass facial recognition authentication.
+Taken together this suggests that an attacker
+could lift a finger print from the device touch screen
+belonging to the authentic user and 
+print a replica capable of passing 
+finger print scanner authentication.
+
+% facial recognition spoofing
+Another biometric based authentication method
+is facial recognition.
+In these systems,
+the user presents his or her face to the camera
+of their mobile device.
+%
+The image is then 
+analyzed by the system and compared to the existing user identity.
+%
+% describe an example of this analysis
+In \cite{mccool2009parts} this facial analysis
+is conducted by 
+splitting the image of the face into blocks,
+treating each of these blocks as separate sub-images.
+Each of these sub-images is then classified using
+using a Gaussian Mixture Model (GMM).
+%
+Importantly this method of analysis relies on
+the classification of a static facial image.
+%
+% replay attacks: what are they, why are they significant
+Attacks against facial recognition systems
+involve presenting a large number of images from a database
+in hopes that one of these images contains
+features close enough to those of the legitimate user
+to be classified as the user by the system.
+%
+Other facial recognition systems require movement of
+the image being presented
+hoping to deter these image attacks.
+%
+However, similar to the static analysis methods,
+these systems may be fooled by
+presenting them with a video segment
+instead of a static image \cite{hadid2014face}. 
+%
 \cite{de2013can}
-accesses the practically anti-spoofing measures in real word scenarios
-observing 
-low generalization of
-and possible database bias in existing schemes.
+accesses the practically anti-spoofing measures in real word scenarios.
+Conclusions from this work suggest
+current countermeasures against spoofing attacks,
+"lack in generalization and require some improvement".
 
-In many situations,
-an attacker may not even need to pass the lock screen authentication.
-% mobile devices can change hands while the authentication state is still active
-Imagine a situation where the authentic user of a device preforms the authentication,
-unlocking the device.
-The device then falls into the hands of an attacker.
-This attacker can not only exploit the authenticated state of the device,
-but may use the authenticated state to disable the lock screen entirely;
-Thus allowing permanent access to all applications on the device.
+% describe general issues with these systems
+Finger print scanner authentication and
+facial recognition are more secure in 
+that it is more difficult for an attacker to replicate
+the necessary information to pass authentication.
 %
-% many people neglect to use a lock screen at all
-% demographic
-\cite{harbach2014sa} surveyed the lock screen behavior of $320$
-individuals ages $18 - 67$ with a median age of $31$.
-Of these individuals, $39.6\%$  rated themselves as having
-a very high level of IT expertise.
-% findings
-The results of this survey indicate $56.3\%$ of the participants
-did not use a lock screen at all.
-%%%%%%%%%%%%%%%%%%%%
+However,
+these methods are still exploitable in straightforward ways.
+%
+The issues with these one-shot authentication methods
+are tied to the mobile nature of the smart phone.
+%
+In the case of pin, password, and pattern,
+the user must preform these authentications in 
+public places.
+This exposes the entry process to view of others
+enabling shoulder surfing.
+%
+Additionally,
+users must interact with the device using their
+fingers as opposed to a mouse and keyboard.
+%
+Tools other than a user's fingers are quite cumbersome
+and decrease usability of the device in the mobile environment.
+%
+The drawback of the need to use fingers
+is the oily residues remaining after the fingers are removed.
+This enables smudge attacks to successfully detect
+common patterns such as the lock screen pattern.
+%
+Many authentication schemes which rely on this one-shot
+type of authentication will necessarily have this problem.
 
-%TODO look for other security solutions which establish a user
-%TODO identity while the device is in use
+% look for other security solutions which establish a user
+% identity while the device is in use
+%
+% in other words write about other continuous authentication systems
+Continuous authentication schemes exist
+that seek to use 
+properties of the user interaction
+to provide additional security.
+%
+Schemes such as 
+\cite{feng2012continuous}
+using touch screen interactions in combination with a glove containing accelerometers, gyroscopes,
+and
+\cite{frank2013touchalytics}
+using $30$ behavioral touch features extracted from touch screen interactions
+%
+develop a user identity
+by utilizing incoming data from multiple device sensors over time.
+%TODO there could probabally be ( and probabally should be more here about these works and others)
+
+% say how our system is similar to other continous authentication schemes
+Our system is similar to other continuous authentication
+systems mentioned above
+in that we provide continuous, transparent authentication 
+throughout the device use 
+after the lock screen.
+%
+% say how our system is distinct from other continous authentication systems
+Our system is distinguished from these systems
+by our lack of an additional hardware requirement as in \cite{feng2012continuous}
+and our relative simplicity over \cite{frank2013touchalytics}.
+These systems also use machine learning in order to classify their users
+while
+our solution utilizes 
+an $n-gram$ Markov model for classification purposes.
+%
+%TODO write about how other solutions fail in places where ours succeeds
+% potentially these other solutions are better in some areas, but 
+% at the expense of others, in which ours is better
+%TODO
 
 % state the issue in general terms
 Having a single authentication mechanism which
@@ -148,7 +292,19 @@ the operation throughout the use of the device.
 %
 % talk about how these two ^ things make our solution an improvement
 % improvement over one-shot authentication
-%TODO
+The biometric nature of the data makes the
+identity of the user much more difficult to reproduce while
 %
-% improvement over other continuous authentication
-%TODO
+the operation of the system throughout the lifetime of 
+a user's interaction with the device allows
+continuous testing of the user's identity.
+%
+% the two together are more secure than either on their own
+The need to reproduce a user biometric throughout the entire attack
+against a device further improves the security offered by our solution.
+%
+% improvement over other continuous authentication ( in general )
+Over other continuous authentication systems,
+we provide improvements 
+in usability over \cite{feng2012continuous}
+and in simplicity over \cite{frank2013touchalytics}.

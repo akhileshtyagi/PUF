@@ -47,6 +47,13 @@ public class TokenDistance {
     }
 
     /**
+     * returns the weight of the window
+     */
+    public double get_weight(){
+        return this.weight;
+    }
+
+    /**
      * returns the distance between two touches
      */
     private double distance(Touch auth_touch, List<Touch> successor_list_user, List<Touch> successor_list_auth, int auth_index, List<Token> auth_tokens, Window auth_window, TrieList base_window_list) {
@@ -91,6 +98,9 @@ public class TokenDistance {
      * returns the weight of this difference
      */
     private double weight(Touch auth_touch, List<Touch> successor_list_auth, int auth_index, List<Token> auth_tokens, Window auth_window) {
+        //TODO
+        System.out.println("token weight: " + successor_list_auth.get(auth_index).get_probability(auth_tokens, auth_window));
+
         // token weight is simply the probability in the auth model
         // this is because we are weighting by occurrences and auth_probability represents
         // the fractional amount of time the token occurred

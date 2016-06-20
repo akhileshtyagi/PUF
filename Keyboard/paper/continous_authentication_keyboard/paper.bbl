@@ -14,13 +14,6 @@ Federal~Communications Commission.
 \newblock FCC,
   http://transition.fcc.gov/bureaus/oet/tac/tacdocs/\\meeting12414/TAC-MDTP-Report-v1.0-FINAL-TAC-version.pdf.
 
-\bibitem{schaub2012password}
-Florian Schaub, Ruben Deyhle, and Michael Weber.
-\newblock Password entry usability and shoulder surfing susceptibility on
-  different smartphone platforms.
-\newblock In {\em Proceedings of the 11th International Conference on Mobile
-  and Ubiquitous Multimedia}, page~13. ACM, 2012.
-
 \bibitem{hafiz2008towards}
 Muhammad~Daniel Hafiz, Abdul~Hanan Abdullah, Norafida Ithnin, and Hazinah~K
   Mammi.
@@ -28,6 +21,13 @@ Muhammad~Daniel Hafiz, Abdul~Hanan Abdullah, Norafida Ithnin, and Hazinah~K
   password in knowledge based authentication technique.
 \newblock In {\em Modeling \& Simulation, 2008. AICMS 08. Second Asia
   International Conference on}, pages 396--403. IEEE, 2008.
+
+\bibitem{schaub2012password}
+Florian Schaub, Ruben Deyhle, and Michael Weber.
+\newblock Password entry usability and shoulder surfing susceptibility on
+  different smartphone platforms.
+\newblock In {\em Proceedings of the 11th International Conference on Mobile
+  and Ubiquitous Multimedia}, page~13. ACM, 2012.
 
 \bibitem{aviv2010smudge}
 Adam~J Aviv, Katherine Gibson, Evan Mossop, Matt Blaze, and Jonathan~M Smith.
@@ -60,6 +60,44 @@ Marian Harbach, Emanuel von Zezschwitz, Andreas Fichtner, Alexander De~Luca,
   behavior and risk perception.
 \newblock In {\em Symposium On Usable Privacy and Security (SOUPS 2014)}, pages
   213--230, 2014.
+
+\bibitem{AGIC}
+{AgIC.} agic transforms a home printer into a circuit board manufacturing
+  equipment., july 2016, agic.
+\newblock \url{https://agic.cc/en}.
+\newblock Accessed: 2016-16-09.
+
+\bibitem{mccool2009parts}
+Christopher McCool and S{\'e}bastien Marcel.
+\newblock Parts-based face verification using local frequency bands.
+\newblock In {\em Advances in Biometrics}, pages 259--268. Springer, 2009.
+
+\bibitem{hadid2014face}
+Abdenour Hadid.
+\newblock Face biometrics under spoofing attacks: Vulnerabilities,
+  countermeasures, open issues, and research directions.
+\newblock In {\em Proceedings of the IEEE Conference on Computer Vision and
+  Pattern Recognition Workshops}, pages 113--118, 2014.
+
+\bibitem{feng2012continuous}
+Tao Feng, Ziyi Liu, Kyeong-An Kwon, Weidong Shi, Bogdan Carbunar, Yifei Jiang,
+  and Ngac~Ky Nguyen.
+\newblock Continuous mobile authentication using touchscreen gestures.
+\newblock In {\em Homeland Security (HST), 2012 IEEE Conference on Technologies
+  for}, pages 451--456. IEEE, 2012.
+
+\bibitem{frank2013touchalytics}
+Michael Frank, Ralf Biedert, En-Di Ma, Ivan Martinovic, and Dong Song.
+\newblock Touchalytics: On the applicability of touchscreen input as a
+  behavioral biometric for continuous authentication.
+\newblock {\em Information Forensics and Security, IEEE Transactions on},
+  8(1):136--148, 2013.
+
+\bibitem{Brown:ngram}
+Peter~F. Brown, Peter~V. deSouza, Robert~L. Mercer, Vincent J.~Della Pietra,
+  and Jenifer~C. Lai.
+\newblock Class-based n-gram models of natural language.
+\newblock {\em Comput. Linguist.}, 18(4):467--479, December 1992.
 
 \bibitem{threesigmarule}
 Friedrich Pukelsheim.

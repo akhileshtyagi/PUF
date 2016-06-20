@@ -79,23 +79,37 @@ public class WindowDistance extends ArrayList<TokenDistance> {
     }
 
     /**
+     * returns the weight of the window
+     */
+    public double get_weight(){
+        return this.weight;
+    }
+
+    /**
      * compute the difference between window_0 and window_1 given
      * window_0 from base model
      * window_1 from auth model
      *
      * this function acts based on items stored in "this"
      */
-    //TODO might be incorrect
     private double distance_tokens_weighted() {
         double distance = 0.0;
 
         // for token which succeeds this window
         for(TokenDistance token_distance : this){
             distance += token_distance.get_weighted_distance();
+
+            //TODO
+            //System.out.println("DV token distance: " + token_distance.get_weighted_distance());
         }
 
         // divide by the size of the list to get an average
-        return distance / this.size();
+        //TODO might be incorrect
+        //return distance / this.size();
+
+        //if(distance >1.0) System.out.println("token distance (>1.0)" + distance);
+        //System.out.println("DV token distance: " + distance);
+        return distance;
     }
 
     /**
