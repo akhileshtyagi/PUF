@@ -104,6 +104,16 @@ Friedrich Pukelsheim.
 \newblock {The Three Sigma Rule}.
 \newblock {\em The American Statistician}, 48(2):88--91, May 1994.
 
+\bibitem{mackenzie1999text}
+I~Scott MacKenzie, Shawn~X Zhang, and R~William Soukoreff.
+\newblock Text entry using soft keyboards.
+\newblock {\em Behaviour \& information technology}, 18(4):235--244, 1999.
+
+\bibitem{shapiro1965analysis}
+Samuel~Sanford Shapiro and Martin~B Wilk.
+\newblock An analysis of variance test for normality (complete samples).
+\newblock {\em Biometrika}, 52(3/4):591--611, 1965.
+
 \bibitem{Devadas:2009:PUF}
 Srini Devadas.
 \newblock Physical unclonable functions and secure processors.

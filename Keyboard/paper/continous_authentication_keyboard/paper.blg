@@ -4,45 +4,45 @@ The top-level auxiliary file: paper.aux
 The style file: unsrt.bst
 Database file #1: pufs.bib
 Warning--empty journal in cao2016hacking
-You've used 32 entries,
+You've used 34 entries,
             1791 wiz_defined-function locations,
-            659 strings with 10881 characters,
-and the built_in function-call counts, 9507 in all, are:
-= -- 890
-> -- 398
+            674 strings with 11192 characters,
+and the built_in function-call counts, 10000 in all, are:
+= -- 938
+> -- 417
 < -- 17
-+ -- 145
-- -- 113
-* -- 620
-:= -- 1364
-add.period$ -- 109
-call.type$ -- 32
-change.case$ -- 32
++ -- 152
+- -- 118
+* -- 661
+:= -- 1441
+add.period$ -- 115
+call.type$ -- 34
+change.case$ -- 34
 chr.to.int$ -- 0
-cite$ -- 33
-duplicate$ -- 459
-empty$ -- 925
-format.name$ -- 113
-if$ -- 2248
+cite$ -- 35
+duplicate$ -- 477
+empty$ -- 973
+format.name$ -- 118
+if$ -- 2354
 int.to.chr$ -- 0
-int.to.str$ -- 32
-missing$ -- 28
-newline$ -- 163
-num.names$ -- 32
-pop$ -- 138
+int.to.str$ -- 34
+missing$ -- 30
+newline$ -- 173
+num.names$ -- 34
+pop$ -- 140
 preamble$ -- 1
 purify$ -- 0
 quote$ -- 0
-skip$ -- 269
+skip$ -- 276
 stack$ -- 0
-substring$ -- 659
-swap$ -- 179
+substring$ -- 709
+swap$ -- 181
 text.length$ -- 17
 text.prefix$ -- 0
 top$ -- 0
 type$ -- 0
 warning$ -- 1
-while$ -- 91
-width$ -- 34
-write$ -- 365
+while$ -- 97
+width$ -- 36
+write$ -- 387
 (There was 1 warning)
