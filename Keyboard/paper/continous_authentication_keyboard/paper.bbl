@@ -61,6 +61,13 @@ Marian Harbach, Emanuel von Zezschwitz, Andreas Fichtner, Alexander De~Luca,
 \newblock In {\em Symposium On Usable Privacy and Security (SOUPS 2014)}, pages
   213--230, 2014.
 
+\bibitem{ScheelTyagi15}
+R.~Scheel and A.~Tyagi.
+\newblock Characterizing composite user-device touchscreen physical unclonable
+  functions (pufs) for mobile device authentication.
+\newblock In {\em ACM International Workshop in Trusted Embedded Devices,
+  TRUSTED 2015}. ACM, October 2015.
+
 \bibitem{AGIC}
 {AgIC.} agic transforms a home printer into a circuit board manufacturing
   equipment., july 2016, agic.
@@ -202,13 +209,6 @@ Weidong Shi, Feng Yang, Yifei Jiang, Feng Yang, and Yingen Xiong.
 \newblock In {\em Wireless and Mobile Computing, Networking and Communications
   (WiMob), 2011 IEEE 7th International Conference on}, pages 141--148. IEEE,
   2011.
-
-\bibitem{ScheelTyagi15}
-R.~Scheel and A.~Tyagi.
-\newblock Characterizing composite user-device touchscreen physical unclonable
-  functions (pufs) for mobile device authentication.
-\newblock In {\em ACM International Workshop in Trusted Embedded Devices,
-  TRUSTED 2015}. ACM, October 2015.
 
 \bibitem{ruhrmair2015virtual}
 Ulrich Ruhrmair, JL~Martinez-Hurtado, Xiaolin Xu, Christian Kraeh, Christian

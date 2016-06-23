@@ -93,9 +93,11 @@ public class DistanceVector extends ArrayList<WindowDistance> {
             distance += window_distance.get_weighted_distance(true);
 
             //TODO test
-            //TODO DV window distances are a lot smaller than chain window differences... why?
-            System.out.println("DV window distance: " + window_distance.get_weighted_distance(true));
+            //System.out.println("DV window distance: " + window_distance.get_weighted_distance(true));
         }
+
+        //TODO
+        //System.out.println("\t\tcount: " + this.size());
 
         //TODO consider which it should be
         // divide by the size of the list to get an average
@@ -123,7 +125,7 @@ public class DistanceVector extends ArrayList<WindowDistance> {
         }
 
         //TODO
-        System.out.println("DV difference: " + distance);
+        //System.out.println("DV difference: " + distance);
 
         // divide by the size of the list to get an average
         return distance / this.size();

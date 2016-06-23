@@ -1,6 +1,7 @@
 % outlined using the Heilmeier questions
 \section{Introduction}
-% What are you trying to do? Articulate your objectives using absolutely no jargon.  What is the problem?  Why is it hard?
+% What are you trying to do? Articulate your objectives using absolutely no jargon.  
+% What is the problem?  Why is it hard?
 Malicious parties attempt to gain access to data of their victims. 
 Attackers go through the trouble of
 preforming these attacks because
@@ -50,8 +51,9 @@ estimates $368.9$ phone thefts per $100000$ individuals in $2013$.
 It states that about one third of crime involves a mobile phone.
 %
 There are many ways an attacker might
-exploit this one-time authentication 
-in order to gain access to resources on a mobile device.
+exploit the one-time authentication 
+employed on many mobile devices
+in order to gain access to resources on the device.
 % say how the attacker might exploit the one-time authentication
 There are several different types of
 lock screens which are commonly employed.
@@ -63,24 +65,25 @@ securing the lock screen.
 Pin allows the user to create a small fixed-length sequence of numbers.
 Password authentication is similar to pin authentication
 except letters, symbols, and numbers
-are all used to create the secret.
-Swipe authentication is seemingly different
-allowing the user to create a pattern of swiping
-between $9$ points on the screen.
+are all used to create a secret of arbitrary length.
+Swipe authentication
+allows the user to create a pattern of swiping
+among $9$ points on the screen.
 % potentially analyzing the screen for commonly traced patterns (smuge attacks)
 These methods are based on the user having some secret knowledge
 which is entered 
-on the lock screen
-using the touchscreen.
-This authentication occurs each time the phone state
+upon presentation of the lock screen
+using the touch screen.
+The lock screen in presented each time the phone state
 changes from inactive to active.
 
 % cite some attacks like "look over shoulder attacks" and smuge
-All methods of authentication mentioned discussed thus far
-require that a user enter information using the touch screen
+All methods of authentication mentioned thus far
+require that the user enter information 
+using the touch screen
 each time they want to utilize their device.
 %
-There are some problems with this.
+There are a few problems with this.
 Malicious parties may try to 
 exploit the requirement of entry through the
 touch screen by
@@ -104,17 +107,21 @@ also represent a significant security risk
 for secrets input via the touch screen.
 \cite{aviv2010smudge} explores the feasibility of
 such attacks finding in one experiment
-the lock screen pattern was partially identifiable $92\%$ of the time
+the lock screen pattern was 
+partially identifiable $92\%$ of the time
 and full identifiable $68\%$ of the time.
 
 % use some other examples of lock screens
-These vulnerabilities have led to the development of 
+These vulnerabilities 
+with touch screen input alone
+have led to the development of 
 lock screens which 
 use a user biometric in an attempt to increase security.
 Facial recognition and finger print scanners have
 been employed as lock screen mechanisms.
 % finger print scanners and facial recognition
-These methods insufficient to protect the device from attack.
+These methods are insufficient to protect the device from attack
+as they too can be replicated.
 %
 % talk about how finger print scanners and facial recognition may be exploited
 \cite{cao2016hacking} demonstrates a method 
@@ -134,7 +141,7 @@ in order to pass facial recognition authentication.
 \cite{de2013can}
 accesses the practically anti-spoofing measures in real word scenarios
 observing 
-low generalization of
+low generalization
 and possible database bias in existing schemes.
 
 In many situations,
@@ -149,6 +156,7 @@ Thus allowing permanent access to all applications on the device.
 %
 % many people neglect to use a lock screen at all
 % demographic
+To make matters worse,
 \cite{harbach2014sa} surveyed the lock screen behavior of $320$
 individuals ages $18 - 67$ with a median age of $31$.
 Of these individuals, $39.6\%$  rated themselves as having
@@ -159,6 +167,10 @@ did not use a lock screen at all.
 
 This paper does not propose a new method of
 authenticating the user through the lock screen.
+Such a scheme would likely inherit
+the security problems of other 
+lock screen authentication mechanisms.
+%
 Instead we seek to mitigate risk of loss should a
 device become compromised.
 We describe a continuous authentication
@@ -182,7 +194,7 @@ no additional actions from the user.
 %
 This is accomplished by
 recording a biometric of 
-the user's interactions with the touch screen
+the user's touch screen interactions
 in the background.
 The user continues, unaffected by this collection, 
 interacting with the device as they normally would.
@@ -194,7 +206,33 @@ pattern has begun to deviate.
 %
 Deviations may indicate that a
 malicious party has gain control over the device.
+Action may then be taken
+on the basis of a sufficiently large deviation.
 
+% describe our use biometric
+% in other words say, and give evidence, that pressure
+% from touch screen interactions may be used a a user biometric
+% 
+% describe it as both a biometric of the user-device combination
+%TODO is this a correct thing to say?
+The system described in this work uses
+the pressure value returned from
+Android's {\tt getPressure()} method.
+%
+\cite{ScheelTyagi15} shows this value may
+be used as a biometric of a user-device pair.
+That is,
+pressure values derived from the combination
+of a user and device are unique to both
+the user and the device.
+If either the user or device become different,
+the {\tt getPressure()} method will return a different value.
+%
+Our work uses this observation 
+to develop a system 
+capable of distinguishing user-device pairs apart.
+
+% describe our contributions
 We provide a step forward, 
 %
 in mobile device security by
@@ -214,9 +252,9 @@ This system provides innovations in the following areas:
   Specifically, section
   \ref{the_solution} % give forward reference
   shows how a combination of 
-  a touch screen pressure and 
-  the location on the screen
-  may be used to develop a model of that user's behavior.
+  a touch screen event's 
+  pressure and location on the screen
+  may be used to develop a model of a user's behavior.
 \item We establish the behavior of a user on a device
   is unique to that user.
   %
@@ -244,7 +282,7 @@ This system provides innovations in the following areas:
   All security improvements are accomplished without requiring any additional
   actions from the user.
   Our implementation,
-  capable of utilizing touch screen data collected in the background, 
+  utilizing touch screen data collected in the background, 
   is described in
   Section
   \ref{the_solution} % give forward reference
@@ -256,9 +294,11 @@ This system provides innovations in the following areas:
   A performance comparison is presented in Section
   \ref{the_details} % give forward reference
   which demonstrates 
+  the accuracy and
   the computation time as a function of
-  the number of touch screen interactions used and
-  the running time of the system on a Nexus $7$ tablet.
+  the number of touch screen interactions used.
+  Computation time is given for
+  the system on a Nexus $7$ tablet.
   % Section ? discusses the memory requirements of the system,
   % showing that they are ?. 
   %TODO memory requirements of the system?
@@ -268,8 +308,8 @@ This system provides innovations in the following areas:
   %
   Other solutions fail to consider this problem
   or fail to provide a sufficient solution
-  as discussed in Section
-  \ref{the_problem}.
+  as discussed in 
+  Section \ref{the_problem}.
 \end{itemize}
 
 % What's new in your approach and why do you think it will be successful?
@@ -288,7 +328,7 @@ Current solutions suffer from underutilization
 of this information; 
 they discard much of the content of these
 interactions in favor using
-the location of the interactions exclusively.
+user intent from the interactions exclusively.
 %
 Our system utilizes 
 pressure,
@@ -300,12 +340,13 @@ of these interactions to expose patterns unique to a user.
 % describe the modeling scheme
 We use these properties to construct
 a model of how the user interacts with a mobile device.
-This model takes as input a sequence of touches preformed
-by the user.
+This model takes as input a sequence of 
+user touch screen interactions.
 From this sequence
 probabilities are developed
-which represent the likelihood of a given touch screen interaction
-based on the properties of a number of previous interactions.
+which represent the likelihood of occurrence
+for a given touch screen interaction
+based on the properties of a number of previous  touch screen interactions.
 %
 We use an $n-gram$ Markov model,
 a subclass of Markov text analysis.
