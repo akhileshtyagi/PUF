@@ -105,6 +105,26 @@ The goal is to determine how closely model $W^O$ is to model $W^U$.
 
 %</difference>
 
+%<*trie>
+
+% describes the difference computation in detail
+\begin{figure}
+\centering
+\includegraphics[width=0.45\textwidth]{prefix_tree.pdf}
+\caption{
+A prefix tree data structure
+stores data based on the position of the node in the tree.
+The child of each node
+has the same prefix as it's parent
+concatenated with the value of the edge.
+%
+Our implementation stores windows in a prefix tree.
+}
+\label{trie}
+\end{figure}
+
+%</trie>
+
 %
 % details graphics
 %

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  22 JUN 2016 20:15
+This is pdfTeX, Version 3.14159265-2.6-1.40.16 (TeX Live 2015/Arch Linux) (preloaded format=pdflatex 2016.1.10)  23 JUN 2016 12:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -354,7 +354,13 @@ Overfull \hbox (10.07861pt too wide) in paragraph at lines 305--313
  []
 
 [2]) (./the_problem.tex
-Overfull \hbox (8.827pt too wide) in paragraph at lines 116--152
+Overfull \hbox (8.458pt too wide) in paragraph at lines 88--117
+[]\T1/aer/m/n/9 Smudge at-tacks at-tempt to de-tect oily residues. These residu
+es
+ []
+
+
+Overfull \hbox (8.827pt too wide) in paragraph at lines 119--155
 []\T1/aer/m/n/9 Recognizing the lim-i-ta-tions of tra-di-tional au-then-ti-ca-t
 ion mech-
  []
@@ -363,41 +369,38 @@ ion mech-
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [3])
-(./the_solution.tex (./graphics.tex)
-<graphics/marcov_model_building.pdf, id=19, 770.88pt x 326.21875pt>
+(./the_solution.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [4]
+(./graphics.tex)
+<graphics/marcov_model_building.pdf, id=23, 770.88pt x 326.21875pt>
 File: graphics/marcov_model_building.pdf Graphic file (type pdf)
 
 <use graphics/marcov_model_building.pdf>
 Package pdftex.def Info: graphics/marcov_model_building.pdf used on input line 
-134.
+143.
 (pdftex.def)             Requested size: 226.79846pt x 95.97485pt.
-
-Underfull \vbox (badness 10000) has occurred while \output is active []
-
- [4]
-Overfull \hbox (16.58557pt too wide) in paragraph at lines 196--197
-[]\T1/aer/m/n/9 for each win-dow $\OML/cmm/m/it/9 W$\T1/aer/m/n/9 , for each to
--ken $\OML/cmm/m/it/9 T$\T1/aer/m/n/9 , com-pute $\OML/cmm/m/it/9 P\OT1/cmr/m/n
-/9 (\OML/cmm/m/it/9 T[]\OMS/cmsy/m/n/9 j\OML/cmm/m/it/9 W[]\OT1/cmr/m/n/9 )[]$
- []
-
-(./graphics.tex)
+ (./graphics.tex)
 <graphics/final_marcov_model_state.pdf, id=24, 774.895pt x 352.31625pt>
 File: graphics/final_marcov_model_state.pdf Graphic file (type pdf)
 
 <use graphics/final_marcov_model_state.pdf>
 Package pdftex.def Info: graphics/final_marcov_model_state.pdf used on input li
-ne 223.
+ne 232.
 (pdftex.def)             Requested size: 226.79846pt x 103.11525pt.
- (./graphics.tex)
-<graphics/phone_tokens.pdf, id=25, 794.97pt x 614.295pt>
+ [5 <./graphics/marcov_model_building.pdf> <./graphics/final_marcov_model_state
+.pdf>] (./graphics.tex)
+<graphics/phone_tokens.pdf, id=39, 794.97pt x 614.295pt>
 File: graphics/phone_tokens.pdf Graphic file (type pdf)
 
 <use graphics/phone_tokens.pdf>
-Package pdftex.def Info: graphics/phone_tokens.pdf used on input line 276.
+Package pdftex.def Info: graphics/phone_tokens.pdf used on input line 287.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
- [5 <./graphics/marcov_model_building.pdf> <./graphics/final_marcov_model_state
-.pdf>]
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
  [6 <./graphics/phone_tokens.pdf
@@ -409,10 +412,13 @@ alid other resource which is no dict (key 'ProcSets', type <array>); ignored.
 File: graphics/token_creation.pdf Graphic file (type pdf)
 
 <use graphics/token_creation.pdf>
-Package pdftex.def Info: graphics/token_creation.pdf used on input line 463.
+Package pdftex.def Info: graphics/token_creation.pdf used on input line 483.
 (pdftex.def)             Requested size: 226.79846pt x 98.80087pt.
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
  [7 <./graphics/token_creation.pdf>]
-Overfull \hbox (3.08466pt too wide) in paragraph at lines 630--633
+Overfull \hbox (3.08466pt too wide) in paragraph at lines 697--700
 \T1/aer/m/n/9 cor-re-spond-ing suc-ces-sor to-kens for a given $\OML/cmm/m/it/9
  W[]$ 
  []
@@ -423,16 +429,23 @@ File: graphics/difference_computation.pdf Graphic file (type pdf)
 
 <use graphics/difference_computation.pdf>
 Package pdftex.def Info: graphics/difference_computation.pdf used on input line
- 658.
+ 736.
 (pdftex.def)             Requested size: 504.0pt x 221.05197pt.
+ (./graphics.tex)
+<graphics/prefix_tree.pdf, id=65, 717.68124pt x 556.0775pt>
+File: graphics/prefix_tree.pdf Graphic file (type pdf)
 
-Overfull \hbox (4.46242pt too wide) in paragraph at lines 714--716
-[]\T1/aer/m/n/9 Periodic au-then-ti-ca-tion could com-pare new touch screen
- []
+<use graphics/prefix_tree.pdf>
+Package pdftex.def Info: graphics/prefix_tree.pdf used on input line 761.
+(pdftex.def)             Requested size: 226.79846pt x 175.72534pt.
+ [8]) (./the_details.tex [9 <./graphics/difference_computation.pdf> <./graphics
+/prefix_tree.pdf
 
-) (./the_details.tex (./graphics.tex)
-<graphics/false_positive_vs_authentication_threshold.pdf, id=65, 794.97pt x 614
-.295pt>
+pdfTeX warning: pdflatex (file ./graphics/prefix_tree.pdf): PDF inclusion: mult
+iple pdfs with page group included in a single page
+>] (./graphics.tex)
+<graphics/false_positive_vs_authentication_threshold.pdf, id=100, 794.97pt x 61
+4.295pt>
 File: graphics/false_positive_vs_authentication_threshold.pdf Graphic file (typ
 e pdf)
  <use graphics/false_positive_vs_authentication_threshold.pdf>
@@ -448,10 +461,10 @@ thentication[]accuracy \OT1/cmr/m/n/9 =
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [8]
+
 (./graphics.tex)
-<graphics/authentication_accuracy_vs_total_interactions.pdf, id=69, 1228.59pt x
- 794.97pt>
+<graphics/authentication_accuracy_vs_total_interactions.pdf, id=101, 1228.59pt 
+x 794.97pt>
 File: graphics/authentication_accuracy_vs_total_interactions.pdf Graphic file (
 type pdf)
  <use graphics/authentication_accuracy_vs_total_interactions.pdf>
@@ -459,17 +472,17 @@ Package pdftex.def Info: graphics/authentication_accuracy_vs_total_interactions
 .pdf used on input line 203.
 (pdftex.def)             Requested size: 226.79846pt x 146.75175pt.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 6995) has occurred while \output is active []
 
- [9 <./graphics/difference_computation.pdf> <./graphics/false_positive_vs_authe
-ntication_threshold.pdf>] (./graphics.tex)
+ [10 <./graphics/false_positive_vs_authentication_threshold.pdf> <./graphics/au
+thentication_accuracy_vs_total_interactions.pdf>] (./graphics.tex)
 
 pdfTeX warning: pdflatex (file ./graphics/window_size_vs_authentication_accurac
 y.pdf): PDF inclusion: found PDF version <1.7>, but at most version <1.5> allow
 ed
 
-<graphics/window_size_vs_authentication_accuracy.pdf, id=94, 794.97pt x 614.295
-pt>
+<graphics/window_size_vs_authentication_accuracy.pdf, id=111, 794.97pt x 614.29
+5pt>
 File: graphics/window_size_vs_authentication_accuracy.pdf Graphic file (type pd
 f)
  <use graphics/window_size_vs_authentication_accuracy.pdf>
@@ -477,7 +490,7 @@ Package pdftex.def Info: graphics/window_size_vs_authentication_accuracy.pdf us
 ed on input line 297.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
 
-Underfull \vbox (badness 6995) has occurred while \output is active []
+Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 (./graphics.tex)
@@ -486,8 +499,8 @@ pdfTeX warning: pdflatex (file ./graphics/authentication_accuracy_vs_touchscree
 n_interactions.pdf): PDF inclusion: found PDF version <1.7>, but at most versio
 n <1.5> allowed
 
-<graphics/authentication_accuracy_vs_touchscreen_interactions.pdf, id=95, 433.6
-2pt x 216.81pt>
+<graphics/authentication_accuracy_vs_touchscreen_interactions.pdf, id=112, 433.
+62pt x 216.81pt>
 File: graphics/authentication_accuracy_vs_touchscreen_interactions.pdf Graphic 
 file (type pdf)
 
@@ -495,31 +508,36 @@ file (type pdf)
 Package pdftex.def Info: graphics/authentication_accuracy_vs_touchscreen_intera
 ctions.pdf used on input line 363.
 (pdftex.def)             Requested size: 226.79846pt x 113.40018pt.
- [10 <./graphics/authentication_accuracy_vs_total_interactions.pdf> <./graphics
-/window_size_vs_authentication_accuracy.pdf> <./graphics/authentication_accurac
-y_vs_touchscreen_interactions.pdf>] (./graphics.tex)
-<graphics/nexus_7_runtimes.pdf, id=110, 794.97pt x 614.295pt>
+
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+ [11 <./graphics/window_size_vs_authentication_accuracy.pdf> <./graphics/authen
+tication_accuracy_vs_touchscreen_interactions.pdf>] (./graphics.tex)
+<graphics/nexus_7_runtimes.pdf, id=124, 794.97pt x 614.295pt>
 File: graphics/nexus_7_runtimes.pdf Graphic file (type pdf)
 
 <use graphics/nexus_7_runtimes.pdf>
 Package pdftex.def Info: graphics/nexus_7_runtimes.pdf used on input line 502.
 (pdftex.def)             Requested size: 226.79846pt x 175.25398pt.
- [11 <./graphics/nexus_7_runtimes.pdf>]
-(./graphics.tex) <graphics/Rplots.pdf, id=118, page=2, 505.89pt x 505.89pt>
+ (./graphics.tex)
+<graphics/Rplots.pdf, id=125, page=2, 505.89pt x 505.89pt>
 File: graphics/Rplots.pdf Graphic file (type pdf)
 
 <use graphics/Rplots.pdf, page 2>
 Package pdftex.def Info: graphics/Rplots.pdf, page2 used on input line 574.
 (pdftex.def)             Requested size: 226.79846pt x 226.79927pt.
- (./graphics.tex)
-<graphics/Rplots.pdf, id=119, page=4, 505.89pt x 505.89pt>
+ [12 <./graphics/nexus_7_runtimes.pdf>]
+(./graphics.tex) <graphics/Rplots.pdf, id=133, page=4, 505.89pt x 505.89pt>
 File: graphics/Rplots.pdf Graphic file (type pdf)
 
 <use graphics/Rplots.pdf, page 4>
 Package pdftex.def Info: graphics/Rplots.pdf, page4 used on input line 610.
 (pdftex.def)             Requested size: 226.79846pt x 226.79927pt.
-) (./related_work.tex [12 <./graphics/Rplots.pdf> <./graphics/Rplots.pdf>]) (./
+) (./related_work.tex [13 <./graphics/Rplots.pdf> <./graphics/Rplots.pdf>]) (./
 conclusion.tex
+Underfull \vbox (badness 10000) has occurred while \output is active []
+
+
 Overfull \hbox (10.5278pt too wide) in paragraph at lines 4--17
 \T1/aer/m/n/9 cur-rent so-lu-tions uti-lize one-time au-then-ti-ca-tion schemes
  These
@@ -530,21 +548,21 @@ Overfull \hbox (21.45428pt too wide) in paragraph at lines 4--9
 \T1/aer/m/n/9 http://www.consumerreports.org/cro/news/2014/04/smart- 
  []
 
-[13]
+[14]
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
 
 Underfull \vbox (badness 10000) has occurred while \output is active []
 
- [14])
-[15
+ [15])
+[16
 
 ] (./paper.aux) ) 
 Here is how much of TeX's memory you used:
- 4803 strings out of 493054
- 64209 string characters out of 6140586
- 235858 words of memory out of 5000000
- 8157 multiletter control sequences out of 15000+600000
+ 4811 strings out of 493054
+ 64371 string characters out of 6140586
+ 236867 words of memory out of 5000000
+ 8162 multiletter control sequences out of 15000+600000
  50797 words of font info for 68 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  43i,10n,32p,816b,251s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -561,10 +579,10 @@ s/cm/cmsy9.pfb></usr/share/texmf-dist/fonts/type1/public/amsfonts/cm/cmti9.pfb>
 mf-dist/fonts/type1/urw/helvetic/uhvb8a.pfb></usr/share/texmf-dist/fonts/type1/
 urw/helvetic/uhvr8a.pfb></usr/share/texmf-dist/fonts/type1/urw/times/utmb8a.pfb
 >
-Output written on paper.pdf (15 pages, 683146 bytes).
+Output written on paper.pdf (16 pages, 703479 bytes).
 PDF statistics:
- 187 PDF objects out of 1000 (max. 8388607)
- 126 compressed objects within 2 object streams
+ 201 PDF objects out of 1000 (max. 8388607)
+ 136 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
- 61 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 66 words of extra memory for PDF output out of 10000 (max. 10000000)
 

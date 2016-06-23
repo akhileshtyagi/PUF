@@ -20,12 +20,12 @@ For gathering purposes,
 a keyboard application was modified to record
 the necessary data values.
 %
-%TODO say how man users where enlisted
+%TODO say how many users where enlisted
 Several users were enlisted to acquire
 a large amount of touch screen data on Nexus $7$ tablets.
 %
 In order to analyze the collected data,
-the system described in \ref{the_solution}
+the system described in Section \ref{the_solution}
 has been constructed.
 
 % discuss false_positive and false_negative percentages
@@ -130,6 +130,17 @@ are used to both
 construct the user identity from a number of older interactions and
 construct an identity to compare against the user identity 
 from the more resent interactions.
+%
+Intuitively,
+under normal system operation
+the user is providing a constant supply of touch screen interactions.
+If the device is compromised,
+falling into the hands of a malicious party,
+this party will then begin providing touch screen interactions.
+As a result,
+the proposed scheme seeks to identify the malicious party
+by detecting a difference in newer touch screen interactions
+compared to older touch screen interactions.
 
 % describe the performance of the system in terms of
 % 1. aggregate performance
@@ -155,19 +166,19 @@ being correctly above an authentication threshold
 is what is being displayed in 
 Figure 
 %\ref{fig:authentication_accuracy}
-\ref{fig:total_touches_vs_authentication_accuracy}
-.
+\ref{fig:total_touches_vs_authentication_accuracy}.
 %
 Of course
 the information presented in the chart 
 only supports the
 the suggestion that the system is practical 
-if the time to generate touch screen interactions is known.
+if the time needed to generate a number of
+touch screen interactions is known.
 %
 In order to get an intuitive feel for this,
 we reference studies which have tested
 the number of words a user generates per minute
-while using a soft keyboard.
+whilst using a soft keyboard.
 %
 \cite{mackenzie1999text} reported that a
 novice user can enter information through 
@@ -182,7 +193,7 @@ a user can generate $1000$ touch interactions in $5-10$ minutes of
 soft keyboard use.
 %
 % describe how authentication accuracy increases given touch interactions
-%TODO redo these numbers
+%TODO redo these numbers with weighting improvements once people get nexus back to me
 Given this,
 the graph may be interpreted in the following way,
 an authentication accuracy of $70\%$ is achievable 
@@ -193,10 +204,10 @@ After an additional $5000$ touches have been generated,
 an authentication accuracy above $80\%$ is achievable.
 Increasing the number of interactions 
 by an additional $5000$ to $15000$ yields
-an authentication accuracy of $90\%$.
+an authentication accuracy of $>90\%$.
 %
 This training can occur in a non-intrusive way
-assuming the touch data is being collected over time in the background.
+if the touch data is being collected over time in the background.
 %%%
 
 % total touch screen interactions vs authentication accuracy
@@ -204,8 +215,17 @@ assuming the touch data is being collected over time in the background.
 
 %TODO describe the performance of the system in terms of
 % given the achieved authentication accuracy for each of these cases
+The authentication accuracy presented above gives 
+the aggregate system performance when all
+possible combinations of user-device pairs are considered.
+These combinations can be examined individually.
+%
+In other words the accuracy of our system can be quantified
+%TODO continue proofread from here
+
 %TODO present the authentication accuracy of all of these on the same
 %TODO graph for comparison
+
 % 2.1. different user, different device
 %TODO
 
