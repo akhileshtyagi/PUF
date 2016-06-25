@@ -213,7 +213,7 @@ if the touch data is being collected over time in the background.
 % total touch screen interactions vs authentication accuracy
 \ExecuteMetaData[graphics.tex]{total}
 
-%TODO describe the performance of the system in terms of
+% describe the performance of the system in terms of
 % given the achieved authentication accuracy for each of these cases
 The authentication accuracy presented above gives 
 the aggregate system performance when all
@@ -221,23 +221,169 @@ possible combinations of user-device pairs are considered.
 These combinations can be examined individually.
 %
 In other words the accuracy of our system can be quantified
-%TODO continue proofread from here
+for each of the potential situations in which
+a data set might be generated
+(different user, different device),
+(different user, same device),
+(same user, different device), and
+(same user, same device).
+%
+Figure \ref{placeholder} %TODO replace reference
+describes
+how the authentication accuracy 
+in each of these situations
+depends on the total number of touch screen interactions
+used in the authentication.
 
-%TODO present the authentication accuracy of all of these on the same
-%TODO graph for comparison
+%TODO replace with graph of the 4 situations authentication accuracy vs total number of touches
+\ExecuteMetaData[graphics.tex]{placeholder}
 
+% present the authentication accuracy of all of these on the same
+% graph for comparison
+%
+% describe each situation (give example), compare the results, and state the impact
 % 2.1. different user, different device
+The goal is to describe the performance of the system
+in all situations which might arise and
+to discuss the relative importance
+of each situation.
+%
+One potential situation involves
+touch screen interactions created by 
+different users on different devices
+being compared against one another.
+%
+Such a situation might arise in the case
+%TODO should cite some evidence that this can or does happen in practice
+%TODO a malicious remote desktop type application is what I am thinking of
+that an attacker has gained remote access to 
+a device and is capable of initiating remote touch events
+from their device.
+%
+For example,
+some attacks exploit
+remote desktop features which 
+are often built into Android in insecure ways. %TODO \cite{}.
+%
+% importance of this situation
+It is clear that if a malicious party
+is able to gain remote access to the device
+that this party is capable of 
+preforming any action the user could normally preform
+which could result in data loss for the user.
+%
+% talk about our systems performance in this case
 %TODO
 
 % 2.2. different user, same device
+Perhaps the situation which poses the greatest concern 
+is the different user, same device scenario.
+In this case,
+a user other than the legitimate user
+has come into physical possession of the
+device.
+%
+If there is a lock screen protecting the device,
+the attacker can then use methods discussed 
+in Section \ref{the_problem} to bypass it.
+Protection offered by our system begins 
+after the lock screen
+has been bypassed.
+%
+The goal is to detect the attacker in the fewest
+number of touch screen interactions possible.
+%
+Figure \ref{placeholder} %TODO replace reference
+demonstrates how the
+authentication probability produced by the difference computation
+declines as newer touches from a different user on the same device are introduced.
+%
+After the authentication probability has dropped sufficiently far
+it can be said the user behavior has deviated.
+How much of a drop is allowed before action is taken
+determines the amount of time the attacker has access to the device.
+%
+A small allowable drop
+would cause the device to be locked very quickly upon deviation,
+but might result in many false negative actions taken.
+A large allowable drop
+would cause the device to be locked slowly, but
+might provide a better user experience having fewer 
+false negative actions taken.
+%
+An example of a false negative action might be locking the 
+phone because the authentication has determined the user is
+illegitimate, but the authentication is incorrect and the user is legitimate.
+%
+% importance
+This case is important because it represents the standard theft scenario
+where a device has been taken from the legitimate user
+and is under assault by an attacker.
+%
+% talk about our systems performance in this case
 %TODO
 
-% 2.3. same user, different device
+%TODO replace with new picture of
+%TODO authentication probability produced by the difference computation
+%TODO declines as newer touches from a different user on the same device are introduced
+\ExecuteMetaData[graphics.tex]{placeholder}
 
+% 2.3. same user, different device
+% ... this is a stretch ...
+Another possible scenario,
+(same user, different device),
+occurs 
+when the legitimate user has multiple devices.
+In this case the attacker must have some control over
+one of the devices and 
+have the aspiration to fool the other device
+into believing they are the legitimate user.
+%
+Perhaps an attacker has the ability to 
+monitor the touch screen information
+on one of the devices, desiring to access the other device. 
+The attacker might then 
+try to replay the touch screen information 
+from the legitimate user on one device
+to the other device device
+in an attempt to bypass the authentication.
+%
+% importance
+This sort of attack is theoretically possible.
+Our system prevents this from being able to take place.
+%
+% talk about our systems performance in this case
 %TODO
 
 % 2.4. same user, same device
+The final possibility for the genesis of 
+the data is that it came from
+the same user using the same device.
+%
+This scenario is what is being
+distinguished from the others scenarios.
+The ability of our system to distinguish
+this case from the others is
+exactly how well our system can determine
+whether a user is legitimate or not.
+%
+% importance
+Data which comes from the same user on the same device
+should, when compared, have an authentication probability
+consistently higher than the other cases.
+Times when the authentication probability is less than or equal to the other cases
+represent places where the system cannot distinguish
+legitimate interactions from illegitimate interactions.
+%
+In these cases,
+the legitimate user is rejected 
+or the illegitimate user accepted,
+both of which are incorrect results.
+%
+% talk about our systems performance in this case
 %TODO
+
+%TODO might be useful to include a graph of authentication probabilities for each case
 
 % discussion of the model parameters in general
 % say what each of them were and their impact on the system
@@ -262,7 +408,7 @@ authentication threshold.
 %
 % talk about how all these parameters fit together
 These parameters interact with the Markov model 
-where integer window describes the size of the $n-grams$,
+where integer $n$ window describes the size of the $n-grams$,
 integer $k$ token defines the number of tokens per location.
 In other words, each location or key has $k$ pressure
 ranges which are considered different.
@@ -270,13 +416,11 @@ ranges which are considered different.
 Time threshold defines the maximal amount of time
 allowed for consecutive touch interactions 
 to be considered part of the same $n-gram$.
-The intuition for time threshold is that
-touch screen interactions which are sufficiently far 
-apart in time are not likely to be related.
 %
 % talk about how user model size and auth model size are used
 User model size and auth model size influence
-the the authentication.
+the the system by
+modifying the number of touch screen interactions used in authentication.
 %
 Section \ref{the_solution} describes
 the authentication system in which two models are compared.
@@ -286,9 +430,17 @@ These models are then compared to develop
 a probability of them having come from the same user-device pair.
 %
 User model size describes the the number of touch interactions used
-to construct the model of other interactions while
+to construct the model of older interactions while
 auth model size describes the number of touch interactions
 used in the newer model.
+%
+A difference is taken between these models
+resulting in a floating point value $d$ between
+$0.0$ and $1.0$.
+$1 - d$ is then the authentication probability.
+If this authentication probability is greater
+than the authentication threshold the
+models are said to have come from the same user.
 
 % this is more of a WHY section NOT a WHAT section
 % now go into detail on each of the model parameters affected the system
@@ -299,25 +451,27 @@ used in the newer model.
 % 4 talk about the findings from each parameter
 %
 % window 
-Window size $= n$ defines the size of the $n-grams$
+Window size $n$ defines the size of the $n-grams$
 used in the Markov model.
 %
 % give example
 For example,
-$n = 3$ means $3-grams$ are used leading to a Markov model where
+$n = 3$ means $3-grams$ are used leading to a $3$-Markov model where
 sets of $3$ states predict the next state with some probability.
 %
 % describe findings in picture
 Figure \ref{fig:window_size_vs_authentication_accuracy}
-describes how window size affects the authentication accuracy
+describes how choice of $n$, window size, affects the authentication accuracy
 with all other parameters held constant.
+%
+% describe how the window size affects authentication accuracy and the implications of this
 %TODO
 
 % window size vs authentication accuracy
 \ExecuteMetaData[graphics.tex]{window}
 
 % token
-Token $= k$ defines the number of pressure ranges
+Token $k$ defines the number of pressure ranges
 into which each location is divided.
 %
 % give example
@@ -325,11 +479,17 @@ For instance,
 if $k = 3$ 
 then touching the screen area enclosed by
 the $j$ key will be represented by one of three states
-in the Markov model depending on the
-pressure range in which the touch screen interaction falls.
+in the Markov model depending on the range the
+pressure value of the touch screen interaction falls within.
 % 
 % describe findings in picture
+Figure \ref{placeholder} %TODO replace reference
+describes how choice of $k$, token, affects the authentication accuracy
+with all other parameters held constant.
 %TODO
+
+%TODO replace with image of authentication accuracy with all other parameters held constant
+\ExecuteMetaData[graphics.tex]{placeholder}
 
 % time_threshold
 % what is it
@@ -337,6 +497,15 @@ Time threshold defines the maximal amount of time
 allowed for consecutive touch interactions 
 to be considered part of the same $n-gram$.
 % 
+The intuition for time threshold is that
+touch screen interactions which are sufficiently far 
+apart in time are not likely to be related.
+%
+The case where a user finishes an email to one person and 
+begins an email to another 
+is one situation where
+consecutive touchscreen interactions may not be related.
+%
 % give example
 For example,
 suppose we have a model where $n = 2$ and
@@ -346,11 +515,8 @@ $200ms$ between $Y$ and $Z$.
 If the time threshold is set to
 $\geq 200 ms$, 
 then $[X,Y]$ and $[Y,Z]$ will be included as an $n-gram$ in the model.
-If however time threshold is set to $< 200 ms$
-then only $[X,Y]$ will be included as an $n-gram$ in the model.
-%
-% describe findings in picture
-%TODO
+If, however, time threshold is set to $< 200 ms$
+then only states $[X,Y]$ will be included as an $n-gram$ in the model.
 
 % user_model_size and auth_model size
 The user model is a model constructed from 
@@ -363,6 +529,10 @@ the number of interactions used in the construction of
 the model to be compared against the user model
 is know as the auth model size.
 %
+The purpose of the authentication is
+to determine whether the user model and the auth model 
+originated from the same user on the same device.
+%
 % be sure to describe authentication accuracy here
 % and how it is related to user_model_size and auth_model_size
 % describe findings in picture
@@ -374,7 +544,7 @@ the total number of touch interactions in both models.
 The message of this chart is that
 the total number of touch interactions used in the authentication
 has a stronger relationship to
-authentication accuracy compared to
+authentication accuracy compared to either
 user model size or auth model size alone.
 
 % authentication accuracy vs touch screen interactions
@@ -389,45 +559,55 @@ user model and the auth model
 results in a $0.0 \leq d \leq 1.0$ where
 $d$ represents the distance between the models.
 %
-$(1 - d)$ is taken to be the authentication value.
-The authentication value is compared against the
-authentication threshold to determine if the authentication is passed.
+$(1 - d)$ is taken to be the authentication probability.
+The authentication probability is compared against the
+authentication threshold to determine if the
+the auth model passes authentication.
 % 
 % give example
-In other words the authentication passes if
+In other words the authentication is successful if
 $(1 - d) \geq$ authentication threshold.
 %
 % why is the authentication threshold significant?
 The authentication threshold is significant
-because in theory it could be used to adjust the 
+because in theory it can be used to adjust the 
 performance of the system at run time.
 %
 For example,
 If the system is experiencing many false negatives
-then the authentication might be adjusted downward.
+then the authentication threshold might be adjusted downward.
 This will make the system less restrictive,
-allowing for higher levels of difference between models to pass authentication.
+allowing for models with a higher level of distance to pass authentication.
 %
-While a lower authentication threshold will allow for more authentic users
-to pass authentication, it will also allow more illegitimate users to pass.
+A lower authentication threshold will allow for more authentic users
+to pass authentication; it will also allow more illegitimate users to pass authentication.
+%
+
+% describe how authentication threshold might be modified at run time
+A system of tests can be developed to
+adjust the authentication threshold to provide the best possible outcome.
+In other words,
+the goal of these tests would be to improve authentication accuracy over time.
 %
 A test for false negatives might be carried out in the following way.
 Suppose that every time the system has an event where $(1 - d) <$ authentication threshold,
 the user is locked out and must re-authenticate with some other method.
-Perhaps every time the user authenticates with this other method after
+Perhaps every time the user authenticates 
+as legitimate
+with the other method after
 such an event the system could record a false negative.
 %
 There cannot be a test for false positives.
 The existence of such a test presupposes 
 knowledge about the user which cannot be known.
 Namely for such a test to exist,
-it will be necessary to know whether or not
+it would be necessary to know whether or not
 the user is legitimate.
-Having this knowledge will render the system useless
+Having this knowledge renders the system useless
 as the purpose of the system is the determine whether a user is authentic or not.
 %
 Since there cannot be a test for false positives,
-it will make sense to begin with a high threshold which
+one approach could be to begin with a high authentication threshold which
 could be adjusted down over time as false negatives occur.
 %
 Eventually the system will reach an equilibrium where
@@ -447,19 +627,28 @@ to help \dots
 
 % define confidence interval in general
 % ( psuedo algorithmic description might be good here )
-We found significant difference, approximately $10\%$, 
-variation in the achievable accuracies for some data sets.
+We found significant variation, approximately $10\%$, 
+in the achievable accuracies for some data sets.
 This drove the development of a data set metric to
-understand how well the data might characterize a user.
+understand how well the data might be able to characterize a user.
 %
-Too much variability in the data set might make\dots
+An intruder is detected based on change in user behavior.
 % what is the problem with too much variability
-%TODO
+Too much variability in a data set makes
+detecting change more difficult.
 %
+To understand how much variation exists in the data set,
+it is useful to look at the ratio $\sigma$ to $\mu$.
+This can be computed as follows.
 % describe the computation
 \begin{enumerate}
-\item \dots
+\item Compute $\mu$ and $\sigma$ of the pressure value for 
+  all touch screen interactions in a data set
+\item Confidence is given by $\frac{\mu}{\sigma}$
 \end{enumerate}
+%
+% say how to interpret \sigma by \mu value
+%TODO
 
 % define confidence interval for the difference computation
 A similar computation can be used to develop 
@@ -477,14 +666,18 @@ computed by our system.
 \begin{enumerate}
 \item \dots
 \end{enumerate}
-%TODO
+% talk about distance vector confidence
+% how does this relate to the accuracy of authentication
+\dots
+%TODO 
 
 % talk about how this correlates with the Jensen Shannon divergence between the sets
 % ( perhaps not if I find there is no correlation )
+% talk about what is JSD
 %TODO
-
-% talk about distance vector confidence
-% how does this relate to the accuracy of authentication
+% talk about correlation
+%TODO
+% talk about implications of this for our confidence computations
 %TODO
 
 % discuss computation time on the nexus 7
@@ -510,9 +703,9 @@ For instance,
 at $5000$ touch screen interactions an authentication accuracy of $70\%$
 can be achieved with $1$ second of computation time.
 At $10000$ touch screen interactions an authentication accuracy of $80\%$
-can be achieved with $3$ second of computation time.
+can be achieved with $3$ seconds of computation time.
 At $15000$ touch screen interactions an authentication accuracy of $90\%$
-can be achieved with $4$ second of computation time.
+can be achieved with $4$ seconds of computation time.
 
 %TODO was there no significant difference on computation time
 %TODO for changing the other parameters? ( measure and comment on them )
@@ -524,10 +717,11 @@ can be achieved with $4$ second of computation time.
 % describe the data collection process
 %%%
 Touchscreen data for touch pressure models in this experiment 
-was generated using a keyboard application created for the Android. 
+was generated using a keyboard application created for Android. 
 This keyboard extracts and records all necessary information 
 from {\tt MotionEvent} objects generated by Android in response to
 users' interactions with the keyboard.
+%
 This application was installed on Nexus $7$ tablets.
 Users were then asked to play a typing game 
 in order to help expedite the data collection process.
@@ -540,6 +734,8 @@ These users each used two different devices creating four user-device pairs
 each having a large number of touch interactions.
 %%%
 
+%TODO continue proofreading here
+
 % describe how the data looked 
 % (normal distribution?)
 % (q,q plot?)
@@ -548,12 +744,14 @@ each having a large number of touch interactions.
 %%%
 % describe the distribution of the data
 % describe how the data is related to a normal distribution
-In building the model we remove some touches likely to be mistakes by the user or simply outliers in the data set.
+In building the model we remove some touches likely to be 
+mistakes by the user or 
+outliers in the data set.
 %
 %TODO this sentence doesn't fit, it doesn't describe what we do with this information
-The distribution of touch pressure values is 
-calculated for each square button area on the touchscreen. 
-In our system these areas correspond to keys of the soft keyboard.
+%The distribution of touch pressure values is 
+%calculated for each square button area on the touchscreen. 
+%In our system these areas correspond to keys of the soft keyboard.
 %
 In order to develop PUF reproducibility,
 the distribution of touchscreen pressure needs to be examined.
@@ -576,22 +774,32 @@ data comes from a normally distributed set.
 $p-value<0.05$ suggests the null hypothesis should be rejected.
 It is highly likely that the sample is not normally distributed.
 %
-%TODO connect the previous idea to this one
+% connect the previous idea to this one
 % how does the fact that the data isn't entirely normal suggest
 % we should look at the qq plot?
-%TODO
+However,
+understanding how the data compares to
+normally distributed data is still useful.
+A Q-Q Plot is used to compare the gathered pressure data
+against normally distributed data.
 %
-The Q-Q Plot for this data, Figure \ref{fig:qq_plot},
+The Q-Q Plot, Figure \ref{fig:qq_plot},
 suggests the distribution differs from normal
 by a slight right skew.
 %
 The Shapiro-Wilk normality test,
 Q-Q Plot, 
 and density plot
-all suggest the touchscreen pressure data is not normally distributed.
+all suggest the touchscreen pressure data is not normally distributed 
+%TODO is this valid?
+but is very close.
 
 % pdf of touch screen pressure data
 \ExecuteMetaData[graphics.tex]{normal}
+
+%TODO I need a linking idea here
+% how does the data being close to normally distributed imply the following should be done
+%TODO
 
 % describe what we did with the data to remove outliers
 %TODO mu +- 2 sigma doesn't exactly fit here
@@ -599,11 +807,13 @@ From the token sequence,
 a normal distribution mean and variance ($\mu$ and $\sigma$) 
 values are estimated for each soft keyboard location or key.
 %
-If a touch interaction's pressure value falls outside of
+If a touch screen interaction's pressure value falls outside of
 $\mu \pm 2\sigma$ for a given key, 
 then the touch interaction is not included in any of the $n$-token sequences. 
+%
 Figure \ref{fig:token_creation} illustrates 
 this tokenization process.
+%
 The pressure values falling within $\mu \pm 2\sigma$ are tokenized
 into a predetermined number of tokens $k$. 
 $k=7$ token ranges in Figure \ref{fig:token_creation}.
@@ -616,6 +826,11 @@ $95.45$\% corresponds to $1.69$ theoretical quantiles in \ref{fig:qq_plot}.
 %
 The function of the Q-Q Plot is to 
 compare two distributions.
+%
+In this case,
+the distribution of pressure values is being compared against
+a normal distribution
+%
 By taking data $\mu \pm 2\sigma$,
 equivalent to $0 \pm 1.69$ theoretical quantiles,
 we capture user data which is
@@ -624,7 +839,6 @@ In other words if the data in this range
 were multiplied by some factor,
 it would appear to have come from a normal distribution.
 %%%
-%TODO
 
 % q-q plot of touch screen pressure data
 \ExecuteMetaData[graphics.tex]{qq}
@@ -641,6 +855,12 @@ authentication accuracy.
 The goal of the program is to
 explore the space and determine a
 set of a parameters which maximize authentication accuracy.
+% 
+% justtify the accuracy of this technique
+This technique provides an accurate view of 
+how the system will preform in realistic conditions because
+the parameters can be optimized at runtime given 
+feedback about the occurrence of false negatives.
 
 % include mention of some problems which presented themselves
 Some notable problems presented themselves
@@ -652,7 +872,9 @@ The Android \textbf{MotionEvent} class \textbf{getPressure()} method
 used to collect pressure data in our system
 does not always return a high granularity of values.
 The pressure values are sometimes grouped
-into large steps.
+into large steps
+depending on the device.
+%
 There might, for example,
 be $8$ steps between $0.0$ and $1.0$ on some devices.
 This is a problem for our system which uses
@@ -667,8 +889,8 @@ Perhaps these sensors only report a small number of steps.
 
 % state the performance impact on our system
 % say how fine grained the pressure data is on the nexus 7
-On the Nexus $7$ tablets used to test this implementation,
-the pressure data from the touchscreen is 
+Nexus $7$ tablets are used to test this implementation.
+Pressure data from the touch screen on these devices is 
 reported at a precision of $0.096$ by the {\tt getPressure()} method.
 This measurement has been determined
 by finding the minimum difference between
@@ -679,7 +901,7 @@ be greater if two adjacent pressure measurements
 were never taken in the dataset.
 %
 The precision of {\tt getPressure()} is
-known to vary among devices.
+known to vary among devices, however,
 We have not encountered any inconsistency
 in the precision among devices of the same type (eg. Nexus $7$).
 %
@@ -693,7 +915,7 @@ is that pressure may be used as a user and device biometric.
 
 % tie all analysis's back to the claims
 Where does this leave us?
-The goal in preforming these tests was to show it is possible to construct
+The goal in preforming these tests is to show it is possible to construct
 an 
 %
 unobtrusive system which 
@@ -702,7 +924,7 @@ and a device identity
 based on pressure values 
 derived from user touch screen interactions.
 %
-Further to show that this identity may be 
+Further, to show that this identity may be 
 distinguished from other 
 user and device identities with accuracy ($70-90+\%$)
 in ($1-5 sec$) on a Nexus $7$ tablet.
