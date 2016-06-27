@@ -30,8 +30,14 @@ public class Confidence {
      */
     public enum Basis { TOKEN, WINDOW}
 
+    /**
+     * determines whether key or overall confidence is used in computing touch confidence
+     */
+    public enum DistributionBasis {KEY, OVERALL}
+
     final static Weight WEIGHT = Weight.WEIGHTED;
     final static Basis BASIS = Basis.WINDOW;
+    final static DistributionBasis DISTRIBUTION_BASIS = DistributionBasis.OVERALL;
 
     /**
      * compute confidence 0.0 to 1.0 for the distance vector
@@ -92,18 +98,25 @@ public class Confidence {
         Distribution distribution = new Distribution(touch_list);
 
         // use the Distribution object to compute \sigma by \mu
-        return (distribution.get_standard_deviation() / distribution.get_average());
+        double average = distribution.get_average();
+        double std_deviation = distribution.get_standard_deviation();
+        return (average == 0.0) ? 0.0 : (std_deviation / average);
     }
+
+    /** Distance vector above **/
+    /*****************************************************************************************************************/
+    /** Data set confidence below **/
 
     /**
      * compute confidence 0.0 to 1.0 for the chain
      */
     public static double compute_confidence(Chain chain){
         return compute_confidence(
-            chain.get_key_distribution(),
-            chain.get_tokens(),
-            (TrieList)chain.get_windows(),
-            chain.get_successors()
+                chain.get_distribution(),
+                chain.get_key_distribution(),
+                chain.get_tokens(),
+                (TrieList)chain.get_windows(),
+                chain.get_successors()
         );
     }
 
@@ -114,6 +127,7 @@ public class Confidence {
      * 0.0 is no confidence
      */
     public static double compute_confidence(
+            Distribution distribution,
             List<Distribution> key_distribution_list,
             List<Token> token_list,
             TrieList window_list,
@@ -123,10 +137,16 @@ public class Confidence {
 
         if(WEIGHT == Weight.WEIGHTED) {
             // weighted computation
-            confidence = compute_weighted_confidence(key_distribution_list, token_list, window_list, successor_list);
+            confidence = compute_weighted_confidence(distribution, key_distribution_list, token_list, window_list, successor_list);
         }else if(WEIGHT == Weight.UNWEIGHTED){
             // unweighted computation
-            confidence = compute_unweighted_confidence(key_distribution_list);
+            if(DISTRIBUTION_BASIS == DistributionBasis.KEY) {
+                // key distribution
+                confidence = compute_unweighted_confidence_key_distribution(key_distribution_list);
+            }else{
+                // overall distribution
+                confidence = compute_unweighted_confidence_overall_distribution(distribution);
+            }
         }
 
         //TODO remove print computed confidence
@@ -155,6 +175,7 @@ public class Confidence {
      * 1. (sigma / mu) for the key corresponding to that touch
      */
     private static double compute_weighted_confidence(
+            Distribution distribution,
             List<Distribution> key_distribution_list,
             List<Token> token_list,
             TrieList window_list,
@@ -170,7 +191,7 @@ public class Confidence {
             // weight of a window is ( [occurrences of window] / [total windows] )
             //double weight = 1.0 / unique_window_list.size();
             double weight = ((double)window_list.occurrence_count(window_list.get(i))) / ((double)window_list.size());
-            double window_confidence = compute_window_confidence(key_distribution_list, token_list, window_list, successor_list, window_list.get(i));
+            double window_confidence = compute_window_confidence(distribution, key_distribution_list, token_list, window_list, successor_list, window_list.get(i));
 
             //System.out.println("window_confidence: " + window_confidence + "\twindow_weight: " + weight);
 
@@ -188,6 +209,7 @@ public class Confidence {
      * 2. weighted by the occurrence of a successor touch
      */
     private static double compute_window_confidence(
+            Distribution distribution,
             List<Distribution> key_distribution_list,
             List<Token> token_list,
             TrieList window_list,
@@ -204,10 +226,16 @@ public class Confidence {
             // weight should simply be the probability of the touch occurring after the given window
             //double weight = 1 / unique_successor_list.size();
             double weight = successor_list.get(i).get_probability(token_list, window);
-            double touch_confidence = compute_touch_confidence(key_distribution_list, successor_list.get(i));
+
+            double touch_confidence = 0.0;
+            if(DISTRIBUTION_BASIS == DistributionBasis.KEY) {
+                // for key distrbution computed confidence
+                touch_confidence = compute_touch_confidence_key_distribution(key_distribution_list, successor_list.get(i));
+            }else{
+                touch_confidence = compute_touch_confidence_overall_distribution(distribution, successor_list.get(i));
+            }
 
             //System.out.println("touch_confidence: " + touch_confidence + "touch_weight: " + weight);
-
             confidence += weight * touch_confidence;
         }
 
@@ -220,7 +248,7 @@ public class Confidence {
      * confidence of a touch will be
      * 1. (sigma / mu) for the key corresponding to that touch
      */
-    private static double compute_touch_confidence(List<Distribution> key_distribution_list, Touch touch){
+    private static double compute_touch_confidence_key_distribution(List<Distribution> key_distribution_list, Touch touch){
         // get the relevent key distribution
         for(Distribution key_distribution : key_distribution_list){
             if(key_distribution.get_keycode() == touch.get_key()){
@@ -234,12 +262,22 @@ public class Confidence {
     }
 
     /**
+     * compute touch confidence
+     *
+     * uses overall distribution instead of key distribution
+     */
+    private static double compute_touch_confidence_overall_distribution(Distribution distribution, Touch touch){
+        //TODO use the distribution? righrt now this is the same as the unweighted version
+        return distribution.get_standard_deviation() / distribution.get_average();
+    }
+
+    /**
      * compute unweighted confidence interval
      *
      * key_distribution_list holds a pressure distribution for each token
      * take the average \sigma by \mu for each for each distribution
      */
-    private static double compute_unweighted_confidence(List<Distribution> key_distribution_list){
+    private static double compute_unweighted_confidence_key_distribution(List<Distribution> key_distribution_list){
         double confidence = 0.0;
 
         // \Sigma_i^n ( (\sigma / \mu) / list_size )
@@ -248,5 +286,16 @@ public class Confidence {
         }
 
         return confidence;
+    }
+
+    /**
+     * compute unweighted confidence interval
+     *
+     * uses overall distribution instead of key distribution
+     */
+    private static double compute_unweighted_confidence_overall_distribution(Distribution distribution){
+        // TODO right now this is the the same as the otehr case
+        // return the confidence given the distribution
+        return (distribution.get_standard_deviation() / distribution.get_average());
     }
 }
