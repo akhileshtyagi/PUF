@@ -69,15 +69,6 @@ public class IntentCollectionService extends Service {
         return START_STICKY;
     }
 
-    /**
-     * preform closedown actions
-     */
-    @Override
-    public void onDestroy(){
-        //TODO print when this service is stopped
-        Log.d("ICS", "service stopped!");
-    }
-
 
     /**
      * provide binder

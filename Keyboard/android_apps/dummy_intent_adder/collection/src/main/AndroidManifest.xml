@@ -28,11 +28,6 @@
             android:exported = "true"
         />
 
-        <service
-            android:name = "edu.isu.reu.intent_collection_service.DummyIntentAdderService"
-            android:exported = "false"
-            />
-
         <!--
             I don't know if this will work...
             The idea is to be able to access the service

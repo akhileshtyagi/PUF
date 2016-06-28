@@ -2,17 +2,14 @@ package edu.isu.reu.intent_collection_service;
 
 
 import android.annotation.TargetApi;
-import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.ServiceConnection;
 import android.content.res.Configuration;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.IBinder;
 import android.preference.ListPreference;
 import android.preference.Preference;
 import android.preference.PreferenceActivity;
@@ -22,7 +19,6 @@ import android.preference.PreferenceManager;
 import android.preference.RingtonePreference;
 import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
-import android.util.Log;
 import android.view.MenuItem;
 
 import java.util.List;
@@ -49,11 +45,6 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatActivity {
-    public final long TIME_INTERVAL = 5000;
-
-    IntentCollectionService intent_collection_service;
-    boolean intent_collection_service_bound;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -66,11 +57,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         // start the intent collection service
         start_collection_service();
-
-        // start a dummy service to add intents
-        //TODO this should be changed to get real intents at some point
-        //start_dummy_intent_adder_service();
-        start_dummy_intent_adder_thread();
     }
 
     /**
@@ -108,42 +94,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         // start the service
         this.startService(say_hello_intent);
-
-        bind_intent_collection_service();
-    }
-
-    /**
-     * bind the intent collection service
-     */
-    private void bind_intent_collection_service(){
-        //Intent bind_intent = new Intent(this, IntentCollectionService.class);
-        Intent bind_intent = new Intent(getApplicationContext(), IntentCollectionService.class);
-
-        // define a service connection
-        ServiceConnection service_connection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder binder) {
-                IntentCollectionBinder intent_collection_binder = (IntentCollectionBinder) binder;
-                intent_collection_service = intent_collection_binder.get_service();
-
-                intent_collection_service_bound = true;
-
-                Log.d("ServiceConnection", "onServiceConnected");
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                intent_collection_service_bound = false;
-
-                Log.d("ServiceConnection", "onServiceDisconnected");
-            }
-        };
-
-        // test the bind to see if its successful
-        boolean bind_successful = bindService(bind_intent, service_connection, Context.BIND_AUTO_CREATE);
-
-        // log if the bind was successfull
-        Log.d("DIAS", "bind successful: " + bind_successful);
     }
 
     /**
@@ -155,39 +105,5 @@ public class SettingsActivity extends AppCompatActivity {
 
         // stop the service
         stopService(stop_intent);
-    }
-
-    /**
-     * start dummy intent adder service
-     */
-    private void start_dummy_intent_adder_service(){
-        // ask the service to do some work
-        Intent say_hello_intent = new Intent(this, DummyIntentAdderService.class);
-
-        // start the service
-        this.startService(say_hello_intent);
-    }
-
-    /**
-     * start dummy intent adder thread
-     */
-    private void start_dummy_intent_adder_thread(){
-        // create the task
-        Runnable task = new Runnable(){
-            @Override
-            public void run(){
-                // forever
-                while(true){
-                    // use binding to add a dummy Intent
-                    intent_collection_service.handle_intent(new Intent());
-
-                    // wait TIME_INTERVAL
-                    try{ Thread.sleep(TIME_INTERVAL); }catch(Exception e){ e.printStackTrace(); }
-                }
-            }
-        };
-
-        // create thread
-        new Thread(task).start();
     }
 }
