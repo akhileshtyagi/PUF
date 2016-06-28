@@ -49,7 +49,7 @@ import java.util.List;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatActivity {
-    public final long TIME_INTERVAL = 5000;
+    public final long TIME_INTERVAL = 3000;
 
     IntentCollectionService intent_collection_service;
     boolean intent_collection_service_bound;
@@ -121,6 +121,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         // define a service connection
         ServiceConnection service_connection = new ServiceConnection() {
+            //TODO this method doesn't seem to be getting called
             @Override
             public void onServiceConnected(ComponentName name, IBinder binder) {
                 IntentCollectionBinder intent_collection_binder = (IntentCollectionBinder) binder;
@@ -128,6 +129,7 @@ public class SettingsActivity extends AppCompatActivity {
 
                 intent_collection_service_bound = true;
 
+                //TODO figure out why this log call never runs
                 Log.d("ServiceConnection", "onServiceConnected");
             }
 
@@ -179,7 +181,13 @@ public class SettingsActivity extends AppCompatActivity {
                 // forever
                 while(true){
                     // use binding to add a dummy Intent
-                    intent_collection_service.handle_intent(new Intent());
+                    if(intent_collection_service_bound) {
+                        // add dummy Intent
+                        intent_collection_service.handle_intent(new Intent());
+
+                        // say that intent has been added
+                        Log.d("DummyThread", "intent added!");
+                    }
 
                     // wait TIME_INTERVAL
                     try{ Thread.sleep(TIME_INTERVAL); }catch(Exception e){ e.printStackTrace(); }

@@ -6,6 +6,7 @@ import android.os.IBinder;
 import android.os.IInterface;
 import android.os.Parcel;
 import android.os.RemoteException;
+import android.util.Log;
 
 import java.io.FileDescriptor;
 
@@ -110,6 +111,9 @@ public class IntentCollectionBinder implements IBinder {
     }
 
     public IntentCollectionService get_service(){
+        //TODO test to see fi the service has been assigned
+        Log.d("ICB", "isnull: " + this.intent_collection_service);
+
         return this.intent_collection_service;
     }
 }

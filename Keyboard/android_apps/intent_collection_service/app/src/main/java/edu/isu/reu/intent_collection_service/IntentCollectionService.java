@@ -15,6 +15,8 @@ import java.util.List;
  * Created by element on 6/25/16.
  */
 public class IntentCollectionService extends Service {
+    private final IBinder binder = new IntentCollectionBinder(this);
+
     /**
      * provide an enum with a list of possible commands
      */
@@ -86,7 +88,9 @@ public class IntentCollectionService extends Service {
     @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        return new IntentCollectionBinder(this);
+        Log.d("bound", "bound");
+
+        return binder;
     }
 
     /**
