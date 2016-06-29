@@ -1,19 +1,12 @@
 package edu.isu.reu.intent_collection_service;
 
-import android.content.Intent;
 import android.os.Binder;
-import android.os.IBinder;
-import android.os.IInterface;
-import android.os.Parcel;
-import android.os.RemoteException;
 import android.util.Log;
-
-import java.io.FileDescriptor;
 
 /**
  * Created by element on 6/27/16.
  */
-public class IntentCollectionBinder implements IBinder {
+public class IntentCollectionBinder extends Binder {
     public enum Action {
         ADD(1);
 
@@ -38,82 +31,38 @@ public class IntentCollectionBinder implements IBinder {
      */
     private IntentCollectionService intent_collection_service;
 
-    @Override
-    public String getInterfaceDescriptor() throws RemoteException {
-        return "IBinder";
-    }
-
-    @Override
-    public boolean pingBinder() {
-        //TODO
-        return false;
-    }
-
-    @Override
-    public boolean isBinderAlive() {
-        //TODO
-        return false;
-    }
-
-    @Override
-    public IInterface queryLocalInterface(String descriptor) {
-        //TODO
-        return null;
-    }
-
-    @Override
-    public void dump(FileDescriptor fd, String[] args) throws RemoteException {
-        //TODO
-    }
-
-    @Override
-    public void dumpAsync(FileDescriptor fd, String[] args) throws RemoteException {
-        //TODO
-    }
-
-    /**
-     * The transaction will preform the
-     * action specified by code to
-     * incoming data parcel
-     *
-     * @param code action to perform
-     * @param data incoming data
-     * @param reply outgoing data
-     * @param flags 0 (normal) or FLAG_ONEWAY
-     * @return true for successfully completed transaction
-     * @throws RemoteException
-     */
-    @Override
-    public boolean transact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
-        // parcel describes an intent, add this intent to the list in service
-        if(code == Action.ADD.get_int_value()){
-            // extract the intent from the parcel data
-            //TODO
-            Intent parcel_intent = new Intent();
-
-            // use the service to handle the intent
-            this.intent_collection_service.handle_intent(parcel_intent);
-        }
-
-
-        return false;
-    }
-
-    @Override
-    public void linkToDeath(DeathRecipient recipient, int flags) throws RemoteException {
-        //TODO
-    }
-
-    @Override
-    public boolean unlinkToDeath(DeathRecipient recipient, int flags) {
-        //TODO
-        return false;
-    }
-
     public IntentCollectionService get_service(){
         //TODO test to see fi the service has been assigned
         Log.d("ICB", "isnull: " + this.intent_collection_service);
 
         return this.intent_collection_service;
     }
+
+//    /**
+//     * The transaction will preform the
+//     * action specified by code to
+//     * incoming data parcel
+//     *
+//     * @param code action to perform
+//     * @param data incoming data
+//     * @param reply outgoing data
+//     * @param flags 0 (normal) or FLAG_ONEWAY
+//     * @return true for successfully completed transaction
+//     * @throws RemoteException
+//     */
+////    @Override
+////    public boolean transact(int code, Parcel data, Parcel reply, int flags) throws RemoteException {
+////        // parcel describes an intent, add this intent to the list in service
+////        if(code == Action.ADD.get_int_value()){
+////            // extract the intent from the parcel data
+////            //TODO
+////            Intent parcel_intent = new Intent();
+////
+////            // use the service to handle the intent
+////            this.intent_collection_service.handle_intent(parcel_intent);
+////        }
+////
+////
+////        return false;
+////    }
 }

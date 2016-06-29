@@ -61,8 +61,8 @@ public class SettingsActivity extends AppCompatActivity {
         // set up action bar
         setupActionBar();
 
-        // create preference elements
-        setup_preferences();
+        // create buttson and button listeners
+        setup_buttons();
 
         // start the intent collection service
         start_collection_service();
@@ -85,16 +85,19 @@ public class SettingsActivity extends AppCompatActivity {
     }
 
     /**
-     * set up preferences options
+     * create buttson and button listeners
      *
-     * preferences are:
+     * buttons are:
      *      - stop collection
      *      - start collection
+     *      - intent graph
+     *      - transition matrix
+     *      - incoming and outgoing vectors
      *
      * the goal of these presences is to modify the functionality of the
      * intent collection service
      */
-    private void setup_preferences(){
+    private void setup_buttons(){
         //TODO
     }
 
@@ -117,7 +120,7 @@ public class SettingsActivity extends AppCompatActivity {
      */
     private void bind_intent_collection_service(){
         //Intent bind_intent = new Intent(this, IntentCollectionService.class);
-        Intent bind_intent = new Intent(getApplicationContext(), IntentCollectionService.class);
+        Intent bind_intent = new Intent(this, IntentCollectionService.class);
 
         // define a service connection
         ServiceConnection service_connection = new ServiceConnection() {
@@ -142,7 +145,7 @@ public class SettingsActivity extends AppCompatActivity {
         };
 
         // test the bind to see if its successful
-        boolean bind_successful = bindService(bind_intent, service_connection, Context.BIND_AUTO_CREATE);
+        boolean bind_successful = getApplicationContext().bindService(bind_intent, service_connection, Context.BIND_AUTO_CREATE);
 
         // log if the bind was successfull
         Log.d("DIAS", "bind successful: " + bind_successful);
