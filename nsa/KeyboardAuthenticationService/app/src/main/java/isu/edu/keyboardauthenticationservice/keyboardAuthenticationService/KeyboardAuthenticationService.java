@@ -6,10 +6,7 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;
-
-import isu.edu.keyboardauthenticationservice.keyboardAuthenticationInterface.Data;
-import isu.edu.keyboardauthenticationservice.keyboardAuthenticationInterface.KeyboardAuthenticationInterface;
-import isu.edu.keyboardauthenticationservice.keyboardAuthenticationInterface.Result;
+import android.net.Uri;
 
 /**
  * Created by tim on 7/1/16.
@@ -23,6 +20,13 @@ import isu.edu.keyboardauthenticationservice.keyboardAuthenticationInterface.Res
 public class KeyboardAuthenticationService extends Service implements KeyboardAuthenticationInterface {
     private boolean new_result_available;
     private Result result;
+
+    /**
+     * returns the uri for starting the service
+     */
+    public static Uri get_start_uri(){
+        return Uri.parse("START");
+    }
 
     /**
      * create a constructor

@@ -1,10 +1,6 @@
-package isu.edu.keyboardauthenticationservice.keyboardAuthenticationInterface;
-
 /**
  * Created by element on 7/1/16.
  */
-
-import android.view.MotionEvent;
 
 /**
  * it may seem excessive to wrap the MotionEvent in another class

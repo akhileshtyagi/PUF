@@ -1,8 +1,3 @@
-package isu.edu.keyboardauthenticationservice.keyboardAuthenticationInterface;
-
-/**
- * Created by element on 7/1/16.
- */
 /**
  * this class exists to ensure the compare value and confidence value
  * are from the same computation.

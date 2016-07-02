@@ -129,6 +129,7 @@ public class SettingsActivity extends AppCompatActivity {
         // start the service
         this.startService(say_hello_intent);
 
+        // bind to the service
         bind_intent_collection_service();
     }
 

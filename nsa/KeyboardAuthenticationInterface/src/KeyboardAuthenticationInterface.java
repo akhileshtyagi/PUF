@@ -1,5 +1,3 @@
-package isu.edu.keyboardauthenticationservice.keyboardAuthenticationInterface;
-
 /**
  * this interface defines how others will interact with our service
  * in other words,
