@@ -1,6 +1,4 @@
-/**
- * Created by element on 7/1/16.
- */
+package KeyboardAuthenticationInterface;
 
 /**
  * it may seem excessive to wrap the MotionEvent in another class

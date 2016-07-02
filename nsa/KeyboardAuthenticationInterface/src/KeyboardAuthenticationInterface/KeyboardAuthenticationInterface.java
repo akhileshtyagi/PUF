@@ -1,3 +1,5 @@
+package KeyboardAuthenticationInterface;
+
 /**
  * this interface defines how others will interact with our service
  * in other words,

@@ -1,3 +1,5 @@
+package KeyboardAuthenticationInterface;
+
 /**
  * this class exists to ensure the compare value and confidence value
  * are from the same computation.

@@ -8,14 +8,14 @@ import android.support.annotation.Nullable;
 import android.util.Log;
 import android.net.Uri;
 
+import KeyboardAuthenticationInterface.*;
+
 /**
  * Created by tim on 7/1/16.
  *
  * This service acts as an intermediary
  * between the keyboard application and
  * other applications which use the authenticated value.
- *
- * This
  */
 public class KeyboardAuthenticationService extends Service implements KeyboardAuthenticationInterface {
     private boolean new_result_available;
