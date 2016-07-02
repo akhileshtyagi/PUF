@@ -24,6 +24,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.MenuItem;
+import android.view.ViewGroup;
 
 import java.util.List;
 
@@ -98,6 +99,22 @@ public class SettingsActivity extends AppCompatActivity {
      * intent collection service
      */
     private void setup_buttons(){
+        // get the layout to add buttons to
+        ViewGroup linearLayout = (ViewGroup) findViewById(R.id.linearLayoutID);
+
+        // stop collection
+        //TODO
+
+        // start collection
+        //TODO
+
+        // intent graph
+        //TODO
+
+        // transition matrix
+        //TODO
+
+        // incoming and outgoing intent vectors
         //TODO
     }
 

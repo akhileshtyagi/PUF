@@ -44,16 +44,16 @@ public class IntentCollectionService extends Service {
     /** stores a list of the intents which ave been handled */
     private List<Intent> intent_list;
 
-    /**
-     * create an constructor
-     */
-    public IntentCollectionService(){
-        super();
+        /**
+         * create an constructor
+         */
+        public IntentCollectionService(){
+            super();
 
-        this.intent_list = new ArrayList<>();
+            this.intent_list = new ArrayList<>();
 
-        Log.d("ICS", "created service");
-    }
+            Log.d("ICS", "created service");
+        }
 
     /**
      * preform startup actions
