@@ -1,14 +1,11 @@
-package isu.edu.keyboardauthenticationservice.keyboardAuthenticationService;
+package KeyboardAuthenticationInterface;
 
 import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.IBinder;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.net.Uri;
-
-import KeyboardAuthenticationInterface.*;
 
 /**
  * Created by tim on 7/1/16.
@@ -84,11 +81,9 @@ public class KeyboardAuthenticationService extends Service implements KeyboardAu
         this.new_result_available = true;
     }
 
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
-        //TODO
-        return null;
+        return new KeyboardAuthenticationBinder(this);
     }
 
     /**
