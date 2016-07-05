@@ -1,4 +1,4 @@
-package KeyboardAuthenticationInterface;
+package keyboardAuthenticationInterface;
 
 /**
  * this interface defines how others will interact with our service

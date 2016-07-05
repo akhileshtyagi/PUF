@@ -4,7 +4,7 @@ import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
-import KeyboardAuthenticationInterface.*;
+import keyboardAuthenticationInterface.*;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -29,3 +29,12 @@ public class MainActivity extends AppCompatActivity {
         this.startService(start_intent);
     }
 }
+
+/**
+ <intent-filter>
+ <action android:name="android.intent.action.MAIN" />
+ <category android:name="android.intent.category.LAUNCHER" />
+ <!-- Service name -->
+ <action android:name="isu.edu.keyboardauthenticationservice.keyboardAuthenticationService.KeyboardAuthenticationService" />
+ </intent-filter>
+ */

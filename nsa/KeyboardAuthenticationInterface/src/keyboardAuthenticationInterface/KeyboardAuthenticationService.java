@@ -1,4 +1,4 @@
-package KeyboardAuthenticationInterface;
+package keyboardAuthenticationInterface;
 
 import android.app.Notification;
 import android.app.Service;

@@ -1,4 +1,4 @@
-package KeyboardAuthenticationInterface;
+package keyboardAuthenticationInterface;
 
 /**
  * this class exists to ensure the compare value and confidence value

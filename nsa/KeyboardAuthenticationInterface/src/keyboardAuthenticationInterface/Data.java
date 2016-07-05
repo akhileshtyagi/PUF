@@ -1,4 +1,4 @@
-package KeyboardAuthenticationInterface;
+package keyboardAuthenticationInterface;
 
 /**
  * it may seem excessive to wrap the MotionEvent in another class

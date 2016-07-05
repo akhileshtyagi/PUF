@@ -17,16 +17,9 @@
         </activity>
 
         <service
-            android:name = "isu.edu.keyboardauthenticationservice.keyboardAuthenticationService.KeyboardAuthenticationService"
+            android:name = "keyboardAuthenticationInterface.KeyboardAuthenticationService"
             android:exported = "true" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-                <!-- Service name -->
-                <action android:name="isu.edu.keyboardauthenticationservice.keyboardAuthenticationService.KeyboardAuthenticationService" />
-            </intent-filter>
         </service>
-
     </application>
 
 </manifest>

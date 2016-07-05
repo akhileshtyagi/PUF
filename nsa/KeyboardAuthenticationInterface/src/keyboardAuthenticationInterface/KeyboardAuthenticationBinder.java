@@ -1,4 +1,4 @@
-package KeyboardAuthenticationInterface;
+package keyboardAuthenticationInterface;
 
 import android.os.Binder;
 
