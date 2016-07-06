@@ -1,32 +1,16 @@
 package edu.isu.reu.intent_collection_service;
 
 
-import android.annotation.TargetApi;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.content.res.Configuration;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.preference.ListPreference;
-import android.preference.Preference;
 import android.preference.PreferenceActivity;
 import android.support.v7.app.ActionBar;
-import android.preference.PreferenceFragment;
-import android.preference.PreferenceManager;
-import android.preference.RingtonePreference;
 import android.support.v7.app.AppCompatActivity;
-import android.text.TextUtils;
 import android.util.Log;
-import android.view.MenuItem;
-import android.view.ViewGroup;
-
-import java.util.List;
 
 /**
  * TODO list
@@ -100,7 +84,7 @@ public class SettingsActivity extends AppCompatActivity {
      */
     private void setup_buttons(){
         // get the layout to add buttons to
-        ViewGroup linearLayout = (ViewGroup) findViewById(R.id.linearLayoutID);
+        //ViewGroup linearLayout = (ViewGroup) findViewById(R.id.linearLayoutID);
 
         // stop collection
         //TODO
@@ -142,7 +126,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         // define a service connection
         ServiceConnection service_connection = new ServiceConnection() {
-            //TODO this method doesn't seem to be getting called
+            //TODO this method doesn't seem to be getting called (won't get called until after onCreate() has completed)
             @Override
             public void onServiceConnected(ComponentName name, IBinder binder) {
                 IntentCollectionBinder intent_collection_binder = (IntentCollectionBinder) binder;

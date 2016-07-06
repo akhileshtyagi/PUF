@@ -6,6 +6,7 @@ import android.os.Binder;
  * Created by element on 7/4/16.
  */
 public class KeyboardAuthenticationBinder extends Binder {
+//public class KeyboardAuthenticationBinder extends IKeyboardAuthentication.Stub {
     /**
      * reference to service that implements interface
      */

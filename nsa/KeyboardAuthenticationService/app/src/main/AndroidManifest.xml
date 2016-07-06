@@ -19,6 +19,9 @@
         <service
             android:name = "keyboardAuthenticationInterface.KeyboardAuthenticationService"
             android:exported = "true" >
+            <intent-filter>
+                <action android:name="keyboardAuthenticationInterface.KeyboardAuthenticationService" />
+            </intent-filter>
         </service>
     </application>
 

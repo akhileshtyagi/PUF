@@ -1,0 +1,63 @@
+package keyboardAuthenticationInterface;
+
+import android.os.Parcel;
+import android.os.Parcelable;
+
+/**
+ * this class exists to ensure the compare value and confidence value
+ * are from the same computation.
+ */
+public class Result implements Parcelable{
+    public static final Parcelable.Creator<Result> CREATOR =
+            new Parcelable.Creator<Result>() {
+                public Result createFromParcel(Parcel in) {
+                    return new Result(in);
+                }
+
+                public Result[] newArray(int size) {
+                    return new Result[size];
+                }
+            };
+
+    public double confidence;
+    public double value;
+
+    public Result(){}
+
+    /**
+     * private constructor for parcel creation
+     */
+    private Result(Parcel in){
+        readFromParcel(in);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel parcel, int i) {
+        parcel.writeDouble(this.value);
+        parcel.writeDouble(this.confidence);
+    }
+
+    public void readFromParcel(Parcel in){
+        this.value = in.readDouble();
+        this.confidence = in.readDouble();
+    }
+
+//    /** force both value and confidence to be set at the same time */
+//    public void setValue(double value, double confidence){
+//        this.value = value;
+//        this.confidence = confidence;
+//    }
+//
+//    public double getConfidence(){
+//        return this.confidence;
+//    }
+//
+//    public double getValue(){
+//        return this.value;
+//    }
+}

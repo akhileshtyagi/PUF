@@ -1,16 +1,21 @@
 package isu.edu.testauthenticationservice;
 
-import android.app.Service;
 import android.content.ComponentName;
 import android.content.Intent;
 import android.content.ServiceConnection;
-import android.inputmethodservice.Keyboard;
+import android.os.Bundle;
 import android.os.IBinder;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 
-import KeyboardAuthenticationInterface.*;
+import keyboardAuthenticationInterface.IKeyboardAuthentication;
+
+/**
+ * Useful stack over flow,
+ * describes why Android is returning a BinderProxy instead of a Binder
+ * <p>
+ * http://stackoverflow.com/questions/28364724/getting-java-lang-classcastexception-android-os-binderproxy-every-time-i-declar
+ */
 
 /**
  * TODO list
@@ -23,9 +28,15 @@ import KeyboardAuthenticationInterface.*;
  *      [ ] bind to the service started by the other application
  */
 public class MainActivity extends AppCompatActivity {
-    private KeyboardAuthenticationInterface keyboard_authentication_service;
+    private IKeyboardAuthentication keyboard_authentication_service;
     private boolean keyboard_authentication_service_bound;
 
+    /**
+     * bind request does not START
+     * until after leaving onCreate().
+     *
+     * This is why the tests are not working ( i believe )
+     */
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,16 +49,37 @@ public class MainActivity extends AppCompatActivity {
         // bind to the service
         bind_service();
 
+        // wait to see if service connects
+        /*
+        long total_time = 0;
+        long wait_increment = 250;
+        while(total_time < 100000 || this.keyboard_authentication_service_bound == false) {
+            try {
+                Thread.sleep(wait_increment);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+            total_time += wait_increment;
+
+            Log.d("TAS", "not connected yet");
+        }
+        */
+
+        // test that service has connected
+        //Log.d("TAS", "object: " + this.keyboard_authentication_service);
+        //Log.d("TAS", "is_bound: " + this.keyboard_authentication_service_bound);
+
         // test sending information
-        boolean send_pass = test_sending_information();
-        Log.d("TAS", "receive pass: " + send_pass);
+        //boolean send_pass = test_sending_information();
+        //Log.d("TAS", "receive pass: " + send_pass);
 
         // test acquiring information
-        boolean receive_pass = test_receiving_information();
-        Log.d("TAS", "receive pass: " + receive_pass);
+        //boolean receive_pass = test_receiving_information();
+        //Log.d("TAS", "receive pass: " + receive_pass);
 
         // unbind the service
-        unbind_service();
+        //unbind_service();
     }
 
     /**
@@ -61,24 +93,32 @@ public class MainActivity extends AppCompatActivity {
         //bindService(new Intent(this, MessengerService.class), mConnection, Context.BIND_AUTO_CREATE);
         try {
             /**
-            <service android:name=".ModemWatcherService"
-            android:label="@string/app_name"
-            android:exported="true">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
-            <category android:name="android.intent.category.LAUNCHER" />
-            <!-- Service name -->
-            <action android:name="com.admetric.modemwatcher.Service" />
-            </intent-filter>
-            </service>
+             <service android:name=".ModemWatcherService"
+             android:label="@string/app_name"
+             android:exported="true">
+             <intent-filter>
+             <action android:name="android.intent.action.MAIN" />
+             <category android:name="android.intent.category.LAUNCHER" />
+             <!-- Service name -->
+             <action android:name="com.admetric.modemwatcher.Service" />
+             </intent-filter>
+             </service>
 
-            new ComponentName("com.admetric.modemwatcher",
-                    "com.admetric.modemwatcher.ModemWatcherService")
-            */
+             new ComponentName("com.admetric.modemwatcher",
+             "com.admetric.modemwatcher.ModemWatcherService")
+             */
+
+            /**
+             // explicitly start the service if it is not running
+             Intent start_intent = new Intent(this, KeyboardAuthenticationService.class);
+             start_intent.setData(KeyboardAuthenticationService.get_start_uri());
+
+             this.startService(start_intent);
+             */
 
             //Intent intent = new Intent("isu.edu.keyboardauthenticationservice.KeyboardAuthenticationService");
             //Intent intent = new Intent(this, KeyboardAuthenticationService.class);
-            Intent intent = new Intent(this, KeyboardAuthenticationService.class);
+            Intent intent = new Intent();
             Log.d("TAS", "Before init intent.componentName");
 
             // set action is implicit?
@@ -86,21 +126,21 @@ public class MainActivity extends AppCompatActivity {
             //intent.setAction("isu.edu.keyboardauthenticationservice.KeyboardAuthenticationService");
 
             // explicity set the component to handle the intent
-            //intent.setComponent(new ComponentName(
-             //       "isu.edu.keyboardauthenticationservice",
-              //      "isu.edu.keyboardauthenticationservice.KeyboardAuthenticationService"));
+            intent.setComponent(new ComponentName(
+                    "isu.edu.keyboardauthenticationservice",
+                    "keyboardAuthenticationInterface.KeyboardAuthenticationService"));
 
             Log.d("TAS", "Before bindService");
-            if (bindService(intent, KeyboardServiceConnection, 0)){
-                Log.d("TAS", "Binding to Modem Watcher returned true");
+            if (bindService(intent, KeyboardServiceConnection, 0)) {
+                Log.d("TAS", "Binding returned true");
             } else {
-                Log.d("TAS", "Binding to Modem Watcher returned false");
+                Log.d("TAS", "Binding returned false");
             }
         } catch (SecurityException e) {
             Log.e("TAS", "can't bind to ModemWatcherService, check permission in Manifest");
         }
 
-        Log.d("TAS", "Binding.");
+        Log.d("TAS", "Binding finished.");
     }
 
     /**
@@ -119,12 +159,17 @@ public class MainActivity extends AppCompatActivity {
      */
     private boolean test_sending_information() {
         // create data to be sent
-        Data data = new Data();
-        data.compare_result = 0.0;
-        data.confidence = 0.0;
+        //Data data = new Data();
+        //data.compare_result = 0.0;
+        //data.confidence = 0.0;
+        double data = 1.0;
 
         // send information
-        keyboard_authentication_service.sendData(data);
+        try {
+            keyboard_authentication_service.sendData(data);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         // return true so long as there are no errors
         return true;
@@ -135,16 +180,21 @@ public class MainActivity extends AppCompatActivity {
      * pull the information
      */
     private boolean test_receiving_information() {
-        Result result = null;
+        //Result result = null;
+        double result = -1.0;
 
         // pull the service until there is information to be pulled
-        if(keyboard_authentication_service.isNewResultAvailable()){
-            // pull the information
-            result = keyboard_authentication_service.receiveResult();
+        try {
+            if (keyboard_authentication_service.isNewResultAvailable()) {
+                // pull the information
+                result = keyboard_authentication_service.receiveResult();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
-        // return true if the result is not null
-        return result != null;
+        // return true if the result is valid
+        return result >= 0.0;
     }
 
     /**
@@ -157,11 +207,14 @@ public class MainActivity extends AppCompatActivity {
             // interact with the service.  We are communicating with our
             // service through an IDL interface, so get a client-side
             // representation of that from the raw service object.
-            KeyboardAuthenticationBinder keyboard_authentication_binder = (KeyboardAuthenticationBinder)binder;
-            keyboard_authentication_service = keyboard_authentication_binder.get_service();
-            Log.d("TAS", "Attached.");
 
+            //KeyboardAuthenticationBinder keyboard_authentication_binder = (KeyboardAuthenticationBinder)binder;
+            //keyboard_authentication_service = (KeyboardAuthenticationInterface)(keyboard_authentication_binder.get_service());
+
+            keyboard_authentication_service = (IKeyboardAuthentication) binder;
             keyboard_authentication_service_bound = true;
+
+            Log.d("TAS", "Attached.");
         }
 
         public void onServiceDisconnected(ComponentName className) {
