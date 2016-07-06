@@ -211,7 +211,7 @@ public class MainActivity extends AppCompatActivity {
             //KeyboardAuthenticationBinder keyboard_authentication_binder = (KeyboardAuthenticationBinder)binder;
             //keyboard_authentication_service = (KeyboardAuthenticationInterface)(keyboard_authentication_binder.get_service());
 
-            keyboard_authentication_service = (IKeyboardAuthentication) binder;
+            keyboard_authentication_service = IKeyboardAuthentication.Stub.asInterface(binder);
             keyboard_authentication_service_bound = true;
 
             Log.d("TAS", "Attached.");
