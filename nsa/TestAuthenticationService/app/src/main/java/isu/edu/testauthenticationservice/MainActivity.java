@@ -25,11 +25,68 @@ import keyboardAuthenticationInterface.IKeyboardAuthentication;
  *      [ ] receiving data from keyboard authentication service
  *
  * Intermediate tasks
- *      [ ] bind to the service started by the other application
+ *      [x] bind to the service started by the other application
  */
 public class MainActivity extends AppCompatActivity {
-    private IKeyboardAuthentication keyboard_authentication_service;
-    private boolean keyboard_authentication_service_bound;
+    /**
+     * Thread to preform the tests and log the results
+     *
+     * This is necessary because the service is not bound
+     * until after onCreate() has been exited.
+     *
+     * This is necessarily true because the
+     * ServiceConnection runs in the same thread as onCreate
+     */
+    private class TestRunnable implements Runnable {
+        final String TAG = "TEST_THREAD";
+
+        @Override
+        public void run(){
+            // wait for the service to be bound
+            // a max of 10 seconds
+            long total_time = 0;
+            long wait_increment = 250;
+            long max_time = 10000;
+            while(total_time < max_time && keyboard_authentication_service_bound == false) {
+                try {
+                    Thread.sleep(wait_increment);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+                total_time += wait_increment;
+            }
+
+            // if not bound in 10 seconds, exit
+            if(total_time >= max_time){
+                Log.d(TAG, "Service was not bound");
+                return;
+            }
+
+            // otherwise, run all the tests and report results
+            // test that service has connected
+            Log.d(TAG, "object: " + keyboard_authentication_service);
+            Log.d(TAG, "is_bound: " + keyboard_authentication_service_bound);
+
+            // test sending information
+            boolean send_pass = test_sending_information();
+            Log.d(TAG, "receive pass: " + send_pass);
+
+            // test acquiring information
+            boolean receive_pass = test_receiving_information();
+            Log.d(TAG, "receive pass: " + receive_pass);
+
+            // unbind the service
+            unbind_service();
+        }
+    }
+
+    /**
+     * volatile might be necessary because a separate thread is
+     * being used to preform the tests
+     */
+    private volatile IKeyboardAuthentication keyboard_authentication_service;
+    private volatile boolean keyboard_authentication_service_bound;
 
     /**
      * bind request does not START
@@ -49,37 +106,11 @@ public class MainActivity extends AppCompatActivity {
         // bind to the service
         bind_service();
 
-        // wait to see if service connects
-        /*
-        long total_time = 0;
-        long wait_increment = 250;
-        while(total_time < 100000 || this.keyboard_authentication_service_bound == false) {
-            try {
-                Thread.sleep(wait_increment);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+        // create a separate thread to preform the tests
+        Runnable test_runnable = new TestRunnable();
 
-            total_time += wait_increment;
-
-            Log.d("TAS", "not connected yet");
-        }
-        */
-
-        // test that service has connected
-        //Log.d("TAS", "object: " + this.keyboard_authentication_service);
-        //Log.d("TAS", "is_bound: " + this.keyboard_authentication_service_bound);
-
-        // test sending information
-        //boolean send_pass = test_sending_information();
-        //Log.d("TAS", "receive pass: " + send_pass);
-
-        // test acquiring information
-        //boolean receive_pass = test_receiving_information();
-        //Log.d("TAS", "receive pass: " + receive_pass);
-
-        // unbind the service
-        //unbind_service();
+        // start the thread
+        new Thread(test_runnable).start();
     }
 
     /**
@@ -92,30 +123,6 @@ public class MainActivity extends AppCompatActivity {
         // applications replace our component.
         //bindService(new Intent(this, MessengerService.class), mConnection, Context.BIND_AUTO_CREATE);
         try {
-            /**
-             <service android:name=".ModemWatcherService"
-             android:label="@string/app_name"
-             android:exported="true">
-             <intent-filter>
-             <action android:name="android.intent.action.MAIN" />
-             <category android:name="android.intent.category.LAUNCHER" />
-             <!-- Service name -->
-             <action android:name="com.admetric.modemwatcher.Service" />
-             </intent-filter>
-             </service>
-
-             new ComponentName("com.admetric.modemwatcher",
-             "com.admetric.modemwatcher.ModemWatcherService")
-             */
-
-            /**
-             // explicitly start the service if it is not running
-             Intent start_intent = new Intent(this, KeyboardAuthenticationService.class);
-             start_intent.setData(KeyboardAuthenticationService.get_start_uri());
-
-             this.startService(start_intent);
-             */
-
             //Intent intent = new Intent("isu.edu.keyboardauthenticationservice.KeyboardAuthenticationService");
             //Intent intent = new Intent(this, KeyboardAuthenticationService.class);
             Intent intent = new Intent();
@@ -180,7 +187,6 @@ public class MainActivity extends AppCompatActivity {
      * pull the information
      */
     private boolean test_receiving_information() {
-        //Result result = null;
         double result = -1.0;
 
         // pull the service until there is information to be pulled
@@ -222,6 +228,8 @@ public class MainActivity extends AppCompatActivity {
             // unexpectedly disconnected -- that is, its process crashed.
             keyboard_authentication_service = null;
             keyboard_authentication_service_bound = false;
+
+            Log.d("TAS", "Detatched.");
         }
     };
 }
