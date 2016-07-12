@@ -1,4 +1,7 @@
 <resources>
+    <!-- Strings added by Tim -->
+    <string name="master_layout">master_layout</string>
+
     <string name="app_name">intent_collection_service</string>
 
     <!-- Strings related to Settings -->

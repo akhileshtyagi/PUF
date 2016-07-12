@@ -1,4 +1,4 @@
-package edu.isu.reu.intent_collection_service;
+package intent_collection;
 
 import android.app.Notification;
 import android.app.Service;
@@ -9,6 +9,8 @@ import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
 import android.util.Log;import java.lang.Exception;import java.lang.Override;import java.lang.Runnable;import java.lang.Thread;
+
+import edu.isu.reu.intent_collection_service.R;
 
 /**
  * Created by tim on 6/27/16.

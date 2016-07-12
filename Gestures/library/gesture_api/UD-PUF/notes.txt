@@ -1,0 +1,15 @@
+POINT_VECTOR: average of differences less than some number of std deviations
+[metric], [accuracy], [allowed std_deviations]
+pressure, 0.895, 0.82
+distance, 0.585, 0.81
+time, 0.57, 0.74
+velocity, 0.56, 0.5
+acceleration, 0.5, 0.0 (always 50%, failed everything)
+
+FAILED_POINTS: ratio of failed points by total points is below some threshold. points fail if they fall outside of some number of standard deviations from the average for that point.
+[metric], [accuracy], [allowed std_deviations], [threshold]
+pressure, 0.675, 470.0, 0.7 (?)
+distance, 0.625, 0.9, 0.625
+time, 0.556, 0.25, 0.1 
+velocity, 0.53, 0.7, 0.4
+acceleration, 0.535, 0.2, 0.5 

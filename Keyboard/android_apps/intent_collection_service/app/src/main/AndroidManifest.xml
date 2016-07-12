@@ -24,7 +24,7 @@
             can access the service or not
         -->
         <service
-            android:name = "edu.isu.reu.intent_collection_service.IntentCollectionService"
+            android:name = "intent_collection.IntentCollectionService"
             android:exported = "true"
         />
 
@@ -34,7 +34,7 @@
             from another application
 
         <service
-            android:name = "edu.isu.reu.intent_collection_service.DummyIntentAdderService"
+            android:name = "intent_collection.DummyIntentAdderService"
             android:exported = "false"
             />
 

@@ -1,4 +1,4 @@
-package edu.isu.reu.intent_collection_service;
+package intent_collection;
 
 import android.os.Binder;
 import android.util.Log;

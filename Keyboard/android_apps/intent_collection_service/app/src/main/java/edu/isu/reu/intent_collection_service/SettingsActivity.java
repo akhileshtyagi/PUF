@@ -7,10 +7,18 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
+import android.os.Message;
+import android.os.Messenger;
 import android.preference.PreferenceActivity;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+
+import intent_collection.DummyIntentAdderService;
+import intent_collection.IntentCollectionService;
 
 /**
  * TODO list
@@ -20,6 +28,12 @@ import android.util.Log;
  *      -- when this activity is created, it starts the service if not already running
  *      -- buttons to call other activities which analyze these system intents
  *          ++ these other activities will also display graphically, the intent graph
+ */
+/**
+ * TODO list
+ * [ ] implement an aidl binder which will allow communication with this service from other apps
+ * [ ] implement a graphical way of viewing intents
+ * [ ] add buttons to enable use of the different functionalities
  */
 
 /**
@@ -35,13 +49,17 @@ import android.util.Log;
  */
 public class SettingsActivity extends AppCompatActivity {
     public final long TIME_INTERVAL = 3000;
+    public final String TAG = "IC_Interface";
 
-    IntentCollectionService intent_collection_service;
+    Messenger intent_collection_service;
     boolean intent_collection_service_bound;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // set the xml layout
+        setContentView(R.layout.layout_settings_activity);
 
         // set up action bar
         setupActionBar();
@@ -54,6 +72,7 @@ public class SettingsActivity extends AppCompatActivity {
 
         // start a dummy service to add intents
         //TODO this should be changed to get real intents at some point
+        //TODO there is likely code elsewhere which will provide this functionality
         //start_dummy_intent_adder_service();
         start_dummy_intent_adder_thread();
     }
@@ -84,22 +103,79 @@ public class SettingsActivity extends AppCompatActivity {
      */
     private void setup_buttons(){
         // get the layout to add buttons to
-        //ViewGroup linearLayout = (ViewGroup) findViewById(R.id.linearLayoutID);
+        LinearLayout linear_layout = (LinearLayout) findViewById(R.id.master_layout);
 
         // stop collection
-        //TODO
+        linear_layout.addView(create_button("stop collection",
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // Perform action on click
+                        //TODO
+                    }
+                }));
 
         // start collection
-        //TODO
+        linear_layout.addView(create_button("start collection",
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // Perform action on click
+                        //TODO
+                    }
+                }));
 
         // intent graph
-        //TODO
+        linear_layout.addView(create_button("View intent graph",
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // Perform action on click
+                        //TODO
+                    }
+                }));
 
         // transition matrix
-        //TODO
+        linear_layout.addView(create_button("View transition matrix",
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // Perform action on click
+                        //TODO
+                    }
+                }));
 
         // incoming and outgoing intent vectors
-        //TODO
+        linear_layout.addView(create_button("View incoming, outgoing intent vectors",
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // Perform action on click
+                        //TODO
+                    }
+                }));
+
+        // data listing
+        linear_layout.addView(create_button("List data",
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // Perform action on click
+                        Log.d(TAG, "listing data");
+
+                        //TODO
+                    }
+                }));
+
+        // set the current layout to the one we just created
+        setContentView(linear_layout);
+    }
+
+    /**
+     * build a button with the given String as text
+     */
+    private Button create_button(String button_text, View.OnClickListener on_click_listener){
+        Button button = new Button(this);
+
+        // set button properties
+        button.setText(button_text);
+        button.setOnClickListener(on_click_listener);
+
+        return button;
     }
 
     /**
@@ -129,8 +205,7 @@ public class SettingsActivity extends AppCompatActivity {
             //TODO this method doesn't seem to be getting called (won't get called until after onCreate() has completed)
             @Override
             public void onServiceConnected(ComponentName name, IBinder binder) {
-                IntentCollectionBinder intent_collection_binder = (IntentCollectionBinder) binder;
-                intent_collection_service = intent_collection_binder.get_service();
+                intent_collection_service = new Messenger(binder);
 
                 intent_collection_service_bound = true;
 
@@ -187,8 +262,13 @@ public class SettingsActivity extends AppCompatActivity {
                 while(true){
                     // use binding to add a dummy Intent
                     if(intent_collection_service_bound) {
+                        // create the dummy mesage
+                        Message message = new Message();
+                        message.what = 1;
+
                         // add dummy Intent
-                        intent_collection_service.handle_intent(new Intent());
+                        try{intent_collection_service.send(message);}
+                        catch(Exception e){e.printStackTrace();}
 
                         // say that intent has been added
                         Log.d("DummyThread", "intent added!");
