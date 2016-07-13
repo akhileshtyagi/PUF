@@ -1,4 +1,4 @@
-package record;
+package intent_record;
 
 import android.os.Message;
 import android.os.Messenger;
@@ -19,17 +19,22 @@ public class IntentRecord {
     boolean intent_collection_service_bound;
 
     /**
-     * decode a message and store it as IntentData
+     * decode a message and store it as intent_record.IntentData
      */
     public IntentData decode_message(Message message){
-
+        return (IntentData)message.obj;
     }
 
     /**
      * Encode an intent as message to be submitted
      * to service
      */
-    private Message encode_message(){
+    private Message encode_message(IntentData intent_data){
+        Message message = new Message();
 
+        // write message fields
+        message.obj = intent_data;
+
+        return message;
     }
 }

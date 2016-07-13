@@ -15,6 +15,7 @@ import android.widget.Toast;
 import java.util.ArrayList;
 
 import edu.isu.reu.intent_collection_service.R;
+import intent_record.*;
 
 /**
  * Created by element on 6/25/16.
