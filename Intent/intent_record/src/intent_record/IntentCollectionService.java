@@ -1,4 +1,4 @@
-package intent_collection;
+package intent_record;
 
 import android.app.Notification;
 import android.app.Service;
@@ -8,14 +8,12 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
-import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.Toast;
 
 import java.util.ArrayList;
 
-import edu.isu.reu.intent_collection_service.R;
-import intent_record.*;
+//import edu.isu.reu.intent_collection_service.R;
 
 /**
  * Created by element on 6/25/16.
@@ -62,6 +60,7 @@ public class IntentCollectionService extends Service {
      * commands given to messenger to interact with service
      */
     static final int MSG_SAY_HELLO = 1;
+    static final int MSG_RESPOND_INTENT_LIST = 2;
 
     /**
      * Handler of incoming messages from clients.
@@ -79,7 +78,19 @@ public class IntentCollectionService extends Service {
             Log.d(TAG, msg.toString());
             switch (msg.what) {
                 case MSG_SAY_HELLO:
+                    // decode message and add to list
+                    intent_list.add(IntentRecord.decode_message(msg));
+
                     Toast.makeText(getApplicationContext(), "hello!", Toast.LENGTH_SHORT).show();
+                    break;
+                case MSG_RESPOND_INTENT_LIST:
+                    // reply with the intent list to the caller
+                    Message message = new Message();
+                    message.obj = intent_list;
+
+                    // send the message to the sender
+                    try{ message.replyTo.send(message); }catch(Exception e){ e.printStackTrace(); }
+
                     break;
                 default:
                     super.handleMessage(msg);
@@ -137,7 +148,6 @@ public class IntentCollectionService extends Service {
      * provide binder
      * this will allow bound applications to submit intents
      */
-    @Nullable
     @Override
     public IBinder onBind(Intent intent) {
         Log.d("bound", "bound");
@@ -152,7 +162,7 @@ public class IntentCollectionService extends Service {
         Notification notification = new Notification.Builder(this)
                 .setContentTitle("Intent Collector")
                 .setContentText("Intent collector is running.")
-                .setSmallIcon(R.drawable.ic_notifications_black_24dp)
+                //.setSmallIcon(R.drawable.ic_notifications_black_24dp)
                 .build();
 
         return notification;

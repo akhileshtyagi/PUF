@@ -8,9 +8,10 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 import android.support.annotation.Nullable;
-import android.util.Log;import java.lang.Exception;import java.lang.Override;import java.lang.Runnable;import java.lang.Thread;
+import android.util.Log;
 
 import edu.isu.reu.intent_collection_service.R;
+import intent_record.IntentCollectionService;
 
 /**
  * Created by tim on 6/27/16.
@@ -46,7 +47,7 @@ public class DummyIntentAdderService extends Service {
                 // forever
                 while(true){
                     // use binding to add a dummy Intent
-                    intent_collection_service.handle_intent(new Intent());
+                    //intent_collection_service.handle_intent(new Intent());
 
                     // wait TIME_INTERVAL
                     try{ Thread.sleep(TIME_INTERVAL); }catch(Exception e){ e.printStackTrace(); }

@@ -3,6 +3,8 @@ package intent_collection;
 import android.os.Binder;
 import android.util.Log;
 
+import intent_record.IntentCollectionService;
+
 /**
  * Created by element on 6/27/16.
  */

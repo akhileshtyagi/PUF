@@ -18,7 +18,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import intent_collection.DummyIntentAdderService;
-import intent_collection.IntentCollectionService;
+import intent_record.IntentCollectionService;
 
 /**
  * TODO list
@@ -69,6 +69,8 @@ public class SettingsActivity extends AppCompatActivity {
 
         // start the intent collection service
         start_collection_service();
+
+        //TODO use the intent_record library for submitting intent data
 
         // start a dummy service to add intents
         //TODO this should be changed to get real intents at some point
