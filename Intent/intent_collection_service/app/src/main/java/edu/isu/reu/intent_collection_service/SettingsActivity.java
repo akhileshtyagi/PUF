@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.Bundle;
 import android.os.IBinder;
-import android.os.Message;
 import android.os.Messenger;
 import android.preference.PreferenceActivity;
 import android.support.v7.app.ActionBar;
@@ -19,6 +18,7 @@ import android.widget.LinearLayout;
 
 import intent_collection.DummyIntentAdderService;
 import intent_record.IntentCollectionService;
+import intent_record.IntentRecord;
 
 /**
  * TODO list
@@ -54,6 +54,8 @@ public class SettingsActivity extends AppCompatActivity {
     Messenger intent_collection_service;
     boolean intent_collection_service_bound;
 
+    IntentRecord intent_record;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -68,7 +70,8 @@ public class SettingsActivity extends AppCompatActivity {
         setup_buttons();
 
         // start the intent collection service
-        start_collection_service();
+        //start_collection_service();
+        this.intent_record = new IntentRecord(this);
 
         //TODO use the intent_record library for submitting intent data
 
@@ -263,18 +266,22 @@ public class SettingsActivity extends AppCompatActivity {
                 // forever
                 while(true){
                     // use binding to add a dummy Intent
-                    if(intent_collection_service_bound) {
-                        // create the dummy mesage
-                        Message message = new Message();
-                        message.what = 1;
+//                    if(intent_collection_service_bound) {
+//                        // create the dummy mesage
+//                        Message message = new Message();
+//                        message.what = 1;
+//
+//                        // add dummy Intent
+//                        try{intent_collection_service.send(message);}
+//                        catch(Exception e){e.printStackTrace();}
+//
+//                        // say that intent has been added
+//                        Log.d("DummyThread", "intent added!");
+//                    }
 
-                        // add dummy Intent
-                        try{intent_collection_service.send(message);}
-                        catch(Exception e){e.printStackTrace();}
-
-                        // say that intent has been added
-                        Log.d("DummyThread", "intent added!");
-                    }
+                    //TODO
+                    // use IntentRecord to try to send an intent
+                    intent_record.send_intent_data(new Intent(), new Intent(), new Intent());
 
                     // wait TIME_INTERVAL
                     try{ Thread.sleep(TIME_INTERVAL); }catch(Exception e){ e.printStackTrace(); }

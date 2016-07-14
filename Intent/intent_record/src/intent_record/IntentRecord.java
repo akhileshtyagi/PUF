@@ -57,7 +57,6 @@ public class IntentRecord {
         // send the message to the bound service
         // this also binds the service
         start_collection_service();
-
     }
 
     /**
@@ -72,7 +71,13 @@ public class IntentRecord {
         message.replyTo = messenger;
 
         // send the message to the IntentCollectionService
-        try{ intent_collection_service.send(message); }catch(Exception e){ e.printStackTrace(); }
+        if(wait_for_bind()) {
+            try {
+                intent_collection_service.send(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
 
         // wait until the list has been received, then return the list
         while(this.intent_data_dirty){
@@ -93,7 +98,13 @@ public class IntentRecord {
         Message message = encode_message(intent_data);
 
         // send the message to the IntentCollectionService
-        try{ intent_collection_service.send(message); }catch(Exception e){ e.printStackTrace(); }
+        if(wait_for_bind()) {
+            try {
+                intent_collection_service.send(message);
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     /**
@@ -124,7 +135,29 @@ public class IntentRecord {
         boolean bind_successful = context.bindService(bind_intent, service_connection, Context.BIND_AUTO_CREATE);
 
         // log if the bind was successfull
-        Log.d("DIAS", "bind successful: " + bind_successful);
+        Log.d(TAG, "bind successful: " + bind_successful);
+    }
+
+    /**
+     * waits for the intent collection service to be bound before continuing
+     *
+     * returns true if bound,
+     * false if not bound
+     *
+     * wait for a maximum of 1 second
+     */
+    private boolean wait_for_bind(){
+        int wait_max = 10;
+        int times_waited = 0;
+
+        // loop while intent_collection_service_bound is false
+        while(!this.intent_collection_service_bound || times_waited < wait_max){
+            try{ Thread.sleep(100); }catch(Exception e){ e.printStackTrace(); }
+
+            times_waited++;
+        }
+
+        return this.intent_collection_service_bound;
     }
 
     /**

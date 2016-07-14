@@ -24,7 +24,7 @@
             can access the service or not
         -->
         <service
-            android:name = "intent_collection.IntentCollectionService"
+            android:name = "intent_record.IntentCollectionService"
             android:exported = "true"
         />
 
