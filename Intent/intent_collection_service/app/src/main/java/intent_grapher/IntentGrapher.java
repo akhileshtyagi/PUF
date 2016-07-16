@@ -1,5 +1,10 @@
 package intent_grapher;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import intent_record.IntentData;
+
 /**
  * The purpose of this class is to graph
  * intents visually.
@@ -14,7 +19,50 @@ package intent_grapher;
  * an arrow pointing from sender to receiver
  */
 public class IntentGrapher {
-    public IntentGrapher(){
+    private List<IntentData> intent_data_list;
 
+    public IntentGrapher(){
+        intent_data_list = new ArrayList<>();
+
+        // initialize graphics
+        //TODO
+    }
+
+    /**
+     * set intent data list,
+     * graphical depiction will be updated
+     */
+    public void set_intent_data_list(List<IntentData> intent_data_list){
+        this.intent_data_list = intent_data_list;
+
+        graphical_update();
+    }
+
+    /**
+     * allow adding of single intents for incremental update
+     */
+    public void add_intent_data(IntentData intent_data){
+        this.intent_data_list.add(intent_data);
+
+        graphical_update();
+    }
+
+    /**
+     * allow adding of a list of intents for incremental update
+     */
+    public void add_intent_data_list(List<IntentData> intent_data_list){
+        this.intent_data_list.addAll(intent_data_list);
+
+        graphical_update();
+    }
+
+    /**
+     * preform graphical update operations
+     *
+     * this happens after the intent_data_list is changed
+     */
+    private void graphical_update(){
+        // update graphical display
+        //TODO
     }
 }
