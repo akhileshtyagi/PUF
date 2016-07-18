@@ -19,6 +19,7 @@ import android.widget.LinearLayout;
 import intent_collection.DummyIntentAdderService;
 import intent_record.IntentCollectionService;
 import intent_record.IntentRecord;
+import intent_visualizer.IntentVisualizer;
 
 /**
  * TODO list
@@ -133,7 +134,8 @@ public class SettingsActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     public void onClick(View v) {
                         // Perform action on click
-                        //TODO
+                        Intent intent = new Intent(getApplicationContext(), IntentVisualizer.class);
+                        startActivity(intent);
                     }
                 }));
 
