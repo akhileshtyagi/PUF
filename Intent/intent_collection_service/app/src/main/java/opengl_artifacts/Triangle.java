@@ -19,11 +19,12 @@ public class Triangle {
 
     // number of coordinates per vertex in this array
     static final int COORDS_PER_VERTEX = 3;
-    static float triangleCoords[] = {   // in counterclockwise order:
-            0.0f,  0.622008459f, 0.0f, // top
-            -0.5f, -0.311004243f, 0.0f, // bottom left
-            0.5f, -0.311004243f, 0.0f  // bottom right
-    };
+
+//    static float triangleCoords[] = {   // in counterclockwise order:
+//            0.0f,  0.622008459f, 0.0f, // top
+//            -0.5f, -0.311004243f, 0.0f, // bottom left
+//            0.5f, -0.311004243f, 0.0f  // bottom right
+//    };
 
 //    private final String vertexShaderCode =
 //            "attribute vec4 vPosition;" +
@@ -57,7 +58,14 @@ public class Triangle {
     //float color[] = { 0.63671875f, 0.76953125f, 0.22265625f, 1.0f };
     float color[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 
-    public Triangle() {
+    public Triangle(Vertex v1, Vertex v2, Vertex v3) {
+        /* set the position based on constructor arguments */
+        float triangleCoords[] = {
+                v1.x, v1.y, v1.z, // top
+                v2.x, v2.y, v2.z, // bottom left
+                v3.x, v3.y, v3.z // bottom right
+        };
+
         /* initialize the postion of the triangle */
         // initialize vertex byte buffer for shape coordinates
         ByteBuffer bb = ByteBuffer.allocateDirect(
@@ -95,7 +103,8 @@ public class Triangle {
     private int mPositionHandle;
     private int mColorHandle;
 
-    private final int vertexCount = triangleCoords.length / COORDS_PER_VERTEX;
+    //TODO modified from triangleCoords.length to 9
+    private final int vertexCount = 9 / COORDS_PER_VERTEX;
     private final int vertexStride = COORDS_PER_VERTEX * 4; // 4 bytes per vertex
 
     public void draw(float[] mvpMatrix) {

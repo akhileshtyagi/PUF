@@ -9,6 +9,7 @@ import javax.microedition.khronos.opengles.GL10;
 
 import opengl_artifacts.Square;
 import opengl_artifacts.Triangle;
+import opengl_artifacts.Vertex;
 
 /**
  * Created by element on 7/16/16.
@@ -35,6 +36,10 @@ public class IntentDataGLRenderer implements GLSurfaceView.Renderer {
     /* exposes the rotation angle */
     public volatile float mAngle;
 
+    /* exposes the global postion variables */
+    public volatile float position_x;
+    public volatile float position_y;
+
     /**
      * called once to set up the view's OpenGL ES enviornment
      *
@@ -45,9 +50,17 @@ public class IntentDataGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         // initialize a triangle
-        mTriangle = new Triangle();
+        mTriangle = new Triangle(
+                new Vertex(0.0f, 0.622008459f, 0.0f),
+                new Vertex(-0.5f, -0.311004243f, 0.0f),
+                new Vertex(0.5f, -0.311004243f, 0.0f)
+        );
+
         // initialize a square
-        mSquare = new Square();
+        float radius = 0.5f;
+        float center_x = 0.0f;
+        float center_y = 0.0f;
+        mSquare = new Square(radius, center_x, center_y);
     }
 
     /**
@@ -72,8 +85,8 @@ public class IntentDataGLRenderer implements GLSurfaceView.Renderer {
         Matrix.setIdentityM(mModelMatrix, 0); // initialize to identity matrix
 
         float translate_x, translate_y, translate_z;
-        translate_x = 0.5f;
-        translate_y = 0f;
+        translate_x = position_x;
+        translate_y = position_y;
         translate_z = 0f;
         Matrix.translateM(mModelMatrix, 0, translate_x, translate_y, translate_z); // translation to the left
 
@@ -104,7 +117,13 @@ public class IntentDataGLRenderer implements GLSurfaceView.Renderer {
 
         // Draw triangle
         //mTriangle.draw(scratch);
-        mTriangle.draw(mMVPMatrix);
+        //mTriangle.draw(mMVPMatrix);
+
+        // draw the square
+        mSquare.draw(mMVPMatrix);
+
+        //TODO create the IntentGraph as one drawable object
+        // (like the square is a drawable object)
     }
 
     /**
@@ -138,11 +157,30 @@ public class IntentDataGLRenderer implements GLSurfaceView.Renderer {
         return shader;
     }
 
+    /**
+     * angle functions
+     */
     public float getAngle() {
         return mAngle;
     }
 
     public void setAngle(float angle) {
         mAngle = angle;
+    }
+
+    /**
+     * postion functions
+     */
+    public float get_center_postion_x(){
+        return position_x;
+    }
+
+    public float get_center_postion_y(){
+        return position_y;
+    }
+
+    public void set_center_postion(float x, float y){
+        position_x = x;
+        position_y = y;
     }
 }

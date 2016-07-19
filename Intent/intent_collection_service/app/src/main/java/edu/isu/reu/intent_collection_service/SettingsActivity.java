@@ -209,7 +209,6 @@ public class SettingsActivity extends AppCompatActivity {
 
         // define a service connection
         ServiceConnection service_connection = new ServiceConnection() {
-            //TODO this method doesn't seem to be getting called (won't get called until after onCreate() has completed)
             @Override
             public void onServiceConnected(ComponentName name, IBinder binder) {
                 intent_collection_service = new Messenger(binder);
@@ -281,7 +280,7 @@ public class SettingsActivity extends AppCompatActivity {
 //                        Log.d("DummyThread", "intent added!");
 //                    }
 
-                    //TODO
+                    //TODO set real information in IntentData
                     // use IntentRecord to try to send an intent
                     intent_record.send_intent_data(new Intent(), new Intent(), new Intent());
 
