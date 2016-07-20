@@ -4,6 +4,10 @@ import android.content.Context;
 import android.opengl.GLSurfaceView;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+
+import intent_record.IntentData;
+
 /**
  * reference:
  * https://developer.android.com/training/graphics/opengl/index.html
@@ -13,7 +17,7 @@ public class IntentDataGLSurfaceView extends GLSurfaceView {
 
     /* responding to user touches */
     private final float TOUCH_SCALE_FACTOR = 1.0f / 1000;
-    private final float ACCEL_SCALE_FACTOR = 1.0f / 10;
+    private final float ACCEL_SCALE_FACTOR = 1.0f / 100;
 
     private float mPreviousX;
     private float mPreviousY;
@@ -42,7 +46,6 @@ public class IntentDataGLSurfaceView extends GLSurfaceView {
         // MotionEvent reports input details from the touch screen
         // and other input controls. In this case, you are only
         // interested in events where the touch position changed.
-
         float x = e.getX();
         float y = e.getY();
         float time = e.getDownTime();
@@ -87,8 +90,8 @@ public class IntentDataGLSurfaceView extends GLSurfaceView {
 
                 /* here the location is changed */
                 renderer.set_center_postion(
-                        renderer.get_center_postion_x() + ((dx + (dx * ax * ACCEL_SCALE_FACTOR)) * TOUCH_SCALE_FACTOR),
-                        renderer.get_center_postion_y() + ((dy + (dy * ay * ACCEL_SCALE_FACTOR)) * TOUCH_SCALE_FACTOR));
+                        renderer.get_center_postion_x() + ((dx + (dx * ax * ax * ACCEL_SCALE_FACTOR)) * TOUCH_SCALE_FACTOR),
+                        renderer.get_center_postion_y() + ((dy + (dy * ay * ay * ACCEL_SCALE_FACTOR)) * TOUCH_SCALE_FACTOR));
 
                 /* set the render status to dirty */
                 requestRender();
@@ -103,5 +106,14 @@ public class IntentDataGLSurfaceView extends GLSurfaceView {
         mPreviousX = x;
         mPreviousY = y;
         return true;
+    }
+
+    /**
+     * set the intent data which will be graphed
+     */
+    public void set_intent_data(ArrayList<IntentData> intent_data_list){
+        if(renderer != null) {
+            renderer.set_intent_data(intent_data_list);
+        }
     }
 }

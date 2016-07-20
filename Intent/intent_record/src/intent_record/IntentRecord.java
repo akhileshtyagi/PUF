@@ -79,10 +79,13 @@ public class IntentRecord {
             }
         }
 
+        //TODO this would cause programs to freeze because
+        //TODO code to receive the intent list will not run until after this method
+        //TOOD completes
         // wait until the list has been received, then return the list
-        while(this.intent_data_dirty){
-            try{ Thread.sleep(100); }catch(Exception e){ e.printStackTrace(); }
-        }
+//        while(this.intent_data_dirty){
+//            try{ Thread.sleep(100); }catch(Exception e){ e.printStackTrace(); }
+//        }
 
         return intent_data_list;
     }

@@ -13,7 +13,7 @@ import intent_visualizer.IntentDataGLRenderer;
 /**
  * Created by element on 7/17/16.
  */
-public class Triangle {
+public class Triangle implements Drawable{
     private final int mProgram;
     private FloatBuffer vertexBuffer;
 

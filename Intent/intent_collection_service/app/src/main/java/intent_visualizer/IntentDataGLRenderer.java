@@ -4,12 +4,15 @@ import android.opengl.GLES20;
 import android.opengl.GLSurfaceView;
 import android.opengl.Matrix;
 
+import java.util.ArrayList;
+
 import javax.microedition.khronos.egl.EGLConfig;
 import javax.microedition.khronos.opengles.GL10;
 
+import intent_record.IntentData;
+import opengl_artifacts.IntentGraph;
 import opengl_artifacts.Square;
 import opengl_artifacts.Triangle;
-import opengl_artifacts.Vertex;
 
 /**
  * Created by element on 7/16/16.
@@ -17,6 +20,7 @@ import opengl_artifacts.Vertex;
 public class IntentDataGLRenderer implements GLSurfaceView.Renderer {
     private Triangle mTriangle;
     private Square mSquare;
+    private IntentGraph intent_graph;
 
     // create a model matrix for the triangle
     private final float[] mModelMatrix = new float[16];
@@ -50,17 +54,20 @@ public class IntentDataGLRenderer implements GLSurfaceView.Renderer {
         GLES20.glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
 
         // initialize a triangle
-        mTriangle = new Triangle(
-                new Vertex(0.0f, 0.622008459f, 0.0f),
-                new Vertex(-0.5f, -0.311004243f, 0.0f),
-                new Vertex(0.5f, -0.311004243f, 0.0f)
-        );
+//        mTriangle = new Triangle(
+//                new Vertex(0.0f, 0.622008459f, 0.0f),
+//                new Vertex(-0.5f, -0.311004243f, 0.0f),
+//                new Vertex(0.5f, -0.311004243f, 0.0f)
+//        );
 
         // initialize a square
-        float radius = 0.5f;
-        float center_x = 0.0f;
-        float center_y = 0.0f;
-        mSquare = new Square(radius, center_x, center_y);
+//        float radius = 0.5f;
+//        float center_x = 0.0f;
+//        float center_y = 0.0f;
+//        mSquare = new Square(radius, center_x, center_y);
+
+        // initialize IntentGraph
+        intent_graph = new IntentGraph();
     }
 
     /**
@@ -120,10 +127,10 @@ public class IntentDataGLRenderer implements GLSurfaceView.Renderer {
         //mTriangle.draw(mMVPMatrix);
 
         // draw the square
-        mSquare.draw(mMVPMatrix);
+        //mSquare.draw(mMVPMatrix);
 
-        //TODO create the IntentGraph as one drawable object
-        // (like the square is a drawable object)
+        // Draw IntentGraph
+        intent_graph.draw(mMVPMatrix);
     }
 
     /**
@@ -182,5 +189,14 @@ public class IntentDataGLRenderer implements GLSurfaceView.Renderer {
     public void set_center_postion(float x, float y){
         position_x = x;
         position_y = y;
+    }
+
+    /**
+     * set the intent data which will be graphed
+     */
+    public void set_intent_data(ArrayList<IntentData> intent_data_list){
+        if(intent_graph != null) {
+            intent_graph.set_intent_data(intent_data_list);
+        }
     }
 }

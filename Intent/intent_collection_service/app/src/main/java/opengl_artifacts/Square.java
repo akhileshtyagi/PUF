@@ -3,9 +3,9 @@ package opengl_artifacts;
 /**
  * defines two triangles which together create a square
  */
-public class Square {
-    Triangle north_west_triangle;
-    Triangle south_east_triangle;
+public class Square implements Drawable{
+    private Triangle north_west_triangle;
+    private Triangle south_east_triangle;
 
     /**
      * defines two triangles
@@ -30,6 +30,7 @@ public class Square {
     /**
      * draw the square by drawing the component triangles
      */
+    @Override
     public void draw(float[] mvpMatrix) {
         north_west_triangle.draw(mvpMatrix);
         south_east_triangle.draw(mvpMatrix);

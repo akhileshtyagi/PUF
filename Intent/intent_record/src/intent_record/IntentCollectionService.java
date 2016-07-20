@@ -89,7 +89,17 @@ public class IntentCollectionService extends Service {
                     message.obj = intent_list;
 
                     // send the message to the sender
-                    try{ message.replyTo.send(message); }catch(Exception e){ e.printStackTrace(); }
+                    try{
+                        //TODO this seems not to work
+                        //TODO this is becuase replyTo is null.
+                        //TODO figure out why replyTo is null
+                        // 1 is it being set?
+                        // 2 is it null even when set?, why wouldl this be?
+                        //message.replyTo.send(message);
+
+                        Messenger reply_messenger = new Messenger(message.replyTo.getBinder());
+                        reply_messenger.send(message);
+                    }catch(Exception e){ e.printStackTrace(); }
 
                     break;
                 default:
