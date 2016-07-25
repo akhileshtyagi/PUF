@@ -16,8 +16,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import java.util.Random;
+
 import intent_collection.DummyIntentAdderService;
+import intent_grapher.ListData;
 import intent_record.IntentCollectionService;
+import intent_record.IntentData;
 import intent_record.IntentRecord;
 import intent_visualizer.IntentVisualizer;
 
@@ -49,6 +53,9 @@ import intent_visualizer.IntentVisualizer;
  * API Guide</a> for more information on developing a Settings UI.
  */
 public class SettingsActivity extends AppCompatActivity {
+    /** true indicates this class is being used for testing purposes */
+    final boolean TEST = true;
+
     public final long TIME_INTERVAL = 3000;
     public final String TAG = "IC_Interface";
 
@@ -72,15 +79,12 @@ public class SettingsActivity extends AppCompatActivity {
 
         // start the intent collection service
         //start_collection_service();
-        this.intent_record = new IntentRecord(this);
-
-        //TODO use the intent_record library for submitting intent data
 
         // start a dummy service to add intents
-        //TODO this should be changed to get real intents at some point
-        //TODO there is likely code elsewhere which will provide this functionality
-        //start_dummy_intent_adder_service();
-        start_dummy_intent_adder_thread();
+        if(TEST) {
+            this.intent_record = new IntentRecord(this);
+            start_dummy_intent_adder_thread();
+        }
     }
 
     /**
@@ -162,9 +166,8 @@ public class SettingsActivity extends AppCompatActivity {
                 new View.OnClickListener() {
                     public void onClick(View v) {
                         // Perform action on click
-                        Log.d(TAG, "listing data");
-
-                        //TODO
+                        Intent intent = new Intent(getApplicationContext(), ListData.class);
+                        startActivity(intent);
                     }
                 }));
 
@@ -280,9 +283,8 @@ public class SettingsActivity extends AppCompatActivity {
 //                        Log.d("DummyThread", "intent added!");
 //                    }
 
-                    //TODO set real information in IntentData
                     // use IntentRecord to try to send an intent
-                    intent_record.send_intent_data(new Intent(), new Intent(), new Intent());
+                    intent_record.send_intent_data(generate_dummy_intent_data());
 
                     // wait TIME_INTERVAL
                     try{ Thread.sleep(TIME_INTERVAL); }catch(Exception e){ e.printStackTrace(); }
@@ -292,5 +294,33 @@ public class SettingsActivity extends AppCompatActivity {
 
         // create thread
         new Thread(task).start();
+    }
+
+    /**
+     * generate dummy intent data with a fixed set of entities
+     *
+     * random entities are selected to be sender / receiver
+     *
+     * the same entity can be both sender and receiver
+     */
+    static Random random = new Random();
+    static String[] entities = {
+            "bart",
+            "homer",
+            "marge",
+            "lisa",
+            "nelson",
+            "moe",
+            "sherlock",
+            "lenny",
+            "millhouse"
+    };
+    private IntentData generate_dummy_intent_data(){
+        // grab a random entity for sender, receiver
+        // entitiy may be the same or different
+        String sender = entities[Math.abs(random.nextInt() % entities.length)];
+        String receiver = entities[Math.abs(random.nextInt() % entities.length)];
+
+        return new IntentData(new Intent(), sender, receiver);
     }
 }

@@ -1,40 +1,31 @@
 package com.example.element.swipe_box;
 
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Environment;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
-import android.util.JsonWriter;
 import android.util.Log;
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.opencsv.CSVWriter;
 
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.FileWriter;
-import java.io.IOException;
-import java.io.ObjectOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.PrintStream;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
 
-import au.com.bytecode.opencsv.CSVWriter;
 import dataTypes.Challenge;
 import dataTypes.Response;
 import dataTypes.UserDevicePair;
@@ -311,7 +302,7 @@ public class Activity_menu extends AppCompatActivity {
         ud_pair.addChallenge(challenge);
 
         // use ud_pair to authenticate
-        boolean authenticated = ud_pair.authenticate(response.getOrigionalResponse(), challenge.getProfile());
+        boolean authenticated = ud_pair.authenticate(response.getOrigionalResponse(), challenge);
 
         // print out information about the authentication to the console
         String console_output = "";

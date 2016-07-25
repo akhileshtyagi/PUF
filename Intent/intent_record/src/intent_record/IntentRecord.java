@@ -51,7 +51,7 @@ public class IntentRecord {
         this.intent_collection_service = null;
         this.intent_collection_service_bound = false;
 
-        this.intent_data_list = null;
+        this.intent_data_list = new ArrayList<>();
         this.intent_data_dirty = true;
 
         // send the message to the bound service
@@ -91,12 +91,9 @@ public class IntentRecord {
     }
 
     /**
-     * sends an IntentData to intent_recording_service
+     * another way to send IntentData
      */
-    public void send_intent_data(Intent intent, Intent sender, Intent receiver){
-        // create the IntentData
-        IntentData intent_data = new IntentData(intent, sender, receiver);
-
+    public void send_intent_data(IntentData intent_data){
         // convert the IntentData into a message
         Message message = encode_message(intent_data);
 
@@ -108,6 +105,14 @@ public class IntentRecord {
                 e.printStackTrace();
             }
         }
+    }
+
+    /**
+     * sends an IntentData to intent_recording_service
+     */
+    public void send_intent_data(Intent intent, String sender, String receiver){
+        // create the IntentData
+        send_intent_data(new IntentData(intent, sender, receiver));
     }
 
     /**
@@ -195,6 +200,7 @@ public class IntentRecord {
         Message message = new Message();
 
         // write message fields
+        message.what = IntentCollectionService.MSG_INTENT_DATA;
         message.obj = intent_data;
 
         return message;

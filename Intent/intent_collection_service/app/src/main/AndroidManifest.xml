@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     package="edu.isu.reu.intent_collection_service">
 
     <application
@@ -45,6 +46,18 @@
         </intent-filter>
         -->
         <activity android:name="intent_visualizer.IntentVisualizer"></activity>
+        <activity
+            android:name="intent_grapher.ListData"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar">
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        </activity>
     </application>
 
 </manifest>

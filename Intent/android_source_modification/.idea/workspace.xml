@@ -27,7 +27,19 @@
             <state relative-caret-position="-16636">
               <caret line="98" column="72" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="72" />
               <folding>
-                <element signature="e#0#239702#0" expanded="true" />
+                <element signature="imports" expanded="false" />
+                <element signature="e#2762#2763#0" expanded="false" />
+                <element signature="e#2799#2800#0" expanded="false" />
+                <element signature="e#4596#4597#0" expanded="false" />
+                <element signature="e#4645#4646#0" expanded="false" />
+                <element signature="e#102808#102809#0" expanded="false" />
+                <element signature="e#102835#102836#0" expanded="false" />
+                <element signature="e#103471#103472#0" expanded="false" />
+                <element signature="e#103503#103504#0" expanded="false" />
+                <element signature="e#103540#103541#0" expanded="false" />
+                <element signature="e#103570#103571#0" expanded="false" />
+                <element signature="e#234773#234774#0" expanded="false" />
+                <element signature="e#234802#234803#0" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -37,7 +49,7 @@
         <entry file="file://$PROJECT_DIR$/src/server_modified/ActivityManagerService.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="396">
-              <caret line="31" column="69" selection-start-line="31" selection-start-column="69" selection-end-line="31" selection-end-column="69" />
+              <caret line="31" column="60" selection-start-line="31" selection-start-column="60" selection-end-line="31" selection-end-column="60" />
               <folding />
             </state>
           </provider>
@@ -48,7 +60,9 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="216">
               <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -551,7 +565,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="14" column="44" selection-start-line="14" selection-start-column="44" selection-end-line="14" selection-end-column="44" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -560,7 +576,19 @@
         <state relative-caret-position="-16636">
           <caret line="98" column="72" selection-start-line="98" selection-start-column="51" selection-end-line="98" selection-end-column="72" />
           <folding>
-            <element signature="e#0#239702#0" expanded="true" />
+            <element signature="imports" expanded="false" />
+            <element signature="e#2762#2763#0" expanded="false" />
+            <element signature="e#2799#2800#0" expanded="false" />
+            <element signature="e#4596#4597#0" expanded="false" />
+            <element signature="e#4645#4646#0" expanded="false" />
+            <element signature="e#102808#102809#0" expanded="false" />
+            <element signature="e#102835#102836#0" expanded="false" />
+            <element signature="e#103471#103472#0" expanded="false" />
+            <element signature="e#103503#103504#0" expanded="false" />
+            <element signature="e#103540#103541#0" expanded="false" />
+            <element signature="e#103570#103571#0" expanded="false" />
+            <element signature="e#234773#234774#0" expanded="false" />
+            <element signature="e#234802#234803#0" expanded="false" />
           </folding>
         </state>
       </provider>
@@ -568,7 +596,7 @@
     <entry file="file://$PROJECT_DIR$/src/server_modified/ActivityManagerService.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="396">
-          <caret line="31" column="69" selection-start-line="31" selection-start-column="69" selection-end-line="31" selection-end-column="69" />
+          <caret line="31" column="60" selection-start-line="31" selection-start-column="60" selection-end-line="31" selection-end-column="60" />
           <folding />
         </state>
       </provider>

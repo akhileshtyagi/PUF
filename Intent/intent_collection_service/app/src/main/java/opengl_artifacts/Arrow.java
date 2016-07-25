@@ -4,6 +4,8 @@ package opengl_artifacts;
  * An arrow is a combination of a triangle and a square
  */
 public class Arrow implements Drawable{
+    final String TAG = "Arrow";
+
     /** the portion of the arrow that is the arrow head */
     final static float ARROW_RATIO = 0.25f;
 
@@ -13,7 +15,10 @@ public class Arrow implements Drawable{
     /**
      * create arrow based on start and end vertexes
      */
-    //TODO Arrow is not being created in the correct location
+    //TODO top and bottom arrows are created correctly
+    //TODO left and right arrows are incorrect.
+    //TODO they are drawn the wrong direction and
+    //TODO the rectangle is too big
     public Arrow(float width, Vertex begin, Vertex end){
         // total distance
         float euclidean_distance = begin.compute_euclidean_distance(end);
@@ -26,9 +31,18 @@ public class Arrow implements Drawable{
         float rectangle_x = Vertex.compute_x_distance(slope, rectangle_distance) + begin.x;
         float rectangle_y = Vertex.compute_y_distance(slope, rectangle_distance) + begin.y;
 
-        //TODO test code
-        rectangle_x = begin.x + 0.0f;
-        rectangle_y = begin.y - 0.5f;
+        // set rectangle x and rectangle y to have the same sign as they would initially
+        float x_component = (end.x - begin.x);
+        float y_component = (end.y - begin.y);
+
+        rectangle_x *= x_component == 0 ? 1 : x_component / Math.abs(x_component);
+        rectangle_y *= y_component == 0 ? 1 : y_component / Math.abs(y_component);
+
+//      Log.d(TAG, "compute y dist: " + Vertex.compute_y_distance(slope, rectangle_distance));
+//        Log.d(TAG, "compute x dist: " + Vertex.compute_x_distance(slope, rectangle_distance));
+//
+//        Log.d(TAG, "rectangle begin: x: " + begin.x + " y: " + begin.y);
+//        Log.d(TAG, "rectangle end: x: " + rectangle_x + " y: " + rectangle_y);
 
         // define the size of the rectangle
         float rectangle_width = width / 2;
@@ -45,6 +59,9 @@ public class Arrow implements Drawable{
 
         float triangle_x = Vertex.compute_x_distance(perpendicular_slope, width / 2);
         float triangle_y = Vertex.compute_y_distance(perpendicular_slope, width / 2);
+
+//        Log.d(TAG, "triangle: x: " + triangle_x + " y: " + triangle_y);
+//        Log.d(TAG, "end: " + end.toString());
 
         // triangle is ARROW_RATIO the width
         triangle = new Triangle(
@@ -81,7 +98,6 @@ public class Arrow implements Drawable{
     @Override
     public void draw(float[] mvpMatrix) {
         rectangle.draw(mvpMatrix);
-        //TODO
-        //triangle.draw(mvpMatrix);
+        triangle.draw(mvpMatrix);
     }
 }

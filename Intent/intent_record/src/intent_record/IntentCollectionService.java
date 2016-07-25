@@ -59,7 +59,7 @@ public class IntentCollectionService extends Service {
     /**
      * commands given to messenger to interact with service
      */
-    static final int MSG_SAY_HELLO = 1;
+    static final int MSG_INTENT_DATA = 1;
     static final int MSG_RESPOND_INTENT_LIST = 2;
 
     /**
@@ -77,28 +77,28 @@ public class IntentCollectionService extends Service {
         public void handleMessage(Message msg) {
             Log.d(TAG, msg.toString());
             switch (msg.what) {
-                case MSG_SAY_HELLO:
+                case MSG_INTENT_DATA:
                     // decode message and add to list
                     intent_list.add(IntentRecord.decode_message(msg));
 
-                    Toast.makeText(getApplicationContext(), "hello!", Toast.LENGTH_SHORT).show();
+                    Log.d(TAG, "intents received number: " + intent_list.size());
                     break;
                 case MSG_RESPOND_INTENT_LIST:
                     // reply with the intent list to the caller
                     Message message = new Message();
+
+                    // return the intent list to the requesting context
                     message.obj = intent_list;
+                    message.what = IntentRecord.MSG_INTENT_LIST;
 
                     // send the message to the sender
                     try{
-                        //TODO this seems not to work
-                        //TODO this is becuase replyTo is null.
-                        //TODO figure out why replyTo is null
                         // 1 is it being set?
                         // 2 is it null even when set?, why wouldl this be?
-                        //message.replyTo.send(message);
+                        msg.replyTo.send(message);
 
-                        Messenger reply_messenger = new Messenger(message.replyTo.getBinder());
-                        reply_messenger.send(message);
+                        //Messenger reply_messenger = new Messenger(message.replyTo.getBinder());
+                        //reply_messenger.send(message);
                     }catch(Exception e){ e.printStackTrace(); }
 
                     break;
@@ -176,17 +176,5 @@ public class IntentCollectionService extends Service {
                 .build();
 
         return notification;
-    }
-
-    /**
-     * handle an intent
-     */
-    protected void handle_intent(Intent workIntent) {
-        //TODO
-
-        // add the incoming intent to the list of handled intents
-        //this.intent_list.add(workIntent);
-
-        Log.d("ICS", "intents received number: " + this.intent_list.size());
     }
 }
