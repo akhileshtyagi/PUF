@@ -54,7 +54,7 @@ import intent_visualizer.IntentVisualizer;
  */
 public class SettingsActivity extends AppCompatActivity {
     /** true indicates this class is being used for testing purposes */
-    final boolean TEST = true;
+    final boolean TEST = false;
 
     public final long TIME_INTERVAL = 3000;
     public final String TAG = "IC_Interface";
@@ -79,10 +79,10 @@ public class SettingsActivity extends AppCompatActivity {
 
         // start the intent collection service
         //start_collection_service();
+        this.intent_record = new IntentRecord(this);
 
         // start a dummy service to add intents
         if(TEST) {
-            this.intent_record = new IntentRecord(this);
             start_dummy_intent_adder_thread();
         }
     }
@@ -168,6 +168,16 @@ public class SettingsActivity extends AppCompatActivity {
                         // Perform action on click
                         Intent intent = new Intent(getApplicationContext(), ListData.class);
                         startActivity(intent);
+                    }
+                }));
+
+        // send test intent
+        linear_layout.addView(create_button("Send test Data",
+                new View.OnClickListener() {
+                    public void onClick(View v) {
+                        // Perform action on click
+                        // use IntentRecord to try to send an intent
+                        intent_record.send_intent_data(generate_dummy_intent_data());
                     }
                 }));
 

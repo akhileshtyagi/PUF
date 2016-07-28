@@ -31,6 +31,7 @@ import java.util.ArrayList;
  */
 public class IntentRecord {
     final static String TAG = "IntentRecord";
+    final static boolean BYPASS_WAIT = true;
 
     /** the context used to create the intent record */
     Context context;
@@ -71,11 +72,12 @@ public class IntentRecord {
         message.replyTo = messenger;
 
         // send the message to the IntentCollectionService
-        if(wait_for_bind()) {
+        if(BYPASS_WAIT || wait_for_bind()) {
             try {
                 intent_collection_service.send(message);
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.i(TAG, "could not receive intent data, service not bound");
             }
         }
 
@@ -98,11 +100,12 @@ public class IntentRecord {
         Message message = encode_message(intent_data);
 
         // send the message to the IntentCollectionService
-        if(wait_for_bind()) {
+        if(BYPASS_WAIT || wait_for_bind()) {
             try {
                 intent_collection_service.send(message);
             } catch (Exception e) {
                 e.printStackTrace();
+                Log.i(TAG, "could not send intent data, service not bound");
             }
         }
     }
