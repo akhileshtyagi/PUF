@@ -31,7 +31,7 @@ import java.util.ArrayList;
  */
 public class IntentRecord {
     final static String TAG = "IntentRecord";
-    final static boolean BYPASS_WAIT = true;
+    final static boolean BYPASS_WAIT = false;
 
     /** the context used to create the intent record */
     Context context;
@@ -160,10 +160,11 @@ public class IntentRecord {
     private boolean wait_for_bind(){
         int wait_max = 10;
         int times_waited = 0;
+        long wait_time = 20;
 
         // loop while intent_collection_service_bound is false
         while(!this.intent_collection_service_bound || times_waited < wait_max){
-            try{ Thread.sleep(100); }catch(Exception e){ e.printStackTrace(); }
+            try{ Thread.sleep(wait_time); }catch(Exception e){ e.printStackTrace(); }
 
             times_waited++;
         }

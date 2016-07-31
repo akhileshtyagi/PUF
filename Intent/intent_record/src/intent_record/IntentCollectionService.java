@@ -34,6 +34,8 @@ public class IntentCollectionService extends Service {
 
     /**
      * provide an enum with a list of possible commands
+     * TODO this should probabally be removed. It is hnot used other than
+     * the get URI functionality
      */
     public enum Command {
         STOP("stop"),

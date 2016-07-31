@@ -1,3 +1,5 @@
+package test;
+
 import components.Chain;
 import components.Touch;
 import computation.DistanceVector;

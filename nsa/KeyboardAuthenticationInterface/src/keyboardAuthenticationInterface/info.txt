@@ -1,6 +1,0 @@
-
-// useful links
-// http://stackoverflow.com/questions/2940252/custom-classes-passed-from-service-to-a-ui-threads-via-aidl
-
-// to compile this file ( if it doesn't not happen automatically )
-// /opt/android-sdk/build-tools/22.0.1/aidl IKeyboardAuthentication.aidl
