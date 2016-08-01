@@ -1,9 +1,10 @@
 package wrapper;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.os.Messenger;
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
+import android.os.*;
 import android.util.Log;
 import android.view.MotionEvent;
 import keyboardAuthenticationInterface.KeyboardAuthenticationService;
@@ -19,8 +20,70 @@ import keyboardAuthenticationInterface.KeyboardAuthenticationService;
 public class KeyboardAuthentication {
     final String TAG = "KeyboardAuthentication";
 
-    public KeyboardAuthentication(){
+    private volatile boolean has_replied;
 
+    /** these are the results returned by KeyboardAuthenrticationService */
+    private volatile boolean is_result_available;
+    private volatile double result;
+
+    /** variables for the service messenger */
+    Messenger keyboard_authentication_service;
+    boolean keyboard_authentication_service_bound;
+
+    /** describes the context from which this class was created */
+    Context context;
+
+    public KeyboardAuthentication(Context context){
+        this.context = context;
+
+        has_replied = false;
+
+        is_result_available = false;
+        result = -1.0;
+
+        keyboard_authentication_service = null;
+        keyboard_authentication_service_bound = false;
+
+        // bind service
+        bind_keyboard_authentication_service();
+    }
+
+    /**
+     * start keyboard_authentication_service if
+     * it is not already started
+     *
+     * subsequently bind the service
+     */
+    private void bind_keyboard_authentication_service(){
+        // ask the service to do some work
+        Intent intent = new Intent(context, KeyboardAuthenticationService.class);
+        intent.setData(KeyboardAuthenticationService.get_start_uri());
+
+        // start the service
+        context.startService(intent);
+
+        // define a service connection
+        ServiceConnection service_connection = new ServiceConnection() {
+            @Override
+            public void onServiceConnected(ComponentName name, IBinder binder) {
+                keyboard_authentication_service = new Messenger(binder);
+                keyboard_authentication_service_bound = true;
+
+                Log.d("ServiceConnection", "onServiceConnected");
+            }
+
+            @Override
+            public void onServiceDisconnected(ComponentName name) {
+                keyboard_authentication_service_bound = false;
+
+                Log.d("ServiceConnection", "onServiceDisconnected");
+            }
+        };
+
+        // test the bind to see if its successful
+        boolean bind_successful = context.bindService(intent, service_connection, Context.BIND_AUTO_CREATE);
+        // log if the bind was successfull
+        Log.d(TAG, "bind successful: " + bind_successful);
     }
 
     /**
@@ -31,22 +94,81 @@ public class KeyboardAuthentication {
      * not retrieved
      */
     public boolean is_result_available(){
-        //TODO
+        Message message = new Message();
+
+        message.what = KeyboardAuthenticationService.MSG_IS_RESULT_AVAILABLE;
+        message.replyTo = messenger;
+
+        // send the message
+        try{ keyboard_authentication_service.send(message); }
+        catch(Exception e){ e.printStackTrace(); }
+
+        // wait for response
+        wait_for_reply();
+
+        return is_result_available;
     }
 
     /**
      * provides touch screen data to the service
      */
     public void submit_data(MotionEvent motion_event){
-        //TODO
+        Message message = new Message();
+
+        message.what = KeyboardAuthenticationService.MSG_SUBMIT_DATA;
+        message.obj = motion_event;
+
+        // send the message
+        try{ keyboard_authentication_service.send(message); }
+        catch(Exception e){ e.printStackTrace(); }
     }
 
     /**
      * returns the current value of result
      */
     public double get_result(){
-        //TODO
+        Message message = new Message();
+
+        message.what = KeyboardAuthenticationService.MSG_IS_RESULT_AVAILABLE;
+        message.replyTo = messenger;
+
+        // send the message
+        try{ keyboard_authentication_service.send(message); }
+        catch(Exception e){ e.printStackTrace(); }
+
+        // wait for response
+        wait_for_reply();
+
+        return result;
     }
+
+    /**
+     * wait for the KeyboardAuthenticationService to reply
+     *
+     * TODO may want to modify this method
+     * It will not wait forever
+     * this means the functions:
+     *  get_result()
+     *  is_result_available()
+     *
+     * may return stale values.
+     */
+    private void wait_for_reply(){
+        int wait_max = 10;
+        int times_waited = 0;
+        long wait_time = 20;
+
+        has_replied = false;
+
+        // loop while intent_collection_service_bound is false
+        while(!has_replied && times_waited < wait_max){
+            try{ Thread.sleep(wait_time); }catch(Exception e){ e.printStackTrace(); }
+
+            times_waited++;
+        }
+    }
+
+    /** MESSENGER IMPLEMENTATION */
 
     /**
      * commands given to messenger to interact with service
@@ -70,19 +192,22 @@ public class KeyboardAuthentication {
             Log.d(TAG, msg.toString());
             switch (msg.what) {
                 case MSG_RESULT_RESPONSE:
-                    //TODO remember to set replyTo
+                    result = msg.getData().getDouble(KeyboardAuthenticationService.RESULT_KEY);
                     break;
                 case MSG_AVAILABLE_RESPONSE:
-                    //TODO remember to set replyTo
+                    is_result_available = msg.getData().getBoolean(KeyboardAuthenticationService.AVAILABLE_KEY);
                     break;
                 default:
                     super.handleMessage(msg);
             }
+
+            // indicate a reply has been received
+            has_replied = true;
         }
     }
 
     /**
      * Target we publish for clients to send messages to IncomingHandler.
      */
-    final Messenger messenger = new Messenger(new KeyboardAuthenticationService.IncomingHandler());
+    final Messenger messenger = new Messenger(new KeyboardAuthentication.IncomingHandler());
 }

@@ -44,6 +44,13 @@ public class KeyboardAuthenticationService extends Service {
         this.new_result_available = false;
         result = 0.0;
 
+        //TODO dynamically adjust Chain parameters
+        int window = 3;
+        int token = 5;
+        int threshold = 2000;
+        int model_size = 1000;
+        chain = new Chain(window, token, threshold, model_size);
+
         //TODO set result_dirty = false when result is computed
         //TODO create a thread to evaluate result occasionally
 
@@ -61,7 +68,7 @@ public class KeyboardAuthenticationService extends Service {
         // this will prevent it from being killed in most situations
         startForeground(5000, notification);
 
-        Log.d("KAS", "service startup finished");
+        Log.d(TAG, "service startup finished");
 
         return START_STICKY;
     }
@@ -69,15 +76,15 @@ public class KeyboardAuthenticationService extends Service {
     /**
      * commands given to messenger to interact with service
      */
-    static final int MSG_IS_RESULT_AVAILABLE = 1;
-    static final int MSG_RECEIVE_RESULT = 2;
-    static final int MSG_SUBMIT_DATA = 3;
+    public static final int MSG_IS_RESULT_AVAILABLE = 1;
+    public static final int MSG_RECEIVE_RESULT = 2;
+    public static final int MSG_SUBMIT_DATA = 3;
 
     /**
      * constants defined for contents of the bundle
      */
-    static final String RESULT_KEY = "result";
-    static final String AVAILABLE_KEY = "available";
+    public static final String RESULT_KEY = "result";
+    public static final String AVAILABLE_KEY = "available";
 
     /**
      * Handler of incoming messages from clients.
@@ -93,10 +100,13 @@ public class KeyboardAuthenticationService extends Service {
         @Override
         public void handleMessage(Message msg) {
             Log.d(TAG, msg.toString());
+
+            Message message;
+
             switch (msg.what) {
                 case MSG_IS_RESULT_AVAILABLE:
                     // reply with the intent list to the caller
-                    Message message = new Message();
+                    message = new Message();
 
                     // package the data ( result ) we want to send back
                     Bundle boolean_bundle = new Bundle();
@@ -114,7 +124,7 @@ public class KeyboardAuthenticationService extends Service {
                     break;
                 case MSG_RECEIVE_RESULT:
                     // reply with the intent list to the caller
-                    Message message = new Message();
+                    message = new Message();
 
                     // package the data ( result ) we want to send back
                     Bundle result_bundle = new Bundle();
@@ -136,16 +146,10 @@ public class KeyboardAuthenticationService extends Service {
 
                     break;
                 case MSG_SUBMIT_DATA:
-                    //TODO
-                    MotionEvent motion_event = message.obj;
+                    MotionEvent motion_event = (MotionEvent)msg.obj;
 
                     // insert the data into the service
-                    send_data();
-
-                    // decode message and add to list
-                    intent_list.add(IntentRecord.decode_message(msg));
-
-                    Log.d(TAG, "intents received number: " + intent_list.size());
+                    send_data(motion_event);
                     break;
                 default:
                     super.handleMessage(msg);
@@ -193,8 +197,19 @@ public class KeyboardAuthenticationService extends Service {
      * This Touch object can then be provided to the Chain
      */
     private Touch motion_event_to_touch(MotionEvent motion_event){
+        //TODO get key value
+        // translate the (x,y) coordinate of the montion event into a keycode
+        // NOTE: this may not be an accurate translation, but
+        // what matters is that it is consistent
         //TODO
-        return null;
+        //int keycode = motion_event;
+        int keycode = 0;
+        double pressure = motion_event.getPressure();
+        long timestamp = motion_event.getEventTime();
+
+        Touch touch = new Touch(keycode, pressure, timestamp);
+
+        return touch;
     }
 
     /**

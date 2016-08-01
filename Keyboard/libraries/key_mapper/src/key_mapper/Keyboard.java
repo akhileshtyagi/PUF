@@ -1,4 +1,4 @@
-package edu.isu.reu.keyboard_one_shot;
+package key_mapper;
 
 import java.util.ArrayList;
 import java.util.List;
