@@ -87,6 +87,41 @@ public class KeyboardAuthentication {
     }
 
     /**
+     * this method is provided to wait until KeyboardAuthenticationService is bound.
+     * This should be called before calling the other methods to ensure there will not be a null pointer exception.
+     *
+     * returns true if the service is bound within the time frame provided
+     * if time frame provided is 0,
+     * simply check to see if the service is bound
+     *
+     * returns false of the service is not bound
+     *
+     * time_frame is in milliseconds
+     */
+    public boolean wait_for_bind(long time_frame){
+        long sleep_time = 100;
+
+        // check if the service is bound,
+        // if not bound, wait sleep time and check again
+        // this goes on until maximum sleep time or service bound
+        do{
+            // sleep
+            if(!keyboard_authentication_service_bound) {
+                try {
+                    Thread.sleep(sleep_time);
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+
+            time_frame -= sleep_time;
+        }while(time_frame > 0 && !keyboard_authentication_service_bound);
+
+        return keyboard_authentication_service_bound;
+
+    }
+
+    /**
      * returns true if there is a new result to be retrieved
      *
      * new results are defined to be those result values

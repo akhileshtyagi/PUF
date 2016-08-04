@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.view.MotionEvent;
 import components.Chain;
 import components.Touch;
+import runtime.ChainBuilder;
 import wrapper.KeyboardAuthentication;
 
 /**
@@ -19,14 +20,15 @@ import wrapper.KeyboardAuthentication;
  * other applications which use the authenticated value.
  */
 public class KeyboardAuthenticationService extends Service {
-    final String TAG = "KeyboardAuthenticationService";
+    private final String TAG = "KeyboardAuthenticationService";
 
-    private Chain chain;
+    private volatile ChainBuilder chain;
+    private volatile int motion_event_count;
 
-    private boolean new_result_available;
-    private double result;
+    private volatile boolean new_result_available;
+    private volatile double result;
 
-    private boolean result_dirty;
+    private volatile boolean result_dirty;
 
     /**
      * returns the uri for starting the service
@@ -41,18 +43,19 @@ public class KeyboardAuthenticationService extends Service {
     public KeyboardAuthenticationService(){
         super();
 
+        motion_event_count = 0;
+
         this.new_result_available = false;
         result = 0.0;
 
-        //TODO dynamically adjust Chain parameters
+        //TODO Chain parameters can be modified
+        //TODO increasing model_size up will result in increased accuracies
+        //TODO window, token, threshold are set to values where best results have been seen
         int window = 3;
         int token = 5;
         int threshold = 2000;
-        int model_size = 1000;
-        chain = new Chain(window, token, threshold, model_size);
-
-        //TODO set result_dirty = false when result is computed
-        //TODO create a thread to evaluate result occasionally
+        int model_size = 500;
+        chain = new ChainBuilder(window, token, threshold, model_size, model_size);
 
         Log.d(TAG, "service created");
     }
@@ -68,9 +71,87 @@ public class KeyboardAuthenticationService extends Service {
         // this will prevent it from being killed in most situations
         startForeground(5000, notification);
 
+        // start a thread which will authenticate periodically on a separate thread
+        //TODO these can be modified
+        long frequency = 30000;
+        int event_count = 300;
+        start_authentication_thread(frequency, event_count);
+
         Log.d(TAG, "service startup finished");
 
         return START_STICKY;
+    }
+
+    /**
+     * start a separate thread which will preform the authentications periodically
+     *
+     * things which can be modified about this:
+     *  frequency - frequency of authentications in milliseconds
+     *  event_count - number of Motionevents to take inbetween authentications
+     *
+     * The thread will do whichever condition occurs first
+     *
+     * special cases:
+     *  frequency == 0
+     *      This will cause event_count to be the only condition considered
+     *  event_count == 0
+     *      This will cause frequency to be the only condition considered
+     *  both == 0
+     *      The authentication will never be preformed, stop it!
+     */
+    private void start_authentication_thread(final long frequency, final int event_count){
+        new Thread(new Runnable(){
+            private volatile boolean stop;
+
+            @Override
+            public void run(){
+                stop = false;
+
+                long wait_interval = 1000;
+                long wait_after_previous_authentication = 0;
+                int previous_authentication_size = 0;
+
+                // while the thread is not stopped
+                while(!stop){
+                    // test condition to determine if authentication is necessary
+                    if(result_dirty &&
+                            ((wait_after_previous_authentication > frequency && frequency > 0) ||
+                                    ((motion_event_count - previous_authentication_size) > event_count && event_count > 0))){
+                        // preform the authentication
+                        chain.authenticate();
+
+                        // wait for the authentication to finish
+                        while(chain.get_authenticate_state() == ChainBuilder.State.IN_PROGRESS){
+                            try{
+                                Thread.sleep(wait_interval / 10);
+                            } catch(Exception e){ e.printStackTrace(); }
+                        }
+
+                        // set result based on the probability stored in the authentication thread
+                        result = chain.get_authenticate_thread().get_auth_probability();
+
+                        Log.d(TAG, "preforming authentication, result: " + result);
+
+                        // set variables which will be used to determine when the next authentication should happen
+                        wait_after_previous_authentication = 0;
+                        previous_authentication_size = motion_event_count;
+
+                        // the result is not longer dirty
+                        result_dirty = false;
+                    }
+
+                    // wait for awhile
+                    try{
+                        Thread.sleep(wait_interval);
+                        wait_after_previous_authentication += wait_interval;
+                    } catch(Exception e){ e.printStackTrace(); }
+                }
+            }
+
+            public void stop(){
+                stop = true;
+            }
+        }).start();
     }
 
     /**
@@ -187,8 +268,9 @@ public class KeyboardAuthenticationService extends Service {
      * This method is used to send data to the service
      */
     private void send_data(MotionEvent motion_event) {
-        chain.add_touch(motion_event_to_touch(motion_event));
+        chain.handle_touch(motion_event_to_touch(motion_event));
 
+        motion_event_count++;
         this.result_dirty = true;
     }
 
