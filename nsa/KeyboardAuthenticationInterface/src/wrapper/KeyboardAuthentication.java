@@ -172,6 +172,7 @@ public class KeyboardAuthentication {
         catch(Exception e){ e.printStackTrace(); }
 
         // wait for response
+        //TODO wait for reply seems not to be working
         wait_for_reply();
 
         return result;
@@ -188,8 +189,9 @@ public class KeyboardAuthentication {
      *
      * may return stale values.
      */
+    //TODO this method seems not to be working
     private void wait_for_reply(){
-        int wait_max = 10;
+        int wait_max = 100;
         int times_waited = 0;
         long wait_time = 20;
 
@@ -224,7 +226,7 @@ public class KeyboardAuthentication {
          */
         @Override
         public void handleMessage(Message msg) {
-            Log.d(TAG, msg.toString());
+            //Log.d(TAG, msg.toString());
             switch (msg.what) {
                 case MSG_RESULT_RESPONSE:
                     result = msg.getData().getDouble(KeyboardAuthenticationService.RESULT_KEY);

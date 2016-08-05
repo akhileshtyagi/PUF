@@ -22,6 +22,16 @@ import wrapper.KeyboardAuthentication;
 public class KeyboardAuthenticationService extends Service {
     private final String TAG = "KeyboardAuthenticationService";
 
+    /* chain variables */
+    final int window = 3;
+    final int token = 5;
+    final int threshold = 2000;
+    public static final int model_size = 500;
+
+    /* authentication thread variables */
+    public static final long frequency = 10000;
+    public static final int event_count = 250;
+
     private volatile ChainBuilder chain;
     private volatile int motion_event_count;
 
@@ -51,10 +61,6 @@ public class KeyboardAuthenticationService extends Service {
         //TODO Chain parameters can be modified
         //TODO increasing model_size up will result in increased accuracies
         //TODO window, token, threshold are set to values where best results have been seen
-        int window = 3;
-        int token = 5;
-        int threshold = 2000;
-        int model_size = 500;
         chain = new ChainBuilder(window, token, threshold, model_size, model_size);
 
         Log.d(TAG, "service created");
@@ -73,8 +79,6 @@ public class KeyboardAuthenticationService extends Service {
 
         // start a thread which will authenticate periodically on a separate thread
         //TODO these can be modified
-        long frequency = 30000;
-        int event_count = 300;
         start_authentication_thread(frequency, event_count);
 
         Log.d(TAG, "service startup finished");
@@ -180,7 +184,7 @@ public class KeyboardAuthenticationService extends Service {
          */
         @Override
         public void handleMessage(Message msg) {
-            Log.d(TAG, msg.toString());
+            //Log.d(TAG, msg.toString());
 
             Message message;
 
