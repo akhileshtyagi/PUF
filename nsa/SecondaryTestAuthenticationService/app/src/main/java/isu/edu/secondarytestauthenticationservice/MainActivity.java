@@ -59,17 +59,18 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void test_is_result_available(){
-        // wait for new result to be set
-        //long sleep_amount = KeyboardAuthenticationService.frequency * 3 / 2;
-
-        // sleep 1.5 times the frequency of new result generation by the service
-        //try{ Thread.sleep(sleep_amount); } catch(Exception e){ e.printStackTrace(); }
-
         // trigger the authentication  by submitting a number of events
         int number = KeyboardAuthenticationService.event_count;
         long seed = 100l;
 
         submit_random_events(number, seed);
+
+        // wait for new result to be set
+        // this is necessary because the computation needs time to take place
+        long sleep_amount = KeyboardAuthenticationService.frequency * 4 / 3;
+
+        // sleep 1.5 times the frequency of new result generation by the service
+        try{ Thread.sleep(sleep_amount); } catch(Exception e){ e.printStackTrace(); }
 
         // check to see if new result available returns true
         boolean is_available = keyboard_authentication.is_result_available();
@@ -81,6 +82,14 @@ public class MainActivity extends AppCompatActivity {
 
         // receive the result
         keyboard_authentication.get_result();
+
+        //TODO why does result not get marked as having been read?
+        //TODO how is keyboard authentication getting the result?
+        //TODO perhaps there could be a problem where the message is sent, but not received yet?
+        //TODO mabe wait time is shorter than it should be?
+        //TODO perhaps the result is actulaly being recomupted because frequency has expired?
+        //TODO why is it being called three times?
+        //TODO !!! found issue, result is never being sent when get_result() is called
 
         // check to see if new result available returns false
         is_available = keyboard_authentication.is_result_available();
@@ -101,6 +110,13 @@ public class MainActivity extends AppCompatActivity {
         // do it twice to fill both models with the same information
         submit_random_events(number, seed);
         submit_random_events(number, seed);
+
+        // wait for new result to be set
+        // this is necessary because the computation needs time to take place
+        long sleep_amount = KeyboardAuthenticationService.frequency * 4 / 3;
+
+        // sleep 1.5 times the frequency of new result generation by the service
+        try{ Thread.sleep(sleep_amount); } catch(Exception e){ e.printStackTrace(); }
 
         // test that the result reflects the data which was submitted
         double actual_result = keyboard_authentication.get_result();

@@ -63,7 +63,7 @@ public class KeyboardAuthenticationService extends Service {
         //TODO window, token, threshold are set to values where best results have been seen
         chain = new ChainBuilder(window, token, threshold, model_size, model_size);
 
-        Log.d(TAG, "service created");
+        //Log.d(TAG, "service created");
     }
 
     /**
@@ -81,7 +81,7 @@ public class KeyboardAuthenticationService extends Service {
         //TODO these can be modified
         start_authentication_thread(frequency, event_count);
 
-        Log.d(TAG, "service startup finished");
+//        Log.d(TAG, "service startup finished");
 
         return START_STICKY;
     }
@@ -134,7 +134,7 @@ public class KeyboardAuthenticationService extends Service {
                         // set result based on the probability stored in the authentication thread
                         result = chain.get_authenticate_thread().get_auth_probability();
 
-                        Log.d(TAG, "preforming authentication, result: " + result);
+//                        Log.d(TAG, "preforming authentication, result: " + result);
 
                         // set variables which will be used to determine when the next authentication should happen
                         wait_after_previous_authentication = 0;
@@ -142,6 +142,9 @@ public class KeyboardAuthenticationService extends Service {
 
                         // the result is not longer dirty
                         result_dirty = false;
+
+                        // indicate there is a new result, which has not yet been read
+                        new_result_available = true;
                     }
 
                     // wait for awhile
@@ -214,6 +217,8 @@ public class KeyboardAuthenticationService extends Service {
                     // package the data ( result ) we want to send back
                     Bundle result_bundle = new Bundle();
                     result_bundle.putDouble(RESULT_KEY, receive_result());
+
+                    //Log.d(TAG, "SENDING RESult: " + result);
 
                     // return the intent list to the requesting context
                     message.setData(result_bundle);

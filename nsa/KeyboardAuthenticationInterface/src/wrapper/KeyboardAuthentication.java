@@ -69,14 +69,14 @@ public class KeyboardAuthentication {
                 keyboard_authentication_service = new Messenger(binder);
                 keyboard_authentication_service_bound = true;
 
-                Log.d("ServiceConnection", "onServiceConnected");
+                //Log.d("ServiceConnection", "onServiceConnected");
             }
 
             @Override
             public void onServiceDisconnected(ComponentName name) {
                 keyboard_authentication_service_bound = false;
 
-                Log.d("ServiceConnection", "onServiceDisconnected");
+                //Log.d("ServiceConnection", "onServiceDisconnected");
             }
         };
 
@@ -164,7 +164,7 @@ public class KeyboardAuthentication {
     public double get_result(){
         Message message = new Message();
 
-        message.what = KeyboardAuthenticationService.MSG_IS_RESULT_AVAILABLE;
+        message.what = KeyboardAuthenticationService.MSG_RECEIVE_RESULT;
         message.replyTo = messenger;
 
         // send the message
@@ -172,7 +172,6 @@ public class KeyboardAuthentication {
         catch(Exception e){ e.printStackTrace(); }
 
         // wait for response
-        //TODO wait for reply seems not to be working
         wait_for_reply();
 
         return result;
@@ -189,7 +188,6 @@ public class KeyboardAuthentication {
      *
      * may return stale values.
      */
-    //TODO this method seems not to be working
     private void wait_for_reply(){
         int wait_max = 100;
         int times_waited = 0;
