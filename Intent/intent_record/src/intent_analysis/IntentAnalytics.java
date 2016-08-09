@@ -1,9 +1,13 @@
 package intent_analysis;
 
 import intent_record.IntentData;
+import page_rank.PageRank;
+import page_rank.Pages;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * This class provides many
@@ -16,27 +20,31 @@ public class IntentAnalytics {
         COUNT,
         UNIQUE_ENTITIES,
         UNIQUE_SENDERS,
-        UNIQUE_RECEIVERS
+        UNIQUE_RECEIVERS,
+        PAGE_RANK_PROBABILITY_VECTOR
     }
 
-    public static double analyze(List<IntentData> intent_data_list, Statistic statistic){
-        double value;
+    public static String analyze(List<IntentData> intent_data_list, Statistic statistic){
+        String value;
 
         switch(statistic){
             case COUNT:
-                value = intent_data_list.size();
+                value = "" + intent_data_list.size();
                 break;
             case UNIQUE_ENTITIES:
-                value = unique_entities(intent_data_list).size();
+                value = "" + unique_entities(intent_data_list).size();
                 break;
             case UNIQUE_SENDERS:
-                value = unique_senders(intent_data_list).size();
+                value = "" + unique_senders(intent_data_list).size();
                 break;
             case UNIQUE_RECEIVERS:
-                value = unique_receivers(intent_data_list).size();
+                value = "" + unique_receivers(intent_data_list).size();
+                break;
+            case PAGE_RANK_PROBABILITY_VECTOR:
+                value = compute_page_rank_probability_vector(intent_data_list).toString();
                 break;
             default:
-                value = -1;
+                value = "";
         }
 
         return value;
@@ -57,7 +65,9 @@ public class IntentAnalytics {
                 break;
             case UNIQUE_RECEIVERS:
                 value = "unique receivers";
-
+                break;
+            case PAGE_RANK_PROBABILITY_VECTOR:
+                value = "page rank probability vector";
                 break;
             default:
                 value = "statistic not found";
@@ -164,5 +174,43 @@ public class IntentAnalytics {
 
         // this list now contains all intents directed from sender to receiver
         return sender_intent_data_list.size();
+    }
+
+    /**
+     * given the intent_data_list,
+     * compute the page_rank probability vector.
+     *
+     * Pretend each entity is a node in the graph
+     * an intent represents an edge or link
+     */
+    public static Map<String, Double> compute_page_rank_probability_vector(List<IntentData> intent_data_list){
+        Map<String, Double> probability_vector = new HashMap<>();
+
+        // convert intent_data_list to Pages
+        Pages pages = intent_data_to_pages(intent_data_list);
+
+        // compute the pagerank based on the pages
+        double minimum_vector_difference_within_a_round = 0.01;
+        PageRank page_rank = new PageRank(pages, minimum_vector_difference_within_a_round);
+
+        // extract the rank of each edge, and place into list
+        List<String> vertex_name_list = pages.getPages();
+        for(String vertex_name : vertex_name_list){
+            //TODO test that this is working
+            probability_vector.put(vertex_name, page_rank.get_probability(vertex_name));
+        }
+
+        return probability_vector;
+    }
+
+    private static Pages intent_data_to_pages(List<IntentData> intent_data_list){
+        Pages pages = new Pages();
+
+        // add a link from sender to receiver for each IntentData
+        for(IntentData intent_data : intent_data_list){
+            pages.put(intent_data.get_sender(), intent_data.get_receiver());
+        }
+
+        return pages;
     }
 }

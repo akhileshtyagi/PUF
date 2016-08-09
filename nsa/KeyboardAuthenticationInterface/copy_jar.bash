@@ -6,3 +6,7 @@ cp /home/element/PUF/nsa/KeyboardAuthenticationInterface/out/artifacts/KeyboardA
 
 # seconday_test_keyboard_authentication_service
 cp /home/element/PUF/nsa/KeyboardAuthenticationInterface/out/artifacts/KeyboardAuthenticationInterface/KeyboardAuthenticationInterface.jar /home/element/PUF/nsa/SecondaryTestAuthenticationService/app/libs/KeyboardAuthenticationInterface.jar
+
+# AnySoftKeyboard
+cp /home/element/PUF/nsa/KeyboardAuthenticationInterface/out/artifacts/KeyboardAuthenticationInterface/KeyboardAuthenticationInterface.jar /home/element/soft_keyboard/buildSrc/build/libs/KeyboardAuthenticationInterface.jar
+

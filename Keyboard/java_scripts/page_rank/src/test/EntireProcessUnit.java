@@ -92,6 +92,48 @@ public class EntireProcessUnit {
 	}
 
 	/**
+	 * test a known result graph to see if the result is
+	 * what is known to be correct
+	 */
+	@Test
+	public void test_known_result_0() {
+		graph = new StateGraph();
+
+		ArrayList<Integer> nodes = new ArrayList<Integer>();
+
+		// graph found at
+
+		for (int i = 0; i < 6; i++) {
+			nodes.add(graph.add_node());
+		}
+
+		// node 0 = A
+		graph.add_edge(0, 1, 1.0 / 3.0);
+		graph.add_edge(0, 2, 1.0 / 3.0);
+		graph.add_edge(0, 3, 1.0 / 3.0);
+
+		// node 1 = B
+		graph.add_edge(1, 0, 1.0 / 2.0);
+		graph.add_edge(1, 3, 1.0 / 2.0);
+
+		// node 2 = C
+		graph.add_edge(2, 0, 1.0);
+
+		// node 3 = D
+		graph.add_edge(3, 1, 1.0 / 2.0);
+		graph.add_edge(3, 2, 1.0 / 2.0);
+
+		// node 4 = F
+
+		// node 5 = G
+
+		vector = Rank.compute_vector(graph);
+
+		// test vector for correctness
+		//TODO
+	}
+
+	/**
 	 * test construction of the graph.
 	 */
 	@Test
