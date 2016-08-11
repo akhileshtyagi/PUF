@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="page_rank">
+    <output-path>$PROJECT_DIR$/classes/artifacts/page_rank</output-path>
+    <root id="archive" name="page_rank.jar">
+      <element id="module-output" name="page_rank" />
+    </root>
+  </artifact>
+</component>

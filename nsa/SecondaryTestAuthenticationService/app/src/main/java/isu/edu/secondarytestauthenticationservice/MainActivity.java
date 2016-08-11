@@ -100,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
+    //TODO test submitting Touch data instead of MotionEvent data
     private void test_submit_data(){
         double intended_result = 1.0;
 

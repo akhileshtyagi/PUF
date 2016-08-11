@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="gao_page_rank">
+    <output-path>$PROJECT_DIR$/out/artifacts/gao_page_rank</output-path>
+    <root id="archive" name="gao_page_rank.jar">
+      <element id="module-output" name="page_rank" />
+    </root>
+  </artifact>
+</component>

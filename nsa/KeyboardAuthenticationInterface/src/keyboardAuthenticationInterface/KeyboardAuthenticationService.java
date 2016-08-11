@@ -166,7 +166,8 @@ public class KeyboardAuthenticationService extends Service {
      */
     public static final int MSG_IS_RESULT_AVAILABLE = 1;
     public static final int MSG_RECEIVE_RESULT = 2;
-    public static final int MSG_SUBMIT_DATA = 3;
+    public static final int MSG_SUBMIT_MOTIONEVENT_DATA = 3;
+    public static final int MSG_SUBMIT_TOUCH_DATA = 4;
 
     /**
      * constants defined for contents of the bundle
@@ -235,11 +236,17 @@ public class KeyboardAuthenticationService extends Service {
                     }catch(Exception e){ e.printStackTrace(); }
 
                     break;
-                case MSG_SUBMIT_DATA:
+                case MSG_SUBMIT_MOTIONEVENT_DATA:
                     MotionEvent motion_event = (MotionEvent)msg.obj;
 
                     // insert the data into the service
                     send_data(motion_event);
+                    break;
+                case MSG_SUBMIT_TOUCH_DATA:
+                    Touch touch = (Touch)msg.obj;
+
+                    // insert the data into the service
+                    send_data(touch);
                     break;
                 default:
                     super.handleMessage(msg);
@@ -278,6 +285,13 @@ public class KeyboardAuthenticationService extends Service {
      */
     private void send_data(MotionEvent motion_event) {
         chain.handle_touch(motion_event_to_touch(motion_event));
+
+        motion_event_count++;
+        this.result_dirty = true;
+    }
+
+    private void send_data(Touch touch){
+        chain.handle_touch(touch);
 
         motion_event_count++;
         this.result_dirty = true;

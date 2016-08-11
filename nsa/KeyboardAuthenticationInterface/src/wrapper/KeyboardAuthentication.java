@@ -7,6 +7,7 @@ import android.content.ServiceConnection;
 import android.os.*;
 import android.util.Log;
 import android.view.MotionEvent;
+import components.Touch;
 import keyboardAuthenticationInterface.KeyboardAuthenticationService;
 
 /**
@@ -150,8 +151,22 @@ public class KeyboardAuthentication {
     public void submit_data(MotionEvent motion_event){
         Message message = new Message();
 
-        message.what = KeyboardAuthenticationService.MSG_SUBMIT_DATA;
+        message.what = KeyboardAuthenticationService.MSG_SUBMIT_MOTIONEVENT_DATA;
         message.obj = motion_event;
+
+        // send the message
+        try{ keyboard_authentication_service.send(message); }
+        catch(Exception e){ e.printStackTrace(); }
+    }
+
+    /**
+     * provides touch screen data to the service
+     */
+    public void submit_data(Touch touch){
+        Message message = new Message();
+
+        message.what = KeyboardAuthenticationService.MSG_SUBMIT_TOUCH_DATA;
+        message.obj = touch;
 
         // send the message
         try{ keyboard_authentication_service.send(message); }
