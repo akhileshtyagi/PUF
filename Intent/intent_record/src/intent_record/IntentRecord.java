@@ -74,7 +74,7 @@ public class IntentRecord {
      */
     //TODO test
     private boolean is_service_running(Context context, Class c){
-        ActivityManager manager = (ActivityManager)context.   getSystemService(Context.ACTIVITY_SERVICE);
+        ActivityManager manager = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
 
         for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
 
