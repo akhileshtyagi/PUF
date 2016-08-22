@@ -1,5 +1,6 @@
 package intent_record;
 
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -57,7 +58,41 @@ public class IntentRecord {
 
         // send the message to the bound service
         // this also binds the service
-        start_collection_service();
+        //start_collection_service();
+
+        // determine if the service is running
+        boolean service_is_running = is_service_running(context, IntentCollectionService.class);
+        if(service_is_running) {
+            bind_intent_collection_service();
+        }
+    }
+
+    /**
+     * determine if the given service is running
+     *
+     * return true if the service is running
+     */
+    //TODO test
+    private boolean is_service_running(Context context, Class c){
+        ActivityManager manager = (ActivityManager)context.   getSystemService(Context.ACTIVITY_SERVICE);
+
+        for (ActivityManager.RunningServiceInfo service : manager.getRunningServices(Integer.MAX_VALUE)){
+
+            if (c.getName().equals(service.service.getClassName())) {
+                //running
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
+     * destruct the IntentRecord
+     */
+    public void close(){
+        // cause the service connection to be closed
+        unbind_intent_collection_service();
     }
 
     /**
@@ -119,34 +154,44 @@ public class IntentRecord {
     }
 
     /**
+     * define a Service connection which will be used
+     */
+    // define a service connection
+    ServiceConnection service_connection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName name, IBinder binder) {
+            intent_collection_service = new Messenger(binder);
+            intent_collection_service_bound = true;
+
+            Log.d("ServiceConnection", "onServiceConnected");
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            intent_collection_service_bound = false;
+
+            Log.d("ServiceConnection", "onServiceDisconnected");
+        }
+    };
+
+    /**
      * bind the intent collection service
      */
     private void bind_intent_collection_service(){
         Intent bind_intent = new Intent(context, IntentCollectionService.class);
-
-        // define a service connection
-        ServiceConnection service_connection = new ServiceConnection() {
-            @Override
-            public void onServiceConnected(ComponentName name, IBinder binder) {
-                intent_collection_service = new Messenger(binder);
-                intent_collection_service_bound = true;
-
-                Log.d("ServiceConnection", "onServiceConnected");
-            }
-
-            @Override
-            public void onServiceDisconnected(ComponentName name) {
-                intent_collection_service_bound = false;
-
-                Log.d("ServiceConnection", "onServiceDisconnected");
-            }
-        };
 
         // test the bind to see if its successful
         boolean bind_successful = context.bindService(bind_intent, service_connection, Context.BIND_AUTO_CREATE);
 
         // log if the bind was successfull
         Log.d(TAG, "bind successful: " + bind_successful);
+    }
+
+    /**
+     * onDestroy, unbind intent_connection_service
+     */
+    private void unbind_intent_collection_service(){
+        context.unbindService(service_connection);
     }
 
     /**
@@ -175,7 +220,7 @@ public class IntentRecord {
     /**
      * start the collection service
      */
-    private void start_collection_service(){
+    public void start_collection_service(){
         // ask the service to do some work
         Intent say_hello_intent = new Intent(context, IntentCollectionService.class);
         say_hello_intent.setData(IntentCollectionService.Command.START.get_uri());

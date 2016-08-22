@@ -80,11 +80,19 @@ public class SettingsActivity extends AppCompatActivity {
         // start the intent collection service
         //start_collection_service();
         this.intent_record = new IntentRecord(this);
+        this.intent_record.start_collection_service();
 
         // start a dummy service to add intents
         if(TEST) {
             start_dummy_intent_adder_thread();
         }
+    }
+
+    @Override
+    protected void onDestroy(){
+        super.onDestroy();
+
+        this.intent_record.close();
     }
 
     /**

@@ -50,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
 
                 test_get_result();
 
+                //test_display_touches();
+
                 Log.d(TAG, "*** TESTS END ***");
             }
         });
