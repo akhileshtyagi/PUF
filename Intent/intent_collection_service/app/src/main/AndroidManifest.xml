@@ -21,10 +21,13 @@
 
         <!--
             android:exported determines whether other apps
-            can access the service or not
+            can access the service or
+
+            android:process creates this service as a global process
         -->
         <service
             android:name="intent_record.IntentCollectionService"
+            android:process="com.example.username.servicedemo.remote"
             android:exported="true" />
 
         <uses-feature

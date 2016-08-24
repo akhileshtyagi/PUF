@@ -70,7 +70,7 @@ public class KeyboardAuthentication {
                 keyboard_authentication_service = new Messenger(binder);
                 keyboard_authentication_service_bound = true;
 
-                //Log.d("ServiceConnection", "onServiceConnected");
+                Log.d(TAG, "KeyboardAuthenticationService connected");
             }
 
             @Override
@@ -169,8 +169,25 @@ public class KeyboardAuthentication {
         message.obj = touch;
 
         // send the message
-        try{ keyboard_authentication_service.send(message); }
-        catch(Exception e){ e.printStackTrace(); }
+        try{
+            if(keyboard_authentication_service_bound) {
+                keyboard_authentication_service.send(message);
+            }else{
+                //TODO if data can not be sent, add it to a queue and try to send later
+                //TODO data will not be sent if keyboard authetnication has not yet been connected
+                queue_send(message);
+            }
+        }
+        catch(Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * puts the message in a queue to be sent when keyboard_authentication_service has been bound
+     */
+    private void queue_send(Message message){
+        //TODO
     }
 
     /**
