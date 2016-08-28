@@ -10,6 +10,9 @@ import android.view.MotionEvent;
 import components.Touch;
 import keyboardAuthenticationInterface.KeyboardAuthenticationService;
 
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
  * Wraps the functionality of KeyboardAuthenticationService
  *
@@ -34,6 +37,12 @@ public class KeyboardAuthentication {
     /** describes the context from which this class was created */
     Context context;
 
+    /** used to queue messages if the service is not yet bound */
+    private volatile Queue<Message> message_queue;
+
+    /** thread tries to send messages periodically if ther are any in the queue */
+    private Thread message_thread;
+
     public KeyboardAuthentication(Context context){
         this.context = context;
 
@@ -44,6 +53,11 @@ public class KeyboardAuthentication {
 
         keyboard_authentication_service = null;
         keyboard_authentication_service_bound = false;
+
+        this.message_thread = null;
+
+        // a linked list is a queue
+        this.message_queue = new LinkedList<Message>();
 
         // bind service
         bind_keyboard_authentication_service();
@@ -187,7 +201,32 @@ public class KeyboardAuthentication {
      * puts the message in a queue to be sent when keyboard_authentication_service has been bound
      */
     private void queue_send(Message message){
-        //TODO
+        // add the message to the queue
+        message_queue.add(message);
+
+        // if there is no running thread which tries to send messages periodically, start one
+        if(message_thread == null || !message_thread.isAlive()) {
+            message_thread = new Thread(new Runnable(){
+                @Override
+                public void run(){
+                    // try to send messages in the queue,
+                    // while there are messages to send
+                    while(message_queue.peek() != null) {
+                        if(keyboard_authentication_service_bound) {
+                            try{ keyboard_authentication_service.send(message_queue.poll()); }
+                            catch(Exception e){ e.printStackTrace(); }
+
+                            Log.d(TAG, "queue send successful");
+                        }
+                    }
+
+                    // if there are no messages in the queue, exit
+                }
+            });
+
+            // start the message thread
+            message_thread.start();
+        }
     }
 
     /**

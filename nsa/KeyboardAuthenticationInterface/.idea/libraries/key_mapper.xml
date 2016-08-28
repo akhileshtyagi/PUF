@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="key_mapper">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/key_mapper.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

@@ -1,0 +1,10 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="unnamed">
+    <output-path>$PROJECT_DIR$/out/artifacts/KeyboardAuthenticationInterface</output-path>
+    <root id="archive" name="KeyboardAuthenticationInterface.jar">
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/java_marcov_model.jar" path-in-jar="/" />
+      <element id="extracted-dir" path="$PROJECT_DIR$/libs/key_mapper.jar" path-in-jar="/" />
+      <element id="module-output" name="KeyboardAuthenticationInterface" />
+    </root>
+  </artifact>
+</component>

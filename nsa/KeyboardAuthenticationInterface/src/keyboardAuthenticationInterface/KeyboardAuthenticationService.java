@@ -237,6 +237,8 @@ public class KeyboardAuthenticationService extends Service {
 
                     break;
                 case MSG_SUBMIT_MOTIONEVENT_DATA:
+                    Log.d(TAG, "Touch submitted");
+
                     MotionEvent motion_event = (MotionEvent)msg.obj;
 
                     // insert the data into the service
@@ -295,6 +297,8 @@ public class KeyboardAuthenticationService extends Service {
 
         motion_event_count++;
         this.result_dirty = true;
+
+        Log.d(TAG, "touch received");
     }
 
     /**

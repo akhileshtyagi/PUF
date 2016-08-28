@@ -44,11 +44,13 @@ public class MainActivity extends AppCompatActivity {
                 Log.d(TAG, "*** TESTS BEGIN ***");
 
                 // call functions to test each functionality
-                test_is_result_available();
+                log_touch_events();
 
-                test_submit_data();
+                //test_is_result_available();
 
-                test_get_result();
+                //test_submit_data();
+
+                //test_get_result();
 
                 //test_display_touches();
 
@@ -58,6 +60,13 @@ public class MainActivity extends AppCompatActivity {
 
         // start the test thread
         test_thread.start();
+    }
+
+    /**
+     * logs all the touch events which have been sent to the service
+     */
+    private void log_touch_events(){
+
     }
 
     private void test_is_result_available(){

@@ -1,0 +1,9 @@
+<component name="libraryTable">
+  <library name="java_marcov_model">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/libs/java_marcov_model.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
