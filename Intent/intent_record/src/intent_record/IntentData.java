@@ -14,7 +14,7 @@ import android.os.Parcelable;
  *
  * Represents a single Intent's data
  */
-public class IntentData {
+public class IntentData implements Parcelable {
     /** the intent which was sent from sender to receiver */
     private Intent intent;
 
@@ -57,38 +57,38 @@ public class IntentData {
         return sb.toString();
     }
 
-//    @Override
-//    public int describeContents() {
-//        return 0;
-//    }
-//
-//    @Override
-//    public void writeToParcel(Parcel in, int flags) {
-//        // write to parcel
-//        in.writeParcelable(intent, 0);
-//        in.writeParcelable(sender, 0);
-//        in.writeParcelable(receiver, 0);
-//    }
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-//    public static final Parcelable.Creator CREATORString
-//            = new Parcelable.Creator() {
-//        public IntentData createFromParcel(Parcel in) {
-//            return new IntentData(in);
-//        }
-//
-//        public IntentData[] newArray(int size) {
-//            return new IntentData[size];
-//        }
-//    };
+    @Override
+    public void writeToParcel(Parcel in, int flags) {
+        // write to parcel
+        in.writeParcelable(intent, 0);
+        in.writeString(sender);
+        in.writeString(receiver);
+    }
+
+    public static final Parcelable.Creator CREATORString
+            = new Parcelable.Creator() {
+        public IntentData createFromParcel(Parcel in) {
+            return new IntentData(in);
+        }
+
+        public IntentData[] newArray(int size) {
+            return new IntentData[size];
+        }
+    };
 
     /**
      * This is the constructor run when intent_record.IntentData is
      * created from a parcel.
      */
-//    public IntentData(Parcel in){
-//        // read from parcel
-//        intent = in.readParcelable(Intent.class.getClassLoader());
-//        sender = in.readParcelable(String.class.getClassLoader());
-//        receiver = in.readParcelable(String.class.getClassLoader());
-//    }
+    public IntentData(Parcel in){
+        // read from parcel
+        intent = in.readParcelable(Intent.class.getClassLoader());
+        sender = in.readParcelable(String.class.getClassLoader());
+        receiver = in.readParcelable(String.class.getClassLoader());
+    }
 }
