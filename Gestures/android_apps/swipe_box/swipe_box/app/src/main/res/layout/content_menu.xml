@@ -100,4 +100,13 @@
         android:layout_below="@+id/authenticate_against_responses"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Generate Data Set"
+        android:id="@+id/generate_data_set"
+        android:layout_below="@+id/save_responses_button"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

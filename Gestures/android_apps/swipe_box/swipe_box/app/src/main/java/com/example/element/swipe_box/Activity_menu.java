@@ -21,19 +21,24 @@ import com.opencsv.CSVWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 import dataTypes.Challenge;
 import dataTypes.Response;
 import dataTypes.UserDevicePair;
 
 public class Activity_menu extends AppCompatActivity {
+    public static final String TAG = "SWIPE_BOX";
+
+    /** constants for generating a data set */
+    public static final int CHALLENGE_PER_SHAPE = 1;
+    public static final String DATA_SET_FOLDER = "gestures";
+    public static final String DATA_SET_FILE_NAME = "shape_response";
+
+    /** constants for output files */
     public static final String SHARED_PREFERENCES_FILE = "swipe_box_preferences";
     public static final String ANALYSIS_FILENAME = "analysis_interpoint_time";
-    public static final String RESPONSES_FILENAME = "response_profile_tim";
+    public static final String RESPONSES_FILENAME = "response_profile";
 
     private Challenge challenge;
     private ArrayList<Response> responses;
@@ -45,7 +50,8 @@ public class Activity_menu extends AppCompatActivity {
     public enum Result{
         RESPONSE(0),
         RESPONSE_TEST(1),
-        AUTH_RESPONSE(2);
+        AUTH_RESPONSE(2),
+        DATA_SET_RESPONSE(3);
 
         private int int_value;
         public int get_int_value(){
@@ -58,6 +64,8 @@ public class Activity_menu extends AppCompatActivity {
     }
 
     EditText output_console_edit_text;
+
+    Map<Activity_swipe_box.ChallengeType, List<Response>> response_list_map;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -94,7 +102,18 @@ public class Activity_menu extends AppCompatActivity {
          * find the edit text for output
          */
         output_console_edit_text = (EditText)findViewById(R.id.output_console_edit_text);
-        output_console_edit_text.setText("Press Collect Swipe Responses to Begin");
+
+        String instruction_text = "";
+        instruction_text += "Test Swipe Box - test that the swipe-box activity is working\n";
+        instruction_text += "Analyze Responses - write an analysis of responses collected with 'Collect Swipe Responses' button to this edit text\n";
+        instruction_text += "Output Responses to Json - output responses collected with 'Collect Swipe Responses' button in Json format to the filesystem\n";
+        instruction_text += "Save Responses - save responses collected with the 'Collect Swipe Responses' button to shared preferences\n";
+        instruction_text += "Press Collect Swipe Responses - present several challenges which can be authenticated against(this does not generate a data set)\n";
+        instruction_text += "Authenticate Against Responses - authenticate against the responses gathered using 'collect swipe responses' button\n";
+        instruction_text += "Output analysis to CSV - after analysis has been run, output to csv on file system\n";
+        instruction_text += "Load Responses - load previous responses from shared preferences\n";
+        instruction_text += "Generate Data Set - press to generate a data set\n";
+        output_console_edit_text.setText(instruction_text);
 
         /**
          * find all of the buttons and assign them to variables
@@ -109,6 +128,7 @@ public class Activity_menu extends AppCompatActivity {
         Button save_responses_button = (Button)findViewById(R.id.save_responses_button);
         Button load_responses_button = (Button)findViewById(R.id.load_responses_button);
         Button authenticate_against_responses_button = (Button)findViewById(R.id.authenticate_against_responses);
+        Button generate_data_set_button = (Button)findViewById(R.id.generate_data_set);
 
         /**
          * define the click listeners for each button
@@ -122,7 +142,7 @@ public class Activity_menu extends AppCompatActivity {
 
                 // start the swipe box activity. Responses will be loged in onActivityResult()
                 for(int i=0;i<10; i++){
-                    start_activity_swipe_box();
+                    start_activity_swipe_box(Activity_swipe_box.ChallengeType.CHECK, Result.RESPONSE);
                 }
 
                 // set the challenge equal to the most resent set of responses
@@ -219,6 +239,15 @@ public class Activity_menu extends AppCompatActivity {
                 start_activity_swipe_box_authenticate();
             }//End onClick
         });
+
+        /**
+         * generate a data set and write it out to disk
+         */
+        generate_data_set_button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                start_activity_generate_data_set();
+            }//End onClick
+        });
     }
 
     @Override
@@ -287,6 +316,31 @@ public class Activity_menu extends AppCompatActivity {
 
             // call a method to compare this response against the responses gathered previously.
             authenticate_against_responses(response);
+        }else if((requestCode == Result.DATA_SET_RESPONSE.get_int_value()) && (resultCode == RESULT_OK)){
+            ArrayList<Point> array_response = (ArrayList<Point>)data.getExtras().getSerializable("response");
+
+            //convert the arraylist of points into a ud_puf response object
+            Response response = array_to_response(array_response);
+
+            // get the challenge_type from the result
+            Activity_swipe_box.ChallengeType challenge_type = (Activity_swipe_box.ChallengeType)data.getExtras().getSerializable("challenge_type");
+
+            // add the response to the list of responses (must be done in a way that will cause it not to be changed)
+            // retrieve the response (it will be the most resently added one to the list)
+            this.response_list_map.get(challenge_type).add(new Response(response.getOrigionalResponse()));
+
+            // if this is the last response, output all responses to file system
+            int total_responses = 0;
+            for(Collection response_list : this.response_list_map.values()){
+                total_responses += response_list.size();
+            }
+
+            // check if it is last response
+            int number_of_shapes = this.response_list_map.size();
+
+            if(number_of_shapes * CHALLENGE_PER_SHAPE == total_responses) {
+                write_responses_generate_data_set();
+            }
         }
     }
 
@@ -350,7 +404,7 @@ public class Activity_menu extends AppCompatActivity {
     /**
      * starts the swipe box activity to gather a response to be added to challenge
      */
-    private void start_activity_swipe_box(){
+    private void start_activity_swipe_box(Activity_swipe_box.ChallengeType challenge_type, Result result){
         Intent intent = new Intent(this, Activity_swipe_box.class);
 
         // add the box challenge parameters to the intent
@@ -358,7 +412,10 @@ public class Activity_menu extends AppCompatActivity {
         intent.putExtra("box_height", this.box_height);
         intent.putExtra("box_upper_left_corner", this.box_upper_left_corner);
 
-        startActivityForResult(intent, Result.RESPONSE.get_int_value());
+        // add the challenge as an extra to the intent
+        intent.putExtra("challenge_type", challenge_type);
+
+        startActivityForResult(intent, result.get_int_value());
     }
 
     /**
@@ -373,6 +430,55 @@ public class Activity_menu extends AppCompatActivity {
         intent.putExtra("box_upper_left_corner", this.box_upper_left_corner);
 
         startActivityForResult(intent, Result.AUTH_RESPONSE.get_int_value());
+    }
+
+    /**
+     * starts the swipe box activity to gather a data set
+     */
+    private void start_activity_generate_data_set(){
+        // define a set of shapes for which responses should be created for
+        Set<Activity_swipe_box.ChallengeType> challenge_shape_set = new HashSet<>();
+
+        // for now take all shapes defined in swipe box.
+        // this construct is here so that we can be more selective later
+        for(Activity_swipe_box.ChallengeType c_t : Activity_swipe_box.ChallengeType.values()){
+            challenge_shape_set.add(c_t);
+        }
+
+        // create a response list for each of the challenge types
+        this.response_list_map = new HashMap<>();
+
+        for(Activity_swipe_box.ChallengeType challenge_type : challenge_shape_set){
+            this.response_list_map.put(challenge_type, new ArrayList<Response>());
+        }
+
+        // call start_activity_swipe_box many times with different arguments
+        //
+        // the response can be retrieved by getting the last element of this.response
+        // each time a call returns,
+        // sort the response into the appropriate list based on the argument
+        for(int i=0; i<CHALLENGE_PER_SHAPE; i++) {
+            for (Activity_swipe_box.ChallengeType challenge_type : challenge_shape_set) {
+                // provide the challenge
+                start_activity_swipe_box(challenge_type, Result.DATA_SET_RESPONSE);
+            }
+        }
+    }
+
+    /**
+     * writes responses collected for data set generation out to the file system
+     */
+    private void write_responses_generate_data_set(){
+        // write response_list_map out to a file
+        // write each shape individually
+        //
+        // csv format
+        //TODO
+
+        // json format
+        //TODO
+
+        Log.d(TAG, "writing data set to file system");
     }
 
     /**

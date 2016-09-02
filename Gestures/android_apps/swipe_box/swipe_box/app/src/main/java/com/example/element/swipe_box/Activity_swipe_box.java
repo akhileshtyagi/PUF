@@ -13,15 +13,20 @@ import java.util.List;
 
 public class Activity_swipe_box extends AppCompatActivity {
     public enum ChallengeType {
-        BOX, BIG_SQUIGGLE, CHECK;
+        BOX, BIG_SQUIGGLE, CHECK, TRIANGLE,
+        WORM, CIRCLE, HEXAGON, SPIRAL,
+        LINE_HORIZONTAL, LINE_VERTICAL, LINE_315,
+        SHIFT_LINE_HORIZONTAL, SHIFT_LINE_VERTICAL, SHIFT_LINE_315;
     }
 
-    public final ChallengeType CHALLENGE_TYPE= ChallengeType.CHECK;
+    //public final ChallengeType CHALLENGE_TYPE= ChallengeType.CHECK;
 
     PufDrawView pufDrawView;
     private int box_width;
     private int box_height;
     private Point box_upper_left_corner;
+
+    private ChallengeType challenge_type;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,20 +45,52 @@ public class Activity_swipe_box extends AppCompatActivity {
         this.box_width = this.getIntent().getIntExtra("box_width", 0);
         this.box_upper_left_corner = (Point)(this.getIntent().getExtras().getSerializable("box_upper_left_corner"));
 
+        ArrayList<Point> challenge = new ArrayList<>();
+
         // get the challenge type from the extra
-        // TODO
-
-        ArrayList<Point> challenge;
-
-        switch(CHALLENGE_TYPE){
+        this.challenge_type = (ChallengeType)(this.getIntent().getExtras().getSerializable("challenge_type"));
+        switch(this.challenge_type){
             case CHECK:
                 challenge = generateCheckChallenge();
                 break;
             case BIG_SQUIGGLE:
                 challenge = generateSquiggleChallenge();
                 break;
+            case TRIANGLE:
+                challenge = generateTriangleChallenge();
+                break;
+            case WORM:
+                //challenge = generateWormChallenge();
+                break;
+            case CIRCLE:
+                //challenge = generateCircleChallenge();
+                break;
+            case HEXAGON:
+                //challenge = generateHexagonChallenge();
+                break;
+            case SPIRAL:
+                //challenge = generateSpirlChallenge();
+                break;
+            case LINE_HORIZONTAL:
+                //challenge = generateLineHorizontalChallenge();
+                break;
+            case LINE_VERTICAL:
+                //challenge = generateLineVerticalChallenge();
+                break;
+            case LINE_315:
+                //challenge = generateLine315Challenge();
+                break;
+            case SHIFT_LINE_HORIZONTAL:
+                //challenge = generateShiftLineHorizontalChallenge();
+                break;
+            case SHIFT_LINE_VERTICAL:
+                //challenge = generateShiftLineVerticalChallenge();
+                break;
+            case SHIFT_LINE_315:
+                //challenge = generateShiftLine315Challenge();
+                break;
             default:
-                challenge = generateChallenge();
+                //challenge = generateChallenge();
                 break;
         }
 
@@ -67,6 +104,7 @@ public class Activity_swipe_box extends AppCompatActivity {
         // test purposes
         test_responses();
         data.putExtra("response", pufDrawView.get_response());
+        data.putExtra("challenge_type", this.challenge_type);
         setResult(RESULT_OK, data);
 
         super.finish();
@@ -159,4 +197,56 @@ public class Activity_swipe_box extends AppCompatActivity {
 
         return challenge_list;
     }
+
+    /**
+     * generate challenges
+     */
+    private ArrayList<Point> generateTriangleChallenge(){
+        // define some properties of the shape
+        double angle_increment = 60;
+        double angle = 270;
+
+        ArrayList<Point> challenge_list = new ArrayList<Point>();
+
+        // get some properties of the screen
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int bounding_box_width = (int)(metrics.widthPixels / 4);
+        int bounding_box_height = (int)(metrics.heightPixels / 4);
+
+        // create a list of challenge points
+        challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y, 0, 0));
+
+        // down
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_height, angle));
+        angle += angle_increment;
+
+        // up and right
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_height, angle));
+        angle += angle_increment;
+
+        // back to beginning
+        challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y, 0, 0));
+
+        return challenge_list;
+    }
+
+    /**
+     * helper methods for generating challenges
+     */
+    /**
+     * returns the next point in a line given beginning, length and angle
+     */
+    private Point generate_next_line_point(Point beginning, float distance, double angle){
+        //TODO make sure this is correct
+        // use distance and angle to determine next point from beginning
+        float x = beginning.x + (float)(distance * Math.cos(angle));
+        float y = beginning.y + (float)(distance * Math.sin(angle));
+        float pressure = 0.0f;
+        float time = 0.0f;
+
+        return new Point(x, y, pressure, time);
+    }
+
 }
