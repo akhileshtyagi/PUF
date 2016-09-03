@@ -12,8 +12,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Activity_swipe_box extends AppCompatActivity {
+    public static final String TAG = "Activity Swipe Box";
+
     public enum ChallengeType {
-        BOX, BIG_SQUIGGLE, CHECK, TRIANGLE,
+        BOX, BIG_SQUIGGLE, CHECK, TRIANGLE, SHIFT_TRIANGLE,
         WORM, CIRCLE, HEXAGON, SPIRAL,
         LINE_HORIZONTAL, LINE_VERTICAL, LINE_315,
         SHIFT_LINE_HORIZONTAL, SHIFT_LINE_VERTICAL, SHIFT_LINE_315;
@@ -47,6 +49,10 @@ public class Activity_swipe_box extends AppCompatActivity {
 
         ArrayList<Point> challenge = new ArrayList<>();
 
+        // defines how much the shift challenges are shifted
+        float shift_x = 100.0f;
+        float shift_y = 100.0f;
+
         // get the challenge type from the extra
         this.challenge_type = (ChallengeType)(this.getIntent().getExtras().getSerializable("challenge_type"));
         switch(this.challenge_type){
@@ -59,38 +65,41 @@ public class Activity_swipe_box extends AppCompatActivity {
             case TRIANGLE:
                 challenge = generateTriangleChallenge();
                 break;
+            case SHIFT_TRIANGLE:
+                challenge = shift_point_list(generateTriangleChallenge(), shift_x, shift_y);
+                break;
             case WORM:
-                //challenge = generateWormChallenge();
+                challenge = generateWormChallenge();
                 break;
             case CIRCLE:
-                //challenge = generateCircleChallenge();
+                challenge = generateCircleChallenge();
                 break;
             case HEXAGON:
-                //challenge = generateHexagonChallenge();
+                challenge = generateHexagonChallenge();
                 break;
             case SPIRAL:
-                //challenge = generateSpirlChallenge();
+                challenge = generateSpiralChallenge();
                 break;
             case LINE_HORIZONTAL:
-                //challenge = generateLineHorizontalChallenge();
+                challenge = generateLineHorizontalChallenge();
                 break;
             case LINE_VERTICAL:
-                //challenge = generateLineVerticalChallenge();
+                challenge = generateLineVerticalChallenge();
                 break;
             case LINE_315:
-                //challenge = generateLine315Challenge();
+                challenge = generateLine315Challenge();
                 break;
             case SHIFT_LINE_HORIZONTAL:
-                //challenge = generateShiftLineHorizontalChallenge();
+                challenge = shift_point_list(generateLineHorizontalChallenge(), shift_x, shift_y);
                 break;
             case SHIFT_LINE_VERTICAL:
-                //challenge = generateShiftLineVerticalChallenge();
+                challenge = shift_point_list(generateLineVerticalChallenge(), shift_x, shift_y);
                 break;
             case SHIFT_LINE_315:
-                //challenge = generateShiftLine315Challenge();
+                challenge = shift_point_list(generateLine315Challenge(), shift_x, shift_y);
                 break;
             default:
-                //challenge = generateChallenge();
+                challenge = generateChallenge();
                 break;
         }
 
@@ -213,6 +222,38 @@ public class Activity_swipe_box extends AppCompatActivity {
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
 
         int bounding_box_width = (int)(metrics.widthPixels / 4);
+        int bounding_box_height = (int)(metrics.heightPixels / 5);
+
+        // create a list of challenge points
+        challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y, 0, 0));
+
+        // down
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_height, angle));
+
+        // up and right
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_height, 30));
+
+        // up and left
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_height, 150));
+
+        // back to beginning
+        //challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y, 0, 0));
+
+        return challenge_list;
+    }
+
+    private ArrayList<Point> generateWormChallenge(){
+        // define some properties of the shape
+        double angle_increment = 90;
+        double angle = 270;
+
+        ArrayList<Point> challenge_list = new ArrayList<Point>();
+
+        // get some properties of the screen
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int bounding_box_width = (int)(metrics.widthPixels / 2);
         int bounding_box_height = (int)(metrics.heightPixels / 4);
 
         // create a list of challenge points
@@ -221,13 +262,227 @@ public class Activity_swipe_box extends AppCompatActivity {
         // down
         challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_height, angle));
         angle += angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
 
-        // up and right
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_width / 2, angle));
+        angle += angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
+
+        // up
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_height, angle));
+        angle -= angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
+
+        // right
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_width / 2, angle));
+        angle -= angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
+
+        // down
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_height, angle));
+
+        return challenge_list;
+    }
+
+    private ArrayList<Point> generateCircleChallenge(){
+        double angle = 270;
+
+        ArrayList<Point> challenge_list = new ArrayList<Point>();
+
+        // get some properties of the screen
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int bounding_box_width = (int)(metrics.widthPixels / 4);
+        int bounding_box_height = (int)(metrics.heightPixels);
+
+        // create a list of challenge points
+        challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y + bounding_box_height / 4, 0, 0));
+
+        // build the circle in small increments
+        int parts = 360;
+        float angle_increment = 360.0f / parts;
+        for(int i = 0; i < parts; i++) {
+            challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size() - 1), (float)bounding_box_height / parts, angle));
+            angle += angle_increment;
+        }
+
+        return challenge_list;
+    }
+
+    private ArrayList<Point> generateHexagonChallenge(){
+        double angle = 270;
+
+        ArrayList<Point> challenge_list = new ArrayList<Point>();
+
+        // get some properties of the screen
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int bounding_box_width = (int)(metrics.widthPixels / 4);
+        int bounding_box_height = (int)(metrics.heightPixels);
+
+        // create a list of challenge points
+        challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y + bounding_box_height / 4, 0, 0));
+
+        // build the circle in small increments
+        int parts = 6;
+        float angle_increment = 360.0f / parts;
+        for(int i = 0; i < parts; i++) {
+            challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size() - 1), (float)bounding_box_height / parts, angle));
+            angle += angle_increment;
+        }
+
+        return challenge_list;
+    }
+
+    private ArrayList<Point> generateSpiralChallenge(){
+        // define some properties of the shape
+        double angle_increment = 90;
+        double angle = 270;
+
+        ArrayList<Point> challenge_list = new ArrayList<Point>();
+
+        // get some properties of the screen
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        float ratio = .6f;
+        int bounding_box_width = (int)(metrics.widthPixels * ratio);
+        int bounding_box_height = (int)(metrics.heightPixels * ratio);
+
+        // create a list of challenge points
+        challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y, 0, 0));
+
+        // down
         challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_height, angle));
         angle += angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
 
-        // back to beginning
+        // right
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_width, angle));
+        angle += angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
+
+        // describe the amount the width, height shrink
+        float shrink_ratio = .66f;
+
+        float width = bounding_box_width * shrink_ratio;
+        float height = bounding_box_height * shrink_ratio;
+
+        // up
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), height, angle));
+        angle += angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
+
+        // right
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), width, angle));
+        angle += angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
+
+        // modify ratio
+        width = width * shrink_ratio;
+        height = height * shrink_ratio;
+
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), height, angle));
+        angle += angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
+
+        // right
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), width, angle));
+        angle += angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
+
+        // modify ratio
+        width = width * shrink_ratio;
+        height = height * shrink_ratio;
+
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), height, angle));
+        angle += angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
+
+        // right
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), width, angle));
+        angle += angle_increment;
+        // ensure angle stays between 0 and 360
+        angle = (angle > 360.0) ? (angle - 360.0) : angle;
+        angle = (angle < 0.0) ? (angle + 360.0) : angle;
+
+        return challenge_list;
+    }
+
+    private ArrayList<Point> generateLineHorizontalChallenge(){
+        ArrayList<Point> challenge_list = new ArrayList<Point>();
+
+        // get some properties of the screen
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int bounding_box_width = (int)(metrics.widthPixels / 2);
+        int bounding_box_height = (int)(metrics.heightPixels / 2);
+
+        // create a list of challenge points
         challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y, 0, 0));
+
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_width, 0));
+
+        return challenge_list;
+    }
+
+    private ArrayList<Point> generateLineVerticalChallenge(){
+        ArrayList<Point> challenge_list = new ArrayList<Point>();
+
+        // get some properties of the screen
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int bounding_box_width = (int)(metrics.widthPixels / 2);
+        int bounding_box_height = (int)(metrics.heightPixels / 2);
+
+        // create a list of challenge points
+        challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y, 0, 0));
+
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), bounding_box_height, 270));
+
+        return challenge_list;
+    }
+
+    private ArrayList<Point> generateLine315Challenge(){
+        ArrayList<Point> challenge_list = new ArrayList<Point>();
+
+        // get some properties of the screen
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+
+        int bounding_box_width = (int)(metrics.widthPixels / 2);
+        int bounding_box_height = (int)(metrics.heightPixels / 2);
+
+        // create a list of challenge points
+        challenge_list.add(new Point(this.box_upper_left_corner.x, box_upper_left_corner.y, 0, 0));
+
+        challenge_list.add(generate_next_line_point(challenge_list.get(challenge_list.size()-1), (bounding_box_width + bounding_box_height) / 2, 315));
 
         return challenge_list;
     }
@@ -241,12 +496,26 @@ public class Activity_swipe_box extends AppCompatActivity {
     private Point generate_next_line_point(Point beginning, float distance, double angle){
         //TODO make sure this is correct
         // use distance and angle to determine next point from beginning
-        float x = beginning.x + (float)(distance * Math.cos(angle));
-        float y = beginning.y + (float)(distance * Math.sin(angle));
+        float x = beginning.x + (float)(distance * Math.cos(Math.toRadians(angle)));
+        float y = beginning.y - (float)(distance * Math.sin(Math.toRadians(angle)));
+
+        //Log.d(TAG, "sqrt x^2 + y^2: " + Math.sqrt((x - beginning.x)*(x - beginning.x) + (y - beginning.y)*(y - beginning.y)) + "\tdistance: " +distance);
+
         float pressure = 0.0f;
         float time = 0.0f;
 
         return new Point(x, y, pressure, time);
     }
 
+    /**
+     * returns an a set of points shifted by x, y from the given set of points
+     */
+    private ArrayList<Point> shift_point_list(ArrayList<Point> point_list, float shift_x, float shift_y){
+        for(Point point : point_list){
+            point.x += shift_x;
+            point.y += shift_y;
+        }
+
+        return point_list;
+    }
 }
