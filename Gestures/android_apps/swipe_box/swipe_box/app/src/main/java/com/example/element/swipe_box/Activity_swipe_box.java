@@ -494,7 +494,6 @@ public class Activity_swipe_box extends AppCompatActivity {
      * returns the next point in a line given beginning, length and angle
      */
     private Point generate_next_line_point(Point beginning, float distance, double angle){
-        //TODO make sure this is correct
         // use distance and angle to determine next point from beginning
         float x = beginning.x + (float)(distance * Math.cos(Math.toRadians(angle)));
         float y = beginning.y - (float)(distance * Math.sin(Math.toRadians(angle)));

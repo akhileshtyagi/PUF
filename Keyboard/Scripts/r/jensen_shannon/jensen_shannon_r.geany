@@ -20,13 +20,11 @@ indent_mode=2
 [project]
 name=jensen_shannon_r
 base_path=/home/element/PUF/Keyboard/Scripts/r/jensen_shannon/
+description=
 
 [long line marker]
 long_line_behaviour=1
 long_line_column=72
 
 [files]
-current_page=1
-FILE_NAME_0=0;R;0;EUTF-8;1;1;0;%2Fhome%2Felement%2FPUF%2FKeyboard%2FScripts%2Fr%2Fjensen_shannon%2Freference_jensen_shannon_test.R;0;4
-FILE_NAME_1=1394;R;0;EUTF-8;1;1;0;%2Fhome%2Felement%2FPUF%2FKeyboard%2FScripts%2Fr%2Fjensen_shannon%2Ftest_jensen_shannon.R;0;4
-FILE_NAME_2=354;R;0;EUTF-8;1;1;0;%2Fhome%2Felement%2FPUF%2FKeyboard%2FScripts%2Fr%2Fnormal_distribution_test%2Ftest_normal.R;0;4
+current_page=-1

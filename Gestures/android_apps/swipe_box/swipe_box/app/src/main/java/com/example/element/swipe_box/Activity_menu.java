@@ -1,9 +1,15 @@
 package com.example.element.swipe_box;
 
+import android.Manifest;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.DisplayMetrics;
@@ -20,6 +26,8 @@ import com.opencsv.CSVWriter;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.IOException;
+import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
@@ -32,10 +40,10 @@ public class Activity_menu extends AppCompatActivity {
 
     /** constants for generating a data set */
     public static final int CHALLENGE_PER_SHAPE = 1;
-    public static final String DATA_SET_FOLDER = "gestures";
-    public static final String DATA_SET_FILE_NAME = "shape_response";
+    public static final String DATA_SET_FOLDER = "data_sets";
 
     /** constants for output files */
+    public static final String APP_FOLDER = "swipe_box";
     public static final String SHARED_PREFERENCES_FILE = "swipe_box_preferences";
     public static final String ANALYSIS_FILENAME = "analysis_interpoint_time";
     public static final String RESPONSES_FILENAME = "response_profile";
@@ -67,6 +75,42 @@ public class Activity_menu extends AppCompatActivity {
 
     Map<Activity_swipe_box.ChallengeType, List<Response>> response_list_map;
 
+    // Storage Permissions
+    private static final int REQUEST_EXTERNAL_STORAGE = 1; // was 1
+    private static String[] PERMISSIONS_STORAGE = {
+            Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.READ_EXTERNAL_STORAGE
+    };
+
+    /**
+     * Checks if the app has permission to write to device storage
+     *
+     * If the app does not has permission then the user will be prompted to grant permissions
+     *
+     * http://stackoverflow.com/questions/8854359/exception-open-failed-eacces-permission-denied-on-android
+     * https://developer.android.com/training/permissions/requesting.html#handle-response
+     *
+     * @param activity
+     */
+    public static void verifyStoragePermissions(Activity activity) {
+        // Check if we have write permission
+        int[] permission = {
+                ActivityCompat.checkSelfPermission(activity, Manifest.permission.WRITE_EXTERNAL_STORAGE),
+                ActivityCompat.checkSelfPermission(activity, Manifest.permission.READ_EXTERNAL_STORAGE)
+        };
+
+        for(int p : permission) {
+            if (p != PackageManager.PERMISSION_GRANTED) {
+                // We don't have permission so prompt the user
+                ActivityCompat.requestPermissions(
+                        activity,
+                        PERMISSIONS_STORAGE,
+                        REQUEST_EXTERNAL_STORAGE
+                );
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -97,6 +141,9 @@ public class Activity_menu extends AppCompatActivity {
         this.challenge = new Challenge(challenge_pattern_list,0);
 
         this.responses = new ArrayList<Response>();
+
+        // verify storage permissions
+        verifyStoragePermissions(this);
 
         /**
          * find the edit text for output
@@ -245,9 +292,22 @@ public class Activity_menu extends AppCompatActivity {
          */
         generate_data_set_button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                start_activity_generate_data_set();
+                // this needs to be done as an async task
+                // if it is not, Activity_menu will try to process everything at once
+                // this will lead to android.os.TransactionTooLargeException
+                new GenerateDataSetTask().execute(1);
+
+                //start_activity_generate_data_set();
             }//End onClick
         });
+    }
+
+    private class GenerateDataSetTask extends AsyncTask<Integer, Void, Void> {
+        protected Void doInBackground(Integer... task) {
+            start_activity_generate_data_set();
+
+            return null;
+        }
     }
 
     @Override
@@ -469,16 +529,84 @@ public class Activity_menu extends AppCompatActivity {
      * writes responses collected for data set generation out to the file system
      */
     private void write_responses_generate_data_set(){
+        Gson gson = new Gson();
+        String delineator = "_";
+
         // write response_list_map out to a file
         // write each shape individually
         //
-        // csv format
-        //TODO
+        // geneate the string to be written to the file
+        File folder = new File(APP_FOLDER, DATA_SET_FOLDER);
 
-        // json format
-        //TODO
+//        File[] files_list = folder.getParentFile().listFiles();
+//        String patterns = "[" + delineator + "\\.]";
+//
+//        Log.d(TAG, "files_list: " + files_list);
 
-        Log.d(TAG, "writing data set to file system");
+        // grab the last data set nmber from shared preferences
+        SharedPreferences shared_preferences =
+                this.getSharedPreferences("com.example.element.swipe_box", Context.MODE_PRIVATE);
+
+        String data_sets_key = "com.example.element.swipe_box.data_sets_key";
+        int max_set_number = shared_preferences.getInt(data_sets_key, -1);
+
+        // wirte a higher number so the next data set has a new folder
+        shared_preferences.edit().putInt(data_sets_key, max_set_number+1).apply();
+
+//        if(files_list != null) {
+//            for (File file : files_list) {
+//                String[] name_token_list = file.getName().split(patterns);
+//
+//                Log.d(TAG, "name_token_list: " + name_token_list);
+//
+//                int value = 0;
+//                for (String name_token : name_token_list) {
+//                    //TODO data set always writes to data_set_0
+//                    Log.d(TAG, "tok: name_token\t");
+//
+//                    value = Integer.valueOf(name_token);
+//
+//                    if (value > 0) break;
+//                }
+//
+//                // if value is greater than max, record
+//                max_set_number = (value > max_set_number) ? (value) : (max_set_number);
+//            }
+//        }
+
+        // name for this unique data set
+        String set_folder_base = "data_set_" + (max_set_number + 1);
+        File set_folder = new File(folder.getPath(), set_folder_base);
+
+        String folder_csv = "csv";
+        String folder_json = "json";
+
+        File set_folder_csv = new File(set_folder.getPath(), folder_csv);
+        File set_folder_json = new File(set_folder.getPath(), folder_json);
+
+        // do this for each of the shapes
+        // write a separate file for each shape
+        //
+        for(Activity_swipe_box.ChallengeType response_key: this.response_list_map.keySet()) {
+            Collection response_list = this.response_list_map.get(response_key);
+
+            // the name of the shape
+            String filename = "" + response_key;
+
+            // data to be output
+            String output = response_list.toString();
+
+            // csv format
+            write_string_to_csv(set_folder_csv.getPath(), filename, output);
+
+            // json format
+            String json = gson.toJson(response_list.toArray(), response_list.toArray().getClass());
+            write_responses_to_file(new File(set_folder_json.getAbsolutePath(), filename).getPath(), json);
+        }
+
+        Log.d(TAG, "writing data set to file system: " + set_folder_base.toString());
+
+        Toast.makeText(this, "Data written to file system.", Toast.LENGTH_SHORT).show();
     }
 
     /**
@@ -662,26 +790,40 @@ public class Activity_menu extends AppCompatActivity {
         String output = create_analysis_string();
 
         // print the analysis information to a csv file
-        write_string_to_csv(filename, output);
+        write_string_to_csv(APP_FOLDER, filename, output);
     }
 
     /**
      * Writes the response to a given challenge to a CSV file
      */
-    public void write_string_to_csv(String filename, String output)
+    public void write_string_to_csv(String directory, String filename, String output)
     {
-        File baseDir = new File(Environment.getExternalStorageDirectory(), "puf_swipe_box");
+        File baseDir = new File(Environment.getExternalStorageDirectory().getAbsolutePath(), directory);
 
         if (!baseDir.exists())
         {
             baseDir.mkdirs();
+
+            Log.d(TAG, "making directories");
         }
 
         File f = new File(baseDir, filename);
 
+        if(!f.exists()) {
+            try {
+                f.createNewFile();
+            } catch(IOException e) {
+                Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+
+                Log.d(TAG, f.getPath());
+
+                e.printStackTrace();
+            }
+        }
+
+        // write using CSV writer
         try
         {
-            f.createNewFile();
             CSVWriter csvWrite = new CSVWriter(new FileWriter(f));
 
             String[] output_array = {output};
@@ -689,11 +831,12 @@ public class Activity_menu extends AppCompatActivity {
 
             csvWrite.close();
 
-            Toast.makeText(this, "Written to CSV.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "Written to CSV.", Toast.LENGTH_SHORT).show();
         }
         catch( Exception e)
         {
-            Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, e.toString(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
         }
     }
 
@@ -703,25 +846,31 @@ public class Activity_menu extends AppCompatActivity {
     public void write_responses_to_file(String filename, String output)
     {
         //File baseDir = new File(this.getFilesDir(), "puf_swipe_box");
-        File baseDir = new File(Environment.getExternalStorageDirectory(), "puf_swipe_box");
+//        File baseDir = new File(Environment.getExternalStorageDirectory(), "puf_swipe_box");
+//
+//        if (!baseDir.exists())
+//        {
+//            baseDir.mkdirs();
+//        }
+//
+//        File f = new File(baseDir, filename);
 
-        if (!baseDir.exists())
-        {
-            baseDir.mkdirs();
+        File f = new File(Environment.getExternalStorageDirectory(), filename);
+
+        if(!f.exists()){
+            f.getParentFile().mkdirs();
         }
-
-        File f = new File(baseDir, filename);
 
         try
         {
-            Log.d("filename", f.getName());
+            //Log.d("filename", f.getName());
 
             FileWriter outputWriter = new FileWriter(f);
 
             outputWriter.write(output);
             outputWriter.close();
 
-            Toast.makeText(this, "File saved successfully.", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(this, "File saved successfully.", Toast.LENGTH_SHORT).show();
         }
         catch( Exception e)
         {
