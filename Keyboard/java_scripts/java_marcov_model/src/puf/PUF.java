@@ -8,6 +8,7 @@ import java.util.Random;
 /**
  * Created by element on 9/8/16.
  */
+//TODO do quantization based on next state probabilities instead of averages
 public class PUF {
     protected Arbiter arbiter;
 
@@ -20,13 +21,13 @@ public class PUF {
      * number of response bits generated depends on the size of the challenge,
      * one byte generated from each letter
      */
-    public Response compute(Chain chain, Challenge challenge){
-        int response_length = challenge.get_challenge_string().length();
-        Bit[] response_bits = new Bit[response_length];
+    public Response compute(Challenge challenge){
+        //int response_length = challenge.get_challenge_string().length();
+        //Bit[] response_bits = new Bit[response_length];
 
-        for(int i=0; i<response_length; i++){
-            response_bits[i] = arbiter.quantize_bit(chain, challenge, challenge.get_user_input().touch_input_list.get(i));
-        }
+        //for(int i=0; i<response_length; i++){
+        Bit[] response_bits = arbiter.quantize(challenge);
+        //}
 
         return new Response(response_bits);
     }
@@ -45,7 +46,7 @@ public class PUF {
 
         // this will always generate the same challenge string unless given a seed
         for(int i=0; i<challenge_size; i++){
-            challenge_string += alphabet.charAt(random.nextInt()%alphabet.length());
+            challenge_string += alphabet.charAt(Math.abs(random.nextInt()%alphabet.length()));
         }
 
         return new Challenge(challenge_string);

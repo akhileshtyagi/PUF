@@ -9,5 +9,6 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="java_marcov_model" level="project" />
+    <orderEntry type="library" name="android" level="project" />
   </component>
 </module>

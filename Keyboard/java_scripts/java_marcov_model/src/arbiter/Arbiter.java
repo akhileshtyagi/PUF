@@ -14,5 +14,11 @@ public interface Arbiter {
     /**
      * returns 0 or 1 based on quantization
      */
-    public Bit quantize_bit(Chain chain, Challenge challenge, Touch touch);
+    //public Bit quantize_bit(Chain chain, Challenge challenge, Touch touch);
+
+    /**
+     * return a bit array corresponding to the quantized bits of the challenge
+     */
+    public Bit[] quantize(Challenge challenge);
+
 }
