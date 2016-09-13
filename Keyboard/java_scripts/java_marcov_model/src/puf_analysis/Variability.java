@@ -15,6 +15,8 @@ import java.util.*;
 
 /**
  * Created by element on 9/8/16.
+ *
+ * TODO make sure the chains have computed all their values
  */
 public class Variability {
     public static final int CHALLENGE_BITS = 128;

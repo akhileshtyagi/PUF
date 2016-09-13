@@ -1,5 +1,6 @@
 package utility;
 
+import android.inputmethodservice.Keyboard;
 import android.view.KeyEvent;
 
 import java.util.List;
@@ -43,8 +44,25 @@ public class Utility {
      * KeyEvent.keycodefrom string
      */
     public static int char_to_android_code(char character) {
-        //TODO make sure this works
-        return KeyEvent.keyCodeFromString("" + character);
+        //return KeyEvent.keyCodeFromString("" + character);
+        // create the keyboard if it has not already been created
+//        create_keyboard();
+
+        // get the keys from the keyboard
+//        List<Keyboard.Key> key_list = keyboard.getKeys();
+
+        // figure out which key matches the character
+//        for(Keyboard.Key key : key_list){
+//            if(key.character value){
+//                return key.codes[0];
+//            }
+//        }
+
+        // return the keyCode value of this key
+
+        //TODO it seems like the keycodes are indeed ASCII characters
+        //TODO atleast for (A-z)
+        return (int)character;
     }
 
     /**
@@ -52,8 +70,23 @@ public class Utility {
      *
      * KeyEvent.keycodetostring
      */
-    public static char android_code_to_char(int android_code){
-        //TODO make sure this works
-        return KeyEvent.keyCodeToString(android_code).charAt(0);
+//    public static char android_code_to_char(int android_code){
+//        //TODO make sure this works
+//        //return KeyEvent.keyCodeToString(android_code).charAt(0);
+//    }
+
+    /**
+     * recreate the android keyboard used to collect data
+     * //TODO I need to figure out what the key values in the keyboard file correspond to
+     */
+    public static Keyboard keyboard = null;
+    private static void create_keyboard(){
+        // if the keyboard has not yet been created, create the keyboard
+        if(keyboard == null){
+
+        }
+
+        // otherwise simply return
+        return;
     }
 }

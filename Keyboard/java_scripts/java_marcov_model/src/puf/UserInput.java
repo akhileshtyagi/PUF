@@ -1,6 +1,7 @@
 package puf;
 
 import components.Touch;
+import components.Window;
 
 import java.util.List;
 import java.util.Map;
@@ -24,18 +25,18 @@ public class UserInput {
      * lists of Maps of characters to next state probabilities corresponding to
      * each of the touches in touch_input_list
      */
-    protected List<List<Map<Integer, Double>>> next_state_probability_list;
+//    protected List<List<Map<Window, Double>>> next_state_probability_list;
 
-    public UserInput(List<List<Touch>> touch_input_list, List<List<Map<Integer, Double>>> next_state_probability_list){
+    public UserInput(List<List<Touch>> touch_input_list){ //, List<List<Map<Window, Double>>> next_state_probability_list){
         this.touch_input_list = touch_input_list;
-        this.next_state_probability_list = next_state_probability_list;
+//        this.next_state_probability_list = next_state_probability_list;
     }
 
     public List<List<Touch>> get_input_list(){
         return touch_input_list;
     }
 
-    public List<List<Map<Integer, Double>>> get_next_state_probability_list(){
-        return next_state_probability_list;
-    }
+//    public List<List<Map<Window, Double>>> get_next_state_probability_list(){
+//        return next_state_probability_list;
+//    }
 }

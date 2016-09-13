@@ -7,6 +7,8 @@ public class Response {
     protected Bit[] bit_array;
 
     public Response(Bit[] bit_array){
+        this.bit_array = new Bit[bit_array.length];
+
         for(int i=0; i<bit_array.length; i++) {
             this.bit_array[i] = new Bit(bit_array[i].bit_value);
         }

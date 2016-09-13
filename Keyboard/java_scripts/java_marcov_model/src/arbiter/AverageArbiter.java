@@ -2,12 +2,14 @@ package arbiter;
 
 import components.Chain;
 import components.Touch;
+import components.Window;
 import puf.Bit;
 import puf.Challenge;
 import utility.Utility;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Created by element on 9/9/16.
@@ -36,23 +38,28 @@ public class AverageArbiter implements Arbiter{
     /**
      * take the average of next state probabilities for each touch
      * use this to quantize each bit
+     *
+     * There are a list of touches which correspond to each character
+     * for each of those touches,
+     * there is a Map<Window, Double> which gives the
+     * probability with which a Window predicted that Touch
+     *
+     * mabe I don't need to map because each touch holds information
+     * about the probability with which it is predicted
      */
     public Bit[] quantize(Challenge challenge){
         Bit[] quantization_bits = new Bit[challenge.get_challenge_string().length()];
         double average_probability = compute_next_state_average(challenge);
 
         // quantize each bit based on it's value compared to the average
-        int bit_index = 0;
-        for(char character : challenge.get_challenge_string().toCharArray()) {
-            double next_state_average = compute_next_state_average(character);
+        for(int bit_index=0; bit_index<challenge.get_challenge_string().length(); bit_index++) {
+            double next_state_average = compute_next_state_average(challenge.get_user_input().get_input_list().get(bit_index));
 
             // set bit value 1 if this bit's average is
             // greater than equal average over all in the challenge
             // 0 otherwise
             quantization_bits[bit_index] = (next_state_average >= average_probability) ?
                     (new Bit(Bit.Value.ONE)):(new Bit(Bit.Value.ZERO));
-
-            bit_index++;
         }
 
         return quantization_bits;
@@ -60,12 +67,14 @@ public class AverageArbiter implements Arbiter{
 
     /**
      * compute the average next state probability for the challenge
+     * in other average(average \forall characters)
      */
     private double compute_next_state_average(Challenge challenge){
         // for all bits in the challenge string
         List<Double> probability_list = new ArrayList<>();
-        for(char character : challenge.get_challenge_string().toCharArray()){
-            probability_list.add(compute_next_state_average(character));
+        for(int i=0; i<challenge.get_challenge_string().length(); i++){
+            // compute next state average for a single character in the challenge
+            probability_list.add(compute_next_state_average(challenge.get_user_input().get_input_list().get(i)));
         }
 
         // use Utility.average to preform the average computation
@@ -74,25 +83,30 @@ public class AverageArbiter implements Arbiter{
 
     /**
      * compute the average next state probability for a single character
-     * given it's TODO
+     * given it's associated touch list
      *
-     * definition of next state probability:
-     * 
+     * prediction_map maps Windows to Doubles.
+     * Window predicts C with some Double probability
+     *
+     * definition of next state probability of character C:
+     *  the average probability with which
+     *  a token with keycode C is predicted
+     *
+     *  TODO it might also make sense to weight the prediction probabilities
+     *  TODO by the relative frequency of the Window
      */
-    private double compute_next_state_average(char character){
-        // get the android code for this character
-        int android_code = Utility.char_to_android_code(character);
-
-        // generate a list to take the average of
+    private double compute_next_state_average(List<Touch> touch_list) {
         // list contains the next state probabilities for this character
-        List<Double> next_state_probabilities = new ArrayList<>();
-        //TODO which keycode corresponds to which character
-//        for(challenge.get_user_input().get_next_state_probability_list()){
-//
-//        }
-        //TODO
-    }
+        List<Double> next_state_probabilities = new ArrayList<Double>();
 
-    //TODO
-    return 0.0;
+        // take an average of all probabilities which this touch has been predicted with
+        //TODO this doesn't exactly make sense, does it? more thinking required.
+        //TODO if it does make sense, it might also make sense to weight
+        //TODO the average by X
+        for(Touch touch : touch_list) {
+            next_state_probabilities.addAll(touch.get_probability_list());
+        }
+
+        return Utility.average(next_state_probabilities);
+    }
 }

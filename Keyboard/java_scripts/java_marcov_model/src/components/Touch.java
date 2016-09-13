@@ -14,7 +14,7 @@ public class Touch implements Comparable<Touch>{
 	private double pressure;
 	private long timestamp;
 
-	private List<Double> probability; //TODO move parallel arraw to better data structure
+	private List<Double> probability; //TODO move parallel array to better data structure
 	private List<Window> predecessor_window;
 
 
@@ -38,6 +38,12 @@ public class Touch implements Comparable<Touch>{
 		this.predecessor_window = new ArrayList<Window>(t.predecessor_window);
 	}
 
+	/**
+	 * returns the list of probabilities with which this touch has been predicted
+     */
+	public List<Double> get_probability_list(){
+		return this.probability;
+	}
 
 	///sets the probability that this touch succeeds a given sequence. Reccord the sequence and the probability
 	public void set_probability(List<Token> tokens, Window preceeding_window, double p){
