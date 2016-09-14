@@ -44,6 +44,13 @@ public class Variability {
         // describe the chain and the devcie from which it comes from
         //TODO adjust these to add and remove chains
         chain_list.add(read_chain(null)); device_list.add(0);
+        chain_list.add(read_chain(null)); device_list.add(0);
+
+        // make sure chains have computed everything
+        //TODO is this necessary? think about it.
+        for(int i=0; i<chain_list.size(); i++) {
+            chain_list.get(i).compare_to(chain_list.get(i));
+        }
 
         // each challenge needs to be generated and have user input associated with it
         List<Challenge> challenge_list = new ArrayList<>();
@@ -61,8 +68,10 @@ public class Variability {
 
         // compute the responses
         for(int i=0; i<chain_list.size(); i++){
-            for(int j=0; j<chain_list.size(); j++) {
-                for (int k = 0; k < chain_list.size(); k++) {
+            for(int j=0; j<challenge_list.size(); j++) {
+                for (int k = 0; k < device_list.size(); k++) {
+                    Utility.print("here", 0);
+
                     // grab this particular combination of things
                     Chain chain = chain_list.get(i);
                     Challenge challenge = challenge_list.get(j);
@@ -91,11 +100,13 @@ public class Variability {
         //
         // take the hamming distance for each triple to every other tripple
         ArrayList<Double> hamming_distance_list = new ArrayList<>();
+
         for(Response response_0 : response_map.values()){
             for(Response response_1 : response_map.values()){
                 // do not compare responses to themselves
                 if(response_0 == response_1) continue;
 
+                System.out.println("response_0:" + response_0 + "\tresponse_1:" + response_1);
                 hamming_distance_list.add((double)response_0.hamming_distance(response_1));
             }
         }

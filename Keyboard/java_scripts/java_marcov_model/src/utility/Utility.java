@@ -89,4 +89,8 @@ public class Utility {
         // otherwise simply return
         return;
     }
+
+    public static void print(String tag, Object value){
+        System.out.println(tag + "\t:\t" + value );
+    };
 }
