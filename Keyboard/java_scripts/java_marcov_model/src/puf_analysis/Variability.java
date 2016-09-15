@@ -20,7 +20,7 @@ import java.util.*;
  */
 public class Variability {
     public static final int CHALLENGE_BITS = 128;
-    public static final int CHALLENGE_NUMBER = 1;
+    public static final int CHALLENGE_NUMBER = 2;
 
     public static void main(String[] args){
         //////
@@ -44,7 +44,7 @@ public class Variability {
         // describe the chain and the devcie from which it comes from
         //TODO adjust these to add and remove chains
         chain_list.add(read_chain(null)); device_list.add(0);
-        chain_list.add(read_chain(null)); device_list.add(0);
+        //chain_list.add(read_chain(null)); device_list.add(0);
 
         // make sure chains have computed everything
         //TODO is this necessary? think about it.
@@ -70,8 +70,6 @@ public class Variability {
         for(int i=0; i<chain_list.size(); i++){
             for(int j=0; j<challenge_list.size(); j++) {
                 for (int k = 0; k < device_list.size(); k++) {
-                    Utility.print("here", 0);
-
                     // grab this particular combination of things
                     Chain chain = chain_list.get(i);
                     Challenge challenge = challenge_list.get(j);
@@ -94,6 +92,14 @@ public class Variability {
         }
 
         //////
+        // print out all responses
+        //////
+        for(Triple<Integer, Chain, Challenge> triple : response_map.keySet()){
+            // print out the tripple and it's associated response
+            System.out.println("tripple: " + triple + "\nresponse: " + response_map.get(triple));
+        }
+
+        //////
         // analyze the responses
         //////
         // find average hamming distance between responses
@@ -106,7 +112,6 @@ public class Variability {
                 // do not compare responses to themselves
                 if(response_0 == response_1) continue;
 
-                System.out.println("response_0:" + response_0 + "\tresponse_1:" + response_1);
                 hamming_distance_list.add((double)response_0.hamming_distance(response_1));
             }
         }
@@ -127,6 +132,11 @@ public class Variability {
             this.x = x;
             this.y = y;
             this.z = z;
+        }
+
+        @Override
+        public String toString(){
+            return "<" + x + ", " + y + "\n, " + z +">";
         }
     }
 

@@ -50,4 +50,15 @@ public class Response {
 
         return hamming_distance;
     }
+
+    @Override
+    public String toString() {
+        String string = "";
+
+        for (int i = 0; i < bit_array.length; i++){
+            string += bit_array[i].toString();
+        }
+
+        return string;
+    }
 }

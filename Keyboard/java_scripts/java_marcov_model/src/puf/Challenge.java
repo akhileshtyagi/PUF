@@ -44,4 +44,9 @@ public class Challenge{
 
         return !(this.user_input == null);
     }
+
+    @Override
+    public String toString(){
+        return this.get_challenge_string();
+    }
 }

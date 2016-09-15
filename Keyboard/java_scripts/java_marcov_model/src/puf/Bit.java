@@ -32,4 +32,9 @@ public class Bit {
     public Value get_value(){
         return this.bit_value;
     }
+
+    @Override
+    public String toString(){
+        return "" + bit_value.value;
+    }
 }
