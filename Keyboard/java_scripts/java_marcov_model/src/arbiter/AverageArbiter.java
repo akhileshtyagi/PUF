@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+import static java.lang.Float.NaN;
+
 /**
  * Created by element on 9/9/16.
  *
@@ -51,6 +53,8 @@ public class AverageArbiter implements Arbiter{
         Bit[] quantization_bits = new Bit[challenge.get_challenge_string().length()];
         double average_probability = compute_next_state_average(challenge);
 
+        String error = "";
+
         // quantize each bit based on it's value compared to the average
         for(int bit_index=0; bit_index<challenge.get_challenge_string().length(); bit_index++) {
             double next_state_average = compute_next_state_average(challenge.get_user_input().get_input_list().get(bit_index));
@@ -60,7 +64,11 @@ public class AverageArbiter implements Arbiter{
             // 0 otherwise
             quantization_bits[bit_index] = (next_state_average >= average_probability) ?
                     (new Bit(Bit.Value.ONE)):(new Bit(Bit.Value.ZERO));
+
+            error += "[" + next_state_average + ", " + quantization_bits[bit_index] + "] ";
         }
+
+        System.out.println("average "+average_probability + "\t|\t" + error);
 
         return quantization_bits;
     }
@@ -78,7 +86,9 @@ public class AverageArbiter implements Arbiter{
         }
 
         // use Utility.average to preform the average computation
-        return Utility.average(probability_list);
+        double average = Utility.average(probability_list);
+        // test for NaN
+        return average != average ? 0 : average;
     }
 
     /**
@@ -91,6 +101,9 @@ public class AverageArbiter implements Arbiter{
      * definition of next state probability of character C:
      *  the average probability with which
      *  a token with keycode C is predicted
+     *
+     * The probability of being predicted is assumed to be 0
+     * if every touch in the list is never predicted
      *
      *  TODO it might also make sense to weight the prediction probabilities
      *  TODO by the relative frequency of the Window
@@ -107,6 +120,10 @@ public class AverageArbiter implements Arbiter{
             next_state_probabilities.addAll(touch.get_probability_list());
         }
 
-        return Utility.average(next_state_probabilities);
+        //System.out.println("next state probabilities: " + next_state_probabilities);
+
+        double average = Utility.average(next_state_probabilities);
+        // test for NaN
+        return average != average ? 0 : average;
     }
 }

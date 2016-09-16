@@ -11,16 +11,42 @@ import puf.PUF;
 import puf.Response;
 import utility.Utility;
 
+import java.io.File;
 import java.util.*;
 
 /**
- * Created by element on 9/8/16.
+ * This quantifies the difference in response
+ * given that there is a difference in challenge.
+ * It answers the question,
+ * If the challenge changes, how much does the response change on average.
+ * This can be quantified though a metric which measures the
+ * bitwise difference between responses.
+ * For this reason,
+ * the average hamming distance will be a good way to measure the variability.
  *
- * TODO make sure the chains have computed all their values
+ * a good average hamming distance will be close to the size to the challenge.
+ * ------
+ * another way to quantify this would be:
+ * the average change in the hamming distance given
+ * some number of bits changed in the challenge
+ *
+ * in other words the goal might be stated as
+ * quantifying how the responses depend on the challenge
  */
 public class Variability {
+    public static final String DATA_FOLDER = "data_sets";
     public static final int CHALLENGE_BITS = 128;
     public static final int CHALLENGE_NUMBER = 2;
+
+    /**
+     * provide a file name and device int for each chain involved
+     */
+    public static final String[] CHAIN_FILE_NAME = {
+            "t_tim_d_ian.csv"
+    };
+    public static final int[] CHAIN_DEVICE = {
+        0
+    };
 
     public static void main(String[] args){
         //////
@@ -42,9 +68,12 @@ public class Variability {
         List<Integer> device_list = new ArrayList<>();
 
         // describe the chain and the devcie from which it comes from
-        //TODO adjust these to add and remove chains
-        chain_list.add(read_chain(null)); device_list.add(0);
-        //chain_list.add(read_chain(null)); device_list.add(0);
+        for(int i=0; i<CHAIN_FILE_NAME.length; i++) {
+            chain_list.add(Utility.read_chain(new File(DATA_FOLDER, CHAIN_FILE_NAME[i]).getPath()));
+            device_list.add(CHAIN_DEVICE[i]);
+
+            System.out.println("size: " + chain_list.size());
+        }
 
         // make sure chains have computed everything
         //TODO is this necessary? think about it.
@@ -123,50 +152,20 @@ public class Variability {
         System.out.println("average hamming distance: " + average_hamming_distance);
     }
 
-    private static class Triple<X,Y,Z>{
+    private static class Triple<X,Y,Z> {
         X x;
         Y y;
         Z z;
 
-        public Triple(X x, Y y, Z z){
+        public Triple(X x, Y y, Z z) {
             this.x = x;
             this.y = y;
             this.z = z;
         }
 
         @Override
-        public String toString(){
-            return "<" + x + ", " + y + "\n, " + z +">";
+        public String toString() {
+            return "<" + x + ", " + y + "\n, " + z + ">";
         }
-    }
-
-    private static Chain read_chain(String file_name){
-        // if now file name is provided
-        if(file_name == null){
-            return generate_test_chain();
-        }else{
-            // use file_name to read a chain from the disk
-            //TODO
-            return null;
-        }
-    }
-
-    private static Chain generate_test_chain(){
-        //////
-        // Chain parameters
-        //////
-        //TODO adjust chain parameters
-        int window_size = 3;
-        int token_number = 5;
-        int time_threshold = 1000;
-        int chain_size = 4000;
-        Chain chain = new Chain(window_size, token_number, time_threshold, chain_size);
-
-        // add touches to the chain
-        for (int i = 0; i < chain_size; i++) {
-            chain.add_touch(new Touch(Utility.char_to_android_code((char)('a' + (i % 26))), (i % 11) * .1, 100));
-        }
-
-        return chain;
     }
 }

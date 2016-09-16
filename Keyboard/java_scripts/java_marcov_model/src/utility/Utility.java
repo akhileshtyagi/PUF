@@ -1,8 +1,14 @@
 package utility;
 
-import android.inputmethodservice.Keyboard;
-import android.view.KeyEvent;
+//import android.inputmethodservice.Keyboard;
+//import android.view.KeyEvent;
 
+import components.Chain;
+import components.Touch;
+import runtime.ChainBuilder;
+
+import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -79,12 +85,12 @@ public class Utility {
      * recreate the android keyboard used to collect data
      * //TODO I need to figure out what the key values in the keyboard file correspond to
      */
-    public static Keyboard keyboard = null;
+    //public static Keyboard keyboard = null;
     private static void create_keyboard(){
         // if the keyboard has not yet been created, create the keyboard
-        if(keyboard == null){
+        //if(keyboard == null){
 
-        }
+        //}
 
         // otherwise simply return
         return;
@@ -92,5 +98,46 @@ public class Utility {
 
     public static void print(String tag, Object value){
         System.out.println(tag + "\t:\t" + value );
-    };
+    }
+
+    public static Chain read_chain(String file_name){
+        //////
+        // Chain parameters
+        //////
+        //TODO adjust chain parameters
+        int window_size = 3;
+        int token_number = 5;
+        int time_threshold = 1000;
+        int chain_size = 4000;
+        Chain chain = new Chain(window_size, token_number, time_threshold, chain_size);
+
+        List<Touch> touch_list;
+
+        // if now file name is provided
+        if(file_name == null){
+            touch_list = generate_test_chain(chain_size);
+        }else{
+            // use file_name to read a chain from the disk
+            touch_list = ChainBuilder.parse_csv(new File(file_name));
+        }
+
+        // add all the touches to the chain
+        for (int i = 0; i < chain_size; i++) {
+            chain.add_touch(touch_list.get(i));
+        }
+
+        // return the chain
+        return chain;
+    }
+
+    private static List<Touch> generate_test_chain(int chain_size){
+        List<Touch> touch_list = new ArrayList<>();
+
+        // add touches to the chain
+        for (int i = 0; i < chain_size; i++) {
+            touch_list.add(new Touch(Utility.char_to_android_code((char)('a' + (i % 26))), (i % 11) * .1, 100));
+        }
+
+        return touch_list;
+    }
 }
