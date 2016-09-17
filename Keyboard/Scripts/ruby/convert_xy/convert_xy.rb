@@ -22,13 +22,16 @@ class ConvertXY
 	def initialize(data_xy_folder, data_converted_folder)
 		@data_xy_folder = data_xy_folder
 		@data_converted_folder = data_converted_folder
-		
-		# create a keyboard for converting
-		@keyboard = Keyboard.new
 	end
 	
 	# convert xy data file type to a file of a character file type
 	def convert_file(file_name)
+		# create entire file path
+		file_path = "#{@data_xy_folder}/#{file_name}"
+	
+		# create a keyboard for interpreting this file
+		keyboard = Keyboard.new(file_path)
+	
 		# for each line of the file,
 		# output a line which has x,y exchanged
 		# for the converted character
@@ -37,20 +40,20 @@ class ConvertXY
 		output_file = File.open("#{@data_converted_folder}/#{file_name}", 'w')
 		
 		# iterate over the unconverted data
-		File.open("#{@data_xy_folder}/#{file_name}", 'r') do |file_handle|
+		File.open(file_path, 'r') do |file_handle|
 			file_handle.each_line do |entire_line|
 				# split the entire line into segments split by ','
-				line = entire_line.split(', ')
+				line = entire_line.split(',')
 			
 				# extract the (x,y) values from the line
-				x = line[1]
-				y = line[2]
+				x = line[1].to_f
+				y = line[2].to_f
 				
 				# get the corresponding character from the keyboard
-				code = @keyboard.translate(x, y)
+				code = keyboard.translate(x, y)
 				
 				# replace x, y with code in the line
-				write_line = "#{line[0]}, #{code}, #{line[3]}"
+				write_line = "#{line[0]},#{code},#{line[3]}"
 				
 				# write the line to the output file
 				output_file.write(write_line)
