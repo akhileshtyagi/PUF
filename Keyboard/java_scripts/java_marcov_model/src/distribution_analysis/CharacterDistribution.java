@@ -12,7 +12,7 @@ import java.util.Map;
  * Created by element on 9/16/16.
  */
 public class CharacterDistribution {
-    public static final String CHAIN_FILENAME = "data_sets/t_tim_d_tim.csv";
+    public static final String CHAIN_FILENAME = "data_sets/t_tim_d_tim.csv_4512";
 
     /**
      * print the distribution for each character of a Chain
