@@ -120,22 +120,21 @@ module Keyboard
 		##
 		def contains(x, y, device)
 			# get the x,y,width,height values of the key in pixels
-			pixel_width = device.keyboard_width * @width / 100
+			pixel_width = device.keyboard_width * @width / 100.0
+			
+			# the above pixel_width is in theory correct, but doesn't work
+			#actual_keyboard_width = device.keyboard_width
+			#pixel_width = actual_keyboard_width / 10.0
+			
 			pixel_height = device.keyboard_height / 4
 			
-			#print "key_x: #{@key_x}, key_y: #{@key_y}\n"
-			
-			pixel_x = @key_x * device.keyboard_width / 10
+			# this should work in theory
+			pixel_x = @key_x * device.keyboard_width / 10.0
+			#pixel_x = @key_x * actual_keyboard_width / 10.0
 			
 			# lower left corner of the keyboard is 0,0 in coordinate plane
 			# so, key 0,0 in the top left is keyboard_height - key_height
 			pixel_y = device.keyboard_height - (@key_y * pixel_height)
-			
-			#TODO ^ i don't think pixel_height is correct, pixel_x my not be correct either
-			
-			# make sure the contains parameters are correct
-			print "x: #{x}, y: #{y}\n"
-			print "pixel_x: #{pixel_x}, pixel_y: #{pixel_y}, pixel_width: #{pixel_width}, pixel_height: #{pixel_height}\n"
 			
 			# determine if x,y are within the pixel bounds for this key
 			# the problem is, it is returning true each time on the first one
@@ -144,8 +143,15 @@ module Keyboard
 			# checking as if pixel_y is at the top left
 			confined_y = ((y <= pixel_y) and (y >= (pixel_y - pixel_height)))
 			
+			
+			# make sure the contains parameters are correct
+			#if (confined_x and confined_y)
+				#print "x: #{x}, y: #{y}\n"
+				#print "pixel_x: #{pixel_x}, pixel_y: #{pixel_y}, pixel_width: #{pixel_width}, pixel_height: #{pixel_height}\n"
+				#print "is_contained?: #{(confined_x and confined_y)}, code: #{@key_code}\n"
+			#end
+			
 			return (confined_x and confined_y)
-			#return false
 		end
 		
 		# return the key_code
@@ -199,7 +205,8 @@ module Keyboard
 			# dummy key to take care of space on keyboard
 			#TODO this doesn't actually help becuase keys don't know about one-another
 			#row_array[1] << Key.new(-1000, "|", 0, 1, 5, key_height)
-			@row_array[1] << Key.new(97, "a", 0.5, 1, key_width, key_height)
+			# include the empty space to the left of a as part of a
+			@row_array[1] << Key.new(97, "a", 0.0, 1, 15, key_height)
 			@row_array[1] << Key.new(115, "s", 1.5, 1, key_width, key_height)
 			@row_array[1] << Key.new(100, "d", 2.5, 1, key_width, key_height)
 			@row_array[1] << Key.new(102, "f", 3.5, 1, key_width, key_height)
@@ -207,7 +214,8 @@ module Keyboard
 			@row_array[1] << Key.new(104, "h", 5.5, 1, key_width, key_height)
 			@row_array[1] << Key.new(106, "j", 6.5, 1, key_width, key_height)
 			@row_array[1] << Key.new(107, "k", 7.5, 1, key_width, key_height)
-			@row_array[1] << Key.new(108, "l", 8.5, 1, key_width, key_height)
+			# include the empty space to the right of l as part of l
+			@row_array[1] << Key.new(108, "l", 8.5, 1, 15, key_height)
 			
 			# third row
 			@row_array[2] = []
@@ -249,6 +257,8 @@ module Keyboard
 					end
 				end
 			end
+			
+			print "(#{x}, #{y}) has no matching key.\n"
 			
 			# indicates not found condition
 			return -1000

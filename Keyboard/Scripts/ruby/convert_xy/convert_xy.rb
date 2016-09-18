@@ -12,6 +12,9 @@ require "keyboard.rb"
 # I am writing this script because I feel like the previous version
 # my not have been completly correct.
 # (it may have had errors sometimes)
+#
+# This script is necessary because (x,y) pairs do not always
+# match the keycode reported by android
 ##
 DATA_XY = "data_xy"
 DATA_CONVERTED = "data_converted"
