@@ -37,4 +37,22 @@ public class Bit {
     public String toString(){
         return "" + bit_value.value;
     }
+
+    @Override
+    public boolean equals(Object obj){
+        if(obj == null){
+            return false;
+        }
+
+        if(!Bit.class.isAssignableFrom(obj.getClass())){
+            return false;
+        }
+
+        final Bit other = (Bit)obj;
+        if(other.get_int_value() != this.get_int_value()){
+            return false;
+        }
+
+        return true;
+    }
 }
