@@ -7,7 +7,28 @@ import generator.Generator;
  * Created by element on 9/8/16.
  */
 public class Challenge{
-    public final static int BITS_PER_CHARACTER = 4;
+    /**
+     * We will use 2^5 bits per character and only use
+     *
+     * abcd efgh ijkl
+     * mnop qrst uvwx
+     * yz
+     *
+     * [.]
+     * [enter]
+     * [del]
+     * [space]
+     *
+     * [shift]
+     * [symbol]
+     *
+     * The rationale is that
+     * if every bit doens't map to something,
+     * then we loose some ability to store useful information
+     *
+     * in other words, some bits will always be 0
+     */
+    public final static int BITS_PER_CHARACTER = 5;
 
     private Bit[] challenge_bits;
     private String challenge_string;
@@ -30,25 +51,26 @@ public class Challenge{
     /**
      * String provided
      */
-    public Challenge(String string){
-        this.challenge_bits = string_to_bit_array(string);
-
-        // necessary because multiple strings can map to the same bit array
-        // in other words, to ensure that character string is consistent
-        //this.challenge_string = bit_array_to_string(this.challenge_bits);
-        this.challenge_string = string;
-    }
-
-    public Challenge(String string, UserInput user_input){
-        this.challenge_bits = string_to_bit_array(string);
-
-        // necessary because multiple strings can map to the same bit array
-        // in other words, to ensure that character string is consistent
-        //this.challenge_string = bit_array_to_string(this.challenge_bits);
-        this.challenge_string = string;
-
-        this.user_input = user_input;
-    }
+    //TODO comment out the String constructers.... There are for testing
+//    public Challenge(String string){
+//        this.challenge_bits = string_to_bit_array(string);
+//
+//        // necessary because multiple strings can map to the same bit array
+//        // in other words, to ensure that character string is consistent
+//        //this.challenge_string = bit_array_to_string(this.challenge_bits);
+//        this.challenge_string = string;
+//    }
+//
+//    public Challenge(String string, UserInput user_input){
+//        this.challenge_bits = string_to_bit_array(string);
+//
+//        // necessary because multiple strings can map to the same bit array
+//        // in other words, to ensure that character string is consistent
+//        //this.challenge_string = bit_array_to_string(this.challenge_bits);
+//        this.challenge_string = string;
+//
+//        this.user_input = user_input;
+//    }
 
     /**
      * get methods
@@ -96,25 +118,30 @@ public class Challenge{
      * a String will always map to the same Bit[]
      *
      * however a Bit[] may not map back to a string
+     *
+     * TODO change this so there is a 1 to 1 relationship between Bit[] and String
      */
 
     /**
      * converts from a bit[] to a string
      *
-     * this is done by taking 4 bits of the array at a time
+     * this is done by taking BITS_PER_CHARACTER bits of the array at a time
      * and converting this to an ascii character
      */
+    //TODO I think I may have flipped the bits twice, neither time necessary
     protected String bit_array_to_string(Bit[] bit_array){
         String string = "";
 
-        for(int i=0; i<bit_array.length; i+=BITS_PER_CHARACTER){
+        // move BITS_PER_CHARACTER at a time through bit_array
+        // it is guarenteed that bit_array.length is a multiple of BITS_PER_CHARACTER
+        for(int i=0; i<bit_array.length/BITS_PER_CHARACTER; i++){
             // make an array from i to i + BITS_PER_CHARACTER
             Bit[] array = new Bit[BITS_PER_CHARACTER];
 
             // begin from the end of the range
             // so as not to flip the value
             for(int j=0; j<BITS_PER_CHARACTER; j++){
-                array[j] = bit_array[i+BITS_PER_CHARACTER-j];
+                array[j] = bit_array[((i+1) * BITS_PER_CHARACTER)-j-1];
             }
 
             // get the corresponding character to the created array
@@ -129,43 +156,47 @@ public class Challenge{
      */
     //TODO this is broken... ChallengeTest has test for it
     protected char bit_array_to_character(Bit[] bit_array){
-        if(bit_array[0] == null){
-            System.out.println("bit_array is null");
-        }else{
-            System.out.println("good");
-        }
+//        if(bit_array[0] == null){
+//            System.out.println("bit_array is null");
+//        }else{
+//            //System.out.println("good");
+//        }
 
         char value = 0;
 
         // add up the values depending on the position of the bit
-        // 0 is LSB
-        int place_value = 0b1;
+        // 0 is MSB
+        int place_value = (0b1 << (BITS_PER_CHARACTER-1));
         for(int i=0; i<bit_array.length; i++){
             // add value*place_value
-            value += bit_array[0].get_int_value() * place_value;
+            value += bit_array[i].get_int_value() * place_value;
 
             // increase place value
-            place_value = place_value << 1;
+            place_value = place_value >> 1;
         }
 
-        return value;
+        return (char)(value + 'A');
     }
 
     /**
      * converts a challenge string to its equivilent bit[]
      *
      * each character becomes 4 bits
-     * this is determined by their ASCII code mod 2^4
+     * this is determined by their ASCII code mod 2^[BITS_PER_CHARACTER]
      */
     protected Bit[] string_to_bit_array(String string){
         int array_size = string.length() * BITS_PER_CHARACTER;
-
         Bit[] bit_array = new Bit[array_size];
+
+        // for each character of the string
         for(int i=0; i<string.length(); i++){
+            // convert that character to a bit array
             Bit[] character_bit_array = character_to_bit_array(string.charAt(i), BITS_PER_CHARACTER);
 
+            // for each element in the array for the character,
+            // add it to the correct spot in the array
             for(int j=0; j<character_bit_array.length; j++) {
-                bit_array[i+j] = character_bit_array[j];
+                bit_array[(i*BITS_PER_CHARACTER)+j] = character_bit_array[j];
             }
         }
 
@@ -179,13 +210,13 @@ public class Challenge{
         Bit[] bit_array = new Bit[bits];
 
         // take character mod 2^bits to get something within the requested array size
-        int mod_character = character % (0b1 << bits);
+        int mod_character = character-'A' % (0b1 << bits);
 
         // convert character into bits number of bits
         // this is easier in reverse order because going
         // from msb to lsb I wouldn't know where to start the mask
         int mask = 0b1;
-        for(int i=bits-1; i>0; i--){
+        for(int i=bits-1; i>=0; i--){
             // mask out the bits I want from mod_character
             // if there is a 1 at this bit position, create Bit(Bit.ONE)
             //
