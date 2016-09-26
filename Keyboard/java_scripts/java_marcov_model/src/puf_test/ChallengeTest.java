@@ -44,11 +44,19 @@ public class ChallengeTest extends Challenge {
         //////
 
         /* assume bit array passed in */
+
+        System.out.println(this);
+
         // translate back to a string
         String string_1 = bit_array_to_string(get_challenge_bits());
 
+        System.out.println(string_1);
+        System.out.println(this);
+
         // translate into a bit[]
         Bit[] bit_array_1 = string_to_bit_array(string_1);
+
+        System.out.println(this);
 
         // compare are they the same?
         boolean same = true;
@@ -84,6 +92,12 @@ public class ChallengeTest extends Challenge {
         Bit[] bit_array = new Bit[array_length];
         char[] character_array = new char[(int)Math.ceil(((double)array_length)/((double)bits_per_character))];
 
+        // populate the character array ( this will be the alphabet in order
+        for(int i=0; i< array_length/bits_per_character; i++) {
+            character_array[i] = (char)('A' + i);
+        }
+
+        // for each bit
         for(int i=0; i<array_length; i++){
             char character = character_array[(int)Math.floor( ((double)i)/((double)bits_per_character) )];
 

@@ -38,17 +38,28 @@ public class PUF {
      * only constructs alphabetic challenges
      */
     public static Challenge construct_arbitrary_challenge(int challenge_size, long seed){
-        //TODO different sizes of challenge strings might yeild different results
-        String alphabet = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//        String alphabet = "abcdefghijklmnopqrstuvwxyz ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+//
+//        String challenge_string = "";
+//        Random random = new Random(seed);
+//
+//        // this will always generate the same challenge string unless given a seed
+//        for(int i=0; i<challenge_size; i++){
+//            challenge_string += alphabet.charAt(Math.abs(random.nextInt()%alphabet.length()));
+//        }
+//
+//        return new Challenge(challenge_string);
 
-        String challenge_string = "";
         Random random = new Random(seed);
+        Bit[] bit_array = new Bit[challenge_size];
 
-        // this will always generate the same challenge string unless given a seed
         for(int i=0; i<challenge_size; i++){
-            challenge_string += alphabet.charAt(Math.abs(random.nextInt()%alphabet.length()));
+            // randomly choose 1 or zero
+            Bit.Value value = (random.nextInt()%2 == 0) ? Bit.Value.ONE : Bit.Value.ZERO;
+
+            bit_array[i] = new Bit(value);
         }
 
-        return new Challenge(challenge_string);
+        return new Challenge(bit_array);
     }
 }

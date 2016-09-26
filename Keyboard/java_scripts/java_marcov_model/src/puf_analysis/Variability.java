@@ -42,7 +42,7 @@ public class Variability {
      * provide a file name and device int for each chain involved
      */
     public static final String[] CHAIN_FILE_NAME = {
-            "t_tim_d_ian.csv"
+            "t_tim_d_ian.csv_4512"
     };
     public static final int[] CHAIN_DEVICE = {
         0

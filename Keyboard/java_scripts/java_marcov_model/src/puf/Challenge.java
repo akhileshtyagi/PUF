@@ -108,11 +108,6 @@ public class Challenge{
         return !(this.user_input == null);
     }
 
-    @Override
-    public String toString(){
-        return this.get_challenge_string();
-    }
-
     /**
      * a Bit[] will always map to the same String
      * a String will always map to the same Bit[]
@@ -206,7 +201,7 @@ public class Challenge{
     /**
      * convert a single character into a bit[]
      */
-    protected Bit[] character_to_bit_array(char character, int bits){
+    protected static Bit[] character_to_bit_array(char character, int bits){
         Bit[] bit_array = new Bit[bits];
 
         // take character mod 2^bits to get something within the requested array size
@@ -231,5 +226,18 @@ public class Challenge{
         }
 
         return bit_array;
+    }
+
+    @Override
+    public String toString(){
+        String format = "bit[] | %s \nchallenge string | %s\n";
+
+        String bit_string = "";
+        for(int i=0; i<this.challenge_bits.length; i++) {
+            bit_string += this.challenge_bits[i];
+            if(i % 5 ==4) bit_string += " ";
+        }
+
+        return String.format(format, bit_string, this.challenge_string);
     }
 }
