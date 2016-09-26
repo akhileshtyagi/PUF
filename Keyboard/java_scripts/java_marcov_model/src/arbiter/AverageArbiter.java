@@ -68,6 +68,7 @@ public class AverageArbiter implements Arbiter{
             error += "[" + next_state_average + ", " + quantization_bits[bit_index] + "] ";
         }
 
+        //TODO it seeems average is not being computed correctly
         System.out.println("average "+average_probability + "\t|\t" + error);
 
         return quantization_bits;
@@ -109,6 +110,10 @@ public class AverageArbiter implements Arbiter{
      *  TODO by the relative frequency of the Window
      */
     private double compute_next_state_average(List<Touch> touch_list) {
+
+        //TODO touch_list is empty
+        //System.out.println(touch_list);
+
         // list contains the next state probabilities for this character
         List<Double> next_state_probabilities = new ArrayList<Double>();
 

@@ -50,25 +50,47 @@ public class Utility {
      * KeyEvent.keycodefrom string
      */
     public static int char_to_android_code(char character) {
-        //return KeyEvent.keyCodeFromString("" + character);
-        // create the keyboard if it has not already been created
-//        create_keyboard();
+        int code;
 
-        // get the keys from the keyboard
-//        List<Keyboard.Key> key_list = keyboard.getKeys();
+        // keycodes for a-z are the same as ascii
+        // lower case and upper case versions of letters map to the same code
+        //
+        // handle conditions where keys do not alight with ascii
+        // these values come from  the values used in the ANDROID KEYBOARD's KEYMAP
+        /*
+         * [.]
+         * [enter]
+         * [del]
+         * [space]
+         *
+         * [shift]
+         * [symbol]
+         */
+        // translate the special cases
+        if(character == 'a'+26) {
+            // enter
+            code = 10;
+        }else if(character == 'a'+27) {
+            // . ,
+            code = 46;
+        }else if(character == 'a'+28) {
+            // del
+            code = -5;
+        }else if(character == 'a'+29) {
+            // space
+            code = 32;
+        }else if(character == 'a'+30) {
+            // shift
+            code = -1;
+        }else if(character == 'a'+31){
+            // symbol
+            code = -2;
+        }else{
+            // convert to lower case and return
+            code = (int) Character.toLowerCase(character);
+        }
 
-        // figure out which key matches the character
-//        for(Keyboard.Key key : key_list){
-//            if(key.character value){
-//                return key.codes[0];
-//            }
-//        }
-
-        // return the keyCode value of this key
-
-        //TODO it seems like the keycodes are indeed ASCII characters
-        //TODO atleast for (A-z)
-        return (int)character;
+        return code;
     }
 
     /**
@@ -86,15 +108,15 @@ public class Utility {
      * //TODO I need to figure out what the key values in the keyboard file correspond to
      */
     //public static Keyboard keyboard = null;
-    private static void create_keyboard(){
+//    private static void create_keyboard(){
         // if the keyboard has not yet been created, create the keyboard
         //if(keyboard == null){
 
         //}
 
         // otherwise simply return
-        return;
-    }
+//        return;
+//    }
 
     public static void print(String tag, Object value){
         System.out.println(tag + "\t:\t" + value );

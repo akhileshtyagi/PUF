@@ -3,6 +3,7 @@ package puf;
 import arbiter.Arbiter;
 import components.Chain;
 
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -10,10 +11,10 @@ import java.util.Random;
  */
 //TODO do quantization based on next state probabilities instead of averages
 public class PUF {
-    protected Arbiter arbiter;
+    protected List<Arbiter> arbiter_list;
 
-    public PUF(Arbiter arbiter){
-        this.arbiter = arbiter;
+    public PUF(List<Arbiter> arbiter){
+        this.arbiter_list = arbiter;
     }
 
     /**
@@ -22,13 +23,28 @@ public class PUF {
      * one byte generated from each letter
      */
     public Response compute(Challenge challenge){
-        //int response_length = challenge.get_challenge_string().length();
-        //Bit[] response_bits = new Bit[response_length];
+        // bits per character should be the same as the number of characters
+        // each arbiter will decide one bit
+        int bits_per_character = 5;
 
-        //for(int i=0; i<response_length; i++){
-        Bit[] response_bits = arbiter.quantize(challenge);
-        //}
+        Bit[] response_bits = new Bit[challenge.get_challenge_bits().length];
+        Bit[][] quantized_bit_array = new Bit[arbiter_list.size()][];
 
+        // for each arbiter, preform quantization
+        for(int i=0; i<arbiter_list.size(); i++){
+            quantized_bit_array[i] = arbiter_list.get(i).quantize(challenge);
+        }
+
+        // combine all bit arrays created by arbiters
+        // result should be the same length as the original challenge
+        for(int i=0; i<quantized_bit_array.length; i++){
+            for(int j=0; j<quantized_bit_array[0].length; j++) {
+                response_bits[(i*quantized_bit_array[0].length) + j] = quantized_bit_array[i][j];
+            }
+        }
+
+        // return a response which is the same length as the challenge
+        //TODO this does not work if challenge is not a multiple of the number of bits per character
         return new Response(response_bits);
     }
 

@@ -35,7 +35,7 @@ import java.util.*;
  */
 public class Variability {
     public static final String DATA_FOLDER = "data_sets";
-    public static final int CHALLENGE_BITS = 128;
+    public static final int CHALLENGE_BITS = 10;
     public static final int CHALLENGE_NUMBER = 2;
 
     /**
@@ -52,8 +52,14 @@ public class Variability {
         //////
         // arbiter definition
         //////
-        Arbiter arbiter = new AverageArbiter();
-        PUF puf = new PUF(arbiter);
+        List<Arbiter> arbiter_list = new ArrayList<>();
+        arbiter_list.add(new AverageArbiter());
+        arbiter_list.add(new AverageArbiter());
+        arbiter_list.add(new AverageArbiter());
+        arbiter_list.add(new AverageArbiter());
+        arbiter_list.add(new AverageArbiter());
+
+        PUF puf = new PUF(arbiter_list);
 
         //////
         // generator definition

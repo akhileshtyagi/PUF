@@ -13,7 +13,7 @@ import java.util.Map;
 /**
  * Created by element on 9/10/16.
  *
- * Take the 'average' [something]
+ * Take the 'average' [something] (next state probabilities)
  * of all touches of a particular character
  * found in the chain
  */
@@ -38,16 +38,28 @@ public class AverageGenerator implements Generator{
             // get a list of touches corresponding to this character
             ArrayList<Touch> character_touch_list = new ArrayList<>();
 
+            //System.out.println(String.format("character, android code | %c, %d", character, android_code));
+
             // for all touches in chain
             for(Touch touch : chain.get_touches()) {
                 // if a touch key matches our current character key
+
+                //System.out.println(String.format("touch_key, android code | %d, %d", touch.get_key(), android_code));
+
                 if(touch.get_key() == android_code){
                     character_touch_list.add(touch);
                 }
             }
 
+            // want to know for which characters empty lists are occurring
+//            if(character_touch_list.size() == 0){
+//                System.out.println(String.format("character, android code | %c, %d", character, android_code));
+//            }
+
             touch_input_list.add(character_touch_list);
         }
+
+        //System.out.println(touch_input_list);
 
         return new UserInput(touch_input_list);//, next_state_probability_list);
     }

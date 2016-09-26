@@ -53,12 +53,14 @@ public class Response {
 
     @Override
     public String toString() {
-        String string = "";
+        String format = "bit[] | %s";
 
-        for (int i = 0; i < bit_array.length; i++){
-            string += bit_array[i].toString();
+        String bit_string = "";
+        for(int i=0; i<this.bit_array.length; i++) {
+            bit_string += this.bit_array[i];
+            if(i % 5 ==4) bit_string += " ";
         }
 
-        return string;
+        return String.format(format, bit_string);
     }
 }

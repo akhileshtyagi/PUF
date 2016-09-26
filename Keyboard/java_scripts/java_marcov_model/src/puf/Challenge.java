@@ -3,6 +3,9 @@ package puf;
 import components.Chain;
 import generator.Generator;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created by element on 9/8/16.
  */
@@ -42,16 +45,15 @@ public class Challenge{
         this.challenge_string = bit_array_to_string(challenge_bits);
     }
 
-    public Challenge(Bit[] challenge_bits, UserInput user_input){
-        this.challenge_bits = challenge_bits;
-        this.challenge_string = bit_array_to_string(challenge_bits);
-        this.user_input = user_input;
-    }
+//    public Challenge(Bit[] challenge_bits, UserInput user_input){
+//        this.challenge_bits = challenge_bits;
+//        this.challenge_string = bit_array_to_string(challenge_bits);
+//        this.user_input = user_input;
+//    }
 
     /**
      * String provided
      */
-    //TODO comment out the String constructers.... There are for testing
 //    public Challenge(String string){
 //        this.challenge_bits = string_to_bit_array(string);
 //
@@ -149,7 +151,6 @@ public class Challenge{
     /**
      * convert a bit[] into a character
      */
-    //TODO this is broken... ChallengeTest has test for it
     protected char bit_array_to_character(Bit[] bit_array){
 //        if(bit_array[0] == null){
 //            System.out.println("bit_array is null");
@@ -170,7 +171,7 @@ public class Challenge{
             place_value = place_value >> 1;
         }
 
-        return (char)(value + 'A');
+        return (char)(value + 'a');
     }
 
     /**
@@ -205,7 +206,7 @@ public class Challenge{
         Bit[] bit_array = new Bit[bits];
 
         // take character mod 2^bits to get something within the requested array size
-        int mod_character = character-'A' % (0b1 << bits);
+        int mod_character = character-'a' % (0b1 << bits);
 
         // convert character into bits number of bits
         // this is easier in reverse order because going
