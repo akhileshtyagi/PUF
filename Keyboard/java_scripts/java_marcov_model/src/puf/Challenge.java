@@ -2,6 +2,7 @@ package puf;
 
 import components.Chain;
 import generator.Generator;
+import puf_analysis.Variability;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -143,6 +144,34 @@ public class Challenge{
 
             // get the corresponding character to the created array
             string += bit_array_to_character(array);
+        }
+
+        /***************************************/
+
+        // if there are any remaining bits
+        // in other words if bit_array.length%BITS_PER_CHARACTER > 0,
+        // then pretend as though the missing bits are 0's
+        int left_over_bits = bit_array.length % BITS_PER_CHARACTER;
+
+        if(left_over_bits > 0) {
+            Bit[] array = new Bit[BITS_PER_CHARACTER];
+
+            // for the bits still in challenege bit array
+            for (int i = 0; i < left_over_bits; i++) {
+                // indexing will start [left_over_bits] from the end
+                // build an array from these bits
+                array[i] = bit_array[(bit_array.length - left_over_bits) + i];
+            }
+
+            // for any remaining bits which are not in challenge bit array
+            for(int i=0; i< (BITS_PER_CHARACTER - left_over_bits); i++){
+                // they are 0
+                array[array.length - i - 1] = new Bit(Bit.Value.ZERO);
+            }
+
+            // get the response for the array, add it to string
+            string += bit_array_to_character(array);
+            System.out.println("added");
         }
 
         return string;

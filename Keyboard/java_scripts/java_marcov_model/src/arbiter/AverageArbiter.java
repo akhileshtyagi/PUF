@@ -68,8 +68,7 @@ public class AverageArbiter implements Arbiter{
             error += "[" + next_state_average + ", " + quantization_bits[bit_index] + "] ";
         }
 
-        //TODO it seeems average is not being computed correctly
-        System.out.println("average "+average_probability + "\t|\t" + error);
+        //System.out.println("average "+average_probability + "\t|\t" + error);
 
         return quantization_bits;
     }

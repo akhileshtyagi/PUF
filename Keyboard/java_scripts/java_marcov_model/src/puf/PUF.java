@@ -2,6 +2,7 @@ package puf;
 
 import arbiter.Arbiter;
 import components.Chain;
+import puf_analysis.Variability;
 
 import java.util.List;
 import java.util.Random;
@@ -25,7 +26,6 @@ public class PUF {
     public Response compute(Challenge challenge){
         // bits per character should be the same as the number of characters
         // each arbiter will decide one bit
-        int bits_per_character = 5;
 
         Bit[] response_bits = new Bit[challenge.get_challenge_bits().length];
         Bit[][] quantized_bit_array = new Bit[arbiter_list.size()][];
@@ -37,14 +37,26 @@ public class PUF {
 
         // combine all bit arrays created by arbiters
         // result should be the same length as the original challenge
+        int left_over_bits = challenge.get_challenge_bits().length % Challenge.BITS_PER_CHARACTER;
         for(int i=0; i<quantized_bit_array.length; i++){
             for(int j=0; j<quantized_bit_array[0].length; j++) {
-                response_bits[(i*quantized_bit_array[0].length) + j] = quantized_bit_array[i][j];
+                //TODO sometimes the last bit from each arbiter will not be added
+                //TODO a bit should not be added if its index in the arbiter list
+                //TODO is greater than the number of left over_bits
+                //
+                //TODO could also implement this by adding n-1 quantized bit array elements then having a separate loop which
+                //TODO decides when to add the last element
+                if(j < (quantized_bit_array[0].length - 1) ||
+                        i > left_over_bits) {
+                    //TODO I don't see why this isn't working
+                    response_bits[(i * quantized_bit_array[0].length) + j] = quantized_bit_array[i][j];
+                }
             }
         }
 
         // return a response which is the same length as the challenge
         //TODO this does not work if challenge is not a multiple of the number of bits per character
+        //TODO in this case, the expected behavior is to use the first [number of bits per character] - x arbiters
         return new Response(response_bits);
     }
 

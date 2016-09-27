@@ -35,7 +35,7 @@ import java.util.*;
  */
 public class Variability {
     public static final String DATA_FOLDER = "data_sets";
-    public static final int CHALLENGE_BITS = 10;
+    public static final int CHALLENGE_BITS = 128;
     public static final int CHALLENGE_NUMBER = 2;
 
     /**
