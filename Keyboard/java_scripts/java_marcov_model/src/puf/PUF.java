@@ -37,21 +37,22 @@ public class PUF {
 
         // combine all bit arrays created by arbiters
         // result should be the same length as the original challenge
-        int left_over_bits = challenge.get_challenge_bits().length % Challenge.BITS_PER_CHARACTER;
         for(int i=0; i<quantized_bit_array.length; i++){
-            for(int j=0; j<quantized_bit_array[0].length; j++) {
-                //TODO sometimes the last bit from each arbiter will not be added
-                //TODO a bit should not be added if its index in the arbiter list
-                //TODO is greater than the number of left over_bits
-                //
-                //TODO could also implement this by adding n-1 quantized bit array elements then having a separate loop which
-                //TODO decides when to add the last element
-                if(j < (quantized_bit_array[0].length - 1) ||
-                        i > left_over_bits) {
-                    //TODO I don't see why this isn't working
-                    response_bits[(i * quantized_bit_array[0].length) + j] = quantized_bit_array[i][j];
-                }
+            for(int j=0; j<quantized_bit_array[0].length-1; j++) {
+                    response_bits[(i * (quantized_bit_array[0].length - 1)) + j] = quantized_bit_array[i][j];
             }
+        }
+
+        // add the last bits of the arbiter to the list if necessary
+        int left_over_bits = challenge.get_challenge_bits().length % Challenge.BITS_PER_CHARACTER;
+
+        // want to add all last arbiter bits if they divide evenly
+        left_over_bits = (left_over_bits == 0) ? Challenge.BITS_PER_CHARACTER : left_over_bits;
+
+        // for each bit which needs to be added
+        for(int i=0; i<left_over_bits; i++){
+            // add the last bit from the ith arbiter
+            response_bits[response_bits.length - i - 1] = quantized_bit_array[i][quantized_bit_array[i].length-1];
         }
 
         // return a response which is the same length as the challenge

@@ -85,8 +85,8 @@
       <file leaf-file-name="PUF.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/puf/PUF.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="445">
-              <caret line="50" column="61" selection-start-line="50" selection-start-column="61" selection-end-line="50" selection-end-column="61" />
+            <state relative-caret-position="612">
+              <caret line="41" column="74" selection-start-line="41" selection-start-column="74" selection-end-line="41" selection-end-column="74" />
               <folding />
             </state>
           </provider>
@@ -125,8 +125,8 @@
       <file leaf-file-name="Variability.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/puf_analysis/Variability.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="486">
-              <caret line="94" column="82" selection-start-line="94" selection-start-column="82" selection-end-line="94" selection-end-column="82" />
+            <state relative-caret-position="234">
+              <caret line="37" column="48" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
               <folding />
             </state>
           </provider>
@@ -196,10 +196,10 @@
         <option value="$PROJECT_DIR$/src/utility/Utility.java" />
         <option value="$PROJECT_DIR$/src/generator/AverageGenerator.java" />
         <option value="$PROJECT_DIR$/src/puf/Response.java" />
-        <option value="$PROJECT_DIR$/src/puf_analysis/Variability.java" />
         <option value="$PROJECT_DIR$/src/arbiter/AverageArbiter.java" />
         <option value="$PROJECT_DIR$/src/puf/Challenge.java" />
         <option value="$PROJECT_DIR$/src/puf/PUF.java" />
+        <option value="$PROJECT_DIR$/src/puf_analysis/Variability.java" />
       </list>
     </option>
   </component>
@@ -949,7 +949,7 @@
       <window_info id="Capture Analysis" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27938145" sideWeight="0.5020877" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.27878788" sideWeight="0.49791232" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.27878788" sideWeight="0.49791232" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982087" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -958,7 +958,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3969697" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3969697" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -982,14 +982,6 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/puf/PUF.java</url>
-          <line>51</line>
-          <properties />
-          <option name="timeStamp" value="13" />
-        </line-breakpoint>
-      </breakpoints>
       <option name="time" value="14" />
     </breakpoint-manager>
     <watches-manager />
@@ -1349,14 +1341,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/puf_analysis/Variability.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="486">
-          <caret line="94" column="82" selection-start-line="94" selection-start-column="82" selection-end-line="94" selection-end-column="82" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/puf/Challenge.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="337">
@@ -1365,10 +1349,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/puf_analysis/Variability.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="37" column="48" selection-start-line="37" selection-start-column="48" selection-end-line="37" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/puf/PUF.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="445">
-          <caret line="50" column="61" selection-start-line="50" selection-start-column="61" selection-end-line="50" selection-end-column="61" />
+        <state relative-caret-position="612">
+          <caret line="41" column="74" selection-start-line="41" selection-start-column="74" selection-end-line="41" selection-end-column="74" />
           <folding />
         </state>
       </provider>
