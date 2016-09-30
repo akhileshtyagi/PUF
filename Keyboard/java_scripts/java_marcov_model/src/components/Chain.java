@@ -1,8 +1,6 @@
 package components;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -44,13 +42,14 @@ public class Chain{
 	private final TokenAveraging TOKEN_AVERAGING = TokenAveraging.WEIGHTED;
 
 	/* set other variables here */
-	private final Token.Type TOKEN_TYPE = Token.Type.linear;
+	private final Token.Type TOKEN_TYPE = Token.Type.keycode_mu; //Token.Type.linear;
 
 	/* define instance variables */
 	private Distribution distribution;
 	private List<Distribution> key_distribution;
 	
 	private volatile List<Token> tokens; // tokens into which the range is split
+	private volatile Map<Integer, List<Token>> token_map;
 	private List<Touch> touches; // stores a list of all touch objects
 	private volatile List<Window> windows; // this seems redundtant at first, but is necessary because a window is not necessarily touch[i,..,i+window]. Factored in are the timestamps associated with each touch.
 	private volatile List<Touch> successor_touch; //keep a list of touches that come after windows at the same index
@@ -70,6 +69,7 @@ public class Chain{
 		this.key_distribution = new ArrayList<Distribution>();
 
 		this.tokens = new ArrayList<Token>();
+		this.token_map = new HashMap<>();
 		this.touches = new ArrayList<Touch>();
 		this.windows = new TrieList();
 		this.successor_touch = new ArrayList<Touch>();
@@ -993,8 +993,15 @@ public class Chain{
 		}else{
 			//create tokens over the keycode set
 			for(int i=0;i<get_key_distribution().size();i++){
-				//1 for each keycode fouch touches within 2 sigma of that keycode
-				tokens.add(new Token(get_key_distribution().get(i), 1, i, 2, Token.Type.keycode_mu ));
+				//[token] for each keycode fouch touches within 2 sigma of that keycode
+				// build a list of tokens for this keycode
+				ArrayList<Token> token_list = new ArrayList<>();
+				for(int j=0; j<token; j++) {
+					token_list.add(new Token(get_key_distribution().get(i), token, i, 2, Token.Type.keycode_mu));
+				}
+
+				// add the list of tokens for this keycode to the token map
+				token_map.put(get_key_distribution().get(i).get_keycode(), token_list);
 			}
 		}
 	}

@@ -54,6 +54,7 @@ public class Token{
 		//clustering algorithm
 		//variation is now ((range_max - range_min) / total_tokens);
 		switch(type){
+			/*
 			case linear:
 				this.min = ((range_max - range_min) / total_tokens)*token_index;
 				this.max = ((range_max - range_min) / total_tokens)*(token_index+1);
@@ -62,6 +63,11 @@ public class Token{
 				//TODO
 				this.min = range_min;
 				this.max = range_max;
+				break;
+				*/
+			default:
+				this.min = ((range_max - range_min) / total_tokens)*token_index;
+				this.max = ((range_max - range_min) / total_tokens)*(token_index+1);
 				break;
 		}
 	}

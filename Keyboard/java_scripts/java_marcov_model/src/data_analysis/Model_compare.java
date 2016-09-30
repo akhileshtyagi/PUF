@@ -22,8 +22,8 @@ public class Model_compare {
 	
 	//specify different model sizes and
 	// window 3, token_sizes 7, thresholds 5000, user_model_sizes 8000, auth_model_sizes 4000
-	private final static int[] window_sizes = {3};
-	private final static int[] token_sizes = {5};
+	private final static int[] window_sizes = {2};
+	private final static int[] token_sizes = {1,3};
 	private final static int[] thresholds = {5000};
 	private static int[] user_model_sizes = {3000};
 	private static int[] auth_model_sizes = {3000};
