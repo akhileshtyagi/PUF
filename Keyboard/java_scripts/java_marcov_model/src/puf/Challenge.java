@@ -4,7 +4,9 @@ import components.Chain;
 import generator.Generator;
 import puf_analysis.Variability;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -32,10 +34,19 @@ public class Challenge{
      *
      * in other words, some bits will always be 0
      */
+    /*
+     * challenges are in the form
+     * [BITS_PER_CHARACTER][BITS_PER_PRESSURE] .. [BITS_PER_CHARACTER][BITS_PER_PRESSURE]
+     */
+    /* represents the char part of each challenge bit */
     public final static int BITS_PER_CHARACTER = 5;
+
+    /* represents the pressure part of each challenge bit */
+    public final static int BITS_PER_PRESSURE = 11;
 
     private Bit[] challenge_bits;
     private String challenge_string;
+    private List<Double> pressure_list;
     private UserInput user_input;
 
     /**
@@ -44,6 +55,7 @@ public class Challenge{
     public Challenge(Bit[] challenge_bits){
         this.challenge_bits = challenge_bits;
         this.challenge_string = bit_array_to_string(challenge_bits);
+        this.pressure_list = bit_array_to_pressure_list(challenge_bits);
     }
 
 //    public Challenge(Bit[] challenge_bits, UserInput user_input){
@@ -93,9 +105,11 @@ public class Challenge{
     /**
      * set methods
      */
+    /*
     public void set_user_input(UserInput user_input){
         this.user_input = user_input;
     }
+    */
 
     /**
      * compute the userInput in response to this challenge string given a Chain
@@ -116,8 +130,6 @@ public class Challenge{
      * a String will always map to the same Bit[]
      *
      * however a Bit[] may not map back to a string
-     *
-     * TODO change this so there is a 1 to 1 relationship between Bit[] and String
      */
 
     /**
@@ -201,6 +213,60 @@ public class Challenge{
         }
 
         return (char)(value + 'a');
+    }
+
+    /**
+     * convert a bit[] into a pressure list
+     */
+    protected List<Double> bit_array_to_pressure_list(Bit[] challenge_bits){
+        List<Double> double_list = new ArrayList<>();
+        Bit[] bit_array = new Bit[BITS_PER_PRESSURE];
+
+        // for each set of bits in the string
+        //TODO think through whether or not this is getting all the bits
+        for(int i=0; i<challenge_bits.length/(BITS_PER_PRESSURE + BITS_PER_CHARACTER) - 1; i++) {
+            // build the bit[]
+            for(int j=0; j<bit_array.length; j++){
+                bit_array[j] = challenge_bits[(i+1) * (BITS_PER_PRESSURE + BITS_PER_CHARACTER) - (bit_array.length - j - 1)];
+            }
+
+            double_list.add(bit_array_to_pressure(bit_array));
+        }
+
+        /************************************/
+
+        // for any remaining bits
+        //TODO
+
+
+        return double_list;
+    }
+
+    /**
+     * convert a single bit array into the corresponding pressure value
+     *
+     * normalize the values as if pressure is between 0 and 1.0
+     * to retrieve the pressure at runtime,
+     *
+     * the distribution of the pressure should have its max value
+     * multiplied by this number
+     */
+    //TODO check that this is correct
+    protected double bit_array_to_pressure(Bit[] bit_array){
+        double value = 0;
+
+        // add up the values depending on the position of the bit
+        // 0 is MSB
+        int place_value = (0b1 << (BITS_PER_CHARACTER-1));
+        for(int i=0; i<bit_array.length; i++){
+            // add value*place_value
+            value += bit_array[i].get_int_value() * place_value;
+
+            // increase place value
+            place_value = place_value >> 1;
+        }
+
+        return 1.0 / value;
     }
 
     /**

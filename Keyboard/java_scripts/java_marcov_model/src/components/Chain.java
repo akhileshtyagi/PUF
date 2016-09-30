@@ -40,7 +40,6 @@ public class Chain{
 	}
 
 	/* set various model parameters here */
-	//TODO TEST
 	private final WindowAveraging WINDOW_AVERAGING = WindowAveraging.WEIGHTED;
 	private final TokenAveraging TOKEN_AVERAGING = TokenAveraging.WEIGHTED;
 

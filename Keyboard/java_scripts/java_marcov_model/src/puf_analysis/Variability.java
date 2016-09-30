@@ -36,16 +36,22 @@ import java.util.*;
 public class Variability {
     public static final String DATA_FOLDER = "data_sets";
     public static final int CHALLENGE_BITS = 128;
-    public static final int CHALLENGE_NUMBER = 2;
+    public static final int CHALLENGE_NUMBER = 10;
 
     /**
      * provide a file name and device int for each chain involved
      */
     public static final String[] CHAIN_FILE_NAME = {
-            "t_tim_d_ian.csv_4512"
+            //"t_tim_d_ian.csv_4512",
+            "t_tim_d_tim.csv_4512",
+            //"t_ian_d_ian.csv_4512",
+            //"t_ian_d_tim.csv_4512"
     };
     public static final int[] CHAIN_DEVICE = {
-        0
+            0,
+            //1,
+            //0,
+            //1
     };
 
     public static void main(String[] args){

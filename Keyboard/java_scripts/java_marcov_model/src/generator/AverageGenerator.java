@@ -1,6 +1,7 @@
 package generator;
 
 import components.Chain;
+import components.Distribution;
 import components.Touch;
 import components.Window;
 import puf.UserInput;
@@ -17,13 +18,14 @@ import java.util.Map;
  * of all touches of a particular character
  * found in the chain
  */
+//TODO add the ability to get the key distributions
 public class AverageGenerator implements Generator{
     public UserInput generate(Chain chain, String string){
         // these are the things which must be created for a UserInput
-        List<List<Touch>> touch_input_list;
+        List<List<Touch>> touch_input_list = new ArrayList<>();
+        List<Distribution> distribution_list = new ArrayList<>();
 //        List<List<Map<Window, Double>>> next_state_probability_list;
 
-        touch_input_list = new ArrayList<>();
 //        next_state_probability_list = new ArrayList<>();
 
         // for each caracter generate:
@@ -56,11 +58,20 @@ public class AverageGenerator implements Generator{
 //                System.out.println(String.format("character, android code | %c, %d", character, android_code));
 //            }
 
+            // add the list of touches for this android_code to the touch_intput list
             touch_input_list.add(character_touch_list);
+
+            // add the distribution for the touches corresponding to this android code to the distribution list
+            // this will ensure that they correspond
+            for(Distribution distribution : chain.get_key_distribution()) {
+                if(distribution.get_keycode() == android_code) {
+                    distribution_list.add(distribution);
+                }
+            }
         }
 
         //System.out.println(touch_input_list);
 
-        return new UserInput(touch_input_list);//, next_state_probability_list);
+        return new UserInput(touch_input_list, distribution_list);//, next_state_probability_list);
     }
 }

@@ -18,8 +18,8 @@ import static java.lang.Float.NaN;
  *
  * arbiter is based on average pressure
  * bits:
- * 1 - if pressure is greater than equal average [next state probability]
- * 0 - if pressure is less than average [next state probability]
+ * 1 - if [next state probability] is greater than equal average [next state probability]
+ * 0 - if [next state probability] is less than average [next state probability]
  */
 public class AverageArbiter implements Arbiter{
 //    public Bit quantize_bit(Chain chain, Challenge challenge, Touch touch){
@@ -53,7 +53,7 @@ public class AverageArbiter implements Arbiter{
         Bit[] quantization_bits = new Bit[challenge.get_challenge_string().length()];
         double average_probability = compute_next_state_average(challenge);
 
-        String error = "";
+        //String error = "";
 
         // quantize each bit based on it's value compared to the average
         for(int bit_index=0; bit_index<challenge.get_challenge_string().length(); bit_index++) {
@@ -65,7 +65,7 @@ public class AverageArbiter implements Arbiter{
             quantization_bits[bit_index] = (next_state_average >= average_probability) ?
                     (new Bit(Bit.Value.ONE)):(new Bit(Bit.Value.ZERO));
 
-            error += "[" + next_state_average + ", " + quantization_bits[bit_index] + "] ";
+            //error += "[" + next_state_average + ", " + quantization_bits[bit_index] + "] ";
         }
 
         //System.out.println("average "+average_probability + "\t|\t" + error);
