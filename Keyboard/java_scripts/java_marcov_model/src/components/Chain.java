@@ -42,13 +42,13 @@ public class Chain{
 	private final TokenAveraging TOKEN_AVERAGING = TokenAveraging.WEIGHTED;
 
 	/* set other variables here */
-	private final Token.Type TOKEN_TYPE = Token.Type.keycode_mu; //Token.Type.linear;
+	public static final Token.Type TOKEN_TYPE = Token.Type.keycode_mu; //Token.Type.linear;
 
 	/* define instance variables */
 	private Distribution distribution;
 	private List<Distribution> key_distribution;
 	
-	private volatile List<Token> tokens; // tokens into which the range is split
+	// private volatile List<Token> tokens; // tokens into which the range is split
 	private volatile Map<Integer, List<Token>> token_map;
 	private List<Touch> touches; // stores a list of all touch objects
 	private volatile List<Window> windows; // this seems redundtant at first, but is necessary because a window is not necessarily touch[i,..,i+window]. Factored in are the timestamps associated with each touch.
@@ -171,11 +171,21 @@ public class Chain{
 		for(int i=0;i<successor_touch.size();i++){
 			//System.out.println(successor_touch.get(i));
 			//System.out.println(t);
-			if((successor_touch.get(i).compare_with_token(get_tokens(), t)) &&
-					(windows.get(i).compare_with_token(this.get_tokens(), w))){
-				successor = successor_touch.get(i);
-				predecessor = windows.get(i);
-				break;
+
+			if(TOKEN_TYPE == Token.Type.keycode_mu){
+				if ((successor_touch.get(i).compare_with_token(get_tokens(successor_touch.get(i).get_key()), t)) &&
+						(windows.get(i).compare_with_token(get_tokens(successor_touch.get(i).get_key()), w))) {
+					successor = successor_touch.get(i);
+					predecessor = windows.get(i);
+					break;
+				}
+			}else {
+				if ((successor_touch.get(i).compare_with_token(get_tokens(), t)) &&
+						(windows.get(i).compare_with_token(this.get_tokens(), w))) {
+					successor = successor_touch.get(i);
+					predecessor = windows.get(i);
+					break;
+				}
 			}
 		}
 		
@@ -483,14 +493,23 @@ public class Chain{
 
 		// get a List<Integer> of all occurrences of the given unique window
 		// this list also gives the index of the successor touch stored in the parallel arraylist
-		List<Integer> index_list_auth = compute_unique_successors(get_tokens(), successor_list_auth, auth_window_list.get_index_list(window));
+		//TODO
+		if(TOKEN_TYPE == Token.Type.keycode_mu) {
+			List<Integer> index_list_auth = compute_unique_successors(get_tokens(), successor_list_auth, auth_window_list.get_index_list(window));
+		}else {
+			List<Integer> index_list_auth = compute_unique_successors(get_tokens(), successor_list_auth, auth_window_list.get_index_list(window));
+		}
 
 		// to get the successors for the same window in base model,
 		// need to first find an instance of this window,
 		// then the successors of the found instance may be gotten
 		// actually, using the same window from the auth model should work because
 		// both base and auth model used the same distribution to compute their tokens
-		List<Integer> index_list_base = compute_unique_successors(get_tokens(), successor_list_base, base_window_list.get_index_list(window));
+		if(TOKEN_TYPE == Token.Type.keycode_mu){
+			List<Integer> index_list_base = compute_unique_successors(get_tokens(), successor_list_base, base_window_list.get_index_list(window));
+		}else {
+			List<Integer> index_list_base = compute_unique_successors(get_tokens(), successor_list_base, base_window_list.get_index_list(window));
+		}
 
 		// handle the case when the window does not exist in the base model
 		if(index_list_base.size() == 0){
@@ -661,6 +680,7 @@ public class Chain{
 	///@param auth window_touches are the touches which succeeds auth_window
 	/// base_window_successor and auth_window_successor should be equivilent. This method simply returns the difference in their probabilities.
 	/// the reason this method is broken out is because this is likely to be modified to refine the model
+	/*
 	private double get_window_successor_difference(List<Window> base_window_list, List<Touch> base_successor_touch_list, Window auth_window, Touch auth_window_successor_touch){
 		//TODO this can deffonatly be made more effecient
 		//TODO this can be done by using get_index_list() function of base_window_list
@@ -702,12 +722,14 @@ public class Chain{
 		
 		return difference;
 	}
+	*/
 	
 	//returns non -1 only if successor touches are the same for the given window
 	//returns the index of auth_window if it is contained in base window
 	//will only return the index if the successor touches are equivilent
 	//returns -1 if not contained
 	///this function will search between base start index, and base end index
+	/*
 	private int get_base_window_index(Chain base_chain, Window auth_window, Touch auth_successor_touch, int base_start_index, int base_end_index){
 		//compre with tokens
 		int i=base_start_index;
@@ -716,19 +738,28 @@ public class Chain{
 		List<Touch> base_successor_touch = base_chain.successor_touch;
 		
 		for(i=base_start_index;(i<base_windows.size()) && (i<base_end_index);i++){
-			//if the successor touches are the same 
-			if(base_successor_touch.get(i).compare_with_token(this.tokens, auth_successor_touch)){
-				//also if the windows are equal
-				if(base_windows.get(i).compare_with_token(this.get_tokens(), auth_window)){
-					break;
+			if(TOKEN_TYPE == Token.Type.keycode_mu){
+				//if the successor touches are the same
+				if (base_successor_touch.get(i).compare_with_token(this.token_map.get(base_successor_touch.get(i).get_key()), auth_successor_touch)) {
+					//also if the windows are equal
+					if (base_windows.get(i).compare_with_token(this.get_tokens(), auth_window)) {
+						break;
+					}
+				}
+			}else {
+				//if the successor touches are the same
+				if (base_successor_touch.get(i).compare_with_token(this.tokens, auth_successor_touch)) {
+					//also if the windows are equal
+					if (base_windows.get(i).compare_with_token(this.get_tokens(), auth_window)) {
+						break;
+					}
 				}
 			}
-
 		}
 		
 		return (i==base_windows.size())?(-1):(i);
 	}
-
+	*/
 
 	///called when the model is updated. keeps track of whether a given attribute needs to be recalculated
 	private void on_model_update(){
@@ -870,7 +901,11 @@ public class Chain{
 				//System.out.println("number_successions:"+number_successions+" occurrences_of_windows:"+occurrences_of_window);
 				
 				//set the probability of the successor touch. To do this, I need to know how many times this touch succeeds this window
-				successor_touch.get(i).set_probability(get_tokens(), window_list.get(i), probability);
+				if(TOKEN_TYPE == Token.Type.keycode_mu) {
+					successor_touch.get(i).set_probability(get_tokens(successor_touch.get(i).get_key()), window_list.get(i), probability);
+				}else{
+					successor_touch.get(i).set_probability(get_tokens(), window_list.get(i), probability);
+				}
 			}
 		}
 	}
@@ -886,8 +921,16 @@ public class Chain{
 		windows = new TrieList();
 		successor_touch = new ArrayList<Touch>();
 		List<Touch> touch_list = new ArrayList<Touch>();
-		
-		((TrieList)windows).set_tokens(this.get_tokens());
+
+		if(TOKEN_TYPE == Token.Type.keycode_mu){
+			// make sure tokens have been computed
+			this.get_tokens(0);
+
+			// give computed token map to window list
+			((TrieList) windows).set_token_map(this.token_map);
+		}else {
+			((TrieList) windows).set_tokens(this.get_tokens());
+		}
 		
 		//System.out.println(touches.size());
 		//for each of the touches (they are in order)
@@ -956,7 +999,11 @@ public class Chain{
 	///returns the index corresponding to the token which contains touch. returns -1 if no token contains touch
 	private int get_token_index(Touch touch){
 		//TODO check for correctness
-		List<Token> token_list = get_tokens();
+		if(TOKEN_TYPE == Token.Type.keycode_mu) {
+			List<Token> token_list = get_tokens(touch.get_key());
+		}else {
+			List<Token> token_list = get_tokens();
+		}
 
 		//take the first token to return true
 		for(int i=0;i<token_list.size();i++){
@@ -1006,8 +1053,8 @@ public class Chain{
 		}
 	}
 
-
 	///handle requests for tokens
+	/*
 	public List<Token> get_tokens(){
 		//if tokens have not been computed, compute them
 		if(!tokens_computed){
@@ -1017,7 +1064,17 @@ public class Chain{
 
 		return tokens;
 	}
-	
+	*/
+
+	public List<Token> get_tokens(int key_code){
+		//if tokens have not been computed, compute them
+		if(!tokens_computed){
+			compute_tokens();
+			tokens_computed = true;
+		}
+
+		return token_map.get(key_code);
+	}
 
 	///get a list of all touches in the chain
 	public List<Touch> get_touches(){
@@ -1064,9 +1121,14 @@ public class Chain{
 			output.println("[preceeding sequence] [touch pressure, probability]");
 			for(int i=0;i<windows.size();i++){
 				String predecessor_window = windows.get(i).toString();
-				double touch_probability = successor_touch.get(i).get_probability(this.get_tokens(), windows.get(i));
 				double touch_pressure = successor_touch.get(i).get_pressure();
-				
+
+				if(TOKEN_TYPE == Token.Type.keycode_mu) {
+					double touch_probability = successor_touch.get(i).get_probability(this.get_tokens(successor_touch.get(i).get_key()), windows.get(i));
+				}else {
+					double touch_probability = successor_touch.get(i).get_probability(this.get_tokens(), windows.get(i));
+				}
+
 				//output.print("-");
 				output.println("["+ predecessor_window+"] ["+String.format("%.4f", touch_pressure)+", "+String.format("%.4f", touch_probability)+"]");
 			}
@@ -1078,6 +1140,7 @@ public class Chain{
 		}
 	}
 
+	/*
 	public void output_by_window(String file_name){
 		PrintWriter output=null;
 
@@ -1122,4 +1185,5 @@ public class Chain{
 			e.printStackTrace();
 		}
 	}
+	*/
 }

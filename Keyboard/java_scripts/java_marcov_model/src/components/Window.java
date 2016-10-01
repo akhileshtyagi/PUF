@@ -2,6 +2,7 @@ package components;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /** This class will store and provide functions for a single window within the model.
  * Windows are a list of n touches for a window of size n.
@@ -34,7 +35,7 @@ public class Window implements Comparable<Window>{
 	
 	///used for compairason of windows with a given token set.
 	///return true if this window is equal to auth window.
-	public boolean compare_with_token(List<Token> tokens, Window other_window){
+	public boolean compare_with_token(Map<Integer, List<Token>> tokens, Window other_window){
 		boolean same = true;
 		
 		for(int i=0;i<window.size();i++){

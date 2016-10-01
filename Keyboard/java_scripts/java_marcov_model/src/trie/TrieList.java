@@ -1,11 +1,8 @@
 package trie;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Iterator;
-import java.util.List;
-import java.util.ListIterator;
+import java.util.*;
 
+import components.Chain;
 import components.Token;
 import components.Touch;
 import components.Window;
@@ -24,7 +21,8 @@ import components.Window;
  */
 public class TrieList extends ArrayList<Window>{
 	private Trie trie;
-	private List<Token> tokens;	
+	private List<Token> tokens;
+	private Map<Integer, List<Token>> token_map;
 	
 	private boolean are_tokens_set;
 	
@@ -157,6 +155,9 @@ public class TrieList extends ArrayList<Window>{
 		//2) for each item in this list, test to see if the successor==touch
 		List<Integer> index_list = trie.get_index_list(encode(window));
 
+		// retrieve the tokens for this touch
+		//TODO ? need to think through what is happening here
+
 		int count2 = 0;
 		for(int i=0;i<index_list.size();i++){
 			//for every occurrence of window, successor match, increment count
@@ -202,6 +203,12 @@ public class TrieList extends ArrayList<Window>{
 	///sets the tokens that will be used when encoding the window
 	public void set_tokens(List<Token> tokens){
 		this.tokens = tokens;
+		this.are_tokens_set = true;
+	}
+
+	///sets the tokens that will be used when encoding the window
+	public void set_tokens(Map<Integer, List<Token>> token_map;){
+		this.token_map = token_map;
 		this.are_tokens_set = true;
 	}
 	
@@ -259,8 +266,12 @@ public class TrieList extends ArrayList<Window>{
 	
 	///returns the index corresponding to the token which contains touch. returns -1 if no token contains touch
 	private int get_token_index(Touch touch){
-		//TODO check for correctness
-		List<Token> token_list = tokens;
+		List<Token> token_list;
+		if(Chain.TOKEN_TYPE == Token.Type.keycode_mu){
+			token_list = token_map.get(touch.get_key());
+		}else {
+			token_list = tokens;
+		}
 
 		//take the first token to return true
 		for(int i=0;i<token_list.size();i++){
