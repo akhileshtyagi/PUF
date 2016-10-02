@@ -482,6 +482,35 @@ public class Chain{
 		return index_list;
 	}
 
+	public static List<Integer> compute_unique_successors(Map<Integer, List<Token>> token_map, List<Touch> successor_touch, List<Integer> successor_list){
+		// compute indexes for unique successor touches in list
+		ArrayList<Integer> index_list = new ArrayList<>();
+
+		// add a successor only if it does not match any of the previous windows
+		for(int i=0; i<successor_list.size(); i++){
+			// for all existing unique indexes, if none of the windows match, add new index
+			boolean no_match = true;
+			for(int j=0; j<index_list.size(); j++){
+				// compare current successor i to every index already in list
+				if( successor_touch.get(successor_list.get(i))
+						.compare_with_token(token_map.get(successor_touch.get(successor_list.get(i)).get_key()),
+						successor_touch.get(index_list.get(j)))){
+					// touch_i and touch in list are equal, there is a match
+					no_match = false;
+
+					// no need to keep going
+					break;
+				}
+			}
+
+			// if there was no match in the previous loop, add index to list, it is unique
+			if(no_match) index_list.add(successor_list.get(i));
+		}
+
+		// return the list of indexes
+		return index_list;
+	}
+
 	/* compute the difference between two windows.
 	 * This can be done based on the successor lists of the windows.
 	 * Need some way of computing (occur(touch_i) / total(touch)) in auth model
@@ -493,11 +522,13 @@ public class Chain{
 
 		// get a List<Integer> of all occurrences of the given unique window
 		// this list also gives the index of the successor touch stored in the parallel arraylist
-		//TODO
+		List<Integer> index_list_auth;
 		if(TOKEN_TYPE == Token.Type.keycode_mu) {
-			List<Integer> index_list_auth = compute_unique_successors(get_tokens(), successor_list_auth, auth_window_list.get_index_list(window));
+			// ensure token_map has been computed
+			get_tokens(0);
+			index_list_auth = compute_unique_successors(this.token_map, successor_list_auth, auth_window_list.get_index_list(window));
 		}else {
-			List<Integer> index_list_auth = compute_unique_successors(get_tokens(), successor_list_auth, auth_window_list.get_index_list(window));
+			index_list_auth = compute_unique_successors(get_tokens(), successor_list_auth, auth_window_list.get_index_list(window));
 		}
 
 		// to get the successors for the same window in base model,
@@ -505,10 +536,13 @@ public class Chain{
 		// then the successors of the found instance may be gotten
 		// actually, using the same window from the auth model should work because
 		// both base and auth model used the same distribution to compute their tokens
+		List<Integer> index_list_base;
 		if(TOKEN_TYPE == Token.Type.keycode_mu){
-			List<Integer> index_list_base = compute_unique_successors(get_tokens(), successor_list_base, base_window_list.get_index_list(window));
+			// ensure token_map has been computed
+			get_tokens(0);
+			index_list_base = compute_unique_successors(this.token_map, successor_list_base, base_window_list.get_index_list(window));
 		}else {
-			List<Integer> index_list_base = compute_unique_successors(get_tokens(), successor_list_base, base_window_list.get_index_list(window));
+			index_list_base = compute_unique_successors(get_tokens(), successor_list_base, base_window_list.get_index_list(window));
 		}
 
 		// handle the case when the window does not exist in the base model
@@ -530,7 +564,12 @@ public class Chain{
 				// get base and auth probabilities
 				// base tokens should be okay to use here because distributions and thus tokens are set to be the same
 				// between the base and the auth models
-				double auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.get_tokens(), window);
+				double auth_probability;
+				if(TOKEN_TYPE == Token.Type.keycode_mu){
+					auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.token_map, window);
+				}else {
+					auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.get_tokens(), window);
+				}
 
 				// get base probability
 				double base_probability = 0;
@@ -554,7 +593,11 @@ public class Chain{
 					base_probability = 0;
 				}else{
 					// matching touch was found
-					base_probability = successor_list_base.get(index_list_base.get(base_touch_index)).get_probability(this.get_tokens(), window);
+					if(TOKEN_TYPE == Token.Type.keycode_mu){
+						base_probability = successor_list_base.get(index_list_base.get(base_touch_index)).get_probability(this.token_map, window);
+					}else{
+						base_probability = successor_list_base.get(index_list_base.get(base_touch_index)).get_probability(this.get_tokens(), window);
+					}
 				}
 
 				//TODO these test print statements print out probabilities for checking
@@ -580,7 +623,12 @@ public class Chain{
 			double token_weight = 1.0;
 			for(int i=0; i<index_list_auth.size(); i++) {
 				// get auth probability
-				double auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.get_tokens(), window);
+				double auth_probability;
+				if(TOKEN_TYPE == Token.Type.keycode_mu){
+					auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.token_map, window);
+				}else {
+					auth_probability = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.get_tokens(), window);
+				}
 
 				// get base probability
 				double base_probability = 0;
@@ -604,13 +652,21 @@ public class Chain{
 					base_probability = 0;
 				}else{
 					// matching touch was found
-					base_probability = successor_list_base.get(index_list_base.get(base_touch_index)).get_probability(this.get_tokens(), window);
+					if(TOKEN_TYPE == Token.Type.keycode_mu){
+						base_probability = successor_list_base.get(index_list_base.get(base_touch_index)).get_probability(this.token_map, window);
+					}else{
+						base_probability = successor_list_base.get(index_list_base.get(base_touch_index)).get_probability(this.get_tokens(), window);
+					}
 				}
 
 				// token weight is simply the probability in the auth model
 				// this is because we are weighting by occurrences and auth_probability represents
 				// the fractional amount of time the token occurred
-				token_weight = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.get_tokens(), window);
+				if(TOKEN_TYPE == Token.Type.keycode_mu){
+					token_weight = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.token_map, window);
+				}else {
+					token_weight = successor_list_auth.get(index_list_auth.get(i)).get_probability(this.get_tokens(), window);
+				}
 
 				//TODO ah this unveils the problem. Token weights do not sum to 1. They should within a given window though
 				//TODO weight should be [number of tokens / total tokens coming after window]

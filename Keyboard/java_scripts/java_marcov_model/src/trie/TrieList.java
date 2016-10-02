@@ -157,6 +157,8 @@ public class TrieList extends ArrayList<Window>{
 
 		// retrieve the tokens for this touch
 		//TODO ? need to think through what is happening here
+		//TODO tokens being used are incorrect, but i need to conser,
+		//TODO I can either make the change here or i can change the way .compare_with_token works
 
 		int count2 = 0;
 		for(int i=0;i<index_list.size();i++){
