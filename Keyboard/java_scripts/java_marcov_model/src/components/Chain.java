@@ -47,8 +47,9 @@ public class Chain{
 	/* define instance variables */
 	private Distribution distribution;
 	private List<Distribution> key_distribution;
-	
-	// private volatile List<Token> tokens; // tokens into which the range is split
+
+	//TODO uncomment
+	private volatile List<Token> tokens; // tokens into which the range is split
 	private volatile Map<Integer, List<Token>> token_map;
 	private List<Touch> touches; // stores a list of all touch objects
 	private volatile List<Window> windows; // this seems redundtant at first, but is necessary because a window is not necessarily touch[i,..,i+window]. Factored in are the timestamps associated with each touch.
@@ -174,7 +175,7 @@ public class Chain{
 
 			if(TOKEN_TYPE == Token.Type.keycode_mu){
 				if ((successor_touch.get(i).compare_with_token(get_tokens(successor_touch.get(i).get_key()), t)) &&
-						(windows.get(i).compare_with_token(get_tokens(successor_touch.get(i).get_key()), w))) {
+						(windows.get(i).compare_with_token(token_map, w))) {
 					successor = successor_touch.get(i);
 					predecessor = windows.get(i);
 					break;
@@ -193,8 +194,16 @@ public class Chain{
 			//System.out.println("zergling");
 			return 0;
 		}
+
+		// compute the probability
+		double probability;
+		if(TOKEN_TYPE == Token.Type.keycode_mu){
+			probability = successor.get_probability(token_map, predecessor);
+		}else{
+			probability = successor.get_probability(this.get_tokens(), predecessor);
+		}
 		
-		return successor.get_probability(this.get_tokens(), predecessor);
+		return probability;
 	}
 
 
@@ -420,7 +429,7 @@ public class Chain{
 	/* compute the Indexes of unique windows in given List<Window>.
 	 *
 	 * requires a token list to know how to compare windows*/
-	public static List<Integer> compute_unique_windows(List<Token> token_list, List<Window> window_list){
+	public static List<Integer> compute_unique_windows(Map<Integer, List<Token>> token_map, List<Token> token_list, List<Window> window_list){
 		// compute indexes for unique windows in list
 		ArrayList<Integer> index_list = new ArrayList<>();
 
@@ -429,7 +438,15 @@ public class Chain{
 			// for all existing unique indexes, if none of the windows match, add new index
 			boolean no_match = true;
 			for(int j=0; j<index_list.size(); j++){
-				if(window_list.get(i).compare_with_token(token_list, window_list.get(index_list.get(j)))){
+				//TODO significant changes were done here
+				boolean match;
+				if(TOKEN_TYPE == Token.Type.keycode_mu){
+					match = window_list.get(i).compare_with_token(token_map, window_list.get(index_list.get(j)));
+				}else{
+					match = window_list.get(i).compare_with_token(token_list, window_list.get(index_list.get(j)));
+				}
+
+				if(match){
 					// window_i and window in list are equal, there is a match
 					no_match = false;
 					break;
@@ -958,7 +975,8 @@ public class Chain{
 				
 				//set the probability of the successor touch. To do this, I need to know how many times this touch succeeds this window
 				if(TOKEN_TYPE == Token.Type.keycode_mu) {
-					successor_touch.get(i).set_probability(get_tokens(successor_touch.get(i).get_key()), window_list.get(i), probability);
+					//successor_touch.get(i).set_probability(get_tokens(successor_touch.get(i).get_key()), window_list.get(i), probability);
+					successor_touch.get(i).set_probability(token_map, window_list.get(i), probability);
 				}else{
 					successor_touch.get(i).set_probability(get_tokens(), window_list.get(i), probability);
 				}
@@ -983,7 +1001,7 @@ public class Chain{
 			this.get_tokens(0);
 
 			// give computed token map to window list
-			((TrieList) windows).set_token_map(this.token_map);
+			((TrieList) windows).set_tokens(this.token_map);
 		}else {
 			((TrieList) windows).set_tokens(this.get_tokens());
 		}
@@ -1055,10 +1073,11 @@ public class Chain{
 	///returns the index corresponding to the token which contains touch. returns -1 if no token contains touch
 	private int get_token_index(Touch touch){
 		//TODO check for correctness
+		List<Token> token_list;
 		if(TOKEN_TYPE == Token.Type.keycode_mu) {
-			List<Token> token_list = get_tokens(touch.get_key());
+			token_list = get_tokens(touch.get_key());
 		}else {
-			List<Token> token_list = get_tokens();
+			token_list = get_tokens();
 		}
 
 		//take the first token to return true
@@ -1109,8 +1128,11 @@ public class Chain{
 		}
 	}
 
+	/**
+	 * only one of the following two methods will be used
+	 */
+	//TODO uncomment
 	///handle requests for tokens
-	/*
 	public List<Token> get_tokens(){
 		//if tokens have not been computed, compute them
 		if(!tokens_computed){
@@ -1120,7 +1142,6 @@ public class Chain{
 
 		return tokens;
 	}
-	*/
 
 	public List<Token> get_tokens(int key_code){
 		//if tokens have not been computed, compute them
@@ -1179,10 +1200,12 @@ public class Chain{
 				String predecessor_window = windows.get(i).toString();
 				double touch_pressure = successor_touch.get(i).get_pressure();
 
+				double touch_probability;
 				if(TOKEN_TYPE == Token.Type.keycode_mu) {
-					double touch_probability = successor_touch.get(i).get_probability(this.get_tokens(successor_touch.get(i).get_key()), windows.get(i));
+					//touch_probability = successor_touch.get(i).get_probability(this.get_tokens(successor_touch.get(i).get_key()), windows.get(i));
+					touch_probability = successor_touch.get(i).get_probability(token_map, windows.get(i));
 				}else {
-					double touch_probability = successor_touch.get(i).get_probability(this.get_tokens(), windows.get(i));
+					touch_probability = successor_touch.get(i).get_probability(this.get_tokens(), windows.get(i));
 				}
 
 				//output.print("-");

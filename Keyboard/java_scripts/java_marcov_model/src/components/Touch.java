@@ -2,6 +2,7 @@ package components;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /** This class represents a touch event.
  * Touch evens have an associated key, pressure, and time from the raw data.
@@ -45,6 +46,10 @@ public class Touch implements Comparable<Touch>{
 		return this.probability;
 	}
 
+	/**
+	 * only one of the following two methods will be used
+	 */
+	//TODO uncomment
 	///sets the probability that this touch succeeds a given sequence. Reccord the sequence and the probability
 	public void set_probability(List<Token> tokens, Window preceeding_window, double p){
 		//TODO check for correctness
@@ -79,14 +84,79 @@ public class Touch implements Comparable<Touch>{
 		}
 	}
 
+	public void set_probability(Map<Integer, List<Token>> tokens, Window preceeding_window, double p){
+		//TODO check for correctness
+		//add them at their respective locations
+		//if predecessor_window already exists, update the pressure value. If predecessor_window does not exist, then add both predecessor_window and pressure
+		int index = 0;
 
-	///returns the probability of the touch occurring after a given window w. If the window does not exist return (TODO) currently returning 0
+		//search for window in predecessor_window
+		for(index=0;index<predecessor_window.size();index++){
+			//TODO should this also use compare_with_tokens?
+			//TODO the effect of this should be that windows which are considered equal
+			//TODO appear only once. This is what I want?
+			if(predecessor_window.get(index).compare_with_token(tokens, preceeding_window)){
+				break;
+			}
+
+			// does this window equal the current window?
+			// old method makes exact comparison
+			//TODO perhaps it shouldn't be .compare_with_token() because predecessor windows aren't unique?
+			//TODO or mabe it it should be ..... the predecessor windows should be unique with .compare_to_token().
+//			if(predecessor_window.get(index).compareTo(preceeding_window)==0){
+//				break;
+//			}
+		}
+
+		if(index < predecessor_window.size()){
+			//predecessor_window already exists, updateing probability
+			probability.set(index, p);
+		}else{
+			predecessor_window.add(preceeding_window);
+			probability.add(p);
+		}
+	}
+
+	/**
+	 * only one of the following methods will be used
+	 */
+//	//TODO uncomment
+//	///returns the probability of the touch occurring after a given window w. If the window does not exist return (TODO) currently returning 0
 	public double get_probability(List<Token> tokens, Window preceeding_window){
 		//TODO check for correctness
 		//take in a window and return the probability of this touch coming after that window
 		//search for window in predecessor_window
 		int index;
-		
+
+		for(index=0;index<predecessor_window.size();index++){
+			// does this window equal the current window?
+			//TODO should this be using compare with token
+			if(predecessor_window.get(index).compare_with_token(tokens, preceeding_window)){
+				break;
+			}
+
+			// old method makes exact comparison
+//			if(predecessor_window.get(index).compareTo(preceeding_window)==0){
+//				break;
+//			}
+		}
+
+		if(index < predecessor_window.size()){
+			//predecessor_window already exists, updateing probability
+			return probability.get(index);
+		}else{
+			//window does not exist in predecessor window
+			//TODO determine what to do. is this correct?
+			return 0;
+		}
+	}
+
+	public double get_probability(Map<Integer, List<Token>> tokens, Window preceeding_window){
+		//TODO check for correctness
+		//take in a window and return the probability of this touch coming after that window
+		//search for window in predecessor_window
+		int index;
+
 		for(index=0;index<predecessor_window.size();index++){
 			// does this window equal the current window?
 			//TODO should this be using compare with token

@@ -157,14 +157,22 @@ public class TrieList extends ArrayList<Window>{
 
 		// retrieve the tokens for this touch
 		//TODO ? need to think through what is happening here
-		//TODO tokens being used are incorrect, but i need to conser,
+		//TODO tokens being used are incorrect, but i need to consider,
 		//TODO I can either make the change here or i can change the way .compare_with_token works
 
 		int count2 = 0;
 		for(int i=0;i<index_list.size();i++){
 			//for every occurrence of window, successor match, increment count
-			if(successor_list.get(index_list.get(i)).compare_with_token(tokens,touch)){
-				count2++;
+			if(Chain.TOKEN_TYPE == Token.Type.keycode_mu) {
+				if (successor_list.get(index_list.get(i)).compare_with_token(
+						token_map.get(successor_list.get(index_list.get(i)).get_key()),
+						touch)) {
+					count2++;
+				}
+			}else{
+				if (successor_list.get(index_list.get(i)).compare_with_token(tokens, touch)) {
+					count2++;
+				}
 			}
 		}
 
@@ -201,7 +209,19 @@ public class TrieList extends ArrayList<Window>{
 		return occurrences;
 	}
 
-	
+	/**
+	 * The idea is that only one of the next two methods
+	 * to set_tokens will be used
+	 *
+	 * List<Token> will the the argument when
+	 * the overall distribution is being used
+	 * to generate all hte tokens</Token>
+	 *
+	 * Map<Integer, List<Token>> will be used when the
+	 * key distributions are being used to generated
+	 * a list of tokens for each key</Token>
+	 */
+	//TODO uncomment
 	///sets the tokens that will be used when encoding the window
 	public void set_tokens(List<Token> tokens){
 		this.tokens = tokens;
@@ -209,7 +229,7 @@ public class TrieList extends ArrayList<Window>{
 	}
 
 	///sets the tokens that will be used when encoding the window
-	public void set_tokens(Map<Integer, List<Token>> token_map;){
+	public void set_tokens(Map<Integer, List<Token>> token_map){
 		this.token_map = token_map;
 		this.are_tokens_set = true;
 	}
