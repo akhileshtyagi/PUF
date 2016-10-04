@@ -359,7 +359,7 @@ public class Chain{
 		double window_weight = 1;
 
 		// create list of indexes of unique windows in auth_chain
-		List<Integer> unique_auth_windows = compute_unique_windows(auth_chain.get_tokens(), auth_chain.get_windows());
+		List<Integer> unique_auth_windows = compute_unique_windows(token_map, auth_chain.get_tokens(), auth_chain.get_windows());
 
 		// decide to use window averaging or not
 		if(WINDOW_AVERAGING == WindowAveraging.UNWEIGHTED) {

@@ -39,18 +39,18 @@ public class Window implements Comparable<Window>{
 	///used for compairason of windows with a given token set.
 	///return true if this window is equal to auth window.
 	//TODO uncomment
-//	public boolean compare_with_token(List<Token> tokens, Window other_window){
-//		boolean same = true;
-//
-//		for(int i=0;i<window.size();i++){
-//			if(!this.window.get(i).compare_with_token(tokens, other_window.window.get(i))){
-//				same=false;
-//				break;
-//			}
-//		}
-//
-//		return same;
-//	}
+	public boolean compare_with_token(List<Token> tokens, Window other_window){
+		boolean same = true;
+
+		for(int i=0;i<window.size();i++){
+			if(!this.window.get(i).compare_with_token(tokens, other_window.window.get(i))){
+				same=false;
+				break;
+			}
+		}
+
+		return same;
+	}
 
 	public boolean compare_with_token(Map<Integer, List<Token>> tokens, Window other_window){
 		boolean same = true;
