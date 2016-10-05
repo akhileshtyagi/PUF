@@ -595,9 +595,18 @@ public class Chain{
 				// for all successor touches of base
 				int base_touch_index = -1;
 				for(int j=0; j<index_list_base.size(); j++){
+					//TODO does this make sense
+					// get the base token list for this character
+					List<Token> base_token_list;
+					if(TOKEN_TYPE == Token.Type.keycode_mu){
+						base_token_list = this.get_tokens(successor_list_base.get(index_list_base.get(j)).get_key());
+					}else{
+						base_token_list = this.get_tokens();
+					}
+
 					// determine if there is a touch which matches the auth touch
 					if( successor_list_base.get(index_list_base.get(j))
-							.compare_with_token(this.get_tokens(), successor_list_auth.get(index_list_auth.get(i))) ){
+							.compare_with_token(base_token_list, successor_list_auth.get(index_list_auth.get(i))) ){
 						// they do match, this the index in index_list_base which corresponds to the index in index_list_auth
 						base_touch_index = j;
 						break;
@@ -654,9 +663,18 @@ public class Chain{
 				// for all successor touches of base
 				int base_touch_index = -1;
 				for(int j=0; j<index_list_base.size(); j++){
+					//TODO does this make sense
+					// get the base token list for this character
+					List<Token> base_token_list;
+					if(TOKEN_TYPE == Token.Type.keycode_mu){
+						base_token_list = this.get_tokens(successor_list_base.get(index_list_base.get(j)).get_key());
+					}else{
+						base_token_list = this.get_tokens();
+					}
+
 					// determine if there is a touch which matches the auth touch
 					if( successor_list_base.get(index_list_base.get(j))
-							.compare_with_token(this.get_tokens(), successor_list_auth.get(index_list_auth.get(i))) ){
+							.compare_with_token(base_token_list, successor_list_auth.get(index_list_auth.get(i))) ){
 						// they do match, this the index in index_list_base which corresponds to the index in index_list_auth
 						base_touch_index = j;
 						break;
@@ -1080,6 +1098,15 @@ public class Chain{
 			token_list = get_tokens();
 		}
 
+		// it is possible
+		// in the token.type.keycode_mu case
+		// that there is no touch list associated with a keycode
+		// this means the touch did not occur in training.
+		// therefore -1 should be returned to indicate no match
+		if(token_list == null){
+			return -1;
+		}
+
 		//take the first token to return true
 		for(int i=0;i<token_list.size();i++){
 			if(token_list.get(i).contains(touch)){
@@ -1151,6 +1178,20 @@ public class Chain{
 		}
 
 		return token_map.get(key_code);
+	}
+
+	/**
+	 * return a token map.
+	 * This method is used by DistanceVector
+	 */
+	public Map<Integer, List<Token>> get_token_map(){
+		//if tokens have not been computed, compute them
+		if(!tokens_computed){
+			compute_tokens();
+			tokens_computed = true;
+		}
+
+		return token_map;
 	}
 
 	///get a list of all touches in the chain

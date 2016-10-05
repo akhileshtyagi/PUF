@@ -5,6 +5,7 @@ import trie.TrieList;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 /**
  * TODO list
@@ -114,6 +115,7 @@ public class Confidence {
         return compute_confidence(
                 chain.get_distribution(),
                 chain.get_key_distribution(),
+                chain.get_token_map(),
                 chain.get_tokens(),
                 (TrieList)chain.get_windows(),
                 chain.get_successors()
@@ -129,6 +131,7 @@ public class Confidence {
     public static double compute_confidence(
             Distribution distribution,
             List<Distribution> key_distribution_list,
+            Map<Integer, List<Token>> token_map,
             List<Token> token_list,
             TrieList window_list,
             List<Touch> successor_list
@@ -137,7 +140,7 @@ public class Confidence {
 
         if(WEIGHT == Weight.WEIGHTED) {
             // weighted computation
-            confidence = compute_weighted_confidence(distribution, key_distribution_list, token_list, window_list, successor_list);
+            confidence = compute_weighted_confidence(distribution, key_distribution_list, token_map, token_list, window_list, successor_list);
         }else if(WEIGHT == Weight.UNWEIGHTED){
             // unweighted computation
             if(DISTRIBUTION_BASIS == DistributionBasis.KEY) {
@@ -177,6 +180,7 @@ public class Confidence {
     private static double compute_weighted_confidence(
             Distribution distribution,
             List<Distribution> key_distribution_list,
+            Map<Integer, List<Token>> token_map,
             List<Token> token_list,
             TrieList window_list,
             List<Touch> successor_list
@@ -184,7 +188,7 @@ public class Confidence {
         double confidence = 0.0;
 
         // get the unique windows
-        List<Integer> unique_window_list = Chain.compute_unique_windows(token_list, window_list);
+        List<Integer> unique_window_list = Chain.compute_unique_windows(token_map, token_list, window_list);
 
         // for each unique successor
         for(Integer i : unique_window_list){

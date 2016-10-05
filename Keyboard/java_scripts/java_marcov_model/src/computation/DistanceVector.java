@@ -33,6 +33,8 @@ import java.util.List;
  *
  * NOTE:
  * This class and the class, and the classes utilized by it are not efficient
+ *
+ * currently only used in computing the confidence
  */
 public class DistanceVector extends ArrayList<WindowDistance> {
     private double distance_windows_weighted;
@@ -48,7 +50,7 @@ public class DistanceVector extends ArrayList<WindowDistance> {
 
         // get the unique windows
         List<Window> auth_window_list = auth_chain.get_windows();
-        List<Integer> unique_window_list = Chain.compute_unique_windows(auth_chain.get_tokens(), auth_window_list);
+        List<Integer> unique_window_list = Chain.compute_unique_windows(auth_chain.get_token_map(), auth_chain.get_tokens(), auth_window_list);
 
         // for each unique successor
         for (Integer i : unique_window_list) {

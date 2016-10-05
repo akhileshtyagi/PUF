@@ -217,6 +217,7 @@ public class Touch implements Comparable<Touch>{
 		}
 
 		// check that tokens are the same
+		//TODO this_touch_token is null sometimes. Under what conditions does this happen?
 		boolean token_equal = this_touch_token.equals(other_touch_token);
 
 		// check that keycodes are the same
