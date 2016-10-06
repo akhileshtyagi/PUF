@@ -66,8 +66,8 @@ public class Token{
 				break;
 				*/
 			default:
-				this.min = ((range_max - range_min) / total_tokens)*token_index;
-				this.max = ((range_max - range_min) / total_tokens)*(token_index+1);
+				this.min = range_min + ((range_max - range_min) / total_tokens)*(token_index);
+				this.max = range_min + ((range_max - range_min) / total_tokens)*(token_index+1);
 				break;
 		}
 	}
@@ -153,5 +153,18 @@ public class Token{
 		Token other_token = (Token)o_t;
 		
 		return (this.min == other_token.min) && (this.max == other_token.max);
+	}
+
+	@Override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+
+		sb.append('[');
+		sb.append(min);
+		sb.append("--");
+		sb.append(max);
+		sb.append(']');
+
+		return sb.toString();
 	}
 }

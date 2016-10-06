@@ -1133,11 +1133,12 @@ public class Chain{
 	///compute the tokens
 	private void compute_tokens(){
 		tokens = new ArrayList<Token>();
+		double standard_deviations_allowed = 2.0;
 		
 		if(TOKEN_TYPE == Token.Type.linear){
 			//create a set of tokens which is linear across the distribution within 2 sigma of the center
 			for(int i=0; i<token; i++){
-				tokens.add(new Token(get_distribution(),token,i, 2,Token.Type.linear));
+				tokens.add(new Token(get_distribution(),token,i, standard_deviations_allowed,Token.Type.linear));
 			}
 		}else{
 			//create tokens over the keycode set
@@ -1146,7 +1147,7 @@ public class Chain{
 				// build a list of tokens for this keycode
 				ArrayList<Token> token_list = new ArrayList<>();
 				for(int j=0; j<token; j++) {
-					token_list.add(new Token(get_key_distribution().get(i), token, i, 2, Token.Type.keycode_mu));
+					token_list.add(new Token(get_key_distribution().get(i), token, j, standard_deviations_allowed, Token.Type.keycode_mu));
 				}
 
 				// add the list of tokens for this keycode to the token map

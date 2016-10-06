@@ -29,18 +29,18 @@
       <file leaf-file-name="Chain.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="283">
-              <caret line="1104" column="63" selection-start-line="1104" selection-start-column="63" selection-end-line="1104" selection-end-column="63" />
+            <state relative-caret-position="486">
+              <caret line="1149" column="113" selection-start-line="1149" selection-start-column="113" selection-end-line="1149" selection-end-column="113" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Confidence.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/computation/Confidence.java">
+      <file leaf-file-name="ChallengeTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/puf_test/ChallengeTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="119" column="38" selection-start-line="119" selection-start-column="38" selection-end-line="119" selection-end-column="38" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -56,11 +56,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Model_compare.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Distribution.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/Distribution.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="705">
+              <caret line="214" column="48" selection-start-line="214" selection-start-column="48" selection-end-line="214" selection-end-column="48" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Model_compare.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data_analysis/Model_compare.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="25" column="55" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
+            <state relative-caret-position="450">
+              <caret line="28" column="49" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -76,34 +86,43 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Touch.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Touch.java">
+      <file leaf-file-name="Statistics.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/data_analysis/Statistics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="229">
-              <caret line="219" column="0" selection-start-line="219" selection-start-column="0" selection-end-line="219" selection-end-column="0" />
-              <folding>
-                <element signature="e#1328#1329#0" expanded="true" />
-                <element signature="e#1358#1359#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="TrieList.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/trie/TrieList.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="164">
-              <caret line="223" column="6" selection-start-line="223" selection-start-column="6" selection-end-line="223" selection-end-column="6" />
+            <state relative-caret-position="234">
+              <caret line="20" column="106" selection-start-line="20" selection-start-column="106" selection-end-line="20" selection-end-column="106" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Window.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/Window.java">
+      <file leaf-file-name="Token.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/components/Token.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="41" column="4" selection-start-line="41" selection-start-column="4" selection-end-line="52" selection-end-column="5" />
+            <state relative-caret-position="450">
+              <caret line="69" column="39" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TokenTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/puf_test/TokenTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="489">
+              <caret line="36" column="73" selection-start-line="36" selection-start-column="73" selection-end-line="36" selection-end-column="73" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Variability.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/puf_analysis/Variability.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="360">
+              <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -127,7 +146,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/data_analysis/Model_compare_thread.java" />
         <option value="$PROJECT_DIR$/src/gui/Marcov_console_panel.java" />
         <option value="$PROJECT_DIR$/src/gui/Marcov_file_display_panel.java" />
         <option value="$PROJECT_DIR$/src/gui/Marcov_frame.java" />
@@ -139,7 +157,6 @@
         <option value="$PROJECT_DIR$/src/runtime/Operation_thread.java" />
         <option value="$PROJECT_DIR$/src/test/UnitCompareChainsRank.java" />
         <option value="$PROJECT_DIR$/src/trie/Trie.java" />
-        <option value="$PROJECT_DIR$/src/components/Distribution.java" />
         <option value="$PROJECT_DIR$/src/test/minimal_working_example.java" />
         <option value="$PROJECT_DIR$/results/model_compare_output.txt" />
         <option value="$PROJECT_DIR$/src/test/Main.java" />
@@ -170,14 +187,16 @@
         <option value="$PROJECT_DIR$/src/arbiter/MuArbiter.java" />
         <option value="$PROJECT_DIR$/src/puf_analysis/Variability.java" />
         <option value="$PROJECT_DIR$/src/puf/Challenge.java" />
-        <option value="$PROJECT_DIR$/src/components/Token.java" />
         <option value="$PROJECT_DIR$/src/trie/TrieList.java" />
         <option value="$PROJECT_DIR$/src/components/Window.java" />
         <option value="$PROJECT_DIR$/src/computation/DistanceVector.java" />
         <option value="$PROJECT_DIR$/src/computation/Confidence.java" />
         <option value="$PROJECT_DIR$/src/components/Touch.java" />
-        <option value="$PROJECT_DIR$/src/components/Chain.java" />
         <option value="$PROJECT_DIR$/src/data_analysis/Model_compare.java" />
+        <option value="$PROJECT_DIR$/src/puf_test/TokenTest.java" />
+        <option value="$PROJECT_DIR$/src/components/Chain.java" />
+        <option value="$PROJECT_DIR$/src/components/Distribution.java" />
+        <option value="$PROJECT_DIR$/src/components/Token.java" />
       </list>
     </option>
   </component>
@@ -548,7 +567,7 @@
       <recent name="computation" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Model_compare">
+  <component name="RunManager" selected="Application.TokenTest">
     <configuration default="false" name="Variability" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -589,26 +608,6 @@
       <envs />
       <method />
     </configuration>
-    <configuration default="false" name="CharacterDistributionDifference" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="distribution_analysis.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="MAIN_CLASS_NAME" value="distribution_analysis.CharacterDistributionDifference" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="ENABLE_SWING_INSPECTOR" value="false" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <module name="java_marcov_model" />
-      <envs />
-      <method />
-    </configuration>
     <configuration default="false" name="Model_compare" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
       <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
         <pattern>
@@ -637,6 +636,26 @@
         </pattern>
       </extension>
       <option name="MAIN_CLASS_NAME" value="data_analysis.Statistics" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <option name="ENABLE_SWING_INSPECTOR" value="false" />
+      <option name="ENV_VARIABLES" />
+      <option name="PASS_PARENT_ENVS" value="true" />
+      <module name="java_marcov_model" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="false" name="TokenTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
+        <pattern>
+          <option name="PATTERN" value="puf_test.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="MAIN_CLASS_NAME" value="puf_test.TokenTest" />
       <option name="VM_PARAMETERS" />
       <option name="PROGRAM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -895,17 +914,17 @@
     <list size="5">
       <item index="0" class="java.lang.String" itemvalue="Application.Variability" />
       <item index="1" class="java.lang.String" itemvalue="Application.ChallengeTest" />
-      <item index="2" class="java.lang.String" itemvalue="Application.CharacterDistributionDifference" />
-      <item index="3" class="java.lang.String" itemvalue="Application.Model_compare" />
-      <item index="4" class="java.lang.String" itemvalue="Application.Statistics" />
+      <item index="2" class="java.lang.String" itemvalue="Application.Model_compare" />
+      <item index="3" class="java.lang.String" itemvalue="Application.Statistics" />
+      <item index="4" class="java.lang.String" itemvalue="Application.TokenTest" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Application.Model_compare" />
-        <item index="1" class="java.lang.String" itemvalue="Application.Statistics" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Variability" />
-        <item index="3" class="java.lang.String" itemvalue="Application.ChallengeTest" />
-        <item index="4" class="java.lang.String" itemvalue="Application.CharacterDistributionDifference" />
+        <item index="0" class="java.lang.String" itemvalue="Application.TokenTest" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Model_compare" />
+        <item index="2" class="java.lang.String" itemvalue="Application.Statistics" />
+        <item index="3" class="java.lang.String" itemvalue="Application.Variability" />
+        <item index="4" class="java.lang.String" itemvalue="Application.ChallengeTest" />
       </list>
     </recent_temporary>
   </component>
@@ -992,13 +1011,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../../Android Keyboard/app/src/main/res/xml/symbols_shift.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-324">
-          <caret line="6" column="22" selection-start-line="6" selection-start-column="20" selection-end-line="6" selection-end-column="22" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../Android Keyboard/app/src/main/res/xml/symbols.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-678">
@@ -1245,42 +1257,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/puf_analysis/Variability.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="61" column="47" selection-start-line="61" selection-start-column="47" selection-end-line="61" selection-end-column="47" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/puf_test/ChallengeTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="324">
-          <caret line="91" column="0" selection-start-line="91" selection-start-column="0" selection-end-line="91" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/puf/Challenge.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="216">
           <caret line="228" column="24" selection-start-line="228" selection-start-column="24" selection-end-line="228" selection-end-column="24" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Token.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="24" column="4" selection-start-line="24" selection-start-column="4" selection-end-line="24" selection-end-column="4" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Distribution.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="36">
-          <caret line="79" column="9" selection-start-line="79" selection-start-column="9" selection-end-line="79" selection-end-column="9" />
           <folding />
         </state>
       </provider>
@@ -1301,14 +1281,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_analysis/Statistics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="234">
-          <caret line="20" column="93" selection-start-line="20" selection-start-column="93" selection-end-line="20" selection-end-column="93" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/trie/TrieList.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="164">
@@ -1325,22 +1297,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/computation/DistanceVector.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="39" column="45" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="45" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/computation/Confidence.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="119" column="38" selection-start-line="119" selection-start-column="38" selection-end-line="119" selection-end-column="38" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Touch.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="229">
@@ -1352,6 +1308,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/computation/Confidence.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="119" column="38" selection-start-line="119" selection-start-column="38" selection-end-line="119" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/computation/DistanceVector.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="39" column="45" selection-start-line="39" selection-start-column="45" selection-end-line="39" selection-end-column="45" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_analysis/Model_compare.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="28" column="49" selection-start-line="28" selection-start-column="49" selection-end-line="28" selection-end-column="49" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/data_analysis/Model_compare_thread.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="229">
@@ -1360,18 +1340,60 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
+    <entry file="file://$PROJECT_DIR$/src/data_analysis/Statistics.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="283">
-          <caret line="1104" column="63" selection-start-line="1104" selection-start-column="63" selection-end-line="1104" selection-end-column="63" />
+        <state relative-caret-position="234">
+          <caret line="20" column="106" selection-start-line="20" selection-start-column="106" selection-end-line="20" selection-end-column="106" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_analysis/Model_compare.java">
+    <entry file="file://$PROJECT_DIR$/src/puf_test/ChallengeTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="25" column="55" selection-start-line="25" selection-start-column="55" selection-end-line="25" selection-end-column="55" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/puf_analysis/Variability.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="36" column="4" selection-start-line="36" selection-start-column="4" selection-end-line="36" selection-end-column="57" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/puf_test/TokenTest.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="489">
+          <caret line="36" column="73" selection-start-line="36" selection-start-column="73" selection-end-line="36" selection-end-column="73" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="486">
+          <caret line="1149" column="113" selection-start-line="1149" selection-start-column="113" selection-end-line="1149" selection-end-column="113" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Distribution.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="705">
+          <caret line="214" column="48" selection-start-line="214" selection-start-column="48" selection-end-line="214" selection-end-column="48" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Token.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="69" column="39" selection-start-line="69" selection-start-column="39" selection-end-line="69" selection-end-column="39" />
           <folding />
         </state>
       </provider>

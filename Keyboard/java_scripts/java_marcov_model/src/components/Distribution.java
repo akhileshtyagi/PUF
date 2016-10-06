@@ -200,4 +200,21 @@ public class Distribution{
 		
 		return same;
 	}
+
+	@Override
+	public String toString(){
+		StringBuilder sb = new StringBuilder();
+
+		sb.append('[');
+		//sb.append(min);
+		sb.append(average - 2*standard_deviation);
+		sb.append("--");
+		//sb.append(average);
+		sb.append("--");
+		//sb.append(max);
+		sb.append(average + 2*standard_deviation);
+		sb.append(']');
+
+		return sb.toString();
+	}
 }
