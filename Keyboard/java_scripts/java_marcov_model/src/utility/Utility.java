@@ -123,14 +123,26 @@ public class Utility {
     }
 
     public static Chain read_chain(String file_name){
+        // provide default chain parameters
         //////
         // Chain parameters
         //////
         //TODO adjust chain parameters
-        int window_size = 3;
-        int token_number = 5;
+        int window_size = 2;
+        int token_number = 1;
         int time_threshold = 1000;
         int chain_size = 4000;
+
+        return read_chain(file_name, window_size, token_number, time_threshold, chain_size);
+    }
+
+    public static Chain read_chain(
+            String file_name,
+            int window_size,
+            int token_number,
+            int time_threshold,
+            int chain_size){
+
         Chain chain = new Chain(window_size, token_number, time_threshold, chain_size);
 
         List<Touch> touch_list;

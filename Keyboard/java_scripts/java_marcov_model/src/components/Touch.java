@@ -216,8 +216,19 @@ public class Touch implements Comparable<Touch>{
 			i++;
 		}
 
-		// check that tokens are the same
+
 		//TODO this_touch_token is null sometimes. Under what conditions does this happen?
+		//TODO this happens when this_touch_token falls outsize of \mu+-2_sigma
+		//TODO shouldn't this not happen here because touch token was not included in the windows
+		//TODO this could be happening if the base tokens are being used with the auth windows
+		//TODO in this case that would be the intended effect.
+		//TODO I need to think about this more
+		if(this_touch_token == null){
+			// indicate the tokens do not match
+			return false;
+		}
+
+		// check that tokens are the same
 		boolean token_equal = this_touch_token.equals(other_touch_token);
 
 		// check that keycodes are the same

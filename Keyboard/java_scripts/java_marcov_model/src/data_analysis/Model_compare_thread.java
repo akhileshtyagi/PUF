@@ -20,12 +20,12 @@ public class Model_compare_thread implements Runnable{
 	// disjoint applies when base_data_path and auth_data_path are the same
 	// disjoint = true will do disjoint sets for each data file
 	// disjoint = false will do non-disjoint sets
-	final boolean DISJOINT = true;
+	final boolean DISJOINT = false; //true;
 	// extensive will do every possible combination of data sets regaurdless of compare limit
 	// this will take some time and is useful to extract results after the parameters have been mostly tweaked
 	// extensive = true implies this sort of test
 	// extensive = true and DISJOINT = 1 results in non-disjoint sets being thrown out
-	final boolean EXTENSIVE = false;
+	final boolean EXTENSIVE = true; //false;
 	
 	List<Double> authentication_probability_list;
 	public double max_authentication_probability;

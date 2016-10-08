@@ -534,7 +534,8 @@ public class Chain{
 	 *
 	 * The weighted version weights by the ratio of
 	 * (occurences/total) in the auth list.*/
-	private double get_window_difference(Window window, TrieList base_window_list, TrieList auth_window_list, List<Touch> successor_list_base, List<Touch> successor_list_auth){
+	//TODO turn back to private method, only public for testing
+	public double get_window_difference(Window window, TrieList base_window_list, TrieList auth_window_list, List<Touch> successor_list_base, List<Touch> successor_list_auth){
 		double difference = 0;
 
 		// get a List<Integer> of all occurrences of the given unique window
