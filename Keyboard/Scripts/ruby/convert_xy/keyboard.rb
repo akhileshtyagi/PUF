@@ -5,6 +5,12 @@
 # what is the associated character
 ##
 module Keyboard
+	# adjust this value to change the number of keys which map to a given region
+	KEYS_PER_REGION = 2.0 # default 1.0
+	REGION_WIDTH = 10.0 # default 10.0
+	REGION_HEIGHT = 50.0 # default 50.0
+	
+	# constant file names
 	QWERTY_XML = "qwerty.xml"
 	SYMBOLS_XML = "symbols.xml"
 	SYMBOLS_SHIFT_XML = "symbols_shift.xml"
@@ -181,8 +187,8 @@ module Keyboard
 			
 			#TODO account for spacing between the keys
 			# define consistent parameters
-			key_width = 10;
-			key_height = 50;
+			key_width = REGION_WIDTH * KEYS_PER_REGION;
+			key_height = REGION_HEIGHT * KEYS_PER_REGION;
 			
 			# create a set of keys
 			@row_array = []
