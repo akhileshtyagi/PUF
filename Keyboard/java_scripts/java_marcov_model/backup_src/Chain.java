@@ -255,7 +255,7 @@ public class Chain{
 	}
 	
 	///returns the percent difference between this chain and auth_chain.
-	///the value returned will be between 0 and 1
+	///the max_value returned will be between 0 and 1
 	///0 indicates there is no difference
 	///1 indicates there is a large difference
 	//TODO compare should return the same thing both directions
@@ -474,7 +474,7 @@ public class Chain{
 		
 		//System.out.println("base_p:"+base_probability+" auth_p:"+auth_probability);
 		
-		//TODO should this be absolute value?
+		//TODO should this be absolute max_value?
 		difference = Math.abs(base_probability - auth_probability);
 		
 		return difference;
@@ -839,7 +839,7 @@ public class Chain{
 			}
 		}
 		
-		//2) check to see if the pressure value for this touch is within 2 sigma of mu for this distribution
+		//2) check to see if the pressure max_value for this touch is within 2 sigma of mu for this distribution
 		if(key_dist != null){
 			if((touch.get_pressure() <= (key_dist.get_average()+sigma*key_dist.get_standard_deviation())) &&
 					(touch.get_pressure() >= (key_dist.get_average()-sigma*key_dist.get_standard_deviation()))){

@@ -109,7 +109,14 @@ public class Model_compare {
 		print_results(test_models);
 		print_statistics(test_models);
 	}
-	
+
+	/**
+	 * compare the data files based on the parameter set,
+	 * write out results to the usual places
+	 */
+	public static void compare(ParameterSet parameter_set, DataFile base_file, DataFile auth_file){
+		//TODO
+	}
 	
 	//TODO print out the useful statistics like false_positive_percentage
 	private static void print_statistics(List<Model_compare_thread> test_models){

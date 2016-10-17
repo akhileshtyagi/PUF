@@ -1,7 +1,7 @@
 package components;
 
 /** This class represents a token within the model.
- * Essentially this is a range of values. A touch is defined to be within a token if the pressure value of the touch falls within this range.
+ * Essentially this is a range of values. A touch is defined to be within a token if the pressure max_value of the touch falls within this range.
  * This class is designed to abstract away the clustering algorithm. This makes the rest of the code far simpler to think about
  * Something to look at in the future may be a clustering algorithm that is not equally distributed
  */
@@ -73,7 +73,7 @@ public class Token{
 	}
 
 
-	///determines if a touch is within this token based on its pressure value
+	///determines if a touch is within this token based on its pressure max_value
 	/// this will return true if a touches pressure equals max or min, so
 	/// if max of one token is min of another token, both will return true
 	public boolean contains(Touch touch){

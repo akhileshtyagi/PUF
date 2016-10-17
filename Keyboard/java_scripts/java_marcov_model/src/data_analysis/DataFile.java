@@ -5,5 +5,9 @@ package data_analysis;
  * can be used to read file data into Chain format
  */
 public class DataFile {
-    //TODO
+    protected String file_name;
+
+    public DataFile(String file_name){
+        this.file_name = file_name;
+    }
 }

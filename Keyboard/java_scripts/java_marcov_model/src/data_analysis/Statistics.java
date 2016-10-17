@@ -198,7 +198,7 @@ public class Statistics {
 				model_combo.authentication_accuracy=authentication_accuracy(auth_threshold, current_should_authenticate_list, current_should_not_authenticate_list);
 			}
 			
-			//NOW each model combination object has the authentication accuracy value
+			//NOW each model combination object has the authentication accuracy max_value
 			// print out average authentication accuracy vs. model size
 			output.println("base_model_size\t"
 					+"auth_model_size\t"
@@ -268,7 +268,7 @@ public class Statistics {
 		ArrayList<Double> possible_percentages = new ArrayList<Double>();
 		
 		//create a list of percentages to try
-		//add a null as a dummy value for the first test
+		//add a null as a dummy max_value for the first test
 		possible_percentages.add(null);
 		
 		for(int i=0;i<200;i++){
@@ -308,7 +308,7 @@ public class Statistics {
 		ArrayList<Double> possible_percentages = new ArrayList<Double>();
 		
 		//create a list of percentages to try
-		//add a null as a dummy value for the first test
+		//add a null as a dummy max_value for the first test
 		possible_percentages.add(null);
 		
 		for(int i=0;i<200;i++){
@@ -347,7 +347,7 @@ public class Statistics {
 		ArrayList<Double> possible_percentages = new ArrayList<Double>();
 		
 		//create a list of percentages to try
-		//add a null as a dummy value for the first test
+		//add a null as a dummy max_value for the first test
 		possible_percentages.add(null);
 		
 		for(int i=0;i<200;i++){

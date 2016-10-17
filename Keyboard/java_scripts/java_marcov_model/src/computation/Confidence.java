@@ -14,7 +14,7 @@ import java.util.Map;
  * [x] verify overall weighted confidence is being computed correctly, given window confidence
  *      * hand computed some values from the output of print_model
  * [x] verify unweighted confidence is being computed correctly
- *      * if weighted is correct, then unweighted is correct. Tested by setting window weight = 1. got same value as unweighted
+ *      * if weighted is correct, then unweighted is correct. Tested by setting window weight = 1. got same max_value as unweighted
  * [ ] create methods capable of computing confidence interval for a distance vector
  * [ ] I don't think it actually makes sense to be using the keycode distribution, think more about this
  */
@@ -50,8 +50,8 @@ public class Confidence {
      * for some quantity
      *
      * candidate quantities
-     *      token distance value
-     *      window distance value
+     *      token distance max_value
+     *      window distance max_value
      */
     public static double compute_confidence(DistanceVector distance_vector){
         double confidence = 0.0;

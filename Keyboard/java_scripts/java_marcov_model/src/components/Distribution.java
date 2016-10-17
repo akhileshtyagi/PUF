@@ -65,7 +65,7 @@ public class Distribution{
 	}
 
 
-	///calculate min pressure value in touches. Returns 1 if  no touches in list
+	///calculate min pressure max_value in touches. Returns 1 if  no touches in list
 	private double calc_min(List<Touch> touches){
 		//TODO check for correctness
 		Iterator<Touch> touches_iterator = touches.iterator();
@@ -82,7 +82,7 @@ public class Distribution{
 		return min_pressure;
 	}
 
-	///calculate max pressure value in touches. returns 0 on no touches
+	///calculate max pressure max_value in touches. returns 0 on no touches
 	private double calc_max(List<Touch> touches){
 		//TODO check for correctness
 		Iterator<Touch> touches_iterator = touches.iterator();
@@ -100,7 +100,7 @@ public class Distribution{
 	}
 
 
-	///calcualte average pressure value in touches. returns 0 on no touches
+	///calcualte average pressure max_value in touches. returns 0 on no touches
 	private double calc_average(List<Touch> touches){
 		//TODO check for correctness
 		Iterator<Touch> touches_iterator = touches.iterator();

@@ -57,6 +57,6 @@ public class Unit_CompareChainsRank {
 
 		System.out.println("authentication_probability: " + cc.get_auth_probability());
 
-		fail("Compute by hand value of authentication probability");
+		fail("Compute by hand max_value of authentication probability");
 	}
 }

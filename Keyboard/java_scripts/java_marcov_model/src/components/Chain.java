@@ -319,7 +319,7 @@ public class Chain{
 	}
 
 	///returns the percent difference between this chain and auth_chain.
-	///the value returned will be between 0 and 1
+	///the max_value returned will be between 0 and 1
 	///0 indicates there is no difference
 	///1 indicates there is a large difference
 	/// compare should not return the same thing both directions
@@ -730,7 +730,7 @@ public class Chain{
 	// successor_list_auth gives all successor touches for all windows in auth model
 	 *
 	 * the absolute difference between the probabilities will be returned.
-	  * the returned value is 0<= x <= 1*/
+	  * the returned max_value is 0<= x <= 1*/
 	//TODO change this method to be done for a single successor
 	private double get_corresponding_successor_difference(Window window, List<Integer> index_list_base, List<Integer> index_list_auth, List<Touch> successor_list_base, List<Touch> successor_list_auth){
 		//TODO there is duplicated code above which could go here, I will do this simplification later
@@ -808,7 +808,7 @@ public class Chain{
 		
 		//System.out.println("base_p:"+base_probability+" auth_p:"+auth_probability);
 		
-		// take the absolute value because we are adding up
+		// take the absolute max_value because we are adding up
 		// the total difference between the edges of both models
 		difference = Math.abs(base_probability - auth_probability);
 		
@@ -1077,7 +1077,7 @@ public class Chain{
 			}
 		}
 		
-		//2) check to see if the pressure value for this touch is within 2 sigma of mu for this distribution
+		//2) check to see if the pressure max_value for this touch is within 2 sigma of mu for this distribution
 		if(key_dist != null){
 			if((touch.get_pressure() <= (key_dist.get_average()+sigma*key_dist.get_standard_deviation())) &&
 					(touch.get_pressure() >= (key_dist.get_average()-sigma*key_dist.get_standard_deviation()))){

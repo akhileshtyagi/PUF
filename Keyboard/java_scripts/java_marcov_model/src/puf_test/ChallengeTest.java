@@ -101,7 +101,7 @@ public class ChallengeTest extends Challenge {
         for(int i=0; i<array_length; i++){
             char character = character_array[(int)Math.floor( ((double)i)/((double)bits_per_character) )];
 
-            // determine bit value based on the location within the character
+            // determine bit max_value based on the location within the character
             char mask = (char)(0b1 << (i%5));
             Bit.Value bit_value = ( ((character-'A') & mask) == 1 ) ? Bit.Value.ONE : Bit.Value.ZERO;
 

@@ -149,7 +149,7 @@ public class Challenge{
             Bit[] array = new Bit[BITS_PER_CHARACTER];
 
             // begin from the end of the range
-            // so as not to flip the value
+            // so as not to flip the max_value
             for(int j=0; j<BITS_PER_CHARACTER; j++){
                 array[j] = bit_array[((i+1) * BITS_PER_CHARACTER)-j-1];
             }
@@ -205,10 +205,10 @@ public class Challenge{
         // 0 is MSB
         int place_value = (0b1 << (BITS_PER_CHARACTER-1));
         for(int i=0; i<bit_array.length; i++){
-            // add value*place_value
+            // add max_value*place_value
             value += bit_array[i].get_int_value() * place_value;
 
-            // increase place value
+            // increase place max_value
             place_value = place_value >> 1;
         }
 
@@ -243,12 +243,12 @@ public class Challenge{
     }
 
     /**
-     * convert a single bit array into the corresponding pressure value
+     * convert a single bit array into the corresponding pressure max_value
      *
      * normalize the values as if pressure is between 0 and 1.0
      * to retrieve the pressure at runtime,
      *
-     * the distribution of the pressure should have its max value
+     * the distribution of the pressure should have its max max_value
      * multiplied by this number
      */
     //TODO check that this is correct
@@ -259,10 +259,10 @@ public class Challenge{
         // 0 is MSB
         int place_value = (0b1 << (BITS_PER_CHARACTER-1));
         for(int i=0; i<bit_array.length; i++){
-            // add value*place_value
+            // add max_value*place_value
             value += bit_array[i].get_int_value() * place_value;
 
-            // increase place value
+            // increase place max_value
             place_value = place_value >> 1;
         }
 

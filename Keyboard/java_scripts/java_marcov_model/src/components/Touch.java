@@ -7,7 +7,7 @@ import java.util.Map;
 /** This class represents a touch event.
  * Touch evens have an associated key, pressure, and time from the raw data.
  * From the Markov Chain we derive the probability and predecessor_window attributes.
- * The probability is a value between 0 and 1 representing the percent change this
+ * The probability is a max_value between 0 and 1 representing the percent change this
  * token follows the predecessor window.
  */
 public class Touch implements Comparable<Touch>{
@@ -54,7 +54,7 @@ public class Touch implements Comparable<Touch>{
 	public void set_probability(List<Token> tokens, Window preceeding_window, double p){
 		//TODO check for correctness
 		//add them at their respective locations
-		//if predecessor_window already exists, update the pressure value. If predecessor_window does not exist, then add both predecessor_window and pressure
+		//if predecessor_window already exists, update the pressure max_value. If predecessor_window does not exist, then add both predecessor_window and pressure
 		int index = 0;
 
 		//search for window in predecessor_window
@@ -87,7 +87,7 @@ public class Touch implements Comparable<Touch>{
 	public void set_probability(Map<Integer, List<Token>> tokens, Window preceeding_window, double p){
 		//TODO check for correctness
 		//add them at their respective locations
-		//if predecessor_window already exists, update the pressure value. If predecessor_window does not exist, then add both predecessor_window and pressure
+		//if predecessor_window already exists, update the pressure max_value. If predecessor_window does not exist, then add both predecessor_window and pressure
 		int index = 0;
 
 		//search for window in predecessor_window
@@ -266,7 +266,7 @@ public class Touch implements Comparable<Touch>{
 			differance++;
 		}
 
-		//do this check last so if they are indeed unequal, the differance in the pressure value will be returned (most likly)
+		//do this check last so if they are indeed unequal, the differance in the pressure max_value will be returned (most likly)
 		if(this.pressure != other_touch.pressure){
 			differance ++;
 		}

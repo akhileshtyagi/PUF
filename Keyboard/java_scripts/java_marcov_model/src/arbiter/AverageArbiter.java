@@ -55,11 +55,11 @@ public class AverageArbiter implements Arbiter{
 
         //String error = "";
 
-        // quantize each bit based on it's value compared to the average
+        // quantize each bit based on it's max_value compared to the average
         for(int bit_index=0; bit_index<challenge.get_challenge_string().length(); bit_index++) {
             double next_state_average = compute_next_state_average(challenge.get_user_input().get_input_list().get(bit_index));
 
-            // set bit value 1 if this bit's average is
+            // set bit max_value 1 if this bit's average is
             // greater than equal average over all in the challenge
             // 0 otherwise
             quantization_bits[bit_index] = (next_state_average >= average_probability) ?
