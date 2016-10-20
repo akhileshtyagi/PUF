@@ -4,11 +4,13 @@ import java.io.File;
 import java.util.*;
 
 public class PerformanceMeasure {
-    private final static int[] window_sizes = {2};
-    private final static int[] token_sizes = {1};
+    private final static String input_folder_name = "data_sets";
+
+    private final static int[] window_sizes = {1,2,3};
+    private final static int[] token_sizes = {1,2,3};
     private final static int[] thresholds = {5000};
-    private static int[] user_model_sizes = {100, 400, 800, 1600, 3200};
-    private static int[] auth_model_sizes = {100, 400, 800, 1600, 3200};
+    private static int[] user_model_sizes = {3200};
+    private static int[] auth_model_sizes = {3200};
 
     /**
      * enumerate all possible metrics we might want to know something about
@@ -35,27 +37,39 @@ public class PerformanceMeasure {
      * represents a User, Device pairing
      */
     private class UD{
-        int user;
-        int device;
+        String user;
+        String device;
 
-        public UD(int user, int device){
+        public UD(String user, String device){
             this.user = user;
             this.device = device;
         }
 
+        public boolean is_same_user(UD other_UD){
+            return user.equals(other_UD.user);
+        }
+
+        public boolean is_same_device(UD other_UD){
+            return device.equals(other_UD.device);
+        }
+
         // UD's are equal if both user and device are equal
         public boolean equals(Object other_object){
+            if(other_object == null){
+                return false;
+            }
+
             UD other_UD = (UD)other_object;
 
-            boolean user_equal = (other_UD.user == user);
-            boolean device_equal = (other_UD.device == device);
+            boolean user_equal = (other_UD.user.equals(user));
+            boolean device_equal = (other_UD.device.equals(device));
 
             return user_equal && device_equal;
         }
     }
 
     protected List<ParameterSet> parameter_set_list;
-    protected Map<UD, List<DataFile>> data_file_map;
+    protected Map<UD, DataFile> data_file_map;
 
     protected ParameterSet max_parameter_set;
     protected double max_value;
@@ -87,10 +101,29 @@ public class PerformanceMeasure {
         // create a map of the datafiles which will be used
         // maps a user, device combination to a List of data file
         // for that user, device
-        //TODO
+        File[] files = new File(input_folder_name).listFiles();
+        for(File file : files) {
+            if (file.isFile()) {
+                DataFile data_file = new DataFile(file.getAbsolutePath());
+
+                // user_devcie should be parced from file_name
+                // files are named in the form t_[user]_d_[device].csv
+                String[] split_file_name_array = file.getName().split("_");
+
+                // make sure the correct parts of the file name are being grabbed
+                //System.out.println("user | " + split_file_name_array[1]);
+
+                String[] device_name_array = split_file_name_array[3].split("\\.");
+                //System.out.println("device | " + device_name_array[0]);
+
+                UD user_device = new UD(split_file_name_array[1], device_name_array[0]);
+
+                data_file_map.put(user_device, data_file);
+            }
+        }
 
         this.type = type;
-        this.max_value = 0.0;
+        this.max_value = -1.0;
     }
 
     public Type get_type() {
@@ -120,28 +153,83 @@ public class PerformanceMeasure {
 
             // measure the performance of the test
             // essentially this switch statement chooses the appropriate data files
+            //TODO user the switch statement to decide what user_data_file and what auth_data_file should be used
+            DataFile user_data_file = null;
+            DataFile auth_data_file = null;
+            UD user = null;
+            UD auth = null;
             switch (this.type) {
                 case SAME_USER_SAME_DEVICE:
                     // chose appropriate data files
-                    // run the test
-                    result = compare(parameter_set, this.data_file_map.get(u_0_d_0).get(0), this.data_file_map.get(u_0_d_0).get(1));
+                    // find two sets with same user, same device
+                    for(UD user_device : this.data_file_map.keySet()) {
+                        user_data_file = this.data_file_map.get(user_device);
+                        auth_data_file = this.data_file_map.get(user_device);
+                        break;
+                    }
+
                     break;
                 case SAME_USER_DIFFERENT_DEVICE:
                     // chose appropriate data files
-                    // run the test
-                    result = compare(parameter_set, this.data_file_map.get(u_0_d_0).get(0), this.data_file_map.get(u_0_d_1).get(0));
+                    for(UD user_device : this.data_file_map.keySet()) {
+                        // the first iteration, set the user_data_file
+                        if (user == null){
+                            user = user_device;
+                            continue;
+                        }
+
+                        // choose an auth data file with a different device but same user
+                        if(user.is_same_user(user_device) && !user.is_same_device(user_device)){
+                            auth = user_device;
+                            break;
+                        }
+                    }
+
+                    user_data_file = this.data_file_map.get(user);
+                    auth_data_file = this.data_file_map.get(auth);
                     break;
                 case DIFFERENT_USER_SAME_DEVICE:
                     // chose appropriate data files
-                    // run the test
-                    result = compare(parameter_set, this.data_file_map.get(u_0_d_0).get(0), this.data_file_map.get(u_1_d_0).get(0));
+                    for(UD user_device : this.data_file_map.keySet()) {
+                        // the first iteration, set the user_data_file
+                        if (user == null){
+                            user = user_device;
+                            continue;
+                        }
+
+                        // choose an auth data file
+                        if(!user.is_same_user(user_device) && user.is_same_device(user_device)){
+                            auth = user_device;
+                            break;
+                        }
+                    }
+
+                    user_data_file = this.data_file_map.get(user);
+                    auth_data_file = this.data_file_map.get(auth);
                     break;
                 case DIFFERENT_USER_DIFFERENT_DEVICE:
                     // chose appropriate data files
-                    // run the test
-                    result = compare(parameter_set, this.data_file_map.get(u_0_d_0).get(0), this.data_file_map.get(u_1_d_1).get(0));
+                    // chose appropriate data files
+                    for(UD user_device : this.data_file_map.keySet()) {
+                        // the first iteration, set the user_data_file
+                        if (user == null){
+                            user = user_device;
+                            continue;
+                        }
+
+                        // choose an auth data file
+                        if(!user.is_same_user(user_device) && !user.is_same_device(user_device)){
+                            auth = user_device;
+                            break;
+                        }
+                    }
+
+                    user_data_file = this.data_file_map.get(user);
+                    auth_data_file = this.data_file_map.get(auth);
                     break;
             }
+
+            result = compare(parameter_set, user_data_file, auth_data_file);
 
             // record the result if it is greater than max_value
             if (result > this.max_value) {
@@ -180,7 +268,7 @@ public class PerformanceMeasure {
             input.nextLine();
             String line = input.nextLine();
 
-            result = Double.valueOf(line.split(" ")[2]);
+            result = Double.valueOf(line.split("\t")[2]);
         }catch(Exception e){ e.printStackTrace(); }
 
         // return authentication accuracy
@@ -200,6 +288,9 @@ public class PerformanceMeasure {
         string_builder.append(this.max_value);
 
         string_builder.append("\t");
+
+        string_builder.append("parameters | ");
+        string_builder.append(this.max_parameter_set);
 
         return string_builder.toString();
     }

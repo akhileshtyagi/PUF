@@ -86,62 +86,63 @@ public class Statistics {
 			System.out.println("input file is on mars or somethin'");
 			e.printStackTrace();
 		}
-		
+
+		//TODO TODO TODO uncomment 3 lines
 		//TODO call methods to retrieve statistics on the lists
-		double best_threshold = best_authentication_percentage(should_authenticate, should_not_authenticate);
-		double minimized_false_positive_threshold = minimize_false_positive_authentication_percentage(should_authenticate, should_not_authenticate);
-		double equalized_false_positive_negative_threshold = equal_false_positive_negative_authentication_percentage(should_authenticate, should_not_authenticate);
+		//double best_threshold = best_authentication_percentage(should_authenticate, should_not_authenticate);
+		//double minimized_false_positive_threshold = minimize_false_positive_authentication_percentage(should_authenticate, should_not_authenticate);
+		//double equalized_false_positive_negative_threshold = equal_false_positive_negative_authentication_percentage(should_authenticate, should_not_authenticate);
 		
 		//TODO print out the results to output_file
 		PrintWriter output = null;
 		
-		try {
-			output = new PrintWriter(OUTPUT_FILE_NAME, "UTF-8");
-			
-			// print out the probability for each individual compairason
-			output.println("best_threshold: "+best_threshold+"\n"
-					+ "false_positive_percentage: "+false_positive_percentage(best_threshold, should_authenticate, should_not_authenticate)+"\n"
-					+ "false_negative_percentage: "+false_negative_percentage(best_threshold, should_authenticate, should_not_authenticate)+"\n"
-					+ "number_of_tests_conducted: "+(should_authenticate.size()+should_not_authenticate.size()+"\n"));
-			
-			output.println("minimized_false_positive_threshold: "+minimized_false_positive_threshold+"\n"
-					+ "false_positive_percentage: "+false_positive_percentage(minimized_false_positive_threshold, should_authenticate, should_not_authenticate)+"\n"
-					+ "false_negative_percentage: "+false_negative_percentage(minimized_false_positive_threshold, should_authenticate, should_not_authenticate)+"\n"
-					+ "number_of_tests_conducted: "+(should_authenticate.size()+should_not_authenticate.size()+"\n"));
-			
-			output.println("equalized_false_positive_negative_threshold: "+equalized_false_positive_negative_threshold+"\n"
-					+ "false_positive_percentage: "+false_positive_percentage(equalized_false_positive_negative_threshold, should_authenticate, should_not_authenticate)+"\n"
-					+ "false_negative_percentage: "+false_negative_percentage(equalized_false_positive_negative_threshold, should_authenticate, should_not_authenticate)+"\n"
-					+ "number_of_tests_conducted: "+(should_authenticate.size()+should_not_authenticate.size()+"\n"));
-			
-			//now print out all the results at each potential authentication threshold
-			output.println("authentication_threshold\t"
-					+"false_positive_percentage\t"
-					+"false_negative_percentage\t"
-					+"authentication_accuracy");
-			
-			//try a range of authentication thresholds
-			int step_number = 100000;
-			double beginning = 0.0;
-			// end must be between beginning and 1.0
-			double end = 0.001;
-			for(int i=0;i<step_number;i++){
-				//go from .01 to 100, in steps of .0001
-				double current_threshold = beginning+(end/((double)step_number))*i;
-				
-				//System.out.println(String.format("%f", false_positive_percentage(current_threshold, should_authenticate, should_not_authenticate)));
-				
-				output.println(current_threshold+"\t"
-						+false_positive_percentage(current_threshold, should_authenticate, should_not_authenticate)+"\t"
-						+false_negative_percentage(current_threshold, should_authenticate, should_not_authenticate)+"\t"
-						+authentication_accuracy(current_threshold, should_authenticate, should_not_authenticate));
-			}
-			
-			output.close();
-		} catch (Exception e) {
-			System.out.println("Failed to open output file");
-			e.printStackTrace();
-		}
+//		try {
+//			output = new PrintWriter(OUTPUT_FILE_NAME, "UTF-8");
+//
+//			// print out the probability for each individual compairason
+//			output.println("best_threshold: "+best_threshold+"\n"
+//					+ "false_positive_percentage: "+false_positive_percentage(best_threshold, should_authenticate, should_not_authenticate)+"\n"
+//					+ "false_negative_percentage: "+false_negative_percentage(best_threshold, should_authenticate, should_not_authenticate)+"\n"
+//					+ "number_of_tests_conducted: "+(should_authenticate.size()+should_not_authenticate.size()+"\n"));
+//
+//			output.println("minimized_false_positive_threshold: "+minimized_false_positive_threshold+"\n"
+//					+ "false_positive_percentage: "+false_positive_percentage(minimized_false_positive_threshold, should_authenticate, should_not_authenticate)+"\n"
+//					+ "false_negative_percentage: "+false_negative_percentage(minimized_false_positive_threshold, should_authenticate, should_not_authenticate)+"\n"
+//					+ "number_of_tests_conducted: "+(should_authenticate.size()+should_not_authenticate.size()+"\n"));
+//
+//			output.println("equalized_false_positive_negative_threshold: "+equalized_false_positive_negative_threshold+"\n"
+//					+ "false_positive_percentage: "+false_positive_percentage(equalized_false_positive_negative_threshold, should_authenticate, should_not_authenticate)+"\n"
+//					+ "false_negative_percentage: "+false_negative_percentage(equalized_false_positive_negative_threshold, should_authenticate, should_not_authenticate)+"\n"
+//					+ "number_of_tests_conducted: "+(should_authenticate.size()+should_not_authenticate.size()+"\n"));
+//
+//			//now print out all the results at each potential authentication threshold
+//			output.println("authentication_threshold\t"
+//					+"false_positive_percentage\t"
+//					+"false_negative_percentage\t"
+//					+"authentication_accuracy");
+//
+//			//try a range of authentication thresholds
+//			int step_number = 100000;
+//			double beginning = 0.0;
+//			// end must be between beginning and 1.0
+//			double end = 0.001;
+//			for(int i=0;i<step_number;i++){
+//				//go from .01 to 100, in steps of .0001
+//				double current_threshold = beginning+(end/((double)step_number))*i;
+//
+//				//System.out.println(String.format("%f", false_positive_percentage(current_threshold, should_authenticate, should_not_authenticate)));
+//
+//				output.println(current_threshold+"\t"
+//						+false_positive_percentage(current_threshold, should_authenticate, should_not_authenticate)+"\t"
+//						+false_negative_percentage(current_threshold, should_authenticate, should_not_authenticate)+"\t"
+//						+authentication_accuracy(current_threshold, should_authenticate, should_not_authenticate));
+//			}
+//
+//			output.close();
+//		} catch (Exception e) {
+//			System.out.println("Failed to open output file");
+//			e.printStackTrace();
+//		}
 		
 		//TODO need to determine how authentication accurracy depents on model size
 		try{
@@ -294,9 +295,11 @@ public class Statistics {
 				possible_percentages.remove(1);
 			}
 		}
-		
+
+		//TODO returns a rediculious number
+		//TODO so future tim will know that this method needs to be fixed
 		//return possible_percentages.get(0);
-		return .86;
+		return -10;
 	}
 	
 	

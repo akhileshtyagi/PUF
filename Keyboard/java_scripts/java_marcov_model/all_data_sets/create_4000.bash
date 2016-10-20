@@ -6,12 +6,19 @@
 FILES=./*
 for f in $FILES
 do
-  echo "Processing $f file..."
-  
-  # take action on each file. $f store current file name
-  NEW_FILE="${f}_4512"
-  echo $NEW_FILE
-  tail -4512 $f > $NEW_FILE
+  # skip directories
+  if [ -d "$f" ]
+  then
+    echo "Skipping direcotry $f"
+  else
+    echo "Processing $f file..."  
+
+    # take action on each file. 
+    # $f store current file name
+    NEW_FILE="${f}_4512"
+    echo $NEW_FILE
+    tail -4512 $f > $NEW_FILE
+  fi
 done
 
 rm create_4000.bash_4512

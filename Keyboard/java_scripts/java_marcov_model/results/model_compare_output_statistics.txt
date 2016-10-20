@@ -1,5 +1,5 @@
-best_authentication_percentage: 0.86
-false_positive_percentage: 3.501277966457757E-5
-false_negative_percentage: 0.9255278176534435
-authentication_accuracy: 0.537218584783446
-number_of_tests_conducted: 114244
+best_authentication_percentage: -10.0
+false_positive_percentage: 1.0
+false_negative_percentage: NaN
+authentication_accuracy: 0.0
+number_of_tests_conducted: 196

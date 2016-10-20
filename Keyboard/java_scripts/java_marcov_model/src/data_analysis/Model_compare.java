@@ -115,7 +115,38 @@ public class Model_compare {
 	 * write out results to the usual places
 	 */
 	public static void compare(ParameterSet parameter_set, DataFile base_file, DataFile auth_file){
-		//TODO
+		ArrayList<Model_compare_thread> test_models = new ArrayList<Model_compare_thread>();
+		ArrayList<Thread> threads = new ArrayList<Thread>();
+
+		// create the test(s)
+		test_models.add(
+				new Model_compare_thread(
+						base_file.file_name,
+						auth_file.file_name,
+						parameter_set.user_model_size,
+						parameter_set.auth_model_size,
+						parameter_set.window_size,
+						parameter_set.token_size,
+						parameter_set.threshold));
+
+		//run all threads
+		for(int i=0;i<test_models.size();i++){
+			threads.add(new Thread(test_models.get(i)));
+			threads.get(i).start();
+		}
+
+		// join all threads
+		for(int i=0;i<threads.size();i++){
+			try {
+				threads.get(i).join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+		}
+
+		//print the results to a txt file
+		print_results(test_models);
+		print_statistics(test_models);
 	}
 	
 	//TODO print out the useful statistics like false_positive_percentage
