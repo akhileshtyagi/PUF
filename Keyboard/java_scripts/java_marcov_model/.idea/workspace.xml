@@ -43,7 +43,7 @@
         <entry file="file://$PROJECT_DIR$/src/data_analysis/Model_compare.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="193">
-              <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
+              <caret line="197" column="0" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -62,8 +62,8 @@
       <file leaf-file-name="OverallPerformance.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data_analysis/OverallPerformance.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="489">
-              <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+            <state relative-caret-position="435">
+              <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -81,38 +81,50 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PerformanceMeasure.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="PerformanceMeasure.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/data_analysis/PerformanceMeasure.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="144">
-              <caret line="8" column="52" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
+            <state relative-caret-position="288">
+              <caret line="16" column="51" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#928#929#0" expanded="true" />
-                <element signature="e#965#966#0" expanded="true" />
-                <element signature="e#994#995#0" expanded="true" />
-                <element signature="e#1029#1030#0" expanded="true" />
-                <element signature="e#1332#1333#0" expanded="true" />
-                <element signature="e#1389#1390#0" expanded="true" />
-                <element signature="e#1442#1443#0" expanded="true" />
-                <element signature="e#1503#1504#0" expanded="true" />
-                <element signature="e#4289#4290#0" expanded="true" />
-                <element signature="e#4321#4322#0" expanded="true" />
-                <element signature="e#4354#4355#0" expanded="true" />
-                <element signature="e#4391#4392#0" expanded="true" />
-                <element signature="e#4438#4439#0" expanded="true" />
-                <element signature="e#4483#4484#0" expanded="true" />
+                <element signature="e#920#921#0" expanded="true" />
+                <element signature="e#957#958#0" expanded="true" />
+                <element signature="e#986#987#0" expanded="true" />
+                <element signature="e#1021#1022#0" expanded="true" />
+                <element signature="e#1324#1325#0" expanded="true" />
+                <element signature="e#1381#1382#0" expanded="true" />
+                <element signature="e#1434#1435#0" expanded="true" />
+                <element signature="e#1495#1496#0" expanded="true" />
+                <element signature="e#4281#4282#0" expanded="true" />
+                <element signature="e#4313#4314#0" expanded="true" />
+                <element signature="e#4346#4347#0" expanded="true" />
+                <element signature="e#4383#4384#0" expanded="true" />
+                <element signature="e#4430#4431#0" expanded="true" />
+                <element signature="e#4475#4476#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Statistics.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="Statistics.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/data_analysis/Statistics.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="299" column="73" selection-start-line="299" selection-start-column="73" selection-end-line="299" selection-end-column="73" />
+            <state relative-caret-position="625">
+              <caret line="291" column="42" selection-start-line="291" selection-start-column="42" selection-end-line="291" selection-end-column="42" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="TokenTest.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/puf_test/TokenTest.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="167">
+              <caret line="24" column="55" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -192,10 +204,10 @@
         <option value="$PROJECT_DIR$/src/puf_test/CompareTest.java" />
         <option value="$PROJECT_DIR$/src/data_analysis/OverallPerformance.java" />
         <option value="$PROJECT_DIR$/src/data_analysis/DataFile.java" />
-        <option value="$PROJECT_DIR$/src/data_analysis/Model_compare.java" />
-        <option value="$PROJECT_DIR$/src/data_analysis/Statistics.java" />
         <option value="$PROJECT_DIR$/src/data_analysis/ParameterSet.java" />
         <option value="$PROJECT_DIR$/src/data_analysis/PerformanceMeasure.java" />
+        <option value="$PROJECT_DIR$/src/data_analysis/Model_compare.java" />
+        <option value="$PROJECT_DIR$/src/data_analysis/Statistics.java" />
       </list>
     </option>
   </component>
@@ -923,8 +935,8 @@
     <recent_temporary>
       <list size="5">
         <item index="0" class="java.lang.String" itemvalue="Application.OverallPerformance" />
-        <item index="1" class="java.lang.String" itemvalue="Application.CompareTest" />
-        <item index="2" class="java.lang.String" itemvalue="Application.Statistics" />
+        <item index="1" class="java.lang.String" itemvalue="Application.Statistics" />
+        <item index="2" class="java.lang.String" itemvalue="Application.CompareTest" />
         <item index="3" class="java.lang.String" itemvalue="Application.Model_compare" />
         <item index="4" class="java.lang.String" itemvalue="Application.TokenTest" />
       </list>
@@ -981,7 +993,7 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="UI Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3969697" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3959276" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -1004,7 +1016,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="14" />
+      <option name="time" value="19" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -1296,16 +1308,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/puf_test/TokenTest.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="273">
-          <caret line="24" column="37" selection-start-line="24" selection-start-column="37" selection-end-line="24" selection-end-column="37" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Window.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="378">
@@ -1365,19 +1367,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_analysis/Model_compare.java">
+    <entry file="file://$PROJECT_DIR$/src/puf_test/TokenTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="193">
-          <caret line="178" column="0" selection-start-line="178" selection-start-column="0" selection-end-line="178" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_analysis/Statistics.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="299" column="73" selection-start-line="299" selection-start-column="73" selection-end-line="299" selection-end-column="73" />
-          <folding />
+        <state relative-caret-position="167">
+          <caret line="24" column="55" selection-start-line="24" selection-start-column="55" selection-end-line="24" selection-end-column="55" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1389,37 +1385,53 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_analysis/PerformanceMeasure.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="51" selection-start-line="16" selection-start-column="51" selection-end-line="16" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#920#921#0" expanded="true" />
+            <element signature="e#957#958#0" expanded="true" />
+            <element signature="e#986#987#0" expanded="true" />
+            <element signature="e#1021#1022#0" expanded="true" />
+            <element signature="e#1324#1325#0" expanded="true" />
+            <element signature="e#1381#1382#0" expanded="true" />
+            <element signature="e#1434#1435#0" expanded="true" />
+            <element signature="e#1495#1496#0" expanded="true" />
+            <element signature="e#4281#4282#0" expanded="true" />
+            <element signature="e#4313#4314#0" expanded="true" />
+            <element signature="e#4346#4347#0" expanded="true" />
+            <element signature="e#4383#4384#0" expanded="true" />
+            <element signature="e#4430#4431#0" expanded="true" />
+            <element signature="e#4475#4476#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/data_analysis/OverallPerformance.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="489">
-          <caret line="36" column="9" selection-start-line="36" selection-start-column="9" selection-end-line="36" selection-end-column="9" />
+        <state relative-caret-position="435">
+          <caret line="33" column="32" selection-start-line="33" selection-start-column="32" selection-end-line="33" selection-end-column="32" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/data_analysis/PerformanceMeasure.java">
+    <entry file="file://$PROJECT_DIR$/src/data_analysis/Model_compare.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="144">
-          <caret line="8" column="52" selection-start-line="8" selection-start-column="52" selection-end-line="8" selection-end-column="52" />
-          <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#928#929#0" expanded="true" />
-            <element signature="e#965#966#0" expanded="true" />
-            <element signature="e#994#995#0" expanded="true" />
-            <element signature="e#1029#1030#0" expanded="true" />
-            <element signature="e#1332#1333#0" expanded="true" />
-            <element signature="e#1389#1390#0" expanded="true" />
-            <element signature="e#1442#1443#0" expanded="true" />
-            <element signature="e#1503#1504#0" expanded="true" />
-            <element signature="e#4289#4290#0" expanded="true" />
-            <element signature="e#4321#4322#0" expanded="true" />
-            <element signature="e#4354#4355#0" expanded="true" />
-            <element signature="e#4391#4392#0" expanded="true" />
-            <element signature="e#4438#4439#0" expanded="true" />
-            <element signature="e#4483#4484#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="193">
+          <caret line="197" column="0" selection-start-line="197" selection-start-column="0" selection-end-line="197" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data_analysis/Statistics.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="625">
+          <caret line="291" column="42" selection-start-line="291" selection-start-column="42" selection-end-line="291" selection-end-column="42" />
+          <folding />
         </state>
       </provider>
     </entry>

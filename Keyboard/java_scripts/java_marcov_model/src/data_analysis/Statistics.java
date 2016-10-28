@@ -1,5 +1,7 @@
 package data_analysis;
 
+import components.Distribution;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.PrintWriter;
@@ -262,6 +264,19 @@ public class Statistics {
 	//TODO remove override
 	// returns the authenticaion_percentage where false_positive_percentage + false_negative_percentage is the smallest
 	public static double best_authentication_percentage(List<Double> should_authenticate_percentages, List<Double> should_not_authenticate_percentages){
+		// if either list has no percentages,
+		// then I know either they all should authenticate, or they all should not authenticaticate
+		//
+		// pick an authentication percentage lower than any in the list
+		if(should_authenticate_percentages.size() == 0){
+			return 2;
+		}
+
+		// pick an authentication percentage higher then any percentage in the list
+		if(should_not_authenticate_percentages.size() == 0){
+			return -1;
+		}
+
 		double best_percentage=2;
 		double current_false_positive_percentage=1;
 		double current_false_negative_percentage=1;
@@ -271,24 +286,31 @@ public class Statistics {
 		//create a list of percentages to try
 		//add a null as a dummy max_value for the first test
 		possible_percentages.add(null);
-		
+
 		for(int i=0;i<200;i++){
 			//go every half percent
-			possible_percentages.add(i*.05);
+			possible_percentages.add(i*.005);
 		}
+
+//		System.out.println("possible percentages : " + possible_percentages);
+//		System.out.println("should authenticate percentages : " + should_authenticate_percentages);
+//		System.out.println("should not authenticate percentages : " + should_not_authenticate_percentages);
+//		System.out.flush();
 		
 		//try the percentages removing the ones that doesn't work
 		while(possible_percentages.size()>1){
 			//find the relevent percentages for the next thing in the list
 			current_false_positive_percentage = false_positive_percentage(possible_percentages.get(1), should_authenticate_percentages, should_not_authenticate_percentages);
 			current_false_negative_percentage = false_negative_percentage(possible_percentages.get(1), should_authenticate_percentages, should_not_authenticate_percentages);
-			
+
+//			System.out.println("postive: " + current_false_positive_percentage);
+//			System.out.println("negative: " + current_false_negative_percentage);
+
 			if((current_false_positive_percentage+current_false_negative_percentage)<best_percentage){
 				//the current best percentage will always be first in the possible_percentages list
 				//this percentage is no longer the best, so remove the first possible percentage
 				possible_percentages.remove(0);
-				
-				
+
 				best_percentage=current_false_positive_percentage+current_false_negative_percentage;
 			}else{
 				//the current best percentage is still the best, remove the second item in the list
@@ -296,10 +318,11 @@ public class Statistics {
 			}
 		}
 
-		//TODO returns a rediculious number
-		//TODO so future tim will know that this method needs to be fixed
-		//return possible_percentages.get(0);
-		return -10;
+		//TODO error is because I return null and the return type should be double
+		System.out.println("possible percentages : " + possible_percentages.get(0));
+		System.out.flush();
+
+		return possible_percentages.get(0);
 	}
 	
 	

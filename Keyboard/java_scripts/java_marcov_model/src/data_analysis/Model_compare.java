@@ -113,6 +113,14 @@ public class Model_compare {
 	/**
 	 * compare the data files based on the parameter set,
 	 * write out results to the usual places
+	 *
+	 * have the same number of tests comparing base_file with base_file
+	 * as base_file with auth_file
+	 *
+	 * the purpose of this is so that authentication_accuracy (the result of the test)
+	 * will represent the ability of the system to tell base_file from auth_file
+	 *
+	 * TODO perhaps I should compare the first half of base_file with the second half of base file?
 	 */
 	public static void compare(ParameterSet parameter_set, DataFile base_file, DataFile auth_file){
 		ArrayList<Model_compare_thread> test_models = new ArrayList<Model_compare_thread>();
@@ -123,6 +131,17 @@ public class Model_compare {
 				new Model_compare_thread(
 						base_file.file_name,
 						auth_file.file_name,
+						parameter_set.user_model_size,
+						parameter_set.auth_model_size,
+						parameter_set.window_size,
+						parameter_set.token_size,
+						parameter_set.threshold));
+
+		//TODO does this have the effect that I think it does
+		test_models.add(
+				new Model_compare_thread(
+						base_file.file_name,
+						base_file.file_name,
 						parameter_set.user_model_size,
 						parameter_set.auth_model_size,
 						parameter_set.window_size,

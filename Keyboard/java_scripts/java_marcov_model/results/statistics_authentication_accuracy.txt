@@ -1,2 +1,2 @@
 base_model_size	auth_model_size	authentication_accuracy
-3200	3200	0.0
+3200	3200	1.0

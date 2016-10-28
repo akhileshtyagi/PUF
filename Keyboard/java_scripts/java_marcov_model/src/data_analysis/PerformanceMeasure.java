@@ -6,8 +6,8 @@ import java.util.*;
 public class PerformanceMeasure {
     private final static String input_folder_name = "data_sets";
 
-    private final static int[] window_sizes = {1,2,3};
-    private final static int[] token_sizes = {1,2,3};
+    private final static int[] window_sizes = {1};
+    private final static int[] token_sizes = {1};
     private final static int[] thresholds = {5000};
     private static int[] user_model_sizes = {3200};
     private static int[] auth_model_sizes = {3200};
@@ -229,6 +229,7 @@ public class PerformanceMeasure {
                     break;
             }
 
+            // result of comparing the data sets
             result = compare(parameter_set, user_data_file, auth_data_file);
 
             // record the result if it is greater than max_value
@@ -287,7 +288,7 @@ public class PerformanceMeasure {
         string_builder.append("max_value | ");
         string_builder.append(this.max_value);
 
-        string_builder.append("\t");
+        string_builder.append("\t\t");
 
         string_builder.append("parameters | ");
         string_builder.append(this.max_parameter_set);
