@@ -6,15 +6,19 @@ import java.util.*;
 public class PerformanceMeasure {
     private final static String input_folder_name = "data_sets";
 
-    private final static int[] window_sizes = {1};
-    private final static int[] token_sizes = {1};
+    private final static int[] window_sizes = {1,2,3};
+    private final static int[] token_sizes = {1,2,3};
     private final static int[] thresholds = {5000};
-    private static int[] user_model_sizes = {3200};
-    private static int[] auth_model_sizes = {3200};
+    private static int[] user_model_sizes = {400};
+    private static int[] auth_model_sizes = {400};
 
     /**
      * enumerate all possible metrics we might want to know something about
      * tests for each of these will be provided in the run method
+     *
+     * Tests can be defined as:
+     * how accurately can we differentiate TEST from
+     * the same user, same device case
      */
     public enum Type {
         SAME_USER_SAME_DEVICE("SAME_USER_SAME_DEVICE"),
