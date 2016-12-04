@@ -1,8 +1,14 @@
 package roc_curve_generation;
 
+import components.Chain;
+import components.Touch;
+import data_analysis.ParameterSet;
+import runtime.ChainBuilder;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 import static java.lang.Boolean.TRUE;
@@ -17,7 +23,12 @@ import static java.lang.Boolean.TRUE;
  */
 public class CompareValueGenerator {
     public static String OUTPUT_FILE_NAME = "src/roc_curve_generation/compare_data.csv";
-    public static String DATA_FOLDER_NAME = "src/roc_curve_generation/data/";
+    public static String DATA_FOLDER_NAME = "data_sets/";
+
+    /* the parameter set for which the ROC curve is to be generated
+    *  (window, token, treshold, user_model_size, auth_model_size) */
+    public static int MODEL_SIZE = 800;
+    public static ParameterSet PARAMETER_SET = new ParameterSet(1, 2, 5000, MODEL_SIZE, MODEL_SIZE);
 
     /* only handle challenges within the challenge set */
     public static int[] CHALLENGE_SET = {};
@@ -54,29 +65,62 @@ public class CompareValueGenerator {
      */
     public static void compare_data(
             ArrayList<Boolean> positive_list, ArrayList<Double> compare_value_list){
+        // I want several (user, device, chain) from each data file
+        ArrayList<UDC> udc_list = new ArrayList<>();
+
         try{
+            // format is "time, keycode, pressure"
             File data_folder = new File(DATA_FOLDER_NAME);
 
-            // for each device folder
-            for(File device_folder : data_folder.listFiles()){
-                String device_name = device_folder.getName();
+            // for each file in folder
+            for(File data_file: data_folder.listFiles()){
+                String user_device = data_file.getName().split("\\.")[0];
 
-                // for each user of the device
-                for(File user_folder : device_folder.listFiles()){
-                    String user_name = user_folder.getName();
+                // get a list of Touches contained within the file
+                List<Touch> touch_list = ChainBuilder.parse_csv(data_file);
 
-                    // Each file is a response to a challenge
-                    // given a user_folder, create a set of
-                    // challenges corresponding to that user, device
-                    //
-                    // ONLY FOR THINGS IN CHALLENGE_SET
-                    //TODO
+                // create one or multiple UDC for for each data file
+                // for each set of MODEL_SIZE touches in the file, create UDC
+                for(int i=0; i<(touch_list.size()/MODEL_SIZE); i++) {
+                    UDC udc = new UDC();
+
+                    udc.user_device = user_device;
+
+                    udc.chain = new Chain(PARAMETER_SET.window_size,
+                            PARAMETER_SET.token_size, PARAMETER_SET.threshold, MODEL_SIZE);
+                    for(int j=0; j<MODEL_SIZE; j++){
+                        udc.chain.add_touch(touch_list.get(j + (i*MODEL_SIZE)));
+                    }
+
+                    // add to the list
+                    udc_list.add(udc);
                 }
             }
-
-            System.out.println(data_folder.listFiles()[0].getName());
-
         }catch(Exception e){ e.printStackTrace(); }
+
+        // for each thing in udc_list
+        // compare against all OTHER things in udc_list
+        for(UDC user_udc : udc_list){
+            for(UDC auth_udc : udc_list) {
+                // i do actually want to compare the objects
+                if(user_udc != auth_udc){
+                    // are the user_device strings equal?
+                    positive_list.add(user_udc.user_device.equals(auth_udc.user_device));
+
+                    // what is the compare value of the chains
+                    // 1-compare_value because compare_to() returns the difference
+                    compare_value_list.add(1-user_udc.chain.compare_to(auth_udc.chain));
+                }
+            }
+        }
+    }
+
+    /**
+     * defines a combination of (user, device, chain)
+     */
+    private static class UDC {
+        public String user_device;
+        public Chain chain;
     }
 
     /**

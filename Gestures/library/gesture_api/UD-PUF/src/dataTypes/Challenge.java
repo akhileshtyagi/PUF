@@ -68,7 +68,7 @@ public class Challenge implements Serializable {
         motion_event_counts = new ArrayList<Double>();
     }
 
-    // Adds normalized response to the list or Responses
+    // Adds normalized response to the list of Responses
     public void addResponse(Response response) {
         // add the time length of the response to the list
         this.time_lengths.add(response.getTimeLength());

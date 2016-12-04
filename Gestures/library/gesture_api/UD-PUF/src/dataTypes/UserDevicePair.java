@@ -979,6 +979,58 @@ public class UserDevicePair {
     }
 
     /**
+     * returns the compare value between this profile and the response
+     */
+    public double compare(Response response){
+        double aggregate_compare_value = 0.0;
+
+        ArrayList<Double> compare_value_list = new ArrayList<>();
+        ArrayList<Point.Metrics> metric_list = new ArrayList<>();
+
+        // compute point vector ( computes this.auth_values_list )
+        // use the first (and probabally only) challenge in this UD_PAIR
+        Challenge challenge = getChallenges().get(0);
+
+        // normalize the response
+        Response response_object = new Response(response.getOrigionalResponse());
+        response_object.normalize(challenge.getNormalizingPoints());
+
+        // compute the point vector based on the normalized response
+        compute_point_vector(response_object.getNormalizedResponse(), challenge.getProfile());
+
+        // create parallel arrays which give the compare value for each point metric
+        for(int i=0; i<auth_values_list.size(); i++) {
+            // keep track of pass / not pass and metrics type
+            // if the number of points which passed is above a threshold, then true
+            compare_value_list.add((1 - auth_values_list.get(i).authentication_failed_point_ratio));
+            metric_list.add(auth_values_list.get(i).metrics_type);
+        }
+
+        // aggregate the compare values of the point metrics somehow
+        double sum = 0.0;
+        double weight_sum = 0.0;
+        for(int i=0; i<metric_list.size(); i++){
+            // assign a weight based on the metric
+            double weight = 0.0;
+            switch(metric_list.get(i)){
+                case PRESSURE: weight = 1.0; break;
+                case DISTANCE: weight = 0.0; break;
+                case TIME: weight = 0.0; break;
+                case VELOCITY: weight = 0.0; break;
+                case ACCELERATION: weight = 0.0; break;
+            }
+
+            sum += weight * compare_value_list.get(i);
+            weight_sum += weight;
+        }
+
+        aggregate_compare_value = sum / weight_sum;
+
+        //TODO is a weighted average the  best way to do this?
+        return aggregate_compare_value;
+    }
+
+    /**
      * TEST METHODS from here to the end. These will be REMOVED eventually.
      */
     /**

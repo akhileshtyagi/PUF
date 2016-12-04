@@ -8,6 +8,8 @@ import metrics.Point_metrics;
  * This class represents one point of x, y, and pressure values
  */
 public class Point implements Serializable {
+    public static double DEFAULT_MEASUREMENT_FREQUENCY = 17.0;
+
     public enum Metrics {
         PRESSURE,
         DISTANCE,
@@ -46,7 +48,7 @@ public class Point implements Serializable {
         this.y = y;
         this.pressure = pressure;
         this.distance = -1;
-        this.time = 0;
+        this.time = DEFAULT_MEASUREMENT_FREQUENCY;
         this.velocity = 0;
         this.acceleration = 0;
     }
@@ -55,9 +57,8 @@ public class Point implements Serializable {
     public Point(double x, double y) {
         this.x = x;
         this.y = y;
-        this.pressure = pressure;
         this.distance = 0;
-        this.time = 0;
+        this.time = DEFAULT_MEASUREMENT_FREQUENCY;
         this.velocity = 0;
         this.acceleration = 0;
     }

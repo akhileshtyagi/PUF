@@ -212,4 +212,119 @@ public class DataReader {
 
 	return index;
     }
+
+	/**
+	 * return the challenge data contained within a data file
+	 *
+	 * be sure to get the challengeID from the file name
+	 */
+	public static Challenge getChallenge(File data_file){
+		Challenge challenge = null;
+
+		Scanner fileScanner;
+		String line = "";
+		String responseHeaderString = "\"X\",\"Y\",\"PRESSURE\"";
+
+		List<Point> challangePoints = new ArrayList<Point>();
+
+		String[] splitResponse = null;
+
+		try {
+			fileScanner = new Scanner(data_file);
+
+			// throw away the first line as it is a header
+			fileScanner.nextLine();
+
+			// grab the challenge points
+			line = fileScanner.nextLine();
+
+			// iterate over the challenge points
+			while (fileScanner.hasNextLine()) {
+				// if the header to the response data is detected, I should
+				// break and start reading response data
+				if (line.equals(responseHeaderString)) {
+					break;
+				} else {
+					// add the line as a challenge point
+					splitResponse = line.split("\",\"");
+
+					// add the challenge point to the list
+					challangePoints.add(new Point(Double.parseDouble(splitResponse[0].substring(1)),
+							Double.parseDouble(splitResponse[1]), 0));
+				}
+
+				line = fileScanner.nextLine();
+			}
+
+			// get the challengeID from the file name
+			String challenge_string_name = data_file.getName().split(":| ")[0];
+			//System.out.println(challenge_string_name);
+			//System.out.flush();
+
+			long challenge_name = Long.valueOf(challenge_string_name);
+
+			// Create challange from list of points and id
+			challenge = new Challenge(challangePoints, challenge_name);
+
+			fileScanner.close();
+		} catch (FileNotFoundException e) {
+			System.out.println("Input file cannot be opened");
+			e.printStackTrace();
+		}
+
+		return challenge;
+	}
+
+	/**
+	 * return the response data contained within a data file
+	 */
+	public static Response getResponse(File data_file){
+		Response response = null;
+
+		List<Point> responsePoints = new ArrayList<Point>();
+		Scanner fileScanner;
+
+		String line = "";
+		String responseHeaderString = "\"X\",\"Y\",\"PRESSURE\"";
+		String[] splitResponse = null;
+
+		try {
+			fileScanner = new Scanner(data_file);
+
+			// grab the challenge points
+			line = fileScanner.nextLine();
+
+			// iterate over the challenge points
+			while (fileScanner.hasNextLine()) {
+				// if the header to the response data is detected, I should
+				// break and start reading response data
+				if (line.equals(responseHeaderString)) {
+					break;
+				}
+
+				line = fileScanner.nextLine();
+			}
+
+			// iterate over the response points
+			while (fileScanner.hasNextLine()) {
+				line = fileScanner.nextLine();
+
+				// add the line as a response point
+				splitResponse = line.split("\",\"");
+
+				// get the response point values
+				responsePoints.add(new Point(Double.parseDouble(splitResponse[0].substring(1)),
+						Double.parseDouble(splitResponse[1]),
+						Double.parseDouble(splitResponse[2].substring(0, splitResponse[2].length() - 2))));
+
+			}
+
+			// create response from list of points and add it to challenge
+			response = new Response(responsePoints);
+		}catch( Exception e){ e.printStackTrace(); }
+
+		//System.out.println(response);
+
+		return response;
+	}
 }
