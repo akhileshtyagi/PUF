@@ -66,7 +66,7 @@ public class UserDevicePair {
     }
 
     // determine what type of predicate to authenticate with
-    public final static AuthenticationType AUTHENTICATION_TYPE = AuthenticationType.POINT_VECTOR;
+    public final static AuthenticationType AUTHENTICATION_TYPE = AuthenticationType.FAILED_POINTS; //AuthenticationType.POINT_VECTOR;
     public final static AuthenticationPredicate AUTHENTICATION_PREDICATE = AuthenticationPredicate.VELOCITY;
 
     // List of challenges correlating to this user/device pair
@@ -991,20 +991,34 @@ public class UserDevicePair {
         // use the first (and probabally only) challenge in this UD_PAIR
         Challenge challenge = getChallenges().get(0);
 
+        //TODO set parameters of the authentication
+        this.setStandardDeviations(RatioType.PRESSURE, 2.0);
+        this.setStandardDeviations(RatioType.DISTANCE, 2.0);
+        this.setStandardDeviations(RatioType.TIME, 2.0);
+        this.setStandardDeviations(RatioType.VELOCiTY, 2.0);
+        this.setStandardDeviations(RatioType.ACCELERATION, 2.0);
+
+
+        // trigger an authentication
+        this.authenticate(response.getOrigionalResponse(), challenge);
+
         // normalize the response
-        Response response_object = new Response(response.getOrigionalResponse());
-        response_object.normalize(challenge.getNormalizingPoints());
+        //Response response_object = new Response(response.getOrigionalResponse());
+        //response_object.normalize(challenge.getNormalizingPoints());
 
         // compute the point vector based on the normalized response
-        compute_point_vector(response_object.getNormalizedResponse(), challenge.getProfile());
+        //compute_point_vector(response_object.getNormalizedResponse(), challenge.getProfile());
 
         // create parallel arrays which give the compare value for each point metric
         for(int i=0; i<auth_values_list.size(); i++) {
             // keep track of pass / not pass and metrics type
             // if the number of points which passed is above a threshold, then true
-            compare_value_list.add((1 - auth_values_list.get(i).authentication_failed_point_ratio));
+            compare_value_list.add((1.0 - auth_values_list.get(i).authentication_failed_point_ratio));
             metric_list.add(auth_values_list.get(i).metrics_type);
         }
+
+        //System.out.println(compare_value_list);
+        //System.out.println(this.auth_values_list.get(0).authentication_failed_point_ratio);
 
         // aggregate the compare values of the point metrics somehow
         double sum = 0.0;
@@ -1025,6 +1039,8 @@ public class UserDevicePair {
         }
 
         aggregate_compare_value = sum / weight_sum;
+
+        System.out.println(aggregate_compare_value);
 
         //TODO is a weighted average the  best way to do this?
         return aggregate_compare_value;

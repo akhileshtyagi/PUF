@@ -86,7 +86,7 @@ public class CompareValueGenerator {
                         Challenge challenge = DataReader.getChallenge(data_file);
 
                         // add the challenge pattern to the map
-                        if(challenge_pattern_map.get(challenge.getChallengeID()) == null){
+                        if(challenge_pattern_map.get((int)challenge.getChallengeID()) == null){
                             // then this challenge has not been encountered yet,
                             // put the challenge points into the map
                             challenge_pattern_map.put((int)challenge.getChallengeID(),
@@ -97,7 +97,7 @@ public class CompareValueGenerator {
                         Response response = DataReader.getResponse(data_file);
 
                         // add this response to the map
-                        ArrayList<Response> response_list = response_map.get(challenge.getChallengeID());
+                        ArrayList<Response> response_list = response_map.get((int)challenge.getChallengeID());
                         if(response_list == null){
                             // null if no mapping for key
                             response_list = new ArrayList<>();
@@ -106,18 +106,27 @@ public class CompareValueGenerator {
                             response_map.put((int)challenge.getChallengeID(), response_list);
                         }
 
+                        //System.out.println(response);
+                        //System.out.println(response_list);
+
                         // in any case, I want to add the response to the response_list
                         response_list.add(response);
                     }
 
+                    //System.out.println(response_map.entrySet().size()); //TODO
+
                     // for each challenge(integer) in the map, create a UDC
                     for(Map.Entry<Integer, ArrayList<Response>> response_map_entry : response_map.entrySet()){
+                        //System.out.println(response_map_entry.getValue().size() == 1); //TODO
+
                         // if the number of responses for this challenge is 1, skip this challenge
                         // we do not have enough to split it into a response and challenge set
-                        if(response_map_entry.getValue().size() == 1){
-                            //TODO TODO every response should not have a size of 1
-                            continue;
-                        }
+                        //if(response_map_entry.getValue().size() == 1){
+                        //    //TODO TODO every response should not have a size of 1
+                        //    continue;
+                        //}
+
+                        //System.out.println("past the thing");
 
                         int challenge_name = response_map_entry.getKey();
 
@@ -134,6 +143,8 @@ public class CompareValueGenerator {
                             challenge.addResponse(response_map_entry.getValue().get(i));
                         }
 
+                        //System.out.println(response_map_entry.getValue().size()); //TODO
+
                         // add the challenge to the UserDevicePair
                         udc.ud_pair = new UserDevicePair((int)(Math.random()*10000000));
                         udc.ud_pair.addChallenge(challenge);
@@ -148,12 +159,19 @@ public class CompareValueGenerator {
             }
         }catch(Exception e){ e.printStackTrace(); }
 
+        //System.out.println(udc_list.size()); //TODO
+
         // for each thing in udc_list
         // compare against all OTHER things in udc_list
         for(UDC profile_udc : udc_list){
             for(UDC response_udc : udc_list) {
                 // I only want to compare profiles/ responses of the same challenge
-                if(profile_udc.challenge == response_udc.challenge){
+                // and only if there were enough responses to create a profile
+                if(profile_udc.challenge == response_udc.challenge &&
+                        profile_udc.ud_pair.getChallenges().get(0).getResponsePattern().size() > 0
+                        //TODO uncomment to restrict to challenges 8 or less
+                        //&& profile_udc.challenge <= 8
+                        ){
                     //System.out.println(String.format("profile: %s\t\tresponse: %s",
                     //        profile_udc.challenge, response_udc.challenge));
 
