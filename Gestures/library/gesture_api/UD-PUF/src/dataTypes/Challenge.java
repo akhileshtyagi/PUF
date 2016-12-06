@@ -340,7 +340,7 @@ public class Challenge implements Serializable {
     /**
      * compute the euclidean length of a point list
      */
-    private double computeResponseLength(List<Point> points) {
+    public static double computeResponseLength(List<Point> points) {
         double length = 0.0;
 
         for (int i = 1; i < points.size(); i++) {
@@ -353,7 +353,7 @@ public class Challenge implements Serializable {
     /**
      * compute the euclidean distance between two points
      */
-    private double computeEuclideanDistance(Point p1, Point p2) {
+    public static double computeEuclideanDistance(Point p1, Point p2) {
         return Math.sqrt(Math.pow((p1.getX() - p2.getX()), 2) +
                 Math.pow((p1.getY() - p2.getY()), 2));
     }

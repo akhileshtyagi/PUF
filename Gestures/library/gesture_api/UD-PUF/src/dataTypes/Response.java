@@ -104,12 +104,49 @@ public class Response implements Serializable {
     }
 
     /**
+     * this one tries to compute what would have been the value
+     * had the measurement been taken at the normalizing point.
+     *
+     * This can be done by computing the points at
+     * the same ratio distance along the response as the normalizing points
+     *     in other words, if the response is half as long
+     *     then the normalizing points distance will be measured at half the distance
+     *
+     * This can also be done by taking the closest euclidean distance point to be
+     * one of the neighbors
+     *
+     * Might also be viewed as mapping pairs of response points
+     * onto normalization points
+     */
+    public void normalize(List<Point> normalizingPoints) {
+        ArrayList<Point> newNormalizedList = new ArrayList<>();
+
+        // np stands for normalizing point
+        double np_length = Challenge.computeResponseLength(normalizingPoints);
+        double response_length = Challenge.computeResponseLength(this.responsePattern);
+
+        // determine the distance along the response at which each normalized point should be measured
+        double measure_ratio = Challenge.computeEuclideanDistance(normalizingPoints.get(0), normalizingPoints.get(1)) / np_length;
+        double response_measure_distance = measure_ratio * response_length;
+
+        //TODO handle the first and last points differently?
+
+        // response measure distance tells me that
+        // i*response_measure_distance will map to the i'th normalization point
+        for(int i=1; i<){
+            //TODO
+        }
+
+        this.normalizedResponsePattern = newNormalizedList;
+    }
+
+    /**
      * Normalizes current Response Pattern to points within normalizingPoints; Interpolates values for
      * pressure, distance, time, etc.
      *
      * @param normalizingPoints List of points for the response to normalize to
      */
-    public void normalize(List<Point> normalizingPoints) {
+    public void normalize_old(List<Point> normalizingPoints) {
         ArrayList<Point> newNormalizedList = new ArrayList<>();
 
         double xTransform, yTransform; // For moving response points to align with normalizingPoints
