@@ -8,6 +8,8 @@ import java.util.List;
  * Represents one response created by a user
  */
 public class Response implements Serializable {
+    public static boolean TRANSFORM_RESPONSE = false;
+
     private static final long serialVersionUID = -292775056595225846L;
 
     // List of points which the user swiped
@@ -130,7 +132,9 @@ public class Response implements Serializable {
         // preform the transformation, add first point to new Normalized List
         xTransform = normalizingPoints.get(0).getX() - responsePattern.get(0).getX();
         yTransform = normalizingPoints.get(0).getY() - responsePattern.get(0).getY();
-        transform_response(responsePattern, xTransform, yTransform);
+
+        // determine whether or not to transform the response
+        if(TRANSFORM_RESPONSE) transform_response(responsePattern, xTransform, yTransform);
 
         // add the first point to the normalized list, define velocity and acceleration to be zero for this point
         Point first_point = new Point(responsePattern.get(0).getX(), responsePattern.get(0).getY());

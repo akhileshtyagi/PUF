@@ -11,6 +11,11 @@ import java.util.List;
  * challenge
  */
 public class Challenge implements Serializable {
+    // use a fixed distance between normalizing points
+    final static boolean USE_FIXED_NORMALIZING_POINT_DISTANCE = true;
+    // define the fixed normalizing point difference
+    final static double FIXED_NORMALIZING_POINT_DISTANCE = 25.0;
+
     // number of elements in normalized list default value.
     final static int NORMALIZED_ELEMENTS_DEFAULT = 16;
 
@@ -85,7 +90,7 @@ public class Challenge implements Serializable {
         // normalization points,
         // then calculated normalizing points with
         if (responses.size() <= 0) {
-            this.normalized_elements = response.getOrigionalResponse().size() - 2;
+            this.normalized_elements = response.getOrigionalResponse().size();// - 2;
 
             // compute the list of points used to normalize the responses to
             // this
@@ -155,6 +160,89 @@ public class Challenge implements Serializable {
      * this is based on the first response points.
      */
     private List<Point> computeNormalizingPoints(Response response) {
+        List<Point> norm_points = new ArrayList<Point>();
+        List<Point> response_points = response.getOrigionalResponse();
+
+        // compute the distance between each normalizing point ( N-1 segments to split d into)
+        double total_response_distance = computeResponseLength(response_points);
+        double inter_point_distance = total_response_distance / (response_points.size() - 1);
+
+        // determine the number of normalization points
+        int number_np = 0;
+        if(USE_FIXED_NORMALIZING_POINT_DISTANCE){
+            inter_point_distance = FIXED_NORMALIZING_POINT_DISTANCE;
+
+            // would rather have one too few points than one to many
+            // this is because i'm thinking of the fixed distance
+            // as a minimum
+            // if I wanted to think of it as a maximum,
+            // I could do math.ceil instead of floor.
+            number_np = (int)Math.ceil(total_response_distance / inter_point_distance);
+        }else{
+            number_np = response_points.size();
+        }
+
+        // first point in the list is the first point in the response
+        norm_points.add(response_points.get(0));
+
+        // for n-2 oher points, for a total of n-1
+        for(int i=1; i<number_np-1; i++){
+            // determine the distance along the trace for this NP
+            double np_distance = inter_point_distance * i;
+
+            // determine the left neighbor and
+            // the distance along the trace at which left neighbor lies
+            int before_neighbor_index = 0;
+            double before_neighbor_distance = 0.0;
+            double after_neighbor_distance = 0.0;
+            for (int j = 1; j < response_points.size(); j++) {
+                before_neighbor_index= j-1;
+                before_neighbor_distance = after_neighbor_distance;
+
+                after_neighbor_distance += computeEuclideanDistance(response_points.get(j), response_points.get(j - 1));
+
+                // if this last distance has pushed me over np_distance, exit
+                // before_neighbor_index should be the left neighbor
+                // before_neighbor_distance is the distance along the response of left neighbor
+                if(after_neighbor_distance > np_distance) break;
+            }
+
+            // place the NP on the line between before_neighbor and after_neighbor
+            // distance greater than before_neighbor
+            //
+            // determine the distance of the NP along the line (guarenteed to be positive)
+            Point before_neighbor = response_points.get(before_neighbor_index);
+            Point after_neighbor = response_points.get(before_neighbor_index+1);
+            double np_line_distance = np_distance - before_neighbor_distance;
+
+            // move np_line_distance in the direction from before_neighbor to after_neighbor
+            double neighbor_x_distance = after_neighbor.getX() - before_neighbor.getX();
+            double neighbor_y_distance = after_neighbor.getY() - before_neighbor.getY();
+            double neighbor_euclidean_distance = computeEuclideanDistance(before_neighbor, after_neighbor);
+
+            // compute the ratio of the total distance between the points
+            // the normalization point covers
+            double np_distance_coverage_ratio = np_line_distance / neighbor_euclidean_distance;
+
+            // now compute the x,y distance the normalization point should be from the left neighbor
+            double np_x_distance = np_distance_coverage_ratio * neighbor_x_distance;
+            double np_y_distance = np_distance_coverage_ratio * neighbor_y_distance;
+
+            // compute the absolute x,y points of the normalization point
+            double np_x = before_neighbor.getX() + np_x_distance;
+            double np_y = before_neighbor.getY() + np_y_distance;
+
+            // add the NP to the list
+            norm_points.add(new Point(np_x, np_y));
+        }
+
+        // the last normalizing point is the last point of the response
+        norm_points.add(response_points.get(response_points.size()-1));
+
+        return norm_points;
+    }
+
+    private List<Point> computeNormalizingPoints_old(Response response) {
         List<Point> norm_points = new ArrayList<Point>();
         List<Point> response_points = response.getOrigionalResponse();
 

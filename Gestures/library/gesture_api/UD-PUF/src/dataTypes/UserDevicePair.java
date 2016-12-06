@@ -1040,7 +1040,7 @@ public class UserDevicePair {
 
         aggregate_compare_value = sum / weight_sum;
 
-        System.out.println(aggregate_compare_value);
+        System.out.println(aggregate_compare_value); // TODO
 
         //TODO is a weighted average the  best way to do this?
         return aggregate_compare_value;

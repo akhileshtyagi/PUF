@@ -5,6 +5,7 @@ import dataTypes.Challenge;
 import dataTypes.Point;
 import dataTypes.Response;
 import dataTypes.UserDevicePair;
+import test.graph_points;
 
 import java.io.File;
 import java.io.PrintWriter;
@@ -24,8 +25,12 @@ public class CompareValueGenerator {
     public static String OUTPUT_FILE_NAME = "src/roc_curve_generation/compare_data.csv";
     public static String DATA_FOLDER_NAME = "src/roc_curve_generation/data/";
 
-    /* only handle challenges within the challenge set */
-    public static int[] CHALLENGE_SET = {};
+    /* maximum challengeID number. Given by the first integer in the file name */
+    public static int MAXIMUM_SEED_NUMBER = 1000;
+    /* minimum profile size in number of responses */
+    public static int MINIMUM_PROFILE_SIZE = 10;
+    /* display a visual representation of the authentications taking place */
+    public static boolean DISPLAY_VISUAL_AUTHENTICATION = true;
 
     public static void main(String[] args){
         ArrayList<Boolean> positive_list = new ArrayList<>();
@@ -119,15 +124,6 @@ public class CompareValueGenerator {
                     for(Map.Entry<Integer, ArrayList<Response>> response_map_entry : response_map.entrySet()){
                         //System.out.println(response_map_entry.getValue().size() == 1); //TODO
 
-                        // if the number of responses for this challenge is 1, skip this challenge
-                        // we do not have enough to split it into a response and challenge set
-                        //if(response_map_entry.getValue().size() == 1){
-                        //    //TODO TODO every response should not have a size of 1
-                        //    continue;
-                        //}
-
-                        //System.out.println("past the thing");
-
                         int challenge_name = response_map_entry.getKey();
 
                         // create the UDC object
@@ -168,9 +164,8 @@ public class CompareValueGenerator {
                 // I only want to compare profiles/ responses of the same challenge
                 // and only if there were enough responses to create a profile
                 if(profile_udc.challenge == response_udc.challenge &&
-                        profile_udc.ud_pair.getChallenges().get(0).getResponsePattern().size() > 0
-                        //TODO uncomment to restrict to challenges 8 or less
-                        //&& profile_udc.challenge <= 8
+                        profile_udc.ud_pair.getChallenges().get(0).getResponsePattern().size() >= MINIMUM_PROFILE_SIZE &&
+                        profile_udc.challenge <= MAXIMUM_SEED_NUMBER
                         ){
                     //System.out.println(String.format("profile: %s\t\tresponse: %s",
                     //        profile_udc.challenge, response_udc.challenge));
@@ -178,8 +173,25 @@ public class CompareValueGenerator {
                     // are the user, device, challenge strings equal?
                     positive_list.add(profile_udc.equals(response_udc));
 
+                    System.out.println("challenge value: " + profile_udc.ud_pair.getChallenges().get(0).getChallengeID()); //TODO
+
                     // what is the compare value
                     compare_value_list.add(profile_udc.ud_pair.compare(response_udc.response));
+
+                    // display a visual representation of the authentication
+                    if(DISPLAY_VISUAL_AUTHENTICATION && Math.random() < 0.1) {
+                        // print other important information
+                        //
+                        //TODO these should be equal, why are they not?
+                        System.out.println("# normalizing points: " + profile_udc.ud_pair.getChallenges().get(0).getNormalizingPoints().size());
+                        response_udc.response.normalize(profile_udc.ud_pair.getChallenges().get(0).getNormalizingPoints());
+                        System.out.println("# normalized response points: " + response_udc.response.getNormalizedResponse().size());
+
+                        // display the visual
+                        create_visual_authentication(profile_udc.ud_pair.getChallenges().get(0), response_udc.response);
+                        //create_visual_authentication(profile_udc.ud_pair.getChallenges().get(0),
+                        //        profile_udc.ud_pair.getChallenges().get(0).getResponsePattern().get(0));
+                    }
                 }
             }
         }
@@ -211,6 +223,42 @@ public class CompareValueGenerator {
                     (this.device.equals(other.device)) &&
                     (this.challenge == other.challenge);
         }
+    }
+
+    /**
+     * given a challenge, response
+     * create a visual depicting the
+     * origional point, challenge points, normalization points
+     */
+    private static void create_visual_authentication(Challenge challenge_p, Response response_p){
+        graph_points graph_frame = new graph_points();
+
+        // create response point list
+        List<Point> response_points = response_p.getOrigionalResponse();
+
+        // create challenge pattern
+        List<Point> challenge_pattern = challenge_p.getChallengePattern();
+
+        // create a response and normalize it
+        Challenge challenge = new Challenge(challenge_pattern, 0);
+        Response response = new Response(response_points);
+        graph_frame.addPointList(response_points, "origional_response_points");
+        challenge.addResponse(response);
+
+        graph_frame.addPointList(challenge.getNormalizingPoints(), "normalizing_points");
+        //TODO
+        graph_frame.addPointList(response.getNormalizedResponse(), "normalized_response_points");
+
+        // print out response and normalized response
+        System.out.println("origional_response:\t" + response.getOrigionalResponse());
+        System.out.println("normalizing_points:\t" + challenge.getNormalizingPoints());
+        System.out.println("normalized_response:\t" + response.getNormalizedResponse());
+
+        // wait for the user to press "ENTER"
+        try{ System.in.read(); }catch(Exception e){ e.printStackTrace(); }
+
+        // close the frame
+        graph_frame.dispose();
     }
 
     /**

@@ -44,7 +44,7 @@ FPR <- function(threshold, compare_data){
 compare_data <- read.csv("compare_data.csv")
 
 # create a data frame of thresholds
-threshold <- seq(0, 1.0, by=0.00005)
+threshold <- seq(0, 1.0, by=0.0005)
 rate_data <- data.frame(threshold)
 
 # for each threshold

@@ -18,6 +18,8 @@ import dataTypes.Point;
  * each list will be graphed in a differant color
  */
 public class graph_points extends JFrame {
+    public static boolean POINT_LABELS = false;
+
     private JPanel panel;
 
     private List<List<Point>> point_list_list;
@@ -112,7 +114,7 @@ public class graph_points extends JFrame {
             draw_points(g);
 
             // draw point values
-            draw_point_values(g);
+            if(POINT_LABELS) draw_point_values(g);
 
             // draw the name to the panel
             draw_name(g);
