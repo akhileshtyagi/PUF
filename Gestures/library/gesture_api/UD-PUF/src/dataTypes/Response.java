@@ -58,6 +58,9 @@ public class Response implements Serializable {
      * being normalized.
      */
     public double getTimeLength() {
+        //TODO error no response points added
+        if(responsePattern.size() == 0){ return -1; }
+
         return responsePattern.get(responsePattern.size() - 1).getTime() - responsePattern.get(0).getTime();
     }
 
@@ -104,6 +107,156 @@ public class Response implements Serializable {
     }
 
     /**
+     * find the closest point on the x axis or y axis to a given normalization point
+     * assign the value of the response point to this normalization point
+     */
+    public void normalize_0(List<Point> normalizingPoints) {
+        // responses of size <= 1 cannot be normalized
+        if(responsePattern.size() <= 1){ System.out.println("error: 42"); return; }
+
+        ArrayList<Point> newNormalizedList = new ArrayList<>();
+
+        for(Point np : normalizingPoints){
+            Point minimum_point = responsePattern.get(0);
+            double minimum_distance = Double.POSITIVE_INFINITY;
+
+            for(Point response_point : this.responsePattern){
+                double current_distance =
+                        Math.abs(np.getX() - response_point.getX()) < Math.abs(np.getY() - response_point.getY()) ?
+                                Math.abs(np.getX() - response_point.getX()) :
+                                Math.abs(np.getY() - response_point.getY());
+
+                if(current_distance < minimum_distance){
+                    minimum_point = response_point;
+                    minimum_distance = current_distance;
+                }
+            }
+
+            // minimum point is now the closest geographical point
+            // to this normalization point
+            // set the values of the normalization point to the
+            double x,y,pressure,distance,time;
+            x = minimum_point.getX();
+            y = minimum_point.getY();
+            pressure = minimum_point.getPressure();
+            distance = Challenge.computeEuclideanDistance(minimum_point, np);
+            time = minimum_point.getTime();
+            newNormalizedList.add(new Point(x, y, pressure, distance, time));
+        }
+
+        this.normalizedResponsePattern = newNormalizedList;
+    }
+
+    /**
+     * find the geographically closest response point for any given
+     * normalization point.
+     *
+     * Set the value of the normalization point to that of the response point
+     */
+    public void normalize_1(List<Point> normalizingPoints) {
+        // responses of size <= 1 cannot be normalized
+        if(responsePattern.size() <= 1){ System.out.println("error: 42"); return; }
+
+        ArrayList<Point> newNormalizedList = new ArrayList<>();
+
+        for(Point np : normalizingPoints){
+            Point minimum_point = responsePattern.get(0);
+            double minimum_distance = Double.POSITIVE_INFINITY;
+
+            for(Point response_point : this.responsePattern){
+                double current_distance = Challenge.computeEuclideanDistance(np, response_point);
+
+                if(current_distance < minimum_distance){
+                    minimum_point = response_point;
+                    minimum_distance = current_distance;
+                }
+            }
+
+            // minimum point is now the closest geographical point
+            // to this normalization point
+            // set the values of the normalization point to the
+            double x,y,pressure,distance,time;
+            x = minimum_point.getX();
+            y = minimum_point.getY();
+            pressure = minimum_point.getPressure();
+            distance = Challenge.computeEuclideanDistance(minimum_point, np);
+            time = minimum_point.getTime();
+            newNormalizedList.add(new Point(x, y, pressure, distance, time));
+        }
+
+        this.normalizedResponsePattern = newNormalizedList;
+    }
+
+    /**
+     * find the geographically closest  and second closest
+     * response point for any given normalization point.
+     *
+     * Set the value of the normalization point to that of the response point
+     */
+    public void normalize_6(List<Point> normalizingPoints) {
+        // responses of size <= 1 cannot be normalized
+        if(responsePattern.size() <= 1){ System.out.println("error: 42"); return; }
+
+        ArrayList<Point> newNormalizedList = new ArrayList<>();
+
+        for(Point np : normalizingPoints){
+            Point minimum_point = responsePattern.get(0);
+            double minimum_distance = Double.POSITIVE_INFINITY;
+
+            // find the minimum point
+            for(Point response_point : this.responsePattern){
+                double current_distance = Challenge.computeEuclideanDistance(np, response_point);
+
+                if(current_distance < minimum_distance){
+                    minimum_point = response_point;
+                    minimum_distance = current_distance;
+                }
+            }
+
+            // set the minimum point to before neighbor
+            Point before_neighbor = minimum_point;
+
+            // find the minimum distance to all points not equal to before neighbor
+            minimum_distance = Double.POSITIVE_INFINITY;
+            for(Point response_point : this.responsePattern){
+                // want to compare objects
+                if(response_point != before_neighbor) {
+                    double current_distance = Challenge.computeEuclideanDistance(np, response_point);
+
+                    if (current_distance < minimum_distance) {
+                        minimum_point = response_point;
+                        minimum_distance = current_distance;
+                    }
+                }
+            }
+
+            // set the second minimum point to after neighbor
+            Point after_neighbor = minimum_point;
+
+            // compute a weight for each point based on their distance to the np
+            double before_distance = Challenge.computeEuclideanDistance(before_neighbor, np);
+            double after_distance = Challenge.computeEuclideanDistance(after_neighbor, np);
+
+            double before_weight =  (before_distance > after_distance) ?
+                    1.0 - (after_distance / before_distance) :
+                    (before_distance / after_distance);
+
+            double after_weight = 1.0 - before_weight;
+
+            // multiply the values by the weight
+            double x,y,pressure,distance,time;
+            x = before_neighbor.getX()* before_weight + after_neighbor.getX() * after_weight;
+            y = before_neighbor.getY()* before_weight + after_neighbor.getY() * after_weight;
+            pressure = before_neighbor.getPressure()* before_weight+ after_neighbor.getPressure() * after_weight;
+            distance = before_distance * before_weight + after_distance * after_weight;
+            time = before_neighbor.getTime() * before_weight + after_neighbor.getTime() * after_weight;
+            newNormalizedList.add(new Point(x, y, pressure, distance, time));
+        }
+
+        this.normalizedResponsePattern = newNormalizedList;
+    }
+
+    /**
      * this one tries to compute what would have been the value
      * had the measurement been taken at the normalizing point.
      *
@@ -118,7 +271,10 @@ public class Response implements Serializable {
      * Might also be viewed as mapping pairs of response points
      * onto normalization points
      */
-    public void normalize(List<Point> normalizingPoints) {
+    public void normalize_2(List<Point> normalizingPoints) {
+        // responses of size <= 1 cannot be normalized
+        if(responsePattern.size() <= 1) return;
+
         ArrayList<Point> newNormalizedList = new ArrayList<>();
 
         // np stands for normalizing point
@@ -126,27 +282,110 @@ public class Response implements Serializable {
         double response_length = Challenge.computeResponseLength(this.responsePattern);
 
         // determine the distance along the response at which each normalized point should be measured
-        double measure_ratio = Challenge.computeEuclideanDistance(normalizingPoints.get(0), normalizingPoints.get(1)) / np_length;
+        double measure_ratio = Challenge.computeEuclideanDistance(normalizingPoints.get(0), normalizingPoints.get(1)) / (np_length - 2);
+        //double measure_ratio = 0;
         double response_measure_distance = measure_ratio * response_length;
 
-        //TODO handle the first and last points differently?
+        // the first point is exactly the values of the first point in the response
+        double x,y,pressure,distance,time;
+        x = this.responsePattern.get(0).getX();
+        y = this.responsePattern.get(0).getY();
+        pressure = this.responsePattern.get(0).getPressure();
+        distance = Challenge.computeEuclideanDistance(
+                this.responsePattern.get(0), normalizingPoints.get(0));
+        time = this.responsePattern.get(0).getTime();
+        newNormalizedList.add(new Point(x, y, pressure, distance, time));
 
         // response measure distance tells me that
         // i*response_measure_distance will map to the i'th normalization point
-        for(int i=1; i<){
-            //TODO
+        for(int i=1; i<normalizingPoints.size()-1; i++){
+            double response_point_distance = i*response_measure_distance;
+
+            // find the left and right neighbors at this distance
+            // determine the left neighbor and
+            // the distance along the trace at which left neighbor lies
+            int before_neighbor_index = 0;
+            double before_neighbor_distance = 0.0;
+            double after_neighbor_distance = 0.0;
+            for (int j = 1; j < this.responsePattern.size(); j++) {
+                before_neighbor_index= j-1;
+                before_neighbor_distance = after_neighbor_distance;
+
+                after_neighbor_distance += computeEuclideanDistance(
+                        this.responsePattern.get(j), this.responsePattern.get(j - 1));
+
+                // if this last distance has pushed me over np_distance, exit
+                // before_neighbor_index should be the left neighbor
+                // before_neighbor_distance is the distance along the response of left neighbor
+                if(after_neighbor_distance > response_point_distance) break;
+            }
+
+            // place the NP on the line between before_neighbor and after_neighbor
+            // distance greater than before_neighbor
+            //
+            // determine the distance of the NP along the line (guarenteed to be positive)
+            Point before_neighbor = this.responsePattern.get(before_neighbor_index);
+            Point after_neighbor = this.responsePattern.get(before_neighbor_index+1);
+            double np_line_distance = response_point_distance - before_neighbor_distance;
+
+            // move np_line_distance in the direction from before_neighbor to after_neighbor
+            double neighbor_euclidean_distance = Challenge.computeEuclideanDistance(before_neighbor, after_neighbor);
+            double neighbor_x_distance = after_neighbor.getX() - before_neighbor.getX();
+            double neighbor_y_distance = after_neighbor.getY() - before_neighbor.getY();
+            double neighbor_pressure_distance = after_neighbor.getPressure() - before_neighbor.getPressure();
+            double neighbor_time_distance = after_neighbor.getTime() - before_neighbor.getTime(); //TODO
+
+            // compute the ratio of the total distance between the points
+            // the normalization point covers
+            double np_distance_coverage_ratio = np_line_distance / neighbor_euclidean_distance;
+
+            // now compute the x,y distance the normalization point should be from the left neighbor
+            double np_x_distance = np_distance_coverage_ratio * neighbor_x_distance;
+            double np_y_distance = np_distance_coverage_ratio * neighbor_y_distance;
+            double np_pressure_distance = np_distance_coverage_ratio * neighbor_pressure_distance;
+            double np_time_distance = np_distance_coverage_ratio * neighbor_time_distance;
+
+            // compute the absolute x,y points of the normalization point
+            double np_x = before_neighbor.getX() + np_x_distance;
+            double np_y = before_neighbor.getY() + np_y_distance;
+            double np_pressure = before_neighbor.getPressure() + np_pressure_distance;
+            //TODO time may be more complecated than this, I should think through what is going on
+            double np_time = before_neighbor.getTime() + np_time_distance;
+
+            // use np_x, np_y to determine the distance metric
+            // euclidean distance from this point to the normalizing point?
+            //TODO does this make sesne, is it useful
+            double np_distance = Challenge.computeEuclideanDistance(
+                    new Point(np_x, np_y), normalizingPoints.get(i));
+
+            newNormalizedList.add(new Point(np_x, np_y, np_pressure, np_distance, np_time));
         }
+
+        // the last point is exactly the values of the last point
+        x = this.responsePattern.get(this.responsePattern.size()-1).getX();
+        y = this.responsePattern.get(this.responsePattern.size()-1).getY();
+        pressure = this.responsePattern.get(this.responsePattern.size()-1).getPressure();
+        distance = Challenge.computeEuclideanDistance(
+                this.responsePattern.get(this.responsePattern.size()-1),
+                normalizingPoints.get(normalizingPoints.size()-1));
+        time = this.responsePattern.get(this.responsePattern.size()-1).getTime();
+        newNormalizedList.add(new Point(x, y, pressure, distance, time));
 
         this.normalizedResponsePattern = newNormalizedList;
     }
 
     /**
+     * This is the best working normalization method
+     *
      * Normalizes current Response Pattern to points within normalizingPoints; Interpolates values for
      * pressure, distance, time, etc.
      *
      * @param normalizingPoints List of points for the response to normalize to
      */
-    public void normalize_old(List<Point> normalizingPoints) {
+    public void normalize(List<Point> normalizingPoints) {
+        //TODO error no response points added
+        if(responsePattern.size() == 0){ return ; }
+
         ArrayList<Point> newNormalizedList = new ArrayList<>();
 
         double xTransform, yTransform; // For moving response points to align with normalizingPoints

@@ -224,6 +224,8 @@ public class DataReader {
 		Scanner fileScanner;
 		String line = "";
 		String responseHeaderString = "\"X\",\"Y\",\"PRESSURE\"";
+		String responseHeaderString_1 = "X,Y,PRESSURE,";
+		String responseHeaderString_2 = "X,Y,PRESSURE,,";
 
 		List<Point> challangePoints = new ArrayList<Point>();
 
@@ -242,22 +244,39 @@ public class DataReader {
 			while (fileScanner.hasNextLine()) {
 				// if the header to the response data is detected, I should
 				// break and start reading response data
-				if (line.equals(responseHeaderString)) {
+				//||
+				//line.equals(responseHeaderString_1) ||
+				//line.equals(responseHeaderString_2)) {
+				if (line.equals(responseHeaderString)){
 					break;
 				} else {
 					// add the line as a challenge point
-					splitResponse = line.split("\",\"");
+					splitResponse = line.split("\",\"");//|,");
+
+					//TODO did including nick's data mess anything up?
+					//TODO specifically, does the try catch below or line equals more htings
+					//TODO or |, in the line split mess anything up?
+					//System.out.println(line);
 
 					// add the challenge point to the list
+					/*
+					try {
+						// for nick's data format
+						challangePoints.add(new Point(Double.parseDouble(splitResponse[0]),
+								Double.parseDouble(splitResponse[1]), 0));
+					}catch(NumberFormatException e) {
+					*/
+						// for normal data format
 					challangePoints.add(new Point(Double.parseDouble(splitResponse[0].substring(1)),
 							Double.parseDouble(splitResponse[1]), 0));
+					//}
 				}
 
 				line = fileScanner.nextLine();
 			}
 
 			// get the challengeID from the file name
-			String challenge_string_name = data_file.getName().split(":| ")[0];
+			String challenge_string_name = data_file.getName().split(":| |_")[0];
 			//System.out.println(challenge_string_name);
 			//System.out.flush();
 

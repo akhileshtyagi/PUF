@@ -29,8 +29,10 @@ public class CompareValueGenerator {
     public static int MAXIMUM_SEED_NUMBER = 1000;
     /* minimum profile size in number of responses */
     public static int MINIMUM_PROFILE_SIZE = 10;
+    /* minimum response size for authenticating against a profile in number of points */
+    public static int MINIMUM_RESPONSE_SIZE = 10;
     /* display a visual representation of the authentications taking place */
-    public static boolean DISPLAY_VISUAL_AUTHENTICATION = true;
+    public static boolean DISPLAY_VISUAL_AUTHENTICATION = false;
 
     public static void main(String[] args){
         ArrayList<Boolean> positive_list = new ArrayList<>();
@@ -165,7 +167,8 @@ public class CompareValueGenerator {
                 // and only if there were enough responses to create a profile
                 if(profile_udc.challenge == response_udc.challenge &&
                         profile_udc.ud_pair.getChallenges().get(0).getResponsePattern().size() >= MINIMUM_PROFILE_SIZE &&
-                        profile_udc.challenge <= MAXIMUM_SEED_NUMBER
+                        profile_udc.challenge <= MAXIMUM_SEED_NUMBER &&
+                        response_udc.response.getOrigionalResponse().size() >= MINIMUM_RESPONSE_SIZE
                         ){
                     //System.out.println(String.format("profile: %s\t\tresponse: %s",
                     //        profile_udc.challenge, response_udc.challenge));
@@ -173,7 +176,8 @@ public class CompareValueGenerator {
                     // are the user, device, challenge strings equal?
                     positive_list.add(profile_udc.equals(response_udc));
 
-                    System.out.println("challenge value: " + profile_udc.ud_pair.getChallenges().get(0).getChallengeID()); //TODO
+                    System.out.println("challenge value: " + profile_udc.ud_pair.getChallenges().get(0).getChallengeID()
+                        + "\npositive: " + profile_udc.equals(response_udc)); //TODO
 
                     // what is the compare value
                     compare_value_list.add(profile_udc.ud_pair.compare(response_udc.response));
@@ -183,9 +187,11 @@ public class CompareValueGenerator {
                         // print other important information
                         //
                         //TODO these should be equal, why are they not?
-                        System.out.println("# normalizing points: " + profile_udc.ud_pair.getChallenges().get(0).getNormalizingPoints().size());
-                        response_udc.response.normalize(profile_udc.ud_pair.getChallenges().get(0).getNormalizingPoints());
-                        System.out.println("# normalized response points: " + response_udc.response.getNormalizedResponse().size());
+                        //System.out.println("# normalizing points: " + profile_udc.ud_pair.getChallenges().get(0).getNormalizingPoints().size());
+                        //response_udc.response.normalize(profile_udc.ud_pair.getChallenges().get(0).getNormalizingPoints());
+                        //System.out.println("# normalized response points: " + response_udc.response.getNormalizedResponse().size());
+                        System.out.println("profile_mu: " + profile_udc.ud_pair.getChallenges().get(0).getProfile().getMuSigmaValues(Point.Metrics.PRESSURE).getMuValues());
+                        System.out.println("profile_sigma: " + profile_udc.ud_pair.getChallenges().get(0).getProfile().getMuSigmaValues(Point.Metrics.PRESSURE).getSigmaValues());
 
                         // display the visual
                         create_visual_authentication(profile_udc.ud_pair.getChallenges().get(0), response_udc.response);
@@ -236,22 +242,20 @@ public class CompareValueGenerator {
         // create response point list
         List<Point> response_points = response_p.getOrigionalResponse();
 
-        // create challenge pattern
-        List<Point> challenge_pattern = challenge_p.getChallengePattern();
+        // get the list of normalizing points
+        List<Point> np_list = challenge_p.getNormalizingPoints();
 
         // create a response and normalize it
-        Challenge challenge = new Challenge(challenge_pattern, 0);
         Response response = new Response(response_points);
-        graph_frame.addPointList(response_points, "origional_response_points");
-        challenge.addResponse(response);
 
-        graph_frame.addPointList(challenge.getNormalizingPoints(), "normalizing_points");
-        //TODO
+        graph_frame.addPointList(response_points, "origional_response_points");
+        response.normalize(np_list);
+        graph_frame.addPointList(np_list, "normalizing_points");
         graph_frame.addPointList(response.getNormalizedResponse(), "normalized_response_points");
 
         // print out response and normalized response
         System.out.println("origional_response:\t" + response.getOrigionalResponse());
-        System.out.println("normalizing_points:\t" + challenge.getNormalizingPoints());
+        System.out.println("normalizing_points:\t" + np_list);
         System.out.println("normalized_response:\t" + response.getNormalizedResponse());
 
         // wait for the user to press "ENTER"

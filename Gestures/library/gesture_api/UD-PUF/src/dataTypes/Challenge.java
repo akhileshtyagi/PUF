@@ -14,7 +14,7 @@ public class Challenge implements Serializable {
     // use a fixed distance between normalizing points
     final static boolean USE_FIXED_NORMALIZING_POINT_DISTANCE = true;
     // define the fixed normalizing point difference
-    final static double FIXED_NORMALIZING_POINT_DISTANCE = 25.0;
+    final static double FIXED_NORMALIZING_POINT_DISTANCE = 25.0; //25.0;
 
     // number of elements in normalized list default value.
     final static int NORMALIZED_ELEMENTS_DEFAULT = 16;

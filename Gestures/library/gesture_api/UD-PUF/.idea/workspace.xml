@@ -28,11 +28,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="209">
-      <file leaf-file-name="analysis_test.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/test/analysis_test.java">
+      <file leaf-file-name="1 nexus7 tim 2015-06-20 031800 PM.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-21/tim/1 nexus7 tim 2015-06-20 031800 PM.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="787">
-              <caret line="60" column="0" selection-start-line="60" selection-start-column="0" selection-end-line="60" selection-end-column="0" />
+            <state relative-caret-position="324">
+              <caret line="18" column="32" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="32" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="1 nexus7 tim 2015-06-20 031819 PM.csv" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-21/tim/1 nexus7 tim 2015-06-20 031819 PM.csv">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -41,18 +51,18 @@
       <file leaf-file-name="Challenge.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="126">
-              <caret line="342" column="17" selection-start-line="342" selection-start-column="17" selection-end-line="342" selection-end-column="17" />
+            <state relative-caret-position="252">
+              <caret line="16" column="61" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="compare_data.csv" pinned="false" current-in-tab="false">
+      <file leaf-file-name="compare_data.csv" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/compare_data.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-931">
-              <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+            <state relative-caret-position="-373">
+              <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
               <folding />
             </state>
           </provider>
@@ -61,8 +71,8 @@
       <file leaf-file-name="CompareValueGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="32" column="62" selection-start-line="32" selection-start-column="62" selection-end-line="32" selection-end-column="62" />
+            <state relative-caret-position="342">
+              <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -70,31 +80,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Point.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/dataTypes/Point.java">
+      <file leaf-file-name="DataReader.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/data/DataReader.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2209">
-              <caret line="178" column="53" selection-start-line="178" selection-start-column="28" selection-end-line="178" selection-end-column="53" />
+            <state relative-caret-position="216">
+              <caret line="249" column="53" selection-start-line="249" selection-start-column="53" selection-end-line="249" selection-end-column="53" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Profile.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/dataTypes/Profile.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7758">
-              <caret line="438" column="46" selection-start-line="438" selection-start-column="46" selection-end-line="438" selection-end-column="46" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Response.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Response.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="136" column="18" selection-start-line="136" selection-start-column="18" selection-end-line="136" selection-end-column="18" />
+            <state relative-caret-position="144">
+              <caret line="10" column="52" selection-start-line="10" selection-start-column="52" selection-end-line="10" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -113,8 +113,8 @@
       <file leaf-file-name="UserDevicePair.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/UserDevicePair.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="994" column="58" selection-start-line="994" selection-start-column="58" selection-end-line="994" selection-end-column="58" />
+            <state relative-caret-position="252">
+              <caret line="1029" column="41" selection-start-line="1029" selection-start-column="41" selection-end-line="1029" selection-end-column="41" />
               <folding />
             </state>
           </provider>
@@ -156,13 +156,13 @@
         <option value="$PROJECT_DIR$/src/roc_curve_generation/ROC_GUI.java" />
         <option value="$PROJECT_DIR$/src/roc_curve_generation/ROCGenerator.java" />
         <option value="$PROJECT_DIR$/src/dataTypes/Point.java" />
-        <option value="$PROJECT_DIR$/src/data/DataReader.java" />
         <option value="$PROJECT_DIR$/src/roc_curve_generation/compare_data.csv" />
         <option value="$PROJECT_DIR$/src/test/graph_points.java" />
         <option value="$PROJECT_DIR$/src/roc_curve_generation/roc_generator.r" />
-        <option value="$PROJECT_DIR$/src/dataTypes/UserDevicePair.java" />
-        <option value="$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java" />
         <option value="$PROJECT_DIR$/src/dataTypes/Challenge.java" />
+        <option value="$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java" />
+        <option value="$PROJECT_DIR$/src/data/DataReader.java" />
+        <option value="$PROJECT_DIR$/src/dataTypes/UserDevicePair.java" />
         <option value="$PROJECT_DIR$/src/dataTypes/Response.java" />
       </list>
     </option>
@@ -793,13 +793,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/MuSigma.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/metrics/Metric.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
@@ -870,22 +863,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-20/Nick/1_ nexus-20 Nick Montelibano Day 1 2015-02-09 01_01_31 AM.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/data/DataReader.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="446">
-          <caret line="325" column="10" selection-start-line="325" selection-start-column="10" selection-end-line="325" selection-end-column="10" />
           <folding />
         </state>
       </provider>
@@ -1058,14 +1035,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-21/tim/1 nexus7 tim 2015-06-20 031800 PM.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1255">
-          <caret line="18" column="32" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="32" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-03/Jake/1: nexus-03 2014-02-09 12:14:19 PM.csv">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1122,18 +1091,42 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Profile.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7758">
+          <caret line="438" column="46" selection-start-line="438" selection-start-column="46" selection-end-line="438" selection-end-column="46" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/dataTypes/Point.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2209">
+        <state relative-caret-position="2641">
           <caret line="178" column="53" selection-start-line="178" selection-start-column="28" selection-end-line="178" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/Profile.java">
+    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-21/tim/1 nexus7 tim 2015-06-20 031800 PM.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7758">
-          <caret line="438" column="46" selection-start-line="438" selection-start-column="46" selection-end-line="438" selection-end-column="46" />
+        <state relative-caret-position="324">
+          <caret line="18" column="32" selection-start-line="18" selection-start-column="25" selection-end-line="18" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-21/tim/1 nexus7 tim 2015-06-20 031819 PM.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-20/Nick/1_ nexus-20 Nick Montelibano Day 1 2015-02-09 01_01_31 AM.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="0" selection-start-line="5" selection-start-column="0" selection-end-line="5" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -1146,44 +1139,52 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/compare_data.csv">
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-931">
-          <caret line="0" column="6" selection-start-line="0" selection-start-column="6" selection-end-line="0" selection-end-column="6" />
+        <state relative-caret-position="252">
+          <caret line="16" column="61" selection-start-line="16" selection-start-column="61" selection-end-line="16" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/data/DataReader.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="249" column="53" selection-start-line="249" selection-start-column="53" selection-end-line="249" selection-end-column="53" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/dataTypes/UserDevicePair.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="994" column="58" selection-start-line="994" selection-start-column="58" selection-end-line="994" selection-end-column="58" />
+        <state relative-caret-position="252">
+          <caret line="1029" column="41" selection-start-line="1029" selection-start-column="41" selection-end-line="1029" selection-end-column="41" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="32" column="62" selection-start-line="32" selection-start-column="62" selection-end-line="32" selection-end-column="62" />
+        <state relative-caret-position="342">
+          <caret line="28" column="44" selection-start-line="28" selection-start-column="44" selection-end-line="28" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="126">
-          <caret line="342" column="17" selection-start-line="342" selection-start-column="17" selection-end-line="342" selection-end-column="17" />
+        <state relative-caret-position="144">
+          <caret line="10" column="52" selection-start-line="10" selection-start-column="52" selection-end-line="10" selection-end-column="52" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
+    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/compare_data.csv">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="396">
-          <caret line="136" column="18" selection-start-line="136" selection-start-column="18" selection-end-line="136" selection-end-column="18" />
+        <state relative-caret-position="-373">
+          <caret line="28" column="21" selection-start-line="28" selection-start-column="21" selection-end-line="28" selection-end-column="21" />
           <folding />
         </state>
       </provider>

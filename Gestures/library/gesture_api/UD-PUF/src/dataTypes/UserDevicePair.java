@@ -993,11 +993,10 @@ public class UserDevicePair {
 
         //TODO set parameters of the authentication
         this.setStandardDeviations(RatioType.PRESSURE, 2.0);
-        this.setStandardDeviations(RatioType.DISTANCE, 2.0);
+        this.setStandardDeviations(RatioType.DISTANCE, 0.5);
         this.setStandardDeviations(RatioType.TIME, 2.0);
-        this.setStandardDeviations(RatioType.VELOCiTY, 2.0);
-        this.setStandardDeviations(RatioType.ACCELERATION, 2.0);
-
+        this.setStandardDeviations(RatioType.VELOCiTY, 1.0);
+        this.setStandardDeviations(RatioType.ACCELERATION, 0.5);
 
         // trigger an authentication
         this.authenticate(response.getOrigionalResponse(), challenge);
@@ -1028,10 +1027,10 @@ public class UserDevicePair {
             double weight = 0.0;
             switch(metric_list.get(i)){
                 case PRESSURE: weight = 1.0; break;
-                case DISTANCE: weight = 0.0; break;
-                case TIME: weight = 0.0; break;
-                case VELOCITY: weight = 0.0; break;
-                case ACCELERATION: weight = 0.0; break;
+                case DISTANCE: weight = 1.0; break;
+                case TIME: weight = 1.0; break;
+                case VELOCITY: weight = 1.0; break;
+                case ACCELERATION: weight = 1.0; break;
             }
 
             sum += weight * compare_value_list.get(i);

@@ -49,8 +49,8 @@
       <file leaf-file-name="CompareValueGenerator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="592">
-              <caret line="114" column="9" selection-start-line="100" selection-start-column="8" selection-end-line="114" selection-end-column="9" />
+            <state relative-caret-position="448">
+              <caret line="112" column="17" selection-start-line="112" selection-start-column="17" selection-end-line="112" selection-end-column="17" />
               <folding />
             </state>
           </provider>
@@ -1388,8 +1388,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="592">
-          <caret line="114" column="9" selection-start-line="100" selection-start-column="8" selection-end-line="114" selection-end-column="9" />
+        <state relative-caret-position="448">
+          <caret line="112" column="17" selection-start-line="112" selection-start-column="17" selection-end-line="112" selection-end-column="17" />
           <folding />
         </state>
       </provider>
