@@ -83,7 +83,7 @@ public class Challenge implements Serializable {
 
         // checking to see if any points were removed. This is included for testing purposes
         if( removed_count > 0){
-            System.out.println("Duplicate points removed:\t" + removed_count);
+            //System.out.println("Duplicate points removed:\t" + removed_count);
         }
 
         // If first response added, use it as baseline for number of

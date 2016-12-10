@@ -687,12 +687,26 @@ public class UserDevicePair {
     /**
      * compute the point vectors based on the new_response_data and the profile
      */
-    private void compute_point_vector(List<Point> new_response_data, Profile profile) {
+    private void compute_point_vector(List<Point> new_response_data_p, Profile profile) {
         for(int i=0; i<this.auth_values_list.size(); i++){
             this.auth_values_list.get(i).point_vector = new ArrayList<>();
         }
 
-        // error check
+        //TODO !!! shouldn't need to do this check
+        /*
+        if(profile.getNormalizedResponses().get(0).getNormalizedResponse().size() < 2){
+            System.out.println("shouldn't be here error 431");
+            return;
+        }
+        */
+
+        // normalize the list of points to the normalizing points of the profile
+        //TODO should I be doing this here or not?
+        Response response = new Response(new_response_data_p);
+        response.normalize(profile.getNormalizedResponses().get(0).getNormalizedResponse());
+        List<Point> new_response_data = response.getNormalizedResponse();
+
+        // error check, the response should be normalized on the normalization points contained in the profiel
         if (new_response_data.size() != profile.getNormalizedResponses().get(0).getNormalizedResponse().size()) {
             System.out.println("shouldn't be here: " + new_response_data.size() + " | " + profile.getNormalizedResponses().get(0).getNormalizedResponse().size());
             return;
@@ -1025,12 +1039,13 @@ public class UserDevicePair {
         for(int i=0; i<metric_list.size(); i++){
             // assign a weight based on the metric
             double weight = 0.0;
+            //TODO adjust the weights
             switch(metric_list.get(i)){
                 case PRESSURE: weight = 1.0; break;
-                case DISTANCE: weight = 1.0; break;
-                case TIME: weight = 1.0; break;
-                case VELOCITY: weight = 1.0; break;
-                case ACCELERATION: weight = 1.0; break;
+                case DISTANCE: weight = 0.0; break;
+                case TIME: weight = 0.0; break;
+                case VELOCITY: weight = 0.0; break;
+                case ACCELERATION: weight = 0.0; break;
             }
 
             sum += weight * compare_value_list.get(i);

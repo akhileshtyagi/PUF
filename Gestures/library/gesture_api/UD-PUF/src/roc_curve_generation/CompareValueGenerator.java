@@ -26,7 +26,9 @@ public class CompareValueGenerator {
     public static String DATA_FOLDER_NAME = "src/roc_curve_generation/data/";
 
     /* maximum challengeID number. Given by the first integer in the file name */
-    public static int MAXIMUM_SEED_NUMBER = 1000;
+    public static int MAXIMUM_SEED_NUMBER = 8;
+    /* minimumchallengeID number. Given by the first integer in the file name */
+    public static int MINIMUM_SEED_NUMBER = 1;
     /* minimum profile size in number of responses */
     public static int MINIMUM_PROFILE_SIZE = 10;
     /* minimum response size for authenticating against a profile in number of points */
@@ -128,30 +130,39 @@ public class CompareValueGenerator {
 
                         int challenge_name = response_map_entry.getKey();
 
-                        // create the UDC object
-                        UDC udc = new UDC();
-                        udc.user = user_name;
-                        udc.device = device_name;
-                        udc.challenge = challenge_name;
+                        // for each response to a challenge, create the UDC object
+                        // with one response left out
+                        for(int j=0; j<response_map_entry.getValue().size(); j++) {
+                            // create UCD and define known quantities
+                            UDC udc = new UDC();
+                            udc.user = user_name;
+                            udc.device = device_name;
+                            udc.challenge = challenge_name;
 
-                        // for each response to this challenge
-                        Challenge challenge = new Challenge(
-                                challenge_pattern_map.get(challenge_name), challenge_name);
-                        for(int i=1; i<response_map_entry.getValue().size(); i++){
-                            challenge.addResponse(response_map_entry.getValue().get(i));
+                            // guarenteed not to be size 0, othersise the map entry would not have
+                            // been created
+                            // response is the current j index
+                            udc.response = response_map_entry.getValue().get(j);
+
+                            // for each response to this challenge,
+                            // except for response index j
+                            Challenge challenge = new Challenge(
+                                    challenge_pattern_map.get(challenge_name), challenge_name);
+                            for (int i = 1; i < response_map_entry.getValue().size(); i++) {
+                                // start at j+1 and wrap around the list
+                                // should pull n-1 responses
+                                challenge.addResponse(response_map_entry.getValue()
+                                        .get( (j + i) % response_map_entry.getValue().size()));
+                            }
+
+                            //System.out.println(response_map_entry.getValue().size()); //TODO
+
+                            // add the challenge to the UserDevicePair
+                            udc.ud_pair = new UserDevicePair((int) (Math.random() * 10000000));
+                            udc.ud_pair.addChallenge(challenge);
+
+                            udc_list.add(udc);
                         }
-
-                        //System.out.println(response_map_entry.getValue().size()); //TODO
-
-                        // add the challenge to the UserDevicePair
-                        udc.ud_pair = new UserDevicePair((int)(Math.random()*10000000));
-                        udc.ud_pair.addChallenge(challenge);
-
-                        // guarenteed not to be size 0, othersise the map entry would not have
-                        // been created
-                        udc.response = response_map_entry.getValue().get(0);
-
-                        udc_list.add(udc);
                     }
                 }
             }
@@ -168,6 +179,7 @@ public class CompareValueGenerator {
                 if(profile_udc.challenge == response_udc.challenge &&
                         profile_udc.ud_pair.getChallenges().get(0).getResponsePattern().size() >= MINIMUM_PROFILE_SIZE &&
                         profile_udc.challenge <= MAXIMUM_SEED_NUMBER &&
+                        profile_udc.challenge >= MINIMUM_SEED_NUMBER &&
                         response_udc.response.getOrigionalResponse().size() >= MINIMUM_RESPONSE_SIZE
                         ){
                     //System.out.println(String.format("profile: %s\t\tresponse: %s",
@@ -180,6 +192,7 @@ public class CompareValueGenerator {
                         + "\npositive: " + profile_udc.equals(response_udc)); //TODO
 
                     // what is the compare value
+                    //TODO why is profile NormalizingPoints size == 1 sometimes??????
                     compare_value_list.add(profile_udc.ud_pair.compare(response_udc.response));
 
                     // display a visual representation of the authentication
