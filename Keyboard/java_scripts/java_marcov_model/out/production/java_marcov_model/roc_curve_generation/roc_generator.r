@@ -1,12 +1,12 @@
 #! /usr/bin/R
 
 # install libraries
-#install(ggplot2)
-#install.packages(car)
+#install.packages("ggplot2")
+#install.packages("car")
 
 # load libraries
-#library(ggplot2)
-library(car)
+library(ggplot2)
+#library(car)
 
 #
 # given a threshold, compare_data
@@ -44,7 +44,7 @@ FPR <- function(threshold, compare_data){
 compare_data <- read.csv("compare_data.csv")
 
 # create a data frame of thresholds
-threshold <- seq(0, 1.0, by=0.0005)
+threshold <- seq(0, 1.0, by=0.00005)
 rate_data <- data.frame(threshold)
 
 # for each threshold
@@ -56,18 +56,35 @@ for(i in 1:nrow(rate_data)){
     rate_data[i, "FPR"] <- FPR(rate_data$threshold[i], compare_data)
 }
 
+# compute the best threshold
+# to generate authentication accuracy statistics
+#TODO
+
+#
+# ROC curve
+#
 # plot the data FNP vs FPR
 pdf("ROC.pdf", width = "6", height = "6")
 
-plot(rate_data$FNR, rate_data$FPR,
+qplot(rate_data$FNR, rate_data$FPR,
     xlab="FPR", ylab="FNR", main="ROC Curve",
     xlim=c(0,1), ylim=c(0,1))
 
 # tell R I am done plotting
 dev.off()
 
+#
+# model_parameters vs authentication accuracy
+# describes how each of the model parameters affects the authentication accuracy
+#
+#TODO add more information to compare_data.csv which can be used for this
+pdf("authentication_accuracy_vs_total_interactions.pdf", width = "6", height = "6")
+
+qplot(rate_data$FNR, rate_data$FPR,
+    xlab="FPR", ylab="FNR", main="ROC Curve",
+    xlim=c(0,1), ylim=c(0,1))
+
+dev.off()
+
 # display any warnings
 warnings()
-
-#rate_data
-#compare_data

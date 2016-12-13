@@ -292,4 +292,3 @@ base_size	auth_size	time_taken
 8500	3500	2835
 8500	4000	2881
 8500	4500	3021
-8

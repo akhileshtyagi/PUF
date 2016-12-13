@@ -46,7 +46,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompareValueGenerator.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="CompareValueGenerator.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="448">
@@ -68,11 +68,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="roc_generator.r" pinned="false" current-in-tab="false">
+      <file leaf-file-name="roc_generator.r" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/roc_generator.r">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="342">
-              <caret line="46" column="34" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
+            <state relative-caret-position="393">
+              <caret line="143" column="38" selection-start-line="143" selection-start-column="38" selection-end-line="143" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -96,8 +96,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/runtime/Operation_thread.java" />
-        <option value="$PROJECT_DIR$/src/test/UnitCompareChainsRank.java" />
         <option value="$PROJECT_DIR$/src/trie/Trie.java" />
         <option value="$PROJECT_DIR$/src/test/minimal_working_example.java" />
         <option value="$PROJECT_DIR$/results/model_compare_output.txt" />
@@ -146,6 +144,8 @@
         <option value="$PROJECT_DIR$/src/data_analysis/Statistics.java" />
         <option value="$PROJECT_DIR$/src/data_analysis/PerformanceMeasure.java" />
         <option value="$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java" />
+        <option value="$PROJECT_DIR$/../../nexus_7_code/speed_test_results/nexus_speed_test_3.txt" />
+        <option value="$PROJECT_DIR$/../../nexus_7_code/analysis/runtime_analysis.r" />
         <option value="$PROJECT_DIR$/src/roc_curve_generation/roc_generator.r" />
       </list>
     </option>
@@ -527,7 +527,7 @@
   <component name="PropertiesComponent">
     <property name="recentsLimit" value="5" />
     <property name="dynamic.classpath" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../../Gestures/library/gesture_api" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../nexus_7_code/speed_test_results/nexus_speed_test_3.txt" />
     <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
     <property name="project.structure.last.edited" value="Global Libraries" />
@@ -943,7 +943,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="1064" y="-18" width="1344" height="1079" extended-state="0" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32977462" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -957,7 +957,7 @@
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32982087" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19419643" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.19419643" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="The R Graphics" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Packages" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
@@ -987,7 +987,7 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="19" />
+      <option name="time" value="22" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -996,14 +996,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="jar:///opt/android-sdk/platforms/android-15/android.jar!/android/view/KeyEvent.class" />
-    <entry file="file://$PROJECT_DIR$/src/test/Main.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="62" column="37" selection-start-line="62" selection-start-column="33" selection-end-line="62" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/test/Print_model.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="288">
@@ -1341,14 +1333,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/roc_generator.r">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="342">
-          <caret line="46" column="34" selection-start-line="46" selection-start-column="34" selection-end-line="46" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/results/model_compare_output_statistics.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -1357,10 +1341,34 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/../../nexus_7_code/speed_test_results/nexus_speed_test_3.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="573">
+          <caret line="293" column="20" selection-start-line="293" selection-start-column="20" selection-end-line="293" selection-end-column="20" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="448">
           <caret line="112" column="17" selection-start-line="112" selection-start-column="17" selection-end-line="112" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../../nexus_7_code/analysis/runtime_analysis.r">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="16" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/roc_generator.r">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="393">
+          <caret line="143" column="38" selection-start-line="143" selection-start-column="38" selection-end-line="143" selection-end-column="38" />
           <folding />
         </state>
       </provider>
