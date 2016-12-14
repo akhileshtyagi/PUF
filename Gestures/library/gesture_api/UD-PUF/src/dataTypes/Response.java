@@ -820,5 +820,30 @@ public class Response implements Serializable {
 
         return s;
     }
+
+    /**
+     * converts this response object to the string used in the .r
+     * analysis scripts
+     */
+    public String toRString(){
+        String s = "";
+        //s += "[";
+
+        // print all the points in response
+        boolean first = true;
+        for(Point p : getOrigionalResponse()){
+            if(first){
+                s += p.toRString();
+                first = false;
+            }else {
+                s += ", ";
+                s += p.toRString();
+            }
+        }
+
+        //s += "]";
+
+        return s;
+    }
 }
 

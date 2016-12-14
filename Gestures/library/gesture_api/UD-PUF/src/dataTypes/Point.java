@@ -182,4 +182,19 @@ public class Point implements Serializable {
 
         return string;
     }
+
+    /**
+     * format used by .r script
+     */
+    public String toRString() {
+        String string = "";
+
+        //string += "[";
+        string += this.x + ", ";
+        string += this.y + ", ";
+        string += String.format("%f", this.pressure);
+        //string += "]";
+
+        return string;
+    }
 }
