@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+	<PreferenceCategory android:title="Challenge Generation">
+		<EditTextPreference
+            android:title="Directions"
+            android:summary="
+                0. Enter 'Tester Name' and 'Device Name' below \n
+                1. Begin tracing on the Green line \n
+                2. Trace along the line to the end of the Red line \n
+                3. Collect Samples 50 of seeds 1-6"
+            android:defaultValue="Default"
+            android:key="Directions" />
+	    <EditTextPreference
+	        android:title="Tester Name"
+	        android:summary="Name of the person generating the challenges (you)"
+ 	        android:defaultValue="Default" 
+ 	        android:key="TesterName" />
+	    <EditTextPreference
+	        android:title="Device Name"
+	        android:summary="Name of the Nexus device (written on back)"
+ 	        android:defaultValue="nexus-default" 
+ 	        android:key="DeviceName" />
+	    <EditTextPreference
+	        android:title="Initial RNG Seed"
+	        android:summary="This is the initial value that the seed is set to"
+ 	        android:defaultValue="1" 
+ 	        android:numeric="integer"
+ 	        android:key="InitialSeed" />
+	    <EditTextPreference
+	        android:title="Current Seed"
+	        android:summary="This is the initial seed plus number of times a challenge has been generated."
+ 	        android:defaultValue="1" 
+ 	        android:numeric="integer"
+            android:selectable="false"
+ 	        android:key="CurrSeed" />
+        <CheckBoxPreference
+            android:title="Auto increment seed"
+            android:summary="When checked the seed will auto increment after tracing a path."
+            android:defaultValue="true"
+            android:key="AutoIncSeed" />
+	</PreferenceCategory>
+
+</PreferenceScreen>
