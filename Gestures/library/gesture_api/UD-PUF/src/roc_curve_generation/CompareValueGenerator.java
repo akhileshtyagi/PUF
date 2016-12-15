@@ -22,6 +22,9 @@ import static java.lang.Boolean.TRUE;
  *
  */
 public class CompareValueGenerator {
+    /* output a list of [user, device, challenge, response] to this file */
+    public static String UDC_OUTPUT_FILE_NAME = "src/roc_curve_generation/raw_data.csv";
+    /* outputs a list of [should authenticate, compare value] to this file */
     public static String OUTPUT_FILE_NAME = "src/roc_curve_generation/compare_data.csv";
     public static String DATA_FOLDER_NAME = "src/roc_curve_generation/data/";
 
@@ -44,10 +47,14 @@ public class CompareValueGenerator {
         //dummy_results_for_testing_r_script(positive_list, compare_value_list);
 
         // generate real results
-        compare_data(positive_list, compare_value_list);
+        //compare_data(positive_list, compare_value_list);
 
         // output results to file
-        output_results(positive_list, compare_value_list);
+        //output_results(positive_list, compare_value_list);
+
+        // read in all files from the data director and output them
+        // in the format used by the r scripts
+        output_data_directory();
 
         System.out.println("data from: " + DATA_FOLDER_NAME);
         System.out.println("output to: " + OUTPUT_FILE_NAME);
@@ -132,6 +139,9 @@ public class CompareValueGenerator {
 
                         // for each response to a challenge, create the UDC object
                         // with one response left out
+                        //TODO should not be comparing UDC which came from the same response data
+                        //TODO this code is doing that. using this mechanism does it make sense to compare
+                        //TODO each UDC to itself?
                         for(int j=0; j<response_map_entry.getValue().size(); j++) {
                             // create UCD and define known quantities
                             UDC udc = new UDC();
@@ -242,6 +252,157 @@ public class CompareValueGenerator {
                     (this.device.equals(other.device)) &&
                     (this.challenge == other.challenge);
         }
+    }
+
+    /**
+     * output data directory in the format
+     * user, device, challenge, response
+     */
+    private static void output_data_directory(){
+        // acquire the list of udc
+        List<UDC> udc_list = get_udc_list();
+
+        // print the list of udc
+        String header = "\"user\", \"device\", \"challenge\", \"response\"";
+
+        try{
+            PrintWriter file = new PrintWriter(UDC_OUTPUT_FILE_NAME, "UTF-8");
+
+            file.println(header);
+
+            for(int i=0; i<udc_list.size(); i++){
+                String user = udc_list.get(i).user;
+                String device = udc_list.get(i).device;
+                String challenge = String.valueOf(udc_list.get(i).challenge);
+
+                // there is a UDC for each response to a challenge
+                String response = udc_list.get(i).response.toRString();
+
+                file.println(user + ", " + device +
+                        ", " + challenge + ", \"" + response + "\"");
+            }
+
+            file.close();
+        }catch(Exception e){ e.printStackTrace(); }
+    }
+
+    /**
+     * return a list of UDC given the data folder name
+     */
+    private static List<UDC> get_udc_list(){
+        ArrayList<UDC> udc_list = new ArrayList<>();
+
+        try{
+            File data_folder = new File(DATA_FOLDER_NAME);
+
+            // for each device folder
+            for(File device_folder : data_folder.listFiles()){
+                String device_name = device_folder.getName();
+
+                // for each user of the device
+                for(File user_folder : device_folder.listFiles()){
+                    String user_name = user_folder.getName();
+
+                    HashMap<Integer, ArrayList<Response>> response_map = new HashMap<>();
+                    HashMap<Integer, List<Point>> challenge_pattern_map = new HashMap<>();
+                    for(File data_file : user_folder.listFiles()) {
+                        // Each file is a response to a challenge
+                        // given a user_folder, create a set of
+                        // challenges corresponding to that user, device
+                        //
+                        // ONLY FOR THINGS IN CHALLENGE_SET
+                        //
+                        // create a response from the data file
+                        Challenge challenge = DataReader.getChallenge(data_file);
+
+                        // add the challenge pattern to the map
+                        if(challenge_pattern_map.get((int)challenge.getChallengeID()) == null){
+                            // then this challenge has not been encountered yet,
+                            // put the challenge points into the map
+                            challenge_pattern_map.put((int)challenge.getChallengeID(),
+                                    challenge.getChallengePattern());
+                        }
+
+                        // ask data reader to get the response from the file
+                        Response response = DataReader.getResponse(data_file);
+
+                        // add this response to the map
+                        ArrayList<Response> response_list = response_map.get((int)challenge.getChallengeID());
+                        if(response_list == null){
+                            // null if no mapping for key
+                            response_list = new ArrayList<>();
+
+                            //TODO make sure getChallengeID is returning the int from the file name
+                            response_map.put((int)challenge.getChallengeID(), response_list);
+                        }
+
+                        //System.out.println(response);
+                        //System.out.println(response_list);
+
+                        // in any case, I want to add the response to the response_list
+                        response_list.add(response);
+                    }
+
+                    //System.out.println(response_map.entrySet().size()); //TODO
+
+                    // for each challenge(integer) in the map, create a UDC
+                    for(Map.Entry<Integer, ArrayList<Response>> response_map_entry : response_map.entrySet()){
+                        //System.out.println(response_map_entry.getValue().size() == 1); //TODO
+
+                        int challenge_name = response_map_entry.getKey();
+
+                        // for each response to a challenge, create the UDC object
+                        // with one response left out
+                        //
+                        //TODO should not be comparing UDC which came from the same response data
+                        //TODO this code is doing that. using this mechanism does it make sense to compare
+                        //TODO each UDC to itself?
+                        //
+                        // outputting to a data file uses the fact that there
+                        // is a UDC for each response
+                        for(int j=0; j<response_map_entry.getValue().size(); j++) {
+                            // create UCD and define known quantities
+                            UDC udc = new UDC();
+                            udc.user = user_name;
+                            udc.device = device_name;
+                            udc.challenge = challenge_name;
+
+                            // guarenteed not to be size 0, othersise the map entry would not have
+                            // been created
+                            // response is the current j index
+                            udc.response = response_map_entry.getValue().get(j);
+
+                            // no challenge in this one
+                            // I don't want the responses getting normalized, just in case
+                            // there are any deep copy issues in play
+                            //
+                            // for each response to this challenge,
+                            // except for response index j
+                            /*
+                            Challenge challenge = new Challenge(
+                                    challenge_pattern_map.get(challenge_name), challenge_name);
+                            for (int i = 1; i < response_map_entry.getValue().size(); i++) {
+                                // start at j+1 and wrap around the list
+                                // should pull n-1 responses
+                                challenge.addResponse(response_map_entry.getValue()
+                                        .get( (j + i) % response_map_entry.getValue().size()));
+                            }
+
+                            //System.out.println(response_map_entry.getValue().size()); //TODO
+
+                            // add the challenge to the UserDevicePair
+                            udc.ud_pair = new UserDevicePair((int) (Math.random() * 10000000));
+                            udc.ud_pair.addChallenge(challenge);
+                            */
+
+                            udc_list.add(udc);
+                        }
+                    }
+                }
+            }
+        }catch(Exception e){ e.printStackTrace(); }
+
+        return udc_list;
     }
 
     /**

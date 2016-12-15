@@ -2,11 +2,9 @@
 
 # install libraries
 #install(ggplot2)
-#install.packages(car)
 
 # load libraries
-#library(ggplot2)
-library(car)
+library(ggplot2)
 
 #
 # given a threshold, compare_data
@@ -59,7 +57,7 @@ for(i in 1:nrow(rate_data)){
 # plot the data FNP vs FPR
 pdf("ROC.pdf", width = "6", height = "6")
 
-plot(rate_data$FNR, rate_data$FPR,
+qplot(rate_data$FNR, rate_data$FPR,
     xlab="FPR", ylab="FNR", main="ROC Curve",
     xlim=c(0,1), ylim=c(0,1))
 
