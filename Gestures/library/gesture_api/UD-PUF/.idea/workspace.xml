@@ -34,7 +34,21 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#4716#4717#0" expanded="false" />
+                <element signature="e#4758#4759#0" expanded="false" />
+                <element signature="e#4810#4811#0" expanded="false" />
+                <element signature="e#4856#4857#0" expanded="false" />
+                <element signature="e#4892#4893#0" expanded="false" />
+                <element signature="e#4926#4927#0" expanded="false" />
+                <element signature="e#4978#4979#0" expanded="false" />
+                <element signature="e#5020#5021#0" expanded="false" />
+                <element signature="e#5068#5069#0" expanded="false" />
+                <element signature="e#5107#5108#0" expanded="false" />
+                <element signature="e#5233#5234#0" expanded="false" />
+                <element signature="e#5265#5266#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -62,8 +76,8 @@
       <file leaf-file-name="svm_classifier.r" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/svm_classifier.r">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="360">
-              <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+            <state relative-caret-position="126">
+              <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
               <folding />
             </state>
           </provider>
@@ -94,7 +108,11 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="6102">
               <caret line="349" column="0" selection-start-line="349" selection-start-column="0" selection-end-line="349" selection-end-column="0" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#559#560#0" expanded="false" />
+                <element signature="e#589#590#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -124,7 +142,23 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="12618">
               <caret line="714" column="10" selection-start-line="714" selection-start-column="10" selection-end-line="714" selection-end-column="10" />
-              <folding />
+              <folding>
+                <element signature="imports" expanded="false" />
+                <element signature="e#3263#3264#0" expanded="false" />
+                <element signature="e#3325#3326#0" expanded="false" />
+                <element signature="e#7018#7019#0" expanded="false" />
+                <element signature="e#7059#7060#0" expanded="false" />
+                <element signature="e#7154#7155#0" expanded="false" />
+                <element signature="e#7187#7188#0" expanded="false" />
+                <element signature="e#21982#21983#0" expanded="false" />
+                <element signature="e#22042#22043#0" expanded="false" />
+                <element signature="e#22182#22183#0" expanded="false" />
+                <element signature="e#22237#22238#0" expanded="false" />
+                <element signature="e#32130#32131#0" expanded="false" />
+                <element signature="e#32170#32171#0" expanded="false" />
+                <element signature="e#41192#41193#0" expanded="false" />
+                <element signature="e#41236#41237#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1045,7 +1079,11 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="6102">
           <caret line="349" column="0" selection-start-line="349" selection-start-column="0" selection-end-line="349" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#559#560#0" expanded="false" />
+            <element signature="e#589#590#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1060,7 +1098,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#4716#4717#0" expanded="false" />
+            <element signature="e#4758#4759#0" expanded="false" />
+            <element signature="e#4810#4811#0" expanded="false" />
+            <element signature="e#4856#4857#0" expanded="false" />
+            <element signature="e#4892#4893#0" expanded="false" />
+            <element signature="e#4926#4927#0" expanded="false" />
+            <element signature="e#4978#4979#0" expanded="false" />
+            <element signature="e#5020#5021#0" expanded="false" />
+            <element signature="e#5068#5069#0" expanded="false" />
+            <element signature="e#5107#5108#0" expanded="false" />
+            <element signature="e#5233#5234#0" expanded="false" />
+            <element signature="e#5265#5266#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1068,7 +1120,23 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="12618">
           <caret line="714" column="10" selection-start-line="714" selection-start-column="10" selection-end-line="714" selection-end-column="10" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="e#3263#3264#0" expanded="false" />
+            <element signature="e#3325#3326#0" expanded="false" />
+            <element signature="e#7018#7019#0" expanded="false" />
+            <element signature="e#7059#7060#0" expanded="false" />
+            <element signature="e#7154#7155#0" expanded="false" />
+            <element signature="e#7187#7188#0" expanded="false" />
+            <element signature="e#21982#21983#0" expanded="false" />
+            <element signature="e#22042#22043#0" expanded="false" />
+            <element signature="e#22182#22183#0" expanded="false" />
+            <element signature="e#22237#22238#0" expanded="false" />
+            <element signature="e#32130#32131#0" expanded="false" />
+            <element signature="e#32170#32171#0" expanded="false" />
+            <element signature="e#41192#41193#0" expanded="false" />
+            <element signature="e#41236#41237#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1122,8 +1190,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/svm_classifier.r">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="20" column="34" selection-start-line="20" selection-start-column="34" selection-end-line="20" selection-end-column="34" />
+        <state relative-caret-position="126">
+          <caret line="7" column="1" selection-start-line="7" selection-start-column="1" selection-end-line="7" selection-end-column="1" />
           <folding />
         </state>
       </provider>
