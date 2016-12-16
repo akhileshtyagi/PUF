@@ -1,42 +1,6 @@
 #! /usr/bin/R
 
-# install libraries
-#install(ggplot2)
-
-# load libraries
-library(ggplot2)
-
-#
-# given a threshold, compare_data
-# compute the FNR -- false negative rate
-# false negatives / positives
-#
-FNR <- function(threshold, compare_data){
-    # count the number of false negatives
-    number_false_negatives <- sum(
-        (compare_data$compare_value < threshold) & (compare_data$positive == 1))
-
-    # count the number of negatives in the data set
-    number_positives <- sum(compare_data$positive == 1)
-
-    return(number_false_negatives / number_positives)
-}
-
-#
-# given a threshold, compare_data
-# compute the FPR -- false positive rate
-# false positives / negatives
-#
-FPR <- function(threshold, compare_data){
-    # count the number of false positives
-    number_false_positives <- sum(
-        (compare_data$compare_value >= threshold) & (compare_data$positive == 0))
-
-    # count the number of negatives in the data set
-    number_negatives <- sum(compare_data$positive == 0)
-
-    return(number_false_positives / number_negatives)
-}
+source("utility.r")
 
 # create a data frame with the given compare values
 compare_data <- read.csv("compare_data.csv")
@@ -55,11 +19,11 @@ for(i in 1:nrow(rate_data)){
 }
 
 # plot the data FNP vs FPR
-pdf("ROC.pdf", width = "6", height = "6")
+pdf("output/ROC.pdf", width = "6", height = "6")
 
-qplot(rate_data$FNR, rate_data$FPR,
+plot(rate_data$FNR, rate_data$FPR,
     xlab="FPR", ylab="FNR", main="ROC Curve",
-    xlim=c(0,1), ylim=c(0,1))
+    xlim=c(0,1), ylim=c(0,1), type="b")
 
 # tell R I am done plotting
 dev.off()

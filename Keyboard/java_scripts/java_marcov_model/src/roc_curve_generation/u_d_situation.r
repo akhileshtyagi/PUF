@@ -4,11 +4,10 @@
 source("utility.r")
 
 # create a data frame with the given compare values
-#TODO add more information to compare_data.csv which can be used for this
 compare_data <- read.csv("compare_data.csv")
 
 # rate_data$[user][device]
-n_threshold <- 2000 #TODO put up to 20000
+n_threshold <- 20000 #TODO put up to 20000
 x <- c(1:(n_threshold+1))
 rate_data <- data.frame(x)
 

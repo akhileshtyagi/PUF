@@ -34,6 +34,20 @@ public class CompareValueGenerator {
     public static int[] CHALLENGE_SET = {};
 
     public static void main(String[] args){
+        // generate compare value data with the best ParameterSet
+        CompareValueGenerator.generate(PARAMETER_SET, OUTPUT_FILE_NAME);
+    }
+
+    /**
+     * parameterize the CompareValueGenerator
+     * to work on the given:
+     *  set of model parameters
+     *  output_file_name
+     *
+     * this data is used to evaluate the influence of
+     * each model parameter
+     */
+    public static void generate(ParameterSet parameter_set, String output_file_name){
         ArrayList<Boolean> positive_list = new ArrayList<>();
         ArrayList<Double> compare_value_list = new ArrayList<>();
         ArrayList<Boolean> same_user_list = new ArrayList<>();
@@ -43,13 +57,15 @@ public class CompareValueGenerator {
         //dummy_results_for_testing_r_script(positive_list, compare_value_list);
 
         // generate real results
-        compare_data(positive_list, compare_value_list, same_user_list, same_device_list);
+        compare_data(positive_list, compare_value_list, same_user_list,
+                same_device_list, parameter_set);
 
         // output results to file
-        output_results(positive_list, compare_value_list, same_user_list, same_device_list);
+        output_results(positive_list, compare_value_list, same_user_list,
+                same_device_list, output_file_name);
 
         System.out.println("data from: " + DATA_FOLDER_NAME);
-        System.out.println("output to: " + OUTPUT_FILE_NAME);
+        System.out.println("output to: " + output_file_name);
     }
 
     /**
@@ -67,7 +83,8 @@ public class CompareValueGenerator {
      */
     public static void compare_data(
             ArrayList<Boolean> positive_list, ArrayList<Double> compare_value_list,
-            ArrayList<Boolean> user_list, ArrayList<Boolean> device_list){
+            ArrayList<Boolean> user_list, ArrayList<Boolean> device_list,
+            ParameterSet parameter_set){
         // I want several (user, device, chain) from each data file
         ArrayList<UDC> udc_list = new ArrayList<>();
 
@@ -88,6 +105,9 @@ public class CompareValueGenerator {
                 // get a list of Touches contained within the file
                 List<Touch> touch_list = ChainBuilder.parse_csv(data_file);
 
+                //TODO incorporate parameter_set.user_model_size,
+                //TODO parameter_set.auth_model_size
+
                 // create one or multiple UDC for for each data file
                 // for each set of MODEL_SIZE touches in the file, create UDC
                 for(int i=0; i<(touch_list.size()/MODEL_SIZE); i++) {
@@ -97,8 +117,8 @@ public class CompareValueGenerator {
                     udc.user = user;
                     udc.device = device;
 
-                    udc.chain = new Chain(PARAMETER_SET.window_size,
-                            PARAMETER_SET.token_size, PARAMETER_SET.threshold, MODEL_SIZE);
+                    udc.chain = new Chain(parameter_set.window_size,
+                            parameter_set.token_size, parameter_set.threshold, MODEL_SIZE);
                     for(int j=0; j<MODEL_SIZE; j++){
                         udc.chain.add_touch(touch_list.get(j + (i*MODEL_SIZE)));
                     }
@@ -147,19 +167,21 @@ public class CompareValueGenerator {
      */
     public static void output_results(
             ArrayList<Boolean> positive_list, ArrayList<Double> compare_value_list,
-            ArrayList<Boolean> user_list, ArrayList<Boolean> device_list){
+            ArrayList<Boolean> user_list, ArrayList<Boolean> device_list,
+            String output_file_name){
         // positive is 1 if the compare value came from a user which should authenticate
         String header = "\"positive\", \"compare_value\", \"same_user\", \"same_device\"";
 
         try{
-            PrintWriter file = new PrintWriter(OUTPUT_FILE_NAME, "UTF-8");
+            PrintWriter file = new PrintWriter(output_file_name, "UTF-8");
 
             file.println(header);
 
             for(int i=0; i<positive_list.size(); i++){
+                // output information about the comparison
                 String positive_string = positive_list.get(i) == TRUE ? "1" : "0";
                 String compare_value_string = String.valueOf(compare_value_list.get(i));
-                String same_user_string = user_list.get(i) == TRUE ? "1" : "0";;
+                String same_user_string = user_list.get(i) == TRUE ? "1" : "0";
                 String same_device_string = device_list.get(i) == TRUE ? "1" : "0";
 
                 file.println(positive_string + ", " + compare_value_string +

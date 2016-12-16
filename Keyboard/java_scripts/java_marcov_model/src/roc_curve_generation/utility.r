@@ -67,6 +67,7 @@ minimize_FNR <- function(rate_data, fpr){
 # and threshold
 # return the accuracy or (times correct / total authentications)
 #
+#TODO I don't know if this is correct
 authentication_accuracy <- function(data, threshold){
     times_correct <-
         sum(data$positive == 1 & data$compare_value >= threshold) +

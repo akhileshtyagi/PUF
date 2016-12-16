@@ -4,26 +4,26 @@
 #
 
 # libraries
-library(ggplot2)
 library(e1071)
 
 # import utility functions
-source("utility_functions.r")
+source("utility.r")
 
 # read the raw data file
 raw_data <- read_raw_data()
 
-# convert the raw data to the form needed for svm
-raw_data$response <- lapply(raw_data$response, response_to_factor)
-
 # use svm to classify data
-x <- subset(raw_data, select=-response)
-y <- data.frame(raw_data$response)
+# combine user, devic, challenge together
+data <- data.frame(
+    "classification" = paste(raw_data$user, raw_data$device, raw_data$challenge, sep="_"),
+    "response" = c(1)) #TODO this should pick out actual properties of response
 
-#typeof(as.factor(raw_data$response[[1]]$y))
-#typeof(raw_data$response[[1]]$pressure)
+head(data)
 
-#svm_classifier <- svm(x, y, kernel="linear")
+model <- svm(data$classification~., data=data, type="C", kernel="linear")
+
+#svm_classifier <- svm(raw_data$response~., data=raw_data, type="C", kernel="linear")
+#svm_classifier <- svm(data, classes, type="C", kernel="linear")
 
 #data <- data.frame(
 #    x=data.frame(raw_data$user, raw_data$device, raw_data$challenge),
