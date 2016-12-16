@@ -13,29 +13,41 @@ source("utility.r")
 raw_data <- read_raw_data()
 
 # use svm to classify data
-# combine user, devic, challenge together
+# combine user, device, challenge together
+#TODO response should pick out actual properties of response from the data
 data <- data.frame(
     "classification" = paste(raw_data$user, raw_data$device, raw_data$challenge, sep="_"),
-    "response" = c(1)) #TODO this should pick out actual properties of response
+    "response" = matrix(rnorm(1208), ncol=2),
+    stringsAsFactors=FALSE)
 
-head(data)
+# encode each of the classifications as an integer,
+# otherwise apparently they will get cast to floats
+# in unpredictable ways
+#
+# first, make a list of all the unique classifications
+# the rows are named the classification value
+classification_map <- data.frame(row.names = unique(data$classification))
+
+# second, assign an integer value to each unique classification
+classification_map$value <- as.factor(c(1:nrow(classification_map)))
+
+# third, replace the data classifications with integers
+for(i in 1:nrow(data)){
+    # row names are classifications, value column holds the integer mapping
+    data$classification[[i]] <- classification_map[data$classification[[i]], "value"]
+}
 
 model <- svm(data$classification~., data=data, type="C", kernel="linear")
 
-#svm_classifier <- svm(raw_data$response~., data=raw_data, type="C", kernel="linear")
-#svm_classifier <- svm(data, classes, type="C", kernel="linear")
-
-#data <- data.frame(
-#    x=data.frame(raw_data$user, raw_data$device, raw_data$challenge),
-#    y=as.factor(raw_data$response))
-#svm_classifier <- svm(y~., data=data, kernel="linear")
-#TODO
-
 # print useful thing about smv classifier
-#summary(svm_classifier)
+summary(model)
 
 # plot the svm classifier
-#TODO
+pdf("output/svm_classifier.pdf")
+plot(model, data)
+dev.off()
 
 # display an ROC curve for the classifier
 #TODO
+
+#stopifnot(FALSE)
