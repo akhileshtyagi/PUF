@@ -31,6 +31,8 @@ FPR <- function(threshold, compare_data){
     # count the number of negatives in the data set
     number_negatives <- sum(compare_data$positive == 0)
 
+    #print(compare_data$positive)
+
     return(number_false_positives / number_negatives)
 }
 
@@ -39,6 +41,7 @@ FPR <- function(threshold, compare_data){
 # determine threshold which minimizes FNR
 # return that threshold
 #
+#TODO this function doesn't work!!!
 minimize_FNR <- function(rate_data, fpr){
     # for all FPR <= fpr find smallest FNR
     # FNR will be biggest when threshold == 1

@@ -12,6 +12,8 @@ import java.util.List;
 public class ModelParameterCVG {
     public static String OUTPUT_FOLDER_NAME = "src/roc_curve_generation/parameter_compare/";
 
+    /* only vary one thing at a time,
+        the scripts are set up to accept things in this way. */
     //TODO adjust the sizes of things to generate more data
     //TODO on how model parameters affect the outcome
     private final static int[] window_sizes = {1};
