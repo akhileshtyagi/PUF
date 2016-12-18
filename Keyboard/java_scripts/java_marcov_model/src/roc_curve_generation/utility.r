@@ -41,7 +41,6 @@ FPR <- function(threshold, compare_data){
 # determine threshold which minimizes FNR
 # return that threshold
 #
-#TODO this function doesn't work!!!
 minimize_FNR <- function(rate_data, fpr){
     # for all FPR <= fpr find smallest FNR
     # FNR will be biggest when threshold == 1
@@ -62,6 +61,22 @@ minimize_FNR <- function(rate_data, fpr){
     }
 
     return(rate_data[threshold_index, "threshold"])
+}
+
+#
+# given rate_data, fixed FPR
+# determine the minimum FNR value
+#
+# same as minimize_FNR, but gives the FNR value
+# associated with the threshold
+#
+minimize_FNR_value <- function(rate_data, fpr){
+    minimizing_threshold <- minimize_FNR(rate_data, fpr)
+
+    # find the index of the threshold
+    index <- match(minimizing_threshold, rate_data$threshold)
+
+    return(rate_data[index, "FNR"])
 }
 
 #

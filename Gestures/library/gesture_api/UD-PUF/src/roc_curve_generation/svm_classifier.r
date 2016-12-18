@@ -37,10 +37,11 @@ for(i in 1:nrow(data)){
     data$classification[[i]] <- classification_map[data$classification[[i]], "value"]
 }
 
+head(data)
 model <- svm(data$classification~., data=data, type="C", kernel="linear")
 
 # print useful thing about smv classifier
-summary(model)
+#summary(model)
 
 # plot the svm classifier
 pdf("output/svm_classifier.pdf")

@@ -75,6 +75,7 @@ for(j in 1:length(model_parameter_list)){
     for(i in 1:nrow(file_data)){
         #TODO based on what should I add a file to each of the lists
         #TODO right now all files parameters have all files
+        # why does it matter what is added to the list?
         if(j != 0){
             list[[index]] <- file_data[i, "file_name"]
             index <- index + 1
@@ -113,8 +114,13 @@ file_data$rate_data <- rate_data_list
 # add this value as a column to the model_parameter_file_map
 FNR_list <- vector("list", nrow(file_data))
 for(i in 1:nrow(file_data)){
-    FNR_list[[i]] <- minimize_FNR(file_data$rate_data[[i]], as.numeric(fixed_FPR))
+    # minimize_FNR returns the threshold at which the lowest FNR occurrs
+    FNR_list[[i]] <- minimize_FNR_value(file_data$rate_data[[i]], as.numeric(fixed_FPR))
 }
+
+rate_data_list[[2]]
+#head(rate_data_list[[2]])
+head(FNR_list[[2]])
 
 # add the rate data to the file_data data frame
 file_data$minimum_FNR <- FNR_list
@@ -190,7 +196,7 @@ pdf("output/model_parameter.pdf")
 # create colors, linetypes, for 4 situations
 colors <- rainbow(6, start=0.4)
 # determines the type of line
-linetype <- c(1,2,4,5)
+linetype <- c(1,2,4,5,6)
 # determines the symbol used for the line
 plotchar <- c(18:22)
 
@@ -200,19 +206,11 @@ plot(c(0.0), c(0.0),
     xlab="Parameters", ylab="FNR", main="Parameters vs. FNR",
     xlim=c(0,1), ylim=c(0,1), type="n")
 
-unlist(plot_series["token_size", "parameter_value"])
-unlist(plot_series["token_size", "minimum_FNR"])
-
-unlist(plot_series["window_size", "parameter_value"])
-unlist(plot_series["window_size", "minimum_FNR"])
-
-#TODO token size doesn't seem to be being plotted
-
 # plot each of the parameters
 for(i in 1:length(model_parameter_list)){
     lines(unlist(plot_series[model_parameter_list[[i]], "parameter_value"]),
         unlist(plot_series[model_parameter_list[[i]], "minimum_FNR"]),
-        type="l", lwd=1.5, lty=linetype[i-1], col=colors[i-1], pch=plotchar[i-1])
+        type="l", lwd=1.5, lty=linetype[i], col=colors[i], pch=plotchar[i])
 }
 
 # explain that the FPR is fixed
@@ -223,3 +221,10 @@ legend(0.60, 1.0, model_parameter_list, cex=1.0, col=colors,
     lty=linetype, title="Parameter") #pch=plotchar,
 
 dev.off()
+
+# useful print statements
+#unlist(plot_series["token_size", "parameter_value"])
+#unlist(plot_series["token_size", "minimum_FNR"])
+
+#unlist(plot_series["window_size", "parameter_value"])
+#unlist(plot_series["window_size", "minimum_FNR"])
