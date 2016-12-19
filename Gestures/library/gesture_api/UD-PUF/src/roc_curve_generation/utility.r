@@ -76,6 +76,26 @@ read_raw_data <- function(){
 }
 
 #
+# generate threhold, FNR, FPR for compare_data
+#
+generate_threshold_data <- function(compare_data, n_thresholds){
+    # create a data frame of thresholds 0.00005
+    threshold <- seq(0, 1.0, by=(1/n_thresholds))
+    rate_data <- data.frame(threshold)
+
+    # for each threshold
+    for(i in 1:nrow(rate_data)){
+        # compute FNR
+        rate_data[i, "FNR"] <- FNR(rate_data$threshold[i], compare_data)
+
+        # compute FPR
+        rate_data[i, "FPR"] <- FPR(rate_data$threshold[i], compare_data)
+    }
+
+    return(rate_data)
+}
+
+#
 # convert the response from double type into factor type
 #
 #TODO warning: this returns the underlying integer representation which

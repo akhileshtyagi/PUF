@@ -29,7 +29,6 @@ data_directory <- "parameter_compare"
 max_files <- 100000
 
 # fixed value for FPR
-#TODO fix minimize_FNR function!!!!!
 fixed_FPR <- 0.01
 
 # read all the csv files in parameter compare folder
@@ -76,6 +75,12 @@ for(j in 1:length(model_parameter_list)){
         #TODO based on what should I add a file to each of the lists
         #TODO right now all files parameters have all files
         # why does it matter what is added to the list?
+        # adding all files to every list will result
+        # in a range of values at each model parameter value
+        # this isn't necessarily bad.
+        #
+        # it gives me a way of limiting the complexity of computation
+        # though if I wanted to do it for a specific set of files
         if(j != 0){
             list[[index]] <- file_data[i, "file_name"]
             index <- index + 1
