@@ -6,7 +6,7 @@
 ##
 module Keyboard
 	# adjust this value to change the number of keys which map to a given region
-	KEYS_PER_REGION = 2.0 # default 1.0
+	KEYS_PER_REGION = 1.0 # default 1.0
 	REGION_WIDTH = 10.0 # default 10.0
 	REGION_HEIGHT = 50.0 # default 50.0
 	

@@ -5,6 +5,7 @@
 
 # libraries
 library(e1071)
+library(caret)
 
 # import utility functions
 source("utility.r")
@@ -12,6 +13,12 @@ source("response_encoding.r")
 
 # set RNG seed
 set.seed(1)
+
+###
+# RESOURCES
+###
+# http://machinelearningmastery.com/compare-models-and-select-the-best-using-the-caret-r-package/
+# http://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/
 
 ###
 # CONSTANTS
@@ -62,6 +69,9 @@ format_data <- function(raw_data){
     data <- subset(data, select=-classification)
     data$classification <- classification_list
 
+    # change the type of classification to factor
+    data$classification <- as.factor(data$classification)
+
     return(data)
 }
 
@@ -72,173 +82,74 @@ format_data <- function(raw_data){
 # read the raw data file
 raw_data <- read_raw_data()
 
-# for each classification:
-# split the raw data into two sets,
-# 1. training data  (raw_training_data)
-# 2. test data      (raw_test_data)
-#
-# each classification should end up with
-# training_ratio data in the training set
-# and 1-training_ratio data in the test set
-#
-# want list of index_list (this is all i need)
-# 1. determine the indexes of each class in the raw data
-# get a list of unique classes
-raw_data_frame <- data.frame(
-        "classification" = paste(raw_data$user, raw_data$device, raw_data$challenge, sep="_"),
-        stringsAsFactors=FALSE)
+# format te raw data
+# this includes encoding of the response
+data <- format_data(raw_data)
 
-class_list <- unique(raw_data_frame$classification)
-list_of_index_list <- vector("list", length(class_list))
-for(i in 1:length(class_list)){
-    list_of_index_list[[i]] <- raw_data_frame$classification == class_list[[i]]
-}
-
-# list_of_index_list now contains the
-# one list for the indexes of each class in raw data
-#
-# 2. given the indexes, sort training_ratio into
-#   training set and 1-training_ratio into test set
-#   for each class
-# done by iterating over each set of indicies
-#
-# determine the length of the training list
-training_data_list_size <- 0
-for(i in 1:length(list_of_index_list)){
-    training_data_list_size <- training_data_list_size +
-        floor((training_ratio*length(list_of_index_list[[i]])))
-}
-
-training_data_list <- vector("list", training_data_list_size)
-test_data_list <- vector("list", length(unlist(list_of_index_list)) - training_data_list_size)
-
-stopifnot(length(training_data_list) + length(test_data_list) == length(unlist(list_of_index_list, recursive=F)))
-
-#TODO make a training_list_of_index_list and test_list_of_index_list
-#
-#TODO what if insead of trying to pull information out of the list of data,
-#TODO I make a list of booleans for training data and test data
-#TODO then I could accomplish getting the data with just one access
-#TODO although, I would still need to combine them together
-#TODO into the different data sets,
-#TODO so what if I used the vector to access at that point?
-
-training_index <- 1
-test_index <- 1
-for(i in 1:length(list_of_index_list)){
-    # get a list of the data which needs to be allocated
-    list_of_data <- raw_data[list_of_index_list[[i]], ]
-
-    #print(head(list_of_data)) #TODO
-    #print(typeof(list_of_data)) #TODO
-
-    #TODO should it be nrow instead of length?? NO
-    stopifnot(length(list_of_data) != length(list_of_index_list[[i]]))
-
-    # allocate the data to either training set or test set
-    # training
-    training_size <- floor((training_ratio*length(list_of_data)))
-    for(j in 1:training_size){
-        #print(unname(list_of_data[j, ]))
-        training_data_list[[training_index]] <- list_of_data[j, ]
-        training_index <- training_index + 1
-    }
-
-    # test
-    for(j in (training_size+1):(length(list_of_data) - training_size)){
-        test_data_list[[test_index]] <- list_of_data[j, ]
-        test_index <- test_index + 1
-    }
-}
-
-# create training data and test data from the lists
-#
-# what I wanted was for each index of training_data_list to be one row
-test_data_list_size <- length(unlist(list_of_index_list)) - training_data_list_size
-
-# training data
-training_init_user_list <- vector("list", training_data_list_size)
-training_init_device_list <- vector("list", training_data_list_size)
-training_init_challenge_list <- vector("list", training_data_list_size)
-training_init_response_list <- vector("list", training_data_list_size)
-for(i in 1:training_data_list_size){
-    training_init_user_list[[i]] <- training_data_list[[i]][["user"]]
-    training_init_device_list[[i]] <- training_data_list[[i]][["device"]]
-    training_init_challenge_list[[i]] <- training_data_list[[i]][["challenge"]]
-    training_init_response_list[[i]] <- training_data_list[[i]][["response"]]
-}
-
-# test data
-test_init_user_list <- vector("list", test_data_list_size)
-test_init_device_list <- vector("list", test_data_list_size)
-test_init_challenge_list <- vector("list", test_data_list_size)
-test_init_response_list <- vector("list", test_data_list_size)
-for(i in 1:test_data_list_size){
-    test_init_user_list[[i]] <- test_data_list[[i]][["user"]]
-    test_init_device_list[[i]] <- test_data_list[[i]][["device"]]
-    test_init_challenge_list[[i]] <- test_data_list[[i]][["challenge"]]
-    test_init_response_list[[i]] <- test_data_list[[i]][["response"]]
-}
-
-training_data <- data.frame(
-    "user"=I(training_init_user_list),
-    "device"=I(training_init_device_list),
-    "challenge"=I(training_init_challenge_list),
-    "response"=I(training_init_response_list))
-
-test_data <- data.frame(
-     "user"=I(test_init_user_list),
-     "device"=I(test_init_device_list),
-     "challenge"=I(test_init_challenge_list),
-     "response"=I(test_init_response_list))
-
-#TODO why does each of these show a null?
-unique(training_data$user)
-unique(training_data$device)
-unique(training_data$challenge)
-
-#data <- format_data(raw_data)
-data <- format_data(training_data)
-predict_data <- format_data(test_data)
-
-#TODO something is going wrong... there are 9 classifications instead of 8
-#data
-
-#stopifnot(F)
-
-# create an svm model
-#TODO creating a tuned model will make this unnecessary
-model <- svm(data$classification~., data=data, type="C", kernel="linear")
-
-# tune the model
-#TODO
+# tune the model (using leave-one-out cross validation?)
 #
 # in order to tun the model
 # this preforms cross validation
 # cross validation validates a model
 # assesses how the results of a statistical analysis will
 # generalize to an independent data set
-#tune.out <- tune(svm, data$classification~., data=data, type="C", kernel="linear",
-  #ranges=list(cost=c(0.001, 0.01, 0.1, 1, 5, 10, 100)))
-#summary(tune.out)
+#
+#TODO create an tune many different models
+#TODO use carret to compare the models to find the best
+#
+# control for tuning
+#TODO change to cross=10
+tune_control <- tune.control(nrepeat = 1, sampling = c("cross"), cross=5)
+
+# create various models and tune them
+#model_type_list <- c("svm", "lm", "knn", "rpart", "randomForest", "nnet")
+
+#tune.out <- tune("svm", classification~., data=data, type="C", kernel="linear",
+#  ranges=list(cost=c(0.001, 0.01, 0.1, 1, 5, 10, 100)),
+#  tunecontrol=tune_control)
+
+# prepare training scheme
+# 3 repeats of 10 fold crossvalidation
+control <- trainControl(method="repeatedcv", number=10, repeats=3)
+# train the LVQ model
+set.seed(7)
+modelLvq <- train(classification~., data=data, method="lvq", trControl=control)
+# train the GBM model
+set.seed(7)
+modelGbm <- train(classification~., data=data, method="gbm", trControl=control, verbose=FALSE)
+# train the SVM model
+set.seed(7)
+modelSvm <- train(classification~., data=data, method="svmRadial", trControl=control)
 
 # tune.out stores the best model obtained
+# get the best model for each of the models
+#TODO set model equal to best model
 #model <- tune.out$best.model
 
-# use the model to predict on the test data
-prediction <- predict(model, predict_data)
-table(predict=prediction, truth=predict_data$classification)
+# use carret resample to find the best of the best models
+# collect resamples
+#TODO resampling of best models
+# resamples(list(LVQ))
+results <- resamples(list(LVQ=modelLvq, GBM=modelGbm, SVM=modelSvm))
+# summarize the distributions
+summary(results)
 
-#TODO figure out some way of analyzing the accuracy of the svm predictor
-#TODO how "good" is it?
-
-# print useful thing about smv classifier
-#summary(model)
-
-# plot the svm classifier
-pdf("output/svm_classifier.pdf")
-plot(model, data)
+#TODO plots
+# boxplots of results
+pdf("output/classifier_box_plot.pdf")
+bwplot(results)
 dev.off()
 
-head(data)
-#stopifnot(FALSE)
+# dot plots of results
+pdf("output/classifier_dot_plot.pdf")
+dotplot(results)
+dev.off()
+
+# plot the classifier
+#pdf("output/classifier_plot.pdf")
+#plot(model, data)
+#dev.off()
+
+###
+# END SCRIPT
+###

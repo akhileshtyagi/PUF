@@ -8,20 +8,24 @@ import java.util.List;
 /**
  * generate compare_data files for all the model parameters
  * uses CompareValueGenerator to do most of the work.
+ *
+ * NOTE: each CVG takes 2:00 minutes
  */
 public class ModelParameterCVG {
     public static String OUTPUT_FOLDER_NAME = "src/roc_curve_generation/parameter_compare/";
+    /* if true, vary only one per parameter at a time,
+     * hold the others fixed at the median of their values */
+    public static boolean VARY_ONLY_ONE = true;
 
     /* only vary one thing at a time,
         the scripts are set up to accept things in this way. */
     //TODO adjust the sizes of things to generate more data
     //TODO on how model parameters affect the outcome
-    private final static int[] window_sizes = {1};
-    private final static int[] token_sizes = {2};
-    private final static int[] thresholds = {5000};
-    //TODO need to change CompareValueGenerator to actually use model_sizes
-    private static int[] user_model_sizes = {800};
-    private static int[] auth_model_sizes = {800};
+    private final static int[] window_sizes = {1,2,3,4};
+    private final static int[] token_sizes = {1,2,3,4};
+    private final static int[] thresholds = {100, 500, 1000};
+    private static int[] user_model_sizes = {400, 800, 1600};
+    private static int[] auth_model_sizes = {400, 800, 1600};
 
     public static void main(String[] args){
         List<ParameterSet> parameter_set_list = generate_parameter_set(

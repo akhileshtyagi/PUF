@@ -1,3 +1,5 @@
+#!/usr/bin/env bash
+
 #
 # run all R scripts in this folder
 #

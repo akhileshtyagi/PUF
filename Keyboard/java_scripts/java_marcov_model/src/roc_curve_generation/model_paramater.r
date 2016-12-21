@@ -215,7 +215,7 @@ plot(c(0.0), c(0.0),
 for(i in 1:length(model_parameter_list)){
     lines(unlist(plot_series[model_parameter_list[[i]], "parameter_value"]),
         unlist(plot_series[model_parameter_list[[i]], "minimum_FNR"]),
-        type="l", lwd=1.5, lty=linetype[i], col=colors[i], pch=plotchar[i])
+        type="p", lwd=1.5, lty=linetype[i], col=colors[i], pch=plotchar[i])
 }
 
 # explain that the FPR is fixed

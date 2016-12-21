@@ -105,22 +105,34 @@ public class CompareValueGenerator {
                 // get a list of Touches contained within the file
                 List<Touch> touch_list = ChainBuilder.parse_csv(data_file);
 
-                //TODO incorporate parameter_set.user_model_size,
-                //TODO parameter_set.auth_model_size
+                //TODO this doesn't use all the data for one of the models
+                //TODO perhaps there is a cleaner way to do this
 
                 // create one or multiple UDC for for each data file
                 // for each set of MODEL_SIZE touches in the file, create UDC
-                for(int i=0; i<(touch_list.size()/MODEL_SIZE); i++) {
+                int larger_model_size = (parameter_set.user_model_size > parameter_set.auth_model_size) ?
+                        parameter_set.user_model_size : parameter_set.auth_model_size;
+                for(int i=0; i<(touch_list.size()/larger_model_size); i++) {
                     UDC udc = new UDC();
 
                     udc.user_device = user_device;
                     udc.user = user;
                     udc.device = device;
 
-                    udc.chain = new Chain(parameter_set.window_size,
-                            parameter_set.token_size, parameter_set.threshold, MODEL_SIZE);
-                    for(int j=0; j<MODEL_SIZE; j++){
-                        udc.chain.add_touch(touch_list.get(j + (i*MODEL_SIZE)));
+                    // user chain
+                    udc.user_chain = new Chain(parameter_set.window_size,
+                            parameter_set.token_size, parameter_set.threshold,
+                            parameter_set.user_model_size);
+                    for(int j=0; j<parameter_set.user_model_size; j++){
+                        udc.user_chain.add_touch(touch_list.get(j + (i*larger_model_size)));
+                    }
+
+                    // auth chain
+                    udc.auth_chain = new Chain(parameter_set.window_size,
+                            parameter_set.token_size, parameter_set.threshold,
+                            parameter_set.auth_model_size);
+                    for(int j=0; j<parameter_set.auth_model_size; j++){
+                        udc.auth_chain.add_touch(touch_list.get(j + (i*larger_model_size)));
                     }
 
                     // add to the list
@@ -140,7 +152,7 @@ public class CompareValueGenerator {
 
                     // what is the compare value of the chains
                     // 1-compare_value because compare_to() returns the difference
-                    compare_value_list.add(1-user_udc.chain.compare_to(auth_udc.chain));
+                    compare_value_list.add(1-user_udc.user_chain.compare_to(auth_udc.auth_chain));
 
                     // populate the user, device lists
                     // 1 for same user or same device
@@ -159,7 +171,10 @@ public class CompareValueGenerator {
         public String user_device;
         public String user;
         public String device;
-        public Chain chain;
+        /* user chain is used when this is the training UDC */
+        public Chain user_chain;
+        /* auth chain is used when this is the test UDC */
+        public Chain auth_chain;
     }
 
     /**

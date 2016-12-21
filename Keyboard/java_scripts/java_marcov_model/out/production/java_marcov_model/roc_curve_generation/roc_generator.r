@@ -13,7 +13,7 @@ rate_data <- generate_threshold_data(compare_data, 20000)
 # ROC curve
 #
 # plot the data FNP vs FPR
-pdf("output/ROC.pdf", width = "6", height = "6")
+pdf("output/ROC.pdf")
 
 plot(rate_data$FNR, rate_data$FPR,
     xlab="FPR", ylab="FNR", main="ROC Curve",
