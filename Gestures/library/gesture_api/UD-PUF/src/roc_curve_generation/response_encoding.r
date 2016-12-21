@@ -45,20 +45,20 @@ response_encoding_1 <- function(response){
     }
 
     #print(head(normalized_response_list[[1]][[1]]))
-    print(head(normalized_response_list))
+    #print(head(sapply(normalized_response_list, `[`, 3)))
     #print(sapply(normalized_response_list, `[[`, 3))
-    stopifnot(F)
+    #stopifnot(F)
 
     # create a 3D matrix
-    encoding <- array(c(sapply(normalized_response_list, `[[`, 1),
-        sapply(normalized_response_list, `[[`, 2),
-        sapply(normalized_response_list, `[[`, 3)),
+    encoding <- array(c(sapply(normalized_response_list, `[`, 1),
+        sapply(normalized_response_list, `[`, 2),
+        sapply(normalized_response_list, `[`, 3)),
         dim = c(length(response$response), 3, length(normalized_response_list[[1]][[1]])))
 
     #encoding <- response
     #TODO figure out how to encode response in a 3D matrix
 
-    print(encoding[,,1])
+    print(encoding[1,1,1])
     stopifnot(F)
 
     return(encoding)
