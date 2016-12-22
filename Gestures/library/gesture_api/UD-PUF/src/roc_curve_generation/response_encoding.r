@@ -44,31 +44,38 @@ response_encoding_1 <- function(response){
 
     # for each row of the matrix
     for(i in 1:nrow(response)){
+        #stopifnot(!is.null(response))
         normalized_response_list[[i]] <- normalize_response(response, i)
     }
 
     #print(head(normalized_response_list[[1]][[1]]))
     #print(head(sapply(normalized_response_list, `[`, 3)))
     #print(sapply(normalized_response_list, `[`, 3))
-    #print(sapply(normalized_response_list, `[`, 1))
+    #print(head(unlist(sapply(normalized_response_list, `[`, 1))))
     #print(nrow(response))
     #print(length(normalized_response_list[[1]][[1]]))
     #stopifnot(F)
 
     # create a 3D matrix
     encoding <- aperm(array(
-        #normalized_response_list,
-        data = c(sapply(normalized_response_list, `[`, 1),
-        sapply(normalized_response_list, `[`, 2),
-        sapply(normalized_response_list, `[`, 3)),
-        dim = c(length(normalized_response_list[[1]][[1]]), 3, nrow(response))))
+           data = c(
+           sapply(normalized_response_list, `[[`, 1),
+           sapply(normalized_response_list, `[[`, 2),
+           sapply(normalized_response_list, `[[`, 3)
+           ),
+           dim = c(length(normalized_response_list[[1]][[1]]), nrow(response), 3)))
 
-    #encoding <- response
-    #TODO figure out how to encode response in a 3D matrix
+    # switch the 2nd and 3rd dimensions
+    encoding <- aperm(encoding, c(2,1,3))
 
-    #print(encoding)
-    print(encoding[1,,])
-    stopifnot(F)
+    # print(encoding[1:10,,])
+    # print(head(unlist(sapply(normalized_response_list, `[`, 1))))
+    # print(head(unlist(sapply(normalized_response_list, `[`, 2))))
+    #print(encoding[1:10,])
+    # print(encoding[1,,])
+    # print(encoding[1,3,])
+    # print(encoding[800,,])
+    #stopifnot(F)
 
     return(encoding)
 }
@@ -187,4 +194,4 @@ options(error=function()traceback(2))
 
 raw_data <- read_raw_data()
 encoded_response <- response_encoding(raw_data)
-#train_svm_test(encoded_response)
+train_svm_test(encoded_response)

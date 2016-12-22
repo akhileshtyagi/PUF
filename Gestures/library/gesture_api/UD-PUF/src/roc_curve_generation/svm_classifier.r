@@ -99,7 +99,7 @@ data <- format_data(raw_data)
 #
 # control for tuning
 #TODO change to cross=10
-tune_control <- tune.control(nrepeat = 1, sampling = c("cross"), cross=5)
+# tune_control <- tune.control(nrepeat = 1, sampling = c("cross"), cross=5)
 
 # create various models and tune them
 #model_type_list <- c("svm", "lm", "knn", "rpart", "randomForest", "nnet")
@@ -130,6 +130,7 @@ modelSvm <- train(classification~., data=data, method="svmRadial", trControl=con
 # collect resamples
 #TODO resampling of best models
 # resamples(list(LVQ))
+stopifnot(F)
 results <- resamples(list(LVQ=modelLvq, GBM=modelGbm, SVM=modelSvm))
 # summarize the distributions
 summary(results)

@@ -38,6 +38,7 @@ normalize_response_dummy <- function(response_matrix, response_index){
     list <- vector("list", 3)
 
     for(k in 1:3){
+        #print(response_matrix[[response_index]])
         list[[k]] <- response_matrix[response_index, k][[1]][1:5]
     }
 
