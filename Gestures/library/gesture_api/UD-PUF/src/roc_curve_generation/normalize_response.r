@@ -31,6 +31,8 @@ normalize_response_0 <- function(response_matrix, response_index){
 # return the first 5 elements from each response
 # NOTE: this is for testing purposes
 #
+# results are a three element list
+#
 normalize_response_dummy <- function(response_matrix, response_index){
     #print(head(response_matrix[response_index,1][[1]][1:5]))
     list <- vector("list", 3)
@@ -41,6 +43,7 @@ normalize_response_dummy <- function(response_matrix, response_index){
 
     #print(head(response_matrix[response_index,]))
     #print(head(list))
+    #stopifnot(F)
 
     # list has three elements
     # each element in the list is a vector

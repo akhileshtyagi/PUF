@@ -28,7 +28,7 @@ public class CompareValueGenerator {
     /* the parameter set for which the ROC curve is to be generated
     *  (window, token, treshold, user_model_size, auth_model_size) */
     public static int MODEL_SIZE = 800;
-    public static ParameterSet PARAMETER_SET = new ParameterSet(1, 2, 5000, MODEL_SIZE, MODEL_SIZE);
+    public static ParameterSet PARAMETER_SET = new ParameterSet(1, 2, 1000, MODEL_SIZE, MODEL_SIZE);
 
     /* only handle challenges within the challenge set */
     public static int[] CHALLENGE_SET = {};

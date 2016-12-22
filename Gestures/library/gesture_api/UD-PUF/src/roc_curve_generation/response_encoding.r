@@ -7,6 +7,9 @@ source("normalize_response.r")
 
 library("e1071")
 
+# useful resources
+# http://stackoverflow.com/questions/31755233/r-fill-multidimensional-array-by-row
+
 ###
 # FUNCTIONS
 ###
@@ -46,19 +49,25 @@ response_encoding_1 <- function(response){
 
     #print(head(normalized_response_list[[1]][[1]]))
     #print(head(sapply(normalized_response_list, `[`, 3)))
-    #print(sapply(normalized_response_list, `[[`, 3))
+    #print(sapply(normalized_response_list, `[`, 3))
+    #print(sapply(normalized_response_list, `[`, 1))
+    #print(nrow(response))
+    #print(length(normalized_response_list[[1]][[1]]))
     #stopifnot(F)
 
     # create a 3D matrix
-    encoding <- array(c(sapply(normalized_response_list, `[`, 1),
+    encoding <- aperm(array(
+        #normalized_response_list,
+        data = c(sapply(normalized_response_list, `[`, 1),
         sapply(normalized_response_list, `[`, 2),
         sapply(normalized_response_list, `[`, 3)),
-        dim = c(length(response$response), 3, length(normalized_response_list[[1]][[1]])))
+        dim = c(length(normalized_response_list[[1]][[1]]), 3, nrow(response))))
 
     #encoding <- response
     #TODO figure out how to encode response in a 3D matrix
 
-    print(encoding[1,1,1])
+    #print(encoding)
+    print(encoding[1,,])
     stopifnot(F)
 
     return(encoding)
@@ -93,6 +102,8 @@ response_encoding_0 <- function(response){
     }
 
     #print(head(encoding))
+    #stopifnot(F)
+
     return(encoding)
 }
 

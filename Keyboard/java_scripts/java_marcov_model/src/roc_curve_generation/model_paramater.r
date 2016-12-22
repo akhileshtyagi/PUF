@@ -29,7 +29,7 @@ data_directory <- "parameter_compare"
 max_files <- 100000
 
 # fixed value for FPR
-fixed_FPR <- 0.01
+fixed_FPR <- 0.1
 
 # read all the csv files in parameter compare folder
 files <- list.files(path = data_directory, pattern = ".csv",
@@ -226,6 +226,73 @@ legend(0.60, 1.0, model_parameter_list, cex=1.0, col=colors,
     lty=linetype, title="Parameter") #pch=plotchar,
 
 dev.off()
+
+# create a plot which makes a line along the minimums for each list
+# 1. get min points for each value of model parameter
+parameter_value_list_list <- vector("list", length(model_parameter_list))
+minimum_FNR_list_list <- vector("list", length(model_parameter_list))
+for(i in 1:length(model_parameter_list)){
+    parameter_series_list <- unlist(
+        plot_series[model_parameter_list[[i]], "parameter_value"])
+    FNR_series_list <- unlist(plot_series[model_parameter_list[[i]], "minimum_FNR"])
+
+    # order the list of unique parameter values so
+    # the points will ultimatly appear in order
+    unique_value_list <- sort(unique(parameter_series_list))
+
+    # for each unique value,
+    # get the minimum
+    parameter_value_list <- vector("list", length(unique_value_list))
+    minimum_FNR_list <- vector("list", length(unique_value_list))
+    for(j in 1:length(unique_value_list)){
+        # get the indexes of this parameter value
+        value_index_list <- parameter_series_list == unique_value_list[[j]]
+
+        # get the FNR corresponding to this parameter value
+        FNR_value_list <- FNR_series_list[value_index_list]
+
+        # find the index of the minimum FNR value
+        min_index <- which.min(FNR_value_list)
+
+        # place the values into the list to plot
+        # along with the corresponding parameter value
+        parameter_value_list[[j]] <- unique_value_list[[j]]
+        minimum_FNR_list[[j]] <- FNR_value_list[min_index]
+    }
+
+    # place the lists into the data frame
+    parameter_value_list_list[[i]] <- parameter_value_list
+    minimum_FNR_list_list[[i]] <- minimum_FNR_list
+}
+
+# 2. create a series of these points in order
+plot_series <- data.frame(parameter_value=I(parameter_value_list_list),
+    minimum_FNR=I(minimum_FNR_list_list), row.names=model_parameter_list)
+
+# 3. plot this series of points
+pdf("output/model_parameter_minimum.pdf")
+# set up the plot ( this doesn't plot anything anyway,
+# so the arguments doen't matter. )
+plot(c(0.0), c(0.0),
+    xlab="Parameters", ylab="FNR", main="Parameters vs. FNR",
+    xlim=c(0,1), ylim=c(0,1), type="n")
+
+# plot each of the parameters
+for(i in 1:length(model_parameter_list)){
+    lines(unlist(plot_series[model_parameter_list[[i]], "parameter_value"]),
+        unlist(plot_series[model_parameter_list[[i]], "minimum_FNR"]),
+        type="b", lwd=1.5, lty=linetype[i], col=colors[i], pch=plotchar[i])
+}
+
+# explain that the FPR is fixed
+text(.50, .99, labels=paste("FPR =", fixed_FPR))
+
+# make a legend
+legend(0.60, 1.0, model_parameter_list, cex=1.0, col=colors,
+    lty=linetype, title="Parameter") #pch=plotchar,
+
+dev.off()
+
 
 # useful print statements
 #unlist(plot_series["token_size", "parameter_value"])
