@@ -38,23 +38,17 @@ response_encoding <- function(response){
 # be all the same length
 # create a 3-D matrix
 #
+# this will work so long as normalize_response
+# is always the same length
+#
 response_encoding_1 <- function(response){
     # list of normalized responses
     normalized_response_list <- vector("list", nrow(response))
 
     # for each row of the matrix
     for(i in 1:nrow(response)){
-        #stopifnot(!is.null(response))
         normalized_response_list[[i]] <- normalize_response(response, i)
     }
-
-    #print(head(normalized_response_list[[1]][[1]]))
-    #print(head(sapply(normalized_response_list, `[`, 3)))
-    #print(sapply(normalized_response_list, `[`, 3))
-    #print(head(unlist(sapply(normalized_response_list, `[`, 1))))
-    #print(nrow(response))
-    #print(length(normalized_response_list[[1]][[1]]))
-    #stopifnot(F)
 
     # create a 3D matrix
     encoding <- aperm(array(
@@ -67,15 +61,6 @@ response_encoding_1 <- function(response){
 
     # switch the 2nd and 3rd dimensions
     encoding <- aperm(encoding, c(2,1,3))
-
-    # print(encoding[1:10,,])
-    # print(head(unlist(sapply(normalized_response_list, `[`, 1))))
-    # print(head(unlist(sapply(normalized_response_list, `[`, 2))))
-    #print(encoding[1:10,])
-    # print(encoding[1,,])
-    # print(encoding[1,3,])
-    # print(encoding[800,,])
-    #stopifnot(F)
 
     return(encoding)
 }
@@ -190,8 +175,8 @@ train_svm_test <- function(encoded_response){
 # test script
 #
 # set options to print callstack
-options(error=function()traceback(2))
+#options(error=function()traceback(2))
 
-raw_data <- read_raw_data()
-encoded_response <- response_encoding(raw_data)
-train_svm_test(encoded_response)
+#raw_data <- read_raw_data()
+#encoded_response <- response_encoding(raw_data)
+#train_svm_test(encoded_response)

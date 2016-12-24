@@ -11,6 +11,9 @@ library(caret)
 source("utility.r")
 source("response_encoding.r")
 
+# turn off error reporting
+#options(error=NULL)
+
 # set RNG seed
 set.seed(1)
 
@@ -19,6 +22,10 @@ set.seed(1)
 ###
 # http://machinelearningmastery.com/compare-models-and-select-the-best-using-the-caret-r-package/
 # http://machinelearningmastery.com/how-to-estimate-model-accuracy-in-r-using-the-caret-package/
+# https://topepo.github.io/caret/adaptive-resampling.html
+# ftp://cran.r-project.org/pub/R/web/packages/caret/caret.pdf
+# http://machinelearningmastery.com/compare-the-performance-of-machine-learning-algorithms-in-r/
+# http://stats.stackexchange.com/questions/82162/kappa-statistic-in-plain-english
 
 ###
 # CONSTANTS
@@ -43,7 +50,7 @@ format_data <- function(raw_data){
     #TODO response should pick out actual properties of response from the data
     data <- data.frame(
         "classification" = paste(raw_data$user, raw_data$device, raw_data$challenge, sep="_"),
-        "response" = response_encoding(raw_data$response),
+        "response" = response_encoding(raw_data),
         stringsAsFactors=FALSE)
 
     # encode each of the classifications as an integer,
@@ -75,6 +82,15 @@ format_data <- function(raw_data){
     return(data)
 }
 
+#
+# extract the classifier with
+# highest mean accuracy from the results of resamples()
+#
+extract_best <- function(results){
+    #TODO
+    #results$metrics
+}
+
 ###
 # BEGIN SCRIPT
 ###
@@ -85,6 +101,16 @@ raw_data <- read_raw_data()
 # format te raw data
 # this includes encoding of the response
 data <- format_data(raw_data)
+
+# remove NA from the data
+before_removal <- nrow(data)
+data <- na.omit(data)
+
+print(paste("NA rows removed:", before_removal - nrow(data)))
+
+#
+# tuning with e1071 package
+#
 
 # tune the model (using leave-one-out cross validation?)
 #
@@ -108,18 +134,43 @@ data <- format_data(raw_data)
 #  ranges=list(cost=c(0.001, 0.01, 0.1, 1, 5, 10, 100)),
 #  tunecontrol=tune_control)
 
-# prepare training scheme
+#
+# tuning with caret package
+#
+# construct models in a list
+# define classifiers to be used
+method_list_extensive <- c("lvq", "svmRadial", "svmLinear", "svmPoly",
+    "svmExpoString", "svmBoundrangeString", "svmSpectrumString",
+    "rotationForest", "rocc", "ranger", "nnet", "nb", "lm", "bag")
+
+method_list_basic <- c("lvq", "svmRadial", "rocc", "ranger", "nnet")
+    #"lm", "bag", "nb")
+
+method_list <- method_list_basic
+
+# make a list for models
+model_list <- vector("list", length(method_list))
+names(model_list) <- method_list
+
+# prepare training scheme(S)
 # 3 repeats of 10 fold crossvalidation
 control <- trainControl(method="repeatedcv", number=10, repeats=3)
+
+# train each model in model list
+for(i in 1:length(method_list)){
+    model_list[[i]] <- train(classification~., data=data,
+        method=method_list[i], trControl=control)
+}
+
 # train the LVQ model
-set.seed(7)
-modelLvq <- train(classification~., data=data, method="lvq", trControl=control)
-# train the GBM model
-set.seed(7)
-modelGbm <- train(classification~., data=data, method="gbm", trControl=control, verbose=FALSE)
-# train the SVM model
-set.seed(7)
-modelSvm <- train(classification~., data=data, method="svmRadial", trControl=control)
+# set.seed(7)
+# modelLvq <- train(classification~., data=data, method="lvq", trControl=control)
+# # train the GBM model
+# set.seed(7)
+# #modelGbm <- train(classification~., data=data, method="gbm", trControl=control, verbose=FALSE)
+# # train the SVM model
+# set.seed(7)
+# modelSvm <- train(classification~., data=data, method="svmRadial", trControl=control)
 
 # tune.out stores the best model obtained
 # get the best model for each of the models
@@ -127,15 +178,26 @@ modelSvm <- train(classification~., data=data, method="svmRadial", trControl=con
 #model <- tune.out$best.model
 
 # use carret resample to find the best of the best models
-# collect resamples
-#TODO resampling of best models
-# resamples(list(LVQ))
-stopifnot(F)
-results <- resamples(list(LVQ=modelLvq, GBM=modelGbm, SVM=modelSvm))
-# summarize the distributions
+# collect resamples given list of models
+# results <- resamples(list(LVQ=modelLvq, SVM=modelSvm))
+#results <- resamples(list(LVQ=modelLvq, GBM=modelGbm, SVM=modelSvm))
+results <- resamples(model_list)
+
+# summarize the results
 summary(results)
 
-#TODO plots
+#
+# test that the differences in models are significant
+#
+# difference in model predictions
+diffs <- diff(results)
+# summarize p-values for pair-wise comparisons
+summary(diffs)
+
+###
+# PLOTS
+###
+
 # boxplots of results
 pdf("output/classifier_box_plot.pdf")
 bwplot(results)
@@ -146,7 +208,17 @@ pdf("output/classifier_dot_plot.pdf")
 dotplot(results)
 dev.off()
 
-# plot the classifier
+# ALSO: print all plots in one file for easy viewing
+pdf("output/classifier_all.pdf")
+xyplot(results)
+parallelplot(results)
+splom(results)
+densityplot(results)
+bwplot(results)
+dotplot(results)
+dev.off()
+
+# plot the best classifier
 #pdf("output/classifier_plot.pdf")
 #plot(model, data)
 #dev.off()
