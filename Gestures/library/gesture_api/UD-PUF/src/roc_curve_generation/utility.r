@@ -49,7 +49,7 @@ read_response <- function(response){
 
     # this will get the response as a list
     converted_response <- read.csv(text=response_string,
-        col.names = c("x","y","pressure"), header=FALSE)
+        col.names = c("x","y","pressure","size","time"), header=FALSE)
 
     # convert the list form of a response into a data frame
     #converted_response <- data.frame(converted_response$x,
@@ -64,10 +64,10 @@ read_response <- function(response){
 # returns data in format:
 # user, device, challenge, response
 #
-read_raw_data <- function(){
+read_raw_data <- function(filename){
     # reada in the raw data file generated
     # by CompareValueGenerator.java
-    raw_data <- read.csv("raw_data.csv")
+    raw_data <- read.csv(filename)
 
     # interpret each of the responses
     raw_data$response <- lapply(raw_data$response, read_response)

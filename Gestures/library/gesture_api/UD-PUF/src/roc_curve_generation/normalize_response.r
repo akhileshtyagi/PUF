@@ -67,8 +67,13 @@ normalize_response_2 <- function(response_matrix, response_index){
 #
 normalize_response_1 <- function(response_matrix, response_index){
     #print(head(response_matrix[response_index,1][[1]][1:5]))
+    #n_feature <- ncol(response_matrix)
     N <- 5
     list <- vector("list", 3)
+
+    #print(n_feature)
+    #print(head(response_matrix))
+    #stopifnot(F)
 
     #print(response_index)
     #print(head(response_matrix))

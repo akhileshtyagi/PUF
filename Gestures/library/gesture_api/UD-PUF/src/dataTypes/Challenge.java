@@ -12,12 +12,14 @@ import java.util.List;
  */
 public class Challenge implements Serializable {
     // use a fixed distance between normalizing points
-    final static boolean USE_FIXED_NORMALIZING_POINT_DISTANCE = true;
+    final static boolean USE_FIXED_NORMALIZING_POINT_DISTANCE = false;
     // define the fixed normalizing point difference
     final static double FIXED_NORMALIZING_POINT_DISTANCE = 25.0; //25.0;
 
+    // if true, always use NORMALIZED_ELEMENTS_DEFAULT
+    final static boolean USE_FIXED_NORMALIZING_POINT_NUMBER = true;
     // number of elements in normalized list default value.
-    final static int NORMALIZED_ELEMENTS_DEFAULT = 16;
+    final static int NORMALIZED_ELEMENTS_DEFAULT = 5;
 
     // threshold for determining if response has enough motion events
     final static int NORMALIZED_THRESHOLD = 20;
@@ -163,12 +165,17 @@ public class Challenge implements Serializable {
         List<Point> norm_points = new ArrayList<Point>();
         List<Point> response_points = response.getOrigionalResponse();
 
+        int number_np = 0;
+        if(USE_FIXED_NORMALIZING_POINT_NUMBER){
+            number_np = NORMALIZED_ELEMENTS_DEFAULT;
+        }
+
         // compute the distance between each normalizing point ( N-1 segments to split d into)
         double total_response_distance = computeResponseLength(response_points);
-        double inter_point_distance = total_response_distance / (response_points.size() - 1);
+        //double inter_point_distance = total_response_distance / (response_points.size() - 1);
+        double inter_point_distance = total_response_distance / (number_np - 1);
 
         // determine the number of normalization points
-        int number_np = 0;
         if(USE_FIXED_NORMALIZING_POINT_DISTANCE){
             inter_point_distance = FIXED_NORMALIZING_POINT_DISTANCE;
 
@@ -179,7 +186,10 @@ public class Challenge implements Serializable {
             // I could do math.ceil instead of floor.
             number_np = (int)Math.ceil(total_response_distance / inter_point_distance);
         }else{
-            number_np = response_points.size();
+            if(!USE_FIXED_NORMALIZING_POINT_NUMBER) {
+                number_np = response_points.size();
+                inter_point_distance = total_response_distance / (number_np - 1);
+            }
         }
 
         // first point in the list is the first point in the response

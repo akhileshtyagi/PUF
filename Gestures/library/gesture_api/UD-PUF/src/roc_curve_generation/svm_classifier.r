@@ -11,8 +11,8 @@ library(caret)
 source("utility.r")
 source("response_encoding.r")
 
-# turn off error reporting
-#options(error=NULL)
+# turn off/on error reporting
+#options(error=function()traceback(2))
 
 # set RNG seed
 set.seed(1)
@@ -32,10 +32,10 @@ set.seed(1)
 ###
 
 # number of thresholds used
-n_threshold <- 2000 #TODO set 20000
+#n_threshold <- 2000 #TODO set 20000
 # what percent of data is used for training
 # (training / (training + test))
-training_ratio <- 0.8
+#training_ratio <- 0.8
 
 ###
 # FUNCTIONS
@@ -47,7 +47,6 @@ training_ratio <- 0.8
 format_data <- function(raw_data){
     # use svm to classify data
     # combine user, device, challenge together
-    #TODO response should pick out actual properties of response from the data
     data <- data.frame(
         "classification" = paste(raw_data$user, raw_data$device, raw_data$challenge, sep="_"),
         "response" = response_encoding(raw_data),
@@ -82,21 +81,13 @@ format_data <- function(raw_data){
     return(data)
 }
 
-#
-# extract the classifier with
-# highest mean accuracy from the results of resamples()
-#
-extract_best <- function(results){
-    #TODO
-    #results$metrics
-}
-
 ###
 # BEGIN SCRIPT
 ###
 
 # read the raw data file
-raw_data <- read_raw_data()
+#raw_data <- read_raw_data("raw_data.csv")
+raw_data <- read_raw_data("normalized_data.csv")
 
 # format te raw data
 # this includes encoding of the response
@@ -105,8 +96,10 @@ data <- format_data(raw_data)
 # remove NA from the data
 before_removal <- nrow(data)
 data <- na.omit(data)
-
 print(paste("NA rows removed:", before_removal - nrow(data)))
+
+# print(tail(data))
+# stopifnot(F)
 
 #
 # tuning with e1071 package
@@ -143,7 +136,7 @@ method_list_extensive <- c("lvq", "svmRadial", "svmLinear", "svmPoly",
     "svmExpoString", "svmBoundrangeString", "svmSpectrumString",
     "rotationForest", "rocc", "ranger", "nnet", "nb", "lm", "bag")
 
-method_list_basic <- c("lvq", "svmRadial", "rocc", "ranger", "nnet")
+method_list_basic <- c("svmRadial", "rocc", "ranger", "nnet") #"lvq",
     #"lm", "bag", "nb")
 
 method_list <- method_list_basic

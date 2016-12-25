@@ -24,6 +24,8 @@ import static java.lang.Boolean.TRUE;
 public class CompareValueGenerator {
     /* output a list of [user, device, challenge, response] to this file */
     public static String UDC_OUTPUT_FILE_NAME = "src/roc_curve_generation/raw_data.csv";
+    /* output a list of [user, device, challenge, response] which has been normalized */
+    public static String NORMALIZED_UCD_OUTPUT_FILE_NAME = "src/roc_curve_generation/normalized_data.csv";
     /* outputs a list of [should authenticate, compare value] to this file */
     public static String OUTPUT_FILE_NAME = "src/roc_curve_generation/compare_data.csv";
     public static String DATA_FOLDER_NAME = "src/roc_curve_generation/data/";
@@ -54,10 +56,12 @@ public class CompareValueGenerator {
 
         // read in all files from the data director and output them
         // in the format used by the r scripts
-        output_data_directory();
+        output_data_directory(UDC_OUTPUT_FILE_NAME, false);
+        output_data_directory(NORMALIZED_UCD_OUTPUT_FILE_NAME, true);
 
         System.out.println("data from: " + DATA_FOLDER_NAME);
-        System.out.println("output to: " + OUTPUT_FILE_NAME);
+        System.out.println("output to: " + UDC_OUTPUT_FILE_NAME);
+        System.out.println("output to: " + NORMALIZED_UCD_OUTPUT_FILE_NAME);
     }
 
     /**
@@ -244,6 +248,9 @@ public class CompareValueGenerator {
         // response not included in the profile
         public Response response;
 
+        // the challenge points associated with challenge
+        public List<Point> challenge_point_list;
+
         @Override
         public boolean equals(Object o){
             UDC other = (UDC)o;
@@ -252,21 +259,91 @@ public class CompareValueGenerator {
                     (this.device.equals(other.device)) &&
                     (this.challenge == other.challenge);
         }
+
+        @Override
+        public String toString(){
+            String s = "";
+
+            s += user + "_";
+            s += device + "_";
+            s += challenge;
+
+            return s;
+        }
     }
 
     /**
      * output data directory in the format
      * user, device, challenge, response
      */
-    private static void output_data_directory(){
+    private static void output_data_directory(
+            String output_file_name, boolean normalize_udc){
         // acquire the list of udc
         List<UDC> udc_list = get_udc_list();
 
         // print the list of udc
         String header = "\"user\", \"device\", \"challenge\", \"response\"";
 
+        // normalize the udc if necessary
+        //TODO make sure udc.challenge_point_list is valid
+        //TODO check that there are 72 challenges created
+        //TODO check that Challenge.computeNormalizingPoints still works
+        if(normalize_udc){
+            // for UDC == UDC,
+            // normalize all responses using the same challenge
+            //
+            // it matters what is the first one added to the challenge
+            // give the longest udc as the first in a challenge
+            //
+            // 1. create a challenge for each udc type
+            // 2. keep track of the longest udc for each challenge
+            HashMap<String, Challenge> challenge_map = new HashMap<>();
+            HashMap<Challenge, UDC> longest_response_map = new HashMap<>();
+            for(int i=0; i<udc_list.size(); i++) {
+                // create a challenge for this udc
+                // if one does not already exist
+                Challenge challenge = challenge_map.get(udc_list.get(i).toString());
+
+                // if there is not a challenge
+                if(challenge == null){
+                    // create a challenge
+                    challenge_map.put(udc_list.get(i).toString(),
+                            new Challenge(udc_list.get(i).challenge_point_list,
+                                    udc_list.get(i).challenge));
+                }
+
+                // if this udc is the longest for this
+                // challenge, set it in the longest_response_map
+                UDC current_longest_udc = longest_response_map.get(challenge);
+                if(current_longest_udc == null ||
+                        udc_list.get(i).response.getOrigionalResponse().size() >
+                        current_longest_udc.response.getOrigionalResponse().size()){
+                    // then this udc is the longest
+                    longest_response_map.put(challenge, udc_list.get(i));
+                }
+            }
+
+            // the longest udc will get added to each challenge
+            // twice. I think this is fine.
+            //
+            // add the longest udc's of each challenge type
+            // to their corresponding challenge first
+            for(Challenge challenge: challenge_map.values()){
+                challenge.addResponse(longest_response_map.get(challenge).response);
+            }
+
+            // add all responses to the corresponding challenge
+            for(int i=0; i<udc_list.size(); i++) {
+                Challenge challenge = challenge_map.
+                        get(udc_list.get(i).toString());
+
+                //add udc.response to the appropriate challenge
+                challenge.addResponse(udc_list.get(i).response);
+            }
+        }
+
         try{
-            PrintWriter file = new PrintWriter(UDC_OUTPUT_FILE_NAME, "UTF-8");
+            PrintWriter file = new PrintWriter(output_file_name, "UTF-8");
 
             file.println(header);
 
@@ -276,7 +353,13 @@ public class CompareValueGenerator {
                 String challenge = String.valueOf(udc_list.get(i).challenge);
 
                 // there is a UDC for each response to a challenge
-                String response = udc_list.get(i).response.toRString();
+                String response;
+                if(!normalize_udc) {
+                    response = udc_list.get(i).response.toRString();
+                }else{
+                    // ask for the normalized R string
+                    response = udc_list.get(i).response.toNormalizedRString();
+                }
 
                 file.println(user + ", " + device +
                         ", " + challenge + ", \"" + response + "\"");
@@ -371,6 +454,9 @@ public class CompareValueGenerator {
                             // been created
                             // response is the current j index
                             udc.response = response_map_entry.getValue().get(j);
+
+                            // record the challenge points in the UDC
+                            udc.challenge_point_list = challenge_pattern_map.get(challenge_name);
 
                             // no challenge in this one
                             // I don't want the responses getting normalized, just in case

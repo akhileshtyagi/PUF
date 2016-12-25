@@ -190,9 +190,15 @@ public class Point implements Serializable {
         String string = "";
 
         //string += "[";
+
         string += this.x + ", ";
         string += this.y + ", ";
-        string += String.format("%f", this.pressure);
+        string += String.format("%f", this.pressure) + ", ";
+
+        //TODO change this to print out size adn time as well
+        string += String.format("%f", this.distance) + ", ";
+        string += String.format("%f", this.time);
+
         //string += "]";
 
         return string;

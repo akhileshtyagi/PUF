@@ -32,6 +32,15 @@ public class Response implements Serializable {
     }
 
     /**
+     * master normalization algorithm
+     * chooses which algorithm to use
+     */
+    public void normalize(List<Point> normalizingPoints) {
+        // this is the origional algorithm
+        normalize_8(normalizingPoints);
+    }
+
+    /**
      * return the normalized response pattern
      */
     public List<Point> getOrigionalResponse() {
@@ -593,7 +602,7 @@ public class Response implements Serializable {
      * 3. if normalizing points are longer than response,
      *      extrapolate using the last two points of the response
      */
-    public void normalize(List<Point> normalizingPoints) {
+    public void normalize_7(List<Point> normalizingPoints) {
         // responses of size <= 1 cannot be normalized
         if(responsePattern.size() <= 1) return;
 
@@ -832,6 +841,31 @@ public class Response implements Serializable {
         // print all the points in response
         boolean first = true;
         for(Point p : getOrigionalResponse()){
+            if(first){
+                s += p.toRString();
+                first = false;
+            }else {
+                s += ", ";
+                s += p.toRString();
+            }
+        }
+
+        //s += "]";
+
+        return s;
+    }
+
+    /**
+     * converts this response object to the string used in the .r
+     * analysis scripts
+     */
+    public String toNormalizedRString(){
+        String s = "";
+        //s += "[";
+
+        // print all the points in response
+        boolean first = true;
+        for(Point p : getNormalizedResponse()){
             if(first){
                 s += p.toRString();
                 first = false;

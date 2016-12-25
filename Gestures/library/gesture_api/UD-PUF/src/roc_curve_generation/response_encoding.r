@@ -121,11 +121,21 @@ train_svm_test <- function(encoded_response){
     dummy_class <- c(rep(-1, length(encoded_response)/2),
         rep(1, length(encoded_response) - length(encoded_response)/2))
 
+    # print(head(encoded_response[,3,]))
+    # stopifnot(F)
+
     # create data frame
     data <- data.frame(
             "classification" = dummy_class,
-            "response" = encoded_response,
+            "response.x" = encoded_response[,1,],
+            "response.y" = encoded_response[,2,],
+            "response.pressure" = encoded_response[,3,],
             stringsAsFactors=FALSE)
+
+    # each row should be [class, response.1, response.2, response.3]
+    # where each of response.x should have N elements
+    print(head(data))
+    stopifnot(F)
 
     # encode each of the classifications as an integer,
     # otherwise apparently they will get cast to floats
@@ -175,8 +185,17 @@ train_svm_test <- function(encoded_response){
 # test script
 #
 # set options to print callstack
-#options(error=function()traceback(2))
-
-#raw_data <- read_raw_data()
-#encoded_response <- response_encoding(raw_data)
-#train_svm_test(encoded_response)
+# options(error=function()traceback(2))
+#
+# raw_data <- read_raw_data()
+# #
+# # print(head(raw_data$response))
+# # # stopifnot(F)
+# #
+# encoded_response <- response_encoding(raw_data)
+#
+# # print(encoded_response[1:11,,])
+# # print(encoded_response)
+# # stopifnot(F)
+#
+# train_svm_test(encoded_response)

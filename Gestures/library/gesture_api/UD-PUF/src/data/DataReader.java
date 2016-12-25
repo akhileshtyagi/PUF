@@ -224,6 +224,7 @@ public class DataReader {
 		Scanner fileScanner;
 		String line = "";
 		String responseHeaderString = "\"X\",\"Y\",\"PRESSURE\"";
+		String responseHeaderString_0 = "\"X\",\"Y\",\"PRESSURE\",\"SIZE\",\"TIME\"";
 		String responseHeaderString_1 = "X,Y,PRESSURE,";
 		String responseHeaderString_2 = "X,Y,PRESSURE,,";
 
@@ -247,7 +248,8 @@ public class DataReader {
 				//||
 				//line.equals(responseHeaderString_1) ||
 				//line.equals(responseHeaderString_2)) {
-				if (line.equals(responseHeaderString)){
+				if (line.equals(responseHeaderString) ||
+						line.equals(responseHeaderString_0)){
 					break;
 				} else {
 					// add the line as a challenge point
@@ -305,7 +307,9 @@ public class DataReader {
 
 		String line = "";
 		String responseHeaderString = "\"X\",\"Y\",\"PRESSURE\"";
+		String responseHeaderString_0 = "\"X\",\"Y\",\"PRESSURE\",\"SIZE\",\"TIME\"";
 		String[] splitResponse = null;
+		boolean old_form = false;
 
 		try {
 			fileScanner = new Scanner(data_file);
@@ -317,7 +321,9 @@ public class DataReader {
 			while (fileScanner.hasNextLine()) {
 				// if the header to the response data is detected, I should
 				// break and start reading response data
-				if (line.equals(responseHeaderString)) {
+				if (line.equals(responseHeaderString) ||
+						line.equals(responseHeaderString_0)) {
+					old_form = line.equals(responseHeaderString);
 					break;
 				}
 
@@ -331,11 +337,25 @@ public class DataReader {
 				// add the line as a response point
 				splitResponse = line.split("\",\"");
 
-				// get the response point values
-				responsePoints.add(new Point(Double.parseDouble(splitResponse[0].substring(1)),
-						Double.parseDouble(splitResponse[1]),
-						Double.parseDouble(splitResponse[2].substring(0, splitResponse[2].length() - 2))));
-
+				// old form
+				if(old_form) {
+					responsePoints.add(new Point(
+							Double.parseDouble(splitResponse[0].substring(1)),
+							Double.parseDouble(splitResponse[1]),
+							//TODO I have to wonder if this is reading it wrong
+							Double.parseDouble(splitResponse[2].substring(0, splitResponse[2].length() - 2)),
+							0.0, 0.0));
+				} else {
+					// get the response point values [x,y,pressure,size,time]
+					// NOTE: size is stored in distance of Point
+					responsePoints.add(new Point(
+							Double.parseDouble(splitResponse[0].substring(1)),
+							Double.parseDouble(splitResponse[1]),
+							Double.parseDouble(splitResponse[2]),
+							Double.parseDouble(splitResponse[3]),//'size = distance'
+							Double.parseDouble(splitResponse[4].
+									substring(0, splitResponse[4].length() - 1))));//'time'
+				}
 			}
 
 			// create response from list of points and add it to challenge
