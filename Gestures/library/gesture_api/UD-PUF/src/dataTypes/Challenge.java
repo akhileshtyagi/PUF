@@ -19,7 +19,7 @@ public class Challenge implements Serializable {
     // if true, always use NORMALIZED_ELEMENTS_DEFAULT
     final static boolean USE_FIXED_NORMALIZING_POINT_NUMBER = true;
     // number of elements in normalized list default value.
-    final static int NORMALIZED_ELEMENTS_DEFAULT = 5;
+    final static int NORMALIZED_ELEMENTS_DEFAULT = 32;
 
     // threshold for determining if response has enough motion events
     final static int NORMALIZED_THRESHOLD = 20;

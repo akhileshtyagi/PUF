@@ -14,19 +14,32 @@ library("e1071")
 # FUNCTIONS
 ###
 
+create_numeric <- function(list, column){
+    # print(as.vector(list[[column]], "numeric"))
+    # stopifnot(F)
+
+    return(as.numeric(list[[column]]))
+}
+
 #
 # master response encoding function
 # will call the current best response encoding
 #
 response_encoding <- function(response){
-    #print(sapply(response$response, `[[`, "x"))
-    #stopifnot(F)
+    # print(head(sapply(response$response, `[[`, "x")))
+    # stopifnot(F)
 
+    #TODO this is where I decide to only use x,y,pressure
     # i want x,y,pressure to be in separate columns
-    response <- array(c(sapply(response$response, `[[`, "x"),
-        sapply(response$response, `[[`, "y"),
-        sapply(response$response, `[[`, "pressure")),
-        dim = c(length(response$response), 3))
+    # response <- array(c(sapply(response$response, `[[`, "x"),
+    #     sapply(response$response, `[[`, "y"),
+    #     sapply(response$response, `[[`, "pressure")),
+    #     dim = c(length(response$response), 3))
+
+    response <- array(c(sapply(response$response, create_numeric, "x", simplify=F),
+            sapply(response$response, create_numeric, "y", simplify=F),
+            sapply(response$response, create_numeric, "pressure", simplify=F)),
+            dim = c(length(response$response), 3))
 
     return(response_encoding_1(response))
     #return(response_encoding_0(response))

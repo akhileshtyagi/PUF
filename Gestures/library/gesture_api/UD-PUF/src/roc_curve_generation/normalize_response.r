@@ -21,8 +21,8 @@
 #
 normalize_response <- function(response_matrix, response_index){
     #TODO switch functions
-    #return(normalize_response_2(response_matrix, response_index))
-    return(normalize_response_1(response_matrix, response_index))
+    return(normalize_response_null(response_matrix, response_index))
+    #return(normalize_response_1(response_matrix, response_index))
     #return(normalize_response_0(response_matrix, response_index))
     #return(normalize_response_dummy(response_matrix, response_index))
 }
@@ -31,12 +31,13 @@ normalize_response <- function(response_matrix, response_index){
 # use the full length of the longest response
 # fill in 0's for missing values in shorter responses
 #
-normalize_response_2 <- function(response_matrix, response_index){
+normalize_response_null <- function(response_matrix, response_index){
     list <- vector("list", 3)
 
-    #print(response_index)
-    #print(head(response_matrix))
-    #print(response_matrix[response_index, ])
+    # print(max(unlist(lapply(response_matrix[,1], length))))
+    # print(head(response_matrix))
+    # # print(response_matrix)
+    # stopifnot(F)
 
     list_size <- max(unlist(lapply(response_matrix, length)))
     for(k in 1:3){
@@ -55,6 +56,7 @@ normalize_response_2 <- function(response_matrix, response_index){
 
     # list has three elements
     # each element in the list is a vector
+    # print(list_size)
     # print(list[])
     # stopifnot(F)
 

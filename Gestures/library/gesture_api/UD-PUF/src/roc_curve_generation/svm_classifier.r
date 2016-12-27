@@ -3,8 +3,12 @@
 # classifier on raw data and generate plots accordingly
 #
 
+# configure multicore
+#library(doMC)
+#registerDoMC(cores=1)
+
 # libraries
-library(e1071)
+#library(e1071)
 library(caret)
 
 # import utility functions
@@ -26,6 +30,7 @@ set.seed(1)
 # ftp://cran.r-project.org/pub/R/web/packages/caret/caret.pdf
 # http://machinelearningmastery.com/compare-the-performance-of-machine-learning-algorithms-in-r/
 # http://stats.stackexchange.com/questions/82162/kappa-statistic-in-plain-english
+# http://machinelearningmastery.com/tuning-machine-learning-models-using-the-caret-r-package/
 
 ###
 # CONSTANTS
@@ -89,9 +94,16 @@ format_data <- function(raw_data){
 #raw_data <- read_raw_data("raw_data.csv")
 raw_data <- read_raw_data("normalized_data.csv")
 
+# stopifnot(
+#     min(unlist(lapply(raw_data$response, length))) ==
+#     max(unlist(lapply(raw_data$response, length))))
+
 # format te raw data
 # this includes encoding of the response
 data <- format_data(raw_data)
+
+# print(head(data))
+# stopifnot(F)
 
 # remove NA from the data
 before_removal <- nrow(data)
@@ -99,7 +111,7 @@ data <- na.omit(data)
 print(paste("NA rows removed:", before_removal - nrow(data)))
 
 # print(tail(data))
-# stopifnot(F)
+#stopifnot(F)
 
 #
 # tuning with e1071 package
@@ -132,14 +144,32 @@ print(paste("NA rows removed:", before_removal - nrow(data)))
 #
 # construct models in a list
 # define classifiers to be used
-method_list_extensive <- c("lvq", "svmRadial", "svmLinear", "svmPoly",
-    "svmExpoString", "svmBoundrangeString", "svmSpectrumString",
-    "rotationForest", "rocc", "ranger", "nnet", "nb", "lm", "bag")
+#method_list_extensive <- c("lvq", "svmRadial", "svmLinear", "svmPoly",
+#    "svmExpoString", "svmBoundrangeString", "svmSpectrumString",
+#    "rotationForest", "rocc", "ranger", "nnet", "nb", "lm", "bag")
 
-method_list_basic <- c("svmRadial", "rocc", "ranger", "nnet") #"lvq",
-    #"lm", "bag", "nb")
+#method_list_basic <- c("svmRadial", "rocc", "ranger", "nnet") #"lvq",
+    #"lm", "bag", "nb", "ada", "binda", "blackboost", "bstSm") "rotationForest"
 
-method_list <- method_list_basic
+method_list_unknown <- c("svmExpoString", "svmBoundrangeString", "svmSpectrumString",
+    "svmRadialCost", "svmRadialSigma")
+
+# very slow but good models
+method_list_slow <- c("evtree")
+
+# model types which preform well (over 80% accuracy)
+# "rFerns",
+method_list_good <- c("svmLinear", "svmRadial",
+    "svmPoly", "ranger", "nb", "lda", "wsrf")#,
+    #"svmRadialCost", "svmRadialSigma")
+
+# model types which preform poorly (leq 80% accuracy)
+method_list_poor <- c("xyf", "rpart", "pam", "nnet", "gamSpline", "bayesglm",
+    "svmRadialWeights")
+
+#method_list_basic_1 <- c("svmRadial", "ranger")
+
+method_list <- method_list_good
 
 # make a list for models
 model_list <- vector("list", length(method_list))
@@ -149,10 +179,15 @@ names(model_list) <- method_list
 # 3 repeats of 10 fold crossvalidation
 control <- trainControl(method="repeatedcv", number=10, repeats=3)
 
+#stopifnot(F)
+
 # train each model in model list
 for(i in 1:length(method_list)){
+    print(paste("begin", method_list[i]))
+
+    # tuneLength is the number of parameter values to try for each model
     model_list[[i]] <- train(classification~., data=data,
-        method=method_list[i], trControl=control)
+        method=method_list[i], trControl=control, tuneLength=6)
 }
 
 # train the LVQ model
@@ -191,6 +226,18 @@ summary(diffs)
 # PLOTS
 ###
 
+pdf("output/classifier_parallel_plot.pdf")
+parallelplot(results)
+dev.off()
+
+pdf("output/classifier_splom_plot.pdf")
+splom(results)
+dev.off()
+
+pdf("output/classifier_density_plot.pdf")
+densityplot(results)
+dev.off()
+
 # boxplots of results
 pdf("output/classifier_box_plot.pdf")
 bwplot(results)
@@ -203,7 +250,7 @@ dev.off()
 
 # ALSO: print all plots in one file for easy viewing
 pdf("output/classifier_all.pdf")
-xyplot(results)
+#xyplot(results)
 parallelplot(results)
 splom(results)
 densityplot(results)
