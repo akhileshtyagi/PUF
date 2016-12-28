@@ -160,7 +160,8 @@ method_list_slow <- c("evtree")
 # model types which preform well (over 80% accuracy)
 # "rFerns",
 method_list_good <- c("svmLinear", "svmRadial",
-    "svmPoly", "ranger", "nb", "lda", "wsrf")#,
+    "svmPoly", "ranger", "nb", "lda")
+    #, "wsrf")#,
     #"svmRadialCost", "svmRadialSigma")
 
 # model types which preform poorly (leq 80% accuracy)
@@ -187,7 +188,7 @@ for(i in 1:length(method_list)){
 
     # tuneLength is the number of parameter values to try for each model
     model_list[[i]] <- train(classification~., data=data,
-        method=method_list[i], trControl=control, tuneLength=6)
+        method=method_list[i], trControl=control, tuneLength=3)
 }
 
 # train the LVQ model
