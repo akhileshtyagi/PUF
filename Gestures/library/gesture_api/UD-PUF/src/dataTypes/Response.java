@@ -3,6 +3,7 @@ package dataTypes;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+//import org.python.util.PythonInterpreter;
 
 /**
  * Represents one response created by a user
@@ -11,6 +12,9 @@ public class Response implements Serializable {
     public static boolean TRANSFORM_RESPONSE = false;
 
     private static final long serialVersionUID = -292775056595225846L;
+    public static final String PYTHON_UTIL_SCRIPT =
+            "/home/element/PUF/Gestures/library/python_scripts/util.py";
+    public static final int NORMALIZED_ONE_AXIS_POINTS = 32;
 
     // List of points which the user swiped
     // always maintains the origional response pattern
@@ -32,12 +36,24 @@ public class Response implements Serializable {
     }
 
     /**
+     * master calls other master algor
+     */
+    public void normalize(List<Point> normalizingPoints) {
+        //TODO use this true,false to toggle the type of normalization preformed
+        normalize(normalizingPoints, false);
+    }
+
+    /**
      * master normalization algorithm
      * chooses which algorithm to use
      */
-    public void normalize(List<Point> normalizingPoints) {
-        // this is the origional algorithm
-        normalize_8(normalizingPoints);
+    public void normalize(List<Point> normalizingPoints, boolean two_axis_normalization) {
+        if(two_axis_normalization) {
+            // this is the origional algorithm
+            normalize_8(normalizingPoints);
+        }else{
+            normalize_one_axis(normalizingPoints);
+        }
     }
 
     /**
@@ -113,6 +129,25 @@ public class Response implements Serializable {
     private boolean locations_equal(Point p1, Point p2) {
         double episilon = .001;
         return (Math.abs(p2.getX() - p1.getX()) < episilon) && (Math.abs(p2.getY() - p1.getY()) < episilon);
+    }
+
+    /**
+     * normalize response along one axis
+     */
+    private void normalize_one_axis(List<Point> normalizingPoints){
+        //TODO call python scripts to accomplish this
+        //TODO or write simple one axis normalization
+
+        // create a Python Intrepeter for running python functions in util.py
+        PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.initialize(System.getProperties(), System.getProperties(), new String[0]);
+        interpreter.exec("import " + PYTHON_UTIL_SCRIPT);
+
+        // create a python dataList object
+        PyInstance
+
+        PyObject interpolatedPressure = interpreter.get("interpolatedPressure");
+        interpolatedPressure.__call__(NORMALIZED_ONE_AXIS_POINTS, );
     }
 
     /**

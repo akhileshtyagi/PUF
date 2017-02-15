@@ -59,7 +59,7 @@ public class CompareValueGenerator {
         output_data_directory(UDC_OUTPUT_FILE_NAME, false);
         output_data_directory(NORMALIZED_UCD_OUTPUT_FILE_NAME, true);
 
-        System.out.println("data from: " + DATA_FOLDER_NAME);
+        //System.out.println("data from: " + DATA_FOLDER_NAME);
         System.out.println("output to: " + UDC_OUTPUT_FILE_NAME);
         System.out.println("output to: " + NORMALIZED_UCD_OUTPUT_FILE_NAME);
     }
