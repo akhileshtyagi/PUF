@@ -2,8 +2,12 @@ package dataTypes;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
-//import org.python.util.PythonInterpreter;
+import java.util.Properties;
+
+import org.python.core.*;
+import org.python.util.PythonInterpreter;
 
 /**
  * Represents one response created by a user
@@ -12,8 +16,8 @@ public class Response implements Serializable {
     public static boolean TRANSFORM_RESPONSE = false;
 
     private static final long serialVersionUID = -292775056595225846L;
-    public static final String PYTHON_UTIL_SCRIPT =
-            "/home/element/PUF/Gestures/library/python_scripts/util.py";
+    public static final String PYTHON_UTIL_DIRECTORY =
+            "/home/element/PUF/Gestures/library/python_scripts";
     public static final int NORMALIZED_ONE_AXIS_POINTS = 32;
 
     // List of points which the user swiped
@@ -132,22 +136,101 @@ public class Response implements Serializable {
     }
 
     /**
+     * quantize the response.
+     * This can only be done after the response is normalized
+     */
+    private void quantize(){
+        //TODO this can be done using python scripts
+        //TODO
+    }
+
+    /**
+     * Adds user.dir into python.path to make Jython look for python modules in working directory in all cases
+     * (both standalone and not standalone modes)
+     * @param props
+     * @return props
+     */
+    private Properties setDefaultPythonPath(Properties props, String directory) {
+        String pythonPathProp = props.getProperty("python.path");
+        String new_value;
+        if (pythonPathProp==null)
+        {
+            new_value  = directory;
+        } else {
+            new_value = pythonPathProp +java.io.File.pathSeparator + directory + java.io.File.pathSeparator;
+        }
+        props.setProperty("python.path",new_value);
+        return props;
+    }
+
+    /**
      * normalize response along one axis
      */
     private void normalize_one_axis(List<Point> normalizingPoints){
-        //TODO call python scripts to accomplish this
-        //TODO or write simple one axis normalization
+        // create properties to change the system path to python scripts director
+        Properties properties = setDefaultPythonPath(System.getProperties(), PYTHON_UTIL_DIRECTORY);
 
         // create a Python Intrepeter for running python functions in util.py
         PythonInterpreter interpreter = new PythonInterpreter();
-        interpreter.initialize(System.getProperties(), System.getProperties(), new String[0]);
-        interpreter.exec("import " + PYTHON_UTIL_SCRIPT);
+        interpreter.initialize(System.getProperties(), properties, new String[0]);
+        interpreter.exec("from util " + //+ PYTHON_UTIL_SCRIPT +
+                "import interpolatedPressure, DataList");//+ PYTHON_UTIL_SCRIPT);
 
         // create a python dataList object
-        PyInstance
+        //TODO replace the lists with thetypes that they need to be in
+        //TODO order to make the function work
+        List<List<Double>> challenge_list = new ArrayList<>();
+        List<List<Double>> response_list = new ArrayList<>();
+        List<Double> pressure_list = new ArrayList<>();
+
+        for(Point p : this.getOrigionalResponse()){
+            List<Double> list = new ArrayList<>();
+            list.add(p.getX());
+            list.add(p.getY());
+
+            response_list.add(list);
+            pressure_list.add(p.getPressure());
+        }
+
+        for(Point p : normalizingPoints){
+            List<Double> list = new ArrayList<>();
+            list.add(p.getX());
+            list.add(p.getY());
+
+            challenge_list.add(list);
+        }
+
+        interpreter.set("file_name", new PyString("file"));
+        interpreter.set("tester_name", new PyString("tester"));
+        interpreter.set("device_name", new PyString("device"));
+        interpreter.set("seed", new PyInteger(0));
+        interpreter.set("challenge_list", new PyList(challenge_list));
+        interpreter.set("response_list", new PyList(response_list));
+        interpreter.set("pressure_list", new PyList(pressure_list));
+
+        PyObject data_list = interpreter.eval(
+                "DataList(file_name, tester_name, device_name, seed, challenge_list, response_list, pressure_list)"
+        );
 
         PyObject interpolatedPressure = interpreter.get("interpolatedPressure");
-        interpolatedPressure.__call__(NORMALIZED_ONE_AXIS_POINTS, );
+        PyObject normalized_pressure_list = interpolatedPressure.__call__(new PyInteger(NORMALIZED_ONE_AXIS_POINTS), data_list);
+
+        // turn the normalized pressure list into a java object
+        Object npl_o = normalized_pressure_list.__tojava__(Collection.class);
+        List<Double> npl = (List<Double>)npl_o;
+
+        ArrayList<Point> normalized_point_list = new ArrayList<>();
+        for(int i=0; i<npl.size(); i++) {
+            normalized_point_list.add(new Point(normalizingPoints.get(i).getX(),
+                    normalizingPoints.get(i).getY(), npl.get(i), 0, 0));
+        }
+
+        this.normalizedResponsePattern = normalized_point_list;
+
+//        System.out.println("challenge: " + challenge_list);
+//        System.out.println("response: " + response_list);
+//        System.out.println("pressure: " + pressure_list);
+//        System.out.println("normalized_pressure: " + npl);
     }
 
     /**

@@ -2,7 +2,7 @@ import binascii
 import os
 from os.path import join, dirname, basename
 from math import sqrt, atan, sin, cos, fabs
-from pylab import *
+#from pylab import *
 import csv
 
 def hammingDistance(byteArr1, byteArr2):
@@ -178,6 +178,10 @@ def interpolatedPressure(n=32, dataList=DataList("", "", "", 0, [], [], [])):
 
             deltaX = closestRightPt[0]-closestLeftPt[0]
             deltaY = closestRightPt[1]-closestLeftPt[1]
+            
+            # added fix for deltaX==0
+            deltaX = deltaX if not deltaX == 0 else .00000001
+
             angle = fabs(atan(deltaY/deltaX))
 
             deltaX1 = normPt[0]-closestLeftPt[0]
@@ -215,6 +219,10 @@ def interpolatedPressure(n=32, dataList=DataList("", "", "", 0, [], [], [])):
 
             deltaX = closestUpperPt[0]-closestLowerPt[0]
             deltaY = closestUpperPt[1]-closestLowerPt[1]
+            
+            # added fix for deltaY==0
+            deltaY = deltaY if not deltaY == 0 else .00000001
+            
             angle = fabs(atan(deltaX/deltaY))
 
             deltaY1 = normPt[1]-closestLowerPt[1]

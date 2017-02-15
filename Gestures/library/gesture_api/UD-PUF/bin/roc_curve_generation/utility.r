@@ -8,6 +8,46 @@
 #
 
 #
+# takes in raw data and puts it in a format required for svm
+#
+format_data <- function(raw_data){
+    # use svm to classify data
+    # combine user, device, challenge together
+    data <- data.frame(
+        "classification" = paste(raw_data$user, raw_data$device, raw_data$challenge, sep="_"),
+        "response" = response_encoding(raw_data),
+        stringsAsFactors=FALSE)
+
+    # encode each of the classifications as an integer,
+    # otherwise apparently they will get cast to floats
+    # in unpredictable ways
+    #
+    # first, make a list of all the unique classifications
+    # the rows are named the classification value
+    classification_map <- data.frame(row.names = unique(data$classification))
+
+    # second, assign an integer value to each unique classification
+    classification_map$value <- as.factor(c(1:nrow(classification_map)))
+
+    # third, replace the data classifications with integers
+    classification_list <- vector("integer", nrow(data))
+    for(i in 1:nrow(data)){
+        # row names are classifications, value column holds the integer mapping
+        #data$classification[[i]] <- classification_map[data$classification[[i]], "value"]
+        classification_list[[i]] <- classification_map[data$classification[[i]], "value"]
+    }
+
+    # put the classifications into data
+    data <- subset(data, select=-classification)
+    data$classification <- classification_list
+
+    # change the type of classification to factor
+    data$classification <- as.factor(data$classification)
+
+    return(data)
+}
+
+#
 # given a threshold, compare_data
 # compute the FNR -- false negative rate
 # false negatives / positives

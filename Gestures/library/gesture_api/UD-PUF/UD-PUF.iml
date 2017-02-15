@@ -33,5 +33,6 @@
     <orderEntry type="library" name="gson-2.4" level="project" />
     <orderEntry type="library" name="jmathplot" level="project" />
     <orderEntry type="library" name="jmathio" level="project" />
+    <orderEntry type="library" name="jython" level="project" />
   </component>
 </module>
