@@ -26,6 +26,8 @@ public class CompareValueGenerator {
     public static String UDC_OUTPUT_FILE_NAME = "src/roc_curve_generation/raw_data.csv";
     /* output a list of [user, device, challenge, response] which has been normalized */
     public static String NORMALIZED_UCD_OUTPUT_FILE_NAME = "src/roc_curve_generation/normalized_data.csv";
+    /* output quantized version */
+    public static String QUANTIZED_UCD_OUTPUT_FILE_NAME = "src/roc_curve_generation/quantized_data.csv";
     /* outputs a list of [should authenticate, compare value] to this file */
     public static String OUTPUT_FILE_NAME = "src/roc_curve_generation/compare_data.csv";
     public static String DATA_FOLDER_NAME = "src/roc_curve_generation/data/";
@@ -56,12 +58,14 @@ public class CompareValueGenerator {
 
         // read in all files from the data director and output them
         // in the format used by the r scripts
-        output_data_directory(UDC_OUTPUT_FILE_NAME, false);
-        output_data_directory(NORMALIZED_UCD_OUTPUT_FILE_NAME, true);
+        output_data_directory(UDC_OUTPUT_FILE_NAME, false, false);
+        output_data_directory(NORMALIZED_UCD_OUTPUT_FILE_NAME, true, false);
+        output_data_directory(QUANTIZED_UCD_OUTPUT_FILE_NAME , true, true);
 
         //System.out.println("data from: " + DATA_FOLDER_NAME);
         System.out.println("output to: " + UDC_OUTPUT_FILE_NAME);
         System.out.println("output to: " + NORMALIZED_UCD_OUTPUT_FILE_NAME);
+        System.out.println("output to: " + QUANTIZED_UCD_OUTPUT_FILE_NAME );
     }
 
     /**
@@ -277,7 +281,7 @@ public class CompareValueGenerator {
      * user, device, challenge, response
      */
     private static void output_data_directory(
-            String output_file_name, boolean normalize_udc){
+            String output_file_name, boolean normalize_udc, boolean quantized_output){
         // acquire the list of udc
         List<UDC> udc_list = get_udc_list();
 
@@ -355,9 +359,16 @@ public class CompareValueGenerator {
                 // there is a UDC for each response to a challenge
                 String response;
                 if(!normalize_udc) {
+                    // origional response is being output
                     response = udc_list.get(i).response.toRString();
+                }else if(quantized_output) {
+                    // quantized response is being output
+                    // only happens if response is also normalized
+                    //TODO can use this outputfile, or analyze the quantized list in java
+                    response = bit_set_to_string(udc_list.get(i).response.quantize());
                 }else{
                     // ask for the normalized R string
+                    // normalized response is being output
                     response = udc_list.get(i).response.toNormalizedRString();
                 }
 
@@ -561,5 +572,27 @@ public class CompareValueGenerator {
             positive_list.add(random.nextInt()%2 == 0);
             compare_value_list.add(random.nextDouble());
         }
+    }
+
+    /**
+     * turn a BitSet into a csv String of bits
+     */
+    public static String bit_set_to_string(BitSet bit_set){
+        String s = "";
+
+        for(int i=0; i<bit_set.length(); i++){
+            if(bit_set.get(i)){
+                s += "1";
+            }else{
+                s += "0";
+            }
+
+            // on the last iteraction, I don't want a ,
+            if(bit_set.length()-1 != i){
+                s += ",";
+            }
+        }
+
+        return s;
     }
 }

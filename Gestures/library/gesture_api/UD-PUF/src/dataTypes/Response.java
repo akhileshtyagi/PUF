@@ -1,10 +1,7 @@
 package dataTypes;
 
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Properties;
+import java.util.*;
 
 import org.python.core.*;
 import org.python.util.PythonInterpreter;
@@ -13,6 +10,17 @@ import org.python.util.PythonInterpreter;
  * Represents one response created by a user
  */
 public class Response implements Serializable {
+    public enum QuantizationType{
+        FLAT_AVERAGE,
+        N_5_MOVING_AVERAGE,
+        N_10_MOVING_AVERAGE,
+        CUMULATIVE_MOVING_AVERAGE
+    }
+
+    //TODO change this to test different quantization types
+    public static QuantizationType QTYPE = QuantizationType.FLAT_AVERAGE;
+    public static int RESPONSE_BITS = 128;
+
     public static boolean TRANSFORM_RESPONSE = false;
 
     private static final long serialVersionUID = -292775056595225846L;
@@ -138,10 +146,99 @@ public class Response implements Serializable {
     /**
      * quantize the response.
      * This can only be done after the response is normalized
+     *
+     * returns a 128 BitSet
      */
-    private void quantize(){
-        //TODO this can be done using python scripts
-        //TODO
+    public BitSet quantize(){
+        BitSet bit_set = new BitSet(RESPONSE_BITS);
+        bit_set.clear();
+
+        // ensure the response has been normalized
+        // objects are initialized to be equal
+        if(this.normalizedResponsePattern == responsePattern){
+            return bit_set;
+        }
+
+        // create properties to change the system path to python scripts director
+        Properties properties = setDefaultPythonPath(System.getProperties(), PYTHON_UTIL_DIRECTORY);
+
+        // create a Python Intrepeter for running python functions in util.py
+        PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.initialize(System.getProperties(), properties, new String[0]);
+        interpreter.exec("from util " +
+                "import simpleMovingAverage, cumulativeMovingAverage");
+
+        // create a python dataList object
+        List<Double> pressure_list = new ArrayList<>();
+
+        for(Point p : this.getNormalizedResponse()){
+            pressure_list.add(p.getPressure());
+        }
+
+        PyObject quantization;
+        PyObject quantized_list = null;
+        int n = 5;
+
+        // choose quantization method
+        if(QTYPE == QuantizationType.FLAT_AVERAGE){
+            bit_set = flat_average_quantization(pressure_list);
+        }else{
+            if(QTYPE == QuantizationType.CUMULATIVE_MOVING_AVERAGE) {
+                quantization = interpreter.get("cumulativeMovingAverage");
+                quantized_list = quantization.__call__(new PyList(pressure_list));
+            }else{
+                quantization = interpreter.get("simpleMovingAverage");
+
+                if(QTYPE == QuantizationType.N_5_MOVING_AVERAGE){
+                    n = 5;
+                }else {
+                    n = 10;
+                }
+
+                quantized_list = quantization.__call__(new PyList(pressure_list), new PyInteger(n));
+            }
+
+            // turn the normalized pressure list into a java object
+            Object npl_o = quantized_list.__tojava__(Collection.class);
+            List<Boolean> npl = (List<Boolean>)npl_o;
+
+            // set the appropriate bits in bit set based on list returned
+            for(int i=0; i<npl.size(); i++){
+                if(npl.get(i)) bit_set.set(i);
+            }
+        }
+
+//        System.out.println("bits: " + bit_set);
+
+        return bit_set;
+    }
+
+    /**
+     * given a list of pressure values,
+     * return a sequence of bits equal to the length of the list
+     * 1 := if p_i >= average
+     * 2 := if p_i < average
+     */
+    //TODO test this method
+    private BitSet flat_average_quantization(List<Double> pressure_list){
+        BitSet bit_set = new BitSet(RESPONSE_BITS);
+        double average_pressure = 0;
+        double sum = 0;
+
+        for(Double d : pressure_list){
+            sum += d;
+        }
+
+        average_pressure = sum / pressure_list.size();
+
+        // set all bits to 0
+        bit_set.clear();
+        for(int i=0; i<pressure_list.size(); i++){
+            Double d = pressure_list.get(i);
+            if(d >= average_pressure) bit_set.set(i);
+        }
+
+        return bit_set;
     }
 
     /**
