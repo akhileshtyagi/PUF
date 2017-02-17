@@ -247,7 +247,7 @@ public class Response implements Serializable {
      * @param props
      * @return props
      */
-    private Properties setDefaultPythonPath(Properties props, String directory) {
+    public static Properties setDefaultPythonPath(Properties props, String directory) {
         String pythonPathProp = props.getProperty("python.path");
         String new_value;
         if (pythonPathProp==null)

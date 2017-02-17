@@ -31,6 +31,8 @@ set.seed(1)
 # http://machinelearningmastery.com/compare-the-performance-of-machine-learning-algorithms-in-r/
 # http://stats.stackexchange.com/questions/82162/kappa-statistic-in-plain-english
 # http://machinelearningmastery.com/tuning-machine-learning-models-using-the-caret-r-package/
+#
+# http://topepo.github.io/caret/model-training-and-tuning.html
 
 ###
 # CONSTANTS

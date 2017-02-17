@@ -5,13 +5,21 @@ import dataTypes.Challenge;
 import dataTypes.Point;
 import dataTypes.Response;
 import dataTypes.UserDevicePair;
+import org.python.core.PyArray;
+import org.python.core.PyInteger;
+import org.python.core.PyList;
+import org.python.core.PyObject;
+import org.python.util.PythonInterpreter;
 import test.graph_points;
 
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.*;
 
+import static dataTypes.Response.PYTHON_UTIL_DIRECTORY;
+import static dataTypes.Response.setDefaultPythonPath;
 import static java.lang.Boolean.TRUE;
+import static java.lang.String.valueOf;
 
 /**
  * Generate a file with all the compare values
@@ -354,7 +362,7 @@ public class CompareValueGenerator {
             for(int i=0; i<udc_list.size(); i++){
                 String user = udc_list.get(i).user;
                 String device = udc_list.get(i).device;
-                String challenge = String.valueOf(udc_list.get(i).challenge);
+                String challenge = valueOf(udc_list.get(i).challenge);
 
                 // there is a UDC for each response to a challenge
                 String response;
@@ -378,6 +386,9 @@ public class CompareValueGenerator {
 
             file.close();
         }catch(Exception e){ e.printStackTrace(); }
+
+        // print the average hamming distance if responses are quantized
+        if(normalize_udc && quantized_output) print_average_hamming(udc_list);
     }
 
     /**
@@ -551,7 +562,7 @@ public class CompareValueGenerator {
 
             for(int i=0; i<positive_list.size(); i++){
                 String positive_string = positive_list.get(i) == TRUE ? "1" : "0";
-                String compare_value_string = String.valueOf(compare_value_list.get(i));
+                String compare_value_string = valueOf(compare_value_list.get(i));
 
                 file.println(positive_string + ", " + compare_value_string);
             }
@@ -591,6 +602,151 @@ public class CompareValueGenerator {
             if(bit_set.length()-1 != i){
                 s += ",";
             }
+        }
+
+        return s;
+    }
+
+    /**
+     * print the average hamming diatance
+     */
+    //TODO I need to figure out how to make sure responses are 128 bit
+    public static void print_average_hamming(List<UDC> udc_list){
+        // extract a list of bitset from the response
+//        Map<UDC, BitSet> response_list = new HashMap<>();
+//
+//        // create a list for all quantized responses
+//        // this is so the responses don't need to be quantized each time
+//        for(UDC udc : udc_list){
+//            // get the quantized response
+//            BitSet quantized_response = udc.response.quantize();
+//
+//            response_list.put(udc, quantized_response);
+//        }
+
+        // create condition_map which
+        // maps a condition of user,device,challenge same to hamming distance list
+        Map<String, List<Integer>> condition_map = new HashMap<>();
+
+        // for each quantized response, compute average hamming distance
+        // compared to all other responses which meet a condition
+        for(int i=0; i<udc_list.size(); i++){
+            for(int j=i+1; j<udc_list.size(); j++){
+                // user,device,challenge conditions
+                UDC udc0 = udc_list.get(i);
+                UDC udc1 = udc_list.get(j);
+
+                // determine the condition of the current compairason
+                boolean[] condition = new boolean[3];
+                condition[0] = udc0.user.equals(udc1.user);
+                condition[1] = udc0.device.equals(udc1.device);
+                condition[2] = udc0.challenge == udc1.challenge;
+
+                // compute the hamming distance and add it to the list of hamming
+                // distances for the current condition
+                List<Integer> list = condition_map.getOrDefault(condition_to_string(condition), new ArrayList<>());
+                list.add(hamming_distance(udc0.response.quantize(), udc1.response.quantize()));
+
+                // need to put the list on to condition map if the list is new
+                condition_map.putIfAbsent(condition_to_string(condition), list);
+            }
+        }
+
+        // compute the average for each condition
+        System.out.println("same [user, device, challenge] average_hamming_distance");
+        for(Map.Entry<String, List<Integer>> entry : condition_map.entrySet()){
+            String key = entry.getKey();
+
+            double hamming_sum = 0;
+            for(Integer integer : entry.getValue()){
+                hamming_sum += integer;
+            }
+
+            String value = String.valueOf(hamming_sum / entry.getValue().size());
+
+            System.out.println(key + " : " + value);
+        }
+    }
+
+    /**
+     * compute hamming distance
+     */
+    public static int hamming_distance(BitSet bs_0, BitSet bs_1){
+        BitSet bs_10 = (BitSet)bs_0.clone();
+        BitSet bs_11 = (BitSet)bs_1.clone();
+
+        // different bits will be set to 1
+        bs_10.xor(bs_11);
+
+        // returns the number of bits set to 1
+        return bs_10.cardinality();
+    }
+
+    /**
+     * print the average hamming distance of the
+     */
+    //TODO I need to figure out how to make sure responses are 128 bit
+    public static void print_average_hamming_python(List<UDC> udc_list){
+        // create a python object as argument
+        List<int[]> response_list = new ArrayList<>();
+
+        for(UDC udc : udc_list){
+            // get the quantized response
+            BitSet quantized_response = udc.response.quantize();
+
+            // turn the quantized response into a bit[]
+            int[] array = new int[quantized_response.size()];
+
+            for(int i=0; i<quantized_response.size(); i++){
+                array[i] = quantized_response.get(i) ? 1 : 0;
+            }
+
+            response_list.add(array);
+        }
+
+        // call python script functions
+        PyList argument = new PyList(response_list);
+        System.out.println("average hamming different device, user same challenge: " +
+            call_hamming_function("average_hamming_d_device_d_user_s_challenge", argument));
+        System.out.println("average hamming same device, user different challenge: " +
+                call_hamming_function("average_hamming_d_device_d_user_s_challenge", argument));
+        System.out.println("average hamming same user, device, challenge: " +
+                call_hamming_function("average_hamming_s_device_s_user_s_challenge", argument));
+    }
+
+    /**
+     * call the function on the byte array given
+     * calls a python script to do the work
+     */
+    public static double call_hamming_function(String function_name, PyList argument){
+        // create properties to change the system path to python scripts director
+        Properties properties = setDefaultPythonPath(System.getProperties(), PYTHON_UTIL_DIRECTORY);
+
+        // create a Python Intrepeter for running python functions in util.py
+        PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.initialize(System.getProperties(), properties, new String[0]);
+        interpreter.exec("from hamming_util import " + function_name);
+
+        // disable printing
+        interpreter.exec("from hamming_util import " + "disable_print");
+        PyObject disable_printing = interpreter.get("disable_print");
+        disable_printing.__call__();
+
+        // call the hamming function to compute average
+        PyObject hamming_function = interpreter.get(function_name);
+        double average_hamming = (double)(hamming_function.__call__(argument).__tojava__(double.class));
+
+        return average_hamming;
+    }
+
+    /**
+     * convert a condition into a string for accessing a map
+     */
+    public static String condition_to_string(boolean[] condition){
+        String s = "";
+
+        for(boolean b : condition){
+            s += b ? "1" : "0";
         }
 
         return s;
