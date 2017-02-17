@@ -372,7 +372,6 @@ public class CompareValueGenerator {
                 }else if(quantized_output) {
                     // quantized response is being output
                     // only happens if response is also normalized
-                    //TODO can use this outputfile, or analyze the quantized list in java
                     response = bit_set_to_string(udc_list.get(i).response.quantize());
                 }else{
                     // ask for the normalized R string
@@ -387,8 +386,13 @@ public class CompareValueGenerator {
             file.close();
         }catch(Exception e){ e.printStackTrace(); }
 
+        //TODO analyze hamming distance
+        //TODO analyze PRG properties with TESTU01
         // print the average hamming distance if responses are quantized
-        if(normalize_udc && quantized_output) print_average_hamming(udc_list);
+        if(normalize_udc && quantized_output){
+            print_average_hamming(udc_list);
+            print_testu01_results(udc_list);
+        }
     }
 
     /**
@@ -608,22 +612,21 @@ public class CompareValueGenerator {
     }
 
     /**
+     * print the results of running the respones through
+     * the TESTU01 suite
+     */
+    //TODO make sure this method actually works
+    public static void print_testu01_results(List<UDC> udc_list){
+        //TODO
+        //TODO make sure the responses are 128_bit!!!
+        System.out.println("TODO");
+    }
+
+    /**
      * print the average hamming diatance
      */
-    //TODO I need to figure out how to make sure responses are 128 bit
+    //TODO make sure this method actually works
     public static void print_average_hamming(List<UDC> udc_list){
-        // extract a list of bitset from the response
-//        Map<UDC, BitSet> response_list = new HashMap<>();
-//
-//        // create a list for all quantized responses
-//        // this is so the responses don't need to be quantized each time
-//        for(UDC udc : udc_list){
-//            // get the quantized response
-//            BitSet quantized_response = udc.response.quantize();
-//
-//            response_list.put(udc, quantized_response);
-//        }
-
         // create condition_map which
         // maps a condition of user,device,challenge same to hamming distance list
         Map<String, List<Integer>> condition_map = new HashMap<>();

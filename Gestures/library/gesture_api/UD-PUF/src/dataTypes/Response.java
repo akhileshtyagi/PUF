@@ -26,7 +26,7 @@ public class Response implements Serializable {
     private static final long serialVersionUID = -292775056595225846L;
     public static final String PYTHON_UTIL_DIRECTORY =
             "/home/element/PUF/Gestures/library/python_scripts";
-    public static final int NORMALIZED_ONE_AXIS_POINTS = 32;
+    public static final int NORMALIZED_ONE_AXIS_POINTS = RESPONSE_BITS;
 
     // List of points which the user swiped
     // always maintains the origional response pattern

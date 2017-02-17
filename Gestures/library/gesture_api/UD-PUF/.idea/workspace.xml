@@ -82,8 +82,8 @@
       <file leaf-file-name="CompareValueGenerator.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="522">
-              <caret line="611" column="7" selection-start-line="611" selection-start-column="7" selection-end-line="611" selection-end-column="7" />
+            <state relative-caret-position="123">
+              <caret line="620" column="53" selection-start-line="620" selection-start-column="53" selection-end-line="620" selection-end-column="53" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -116,8 +116,8 @@
       <file leaf-file-name="Response.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="18">
-              <caret line="249" column="17" selection-start-line="249" selection-start-column="17" selection-end-line="249" selection-end-column="17" />
+            <state relative-caret-position="240">
+              <caret line="28" column="54" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="54" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -186,8 +186,8 @@
         <option value="$PROJECT_DIR$/src/roc_curve_generation/best_model_analysis.r" />
         <option value="$PROJECT_DIR$/src/roc_curve_generation/hamming_distance.r" />
         <option value="$PROJECT_DIR$/src/roc_curve_generation/svm_classifier.r" />
-        <option value="$PROJECT_DIR$/src/dataTypes/Response.java" />
         <option value="$PROJECT_DIR$/src/roc_curve_generation/hamming_test.java" />
+        <option value="$PROJECT_DIR$/src/dataTypes/Response.java" />
         <option value="$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java" />
       </list>
     </option>
@@ -1077,16 +1077,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18">
-          <caret line="249" column="17" selection-start-line="249" selection-start-column="17" selection-end-line="249" selection-end-column="17" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/hamming_test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="465">
@@ -1097,10 +1087,20 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="240">
+          <caret line="28" column="54" selection-start-line="28" selection-start-column="28" selection-end-line="28" selection-end-column="54" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="522">
-          <caret line="611" column="7" selection-start-line="611" selection-start-column="7" selection-end-line="611" selection-end-column="7" />
+        <state relative-caret-position="123">
+          <caret line="620" column="53" selection-start-line="620" selection-start-column="53" selection-end-line="620" selection-end-column="53" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
