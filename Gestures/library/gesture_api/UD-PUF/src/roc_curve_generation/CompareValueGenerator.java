@@ -66,13 +66,14 @@ public class CompareValueGenerator {
 
         // read in all files from the data director and output them
         // in the format used by the r scripts
-        output_data_directory(UDC_OUTPUT_FILE_NAME, false, false);
-        output_data_directory(NORMALIZED_UCD_OUTPUT_FILE_NAME, true, false);
+        //TODO uncomment if necessary
+        //output_data_directory(UDC_OUTPUT_FILE_NAME, false, false);
+        //output_data_directory(NORMALIZED_UCD_OUTPUT_FILE_NAME, true, false);
         output_data_directory(QUANTIZED_UCD_OUTPUT_FILE_NAME , true, true);
 
         //System.out.println("data from: " + DATA_FOLDER_NAME);
-        System.out.println("output to: " + UDC_OUTPUT_FILE_NAME);
-        System.out.println("output to: " + NORMALIZED_UCD_OUTPUT_FILE_NAME);
+        //System.out.println("output to: " + UDC_OUTPUT_FILE_NAME);
+        //System.out.println("output to: " + NORMALIZED_UCD_OUTPUT_FILE_NAME);
         System.out.println("output to: " + QUANTIZED_UCD_OUTPUT_FILE_NAME );
     }
 
@@ -390,8 +391,9 @@ public class CompareValueGenerator {
         //TODO analyze PRG properties with TESTU01
         // print the average hamming distance if responses are quantized
         if(normalize_udc && quantized_output){
-            print_average_hamming(udc_list);
-            print_testu01_results(udc_list);
+            print_results(udc_list);
+            //print_average_hamming(udc_list);
+            //print_testu01_results(udc_list);
         }
     }
 
@@ -612,14 +614,44 @@ public class CompareValueGenerator {
     }
 
     /**
+     * master method
+     * print results from UDC list
+     */
+    public static void print_results(List<UDC> udc_list){
+        //TODO uncomment
+        print_testu01_results(udc_list);
+        //print_average_hamming(udc_list);
+    }
+
+    /**
      * print the results of running the respones through
      * the TESTU01 suite
      */
     //TODO make sure this method actually works
     public static void print_testu01_results(List<UDC> udc_list){
-        //TODO
-        //TODO make sure the responses are 128_bit!!!
-        System.out.println("TODO");
+        // create a list of responses
+        List<BitSet> response_list = new ArrayList<>();
+
+        for(int i=0; i<udc_list.size(); i++){
+            // good, responses are 128 bit
+            //System.out.println(udc_list.get(i).response.quantize());
+            response_list.add(udc_list.get(i).response.quantize());
+        }
+
+        // now run TestU01 on the response set
+        // this is done by calling a python script
+        //
+        // create properties to change the system path to python scripts director
+        Properties properties = setDefaultPythonPath(System.getProperties(), PYTHON_UTIL_DIRECTORY);
+
+        // create a Python Intrepeter for running python functions in util.py
+        PythonInterpreter interpreter = new PythonInterpreter();
+        interpreter.initialize(System.getProperties(), properties, new String[0]);
+        interpreter.exec("from test1_util import TESTU01");
+
+        // call the hamming function to compute average
+        PyObject function = interpreter.get("TESTU01");
+        function.__call__(new PyList(response_list));
     }
 
     /**
