@@ -69,24 +69,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="best_model_analysis.r" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/best_model_analysis.r">
+      <file leaf-file-name="CompareValueGenerator.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="234">
-              <caret line="28" column="18" selection-start-line="28" selection-start-column="18" selection-end-line="28" selection-end-column="18" />
-              <folding />
+            <state relative-caret-position="537">
+              <caret line="630" column="104" selection-start-line="630" selection-start-column="104" selection-end-line="630" selection-end-column="104" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CompareValueGenerator.java" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java">
+      <file leaf-file-name="average_hamming_distance.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/output/average_hamming_distance.txt">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="253">
-              <caret line="616" column="20" selection-start-line="616" selection-start-column="20" selection-end-line="616" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state relative-caret-position="306">
+              <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -116,8 +116,8 @@
       <file leaf-file-name="Response.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="491">
-              <caret line="320" column="63" selection-start-line="320" selection-start-column="63" selection-end-line="320" selection-end-column="63" />
+            <state relative-caret-position="18">
+              <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -128,8 +128,8 @@
       <file leaf-file-name="quantized_data.csv" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/quantized_data.csv">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-39418">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="-40229">
+              <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -188,6 +188,7 @@
         <option value="$PROJECT_DIR$/src/roc_curve_generation/hamming_test.java" />
         <option value="$PROJECT_DIR$/src/dataTypes/Response.java" />
         <option value="$PROJECT_DIR$/src/dataTypes/Challenge.java" />
+        <option value="$PROJECT_DIR$/src/roc_curve_generation/output/average_hamming_distance.txt" />
         <option value="$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java" />
       </list>
     </option>
@@ -796,7 +797,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30136988" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.30136988" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3329821" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
@@ -845,7 +846,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-03/Jake/4: nexus-03 2014-02-09 12:14:25 PM.csv" />
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-03/Jake/5: nexus-03 2014-02-09 12:14:29 PM.csv" />
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-03/Jake/6: nexus-03 2014-02-09 12:14:31 PM.csv" />
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/data/nexus-03/Jake/7: nexus-03 2014-02-09 12:14:33 PM.csv" />
@@ -1037,14 +1037,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/quantized_data.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-39418">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/utility.r">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1593">
@@ -1061,10 +1053,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/hamming_distance.r">
+    <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="964">
-          <caret line="57" column="13" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
+        <state relative-caret-position="378">
+          <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
           <folding />
         </state>
       </provider>
@@ -1079,28 +1071,44 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/quantized_data.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-40229">
+          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/hamming_distance.r">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="964">
+          <caret line="57" column="13" selection-start-line="57" selection-start-column="13" selection-end-line="57" selection-end-column="13" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/output/average_hamming_distance.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="306">
+          <caret line="17" column="37" selection-start-line="17" selection-start-column="37" selection-end-line="17" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/dataTypes/Response.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="491">
-          <caret line="320" column="63" selection-start-line="320" selection-start-column="63" selection-end-line="320" selection-end-column="63" />
+        <state relative-caret-position="18">
+          <caret line="148" column="0" selection-start-line="148" selection-start-column="0" selection-end-line="148" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/dataTypes/Challenge.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="378">
-          <caret line="23" column="54" selection-start-line="23" selection-start-column="54" selection-end-line="23" selection-end-column="54" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/CompareValueGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="253">
-          <caret line="616" column="20" selection-start-line="616" selection-start-column="20" selection-end-line="616" selection-end-column="20" />
+        <state relative-caret-position="537">
+          <caret line="630" column="104" selection-start-line="630" selection-start-column="104" selection-end-line="630" selection-end-column="104" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

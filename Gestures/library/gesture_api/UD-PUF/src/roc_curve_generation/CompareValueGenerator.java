@@ -5,8 +5,6 @@ import dataTypes.Challenge;
 import dataTypes.Point;
 import dataTypes.Response;
 import dataTypes.UserDevicePair;
-import org.python.core.PyArray;
-import org.python.core.PyInteger;
 import org.python.core.PyList;
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
@@ -15,6 +13,9 @@ import test.graph_points;
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.*;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 import static dataTypes.Response.PYTHON_UTIL_DIRECTORY;
 import static dataTypes.Response.setDefaultPythonPath;
@@ -618,9 +619,16 @@ public class CompareValueGenerator {
      * print results from UDC list
      */
     public static void print_results(List<UDC> udc_list){
+        long start_time = System.nanoTime();
+
         //TODO uncomment
-        print_testu01_results(udc_list);
-        //print_average_hamming(udc_list);
+        //print_testu01_results(udc_list);
+        print_average_hamming(udc_list);
+
+        long end_time = System.nanoTime();
+        long duration_micros = (end_time - start_time) / 1000;
+
+        System.out.println("microseconds taken per response: " + (duration_micros / udc_list.size() / 50));
     }
 
     /**
@@ -659,48 +667,88 @@ public class CompareValueGenerator {
      */
     //TODO make sure this method actually works
     public static void print_average_hamming(List<UDC> udc_list){
+        ExecutorService cached_pool = Executors.newCachedThreadPool();
+        Collection<Future<?>> task_list = new LinkedList<>();
+
         // create condition_map which
         // maps a condition of user,device,challenge same to hamming distance list
-        Map<String, List<Integer>> condition_map = new HashMap<>();
+        Map<String, List<Integer>> condition_map = Collections.synchronizedMap(new HashMap<>());
 
         // for each quantized response, compute average hamming distance
         // compared to all other responses which meet a condition
         for(int i=0; i<udc_list.size(); i++){
-            for(int j=i+1; j<udc_list.size(); j++){
-                // user,device,challenge conditions
-                UDC udc0 = udc_list.get(i);
-                UDC udc1 = udc_list.get(j);
+            // specify a final variable to be accessed by thread
+            final int k = i;
 
-                // determine the condition of the current compairason
-                boolean[] condition = new boolean[3];
-                condition[0] = udc0.user.equals(udc1.user);
-                condition[1] = udc0.device.equals(udc1.device);
-                condition[2] = udc0.challenge == udc1.challenge;
+            // spawn a new thread to handle each value of i
+            task_list.add(cached_pool.submit(new Runnable(){
+                @Override
+                public void run() {
+                    for(int j = k + 1; j < Math.min(k+50, udc_list.size()); j++) { //udc_list.size(); j++){
+                        // user,device,challenge conditions
+                        UDC udc0 = udc_list.get(k);
+                        UDC udc1 = udc_list.get(j);
 
-                // compute the hamming distance and add it to the list of hamming
-                // distances for the current condition
-                List<Integer> list = condition_map.getOrDefault(condition_to_string(condition), new ArrayList<>());
-                list.add(hamming_distance(udc0.response.quantize(), udc1.response.quantize()));
+                        // determine the condition of the current compairason
+                        boolean[] condition = new boolean[3];
+                        condition[0] = udc0.user.equals(udc1.user);
+                        condition[1] = udc0.device.equals(udc1.device);
+                        condition[2] = udc0.challenge == udc1.challenge;
 
-                // need to put the list on to condition map if the list is new
-                condition_map.putIfAbsent(condition_to_string(condition), list);
-            }
+                        // do all the work outside of the synchronized access
+                        String condition_string = condition_to_string(condition);
+                        int hamming_distance = hamming_distance(udc0.response.quantize(), udc1.response.quantize());
+
+                        synchronized (condition_map) {
+                            // compute the hamming distance and add it to the list of hamming
+                            // distances for the current condition
+                            List<Integer> list = condition_map.getOrDefault(condition_string, new ArrayList<>());
+                            list.add(hamming_distance);
+
+                            // need to put the list on to condition map if the list is new
+                            condition_map.putIfAbsent(condition_string, list);
+                        }
+                    }
+                }
+            }));
         }
+
+        // wait on all task completion
+        for(Future<?> task : task_list){
+            try{ task.get(); } catch(Exception e){ e.printStackTrace(); }
+        }
+
+        // remove all tasks up until this point from the list
+        task_list.clear();
 
         // compute the average for each condition
         System.out.println("same [user, device, challenge] average_hamming_distance");
         for(Map.Entry<String, List<Integer>> entry : condition_map.entrySet()){
-            String key = entry.getKey();
+            // use 8 threads to take the average
+            task_list.add(cached_pool.submit(new Runnable() {
+                @Override
+                public void run() {
+                    String key = entry.getKey();
 
-            double hamming_sum = 0;
-            for(Integer integer : entry.getValue()){
-                hamming_sum += integer;
-            }
+                    double hamming_sum = 0;
+                    for (Integer integer : entry.getValue()) {
+                        hamming_sum += integer;
+                    }
 
-            String value = String.valueOf(hamming_sum / entry.getValue().size());
+                    String value = String.valueOf(hamming_sum / entry.getValue().size());
 
-            System.out.println(key + " : " + value);
+                    System.out.println(key + " : " + value);
+                }
+            }));
         }
+
+        // wait on all task completion
+        for(Future<?> task : task_list){
+            try{ task.get(); } catch(Exception e){ e.printStackTrace(); }
+        }
+
+        // shut down the thread pool
+        cached_pool.shutdown();
     }
 
     /**
