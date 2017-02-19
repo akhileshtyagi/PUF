@@ -628,7 +628,7 @@ public class CompareValueGenerator {
         long end_time = System.nanoTime();
         long duration_micros = (end_time - start_time) / 1000;
 
-        System.out.println("microseconds taken per response: " + (duration_micros / udc_list.size() / 50));
+        System.out.println("microseconds taken per response: " + (duration_micros / udc_list.size() / 10));
     }
 
     /**
@@ -684,7 +684,7 @@ public class CompareValueGenerator {
             task_list.add(cached_pool.submit(new Runnable(){
                 @Override
                 public void run() {
-                    for(int j = k + 1; j < Math.min(k+50, udc_list.size()); j++) { //udc_list.size(); j++){
+                    for(int j = k + 1; j < udc_list.size(); j++){
                         // user,device,challenge conditions
                         UDC udc0 = udc_list.get(k);
                         UDC udc1 = udc_list.get(j);
@@ -702,8 +702,12 @@ public class CompareValueGenerator {
                         synchronized (condition_map) {
                             // compute the hamming distance and add it to the list of hamming
                             // distances for the current condition
-                            List<Integer> list = condition_map.getOrDefault(condition_string, new ArrayList<>());
-                            list.add(hamming_distance);
+                            List<Integer> list = condition_map.getOrDefault(condition_string,
+                                    Collections.synchronizedList(new ArrayList<>()));
+
+                            synchronized (list) {
+                                list.add(hamming_distance);
+                            }
 
                             // need to put the list on to condition map if the list is new
                             condition_map.putIfAbsent(condition_string, list);
