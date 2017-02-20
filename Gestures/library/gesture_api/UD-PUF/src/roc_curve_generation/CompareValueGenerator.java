@@ -5,6 +5,7 @@ import dataTypes.Challenge;
 import dataTypes.Point;
 import dataTypes.Response;
 import dataTypes.UserDevicePair;
+import org.python.core.PyArray;
 import org.python.core.PyList;
 import org.python.core.PyObject;
 import org.python.util.PythonInterpreter;
@@ -628,7 +629,7 @@ public class CompareValueGenerator {
         long end_time = System.nanoTime();
         long duration_micros = (end_time - start_time) / 1000;
 
-        System.out.println("microseconds taken per response: " + (duration_micros / udc_list.size() / 10));
+        System.out.println("total microseconds: " + duration_micros);
     }
 
     /**
@@ -646,6 +647,12 @@ public class CompareValueGenerator {
             response_list.add(udc_list.get(i).response.quantize());
         }
 
+        // create an array of strings for python
+        List<String> string_array = new ArrayList<>();
+        for(BitSet response : response_list){
+            string_array.add(bit_set_to_string_no_comma(response));
+        }
+
         // now run TestU01 on the response set
         // this is done by calling a python script
         //
@@ -659,7 +666,7 @@ public class CompareValueGenerator {
 
         // call the hamming function to compute average
         PyObject function = interpreter.get("TESTU01");
-        function.__call__(new PyList(response_list));
+        function.__call__(new PyList(string_array));
     }
 
     /**
@@ -834,6 +841,20 @@ public class CompareValueGenerator {
 
         for(boolean b : condition){
             s += b ? "1" : "0";
+        }
+
+        return s;
+    }
+
+    /**
+     * convert a BitSet into a String
+     * this one has no cammas
+     */
+    public static String bit_set_to_string_no_comma(BitSet bit_set){
+        String s = "";
+
+        for(int i=0; i<bit_set.size(); i++){
+            s += bit_set.get(i) ? "1" : "0";
         }
 
         return s;

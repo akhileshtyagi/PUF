@@ -39,12 +39,19 @@ public class Response implements Serializable {
     // Count of motion events this response originally had
     private int motionEvenCount;
 
+    // enable only one computation of quantized value
+    private BitSet quantized_bit_set;
+    private boolean is_quantized;
+
     public Response(List<Point> responsePattern) {
         this.responsePattern = new ArrayList<Point>(responsePattern);
         motionEvenCount = responsePattern.size();
 
         this.normalizedResponsePattern = this.responsePattern;
         // ArrayList<Point>(responsePattern);
+
+        this.quantized_bit_set = null;
+        this.is_quantized = false;
     }
 
     /**
@@ -149,7 +156,14 @@ public class Response implements Serializable {
      *
      * returns a 128 BitSet
      */
+    //TODO rewrite quantization method in java
+    //TODO no need to use python functions.... they do not return what I am expecting
     public BitSet quantize(){
+        // if previously quantized, return that value
+        if(this.is_quantized){
+            return this.quantized_bit_set;
+        }
+
         BitSet bit_set = new BitSet(RESPONSE_BITS);
         bit_set.clear();
 
@@ -209,6 +223,10 @@ public class Response implements Serializable {
         }
 
 //        System.out.println("bits: " + bit_set);
+
+        // set quantized
+        this.quantized_bit_set = bit_set;
+        this.is_quantized = true;
 
         return bit_set;
     }
