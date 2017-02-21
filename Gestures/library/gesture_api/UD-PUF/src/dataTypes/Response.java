@@ -18,7 +18,7 @@ public class Response implements Serializable {
     }
 
     //TODO change this to test different quantization types
-    public static QuantizationType QTYPE = QuantizationType.FLAT_AVERAGE;
+    public static QuantizationType QTYPE = QuantizationType.CUMULATIVE_MOVING_AVERAGE;
     public static int RESPONSE_BITS = 128;
 
     public static boolean TRANSFORM_RESPONSE = false;
@@ -252,15 +252,20 @@ public class Response implements Serializable {
 
             // check if n is even
             List<Double> sub_list;
+            int ceiling;
             if(n%2 == 1){
                 // odd
                 // subList(from (inclusiv), to (exclusive))
                 // the sublist A[a:b] in python is (inclusive), (exclusive) also
-                sub_list = pressure_list.subList(floor, i + n/2 + 1);
+                ceiling = (i + n/2 + 1);
             }else{
                 // even
-                sub_list = pressure_list.subList(floor, i + n/2);
+                ceiling = (i + n/2);
             }
+
+            ceiling = (ceiling > pressure_list.size()) ? pressure_list.size() : ceiling;
+
+            sub_list = pressure_list.subList(floor, ceiling);
 
             double sum = 0;
             for(Double d : sub_list){
