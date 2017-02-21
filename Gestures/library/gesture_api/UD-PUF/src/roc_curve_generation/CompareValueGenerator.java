@@ -8,6 +8,7 @@ import dataTypes.UserDevicePair;
 import org.python.core.PyArray;
 import org.python.core.PyList;
 import org.python.core.PyObject;
+import org.python.core.PyString;
 import org.python.util.PythonInterpreter;
 import test.graph_points;
 
@@ -638,35 +639,47 @@ public class CompareValueGenerator {
      */
     //TODO make sure this method actually works
     public static void print_testu01_results(List<UDC> udc_list){
-        // create a list of responses
-        List<BitSet> response_list = new ArrayList<>();
+        //TODO change this method to run
+        //TODO TESTU01_output for each (user,device,challenge)
+        //TODO each one should put one file in the input directory
+
+        // create a map of <"user_device_challenge", List<response_string>>
+        Map<String, List<String>> response_map = new HashMap<>();
 
         for(int i=0; i<udc_list.size(); i++){
             // good, responses are 128 bit
             //System.out.println(udc_list.get(i).response.quantize());
-            response_list.add(udc_list.get(i).response.quantize());
+
+            String response_string = bit_set_to_string_no_comma(
+                    udc_list.get(i).response.quantize());
+
+            // add response to list in map
+            // this will create a new list if one does not exist
+            List<String> list = response_map.getOrDefault(udc_list.get(i).toString(), new ArrayList<>());
+            list.add(response_string);
+            response_map.putIfAbsent(udc_list.get(i).toString(), list);
         }
 
-        // create an array of strings for python
-        List<String> string_array = new ArrayList<>();
-        for(BitSet response : response_list){
-            string_array.add(bit_set_to_string_no_comma(response));
+        // iterate over the map
+        // this will make one file for each (user, device, challenge)
+        for(Map.Entry<String, List<String>> entry : response_map.entrySet()) {
+            // now run TestU01 on the response set
+            // this is done by calling a python script
+            //
+            // create properties to change the system path to python scripts director
+            Properties properties = setDefaultPythonPath(System.getProperties(), PYTHON_UTIL_DIRECTORY);
+
+            // create a Python Intrepeter for running python functions in util.py
+            PythonInterpreter interpreter = new PythonInterpreter();
+            interpreter.initialize(System.getProperties(), properties, new String[0]);
+            interpreter.exec("from test1_util import TESTU01_output");
+
+            // call the hamming function to compute average
+            // string_array should be List<String> with
+            // each element of the list one response by a (user, device, challenge)
+            PyObject function = interpreter.get("TESTU01_output");
+            function.__call__(new PyList(entry.getValue()), new PyString(entry.getKey()));
         }
-
-        // now run TestU01 on the response set
-        // this is done by calling a python script
-        //
-        // create properties to change the system path to python scripts director
-        Properties properties = setDefaultPythonPath(System.getProperties(), PYTHON_UTIL_DIRECTORY);
-
-        // create a Python Intrepeter for running python functions in util.py
-        PythonInterpreter interpreter = new PythonInterpreter();
-        interpreter.initialize(System.getProperties(), properties, new String[0]);
-        interpreter.exec("from test1_util import TESTU01");
-
-        // call the hamming function to compute average
-        PyObject function = interpreter.get("TESTU01");
-        function.__call__(new PyList(string_array));
     }
 
     /**

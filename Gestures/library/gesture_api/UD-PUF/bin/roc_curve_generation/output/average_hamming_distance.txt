@@ -62,7 +62,16 @@ total microseconds: 2432768
 ##
 
 # FLAT_AVERAGE
-
+same [user, device, challenge] average_hamming_distance
+101 : 40.65673705379588
+111 : 34.23515562339914
+011 : 47.90265125368229
+001 : 48.04388702542414
+110 : 46.984454499748615
+010 : 49.13867839593676
+100 : 47.00307706231051
+000 : 48.93792415480168
+total microseconds: 2876828
 
 # N_5_MOVING_AVERAGE
 same [user, device, challenge] average_hamming_distance
