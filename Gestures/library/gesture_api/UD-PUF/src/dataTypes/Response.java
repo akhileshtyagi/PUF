@@ -173,15 +173,6 @@ public class Response implements Serializable {
             return bit_set;
         }
 
-        // create properties to change the system path to python scripts director
-        Properties properties = setDefaultPythonPath(System.getProperties(), PYTHON_UTIL_DIRECTORY);
-
-        // create a Python Intrepeter for running python functions in util.py
-        PythonInterpreter interpreter = new PythonInterpreter();
-        interpreter.initialize(System.getProperties(), properties, new String[0]);
-        interpreter.exec("from util " +
-                "import simpleMovingAverage, cumulativeMovingAverage");
-
         // create a python dataList object
         List<Double> pressure_list = new ArrayList<>();
 
@@ -189,46 +180,97 @@ public class Response implements Serializable {
             pressure_list.add(p.getPressure());
         }
 
-        PyObject quantization;
-        PyObject quantized_list = null;
-        int n = 5;
+        List<Double> average_list = new ArrayList<>();
 
         // choose quantization method
         if(QTYPE == QuantizationType.FLAT_AVERAGE){
             bit_set = flat_average_quantization(pressure_list);
         }else{
             if(QTYPE == QuantizationType.CUMULATIVE_MOVING_AVERAGE) {
-                quantization = interpreter.get("cumulativeMovingAverage");
-                quantized_list = quantization.__call__(new PyList(pressure_list));
+                // construct a moving average list
+                average_list = cumulative_average_list(pressure_list);
             }else{
-                quantization = interpreter.get("simpleMovingAverage");
+                // n is the window size
+                int n = (QTYPE == QuantizationType.N_5_MOVING_AVERAGE) ? 5 : 10;
 
-                if(QTYPE == QuantizationType.N_5_MOVING_AVERAGE){
-                    n = 5;
-                }else {
-                    n = 10;
-                }
-
-                quantized_list = quantization.__call__(new PyList(pressure_list), new PyInteger(n));
+                // construct a moving average list
+                average_list = window_average_list(pressure_list, n);
             }
 
-            // turn the normalized pressure list into a java object
-            Object npl_o = quantized_list.__tojava__(Collection.class);
-            List<Boolean> npl = (List<Boolean>)npl_o;
-
-            // set the appropriate bits in bit set based on list returned
-            for(int i=0; i<npl.size(); i++){
-                if(npl.get(i)) bit_set.set(i);
+            // set bits that are above the moving average
+            for(int i=0; i<pressure_list.size(); i++){
+                Double d = pressure_list.get(i);
+                if(d >= average_list.get(i)) bit_set.set(i);
             }
         }
-
-//        System.out.println("bits: " + bit_set);
 
         // set quantized
         this.quantized_bit_set = bit_set;
         this.is_quantized = true;
 
         return bit_set;
+    }
+
+    /**
+     * given a list of pressure values,
+     * return a list of the cumulative average up until i
+     * the value at index i is the average up until that point
+     *
+     * average up to and including i
+     */
+    //TODO ensure this method works
+    private List<Double> cumulative_average_list(List<Double> pressure_list){
+        List<Double> average_list = new ArrayList<Double>();
+
+        for(int i=0; i<pressure_list.size(); i++){
+            List<Double> sub_list = pressure_list.subList(0, i+1);
+
+            double sum = 0;
+            for(Double d : sub_list){
+                sum += d;
+            }
+
+            average_list.add(sum / sub_list.size());
+        }
+
+        return average_list;
+    }
+
+    /**
+     * given a list of pressure values,
+     * return an average of the sliding window around the pressure values
+     *
+     * n is the window size
+     */
+    //TODO test this method
+    private List<Double> window_average_list(List<Double> pressure_list, int n){
+        List<Double> average_list = new ArrayList<Double>();
+
+        for(int i=0; i<pressure_list.size(); i++){
+            int floor = i - n/2;
+            floor = floor < 0 ? 0 : floor;
+
+            // check if n is even
+            List<Double> sub_list;
+            if(n%2 == 1){
+                // odd
+                // subList(from (inclusiv), to (exclusive))
+                // the sublist A[a:b] in python is (inclusive), (exclusive) also
+                sub_list = pressure_list.subList(floor, i + n/2 + 1);
+            }else{
+                // even
+                sub_list = pressure_list.subList(floor, i + n/2);
+            }
+
+            double sum = 0;
+            for(Double d : sub_list){
+                sum += d;
+            }
+
+            average_list.add(sum / sub_list.size());
+        }
+
+        return average_list;
     }
 
     /**

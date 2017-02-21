@@ -1,0 +1,27 @@
+##
+# This file contains the results of
+# the average hamming distance tests
+# for each quantization type
+# on 128 bit responses
+##
+
+# FLAT_AVERAGE
+same [user, device, challenge] average_hamming_distance
+110 : 46.536
+011 : 75.24752475247524
+000 : 52.59920634920635
+111 : 60.04
+100 : 47.156
+001 : 66.05392156862744
+101 : 73.63461538461539
+010 : 52.69860279441118
+microseconds taken per response: 2474
+
+# N_5_MOVING_AVERAGE
+
+
+# N_10_MOVING_AVERAGE
+
+
+# CUMULATIVE_MOVING_AVERAGE
+
