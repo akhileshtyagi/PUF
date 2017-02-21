@@ -5,6 +5,10 @@
 # on 128 bit responses
 ##
 
+##
+# simple normalization
+##
+
 # FLAT_AVERAGE
 same [user, device, challenge] average_hamming_distance
 111 : 57.27189464696903
@@ -42,4 +46,56 @@ same [user, device, challenge] average_hamming_distance
 total microseconds: 2590796
 
 # CUMULATIVE_MOVING_AVERAGE
+same [user, device, challenge] average_hamming_distance
+111 : 54.66430364026804
+011 : 60.30698931526294
+100 : 62.045049801147364
+110 : 62.74270990447461
+101 : 58.19819004524887
+001 : 60.92581789898401
+010 : 61.271315206633105
+000 : 61.11704047384776
+total microseconds: 2432768
 
+##
+# complex normalization
+##
+
+# FLAT_AVERAGE
+
+
+# N_5_MOVING_AVERAGE
+same [user, device, challenge] average_hamming_distance
+111 : 58.289306874337015
+101 : 59.002815485168426
+110 : 59.54815485168427
+010 : 60.0737240626987
+001 : 59.741884205920954
+011 : 59.69059957027718
+100 : 59.61082703591414
+000 : 60.03588568383963
+total microseconds: 2224499
+
+# N_10_MOVING_AVERAGE
+same [user, device, challenge] average_hamming_distance
+101 : 57.7635872297637
+111 : 56.009986804998576
+011 : 59.37964358283831
+001 : 59.4551358708862
+110 : 60.22663650075415
+100 : 60.29343459482833
+010 : 60.529586656010764
+000 : 60.48609258387813
+total microseconds: 2868154
+
+# CUMULATIVE_MOVING_AVERAGE
+same [user, device, challenge] average_hamming_distance
+010 : 46.84413215651731
+101 : 35.25879839115133
+011 : 43.52121877947053
+111 : 29.786913663294612
+001 : 43.768888240727236
+110 : 43.910568124685774
+100 : 43.61215691006632
+000 : 46.68533984886963
+total microseconds: 2783186

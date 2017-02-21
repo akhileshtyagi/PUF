@@ -623,8 +623,8 @@ public class CompareValueGenerator {
         long start_time = System.nanoTime();
 
         //TODO uncomment
-        //print_testu01_results(udc_list);
-        print_average_hamming(udc_list);
+        print_testu01_results(udc_list);
+        //print_average_hamming(udc_list);
 
         long end_time = System.nanoTime();
         long duration_micros = (end_time - start_time) / 1000;

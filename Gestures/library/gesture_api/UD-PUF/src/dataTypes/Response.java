@@ -18,7 +18,9 @@ public class Response implements Serializable {
     }
 
     //TODO change this to test different quantization types
-    public static QuantizationType QTYPE = QuantizationType.CUMULATIVE_MOVING_AVERAGE;
+    /* true for more complex normalization algorithm */
+    public static boolean TWO_AXIS_NORMALIZATION = true;
+    public static QuantizationType QTYPE = QuantizationType.FLAT_AVERAGE;
     public static int RESPONSE_BITS = 128;
 
     public static boolean TRANSFORM_RESPONSE = false;
@@ -59,7 +61,7 @@ public class Response implements Serializable {
      */
     public void normalize(List<Point> normalizingPoints) {
         //TODO use this true,false to toggle the type of normalization preformed
-        normalize(normalizingPoints, false);
+        normalize(normalizingPoints, TWO_AXIS_NORMALIZATION);
     }
 
     /**
@@ -736,7 +738,8 @@ public class Response implements Serializable {
             curPoint = responsePattern.get(j);
 
             while (computeEuclideanDistance(prevPoint, curPoint) < remainingDistance) {
-                if (j >= responsePattern.size()) {
+                //TODO added the -1, what is the effect
+                if (j >= responsePattern.size()-1) {
                     this.normalizedResponsePattern = newNormalizedList;
                     return;
                 }
