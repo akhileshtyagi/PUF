@@ -624,8 +624,8 @@ public class CompareValueGenerator {
         long start_time = System.nanoTime();
 
         //TODO uncomment
-        print_testu01_results(udc_list);
-        //print_average_hamming(udc_list);
+        //print_testu01_results(udc_list);
+        print_average_hamming(udc_list);
 
         long end_time = System.nanoTime();
         long duration_micros = (end_time - start_time) / 1000;
@@ -687,6 +687,136 @@ public class CompareValueGenerator {
      */
     //TODO make sure this method actually works
     public static void print_average_hamming(List<UDC> udc_list){
+        ExecutorService cached_pool = Executors.newCachedThreadPool();
+        Collection<Future<?>> task_list = new LinkedList<>();
+
+        // create condition_map which
+        // maps a condition of user,device,challenge same to
+        // a map from udc.toString to hamming distance for that udc
+        Map<String, Map<String, List<Integer>>> condition_map =
+                Collections.synchronizedMap(new HashMap<>());
+
+        // for each quantized response, compute average hamming distance
+        // compared to all other responses which meet a condition
+        for(int i=0; i<udc_list.size(); i++){
+            // specify a final variable to be accessed by thread
+            final int k = i;
+
+            // spawn a new thread to handle each value of i
+            task_list.add(cached_pool.submit(new Runnable(){
+                @Override
+                public void run() {
+                    for(int j = k + 1; j < udc_list.size(); j++){
+                        // user,device,challenge conditions
+                        UDC udc0 = udc_list.get(k);
+                        UDC udc1 = udc_list.get(j);
+
+                        // determine the condition of the current compairason
+                        boolean[] condition = new boolean[3];
+                        condition[0] = udc0.user.equals(udc1.user);
+                        condition[1] = udc0.device.equals(udc1.device);
+                        condition[2] = udc0.challenge == udc1.challenge;
+
+                        // do all the work outside of the synchronized access
+                        String condition_string = condition_to_string(condition);
+                        int hamming_distance = hamming_distance(udc0.response.quantize(), udc1.response.quantize());
+
+                        synchronized (condition_map) {
+                            // compute the hamming distance and add it to the list of hamming
+                            // distances for the current condition
+                            Map<String, List<Integer>> map = condition_map.getOrDefault(condition_string,
+                                    Collections.synchronizedMap(new HashMap<>()));
+
+                            // depending on the condition, I construct the key to the map
+                            // differently
+                            // in the same user, same challenge, shame device case,
+                            // I key to be "user_device_challenge"
+                            // in same user, same challenge, different device
+                            // i need "user_device"
+                            //
+                            // I need this so I can average for each "key"
+                            // and then average over all keys
+                            String key = "";
+                            key += condition[0] ? udc0.user + "_" : "";
+                            key += condition[1] ? udc0.device + "_" : "";
+                            key += condition[2] ? udc0.challenge : "";
+
+                            synchronized (map) {
+                                List<Integer> list = map.getOrDefault(key,
+                                        Collections.synchronizedList(new ArrayList<>()));
+
+                                synchronized (list){
+                                    list.add(hamming_distance);
+                                }
+
+                                map.putIfAbsent(key, list);
+                            }
+
+                            // need to put the list on to condition map if the list is new
+                            condition_map.putIfAbsent(condition_string, map);
+                        }
+                    }
+                }
+            }));
+        }
+
+        // wait on all task completion
+        for(Future<?> task : task_list){
+            try{ task.get(); } catch(Exception e){ e.printStackTrace(); }
+        }
+
+        // remove all tasks up until this point from the list
+        task_list.clear();
+
+        // compute the average for each condition
+        System.out.println("same [user, device, challenge] average_hamming_distance");
+        for(Map.Entry<String, Map<String, List<Integer>>> entry : condition_map.entrySet()){
+            // use 8 threads to take the average
+            task_list.add(cached_pool.submit(new Runnable() {
+                @Override
+                public void run() {
+                    String key = entry.getKey();
+
+                    // compute the average hamming distance for each
+                    // list in the value map
+                    // the ultimate value will be the average of the average_list
+                    List<Double> average_list = new ArrayList<>();
+                    for(Map.Entry<String, List<Integer>> subentry : entry.getValue().entrySet()){
+                        double hamming_sum = 0;
+                        for (Integer integer : subentry.getValue()) {
+                            hamming_sum += integer;
+                        }
+
+                        average_list.add(hamming_sum / subentry.getValue().size());
+                    }
+
+                    // average the average_list
+                    double average_sum = 0;
+                    for(Double d : average_list){
+                        average_sum += d;
+                    }
+
+                    String value = String.valueOf(average_sum / average_list.size());
+
+                    System.out.println(key + " : " + value);
+                }
+            }));
+        }
+
+        // wait on all task completion
+        for(Future<?> task : task_list){
+            try{ task.get(); } catch(Exception e){ e.printStackTrace(); }
+        }
+
+        // shut down the thread pool
+        cached_pool.shutdown();
+    }
+
+    /**
+     * print the average hamming diatance
+     */
+    //TODO make sure this method actually works
+    public static void print_average_hamming_old(List<UDC> udc_list){
         ExecutorService cached_pool = Executors.newCachedThreadPool();
         Collection<Future<?>> task_list = new LinkedList<>();
 

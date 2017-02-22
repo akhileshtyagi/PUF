@@ -1,0 +1,409 @@
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+          Starting Rabbit:   nb = 500
+          Version: TestU01 1.2.3
+xxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxxx
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+smultin_MultinomialBitsOver test:
+-----------------------------------------------
+   N =  1,  n = 480,  r =  0,   s = 32,   L =   10,
+       Sparse =   TRUE
+
+       Number of bits = n = 480
+       Number of cells = 2^L =               1024
+       Expected number per cell =  1 /  2.1333333
+       EColl = n^2 / (2k) =        112.5
+       Hashing =  FALSE
+
+       Collision test
+       CollisionOver:   density = n / k =  1 /       2.13
+       Expected number of collisions = Mu =      85.50
+
+
+-----------------------------------------------
+Results of CollisionOver test:
+
+POISSON approximation                 :
+Expected number of collisions = N*Mu  :       85.50
+Observed number of collisions         :      390
+p-value of test                       :4.0e-127    *****
+
+-----------------------------
+Total number of cells containing j balls
+
+  j =  0                              :              934
+  j =  1                              :               59
+  j =  2                              :                9
+  j =  3                              :                2
+  j =  4                              :                2
+  j =  5                              :                3
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 480  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+snpair_ClosePairsBitMatch test:
+-----------------------------------------------
+   N =  1,  n =  7,  r =  0,  t = 2
+
+
+-----------------------------------------------
+Max of all bit distances              :   12.00
+p-value of test                       :  3.1e-7    *****
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 448  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+snpair_ClosePairsBitMatch test:
+-----------------------------------------------
+   N =  1,  n =  3,  r =  0,  t = 4
+
+
+-----------------------------------------------
+Max of all bit distances              :   0.000
+p-value of test                       :    0.18
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 384  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+svaria_AppearanceSpacings test:
+-----------------------------------------------
+   N =  1,   Q = 112,   K = 112,   r = 0,   s = 30,   L = 2
+
+   Sequences of n = (K + Q)L =          448 bits
+   Q =  112 initialization blocks
+   K =  112 blocks for the test
+   the blocks have L =  2 bits
+
+
+
+-----------------------------------------------
+Normal statistic                      :  -11.12
+p-value of test                       : 1 - eps1    *****
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 448  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+scomp_LinearComp test:
+-----------------------------------------------
+   N =  1,  n = 480,  r =  0,    s = 32
+
+
+
+-----------------------------------------------
+Number of degrees of freedom          :    2
+Chi2 statistic for size of jumps      :    0.60
+p-value of test                       :    0.74
+
+
+-----------------------------------------------
+Normal statistic for number of jumps  :  -0.043
+p-value of test                       :    0.52
+
+
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 480  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+scomp_LempelZiv test:
+-----------------------------------------------
+   N =  1,  n = 256,  r =  0,   s =   32,   k =    8
+
+
+-----------------------------------------------
+Normal statistic                      :  -16.16
+p-value of test                       : 1 - eps1    *****
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 256  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+sspectral_Fourier1 test:
+-----------------------------------------------
+   N =  1,  n = 256,  r =  0,   s =   32,   k =    8
+
+
+-----------------------------------------------
+Normal statistic                      :   -3.05
+p-value of test                       :    0.9989
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 256  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+sspectral_Fourier3 test:
+-----------------------------------------------
+   N =  7,  n = 32,  r =  0,   s =   32,   k =    5
+
+
+-----------------------------------------------
+
+Kolmogorov-Smirnov+ statistic = D+    :    0.57
+p-value of test                       :  2.6e-3
+
+Kolmogorov-Smirnov- statistic = D-    :    0.12
+p-value of test                       :    0.72
+
+Anderson-Darling statistic = A2       :    8.09
+p-value of test                       :  1.2e-4    *****
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 448  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+sstring_HammingCorr test:
+-----------------------------------------------
+   N =  1,  n = 15,  r =  0,   s = 32,   L = 32
+
+
+
+-----------------------------------------------
+Normal statistic                      :   30.10
+p-value of test                       :   eps      *****
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 480  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+sstring_HammingCorr test:
+-----------------------------------------------
+   N =  1,  n =  7,  r =  0,   s = 32,   L = 64
+
+
+
+-----------------------------------------------
+Normal statistic                      :   35.21
+p-value of test                       :   eps      *****
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 448  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+sstring_HammingCorr test:
+-----------------------------------------------
+   N =  1,  n =  3,  r =  0,   s = 32,   L = 128
+
+
+
+-----------------------------------------------
+Normal statistic                      :    3.71
+p-value of test                       :  1.0e-4    *****
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 384  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+sstring_AutoCor test:
+-----------------------------------------------
+   N =  1,  n = 417,  r =  0,   s = 32,   d = 1
+
+
+-----------------------------------------------
+Normal statistic                      :  -17.06
+p-value of test                       : 1 - eps1    *****
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 448  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+sstring_AutoCor test:
+-----------------------------------------------
+   N =  1,  n = 418,  r =  0,   s = 32,   d = 2
+
+
+-----------------------------------------------
+Normal statistic                      :  -14.71
+p-value of test                       : 1 - eps1    *****
+
+-----------------------------------------------
+CPU time used                    :  00:00:00.00
+
+Generator state:
+ 448  bits have been read.
+
+
+
+
+***********************************************************
+HOST = chai_tea, Linux
+
+ufile_CreateReadBin:   /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+
+
+sstring_Run test:
+-----------------------------------------------
+   N =  1,  n = 96,  r =  0,   s =   32
+
+*********  WARNING in file  sstring.c  on line  1390
+*********  sstring_Run:   all bits are 0 !
+
+========= Summary results of Rabbit =========
+
+ Version:          TestU01 1.2.3
+ File:             /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-79_3
+ Number of bits:   480
+ Number of statistics:  14
+ Total CPU time:   00:00:00.00
+ The following tests gave p-values outside [0.001, 0.9990]:
+ (eps  means a value < 1.0e-300):
+ (eps1 means a value < 1.0e-15):
+
+       Test                          p-value
+ ----------------------------------------------
+  1  MultinomialBitsOver           4.0e-127
+  2  ClosePairsBitMatch, t = 2       3.1e-7
+  4  AppearanceSpacings             1 - eps1
+  6  LempelZiv                      1 - eps1
+  8  Fourier3                        1.2e-4
+ 12  HammingCorr, L = 32              eps  
+ 13  HammingCorr, L = 64              eps  
+ 14  HammingCorr, L = 128            1.0e-4
+ 18  AutoCor                        1 - eps1
+ 19  AutoCor                        1 - eps1
+ ----------------------------------------------
+ All other tests were passed
+
+
+

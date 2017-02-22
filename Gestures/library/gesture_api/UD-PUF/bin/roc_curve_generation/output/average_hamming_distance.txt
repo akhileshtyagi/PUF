@@ -1,4 +1,8 @@
 ##
+# TODO THESE RESULTS ARE OLD
+##
+
+##
 # This file contains the results of
 # the average hamming distance tests
 # for each quantization type
