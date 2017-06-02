@@ -20,8 +20,10 @@ public class Response implements Serializable {
     //TODO change this to test different quantization types
     /* true for more complex normalization algorithm */
     public static boolean TWO_AXIS_NORMALIZATION = true;
-    public static QuantizationType QTYPE = QuantizationType.FLAT_AVERAGE;
-    public static int RESPONSE_BITS = 128;
+    public static QuantizationType QTYPE = QuantizationType.CUMULATIVE_MOVING_AVERAGE;
+    // TODO changed from 128
+    //public static int RESPONSE_BITS = 32;
+    public static int RESPONSE_BITS = 32;
 
     public static boolean TRANSFORM_RESPONSE = false;
 
@@ -70,8 +72,14 @@ public class Response implements Serializable {
      */
     public void normalize(List<Point> normalizingPoints, boolean two_axis_normalization) {
         if(two_axis_normalization) {
-            // this is the origional algorithm
-            normalize_8(normalizingPoints);
+            // normalize_8 is the algorithm the results are generated for
+            //normalize_8(normalizingPoints); // 93.06
+            //normalize_7(normalizingPoints); // 93.68
+
+            // trying other algorithms to see performance
+            //normalize_1(normalizingPoints); // 98.29
+            //normalize_6(normalizingPoints); // 98.15
+            normalize_9(normalizingPoints); // 99.38
         }else{
             normalize_one_axis(normalizingPoints);
         }
@@ -158,8 +166,6 @@ public class Response implements Serializable {
      *
      * returns a 128 BitSet
      */
-    //TODO rewrite quantization method in java
-    //TODO no need to use python functions.... they do not return what I am expecting
     public BitSet quantize(){
         // if previously quantized, return that value
         if(this.is_quantized){
@@ -541,6 +547,117 @@ public class Response implements Serializable {
             pressure = before_neighbor.getPressure()* before_weight+ after_neighbor.getPressure() * after_weight;
             distance = before_distance * before_weight + after_distance * after_weight;
             time = before_neighbor.getTime() * before_weight + after_neighbor.getTime() * after_weight;
+            newNormalizedList.add(new Point(x, y, pressure, distance, time));
+        }
+
+        this.normalizedResponsePattern = newNormalizedList;
+    }
+
+    /**
+     * every response point contributes to every
+     * normalized point.
+     *
+     * The contribution is weighted based on the distance
+     * from the normalizing point
+     *
+     * points further away contribute exponentially less
+     *
+     * The closest point at distance d, gets a contribution of 1
+     * all points get a contribution 1/e^(dist/d)
+     * dist is the distance of a point from the normalizing point
+     * d := dist of minimum distance response point
+     *
+     * the weight of each point is then
+     * the contribution of the point by
+     * the sum of all contributions
+     *
+     * if d is 0, then the pressure value of the normalizing point
+     * is defined to be the response point.
+     *
+     * The reasoning behind this is that
+     * if many response points are close to a normalizing point,
+     * then they should all contribute heavily, but
+     * if points are far away they should barely contribute,
+     * or not contribute at all.
+     *
+     * Why e? because it sounds cool.
+     */
+    //public static double BACKOFF_CONSTANT = 1000; // .9927
+    //public static double BACKOFF_CONSTANT = 100; // .9926
+    //public static double BACKOFF_CONSTANT = 10; // .9929
+    //public static double BACKOFF_CONSTANT = 5.0; // .9932
+    //public static double BACKOFF_CONSTANT = 4.0; // .9935
+    //public static double BACKOFF_CONSTANT = 3.0; // .9935
+    //public static double BACKOFF_CONSTANT = Math.E; // .9938
+    //public static double BACKOFF_CONSTANT = 2.0; // .9953
+    //public static double BACKOFF_CONSTANT = 1.75; // .995
+    public static double BACKOFF_CONSTANT = 1.5; // .9962
+    //public static double BACKOFF_CONSTANT = 1.425; // .996
+    //public static double BACKOFF_CONSTANT = 1.325; // .9959
+    //public static double BACKOFF_CONSTANT = 1.25; // .9969
+    //public static double BACKOFF_CONSTANT = 1.2; // .9968
+    //public static double BACKOFF_CONSTANT = 1.1; // .9971
+    public void normalize_9(List<Point> normalizingPoints) {
+        // responses of size <= 1 cannot be normalized
+        if(responsePattern.size() <= 1){ System.out.println("error: 42"); return; }
+
+        ArrayList<Point> newNormalizedList = new ArrayList<>();
+
+        for(Point np : normalizingPoints){
+            Point minimum_point = responsePattern.get(0);
+            double minimum_distance = Double.POSITIVE_INFINITY;
+
+            // compute the minimum distance
+            for(Point response_point : this.responsePattern){
+                double current_distance = Challenge.computeEuclideanDistance(np, response_point);
+
+                if(current_distance < minimum_distance){
+                    minimum_point = response_point;
+                    minimum_distance = current_distance;
+                }
+            }
+
+            // compute the contribution of each response
+            ArrayList<Double> contribution_list = new ArrayList<>();
+            double contribution_sum = 0.0;
+            for(Point response_point : this.responsePattern){
+                double current_distance = Challenge.computeEuclideanDistance(np, response_point);
+                double contribution = 1.0 / Math.pow(BACKOFF_CONSTANT, current_distance / minimum_distance);
+
+                // check if contribution is NaN, set 0 if it is NaN
+                contribution = (contribution != contribution) ? 0 : contribution;
+
+                //if(contribution != contribution){ System.out.println(contribution); }
+
+                contribution_list.add(contribution);
+                contribution_sum += contribution;
+            }
+
+            // multiply the values by the weight
+            double x,y,pressure,distance,time;
+            x = np.getX();
+            y = np.getY();
+            distance = minimum_distance;
+            time = 0;
+
+            // compute a weighted average of pressure values
+            // for all response points
+            pressure = 0.0;
+
+            // if contribution sum is 0.0, there
+            // is a response exactly at the normalizing point
+            // the normalizing point gets the value of the response point
+            if(contribution_sum == 0.0){
+                pressure = minimum_point.getPressure();
+            }else {
+                for (int i = 0; i < this.responsePattern.size(); i++) {
+                    //double c = contribution_list.get(i) / contribution_sum;
+                    //if (c != c) System.out.println(this.responsePattern);
+
+                    pressure += contribution_list.get(i) / contribution_sum * this.responsePattern.get(i).getPressure();
+                }
+            }
+
             newNormalizedList.add(new Point(x, y, pressure, distance, time));
         }
 

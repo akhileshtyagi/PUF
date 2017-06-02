@@ -151,4 +151,22 @@ public class Window implements Comparable<Window>{
 		
 		return string;
 	}
+
+	/**
+	 * returns a string formated for output to R
+     */
+	public String toRString(Map<Integer, List<Token>> token_map){
+		String s = "";
+
+		for(Touch t : this.window) {
+			// add underscore all times but first
+			if(s.length() != 0){
+				s += "_";
+			}
+
+			s += t.toRString(token_map);
+		}
+
+		return s;
+	}
 }

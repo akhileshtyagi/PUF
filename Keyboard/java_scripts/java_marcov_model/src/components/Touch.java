@@ -200,6 +200,9 @@ public class Touch implements Comparable<Touch>{
 	///this function will return true if the touches are contained within the smae token
 	/* and if the touches have the same keycode */
 	public boolean compare_with_token(List<Token> tokens, Touch other_touch){
+		//TODO does this break stuff
+		if(tokens == null) return false;
+
 		Token this_touch_token = null;
 		Token other_touch_token = null;
 		int i = 0;
@@ -314,5 +317,35 @@ public class Touch implements Comparable<Touch>{
 		string += "]";
 
 		return string;
+	}
+
+	/**
+	 * returns a string formated for output to R
+	 */
+	public String toRString(Map<Integer, List<Token>> token_map){
+		Token this_touch_token = null;
+		String s = "";
+
+		//TODO
+		s += this.key;
+
+		// encorporate the touch token into the identification
+		int i = -1;
+		List<Token> tokens = token_map.get(this.key);
+
+		if(!(tokens==null)) {
+			while ((this_touch_token == null) && (i < tokens.size()-1)) {
+				++i;
+				if (tokens.get(i).contains(this)) {
+					this_touch_token = tokens.get(i);
+					break;
+				}
+			}
+		}
+
+		s += ".";
+		s+= i;
+
+		return s;
 	}
 }

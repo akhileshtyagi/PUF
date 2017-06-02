@@ -21,7 +21,7 @@ public class Challenge implements Serializable {
     // number of elements in normalized list default value.
     //TODO modified
     //final static int NORMALIZED_ELEMENTS_DEFAULT = 32;
-    final static int NORMALIZED_ELEMENTS_DEFAULT = 128;
+    final static int NORMALIZED_ELEMENTS_DEFAULT = Response.RESPONSE_BITS;
 
     // threshold for determining if response has enough motion events
     final static int NORMALIZED_THRESHOLD = 20;

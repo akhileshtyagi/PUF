@@ -70,13 +70,13 @@ public class CompareValueGenerator {
         // read in all files from the data director and output them
         // in the format used by the r scripts
         //TODO uncomment if necessary
-        //output_data_directory(UDC_OUTPUT_FILE_NAME, false, false);
-        //output_data_directory(NORMALIZED_UCD_OUTPUT_FILE_NAME, true, false);
+        output_data_directory(UDC_OUTPUT_FILE_NAME, false, false);
+        output_data_directory(NORMALIZED_UCD_OUTPUT_FILE_NAME, true, false);
         output_data_directory(QUANTIZED_UCD_OUTPUT_FILE_NAME , true, true);
 
-        //System.out.println("data from: " + DATA_FOLDER_NAME);
-        //System.out.println("output to: " + UDC_OUTPUT_FILE_NAME);
-        //System.out.println("output to: " + NORMALIZED_UCD_OUTPUT_FILE_NAME);
+        System.out.println("data from: " + DATA_FOLDER_NAME);
+        System.out.println("output to: " + UDC_OUTPUT_FILE_NAME);
+        System.out.println("output to: " + NORMALIZED_UCD_OUTPUT_FILE_NAME);
         System.out.println("output to: " + QUANTIZED_UCD_OUTPUT_FILE_NAME );
     }
 
@@ -624,7 +624,7 @@ public class CompareValueGenerator {
         long start_time = System.nanoTime();
 
         //TODO uncomment
-        //print_testu01_results(udc_list);
+        print_testu01_results(udc_list);
         print_average_hamming(udc_list);
 
         long end_time = System.nanoTime();

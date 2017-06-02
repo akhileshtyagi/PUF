@@ -1,0 +1,115 @@
+ ##
+ # This file describes the results of PRG test
+ # done with complex shapes normalization
+ # and all quantization methods
+ #
+ # quantization was done on 128-bit responses
+ ##
+
+ #
+ # flat average
+ #
+ Version:          TestU01 1.2.3
+ File:             /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-59_5
+ Number of bits:   480
+ Number of statistics:  16
+ Total CPU time:   00:00:00.00
+ The following tests gave p-values outside [0.001, 0.9990]:
+ (eps  means a value < 1.0e-300):
+ (eps1 means a value < 1.0e-15):
+
+       Test                          p-value
+ ----------------------------------------------
+  1  MultinomialBitsOver           7.0e-151
+  2  ClosePairsBitMatch, t = 2       2.0e-8
+  4  AppearanceSpacings             1 - eps1
+  6  LempelZiv                      1 - eps1
+  8  Fourier3                        3.1e-4
+ 12  HammingCorr, L = 32             3.1e-8
+ 13  HammingCorr, L = 64            1 - eps1
+ 14  HammingCorr, L = 128            9.1e-7
+ 18  AutoCor                        1 - eps1
+ 19  AutoCor                        1 - eps1
+ 20  Run of bits                      eps
+ 20  Run of bits                      eps
+ ----------------------------------------------
+ All other tests were passed
+
+ #
+ # n=5
+ #
+ Version:          TestU01 1.2.3
+ File:             /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-59_6
+ Number of bits:   480
+ Number of statistics:  16
+ Total CPU time:   00:00:00.01
+ The following tests gave p-values outside [0.001, 0.9990]:
+ (eps  means a value < 1.0e-300):
+ (eps1 means a value < 1.0e-15):
+
+       Test                          p-value
+ ----------------------------------------------
+  1  MultinomialBitsOver            2.3e-75
+  6  LempelZiv                      1 -  6.1e-9
+  8  Fourier3                        3.1e-6
+ 18  AutoCor                        1 - eps1
+ 20  Run of bits                      eps
+ 20  Run of bits                      eps
+ ----------------------------------------------
+ All other tests were passed
+
+ #
+ # n=10
+ #
+ Version:          TestU01 1.2.3
+ File:             /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-59_4
+ Number of bits:   480
+ Number of statistics:  16
+ Total CPU time:   00:00:00.01
+ The following tests gave p-values outside [0.001, 0.9990]:
+ (eps  means a value < 1.0e-300):
+ (eps1 means a value < 1.0e-15):
+
+       Test                          p-value
+ ----------------------------------------------
+  1  MultinomialBitsOver           4.3e-109
+  3  ClosePairsBitMatch, t = 4       7.3e-4
+  4  AppearanceSpacings             1 -  5.3e-5
+  6  LempelZiv                      1 - eps1
+  8  Fourier3                        7.8e-9
+ 18  AutoCor                        1 - eps1
+ 19  AutoCor                        1 - 1.3e-11
+ 20  Run of bits                      eps
+ 20  Run of bits                      eps
+ ----------------------------------------------
+ All other tests were passed
+
+ #
+ # cumulative average
+ #
+ Version:          TestU01 1.2.3
+ File:             /home/element/PUF/Gestures/library/gesture_api/UD-PUF/src/roc_curve_generation/input_prg/tim_nexus-59_3
+ Number of bits:   480
+ Number of statistics:  14
+ Total CPU time:   00:00:00.00
+ The following tests gave p-values outside [0.001, 0.9990]:
+ (eps  means a value < 1.0e-300):
+ (eps1 means a value < 1.0e-15):
+
+       Test                          p-value
+ ----------------------------------------------
+  1  MultinomialBitsOver           1.5e-140
+  2  ClosePairsBitMatch, t = 2      4.5e-77
+  3  ClosePairsBitMatch, t = 4       7.3e-4
+  4  AppearanceSpacings             1 - eps1
+  5  LinearComp                     1 - eps1
+  5  LinearComp                     1 -  4.9e-9
+  6  LempelZiv                      1 - eps1
+  8  Fourier3                        1.1e-9
+ 12  HammingCorr, L = 32              eps
+ 13  HammingCorr, L = 64              eps
+ 14  HammingCorr, L = 128             eps
+ 18  AutoCor                        1 - eps1
+ 19  AutoCor                        1 - eps1
+ ----------------------------------------------
+ All other tests were passed

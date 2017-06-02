@@ -140,9 +140,7 @@ names(model_list) <- method_list
 
 # prepare training scheme(S)
 # 3 repeats of 10 fold crossvalidation
-control <- trainControl(method="repeatedcv", number=10, repeats=3)
-
-#stopifnot(F)
+control <- trainControl(method="repeatedcv", number=10, repeats=3, timingSamps=20)
 
 # train each model in model list
 for(i in 1:length(method_list)){

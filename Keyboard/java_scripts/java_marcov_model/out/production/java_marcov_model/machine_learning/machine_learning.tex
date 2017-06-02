@@ -1,0 +1,37 @@
+\subsection{Classification on Raw Data}
+The classifier is given raw touchscreen data.
+For each user interaction the classifer is given
+one row in the form
+{\tt "key", "pressure", "user"}.
+
+The classifier is then asked if it can correctly classify
+a single observation of
+{\tt "key", "pressure", "user"}.
+
+While the misclassification rate might be large with
+only one observation,
+using multiple observations for classification reduce
+misclassifications significantly.
+%For instance if one observation can
+%classify a user with $20\%$ accuracy
+
+\begin{verbatim}
+Resampling: Cross-Validated (10 fold, repeated 3 times) 
+Summary of sample sizes: 11700, 11700, 11700, 11700, 11700, 11700, ... 
+Resampling results across tuning parameters:
+
+  cost  Accuracy   Kappa     
+  0.25  0.1683333  0.09902778
+  0.50  0.1683333  0.09902778
+  1.00  0.1681026  0.09877778
+
+Accuracy was used to select the optimal model using  the largest value.
+The final value used for the model was cost = 0.25. 
+\end{verabatim}
+
+\subsection{Classification on Chain Characteristics}
+\subsubsection{Transition Probabilities}
+%TODO this is like the chan data that i'm reading in now
+
+\subsubsection{State Probabilities}
+%TODO how might this be done

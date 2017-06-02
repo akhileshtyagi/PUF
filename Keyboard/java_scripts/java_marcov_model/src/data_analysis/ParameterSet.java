@@ -54,4 +54,23 @@ public class ParameterSet {
 
         return string_builder.toString();
     }
+
+    /**
+     * return a string which will become part of a file name
+     */
+    public String toFileString(){
+        StringBuilder string_builder = new StringBuilder();
+
+        string_builder.append(this.window_size);
+        string_builder.append("_");
+        string_builder.append(this.token_size);
+        string_builder.append("_");
+        string_builder.append(this.threshold);
+        string_builder.append("_");
+        string_builder.append(this.user_model_size);
+        string_builder.append("_");
+        string_builder.append(this.auth_model_size);
+
+        return string_builder.toString();
+    }
 }
