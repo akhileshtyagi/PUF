@@ -27,13 +27,13 @@ public class CompareValueGenerator {
 
     /* the parameter set for which the ROC curve is to be generated
     *  (window, token, treshold, user_model_size, auth_model_size) */
-    public static int MODEL_SIZE = 800;
+    public static int MODEL_SIZE = 6400;
     //public static ParameterSet PARAMETER_SET = new ParameterSet(1, 2, 1000, MODEL_SIZE, MODEL_SIZE);
 
     // If window_size == model_size, is this equivilant to full markov chain
     //TODO compare value is always 0.0
     //TODO what probabilities are actually getting computed when this is done
-    public static ParameterSet PARAMETER_SET = new ParameterSet(MODEL_SIZE, 2, 1000, MODEL_SIZE, MODEL_SIZE);
+    public static ParameterSet PARAMETER_SET = new ParameterSet(1, 2, 1000, MODEL_SIZE, MODEL_SIZE);
 
     /* only handle challenges within the challenge set */
     public static int[] CHALLENGE_SET = {};
@@ -69,6 +69,7 @@ public class CompareValueGenerator {
         output_results(positive_list, compare_value_list, same_user_list,
                 same_device_list, output_file_name);
 
+        System.out.println();
         System.out.println("data from: " + DATA_FOLDER_NAME);
         System.out.println("output to: " + output_file_name);
     }

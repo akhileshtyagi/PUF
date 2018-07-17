@@ -54,7 +54,7 @@ series_name <- c("same user | same device",
 # set up the plot
 plot(rate_data$FNR, rate_data$FPR,
     xlab="FPR", ylab="FNR", main="ROC Curve",
-    xlim=c(0,1), ylim=c(0,1), type="n")
+    xlim=c(0,0.2), ylim=c(0,0.2), type="n")
 
 # plot each of the situations
 for(i in 2:ncol(rate_data)){

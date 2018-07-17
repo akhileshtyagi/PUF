@@ -21,11 +21,11 @@ public class ModelParameterCVG {
         the scripts are set up to accept things in this way. */
     //TODO adjust the sizes of things to generate more data
     //TODO on how model parameters affect the outcome
-    private final static int[] window_sizes = {1,2,3,4};
-    private final static int[] token_sizes = {1,2,3,4};
-    private final static int[] thresholds = {100, 500, 1000};
-    private static int[] user_model_sizes = {400, 800, 1600};
-    private static int[] auth_model_sizes = {400, 800, 1600};
+    private final static int[] window_sizes = {1};
+    private final static int[] token_sizes = {2};
+    private final static int[] thresholds = {1000};
+    private static int[] user_model_sizes = {400, 800, 1600,3200,6400,12800};
+    private static int[] auth_model_sizes = {400, 800, 1600,3200,6400,12800};
 
     public static void main(String[] args){
         List<ParameterSet> parameter_set_list = generate_parameter_set(

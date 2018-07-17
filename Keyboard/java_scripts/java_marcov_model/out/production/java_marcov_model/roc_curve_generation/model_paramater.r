@@ -29,7 +29,8 @@ data_directory <- "parameter_compare"
 max_files <- 100000
 
 # fixed value for FPR
-fixed_FPR <- 0.1
+#fixed_FPR <- 0.1
+fixed_FPR <- 0.001
 
 # read all the csv files in parameter compare folder
 files <- list.files(path = data_directory, pattern = ".csv",

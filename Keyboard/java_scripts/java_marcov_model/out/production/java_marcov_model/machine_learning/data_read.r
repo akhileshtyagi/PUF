@@ -137,8 +137,8 @@ read_chain <- function(folder_name){
 		#all_data_frame <- rbind.fill(all_data_frame, data)
 		all_data_frame <- rbind(all_data_frame, data)
 
-		#print(head(all_data_frame))
-		#stopifnot(F)
+		print(head(all_data_frame))
+		stopifnot(F)
 
 		#print(head(data))
 		#data_list <- append(data_list, data);

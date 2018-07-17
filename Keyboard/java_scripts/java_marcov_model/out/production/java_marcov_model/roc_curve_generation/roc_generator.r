@@ -1,4 +1,4 @@
-#! /usr/bin/R
+#! /usr/bin/Rscript
 
 source("utility.r")
 
