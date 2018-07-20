@@ -19,7 +19,9 @@ library(tools)
 
 # enumerate the model parameters
 model_parameter_list <- c("window_size", "token_size",
-    "threshold", "user_model_size", "auth_model_size")
+    "threshold", "user_model_size", "auth_model_size",
+    "total_model_size")
+#TODO ^
 
 #TODO set n_threshold <- 20000
 n_threshold <- 2000
@@ -30,7 +32,7 @@ max_files <- 100000
 
 # fixed value for FPR
 #fixed_FPR <- 0.1
-fixed_FPR <- 0.001
+fixed_FPR <- 0.01
 
 # read all the csv files in parameter compare folder
 files <- list.files(path = data_directory, pattern = ".csv",
@@ -52,6 +54,14 @@ for(i in 1:nrow(file_data)){
     file_data$data[[i]] <- read.csv(paste0(data_directory, "/",
         as.character(file_data$file_name[[i]])))
 }
+
+
+#TODO
+file_data$total_model_size<-file_data$user_model_size+file_data$auth_model_size
+file_data$total_model_size_unscaled<-file_data$user_model_size+file_data$auth_model_size
+file_data$user_model_size_unscaled<-file_data$user_model_size
+file_data$auth_model_size_unscaled<-file_data$auth_model_size
+
 
 # figure out which files belong with a given model parameter
 # that is, what files vary the model parameter while keeping
@@ -200,11 +210,11 @@ plot_series <- data.frame(parameter_value=I(parameter_value_list_list),
 pdf("output/model_parameter.pdf")
 
 # create colors, linetypes, for 4 situations
-colors <- rainbow(6, start=0.4)
+colors <- rainbow(7, start=0.4)
 # determines the type of line
-linetype <- c(1,2,4,5,6)
+linetype <- c(1,2,4,5,6,7)
 # determines the symbol used for the line
-plotchar <- c(18:22)
+plotchar <- c(18:23)
 
 # set up the plot ( this doesn't plot anything anyway,
 # so the arguments doen't matter. )

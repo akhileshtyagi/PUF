@@ -58,6 +58,9 @@ for(i in 1:nrow(file_data)){
 
 #TODO
 file_data$total_model_size<-file_data$user_model_size+file_data$auth_model_size
+file_data$total_model_size_unscaled<-file_data$user_model_size+file_data$auth_model_size
+file_data$user_model_size_unscaled<-file_data$user_model_size
+file_data$auth_model_size_unscaled<-file_data$auth_model_size
 
 
 # figure out which files belong with a given model parameter

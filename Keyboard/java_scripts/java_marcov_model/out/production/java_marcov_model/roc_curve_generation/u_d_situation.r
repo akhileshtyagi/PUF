@@ -37,7 +37,7 @@ rate_data$dd <- generate_threshold_data(
 # in each case plot the power of telling
 # a given situation vs. all other possibilities
 # the other option would be to take each pair and compare them
-pdf("output/u_d_situation.pdf", width = "6", height = "6")
+pdf("output/u_d_situation.pdf")
 
 # create colors, linetypes, for 4 situations
 colors <- rainbow(6, start=0.4)
@@ -63,7 +63,7 @@ for(i in 2:ncol(rate_data)){
 }
 
 # make a legend
-legend(0.45, 1.0, series_name, cex=1.0, col=colors,
+legend("topright", series_name, cex=1.0, col=colors,
     lty=linetype, title="Situation") #pch=plotchar,
 
 dev.off()

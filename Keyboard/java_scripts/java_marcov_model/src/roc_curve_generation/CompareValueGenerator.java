@@ -27,13 +27,14 @@ public class CompareValueGenerator {
 
     /* the parameter set for which the ROC curve is to be generated
     *  (window, token, treshold, user_model_size, auth_model_size) */
-    public static int MODEL_SIZE = 6400;
+    public static int MODEL_SIZE = 3200;
     //public static ParameterSet PARAMETER_SET = new ParameterSet(1, 2, 1000, MODEL_SIZE, MODEL_SIZE);
 
     // If window_size == model_size, is this equivilant to full markov chain
     //TODO compare value is always 0.0
     //TODO what probabilities are actually getting computed when this is done
-    public static ParameterSet PARAMETER_SET = new ParameterSet(1, 2, 1000, MODEL_SIZE, MODEL_SIZE);
+    //public static ParameterSet PARAMETER_SET = new ParameterSet(1, 2, 1000, MODEL_SIZE, MODEL_SIZE);
+    public static ParameterSet PARAMETER_SET = new ParameterSet(1, 2, 1000, 1600, 3200);
 
     /* only handle challenges within the challenge set */
     public static int[] CHALLENGE_SET = {};
