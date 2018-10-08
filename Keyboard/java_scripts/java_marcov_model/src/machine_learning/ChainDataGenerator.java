@@ -29,7 +29,7 @@ public class ChainDataGenerator {
     /* the parameter set for which the ROC curve is to be generated
     *  (window, token, treshold, user_model_size, auth_model_size)
     *  large values will cause every touch in the file to be used */
-    public static int MODEL_SIZE = 800;
+    public static int MODEL_SIZE = 6400;
     //public static int MODEL_SIZE = 10000;
 
     /* setting WINDOW_SIZE = MODEL_SIZE computes the full markov chain */
@@ -37,7 +37,10 @@ public class ChainDataGenerator {
     public static int WINDOW_SIZE = 2;
     //public static int WINDOW_SIZE = MODEL_SIZE;
 
-    public static ParameterSet PARAMETER_SET = new ParameterSet(WINDOW_SIZE, 2, 1000, MODEL_SIZE, MODEL_SIZE);
+    //TODO choose parameter set
+    //public static ParameterSet PARAMETER_SET = new ParameterSet(WINDOW_SIZE, 2, 1000, MODEL_SIZE, MODEL_SIZE);
+    public static ParameterSet PARAMETER_SET = new ParameterSet(1, 2, 1000, MODEL_SIZE, MODEL_SIZE);
+    //public static ParameterSet PARAMETER_SET = new ParameterSet(1, 2, 1000, 1600, 3200);
 
     /* only handle challenges within the challenge set */
     public static int[] CHALLENGE_SET = {};

@@ -1,9 +1,12 @@
+#! /usr/bin/Rscript
+
 ##
 # the purpose of this file is to compare
 # different machine learning classifiers
 # and determine which is the best for solving
 # this problem
 ##
+#install.packages('caret', dependencies=TRUE)
 library(caret)
 
 source("data_read.r")
@@ -77,7 +80,9 @@ TUNE_LENGTH <- 1 #3
 #	perhaps make a map<possible_token, int>
 #TODO update PUF repository.... (remove .Rdata)
 #data <- read_chain("chain_data/2_2_1000_10000_10000")
-data <- read_chain("chain_data/2_2_1000_800_800")
+#data <- read_chain("chain_data/2_2_1000_800_800")
+#data <- read_chain("chain_data/1_2_1000_1600_3200")
+data <- read_chain("chain_data/1_2_1000_6400_6400")
 
 # way 1 of giving it to the classifier.... 20% accuracy
 #raw_data <- read_chain_data("chain_data/2_2_1000_10000_10000")
