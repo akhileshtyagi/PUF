@@ -1,0 +1,124 @@
+1-sequence
+
+> model_list$svmLinear2$times
+$everything
+   user  system elapsed 
+228.620   0.000 228.706 
+
+$final
+   user  system elapsed 
+ 24.919   0.000  24.950 
+
+$prediction
+   user  system elapsed 
+  0.019   0.000   0.019 
+
+> model_list$svmRadial$times
+$everything
+    user   system  elapsed 
+1080.540    3.689 1084.757 
+
+$final
+   user  system elapsed 
+ 92.268   0.561  92.833 
+
+$prediction
+   user  system elapsed 
+   0.14    0.00    0.14 
+
+> model_list$svmPoly$times
+$everything
+   user  system elapsed 
+741.367  41.516 783.400 
+
+$final
+   user  system elapsed 
+ 72.489   4.866  77.410 
+
+$prediction
+   user  system elapsed 
+  0.106   0.000   0.106 
+
+
+2-sequence
+
+> model_list$svmLinear2$times
+$everything
+   user  system elapsed 
+286.287   0.000 286.310 
+
+$final
+   user  system elapsed 
+ 30.196   0.000  30.196 
+
+$prediction
+   user  system elapsed 
+  0.022   0.000   0.022 
+
+> model_list$svmRadial$times
+$everything
+   user  system elapsed 
+959.767   6.504 966.597 
+
+$final
+   user  system elapsed 
+ 83.669   1.025  84.838 
+
+$prediction
+   user  system elapsed 
+  0.116   0.000   0.116 
+
+> model_list$svmPoly$times
+$everything
+   user  system elapsed 
+771.766  61.336 833.713 
+
+$final
+   user  system elapsed 
+ 77.414   6.811  84.463 
+
+$prediction
+   user  system elapsed 
+   0.12    0.00    0.12
+
+
+3-sequence
+
+> model_list$svmLinear2$times
+$everything
+   user  system elapsed 
+286.205   0.000 286.199 
+
+$final
+   user  system elapsed 
+ 29.622   0.000  29.622 
+
+$prediction
+   user  system elapsed 
+  0.022   0.000   0.022 
+
+> model_list$svmRadial$times
+$everything
+   user  system elapsed 
+896.402   3.745 900.208 
+
+$final
+   user  system elapsed 
+ 77.080   0.314  77.404 
+
+$prediction
+   user  system elapsed 
+  0.122   0.000   0.121 
+
+> model_list$svmPoly$times
+$everything
+   user  system elapsed 
+778.000  71.725 849.850 
+
+$final
+   user  system elapsed 
+ 77.823   7.232  85.062 
+
+$prediction
+   user  system elapsed 
+  0.117   0.000   0.118 

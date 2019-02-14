@@ -62,8 +62,9 @@ TUNE_LENGTH <- 1 #3
 # raw data
 ##
 # [key, pressure] [classification]
-#raw_data <- read_raw_data("../../data_sets")
-#data <- expand_raw_data(raw_data)
+raw_data <- read_raw_data("../../data_sets")
+data <- expand_raw_data(raw_data)
+data <- create_z_sequence(data,3)
 
 ##
 # chain_data
@@ -82,12 +83,11 @@ TUNE_LENGTH <- 1 #3
 #data <- read_chain("chain_data/2_2_1000_10000_10000")
 #data <- read_chain("chain_data/2_2_1000_800_800")
 #data <- read_chain("chain_data/1_2_1000_1600_3200")
-data <- read_chain("chain_data/1_2_1000_6400_6400")
+#data <- read_chain("chain_data/1_2_1000_6400_6400")
 
 # way 1 of giving it to the classifier.... 20% accuracy
 #raw_data <- read_chain_data("chain_data/2_2_1000_10000_10000")
 #data <- convert_feature_chain_data(raw_data)
-
 #data <- format_data(raw_data)
 
 #print(head(data))
@@ -99,9 +99,9 @@ data <- na.omit(data)
 print(paste("NA rows removed:", before_removal - nrow(data)))
 
 # define the machine learning methods to use
-method_list_test <- c("svmRadial")
-method_list_good <- c("svmLinear2", "svmRadial", "svmPoly", "ranger", "nb")
-method_list <- method_list_test #TODO change to _good
+method_list_test <- c("svmPoly")
+method_list_good <- c("svmLinear2", "svmRadial", "svmPoly")#, "ranger", "nb")
+method_list <- method_list_good #TODO change to _good
 
 # make a list for models
 model_list <- vector("list", length(method_list))
@@ -113,7 +113,9 @@ control <- trainControl(method="repeatedcv", number=10, repeats=REPEATS, timingS
 
 # extract featues and classification
 X = data[c(-1)]
-y = factor(data$classification)
+y = factor(data$X1) #TODO this is sort of error prone. No guarantee it is called X1.
+#y = data[c(1)]
+#y = factor(data$classification)
 
 #TODO 
 #print(head(data))
@@ -122,7 +124,7 @@ y = factor(data$classification)
 #stopifnot(FALSE)
 
 # specify tuning parameters
-grid <-  expand.grid(cost = c(16))
+grid <- expand.grid(cost = c(16))
 
 # train each model in model list
 for(i in 1:length(method_list)){
@@ -135,8 +137,8 @@ for(i in 1:length(method_list)){
 
 	model_list[[i]] <- train(X, y, method=method_list[i], trControl=control,
 				#TODO (pick one)
-				#tuneLength=TUNE_LENGTH)
-				tuneGrid=grid)
+				tuneLength=TUNE_LENGTH)
+				#tuneGrid=grid)
 }
 
 # print the results for each model
