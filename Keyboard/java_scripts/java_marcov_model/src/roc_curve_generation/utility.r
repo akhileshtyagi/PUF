@@ -133,3 +133,19 @@ compare_data_user_device <- function(compare_data, is_same_user, is_same_device)
 
     return(compare_data[match_vector, ])
 }
+
+# find the index which maximizes authentication accuracy in the given
+# threshold,FNR,FPR list
+# this is MAX(1-FNR-FPR)
+max_accuracy_index <- function(rate_data){
+	max_index <- 1
+	max_accuracy <- 0
+	for(i in 1:nrow(rate_data)){
+		accuracy <- 1-rate_data[i,"FNR"]-rate_data[i,"FPR"]
+		if(accuracy >= max_accuracy){
+			max_accuracy<-accuracy
+			max_index<-i
+		}
+	}
+	return(max_index)
+}
