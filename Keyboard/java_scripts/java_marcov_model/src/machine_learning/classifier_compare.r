@@ -66,6 +66,10 @@ raw_data <- read_raw_data("../../data_sets")
 data <- expand_raw_data(raw_data)
 data <- create_z_sequence(data,3)
 
+# reform the data to mix all the classifications together.
+# this will allow k-fold cross-validation to train with equal numbers from each data set
+data <- evenly_distribute_class(data)
+
 ##
 # chain_data
 ##
@@ -99,17 +103,17 @@ data <- na.omit(data)
 print(paste("NA rows removed:", before_removal - nrow(data)))
 
 # define the machine learning methods to use
-method_list_test <- c("svmPoly")
+method_list_test <- c("svmLinear2")
 method_list_good <- c("svmLinear2", "svmRadial", "svmPoly")#, "ranger", "nb")
-method_list <- method_list_good #TODO change to _good
+method_list <- method_list_test #TODO change to _good
 
 # make a list for models
 model_list <- vector("list", length(method_list))
 names(model_list) <- method_list
 
 # prepare training scheme(S)
-# 3 repeats of 10 fold crossvalidation
-control <- trainControl(method="repeatedcv", number=10, repeats=REPEATS, timingSamps=20)
+# 3 repeats of k-fold crossvalidation
+control <- trainControl(method="repeatedcv", number=5, repeats=REPEATS, timingSamps=20, sampling="down")
 
 # extract featues and classification
 X = data[c(-1)]

@@ -382,6 +382,15 @@ create_z_sequence<-function(data,z){
 	return(sequence_data)
 }
 
+##
+# evenly distribute classifications in the provided data
+# this re-forming of the data allows greater accuracy in k-fold cross validation
+##
+evenly_distribute_class<-function(data){
+	#TODO
+	return(data)
+}
+
 
 ##
 # test functions
