@@ -57,18 +57,23 @@ TUNE_LENGTH <- 1 #3
 ##
 # begin script
 ##
+raw_data_b <- FALSE
+chain_data_b <- FALSE
+successor_vector_b <- TRUE
 
 ##
 # raw data
 ##
 # [key, pressure] [classification]
-raw_data <- read_raw_data("../../data_sets")
-data <- expand_raw_data(raw_data)
-data <- create_z_sequence(data,3)
+if(raw_data_b){
+	raw_data <- read_raw_data("../../data_sets")
+	data <- expand_raw_data(raw_data)
+	data <- create_z_sequence(data,3)
+}
 
 # reform the data to mix all the classifications together.
 # this will allow k-fold cross-validation to train with equal numbers from each data set
-data <- evenly_distribute_class(data)
+#data <- evenly_distribute_class(data)
 
 ##
 # chain_data
@@ -90,9 +95,16 @@ data <- evenly_distribute_class(data)
 #data <- read_chain("chain_data/1_2_1000_6400_6400")
 
 # way 1 of giving it to the classifier.... 20% accuracy
-#raw_data <- read_chain_data("chain_data/2_2_1000_10000_10000")
-#data <- convert_feature_chain_data(raw_data)
-#data <- format_data(raw_data)
+if(chain_data_b){
+	raw_data <- read_chain_data("chain_data/2_2_1000_10000_10000")
+	data <- convert_feature_chain_data(raw_data)
+	data <- format_data(raw_data)
+}
+
+if(successor_vector_b){
+	raw_data <- read_successor_data("")
+	data <- raw_data
+}
 
 #print(head(data))
 #stopifnot(F)

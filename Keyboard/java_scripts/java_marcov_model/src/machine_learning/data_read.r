@@ -391,6 +391,12 @@ evenly_distribute_class<-function(data){
 	return(data)
 }
 
+read_successor_data<-function(folder_name){
+	data<-c()
+	#TODO
+	return(data)
+}
+
 
 ##
 # test functions
