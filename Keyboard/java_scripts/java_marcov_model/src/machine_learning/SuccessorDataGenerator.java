@@ -30,7 +30,7 @@ public class SuccessorDataGenerator {
     /* the parameter set for which the ROC curve is to be generated
     *  (window, token, treshold, user_model_size, auth_model_size)
     *  large values will cause every touch in the file to be used */
-    public static int MODEL_SIZE = 6400;
+    public static int MODEL_SIZE = 3200;
     //public static int MODEL_SIZE = 10000;
 
     /* setting WINDOW_SIZE = MODEL_SIZE computes the full markov chain */
@@ -99,12 +99,17 @@ public class SuccessorDataGenerator {
         for (File data_file : data_folder.listFiles()) {
             touch_list = ChainBuilder.parse_csv(data_file);
             for(Touch touch : touch_list) {
-                keycode_index_map.put(touch.get_key(), keycode_index_map.size());
+                // if the touch is not already in the map,
+                // then add it
+                if(!keycode_index_map.containsKey(touch.get_key()))
+                    keycode_index_map.put(touch.get_key(), keycode_index_map.size());
             }
         }
 
         // output chain files
         for (File data_file : data_folder.listFiles()) {
+            System.out.println(data_file.getName());
+
             // if multi_file_chain is enabled,
             // output many files for subsets of the data
             if (MULTI_FILE_CHAIN) {
@@ -245,7 +250,7 @@ public class SuccessorDataGenerator {
                     header += "\"ngram_" + i + "\",";
                 }
             } else {
-                header += "ngram,";
+                header += "ngram,prob_ngram";
             }
 
             // add successor vector to header
@@ -255,7 +260,7 @@ public class SuccessorDataGenerator {
             //TODO
             int successor_vector_size=PARAMETER_SET.token_size*keycode_index_map.size();
             for (int i = 0; i < successor_vector_size; i++) {
-                header += "\"key_"+i+"\"";
+                header += "\",key_"+i+"\"";
             }
 
             PrintWriter file = new PrintWriter(output_file, "UTF-8");
@@ -269,10 +274,10 @@ public class SuccessorDataGenerator {
             // for every unique ngram (window)
             //TODO
             ArrayList<String> sv_probability_list=new ArrayList<>();
-            for(int k=0;k<successor_vector_size;k++) sv_probability_list.add("");
+            for(int k=0;k<successor_vector_size;k++) sv_probability_list.add("0");
             for (int i = 0; i < unique_window_index_list.size(); i++) {
                 sv_probability_list.clear();
-                for(int k=0;k<successor_vector_size;k++) sv_probability_list.add("");
+                for(int k=0;k<successor_vector_size;k++) sv_probability_list.add("0");
                 Window window = chain.get_windows().get(unique_window_index_list.get(i));
 
                 // compute a list of indexes for the unique successors to window

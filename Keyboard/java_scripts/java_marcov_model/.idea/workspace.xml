@@ -24,22 +24,27 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
+          <entry key="csv_0" value="3" />
+          <entry key="csv_1" value="1" />
           <entry key="java" value="6" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JAVA" value="6" />
+          <entry key="PLAIN_TEXT" value="4" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="java" value="2626" />
+          <entry key="csv_0" value="1" />
+          <entry key="java" value="2909" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2626" />
+          <entry key="JAVA" value="2909" />
+          <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
     </session>
@@ -55,7 +60,7 @@
             <entry file="file://$PROJECT_DIR$/src/machine_learning/ChainDataGenerator.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state>
-                  <caret column="25" lean-forward="true" selection-start-column="25" selection-end-column="25" />
+                  <caret column="25" selection-start-column="25" selection-end-column="25" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -66,17 +71,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/machine_learning/SuccessorDataGenerator.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="615">
-                  <caret line="342" column="41" lean-forward="true" selection-start-line="342" selection-start-column="41" selection-end-line="342" selection-end-column="41" />
-                </state>
-              </provider>
-            </entry>
-          </file>
-          <file pinned="false" current-in-tab="false">
-            <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/compare_data.csv">
-              <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="13965">
-                  <caret line="931" selection-start-line="931" selection-end-line="931" />
+                <state relative-caret-position="315">
+                  <caret line="339" column="31" selection-start-line="339" selection-start-column="31" selection-end-line="339" selection-end-column="31" />
                 </state>
               </provider>
             </entry>
@@ -121,11 +117,11 @@
       </split-first>
       <split-second>
         <leaf>
-          <file pinned="false" current-in-tab="false">
+          <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/machine_learning/SuccessorDataGenerator.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="420">
-                  <caret line="269" column="18" selection-start-line="269" selection-start-column="18" selection-end-line="269" selection-end-column="18" />
+                <state relative-caret-position="210">
+                  <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
                 </state>
               </provider>
             </entry>
@@ -134,16 +130,16 @@
             <entry file="file://$PROJECT_DIR$/src/runtime/ChainBuilder.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="7">
-                  <caret line="168" column="21" lean-forward="true" selection-start-line="168" selection-start-column="21" selection-end-line="168" selection-end-column="21" />
+                  <caret line="168" column="21" selection-start-line="168" selection-start-column="21" selection-end-line="168" selection-end-column="21" />
                 </state>
               </provider>
             </entry>
           </file>
-          <file pinned="false" current-in-tab="true">
+          <file pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="780">
-                  <caret line="1252" lean-forward="true" selection-start-line="1252" selection-end-line="1252" />
+                <state relative-caret-position="210">
+                  <caret line="1253" column="32" lean-forward="true" selection-start-line="1253" selection-start-column="32" selection-end-line="1253" selection-end-column="32" />
                 </state>
               </provider>
             </entry>
@@ -194,8 +190,9 @@
         <option value="$PROJECT_DIR$/src/machine_learning/ChainDataGenerator.java" />
         <option value="$PROJECT_DIR$/../../../Gestures/library/gesture_api/UD-PUF/src/dataTypes/UserDevicePair.java" />
         <option value="$PROJECT_DIR$/src/runtime/ChainBuilder.java" />
-        <option value="$PROJECT_DIR$/src/machine_learning/SuccessorDataGenerator.java" />
         <option value="$PROJECT_DIR$/src/components/Touch.java" />
+        <option value="$PROJECT_DIR$/src/machine_learning/successor_data/1_2_1000_6400_6400/t_ian_d_ian.csv_0" />
+        <option value="$PROJECT_DIR$/src/machine_learning/SuccessorDataGenerator.java" />
       </list>
     </option>
   </component>
@@ -276,6 +273,11 @@
             <path>
               <item name="java_marcov_model" type="b2602c69:ProjectViewProjectNode" />
               <item name="java_marcov_model" type="462c0819:PsiDirectoryNode" />
+              <item name="data_sets" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java_marcov_model" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java_marcov_model" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -323,7 +325,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="expand all&#9;ACTION&#9;ExpandAllRegions" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550933949915" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550935384827" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -524,7 +526,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32929292" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49571735" weight="0.31023785" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49571735" visible="true" weight="0.3097998" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39512712" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -569,19 +571,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/src/utility/Utility.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="154" column="68" selection-start-line="154" selection-start-column="25" selection-end-line="154" selection-end-column="68" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/results/statistics_authentication_accuracy.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/results/statistics.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/results/model_compare_output_statistics.txt">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -771,13 +760,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/compare_data.csv">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="13965">
-          <caret line="931" selection-start-line="931" selection-end-line="931" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Window.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="780">
@@ -795,7 +777,7 @@
     <entry file="file://$PROJECT_DIR$/src/machine_learning/ChainDataGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <caret column="25" lean-forward="true" selection-start-column="25" selection-end-column="25" />
+          <caret column="25" selection-start-column="25" selection-end-column="25" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
@@ -833,14 +815,7 @@
     <entry file="file://$PROJECT_DIR$/src/runtime/ChainBuilder.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7">
-          <caret line="168" column="21" lean-forward="true" selection-start-line="168" selection-start-column="21" selection-end-line="168" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="780">
-          <caret line="1252" lean-forward="true" selection-start-line="1252" selection-end-line="1252" />
+          <caret line="168" column="21" selection-start-line="168" selection-start-column="21" selection-end-line="168" selection-end-column="21" />
         </state>
       </provider>
     </entry>
@@ -858,10 +833,37 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/roc_curve_generation/compare_data.csv">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="575">
+          <caret line="931" selection-start-line="931" selection-end-line="931" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/machine_learning/successor_data/1_2_1000_6400_6400/t_ian_d_ian.csv_1">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="1253" column="32" lean-forward="true" selection-start-line="1253" selection-start-column="32" selection-end-line="1253" selection-end-column="32" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/machine_learning/successor_data/1_2_1000_6400_6400/t_ian_d_ian.csv_0">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="8" selection-start-column="8" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/machine_learning/successor_data/1_2_1000_6400_6400/t_tim_d_n59.csv_0">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/machine_learning/SuccessorDataGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="615">
-          <caret line="342" column="41" lean-forward="true" selection-start-line="342" selection-start-column="41" selection-end-line="342" selection-end-column="41" />
+        <state relative-caret-position="210">
+          <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
         </state>
       </provider>
     </entry>
