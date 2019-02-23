@@ -213,6 +213,8 @@ public class ChainBuilder {
 		} catch (FileNotFoundException e) {
 			System.out.println("unable to open input file");
 			e.printStackTrace();
+		} finally {
+			scanner.close();
 		}
 
 		return touches;

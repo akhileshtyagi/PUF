@@ -59,6 +59,7 @@ expand_raw_data <- function(data){
 			   "key" = unlist(data[,1]),
 			   "pressure" = unlist(data[,2]))
 
+	# NOTE the return is here
 	return(data)
 
 
@@ -189,11 +190,13 @@ read_chain <- function(folder_name){
 	return(data)
 }
 
+
 #TODO test methods
-data <- read_chain("chain_data/2_2_1000_800_800")
-print(nrow(data))
-print(ncol(data))
-print(head(data))
+#data <- read_chain("chain_data/2_2_1000_800_800")
+#print(nrow(data))
+#print(ncol(data))
+#print(head(data))
+
 
 ##
 # convert raw_data into features for classification
@@ -345,6 +348,55 @@ format_data <- function(data){
 
 	return(data)
 }
+
+##
+# use a sliding window to generate z-sequences
+# z is the size of the sliding window
+# it indicates the number of touches from the same class which will be put into a sequence
+# INPUT -- 1-sequence of data (raw data) (class, key, pressure)
+# OUTPUT -- z-sequence of data (class, key0, pressure0, key1, pressure1, ..., keyz, pressurez)
+##
+create_z_sequence<-function(data,z){
+	sequence_data <- data.frame(matrix(nrow=0,ncol=1+z*2))
+	# create a row to be added to sequence_data
+	row<-c()
+	current_class<-""
+	for(i in 1:nrow(data)){
+		# if the class has changed,
+		# clear row
+		if(current_class!=data[[1]][i]){
+			row<-c()
+			current_class<-data[[1]][i]
+		}
+		# add key,pressure to row
+		row<-c(row,data[[2]][i],data[[3]][i])
+		# remove the first (key,pressure) elements from rows that are longer than they should be
+		if(length(row)>z*2){
+			row<-row[3:length(row)]
+		}
+		# add completed rows to sequence_data
+		if(length(row)==z*2){
+			sequence_data <- rbind(sequence_data, c(current_class,row))
+		}
+	}
+	return(sequence_data)
+}
+
+##
+# evenly distribute classifications in the provided data
+# this re-forming of the data allows greater accuracy in k-fold cross validation
+##
+evenly_distribute_class<-function(data){
+	#TODO
+	return(data)
+}
+
+read_successor_data<-function(folder_name){
+	data<-c()
+	#TODO
+	return(data)
+}
+
 
 ##
 # test functions

@@ -1,9 +1,12 @@
+#! /usr/bin/Rscript
+
 ##
 # the purpose of this file is to compare
 # different machine learning classifiers
 # and determine which is the best for solving
 # this problem
 ##
+#install.packages('caret', dependencies=TRUE)
 library(caret)
 
 source("data_read.r")
@@ -54,13 +57,23 @@ TUNE_LENGTH <- 1 #3
 ##
 # begin script
 ##
+raw_data_b <- FALSE
+chain_data_b <- FALSE
+successor_vector_b <- TRUE
 
 ##
 # raw data
 ##
 # [key, pressure] [classification]
-#raw_data <- read_raw_data("../../data_sets")
-#data <- expand_raw_data(raw_data)
+if(raw_data_b){
+	raw_data <- read_raw_data("../../data_sets")
+	data <- expand_raw_data(raw_data)
+	data <- create_z_sequence(data,3)
+}
+
+# reform the data to mix all the classifications together.
+# this will allow k-fold cross-validation to train with equal numbers from each data set
+#data <- evenly_distribute_class(data)
 
 ##
 # chain_data
@@ -78,16 +91,26 @@ TUNE_LENGTH <- 1 #3
 #TODO update PUF repository.... (remove .Rdata)
 #data <- read_chain("chain_data/2_2_1000_10000_10000")
 #data <- read_chain("chain_data/2_2_1000_800_800")
-data <- read_chain("chain_data/1_2_1000_1600_3200")
+#data <- read_chain("chain_data/1_2_1000_1600_3200")
+#data <- read_chain("chain_data/1_2_1000_6400_6400")
 
 # way 1 of giving it to the classifier.... 20% accuracy
-#raw_data <- read_chain_data("chain_data/2_2_1000_10000_10000")
-#data <- convert_feature_chain_data(raw_data)
+if(chain_data_b){
+	raw_data <- read_chain_data("chain_data/2_2_1000_10000_10000")
+	data <- convert_feature_chain_data(raw_data)
+	data <- format_data(raw_data)
+}
 
-#data <- format_data(raw_data)
+# output format
+#TODO is this correct?
+# [classification,<ngram>,<successor_vector>]
+if(successor_vector_b){
+	raw_data <- read_successor_data("successor_data/1_2_1000_6400_6400")
+	data <- raw_data
+}
 
-#print(head(data))
-#stopifnot(F)
+print(head(data))
+stopifnot(F)
 
 # remove NA from the data
 before_removal <- nrow(data)
@@ -95,8 +118,8 @@ data <- na.omit(data)
 print(paste("NA rows removed:", before_removal - nrow(data)))
 
 # define the machine learning methods to use
-method_list_test <- c("svmRadial")
-method_list_good <- c("svmLinear2", "svmRadial", "svmPoly", "ranger", "nb")
+method_list_test <- c("svmLinear2")
+method_list_good <- c("svmLinear2", "svmRadial", "svmPoly")#, "ranger", "nb")
 method_list <- method_list_test #TODO change to _good
 
 # make a list for models
@@ -104,12 +127,16 @@ model_list <- vector("list", length(method_list))
 names(model_list) <- method_list
 
 # prepare training scheme(S)
-# 3 repeats of 10 fold crossvalidation
-control <- trainControl(method="repeatedcv", number=10, repeats=REPEATS, timingSamps=20)
+# 3 repeats of k-fold crossvalidation
+control <- trainControl(method="repeatedcv", number=5, repeats=REPEATS, timingSamps=20, sampling="down")
 
 # extract featues and classification
+# X is all columns not the first column
 X = data[c(-1)]
-y = factor(data$classification)
+# y is the first column
+y = factor(data$X1) #TODO this is sort of error prone. No guarantee it is called X1.
+#y = data[c(1)]
+#y = factor(data$classification)
 
 #TODO 
 #print(head(data))
@@ -118,7 +145,7 @@ y = factor(data$classification)
 #stopifnot(FALSE)
 
 # specify tuning parameters
-grid <-  expand.grid(cost = c(16))
+grid <- expand.grid(cost = c(16))
 
 # train each model in model list
 for(i in 1:length(method_list)){
@@ -131,8 +158,8 @@ for(i in 1:length(method_list)){
 
 	model_list[[i]] <- train(X, y, method=method_list[i], trControl=control,
 				#TODO (pick one)
-				#tuneLength=TUNE_LENGTH)
-				tuneGrid=grid)
+				tuneLength=TUNE_LENGTH)
+				#tuneGrid=grid)
 }
 
 # print the results for each model

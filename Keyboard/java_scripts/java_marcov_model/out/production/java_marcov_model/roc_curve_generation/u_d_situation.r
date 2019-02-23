@@ -21,6 +21,8 @@ rate_data$ds <- generate_threshold_data(
 rate_data$dd <- generate_threshold_data(
     compare_data_user_device(compare_data, FALSE, FALSE), n_threshold)
 
+#stopifnot(F)
+
 #
 # understand the 4 situations
 # same_user_same_device
@@ -64,6 +66,21 @@ for(i in 2:ncol(rate_data)){
 
 # make a legend
 legend("topright", series_name, cex=1.0, col=colors,
-    lty=linetype, title="Situation") #pch=plotchar,
+    lty=linetype, title="Configuration") #pch=plotchar,
+
+# minimum error points	
+percent <- function(x) paste0(round(x,4) * 100, '%')
+for(i in (2:5)){
+	# same user, same device is the aggregate system performance across all configurations
+	# find the minimum FNR+FPR in this case
+	max_accuracy_index <- compute_max_accuracy_index(rate_data[[i]])
+	max_accuracy <- 1-rate_data[[i]][max_accuracy_index,"FNR"]-rate_data[[i]][max_accuracy_index,"FPR"]
+
+	# make this min FNR+FPR for sameuser, same device point obvious
+	x<-rate_data[[i]][max_accuracy_index,"FNR"]
+	y<-rate_data[[i]][max_accuracy_index,"FPR"]
+	points(x,y,pch=19)
+	text(x,y,labels=percent(max_accuracy),adj=c(-0.1,-0.3))
+}
 
 dev.off()

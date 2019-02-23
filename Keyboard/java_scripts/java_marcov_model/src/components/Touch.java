@@ -348,4 +348,25 @@ public class Touch implements Comparable<Touch>{
 
 		return s;
 	}
+
+	/**
+	 * get the token index for this Touch
+	 */
+	public int get_token_index(Map<Integer, List<Token>> token_map){
+		Token this_touch_token = null;
+		int i = -1;
+		List<Token> tokens = token_map.get(this.key);
+
+		if(!(tokens==null)) {
+			while ((this_touch_token == null) && (i < tokens.size()-1)) {
+				++i;
+				if (tokens.get(i).contains(this)) {
+					this_touch_token = tokens.get(i);
+					break;
+				}
+			}
+		}
+
+		return i;
+	}
 }

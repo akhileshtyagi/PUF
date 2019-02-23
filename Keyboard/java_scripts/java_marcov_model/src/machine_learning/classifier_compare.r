@@ -101,13 +101,16 @@ if(chain_data_b){
 	data <- format_data(raw_data)
 }
 
+# output format
+#TODO is this correct?
+# [classification,<ngram>,<successor_vector>]
 if(successor_vector_b){
-	raw_data <- read_successor_data("")
+	raw_data <- read_successor_data("successor_data/1_2_1000_6400_6400")
 	data <- raw_data
 }
 
-#print(head(data))
-#stopifnot(F)
+print(head(data))
+stopifnot(F)
 
 # remove NA from the data
 before_removal <- nrow(data)
@@ -128,7 +131,9 @@ names(model_list) <- method_list
 control <- trainControl(method="repeatedcv", number=5, repeats=REPEATS, timingSamps=20, sampling="down")
 
 # extract featues and classification
+# X is all columns not the first column
 X = data[c(-1)]
+# y is the first column
 y = factor(data$X1) #TODO this is sort of error prone. No guarantee it is called X1.
 #y = data[c(1)]
 #y = factor(data$classification)

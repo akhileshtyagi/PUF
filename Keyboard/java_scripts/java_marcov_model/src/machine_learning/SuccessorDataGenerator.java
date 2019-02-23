@@ -9,10 +9,7 @@ import trie.TrieList;
 
 import java.io.File;
 import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * read in all the data in data_sets directory and output
@@ -20,9 +17,14 @@ import java.util.Map;
  * same name in the output directory
  *
  * data is output to OUTPUT_FOLDER_ROOT/[parameter_set]/[file_name].csv
+ *
+ *
+ * This file is similar to ChainDataGenerate.java
+ * name of output data_folder is modified
+ * output_chain() is modified
  */
 public class SuccessorDataGenerator {
-    public static String OUTPUT_FOLDER_ROOT = "src/machine_learning/chain_data";
+    public static String OUTPUT_FOLDER_ROOT = "src/machine_learning/successor_data";
     public static String DATA_FOLDER_NAME = "data_sets/";
 
     /* the parameter set for which the ROC curve is to be generated
@@ -43,6 +45,9 @@ public class SuccessorDataGenerator {
 
     /* only handle challenges within the challenge set */
     public static int[] CHALLENGE_SET = {};
+
+    // map keycodes to index in the successor vector
+    public static HashMap<Integer,Integer> keycode_index_map = new HashMap<>();
 
     public static void main(String[] args) {
         // generate compare value data with the best ParameterSet
@@ -76,16 +81,29 @@ public class SuccessorDataGenerator {
             }
         }
 
-        //TODO perhaps I could do each output folder on a separate thread to speed this up
-
         // for every file in data folder
         // format is "time, keycode, pressure"
         File data_folder = new File(DATA_FOLDER_NAME);
 
+        // read all chains in data_folder
+        // each file is a list of interation data
+        // each file becomes a chain
         Chain chain = null;
         List<Chain> chain_list = null;
         List<Chain> all_chain_list = new ArrayList<>();
         List<File> output_file_list = new ArrayList<>();
+
+        // create keycode_index map for successor vector map
+        //TODO
+        List<Touch> touch_list = new ArrayList<>();
+        for (File data_file : data_folder.listFiles()) {
+            touch_list = ChainBuilder.parse_csv(data_file);
+            for(Touch touch : touch_list) {
+                keycode_index_map.put(touch.get_key(), keycode_index_map.size());
+            }
+        }
+
+        // output chain files
         for (File data_file : data_folder.listFiles()) {
             // if multi_file_chain is enabled,
             // output many files for subsets of the data
@@ -128,6 +146,7 @@ public class SuccessorDataGenerator {
             System.out.print("-");
         }
 
+        System.out.println();
         System.out.println("data from: " + DATA_FOLDER_NAME);
         System.out.println("output to: " + output_folder_root);
     }
@@ -202,13 +221,13 @@ public class SuccessorDataGenerator {
 
     /**
      * output the given chain to the given file name
+     *
+     * [<ngram>,<successor_vector>]
+     * ngram is the set of tokens creating the window
+     * successor vector is the probability of each token following a window
+     * successor vector has one entry for each token in the alphabet
      */
-    //TODO Split up the ngram into multiple features, one for each [ngram, key, probability, weight]
-    //TODO every model will contain the same output windows
-    //TODO if a window doesn't exist in a particular model,
-    //TODO then output 0's for every key, probability, weight
     public static boolean SPLIT_NGRAM = true;
-
     private static void output_chain(Chain chain, File output_file) {
         try {
             // create the file if it does not exist
@@ -219,6 +238,7 @@ public class SuccessorDataGenerator {
             // different windows/tokens will map to different integers
             Map<String, Integer> wt_map = new HashMap<>();
 
+            // add window to header
             String header = "";
             if (SPLIT_NGRAM) {
                 for (int i = 0; i < chain.get_window(); i++) {
@@ -228,7 +248,15 @@ public class SuccessorDataGenerator {
                 header += "ngram,";
             }
 
-            header += "\"key\",\"probability_key\",\"ngram_weight\"";
+            // add successor vector to header
+            // the successor vector size is the number of unique tokens
+            // how to compute the number of unique tokens? -- just an estimate right now
+            // how to get the same key sets in the successor vectors across models?
+            //TODO
+            int successor_vector_size=PARAMETER_SET.token_size*keycode_index_map.size();
+            for (int i = 0; i < successor_vector_size; i++) {
+                header += "\"key_"+i+"\"";
+            }
 
             PrintWriter file = new PrintWriter(output_file, "UTF-8");
 
@@ -239,7 +267,12 @@ public class SuccessorDataGenerator {
                     chain.get_token_map(), chain.get_tokens(), chain.get_windows());
 
             // for every unique ngram (window)
+            //TODO
+            ArrayList<String> sv_probability_list=new ArrayList<>();
+            for(int k=0;k<successor_vector_size;k++) sv_probability_list.add("");
             for (int i = 0; i < unique_window_index_list.size(); i++) {
+                sv_probability_list.clear();
+                for(int k=0;k<successor_vector_size;k++) sv_probability_list.add("");
                 Window window = chain.get_windows().get(unique_window_index_list.get(i));
 
                 // compute a list of indexes for the unique successors to window
@@ -255,41 +288,61 @@ public class SuccessorDataGenerator {
                     String key = String.valueOf(successor.toRString(chain.get_token_map()));
                     String probability_key = String.valueOf(
                             successor.get_probability(chain.get_token_map(), window));
-                    String ngram_weight = String.valueOf(
-                            ((double) ((TrieList) chain.get_windows()).occurrence_count(window)) /
-                                    ((double) chain.get_windows().size()));
 
                     // if there is no mapping for a given ngram or key, create it
                     if (wt_map.get(key) == null) wt_map.put(key, wt_map.size());
 
+                    // set the probability of the key to be output in the successor vector
+                    //TODO
+                    int token_index=successor.get_token_index(chain.get_token_map());
+                    int sv_index=keycode_index_map.get(successor.get_key())*PARAMETER_SET.token_size+token_index;
+                    // if the token is valid (not an outlier)
+                    if(token_index!=-1) sv_probability_list.set(sv_index,probability_key);
+
                     // convert the ngram and key to integers
                     // this must be done because R classifiers need integers
-                    key = String.valueOf(wt_map.get(key));
-
-                    String ngram;
-                    if (SPLIT_NGRAM) {
-                        // one feature for each key in the ngram
-                        ngram = "";
-                        String s;
-                        boolean first = true;
-                        for (Touch t : window.get_touch_list()) {
-                            s = String.valueOf(t.toRString(chain.get_token_map()));
-                            if (wt_map.get(s) == null) wt_map.put(s, wt_map.size());
-
-                            if (!first) ngram += ", ";
-                            else first = false;
-
-                            ngram += String.valueOf(wt_map.get(s));
-                        }
-                    } else {
-                        ngram = window.toRString(chain.get_token_map());
-
-                        if (wt_map.get(ngram) == null) wt_map.put(ngram, wt_map.size());
-                        ngram = String.valueOf(wt_map.get(ngram));
-                    }
-
-                    file.println(ngram + ", " + key + ", " + probability_key + ", " + ngram_weight);
+                    //key = String.valueOf(wt_map.get(key));
                 }
+
+                // weight of n_gram
+                String ngram_weight = String.valueOf(
+                        ((double) ((TrieList) chain.get_windows()).occurrence_count(window)) /
+                                ((double) chain.get_windows().size()));
+
+                String ngram;
+                if (SPLIT_NGRAM) {
+                    // one feature for each key in the ngram
+                    ngram = "";
+                    String s;
+                    boolean first = true;
+                    for (Touch t : window.get_touch_list()) {
+                        s = String.valueOf(t.toRString(chain.get_token_map()));
+                        if (wt_map.get(s) == null) wt_map.put(s, wt_map.size());
+
+                        if (!first) ngram += ", ";
+                        else first = false;
+
+                        ngram += String.valueOf(wt_map.get(s));
+                    }
+                } else {
+                    ngram = window.toRString(chain.get_token_map());
+
+                    if (wt_map.get(ngram) == null) wt_map.put(ngram, wt_map.size());
+                    ngram = String.valueOf(wt_map.get(ngram));
+                }
+
+                // the probability of the key is what is getting put into the file
+                // tokens for a given keycode are arranged next to one-another
+                // if keycode_index_map is 5 and token_size is 2
+                // then the index for a touch with token 0 is 5*2+0
+                // or (keycode_index_map)*(token_size)+(touch_token_index)
+                //TODO
+                //TODO make sure that the initial values are ""
+                String sv_string = "";
+                for (String prob : sv_probability_list) {
+                    sv_string += ", " + prob;
+                }
+                file.println(ngram + ", " + ngram_weight + sv_string);
             }
 
             file.close();
