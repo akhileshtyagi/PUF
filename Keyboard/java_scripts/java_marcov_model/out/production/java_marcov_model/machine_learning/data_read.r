@@ -391,10 +391,31 @@ evenly_distribute_class<-function(data){
 	return(data)
 }
 
+##
+# read successor data
+##
 read_successor_data<-function(folder_name){
-	data<-c()
-	#TODO
-	return(data)
+	data_list <- c()
+
+	rows <- 0;
+	for(file_name in list.files(folder_name)){
+		print(file_name)
+		data <- read.csv(paste0(folder_name, "/", file_name), header=TRUE)
+
+		# hold the file name with the data
+		data[,"class"] <- file_name
+
+		# append data to the list
+		data_list <- c(data_list, c(data));
+
+		rows <- rows + 1
+	}
+
+	# each row in matrix is the data from a file
+	data_list <- matrix(data_list, nrow=rows, byrow=TRUE)
+
+	# remove time from returned data
+	return(data_list[,c(2,3,4)])
 }
 
 

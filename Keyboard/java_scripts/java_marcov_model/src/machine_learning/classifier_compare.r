@@ -105,11 +105,12 @@ if(chain_data_b){
 # [classification,ngram,prob_ngram,<successor_vector>]
 if(successor_vector_b){
 	raw_data <- read_successor_data("successor_data/1_2_1000_3200_3200")
-	data <- raw_data
+	#data <- expand_successor_data(raw_data)
+	data<-data.frame(raw_data)
 }
 
-print(head(data))
-stopifnot(F)
+#print(head(data))
+#stopifnot(F)
 
 # remove NA from the data
 before_removal <- nrow(data)
@@ -130,12 +131,24 @@ names(model_list) <- method_list
 control <- trainControl(method="repeatedcv", number=5, repeats=REPEATS, timingSamps=20, sampling="down")
 
 # extract featues and classification
-# X is all columns not the first column
-X = data[c(-1)]
-# y is the first column
-y = factor(data$X1) #TODO this is sort of error prone. No guarantee it is called X1.
-#y = data[c(1)]
-#y = factor(data$classification)
+if(raw_data_b){
+	# raw data
+	# X is all columns not the first column
+	X = data[c(-1)]
+	# y is the first column
+	y = factor(data$X1) 
+}else{
+	# successor data
+	X=lapply(data,unlist)
+	X=X[1:length(X)-1]
+	X=data.frame(X)
+	#y = factor(data$X1) 
+	#y = factor(data$classification)
+	#y = data[c(1)]
+	#y = factor(data[ncol(data)])
+	y=factor(unlist(data[[ncol(data)]]))
+	#y=unlist(data[[ncol(data)]])
+}
 
 #TODO 
 #print(head(data))
@@ -155,9 +168,8 @@ for(i in 1:length(method_list)){
     #model_list[[i]] <- train(data, factor(row.names(data)),
     #   method=method_list[i], trControl=control, tuneLength=3)
 
-	model_list[[i]] <- train(X, y, method=method_list[i], trControl=control,
+	model_list[[i]] <- train(X, y, method=method_list[i], trControl=control,tuneLength=TUNE_LENGTH)
 				#TODO (pick one)
-				tuneLength=TUNE_LENGTH)
 				#tuneGrid=grid)
 }
 

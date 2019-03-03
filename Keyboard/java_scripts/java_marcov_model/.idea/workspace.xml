@@ -18,13 +18,14 @@
     <session id="1352834307">
       <usages-collector id="statistics.lifecycle.project">
         <counts>
+          <entry key="project.closed" value="1" />
           <entry key="project.open.time.9" value="1" />
           <entry key="project.opened" value="1" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="csv_0" value="3" />
+          <entry key="csv_0" value="7" />
           <entry key="csv_1" value="1" />
           <entry key="java" value="6" />
         </counts>
@@ -32,18 +33,18 @@
       <usages-collector id="statistics.file.types.open">
         <counts>
           <entry key="JAVA" value="6" />
-          <entry key="PLAIN_TEXT" value="4" />
+          <entry key="PLAIN_TEXT" value="8" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
           <entry key="csv_0" value="1" />
-          <entry key="java" value="2909" />
+          <entry key="java" value="2933" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="JAVA" value="2909" />
+          <entry key="JAVA" value="2933" />
           <entry key="PLAIN_TEXT" value="1" />
         </counts>
       </usages-collector>
@@ -71,8 +72,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/machine_learning/SuccessorDataGenerator.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="315">
-                  <caret line="339" column="31" selection-start-line="339" selection-start-column="31" selection-end-line="339" selection-end-column="31" />
+                <state relative-caret-position="225">
+                  <caret line="254" column="35" selection-start-line="254" selection-start-column="35" selection-end-line="254" selection-end-column="35" />
                 </state>
               </provider>
             </entry>
@@ -120,8 +121,8 @@
           <file pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/machine_learning/SuccessorDataGenerator.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="210">
-                  <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+                <state relative-caret-position="240">
+                  <caret line="263" column="28" selection-start-line="263" selection-start-column="28" selection-end-line="263" selection-end-column="28" />
                 </state>
               </provider>
             </entry>
@@ -139,7 +140,7 @@
             <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
               <provider selected="true" editor-type-id="text-editor">
                 <state relative-caret-position="210">
-                  <caret line="1253" column="32" lean-forward="true" selection-start-line="1253" selection-start-column="32" selection-end-line="1253" selection-end-column="32" />
+                  <caret line="1253" column="32" selection-start-line="1253" selection-start-column="32" selection-end-line="1253" selection-end-column="32" />
                 </state>
               </provider>
             </entry>
@@ -297,7 +298,15 @@
               <item name="java_marcov_model" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="machine_learning" type="462c0819:PsiDirectoryNode" />
-              <item name="chain_data" type="462c0819:PsiDirectoryNode" />
+              <item name="successor_data" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="java_marcov_model" type="b2602c69:ProjectViewProjectNode" />
+              <item name="java_marcov_model" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="machine_learning" type="462c0819:PsiDirectoryNode" />
+              <item name="successor_data" type="462c0819:PsiDirectoryNode" />
+              <item name="1_2_1000_3200_3200" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="java_marcov_model" type="b2602c69:ProjectViewProjectNode" />
@@ -325,7 +334,7 @@
   </component>
   <component name="PropertiesComponent">
     <property name="SearchEverywhereHistoryKey" value="expand all&#9;ACTION&#9;ExpandAllRegions" />
-    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550935384827" />
+    <property name="com.android.tools.idea.instantapp.provision.ProvisionBeforeRunTaskProvider.myTimeStamp" value="1550949415097" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="settings.editor.selected.configurable" value="preferences.keymap" />
     <property name="settings.editor.splitter.proportion" value="0.2" />
@@ -516,7 +525,7 @@
     <frame x="0" y="0" width="1920" height="1061" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.1696905" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.1696905" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Image Layers" order="2" />
       <window_info id="UI Designer" order="3" />
@@ -526,7 +535,7 @@
       <window_info id="Capture Tool" order="7" />
       <window_info anchor="bottom" id="Message" order="0" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32929292" />
-      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49571735" visible="true" weight="0.3097998" />
+      <window_info anchor="bottom" id="Run" order="2" sideWeight="0.49571735" weight="0.3097998" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.39512712" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
@@ -571,9 +580,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/results/model_compare_output_statistics.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/../../nexus_7_code/speed_test_results/nexus_speed_test_3.txt">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="573">
@@ -846,7 +852,7 @@
     <entry file="file://$PROJECT_DIR$/src/components/Chain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="210">
-          <caret line="1253" column="32" lean-forward="true" selection-start-line="1253" selection-start-column="32" selection-end-line="1253" selection-end-column="32" />
+          <caret line="1253" column="32" selection-start-line="1253" selection-start-column="32" selection-end-line="1253" selection-end-column="32" />
         </state>
       </provider>
     </entry>
@@ -860,10 +866,17 @@
     <entry file="file://$PROJECT_DIR$/src/machine_learning/successor_data/1_2_1000_6400_6400/t_tim_d_n59.csv_0">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/machine_learning/successor_data/1_2_1000_3200_3200/t_ian_d_ian.csv_0">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="10" selection-start-column="10" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/machine_learning/SuccessorDataGenerator.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="32" column="37" selection-start-line="32" selection-start-column="37" selection-end-line="32" selection-end-column="37" />
+        <state relative-caret-position="240">
+          <caret line="263" column="28" selection-start-line="263" selection-start-column="28" selection-end-line="263" selection-end-column="28" />
         </state>
       </provider>
     </entry>

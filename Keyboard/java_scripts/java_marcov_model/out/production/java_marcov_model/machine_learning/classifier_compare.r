@@ -102,10 +102,9 @@ if(chain_data_b){
 }
 
 # output format
-#TODO is this correct?
-# [classification,<ngram>,<successor_vector>]
+# [classification,ngram,prob_ngram,<successor_vector>]
 if(successor_vector_b){
-	raw_data <- read_successor_data("successor_data/1_2_1000_6400_6400")
+	raw_data <- read_successor_data("successor_data/1_2_1000_3200_3200")
 	data <- raw_data
 }
 

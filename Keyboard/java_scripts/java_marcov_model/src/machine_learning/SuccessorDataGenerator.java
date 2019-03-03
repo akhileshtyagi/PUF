@@ -250,8 +250,9 @@ public class SuccessorDataGenerator {
                     header += "\"ngram_" + i + "\",";
                 }
             } else {
-                header += "ngram,prob_ngram";
+                header += "\"ngram\",";
             }
+            header+="\"prob_ngram\"";
 
             // add successor vector to header
             // the successor vector size is the number of unique tokens
@@ -260,7 +261,7 @@ public class SuccessorDataGenerator {
             //TODO
             int successor_vector_size=PARAMETER_SET.token_size*keycode_index_map.size();
             for (int i = 0; i < successor_vector_size; i++) {
-                header += "\",key_"+i+"\"";
+                header += ",\"key_"+i+"\"";
             }
 
             PrintWriter file = new PrintWriter(output_file, "UTF-8");
