@@ -415,7 +415,36 @@ read_successor_data<-function(folder_name){
 	data_list <- matrix(data_list, nrow=rows, byrow=TRUE)
 
 	# remove time from returned data
-	return(data_list[,c(2,3,4)])
+	return(data_list)
+	#return(unlist(data_list))
+}
+
+##
+# exapand successor data
+#
+# each row in the returned data frame is
+# [classification,ngram,prob_ngram,<successor_vector>]
+##
+expand_successor_data <- function(data){
+	# get the classification from the last column of the data
+	data <- data.frame(
+			   "classification" = unlist(data[,ncol(data)]),
+			   #"response" = lapply(data[,c(1:(ncol(data)-1))], unlist))
+			   "key" = unlist(data[,1]),
+			   "pressure" = unlist(data[,2]))
+
+	# NOTE the return is here
+	return(data)
+
+
+	class_list <- c()
+	for(i in 1:nrow(data)){
+		class_list <- c(class_list, data[i,ncol(data)][[1]][[1]])
+	}
+
+	data <- data.frame(
+			   "classification" = class_list,
+			   "response" = data[,c(1:(ncol(data)-1))])
 }
 
 

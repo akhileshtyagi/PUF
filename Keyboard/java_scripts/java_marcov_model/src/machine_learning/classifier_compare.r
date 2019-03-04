@@ -56,10 +56,21 @@ TUNE_LENGTH <- 1 #3
 
 ##
 # begin script
+# set one of the following to TRUE
+#
+# raw_data is [time,key,pressure]
+# chain_data_b does not work ???
+# successor_vector_b is [ngram,pngram,pkey1,pkey2,...,pkeyN]
+# token_data is [time,key,tokenized_pressure]
+#
+# Z_SEQUENCE expands the raw data into n-grams of this length.
+# Z_SEQUENCE <- 1  is equivalent to the origional data set
 ##
 raw_data_b <- FALSE
 chain_data_b <- FALSE
-successor_vector_b <- TRUE
+successor_vector_b <- FALSE
+token_data_b <- TRUE
+Z_SEQUENCE <- 1
 
 ##
 # raw data
@@ -68,7 +79,7 @@ successor_vector_b <- TRUE
 if(raw_data_b){
 	raw_data <- read_raw_data("../../data_sets")
 	data <- expand_raw_data(raw_data)
-	data <- create_z_sequence(data,3)
+	data <- create_z_sequence(data,Z_SEQUENCE)
 }
 
 # reform the data to mix all the classifications together.
@@ -109,6 +120,12 @@ if(successor_vector_b){
 	data<-data.frame(raw_data)
 }
 
+if(token_data_b){
+	raw_data <- read_raw_data("token_data")
+	data <- expand_raw_data(raw_data)
+	data <- create_z_sequence(data,Z_SEQUENCE)
+}
+
 #print(head(data))
 #stopifnot(F)
 
@@ -137,6 +154,9 @@ if(raw_data_b){
 	X = data[c(-1)]
 	# y is the first column
 	y = factor(data$X1) 
+}else if(token_data_b){
+	X = data[c(-1)]
+	y = factor(unlist(data[c(1)]))
 }else{
 	# successor data
 	X=lapply(data,unlist)
