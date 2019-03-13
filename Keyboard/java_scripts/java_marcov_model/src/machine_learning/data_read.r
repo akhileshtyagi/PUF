@@ -3,7 +3,8 @@ library(plyr)
 #
 # goal: read in a data
 #
-MAX_DATA_POINT <- 1000 
+MAX_DATA_POINT <- 1750
+#MAX_DATA_POINT <- 1000 
 
 ##
 # read raw data from folder

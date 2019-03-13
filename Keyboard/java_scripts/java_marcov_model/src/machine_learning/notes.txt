@@ -1,124 +1,238 @@
-1-sequence
+Z == 750
 
-> model_list$svmLinear2$times
-$everything
-   user  system elapsed 
-228.620   0.000 228.706 
+> source("classifier_compare.r")
+[1] "t_ian_d_ian.csv"
+[1] "t_ian_d_tim.csv"
+[1] "t_keen_d_n59.csv"
+[1] "t_keen_d_n79.csv"
+[1] "t_keen_d_n80.csv"
+[1] "t_tim_d_ian.csv"
+[1] "t_tim_d_n59.csv"
+[1] "t_tim_d_n79.csv"
+[1] "t_tim_d_n80.csv"
+[1] "t_tim_d_tim.csv"
+[1] "t_yunxi_d_n59.csv"
+[1] "t_yunxi_d_n79.csv"
+[1] "t_yunxi_d_n80.csv"
+[1] "NA rows removed: 0"
+[1] "begin svmLinear2"
+[1] "begin svmRadial"
+[1] "begin svmPoly"
+Support Vector Machines with Linear Kernel 
 
-$final
-   user  system elapsed 
- 24.919   0.000  24.950 
+13013 samples
+ 1500 predictor
+   13 classes: '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13' 
 
-$prediction
-   user  system elapsed 
-  0.019   0.000   0.019 
+No pre-processing
+Resampling: Cross-Validated (10 fold, repeated 1 times) 
+Summary of sample sizes: 11712, 11713, 11711, 11713, 11711, 11712, ... 
+Addtional sampling using down-sampling
 
-> model_list$svmRadial$times
-$everything
+Resampling results:
+
+  Accuracy   Kappa    
+  0.8885709  0.8792848
+
+Tuning parameter 'cost' was held constant at a value of 0.25
+Support Vector Machines with Radial Basis Function Kernel 
+
+13013 samples
+ 1500 predictor
+   13 classes: '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13' 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold, repeated 1 times) 
+Summary of sample sizes: 11713, 11710, 11710, 11712, 11713, 11712, ... 
+Addtional sampling using down-sampling
+
+Resampling results:
+
+  Accuracy   Kappa    
+  0.8738932  0.8633841
+
+Tuning parameter 'sigma' was held constant at a value of 0.0003691653
+
+Tuning parameter 'C' was held constant at a value of 0.25
+Support Vector Machines with Polynomial Kernel 
+
+13013 samples
+ 1500 predictor
+   13 classes: '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13' 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold, repeated 1 times) 
+Summary of sample sizes: 11712, 11710, 11711, 11712, 11711, 11712, ... 
+Addtional sampling using down-sampling
+
+Resampling results:
+
+  Accuracy   Kappa    
+  0.8865747  0.8771226
+
+Tuning parameter 'degree' was held constant at a value of 1
+Tuning
+ parameter 'scale' was held constant at a value of 0.001
+Tuning parameter
+ 'C' was held constant at a value of 0.25
+$times
+$times$everything
+     user    system   elapsed 
+19585.818    54.458 21273.813 
+
+$times$final
     user   system  elapsed 
-1080.540    3.689 1084.757 
+1841.810    1.212 1868.169 
 
-$final
+$times$prediction
    user  system elapsed 
- 92.268   0.561  92.833 
+  1.485   0.016   1.714 
 
-$prediction
+
+$times
+$times$everything
+     user    system   elapsed 
+32171.664    79.907 34269.986 
+
+$times$final
+    user   system  elapsed 
+3159.560    5.249 3279.113 
+
+$times$prediction
    user  system elapsed 
-   0.14    0.00    0.14 
+  7.466   0.317  20.031 
 
-> model_list$svmPoly$times
-$everything
+
+$times
+$times$everything
+    user   system  elapsed 
+22312.88    46.45 23440.92 
+
+$times$final
+    user   system  elapsed 
+2404.062    7.505 2598.986 
+
+$times$prediction
    user  system elapsed 
-741.367  41.516 783.400 
-
-$final
-   user  system elapsed 
- 72.489   4.866  77.410 
-
-$prediction
-   user  system elapsed 
-  0.106   0.000   0.106 
+  4.426   0.267  14.010 
 
 
-2-sequence
 
+Z == 1000
+
+> source("classifier_compare.r")
+[1] "t_ian_d_ian.csv"
+[1] "t_ian_d_tim.csv"
+[1] "t_keen_d_n59.csv"
+[1] "t_keen_d_n79.csv"
+[1] "t_keen_d_n80.csv"
+[1] "t_tim_d_ian.csv"
+[1] "t_tim_d_n59.csv"
+[1] "t_tim_d_n79.csv"
+[1] "t_tim_d_n80.csv"
+[1] "t_tim_d_tim.csv"
+[1] "t_yunxi_d_n59.csv"
+[1] "t_yunxi_d_n79.csv"
+[1] "t_yunxi_d_n80.csv"
+[1] "NA rows removed: 0"
+[1] "begin svmLinear2"
+[1] "begin svmRadial"
+[1] "begin svmPoly"
+Support Vector Machines with Linear Kernel 
+
+13013 samples
+ 2000 predictor
+   13 classes: '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13' 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold, repeated 1 times) 
+Summary of sample sizes: 11711, 11712, 11711, 11712, 11713, 11711, ... 
+Addtional sampling using down-sampling
+
+Resampling results:
+
+  Accuracy   Kappa    
+  0.9980018  0.9978353
+
+Tuning parameter 'cost' was held constant at a value of 0.25
+Support Vector Machines with Radial Basis Function Kernel 
+
+13013 samples
+ 2000 predictor
+   13 classes: '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13' 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold, repeated 1 times) 
+Summary of sample sizes: 11711, 11712, 11712, 11713, 11711, 11710, ... 
+Addtional sampling using down-sampling
+
+Resampling results:
+
+  Accuracy   Kappa    
+  0.9256879  0.9194952
+
+Tuning parameter 'sigma' was held constant at a value of 0.0002783128
+
+Tuning parameter 'C' was held constant at a value of 0.25
+Support Vector Machines with Polynomial Kernel 
+
+13013 samples
+ 2000 predictor
+   13 classes: '1', '2', '3', '4', '5', '6', '7', '8', '9', '10', '11', '12', '13' 
+
+No pre-processing
+Resampling: Cross-Validated (10 fold, repeated 1 times) 
+Summary of sample sizes: 11712, 11713, 11712, 11713, 11711, 11713, ... 
+Addtional sampling using down-sampling
+
+Resampling results:
+
+  Accuracy   Kappa   
+  0.9740283  0.971864
+
+Tuning parameter 'degree' was held constant at a value of 1
+Tuning
+ parameter 'scale' was held constant at a value of 0.001
+Tuning parameter
+ 'C' was held constant at a value of 0.25
+Error in eval(ei, envir) : FALSE is not TRUE
 > model_list$svmLinear2$times
 $everything
-   user  system elapsed 
-286.287   0.000 286.310 
+     user    system   elapsed 
+25528.147    72.858 26507.955 
 
 $final
-   user  system elapsed 
- 30.196   0.000  30.196 
+    user   system  elapsed 
+2563.369    5.600 2601.292 
 
 $prediction
    user  system elapsed 
-  0.022   0.000   0.022 
+  2.132   0.100   5.473 
 
 > model_list$svmRadial$times
 $everything
-   user  system elapsed 
-959.767   6.504 966.597 
+     user    system   elapsed 
+47592.291   396.938 57918.779 
 
 $final
-   user  system elapsed 
- 83.669   1.025  84.838 
+    user   system  elapsed 
+5053.844   34.779 6141.876 
 
 $prediction
    user  system elapsed 
-  0.116   0.000   0.116 
+ 11.471   6.260 190.764 
 
 > model_list$svmPoly$times
 $everything
-   user  system elapsed 
-771.766  61.336 833.713 
+     user    system   elapsed 
+29447.330   179.254 33978.140 
 
 $final
-   user  system elapsed 
- 77.414   6.811  84.463 
+    user   system  elapsed 
+2868.653   14.051 3265.107 
 
 $prediction
    user  system elapsed 
-   0.12    0.00    0.12
+  5.083   0.270  12.790 
 
-
-3-sequence
-
-> model_list$svmLinear2$times
-$everything
-   user  system elapsed 
-286.205   0.000 286.199 
-
-$final
-   user  system elapsed 
- 29.622   0.000  29.622 
-
-$prediction
-   user  system elapsed 
-  0.022   0.000   0.022 
-
-> model_list$svmRadial$times
-$everything
-   user  system elapsed 
-896.402   3.745 900.208 
-
-$final
-   user  system elapsed 
- 77.080   0.314  77.404 
-
-$prediction
-   user  system elapsed 
-  0.122   0.000   0.121 
-
-> model_list$svmPoly$times
-$everything
-   user  system elapsed 
-778.000  71.725 849.850 
-
-$final
-   user  system elapsed 
- 77.823   7.232  85.062 
-
-$prediction
-   user  system elapsed 
-  0.117   0.000   0.118 
+> 

@@ -66,11 +66,11 @@ TUNE_LENGTH <- 1 #3
 # Z_SEQUENCE expands the raw data into n-grams of this length.
 # Z_SEQUENCE <- 1  is equivalent to the origional data set
 ##
-raw_data_b <- FALSE
-chain_data_b <- FALSE
+chain_data_b <- FALSE #TODO don't use
+raw_data_b <- TRUE
+token_data_b <- FALSE
 successor_vector_b <- FALSE
-token_data_b <- TRUE
-Z_SEQUENCE <- 1
+Z_SEQUENCE <- 750
 
 ##
 # raw data
@@ -137,7 +137,7 @@ print(paste("NA rows removed:", before_removal - nrow(data)))
 # define the machine learning methods to use
 method_list_test <- c("svmLinear2")
 method_list_good <- c("svmLinear2", "svmRadial", "svmPoly")#, "ranger", "nb")
-method_list <- method_list_test #TODO change to _good
+method_list <- method_list_good #TODO change to _good
 
 # make a list for models
 model_list <- vector("list", length(method_list))
@@ -145,7 +145,7 @@ names(model_list) <- method_list
 
 # prepare training scheme(S)
 # 3 repeats of k-fold crossvalidation
-control <- trainControl(method="repeatedcv", number=5, repeats=REPEATS, timingSamps=20, sampling="down")
+control <- trainControl(method="repeatedcv", number=10, repeats=REPEATS, timingSamps=20, sampling="down")
 
 # extract featues and classification
 if(raw_data_b){
@@ -194,8 +194,14 @@ for(i in 1:length(method_list)){
 }
 
 # print the results for each model
+# 	accuracy
+# 	time
 lapply(model_list, print)
+for(i in 1:length(method_list)){
+	print(model_list[[i]]['times'])
+}
 
+# STOP
 stopifnot(FALSE)
 
 
