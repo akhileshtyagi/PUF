@@ -144,6 +144,15 @@ names(model_list) <- method_list
 #TODO changed from 3 to 1 for memory size tests
 control <- trainControl(method="repeatedcv", number=10, repeats=1, timingSamps=20)
 
+
+#TODO
+# use only the pressure values for LDA
+pressure_index <- c(seq(3,ncol(data)-1,3),97)
+ldafit <- train(classification~., data=data[pressure_index], method="lda", trControl=control, tuneLength=3)
+#ldafit <- train(classification~., data=data, method="lda", trControl=trainControl(method="cv"))
+print(object.size(ldafit))
+stopifnot(F)
+
 # train each model in model list
 for(i in 1:length(method_list)){
     print(paste("begin", method_list[i]))
