@@ -65,8 +65,8 @@ raw_data <- read_raw_data("normalized_data.csv")
 data <- format_data(raw_data)
 
 #TODO
-print(head(data))
-stopifnot(F)
+#print(head(data))
+#stopifnot(F)
 
 # remove NA from the data
 before_removal <- nrow(data)
@@ -167,6 +167,11 @@ for(i in 1:length(method_list)){
 #TODO set model equal to best model
 #model <- tune.out$best.model
 
+# print out the size of each model in the list
+for(i in 1:length(method_list)){
+	print(paste(method_list[i],"memory size",model_list[[i]].size))
+}
+
 # use carret resample to find the best of the best models
 # collect resamples given list of models
 # results <- resamples(list(LVQ=modelLvq, SVM=modelSvm))
@@ -175,6 +180,11 @@ results <- resamples(model_list)
 
 # summarize the results
 summary(results)
+
+
+#TODO
+stopifnot(F)
+
 
 #
 # test that the differences in models are significant
