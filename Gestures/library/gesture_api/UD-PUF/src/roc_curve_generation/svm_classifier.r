@@ -141,7 +141,8 @@ names(model_list) <- method_list
 
 # prepare training scheme(S)
 # 3 repeats of 10 fold crossvalidation
-control <- trainControl(method="repeatedcv", number=10, repeats=3, timingSamps=20)
+#TODO changed from 3 to 1 for memory size tests
+control <- trainControl(method="repeatedcv", number=10, repeats=1, timingSamps=20)
 
 # train each model in model list
 for(i in 1:length(method_list)){
@@ -169,7 +170,7 @@ for(i in 1:length(method_list)){
 
 # print out the size of each model in the list
 for(i in 1:length(method_list)){
-	print(paste(method_list[i],"memory size",model_list[[i]].size))
+	print(paste(method_list[i],"memory size",object.size(model_list[[i]])))
 }
 
 # use carret resample to find the best of the best models
